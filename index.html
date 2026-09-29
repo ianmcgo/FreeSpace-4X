@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FreeSpace 4x - Version 0.7.29 (Ultimate Classic Edition: Dynamic Victory Condition Counts)</title>
+    <title>FreeSpace 4x - Version 0.7.32</title>
     <style>
         body, html {
             margin: 0;
@@ -54,7 +54,7 @@
 
         .title-top-group {
             text-align: center;
-            margin-top: 15vh;
+            margin-top: 12vh;
         }
 
         h1.game-title {
@@ -79,7 +79,7 @@
             gap: 12px;
             width: 100%;
             max-width: 900px;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -104,6 +104,20 @@
             border-style: inset;
             padding-top: 11px;
             padding-left: 19px;
+        }
+
+        .title-footer {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #aaa;
+        }
+        .title-footer a {
+            color: #da70d6;
+            text-decoration: underline;
+        }
+        .title-footer a:hover {
+            color: #ff00ff;
         }
 
         /* --- CONTAINER BOXES --- */
@@ -412,19 +426,23 @@
     <div id="view-title" class="view active">
         <div class="title-top-group">
             <h1 class="game-title">FreeSpace 4x</h1>
-            <div class="version-text">Version 0.7.29 (Ultimate Classic Edition: Dynamic Victory Condition Counts)</div>
+            <div class="version-text">Version 0.7.32 (Created: September 29, 2026, 12:46 PM)</div>
         </div>
         <div class="title-button-row">
             <button id="btn-new-game" class="classic-btn"><u>N</u>ew Game...</button>
             <button id="btn-open-game" class="classic-btn"><u>O</u>pen Game...</button>
             <button id="btn-continue-game" class="classic-btn"><u>C</u>ontinue Game</button>
         </div>
+        <div class="title-footer">
+            <div>Game created by Ian McGonigal</div>
+            <div style="margin-top: 4px;"><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
+        </div>
     </div>
 
     <!-- NEW GAME SETUP SCREEN -->
     <div id="view-race-setup" class="view">
         <div class="container-box">
-            <h2 class="screen-header">New Game Setup</h2>
+            <h2 class="screen-header">New Game</h2>
             <div class="form-group">
                 <label for="sp-empire-name">Empire Name:</label>
                 <input type="text" id="sp-empire-name" value="Human Directorate">
@@ -472,24 +490,37 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="sp-ai-count">Number of AI Opponents:</label>
+                    <label for="sp-ai-count">Number of AI Opponents (0 - 15):</label>
                     <select id="sp-ai-count">
                         <option value="0">0 Rivals</option>
                         <option value="1">1 Rival</option>
                         <option value="2" selected>2 Rivals</option>
                         <option value="3">3 Rivals</option>
                         <option value="4">4 Rivals</option>
+                        <option value="5">5 Rivals</option>
+                        <option value="6">6 Rivals</option>
+                        <option value="7">7 Rivals</option>
+                        <option value="8">8 Rivals</option>
+                        <option value="9">9 Rivals</option>
+                        <option value="10">10 Rivals</option>
+                        <option value="11">11 Rivals</option>
+                        <option value="12">12 Rivals</option>
+                        <option value="13">13 Rivals</option>
+                        <option value="14">14 Rivals</option>
+                        <option value="15">15 Rivals</option>
                     </select>
                 </div>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; align-items: flex-end;">
+
+            <!-- INDIVIDUAL AI RIVALS CONFIGURATION CONTAINER -->
+            <div id="ai-rivals-config-container" style="background: #121019; border: 1px solid #332244; padding: 12px; border-radius: 4px; margin-bottom: 15px; max-height: 220px; overflow-y: auto; display: none;">
+                <div style="font-weight: bold; color: #da70d6; margin-bottom: 8px;">Individual AI Rival Configuration:</div>
+                <div id="ai-rivals-rows" style="display: flex; flex-direction: column; gap: 8px;"></div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: flex-end;">
                 <div class="form-group" style="margin-bottom: 0;">
-                    <label for="sp-ai-difficulty">AI Difficulty:</label>
-                    <select id="sp-ai-difficulty">
-                        <option value="easy">Easy</option>
-                        <option value="normal" selected>Normal</option>
-                        <option value="hard">Hard / Aggressive</option>
-                    </select>
+                    <button id="btn-open-advanced-setup" class="nav-button" style="background: #251a3a; border-color: #da70d6; color: #da70d6;">⚙️ Advanced Options...</button>
                 </div>
                 <div class="form-group" style="margin-bottom: 0;">
                     <button id="btn-open-victory-setup" class="nav-button" style="background: #251a3a; border-color: #8a2be2; color: #da70d6;">🏆 Victory Conditions...</button>
@@ -532,7 +563,7 @@
                 </div>
             </div>
             <div style="display: flex; gap: 10px;">
-                <button class="nav-button btn-close-research">Back to Dashboard</button>
+                <button class="nav-button" id="btn-close-research">Back to Dashboard</button>
             </div>
         </div>
     </div>
@@ -652,7 +683,7 @@
                     <button class="tool-icon" id="btn-save-game" style="color: #32cd32;">💾 Save File</button>
                     <button class="tool-icon" id="btn-load-game-dash" style="color: #da70d6;">📂 Load File</button>
                     <button class="tool-icon" id="btn-help" style="color: #88bbff;">❓ Help</button>
-                    <button class="tool-icon" id="btn-abandon-game" style="color: #ff4500;">⚠️️ Abandon Game</button>
+                    <button class="tool-icon" id="btn-abandon-game" style="color: #ff4500;">⚠ Abandon Game</button>
                 </div>
             </div>
 
@@ -896,22 +927,111 @@
         </div>
     </div>
 
+    <!-- ADVANCED OPTIONS SETUP MODAL -->
+    <div id="advanced-setup-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 650px;">
+            <h2 class="screen-header">Advanced Game Options</h2>
+            <div style="font-size: 13px; margin-bottom: 15px; color: #ccc;">
+                Configure advanced game pace, galaxy modifiers, diplomacy, and UI settings below.
+            </div>
+
+            <div style="font-weight: bold; color: #da70d6; margin-bottom: 8px; border-bottom: 1px solid #332244; padding-bottom: 4px;">Game Pace & Economy Options</div>
+            
+            <div class="form-group" style="margin-bottom: 12px;">
+                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                    <input type="checkbox" id="adv-beginner-minerals" style="width: 20px; height: 20px; margin-top: 2px;">
+                    <div>
+                        <label for="adv-beginner-minerals" style="margin: 0; color: #fff; cursor: pointer; font-weight: bold;">Beginner (Maximum Minerals)</label>
+                        <div style="font-size: 11px; color: #aaa; margin-top: 2px;">Forces every single planet in the universe to spawn with 100% maximum mineral concentrations.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 12px;">
+                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                    <input type="checkbox" id="adv-slower-tech" style="width: 20px; height: 20px; margin-top: 2px;">
+                    <div>
+                        <label for="adv-slower-tech" style="margin: 0; color: #fff; cursor: pointer; font-weight: bold;">Slower Tech Advances</label>
+                        <div style="font-size: 11px; color: #aaa; margin-top: 2px;">Doubles the resource cost/turns required to research technology levels.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                    <input type="checkbox" id="adv-accelerated-bbs" style="width: 20px; height: 20px; margin-top: 2px;">
+                    <div>
+                        <label for="adv-accelerated-bbs" style="margin: 0; color: #fff; cursor: pointer; font-weight: bold;">Accelerated BBS Play</label>
+                        <div style="font-size: 11px; color: #aaa; margin-top: 2px;">Simulates a head start with pre-built infrastructure and stockpiled minerals.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="font-weight: bold; color: #da70d6; margin-bottom: 8px; border-bottom: 1px solid #332244; padding-bottom: 4px;">🌌 Galaxy & Event Modifiers</div>
+
+            <div class="form-group" style="margin-bottom: 12px;">
+                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                    <input type="checkbox" id="adv-no-random-events" style="width: 20px; height: 20px; margin-top: 2px;">
+                    <div>
+                        <label for="adv-no-random-events" style="margin: 0; color: #fff; cursor: pointer; font-weight: bold;">No Random Events</label>
+                        <div style="font-size: 11px; color: #aaa; margin-top: 2px;">Flattens unpredictable variables for a competitive playing field.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                    <input type="checkbox" id="adv-galaxy-clumping" style="width: 20px; height: 20px; margin-top: 2px;">
+                    <div>
+                        <label for="adv-galaxy-clumping" style="margin: 0; color: #fff; cursor: pointer; font-weight: bold;">Galaxy Clumping</label>
+                        <div style="font-size: 11px; color: #aaa; margin-top: 2px;">Groups planets into dense interstellar clusters.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="font-weight: bold; color: #da70d6; margin-bottom: 8px; border-bottom: 1px solid #332244; padding-bottom: 4px;">🤖 Diplomacy & UI Settings</div>
+
+            <div class="form-group" style="margin-bottom: 12px;">
+                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                    <input type="checkbox" id="adv-ai-alliances" style="width: 20px; height: 20px; margin-top: 2px;" checked>
+                    <div>
+                        <label for="adv-ai-alliances" style="margin: 0; color: #fff; cursor: pointer; font-weight: bold;">Computer Players Form Alliances</label>
+                        <div style="font-size: 11px; color: #aaa; margin-top: 2px;">Allows AI empires to actively form binding coalitions.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 20px;">
+                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                    <input type="checkbox" id="adv-public-scores" style="width: 20px; height: 20px; margin-top: 2px;" checked>
+                    <div>
+                        <label for="adv-public-scores" style="margin: 0; color: #fff; cursor: pointer; font-weight: bold;">Public Player Scores</label>
+                        <div style="font-size: 11px; color: #aaa; margin-top: 2px;">Allows or denies players access to score graphs.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button class="nav-button btn-primary" id="btn-save-advanced">Save & Apply Options</button>
+                <button class="nav-button" id="btn-close-advanced">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <!-- VICTORY CONDITIONS SETUP MODAL -->
     <div id="victory-setup-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 600px;">
-            <h2 class="screen-header">Configure Game Victory Conditions (v0.7.29)</h2>
+            <h2 class="screen-header">Configure Game Victory Conditions (v0.7.32)</h2>
             <div style="font-size: 13px; margin-bottom: 15px; color: #ccc;">
-                Select active victory conditions and parameters below. The required condition count at the bottom determines how many selected criteria must be satisfied to win.
+                Select active victory conditions and parameters below.
             </div>
 
-            <!-- Total Domination -->
             <div class="form-group" style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
                 <input type="checkbox" id="vc-domination" checked style="width: 20px; height: 20px;" class="vc-checkbox">
                 <label for="vc-domination" style="margin: 0; color: #fff; cursor: pointer; flex: 1;"><b>Total Domination:</b> Control star systems percentage (10% - 100%):</label>
                 <input type="number" id="vc-domination-pct" min="10" max="100" value="75" style="width: 70px;">
             </div>
 
-            <!-- Technological Supremacy -->
             <div class="form-group" style="background: #121019; padding: 10px; border: 1px solid #332244; border-radius: 4px; margin-bottom: 12px;">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
                     <input type="checkbox" id="vc-tech" style="width: 20px; height: 20px;" class="vc-checkbox">
@@ -919,71 +1039,21 @@
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px; padding-left: 30px;">
                     <div>
-                        <label for="vc-tech-level">Min Tech Level (2 - Max):</label>
+                        <label for="vc-tech-level">Min Tech Level:</label>
                         <input type="number" id="vc-tech-level" min="2" max="25" value="10">
                     </div>
                     <div>
-                        <label for="vc-tech-fields">Required Fields (1 - Max):</label>
+                        <label for="vc-tech-fields">Required Fields:</label>
                         <input type="number" id="vc-tech-fields" min="1" max="6" value="6">
                     </div>
                 </div>
             </div>
 
-            <!-- Production Capacity (10 - 999,999 thousand) -->
-            <div class="form-group" style="background: #121019; padding: 10px; border: 1px solid #332244; border-radius: 4px; margin-bottom: 12px;">
-                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                    <input type="checkbox" id="vc-prod-cap-enabled" style="width: 20px; height: 20px;" class="vc-checkbox">
-                    <label for="vc-prod-cap-enabled" style="margin: 0; color: #fff; cursor: pointer;"><b>Production Capacity Victory</b></label>
-                </div>
-                <div style="padding-left: 30px; font-size: 12px;">
-                    <label for="vc-prod-cap-val">Required Production Capacity (10 - 999,999 thousand):</label>
-                    <input type="number" id="vc-prod-cap-val" min="10" max="999999" value="5000">
-                </div>
-            </div>
-
-            <!-- Capital Ships Ownership (10 - 999,999 capital ships) -->
-            <div class="form-group" style="background: #121019; padding: 10px; border: 1px solid #332244; border-radius: 4px; margin-bottom: 12px;">
-                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                    <input type="checkbox" id="vc-capital-ships-enabled" style="width: 20px; height: 20px;" class="vc-checkbox">
-                    <label for="vc-capital-ships-enabled" style="margin: 0; color: #fff; cursor: pointer;"><b>Capital Ships Ownership Victory</b></label>
-                </div>
-                <div style="padding-left: 30px; font-size: 12px;">
-                    <label for="vc-capital-ships-val">Required Capital Ships (10 - 999,999):</label>
-                    <input type="number" id="vc-capital-ships-val" min="10" max="999999" value="50">
-                </div>
-            </div>
-
-            <!-- Score Threshold (2000 - 999,999,999) -->
-            <div class="form-group" style="background: #121019; padding: 10px; border: 1px solid #332244; border-radius: 4px; margin-bottom: 12px;">
-                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                    <input type="checkbox" id="vc-score-threshold-enabled" style="width: 20px; height: 20px;" class="vc-checkbox">
-                    <label for="vc-score-threshold-enabled" style="margin: 0; color: #fff; cursor: pointer;"><b>Score Threshold Victory</b></label>
-                </div>
-                <div style="padding-left: 30px; font-size: 12px;">
-                    <label for="vc-score-threshold-val">Exceed Score (2,000 - 999,999,999):</label>
-                    <input type="number" id="vc-score-threshold-val" min="2000" max="999999999" value="15000">
-                </div>
-            </div>
-
-            <!-- Exceed Second Place Score (10% - 100%) -->
-            <div class="form-group" style="background: #121019; padding: 10px; border: 1px solid #332244; border-radius: 4px; margin-bottom: 12px;">
-                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                    <input type="checkbox" id="vc-exceed-second-enabled" style="width: 20px; height: 20px;" class="vc-checkbox">
-                    <label for="vc-exceed-second-enabled" style="margin: 0; color: #fff; cursor: pointer;"><b>Exceed Second Place Score Margin</b></label>
-                </div>
-                <div style="padding-left: 30px; font-size: 12px;">
-                    <label for="vc-exceed-second-pct">Exceed by Percentage (10% - 100%):</label>
-                    <input type="number" id="vc-exceed-second-pct" min="10" max="100" value="50">
-                </div>
-            </div>
-
-            <!-- Score Leader at Turn Limit -->
             <div class="form-group" style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
                 <input type="checkbox" id="vc-score" style="width: 20px; height: 20px;" class="vc-checkbox">
                 <label for="vc-score" style="margin: 0; color: #fff; cursor: pointer;"><b>Score Leader:</b> Highest empire score at turn time limit.</label>
             </div>
 
-            <!-- Last Empire Standing -->
             <div class="form-group" style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
                 <input type="checkbox" id="vc-elimination" style="width: 20px; height: 20px;" class="vc-checkbox">
                 <label for="vc-elimination" style="margin: 0; color: #fff; cursor: pointer;"><b>Last Empire Standing:</b> Eliminate all rival AI empires.</label>
@@ -994,13 +1064,11 @@
                 <input type="number" id="vc-turn-limit" value="2500" min="2410" max="3000">
             </div>
 
-            <!-- WINNER CRITERIA REQUIREMENT AT THE BOTTOM -->
             <div class="form-group" style="background: #1a1426; padding: 12px; border: 1px solid #553377; border-radius: 4px; margin-top: 15px; margin-bottom: 15px;">
-                <label for="vc-required-count" style="color: #da70d6; margin-bottom: 6px;"><b>Winner Criteria Requirement (How many selected conditions to win):</b></label>
+                <label for="vc-required-count" style="color: #da70d6; margin-bottom: 6px;"><b>Winner Criteria Requirement:</b></label>
                 <select id="vc-required-count">
-                    <option value="1">1 of 1 selected conditions</option>
+                    <option value="1">1 of selected conditions</option>
                 </select>
-                <div style="font-size: 11px; color: #aaa; margin-top: 4px;">Choose how many of the above enabled victory conditions must be fulfilled to claim victory.</div>
             </div>
 
             <div style="display: flex; gap: 10px; margin-top: 20px;">
@@ -1024,13 +1092,11 @@
     <!-- TUTORIAL MODAL -->
     <div id="tutorial-modal" class="modal-overlay">
         <div class="modal-content">
-            <h2 class="screen-header">FreeSpace 4x Version 0.7.29 Ultimate Guide</h2>
+            <h2 class="screen-header">FreeSpace 4x Version 0.7.32 Ultimate Guide</h2>
             <ul style="font-size: 13px; line-height: 1.5; color: #ccc; padding-left: 20px;">
-                <li><b>Dynamic Victory Condition Requirement:</b> Select multiple victory conditions and specify exactly how many must be satisfied at the bottom of the Victory Conditions menu.</li>
-                <li><b>Default New Game Setup:</b> Only one victory condition (Total Domination at 75%) is pre-selected by default when opening a new game.</li>
-                <li><b>Production & Capital Ships:</b> Expand industrial capacity or build massive capital fleets to achieve specialized supremacy.</li>
-                <li><b>Tactical Star Map Zoom & System Spacing:</b> Zooming in gently separates system coordinates so dense clusters are much easier to click and select.</li>
-                <li><b>Mass Drivers & Packets:</b> Launch ballistic mineral packets across the stars to fuel remote planetary expansion without transport fleets.</li>
+                <li><b>Fog of War & Discovery:</b> Rival homeworlds are hidden at game start and must be discovered by exploring the galaxy with your fleet.</li>
+                <li><b>Real Star Systems:</b> Systems are procedurally named after real star systems.</li>
+                <li><b>Toolbar Functionality:</b> All top dashboard buttons and shortcut actions are fully operational.</li>
             </ul>
             <button class="nav-button btn-primary" id="btn-close-tutorial" style="margin-top: 15px;">Return to Game</button>
         </div>
@@ -1090,8 +1156,17 @@
             aiEmpiresEnabled: true,
             aiOpponentCount: 2,
             aiDifficulty: "normal",
+            advancedOptions: {
+                beginnerMinerals: false,
+                slowerTech: false,
+                acceleratedBBS: false,
+                noRandomEvents: false,
+                galaxyClumping: false,
+                aiAlliances: true,
+                publicScores: true
+            },
             victoryConditions: {
-                requiredCount: 1, // How many of the selected conditions to win
+                requiredCount: 1,
                 domination: true,
                 dominationPct: 75,
                 scoreLimit: false,
@@ -1116,7 +1191,7 @@
             selectedStarIndex: 0,
             researchFocus: "propulsion",
             budget: { research: 50, manufacturing: 50 },
-            tech: { energy: 4, weapons: 4, propulsion: 4, construction: 4, electronics: 4, biotechnology: 4 },
+            tech: { energy: 1, weapons: 1, propulsion: 1, construction: 1, electronics: 1, biotechnology: 1 },
             designs: [
                 { name: "Explorer Mk II", hull: "Scout", engine: "Sub-Light", scanner: "Bat", shield: "None", weapon: "None", mass: 25, cost: 35, attack: 0, defense: 10 },
                 { name: "Strikemaster Mk IV", hull: "Cruiser", engine: "Ion", scanner: "Rhino", shield: "Mole", weapon: "Blaster", mass: 180, cost: 185, attack: 130, defense: 80 }
@@ -1143,13 +1218,85 @@
             events: ["[2400] Galaxy mapped. Welcome commander."]
         };
 
-        const aiPool = [
-            { name: "Krynn Syndicate", color: "#ff4500" },
-            { name: "Zebulon Hegemony", color: "#00ffff" },
-            { name: "Orion Conglomerate", color: "#ff00ff" },
-            { name: "Vraal Dominion", color: "#ff3333" },
-            { name: "Andromedan Hive", color: "#33ffcc" }
+        const aiRivalNames = [
+            "Krynn Syndicate", "Zebulon Hegemony", "Orion Conglomerate", "Vraal Dominion", "Andromedan Hive",
+            "Centauri Directorate", "Sirian Republic", "Vega Collective", "Rigelian Empire", "Tau Ceti Syndicate",
+            "Eridani Federation", "Procyon Union", "Deneb Consortium", "Canopus League", "Antares Authority"
         ];
+
+        const realStarSystems = [
+            "Alpha Centauri", "Sirius", "Procyon", "Vega", "Arcturus", "Capella", "Rigel", "Betelgeuse", "Achernar", "Hadar",
+            "Altair", "Acrux", "Aldebaran", "Spica", "Antares", "Pollux", "Fomalhaut", "Deneb", "Regulus", "Adhara",
+            "Castor", "Gacrux", "Bellatrix", "Elnath", "Miaplacidus", "Alnilam", "Gamma Crucis", "Alnitak", "Alioth", "Mirfak",
+            "Dubhe", "Wezen", "Kaus Australis", "Alkaid", "Sargas", "Avior", "Menkalinan", "Atria", "Alhena", "Peacock",
+            "Alsephina", "Mirach", "Alphard", "Hamal", "Polaris", "Gamma Draconis", "Enif", "Scheat", "Sabik", "Phi Velorum",
+            "Aludra", "Naos", "Markab", "Menkar", "Zeta Puppis", "Porrima", "Mebsuta", "Menkent", "Zubeneschamali", "Edasich",
+            "Errai", "Alphecca", "Mintaka", "Sadr", "Eltanin", "Alpheratz", "Ankaa", "Schedar", "Caph", "Algenib",
+            "Zubenelgenubi", "Lesath", "Fang", "Dschubba", "Shaula", "Kaus Media", "Kaus Borealis", "Nunki", "Ascella", "Nashira",
+            "Albali", "Sadalsuud", "Sadalmelik", "Skat", "Deneb Kaitos", "Al Nair", "Achird", "Rasalhague", "Cebalrai", "Yed Prior",
+            "Yed Posterior", "Unukalhai", "Kornephoros", "Sarin", "Marfik", "Cujam", "Rasalgethi", "Kitalpha", "Matar", "Sadalbari",
+            "Homam", "Biham", "Hydrus", "Tucana", "Mensa", "Volans", "Carina", "Vela", "Puppis", "Proxima Centauri",
+            "Lalande 21185", "Luyten 726-8", "Ross 154", "Ross 248", "Epsilon Eridani", "Lacaille 9352", "Groombridge 34",
+            "EZ Aquarii", "Sigma Draconis", "Groombridge 1618", "HR 7703", "Kruger 60", "Ross 614", "Wolf 424", "Van Maanen 2"
+        ];
+
+        const raceOptions = [
+            { value: "random", label: "🎲 Random Race" },
+            { value: "humanoid", label: "1. Humanoid (Jack of All Trades)" },
+            { value: "robotoids", label: "2. Robotoids (Hyper-Expanders)" },
+            { value: "turindines", label: "3. Turindines (Stealth Spies)" },
+            { value: "automitons", label: "4. Automitons (Defenders)" },
+            { value: "rototills", label: "5. Rototills (Terraformers)" },
+            { value: "cybertrons", label: "6. Cybertrons (Artillery Masters)" }
+        ];
+
+        const difficultyOptions = [
+            { value: "random", label: "🎲 Random Difficulty" },
+            { value: "easy", label: "Easy" },
+            { value: "normal", label: "Normal" },
+            { value: "hard", label: "Hard / Aggressive" }
+        ];
+
+        function updateAiRivalsConfigUI() {
+            const count = parseInt(document.getElementById('sp-ai-count').value);
+            const container = document.getElementById('ai-rivals-config-container');
+            const rowsContainer = document.getElementById('ai-rivals-rows');
+            
+            if (count === 0) {
+                container.style.display = 'none';
+                return;
+            }
+            container.style.display = 'block';
+            
+            let html = '';
+            for (let i = 0; i < count; i++) {
+                let defaultName = aiRivalNames[i] || `AI Rival #${i+1}`;
+                html += `
+                    <div style="display: grid; grid-template-columns: 1.2fr 1.2fr 1fr; gap: 8px; align-items: center; background: #181522; padding: 6px; border-radius: 4px; border: 1px solid #2a1b3d;">
+                        <div>
+                            <label style="font-size: 10px; margin-bottom: 2px;">Rival #${i+1} Name:</label>
+                            <input type="text" class="ai-name-input" data-index="${i}" value="${defaultName}" style="padding: 5px; font-size: 12px;">
+                        </div>
+                        <div>
+                            <label style="font-size: 10px; margin-bottom: 2px;">Race:</label>
+                            <select class="ai-race-select" data-index="${i}" style="padding: 5px; font-size: 12px;">
+                                ${raceOptions.map(r => `<option value="${r.value}" ${r.value === 'random' ? 'selected' : ''}>${r.label}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-size: 10px; margin-bottom: 2px;">Difficulty:</label>
+                            <select class="ai-diff-select" data-index="${i}" style="padding: 5px; font-size: 12px;">
+                                ${difficultyOptions.map(d => `<option value="${d.value}" ${d.value === 'normal' ? 'selected' : ''}>${d.label}</option>`).join('')}
+                            </select>
+                        </div>
+                    </div>
+                `;
+            }
+            rowsContainer.innerHTML = html;
+        }
+
+        document.getElementById('sp-ai-count').addEventListener('change', updateAiRivalsConfigUI);
+        updateAiRivalsConfigUI();
 
         function applyRaceSetup(raceKey) {
             gameState.race = raceKey;
@@ -1157,7 +1304,7 @@
                 gameState.prt = "JOAT";
                 gameState.lrt = "None";
                 gameState.preferences = { grav: 50, temp: 50, rad: 50 };
-                gameState.tech = { energy: 4, weapons: 4, propulsion: 4, construction: 4, electronics: 4, biotechnology: 4 };
+                gameState.tech = { energy: 1, weapons: 1, propulsion: 1, construction: 1, electronics: 1, biotechnology: 1 };
                 gameState.growthRate = 0.15;
                 gameState.popCapMultiplier = 1.20;
             } else if (raceKey === 'robotoids') {
@@ -1174,12 +1321,11 @@
                 gameState.tech = { energy: 1, weapons: 1, propulsion: 1, construction: 1, electronics: 1, biotechnology: 1 };
                 gameState.growthRate = 0.15;
                 gameState.popCapMultiplier = 1.0;
-                gameState.cloaking = 0.75;
             } else if (raceKey === 'automitons') {
                 gameState.prt = "IS";
                 gameState.lrt = "NAS / Cheap Engines";
                 gameState.preferences = { grav: 75, temp: 50, rad: 75 };
-                gameState.tech = { energy: 2, weapons: 1, propulsion: 2, construction: 2, electronics: 1, biotechnology: 2 };
+                gameState.tech = { energy: 1, weapons: 1, propulsion: 1, construction: 1, electronics: 1, biotechnology: 1 };
                 gameState.growthRate = 0.15;
                 gameState.popCapMultiplier = 1.0;
                 gameState.mineProductivity = 14;
@@ -1187,18 +1333,16 @@
                 gameState.prt = "CA";
                 gameState.lrt = "Total Terraforming";
                 gameState.preferences = { grav: 50, temp: 50, rad: 50 };
-                gameState.tech = { energy: 1, weapons: 1, propulsion: 1, construction: 2, electronics: 1, biotechnology: 2 };
+                gameState.tech = { energy: 1, weapons: 1, propulsion: 1, construction: 1, electronics: 1, biotechnology: 1 };
                 gameState.growthRate = 0.15;
                 gameState.popCapMultiplier = 1.0;
-                gameState.claimAdjuster = true;
             } else if (raceKey === 'cybertrons') {
                 gameState.prt = "PP";
                 gameState.lrt = "Bleeding Edge Technology";
                 gameState.preferences = { grav: 50, temp: 20, rad: 80 };
-                gameState.tech = { energy: 2, weapons: 1, propulsion: 2, construction: 1, electronics: 2, biotechnology: 1 };
+                gameState.tech = { energy: 1, weapons: 1, propulsion: 1, construction: 1, electronics: 1, biotechnology: 1 };
                 gameState.growthRate = 0.15;
                 gameState.popCapMultiplier = 1.0;
-                gameState.packetPhysics = true;
             }
         }
 
@@ -1219,7 +1363,7 @@
 
             let starCount = Math.max(10, Math.round(area / densityDivisor));
 
-            const starNames = ["Alpha Centauri", "Vega", "Sirius", "Wolf 359", "Eridani", "Tau Ceti", "Procyon", "Rigel", "Deneb", "Canopus", "Arcturus", "Capella", "Altair", "Spica", "Antares", "Pollux", "Fomalhaut", "Regulus", "Adhara", "Castor", "Bellatrix", "Alnilam", "Saiph", "Alnitak", "Dubhe", "Merak", "Phecda", "Megrez", "Alioth", "Mizar", "Alkaid"];
+            let shuffledStarNames = [...realStarSystems].sort(() => Math.random() - 0.5);
             
             let baseName = gameState.empireName.split(' ')[0] || "Empire";
             let homeStarName = `${baseName} Homeworld`;
@@ -1237,6 +1381,23 @@
             let homeY = Math.round(Math.sin(homeAngle) * homeDist);
 
             let startingPop = (gameState.race === 'robotoids') ? 10000 : 25000;
+            let startingMines = gameState.race === 'automitons' ? 14 : 10;
+            let startingFactories = 10;
+            let startingIron = 900;
+            let startingBora = 650;
+            let startingGerm = 800;
+
+            if (gameState.advancedOptions.acceleratedBBS) {
+                startingPop = 50000;
+                startingMines = 20;
+                startingFactories = 20;
+                startingIron = 3000;
+                startingBora = 3000;
+                startingGerm = 3000;
+                gameState.fleet.colonists = 25000;
+                gameState.fleet.iron = 1000;
+                gameState.events.push(`[2400] Accelerated BBS Play protocol engaged. Infrastructure and stockpiles initialized.`);
+            }
 
             let generatedStars = [
                 { 
@@ -1246,14 +1407,14 @@
                     grav: gameState.preferences.grav, 
                     temp: gameState.preferences.temp, 
                     rad: gameState.preferences.rad, 
-                    iron: 900, 
-                    bora: 650, 
-                    germ: 800, 
-                    feConc: 65,
-                    boConc: 45,
-                    geConc: 80,
-                    mines: gameState.race === 'automitons' ? 14 : 10, 
-                    factories: 10, 
+                    iron: startingIron, 
+                    bora: startingBora, 
+                    germ: startingGerm, 
+                    feConc: gameState.advancedOptions.beginnerMinerals ? 100 : 65,
+                    boConc: gameState.advancedOptions.beginnerMinerals ? 100 : 45,
+                    geConc: gameState.advancedOptions.beginnerMinerals ? 100 : 80,
+                    mines: startingMines, 
+                    factories: startingFactories, 
                     massDriver: gameState.race === 'cybertrons' ? 3 : 2, 
                     pop: startingPop, 
                     owner: gameState.empireName, 
@@ -1262,15 +1423,34 @@
                 }
             ];
 
+            let clusterCenters = [];
+            if (gameState.advancedOptions.galaxyClumping) {
+                for (let c = 0; c < 4; c++) {
+                    let cAngle = c * (Math.PI / 2) + Math.random() * 0.5;
+                    let cDist = (spread * 0.3) + Math.random() * (spread * 0.2);
+                    clusterCenters.push({ x: Math.cos(cAngle) * cDist, y: Math.sin(cAngle) * cDist });
+                }
+            }
+
             for (let i = 1; i < starCount; i++) {
-                let angle = Math.random() * Math.PI * 2;
-                let dist = Math.random() * (spread * 0.5);
-                let x = Math.round(Math.cos(angle) * dist);
-                let y = Math.round(Math.sin(angle) * dist);
-                let name = (i - 1 < starNames.length) ? starNames[i - 1] : `System #${i + 100}`;
+                let x, y;
+                if (gameState.advancedOptions.galaxyClumping && clusterCenters.length > 0) {
+                    let cluster = clusterCenters[Math.floor(Math.random() * clusterCenters.length)];
+                    let angle = Math.random() * Math.PI * 2;
+                    let dist = Math.random() * (spread * 0.18);
+                    x = Math.round(cluster.x + Math.cos(angle) * dist);
+                    y = Math.round(cluster.y + Math.sin(angle) * dist);
+                } else {
+                    let angle = Math.random() * Math.PI * 2;
+                    let dist = Math.random() * (spread * 0.5);
+                    x = Math.round(Math.cos(angle) * dist);
+                    y = Math.round(Math.sin(angle) * dist);
+                }
+
+                let starName = shuffledStarNames[(i - 1) % shuffledStarNames.length] + (i > shuffledStarNames.length ? ` ${Math.floor(i / shuffledStarNames.length) + 1}` : '');
 
                 generatedStars.push({
-                    name: name,
+                    name: starName,
                     x: x,
                     y: y,
                     grav: Math.floor(Math.random() * 90) + 10,
@@ -1279,9 +1459,9 @@
                     iron: Math.floor(Math.random() * 700) + 200,
                     bora: Math.floor(Math.random() * 600) + 150,
                     germ: Math.floor(Math.random() * 500) + 100,
-                    feConc: Math.floor(Math.random() * 70) + 20,
-                    boConc: Math.floor(Math.random() * 70) + 20,
-                    geConc: Math.floor(Math.random() * 70) + 20,
+                    feConc: gameState.advancedOptions.beginnerMinerals ? 100 : (Math.floor(Math.random() * 70) + 20),
+                    boConc: gameState.advancedOptions.beginnerMinerals ? 100 : (Math.floor(Math.random() * 70) + 20),
+                    geConc: gameState.advancedOptions.beginnerMinerals ? 100 : (Math.floor(Math.random() * 70) + 20),
                     mines: 0,
                     factories: 0,
                     massDriver: 1,
@@ -1298,17 +1478,37 @@
             gameState.fleet.y = homeY;
             gameState.fleet.destinationName = homeStarName;
 
+            // Setup AI Rivals from customized configuration
             gameState.aiEmpires = [];
-            if (gameState.aiEmpiresEnabled) {
-                let count = Math.min(gameState.aiOpponentCount, aiPool.length);
-                for (let i = 0; i < count; i++) {
-                    let template = aiPool[i];
+            if (gameState.aiEmpiresEnabled && gameState.aiOpponentCount > 0) {
+                const actualRaces = ["humanoid", "robotoids", "turindines", "automitons", "rototills", "cybertrons"];
+                const actualDiffs = ["easy", "normal", "hard"];
+                const aiColors = ["#ff4500", "#00ffff", "#ff00ff", "#ff3333", "#33ffcc", "#ffaa00", "#00ff88", "#aa00ff", "#ffff00", "#ff8800", "#0088ff", "#ff0088", "#88ff00", "#00ffaa", "#8800ff"];
+
+                for (let i = 0; i < gameState.aiOpponentCount; i++) {
+                    let nameInput = document.querySelector(`.ai-name-input[data-index="${i}"]`);
+                    let raceSelect = document.querySelector(`.ai-race-select[data-index="${i}"]`);
+                    let diffSelect = document.querySelector(`.ai-diff-select[data-index="${i}"]`);
+
+                    let aiName = nameInput ? nameInput.value : (aiRivalNames[i] || `AI Rival #${i+1}`);
+                    let chosenRace = raceSelect ? raceSelect.value : 'random';
+                    let chosenDiff = diffSelect ? diffSelect.value : 'normal';
+
+                    if (chosenRace === 'random') {
+                        chosenRace = actualRaces[Math.floor(Math.random() * actualRaces.length)];
+                    }
+                    if (chosenDiff === 'random') {
+                        chosenDiff = actualDiffs[Math.floor(Math.random() * actualDiffs.length)];
+                    }
+
                     gameState.aiEmpires.push({
-                        name: template.name,
-                        color: template.color,
+                        name: aiName,
+                        color: aiColors[i % aiColors.length],
+                        race: chosenRace,
+                        difficulty: chosenDiff,
                         capitalIndex: -1,
-                        techLevel: gameState.aiDifficulty === 'hard' ? 3 : (gameState.aiDifficulty === 'easy' ? 1 : 2),
-                        score: gameState.aiDifficulty === 'hard' ? 1600 : 1200
+                        techLevel: chosenDiff === 'hard' ? 3 : (chosenDiff === 'easy' ? 1 : 2),
+                        score: chosenDiff === 'hard' ? 1600 : 1200
                     });
                 }
 
@@ -1330,10 +1530,11 @@
                     if (closestStarIdx > 0) {
                         let star = gameState.stars[closestStarIdx];
                         star.owner = ai.name;
-                        star.pop = gameState.aiDifficulty === 'hard' ? 25000 : 20000;
-                        star.mines = gameState.aiDifficulty === 'hard' ? 8 : 6;
-                        star.factories = gameState.aiDifficulty === 'hard' ? 7 : 5;
-                        star.massDriver = gameState.aiDifficulty === 'hard' ? 3 : 2;
+                        star.pop = ai.difficulty === 'hard' ? 25000 : 20000;
+                        star.mines = ai.difficulty === 'hard' ? 8 : 6;
+                        star.factories = ai.difficulty === 'hard' ? 7 : 5;
+                        star.massDriver = ai.difficulty === 'hard' ? 3 : 2;
+                        star.scouted = false; // Rival homeworlds must be discovered!
                         ai.capitalIndex = closestStarIdx;
                     }
                 });
@@ -1355,6 +1556,12 @@
             gameState.stars.forEach(star => {
                 if (star.owner === gameState.empireName) {
                     star.scouted = true;
+                } else if (star.owner) {
+                    // Rival/AI owned stars remain unscouted unless fleet is physically at the star
+                    let distToFleet = Math.hypot(star.x - gameState.fleet.x, star.y - gameState.fleet.y);
+                    if (distToFleet <= 15) {
+                        star.scouted = true;
+                    }
                 } else {
                     let distToFleet = Math.hypot(star.x - gameState.fleet.x, star.y - gameState.fleet.y);
                     if (distToFleet <= scanRadius) star.scouted = true;
@@ -1373,7 +1580,7 @@
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(gameState, null, 2));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `freespace_4x_v0.7.29_year_${gameState.year}.json`);
+            downloadAnchor.setAttribute("download", `freespace_4x_v0.7.32_year_${gameState.year}.json`);
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
@@ -1626,8 +1833,8 @@
             document.getElementById('summary-pop').innerText = star.pop.toLocaleString();
             
             const ownerEl = document.getElementById('summary-owner');
-            ownerEl.innerText = star.owner ? star.owner : (star.scouted ? "Unowned" : "Unscouted");
-            ownerEl.style.color = star.owner === gameState.empireName ? "#32cd32" : (star.owner ? "#ff4500" : "#888");
+            ownerEl.innerText = star.owner ? (star.scouted ? star.owner : "Controlled (Unexplored)") : (star.scouted ? "Unowned" : "Unscouted");
+            ownerEl.style.color = star.owner === gameState.empireName ? "#32cd32" : (star.owner && star.scouted ? "#ff4500" : "#888");
 
             document.getElementById('lbl-year').innerText = gameState.year;
             document.getElementById('lbl-empire-display').innerText = `${gameState.empireName} [${gameState.prt}]`;
@@ -1666,420 +1873,6 @@
             } else {
                 queueList.innerHTML = star.queue.map(item => `<div>• Building: ${item}</div>`).join('');
             }
-
-            if (gameState.fleet.waypoints.length > 0) {
-                let nextWp = gameState.fleet.waypoints[0];
-                document.getElementById('val-waypoint').innerText = `En Route to ${nextWp.destinationName} (${nextWp.turnsRemaining} turns left, Action: ${nextWp.action})`;
-            } else {
-                document.getElementById('val-waypoint').innerText = `Orbiting ${gameState.fleet.destinationName}`;
-            }
-
-            const eventBox = document.getElementById('event-log-box');
-            eventBox.innerHTML = gameState.events.slice(-6).map(ev => `<div>${ev}</div>`).join('');
-        }
-
-        // Updated Victory Conditions Mechanics for Version 0.7.29 with dynamic required count
-        function checkVictoryConditions() {
-            let totalStars = gameState.stars.length;
-            let playerStars = gameState.stars.filter(s => s.owner === gameState.empireName).length;
-            let playerStarRatio = playerStars / totalStars;
-
-            // Calculate scores
-            let playerScore = 1000 + (playerStars * 200) + Object.values(gameState.tech).reduce((a,b)=>a+b, 0) * 100;
-            let allEmpires = [{ name: gameState.empireName, score: playerScore }];
-            gameState.aiEmpires.forEach(ai => {
-                let aiStars = gameState.stars.filter(s => s.owner === ai.name).length;
-                let aiScore = (ai.score || 1200) + (aiStars * 200);
-                allEmpires.push({ name: ai.name, score: aiScore });
-            });
-            allEmpires.sort((a, b) => b.score - a.score);
-            let topEmpire = allEmpires[0];
-            let secondEmpireScore = allEmpires.length > 1 ? allEmpires[1].score : topEmpire.score;
-
-            // Calculate player production capacity in thousands
-            let totalFactories = gameState.stars.reduce((acc, s) => acc + (s.owner === gameState.empireName ? s.factories : 0), 0);
-            let playerProdCapacityThousands = totalFactories * 10;
-
-            // Calculate player capital ships owned (Cruiser and Battleship hulls)
-            let capitalShipsCount = 0;
-            gameState.fleet.ships.forEach(sh => {
-                let design = gameState.designs.find(d => d.name === sh.name);
-                if (design && (design.hull === 'Cruiser' || design.hull === 'Battleship')) {
-                    capitalShipsCount += sh.count;
-                }
-            });
-
-            // Evaluate individual conditions
-            let conditionsList = [];
-
-            // 1. Total Domination
-            if (gameState.victoryConditions.domination) {
-                let domPct = gameState.victoryConditions.dominationPct || 75;
-                let met = (playerStarRatio >= (domPct / 100));
-                conditionsList.push({ name: "Total Domination", met: met });
-            }
-
-            // 2. Technological Supremacy
-            if (gameState.victoryConditions.tech) {
-                let reqLevel = gameState.victoryConditions.techLevel || 10;
-                let reqFields = gameState.victoryConditions.techFieldsCount || 6;
-                let fieldsMeetingReq = Object.values(gameState.tech).filter(lvl => lvl >= reqLevel).length;
-                let met = (fieldsMeetingReq >= reqFields);
-                conditionsList.push({ name: "Technological Supremacy", met: met });
-            }
-
-            // 3. Production Capacity Victory
-            if (gameState.victoryConditions.prodCapEnabled) {
-                let reqProd = gameState.victoryConditions.prodCapVal || 5000;
-                let met = (playerProdCapacityThousands >= reqProd);
-                conditionsList.push({ name: "Production Capacity", met: met });
-            }
-
-            // 4. Capital Ships Ownership Victory
-            if (gameState.victoryConditions.capitalShipsEnabled) {
-                let reqCapShips = gameState.victoryConditions.capitalShipsVal || 50;
-                let met = (capitalShipsCount >= reqCapShips);
-                conditionsList.push({ name: "Capital Ships Ownership", met: met });
-            }
-
-            // 5. Score Threshold Victory
-            if (gameState.victoryConditions.scoreThresholdEnabled) {
-                let threshold = gameState.victoryConditions.scoreThresholdValue || 15000;
-                let met = (playerScore >= threshold);
-                conditionsList.push({ name: "Score Threshold", met: met });
-            }
-
-            // 6. Exceed Second Place Score Margin
-            if (gameState.victoryConditions.exceedSecondPlaceEnabled && allEmpires.length > 1) {
-                let marginPct = gameState.victoryConditions.exceedSecondPlacePct || 50;
-                let requiredScore = secondEmpireScore * (1 + marginPct / 100);
-                let met = (topEmpire.name === gameState.empireName && playerScore >= requiredScore);
-                conditionsList.push({ name: "Exceed Second Place Margin", met: met });
-            }
-
-            // 7. Last Empire Standing / Elimination
-            if (gameState.victoryConditions.elimination && gameState.aiEmpiresEnabled && gameState.aiEmpires.length > 0) {
-                let activeRivals = gameState.aiEmpires.filter(ai => gameState.stars.some(s => s.owner === ai.name));
-                let met = (activeRivals.length === 0);
-                conditionsList.push({ name: "Last Empire Standing", met: met });
-            }
-
-            // 8. Score Leader at Turn Limit
-            if (gameState.victoryConditions.scoreLimit && gameState.year >= gameState.victoryConditions.turnLimit) {
-                let aiScoresArr = gameState.aiEmpires.map(ai => {
-                    let aiStars = gameState.stars.filter(s => s.owner === ai.name).length;
-                    return { name: ai.name, score: (ai.score || 1200) + (aiStars * 200) };
-                });
-                aiScoresArr.sort((a,b) => b.score - a.score);
-                let highestAiScore = aiScoresArr.length > 0 ? aiScoresArr[0].score : 0;
-                let topAiName = aiScoresArr.length > 0 ? aiScoresArr[0].name : "Rivals";
-
-                if (playerScore >= highestAiScore) {
-                    triggerGameOver("Galactic Score Victory (Time Limit Reached)", `The year ${gameState.victoryConditions.turnLimit} turn limit has been reached. With a dominant score of ${playerScore.toLocaleString()} points, your empire reigns supreme over ${topAiName} (${highestAiScore.toLocaleString()} pts).`);
-                } else {
-                    triggerGameOver("Defeat (Time Limit Reached)", `The year ${gameState.victoryConditions.turnLimit} turn limit has been reached. Rival empire ${topAiName} claimed victory with ${highestAiScore.toLocaleString()} points against your ${playerScore.toLocaleString()} points.`);
-                }
-                return true;
-            }
-
-            if (conditionsList.length === 0) return false;
-
-            // Count how many of the enabled conditions are met
-            let metCount = conditionsList.filter(c => c.met).length;
-            let requiredCount = gameState.victoryConditions.requiredCount || 1;
-
-            if (metCount >= requiredCount) {
-                let metNames = conditionsList.filter(c => c.met).map(c => c.name).join(", ");
-                triggerGameOver("Galactic Victory Achieved (Version 0.7.29)", `Your empire successfully met ${metCount} of the selected victory condition criteria (Required: ${requiredCount})! Met conditions: [${metNames}]. The cosmos is yours.`);
-                return true;
-            }
-
-            return false;
-        }
-
-        function triggerGameOver(title, desc) {
-            document.getElementById('go-title').innerText = `🏆 ${title}`;
-            document.getElementById('go-message').innerHTML = desc;
-            document.getElementById('game-over-modal').classList.add('active');
-        }
-
-        document.getElementById('btn-queue-item').addEventListener('click', () => {
-            const star = gameState.stars[gameState.selectedStarIndex];
-            if (star.owner !== gameState.empireName) {
-                alert("You must colonize this planet before queuing production!");
-                return;
-            }
-            star.queue.push(Math.random() < 0.5 ? "Factory Complex" : "Mining Installation");
-            updateUI();
-        });
-
-        document.getElementById('btn-colonize').addEventListener('click', () => {
-            const star = gameState.stars[gameState.selectedStarIndex];
-            if (star.owner) { alert("This planet is already colonized!"); return; }
-            if (gameState.fleet.colonists <= 0) { alert("Your active fleet does not have any colonists aboard!"); return; }
-            let distance = Math.hypot(star.x - gameState.fleet.x, star.y - gameState.fleet.y);
-            if (distance > 5) { alert("Your fleet must be in orbit around this star system to colonize it!"); return; }
-
-            star.owner = gameState.empireName;
-            star.pop = gameState.fleet.colonists;
-            star.mines = 4;
-            star.factories = 3;
-            star.massDriver = 1;
-            gameState.fleet.colonists = 0;
-            gameState.events.push(`[${gameState.year}] Colonized ${star.name}!`);
-            alert(`Planet ${star.name} successfully colonized with ${star.pop.toLocaleString()} colonists!`);
-            updateUI();
-            drawGalaxy();
-        });
-
-        document.getElementById('btn-bombard').addEventListener('click', () => {
-            const star = gameState.stars[gameState.selectedStarIndex];
-            if (!star.owner || star.owner === gameState.empireName) {
-                alert("You can only bombard rival enemy-held systems!");
-                return;
-            }
-            let distance = Math.hypot(star.x - gameState.fleet.x, star.y - gameState.fleet.y);
-            if (distance > 5) { alert("Your fleet must be in orbit to bombard this system!"); return; }
-
-            star.pop = Math.max(0, star.pop - 9000);
-            star.factories = Math.max(0, star.factories - 2);
-            gameState.events.push(`[${gameState.year}] Bombarded enemy planet ${star.name}.`);
-            alert(`Orbital bombardment successful! Enemy population reduced to ${star.pop.toLocaleString()}.`);
-            updateUI();
-        });
-
-        document.getElementById('btn-invade').addEventListener('click', () => {
-            const star = gameState.stars[gameState.selectedStarIndex];
-            if (!star.owner || star.owner === gameState.empireName) {
-                alert("You can only invade rival enemy-held systems!");
-                return;
-            }
-            let distance = Math.hypot(star.x - gameState.fleet.x, star.y - gameState.fleet.y);
-            if (distance > 5) { alert("Your fleet must be in orbit to launch a ground invasion!"); return; }
-
-            let invasionLog = `<b>Ground Invasion of ${star.name} (${gameState.year})</b><br><br>`;
-            invasionLog += `Attacking Ground Forces: 10,000 Marines<br>`;
-            invasionLog += `Defending Garrison & Militia: ${star.pop.toLocaleString()} Population<br><br>`;
-            
-            if (star.pop < 6000) {
-                star.owner = gameState.empireName;
-                star.pop = 10000;
-                invasionLog += `<span style="color: #32cd32; font-weight: bold;">Ground assault successful! Planet captured intact.</span>`;
-                gameState.events.push(`[${gameState.year}] Conquered enemy planet ${star.name}!`);
-                alert(`Invasion successful! ${star.name} is now under your control.`);
-            } else {
-                invasionLog += `<span style="color: #ff4500; font-weight: bold;">Invasion repelled by heavy enemy population resistance!</span>`;
-                alert(`Invasion failed! Enemy garrison successfully repelled the landing forces.`);
-                gameState.events.push(`[${gameState.year}] Ground invasion of ${star.name} repelled.`);
-            }
-
-            document.getElementById('combat-report-body').innerHTML = invasionLog;
-            document.getElementById('combat-modal').classList.add('active');
-            updateUI();
-            drawGalaxy();
-        });
-
-        document.getElementById('btn-lay-mines').addEventListener('click', () => {
-            const currentStar = gameState.stars.find(s => s.name === gameState.fleet.destinationName) || gameState.stars[0];
-            gameState.minefields.push({ x: currentStar.x, y: currentStar.y, count: 75, owner: gameState.empireName });
-            gameState.events.push(`[${gameState.year}] Advanced minefield deployed at ${currentStar.name}.`);
-            alert(`Minefield successfully deployed at ${currentStar.name}!`);
-            drawGalaxy();
-        });
-
-        const packetModal = document.getElementById('packet-modal');
-        document.getElementById('btn-packet-modal').addEventListener('click', () => {
-            const sourceStar = gameState.stars[gameState.selectedStarIndex];
-            if (sourceStar.owner !== gameState.empireName) {
-                alert("You can only launch mineral packets from systems owned by your empire!");
-                return;
-            }
-            const selectEl = document.getElementById('packet-target-select');
-            selectEl.innerHTML = gameState.stars.map((s, idx) => `<option value="${idx}">${s.name} (${s.x}, ${s.y})</option>`).join('');
-            document.getElementById('packet-md-level').innerText = sourceStar.massDriver || 1;
-            updatePacketEstimates();
-            packetModal.classList.add('active');
-        });
-        document.getElementById('btn-close-packet').addEventListener('click', () => packetModal.classList.remove('active'));
-        document.getElementById('packet-target-select').addEventListener('change', updatePacketEstimates);
-
-        function updatePacketEstimates() {
-            const sourceStar = gameState.stars[gameState.selectedStarIndex];
-            const targetIdx = parseInt(document.getElementById('packet-target-select').value);
-            const targetStar = gameState.stars[targetIdx];
-            let distance = Math.hypot(targetStar.x - sourceStar.x, targetStar.y - sourceStar.y);
-            let mdSpeed = (sourceStar.massDriver || 1) * 22;
-            let turns = Math.max(1, Math.ceil(distance / mdSpeed));
-
-            document.getElementById('packet-dist').innerText = Math.round(distance);
-            document.getElementById('packet-turns').innerText = turns;
-        }
-
-        document.getElementById('btn-fire-packet').addEventListener('click', () => {
-            const sourceStar = gameState.stars[gameState.selectedStarIndex];
-            const targetIdx = parseInt(document.getElementById('packet-target-select').value);
-            const targetStar = gameState.stars[targetIdx];
-
-            let ironAmt = parseInt(document.getElementById('packet-iron').value) || 0;
-            let boraAmt = parseInt(document.getElementById('packet-bora').value) || 0;
-            let germAmt = parseInt(document.getElementById('packet-germ').value) || 0;
-            let totalTonnage = ironAmt + boraAmt + germAmt;
-
-            if (totalTonnage <= 0) { alert("You must include some minerals to launch a packet!"); return; }
-            if (sourceStar.iron < ironAmt || sourceStar.bora < boraAmt || sourceStar.germ < germAmt) {
-                alert("Insufficient mineral reserves on planet for this packet launch!");
-                return;
-            }
-
-            sourceStar.iron -= ironAmt;
-            sourceStar.bora -= boraAmt;
-            sourceStar.germ -= germAmt;
-
-            let distance = Math.hypot(targetStar.x - sourceStar.x, targetStar.y - sourceStar.y);
-            let mdSpeed = (sourceStar.massDriver || 1) * 22;
-            let turns = Math.max(1, Math.ceil(distance / mdSpeed));
-
-            gameState.packets.push({
-                sourceStarIndex: gameState.selectedStarIndex,
-                targetStarIndex: targetIdx,
-                iron: ironAmt,
-                bora: boraAmt,
-                germ: germAmt,
-                turnsRemaining: turns,
-                totalTurns: turns,
-                owner: gameState.empireName
-            });
-
-            gameState.events.push(`[${gameState.year}] Launched mineral packet from ${sourceStar.name} to ${targetStar.name}.`);
-            alert(`Mineral packet successfully launched toward ${targetStar.name}! Arrival in ${turns} turns.`);
-            packetModal.classList.remove('active');
-            updateUI();
-            drawGalaxy();
-        });
-
-        document.getElementById('btn-end-turn').addEventListener('click', () => {
-            gameState.year += 1;
-            
-            if ((gameState.year - 2400) % 3 === 0) {
-                gameState.tech[gameState.researchFocus] += 1;
-                gameState.events.push(`[${gameState.year}] Tech breakthrough in ${gameState.researchFocus}!`);
-            }
-
-            let remainingPackets = [];
-            gameState.packets.forEach(pkt => {
-                pkt.turnsRemaining -= 1;
-                if (pkt.turnsRemaining <= 0) {
-                    const target = gameState.stars[pkt.targetStarIndex];
-                    if (target.owner === pkt.owner) {
-                        target.iron += pkt.iron;
-                        target.bora += pkt.bora;
-                        target.germ += pkt.germ;
-                        gameState.events.push(`[${gameState.year}] Mineral packet arrived safely at ${target.name}!`);
-                    } else if (target.owner) {
-                        let impactDmg = Math.round((pkt.iron + pkt.bora + pkt.germ) * 0.6);
-                        target.pop = Math.max(0, target.pop - impactDmg);
-                        target.factories = Math.max(0, target.factories - 1);
-                        gameState.events.push(`[${gameState.year}] Kinetic mineral packet impacted enemy world ${target.name}!`);
-                    } else {
-                        target.iron += Math.round(pkt.iron * 0.5);
-                        target.bora += Math.round(pkt.bora * 0.5);
-                        target.germ += Math.round(pkt.germ * 0.5);
-                        gameState.events.push(`[${gameState.year}] Mineral packet landed on unowned system ${target.name}.`);
-                    }
-                } else {
-                    remainingPackets.push(pkt);
-                }
-            });
-            gameState.packets = remainingPackets;
-
-            if (gameState.fleet.waypoints.length > 0) {
-                let wp = gameState.fleet.waypoints[0];
-                wp.turnsRemaining -= 1;
-                if (wp.turnsRemaining <= 0) {
-                    const target = gameState.stars[wp.targetStarIndex];
-                    gameState.fleet.x = target.x;
-                    gameState.fleet.y = target.y;
-                    gameState.fleet.destinationName = target.name;
-                    
-                    if (wp.action === 'Colonize' && !target.owner && gameState.fleet.colonists > 0) {
-                        target.owner = gameState.empireName;
-                        target.pop = gameState.fleet.colonists;
-                        target.mines = 4;
-                        target.factories = 3;
-                        gameState.fleet.colonists = 0;
-                        gameState.events.push(`[${gameState.year}] Waypoint Action: Auto-colonized ${target.name}!`);
-                    } else if (wp.action === 'LayMines') {
-                        gameState.minefields.push({ x: target.x, y: target.y, count: 50, owner: gameState.empireName });
-                        gameState.events.push(`[${gameState.year}] Waypoint Action: Deployed minefield at ${target.name}!`);
-                    } else if (wp.action === 'SweepMines') {
-                        gameState.minefields = gameState.minefields.filter(mf => Math.hypot(mf.x - target.x, mf.y - target.y) > 40);
-                        gameState.events.push(`[${gameState.year}] Waypoint Action: Cleared minefields around ${target.name}.`);
-                    }
-
-                    gameState.fleet.waypoints.shift();
-
-                    gameState.minefields.forEach(mf => {
-                        if (Math.hypot(target.x - mf.x, target.y - mf.y) <= 35 && mf.owner !== gameState.empireName) {
-                            gameState.fleet.fuel = Math.max(0, gameState.fleet.fuel - 150);
-                            gameState.events.push(`[${gameState.year}] Fleet encountered enemy minefield at ${target.name} (-150mg fuel)!`);
-                        }
-                    });
-
-                    if (target.owner && target.owner !== gameState.empireName) {
-                        triggerTacticalCombat(target);
-                    } else {
-                        gameState.events.push(`[${gameState.year}] Fleet arrived at ${target.name}.`);
-                    }
-                }
-            }
-
-            gameState.stars.forEach(star => {
-                if (star.owner === gameState.empireName) {
-                    let mSpendFactor = gameState.budget.manufacturing / 100;
-                    let mineOutputRate = gameState.race === 'automitons' ? 14 : (star.feConc / 25);
-                    star.iron += Math.round((star.mines * mineOutputRate) * mSpendFactor);
-                    star.bora += Math.round((star.mines * (star.boConc / 28)) * mSpendFactor);
-                    star.germ += Math.round((star.mines * (star.geConc / 26)) * mSpendFactor);
-
-                    if (star.queue.length > 0) {
-                        let building = star.queue[0];
-                        star.queue.shift();
-                        if (building === "Factory Complex") star.factories += 1;
-                        if (building === "Mining Installation") star.mines += 1;
-                        gameState.events.push(`[${gameState.year}] Finished construction of ${building} on ${star.name}.`);
-                    }
-                }
-            });
-
-            checkVictoryConditions();
-            updateUI();
-            drawGalaxy();
-        });
-
-        function triggerTacticalCombat(targetStar) {
-            let combatLog = `<b>Tactical Engagement at ${targetStar.name} (${gameState.year})</b><br><br>`;
-            combatLog += `Attacking Fleet: ${gameState.fleet.name}<br>`;
-            combatLog += `Defending System: ${targetStar.name} (Garrison Pop: ${targetStar.pop.toLocaleString()}, Factories: ${targetStar.factories})<br><br>`;
-            
-            let playerAttackPower = gameState.fleet.ships.reduce((acc, s) => {
-                let d = gameState.designs.find(des => des.name === s.name);
-                return acc + (d ? d.attack * s.count : 50);
-            }, 100);
-
-            let defenderPower = (targetStar.pop / 250) + (targetStar.factories * 30);
-
-            if (playerAttackPower >= defenderPower) {
-                combatLog += `<span style="color: #32cd32; font-weight: bold;">Victory! Enemy defense forces routed and planetary orbit secured.</span>`;
-                gameState.events.push(`[${gameState.year}] Fleet achieved victory at ${targetStar.name}.`);
-                alert(`Tactical victory at ${targetStar.name}! Enemy defenses successfully overcome.`);
-            } else {
-                combatLog += `<span style="color: #ff4500; font-weight: bold;">Defeat! Fleet forced to retreat by superior enemy defense platforms.</span>`;
-                gameState.events.push(`[${gameState.year}] Fleet forced to retreat at ${targetStar.name}.`);
-                alert(`Tactical defeat at ${targetStar.name}! Fleet sustained damage and retreated.`);
-            }
-
-            document.getElementById('combat-report-body').innerHTML = combatLog;
-            document.getElementById('combat-modal').classList.add('active');
         }
 
         function switchView(viewId) {
@@ -2088,21 +1881,25 @@
             if (viewId === 'view-dashboard') {
                 setTimeout(() => {
                     resizeGalaxyCanvas();
+                    drawGalaxy();
                     updateUI();
                 }, 50);
             }
         }
 
+        // --- BUTTON EVENT LISTENERS WIRING ---
         document.getElementById('btn-new-game').addEventListener('click', () => switchView('view-race-setup'));
-        document.querySelectorAll('.btn-back-title').forEach(btn => btn.addEventListener('click', () => switchView('view-title')));
-        document.getElementById('btn-continue-game').addEventListener('click', () => {
-            switchView('view-dashboard');
-            updateUI();
-        });
         document.getElementById('btn-open-game').addEventListener('click', () => document.getElementById('import-file-input').click());
-        document.getElementById('btn-load-game-dash').addEventListener('click', () => document.getElementById('import-file-input').click());
-        document.getElementById('btn-save-game').addEventListener('click', downloadSaveFile);
+        document.getElementById('btn-continue-game').addEventListener('click', () => {
+            if (gameState.stars.length > 0) {
+                switchView('view-dashboard');
+            } else {
+                generateGalaxy();
+                switchView('view-dashboard');
+            }
+        });
 
+        document.querySelectorAll('.btn-back-title').forEach(btn => btn.addEventListener('click', () => switchView('view-title')));
         document.getElementById('btn-launch-sp').addEventListener('click', () => {
             gameState.empireName = document.getElementById('sp-empire-name').value || "Human Directorate";
             applyRaceSetup(document.getElementById('sp-race').value);
@@ -2110,105 +1907,43 @@
             gameState.starDensity = document.getElementById('sp-density').value;
             gameState.playerPosition = document.getElementById('sp-player-position').value;
             gameState.aiOpponentCount = parseInt(document.getElementById('sp-ai-count').value);
-            gameState.aiDifficulty = document.getElementById('sp-ai-difficulty').value;
-            
             generateGalaxy();
             switchView('view-dashboard');
-            updateUI();
         });
 
-        // Dynamic update function for Required Condition Count dropdown
-        function updateRequiredConditionOptions() {
-            const checkboxes = document.querySelectorAll('.vc-checkbox');
-            let checkedCount = 0;
-            checkboxes.forEach(cb => { if (cb.checked) checkedCount++; });
-            if (checkedCount < 1) checkedCount = 1;
-
-            const selectEl = document.getElementById('vc-required-count');
-            const currentVal = parseInt(selectEl.value) || 1;
-
-            selectEl.innerHTML = '';
-            for (let i = 1; i <= checkedCount; i++) {
-                let opt = document.createElement('option');
-                opt.value = i;
-                opt.innerText = `${i} of ${checkedCount} selected conditions`;
-                selectEl.appendChild(opt);
-            }
-
-            selectEl.value = Math.min(currentVal, checkedCount);
-        }
-
-        // Victory Setup Modal wiring
-        const victorySetupModal = document.getElementById('victory-setup-modal');
-        document.getElementById('btn-open-victory-setup').addEventListener('click', () => {
-            // Populate modal inputs from gameState
-            document.getElementById('vc-domination').checked = gameState.victoryConditions.domination;
-            document.getElementById('vc-domination-pct').value = gameState.victoryConditions.dominationPct;
-            document.getElementById('vc-tech').checked = gameState.victoryConditions.tech;
-            document.getElementById('vc-tech-level').value = gameState.victoryConditions.techLevel;
-            document.getElementById('vc-tech-fields').value = gameState.victoryConditions.techFieldsCount;
-            document.getElementById('vc-prod-cap-enabled').checked = gameState.victoryConditions.prodCapEnabled;
-            document.getElementById('vc-prod-cap-val').value = gameState.victoryConditions.prodCapVal;
-            document.getElementById('vc-capital-ships-enabled').checked = gameState.victoryConditions.capitalShipsEnabled;
-            document.getElementById('vc-capital-ships-val').value = gameState.victoryConditions.capitalShipsVal;
-            document.getElementById('vc-score-threshold-enabled').checked = gameState.victoryConditions.scoreThresholdEnabled;
-            document.getElementById('vc-score-threshold-val').value = gameState.victoryConditions.scoreThresholdValue;
-            document.getElementById('vc-exceed-second-enabled').checked = gameState.victoryConditions.exceedSecondPlaceEnabled;
-            document.getElementById('vc-exceed-second-pct').value = gameState.victoryConditions.exceedSecondPlacePct;
-            document.getElementById('vc-score').checked = gameState.victoryConditions.scoreLimit;
-            document.getElementById('vc-elimination').checked = gameState.victoryConditions.elimination;
-            document.getElementById('vc-turn-limit').value = gameState.victoryConditions.turnLimit;
-
-            updateRequiredConditionOptions();
-            document.getElementById('vc-required-count').value = gameState.victoryConditions.requiredCount || 1;
-
-            victorySetupModal.classList.add('active');
+        document.getElementById('btn-open-advanced-setup').addEventListener('click', () => document.getElementById('advanced-setup-modal').classList.add('active'));
+        document.getElementById('btn-close-advanced').addEventListener('click', () => document.getElementById('advanced-setup-modal').classList.remove('active'));
+        document.getElementById('btn-save-advanced').addEventListener('click', () => {
+            gameState.advancedOptions.beginnerMinerals = document.getElementById('adv-beginner-minerals').checked;
+            gameState.advancedOptions.slowerTech = document.getElementById('adv-slower-tech').checked;
+            gameState.advancedOptions.acceleratedBBS = document.getElementById('adv-accelerated-bbs').checked;
+            gameState.advancedOptions.noRandomEvents = document.getElementById('adv-no-random-events').checked;
+            gameState.advancedOptions.galaxyClumping = document.getElementById('adv-galaxy-clumping').checked;
+            gameState.advancedOptions.aiAlliances = document.getElementById('adv-ai-alliances').checked;
+            gameState.advancedOptions.publicScores = document.getElementById('adv-public-scores').checked;
+            document.getElementById('advanced-setup-modal').classList.remove('active');
         });
 
-        document.querySelectorAll('.vc-checkbox').forEach(cb => {
-            cb.addEventListener('change', updateRequiredConditionOptions);
-        });
-
-        document.getElementById('btn-close-victory').addEventListener('click', () => victorySetupModal.classList.remove('active'));
+        document.getElementById('btn-open-victory-setup').addEventListener('click', () => document.getElementById('victory-setup-modal').classList.add('active'));
+        document.getElementById('btn-close-victory').addEventListener('click', () => document.getElementById('victory-setup-modal').classList.remove('active'));
         document.getElementById('btn-save-victory').addEventListener('click', () => {
             gameState.victoryConditions.domination = document.getElementById('vc-domination').checked;
-            gameState.victoryConditions.dominationPct = parseInt(document.getElementById('vc-domination-pct').value) || 75;
+            gameState.victoryConditions.dominationPct = parseInt(document.getElementById('vc-domination-pct').value);
             gameState.victoryConditions.tech = document.getElementById('vc-tech').checked;
-            gameState.victoryConditions.techLevel = parseInt(document.getElementById('vc-tech-level').value) || 10;
-            gameState.victoryConditions.techFieldsCount = parseInt(document.getElementById('vc-tech-fields').value) || 6;
-            gameState.victoryConditions.prodCapEnabled = document.getElementById('vc-prod-cap-enabled').checked;
-            gameState.victoryConditions.prodCapVal = parseInt(document.getElementById('vc-prod-cap-val').value) || 5000;
-            gameState.victoryConditions.capitalShipsEnabled = document.getElementById('vc-capital-ships-enabled').checked;
-            gameState.victoryConditions.capitalShipsVal = parseInt(document.getElementById('vc-capital-ships-val').value) || 50;
-            gameState.victoryConditions.scoreThresholdEnabled = document.getElementById('vc-score-threshold-enabled').checked;
-            gameState.victoryConditions.scoreThresholdValue = parseInt(document.getElementById('vc-score-threshold-val').value) || 15000;
-            gameState.victoryConditions.exceedSecondPlaceEnabled = document.getElementById('vc-exceed-second-enabled').checked;
-            gameState.victoryConditions.exceedSecondPlacePct = parseInt(document.getElementById('vc-exceed-second-pct').value) || 50;
+            gameState.victoryConditions.techLevel = parseInt(document.getElementById('vc-tech-level').value);
+            gameState.victoryConditions.techFieldsCount = parseInt(document.getElementById('vc-tech-fields').value);
             gameState.victoryConditions.scoreLimit = document.getElementById('vc-score').checked;
             gameState.victoryConditions.elimination = document.getElementById('vc-elimination').checked;
-            gameState.victoryConditions.turnLimit = parseInt(document.getElementById('vc-turn-limit').value) || 2500;
-            gameState.victoryConditions.requiredCount = parseInt(document.getElementById('vc-required-count').value) || 1;
-
-            victorySetupModal.classList.remove('active');
-            alert("Victory conditions updated successfully!");
+            gameState.victoryConditions.turnLimit = parseInt(document.getElementById('vc-turn-limit').value);
+            gameState.victoryConditions.requiredCount = parseInt(document.getElementById('vc-required-count').value);
+            document.getElementById('victory-setup-modal').classList.remove('active');
         });
 
-        // Research, Economy, Design, Fleet, Scoreboard Modals wiring
-        const researchView = document.getElementById('view-research');
         document.getElementById('btn-open-research').addEventListener('click', () => switchView('view-research'));
-        document.querySelector('.btn-close-research').addEventListener('click', () => switchView('view-dashboard'));
-        document.getElementById('research-focus').addEventListener('change', (e) => {
-            gameState.researchFocus = e.target.value;
-        });
+        document.getElementById('btn-close-research').addEventListener('click', () => switchView('view-dashboard'));
+        document.getElementById('research-focus').addEventListener('change', (e) => { gameState.researchFocus = e.target.value; });
 
-        const economyView = document.getElementById('view-economy');
-        document.getElementById('btn-open-economy').addEventListener('click', () => {
-            document.getElementById('slider-budget-research').value = gameState.budget.research;
-            document.getElementById('slider-budget-manufacturing').value = gameState.budget.manufacturing;
-            document.getElementById('lbl-budget-research').innerText = gameState.budget.research;
-            document.getElementById('lbl-budget-manufacturing').innerText = gameState.budget.manufacturing;
-            switchView('view-economy');
-        });
+        document.getElementById('btn-open-economy').addEventListener('click', () => switchView('view-economy'));
         document.getElementById('btn-close-economy').addEventListener('click', () => switchView('view-dashboard'));
         document.getElementById('slider-budget-research').addEventListener('input', (e) => {
             let val = parseInt(e.target.value);
@@ -2225,171 +1960,400 @@
         document.getElementById('btn-save-economy').addEventListener('click', () => {
             gameState.budget.research = parseInt(document.getElementById('slider-budget-research').value);
             gameState.budget.manufacturing = parseInt(document.getElementById('slider-budget-manufacturing').value);
-            alert("Budget allocation applied!");
             switchView('view-dashboard');
         });
 
         document.getElementById('btn-open-design').addEventListener('click', () => switchView('view-ship-design'));
         document.getElementById('btn-close-design').addEventListener('click', () => switchView('view-dashboard'));
         document.getElementById('btn-save-design').addEventListener('click', () => {
-            let dName = document.getElementById('design-name').value || "Custom Hull";
-            let dHull = document.getElementById('design-hull').value;
-            gameState.designs.push({ name: dName, hull: dHull, attack: 110, defense: 60 });
-            alert(`Ship design "${dName}" saved to design yard!`);
+            let name = document.getElementById('design-name').value;
+            let hull = document.getElementById('design-hull').value;
+            gameState.designs.push({ name, hull, engine: document.getElementById('design-engine').value, scanner: document.getElementById('design-scanner').value, shield: document.getElementById('design-shield').value, weapon: document.getElementById('design-weapon').value, mass: 125, cost: 145, attack: 110, defense: 60 });
+            alert(`Ship design "${name}" saved successfully!`);
             switchView('view-dashboard');
         });
 
-        // Waypoint modal wiring
-        const waypointModal = document.getElementById('waypoint-modal');
-        document.getElementById('btn-waypoint-modal').addEventListener('click', () => {
-            const selectEl = document.getElementById('wp-target-select');
-            selectEl.innerHTML = gameState.stars.map((s, idx) => `<option value="${idx}">${s.name} (${s.x}, ${s.y})</option>`).join('');
-            updateWaypointEstimates();
-            waypointModal.classList.add('active');
-        });
-        document.getElementById('btn-close-waypoint').addEventListener('click', () => waypointModal.classList.remove('active'));
-        document.getElementById('wp-target-select').addEventListener('change', updateWaypointEstimates);
-        document.getElementById('wp-warp-speed').addEventListener('input', (e) => {
-            document.getElementById('lbl-warp-val').innerText = e.target.value;
-            updateWaypointEstimates();
-        });
-
-        function updateWaypointEstimates() {
-            const targetIdx = parseInt(document.getElementById('wp-target-select').value);
-            const targetStar = gameState.stars[targetIdx];
-            let dist = Math.hypot(targetStar.x - gameState.fleet.x, targetStar.y - gameState.fleet.y);
-            let warp = parseInt(document.getElementById('wp-warp-speed').value);
-            let turns = Math.max(1, Math.ceil(dist / (warp * warp * 1.5)));
-            let fuelCost = Math.round(dist * 0.8 * (warp / 5));
-
-            document.getElementById('wp-dist').innerText = Math.round(dist);
-            document.getElementById('wp-turns').innerText = turns;
-            document.getElementById('wp-fuel-cost').innerText = fuelCost;
-
-            const qContainer = document.getElementById('current-waypoint-queue');
-            if (gameState.fleet.waypoints.length === 0) {
-                qContainer.innerHTML = '-- Waypoint Queue is Empty --';
-            } else {
-                qContainer.innerHTML = gameState.fleet.waypoints.map((w, idx) => `<div>${idx+1}. Target: ${w.destinationName} | Action: ${w.action}</div>`).join('');
+        document.getElementById('btn-queue-item').addEventListener('click', () => {
+            const star = gameState.stars[gameState.selectedStarIndex];
+            if (star.owner !== gameState.empireName) {
+                alert("You can only queue construction on planets owned by your empire.");
+                return;
             }
-        }
+            let choice = prompt("What would you like to queue on " + star.name + "? Type 'factory' or 'mine':", "factory");
+            if (choice) {
+                choice = choice.toLowerCase().trim();
+                if (choice === 'factory' || choice === 'mine') {
+                    star.queue.push(choice === 'factory' ? 'Factory' : 'Mine');
+                    updateUI();
+                    drawGalaxy();
+                } else {
+                    alert("Please type 'factory' or 'mine'.");
+                }
+            }
+        });
 
-        document.getElementById('btn-add-waypoint').addEventListener('click', () => {
-            const targetIdx = parseInt(document.getElementById('wp-target-select').value);
-            const targetStar = gameState.stars[targetIdx];
-            let dist = Math.hypot(targetStar.x - gameState.fleet.x, targetStar.y - gameState.fleet.y);
-            let warp = parseInt(document.getElementById('wp-warp-speed').value);
-            let turns = Math.max(1, Math.ceil(dist / (warp * warp * 1.5)));
-            let action = document.getElementById('wp-action-select').value;
+        document.getElementById('btn-packet-modal').addEventListener('click', () => {
+            const star = gameState.stars[gameState.selectedStarIndex];
+            if (star.owner !== gameState.empireName) {
+                alert("Select one of your owned planets with a Mass Driver to launch mineral packets.");
+                return;
+            }
+            const select = document.getElementById('packet-target-select');
+            select.innerHTML = gameState.stars.filter((s, i) => i !== gameState.selectedStarIndex && s.scouted).map((s, i) => `<option value="${gameState.stars.indexOf(s)}">${s.name} (${Math.round(Math.hypot(s.x - star.x, s.y - star.y))} ly)</option>`).join('');
+            document.getElementById('packet-md-level').innerText = star.massDriver || 1;
+            document.getElementById('packet-modal').classList.add('active');
+        });
+        document.getElementById('btn-close-packet').addEventListener('click', () => document.getElementById('packet-modal').classList.remove('active'));
+        document.getElementById('btn-fire-packet').addEventListener('click', () => {
+            const srcStar = gameState.stars[gameState.selectedStarIndex];
+            const targetIdx = parseInt(document.getElementById('packet-target-select').value);
+            const dstStar = gameState.stars[targetIdx];
+            let iron = parseInt(document.getElementById('packet-iron').value) || 0;
+            let bora = parseInt(document.getElementById('packet-bora').value) || 0;
+            let germ = parseInt(document.getElementById('packet-germ').value) || 0;
 
-            gameState.fleet.waypoints.push({
+            if (srcStar.iron < iron || srcStar.bora < bora || srcStar.germ < germ) {
+                alert("Not enough minerals in planetary stockpile.");
+                return;
+            }
+            srcStar.iron -= iron;
+            srcStar.bora -= bora;
+            srcStar.germ -= germ;
+
+            let dist = Math.hypot(dstStar.x - srcStar.x, dstStar.y - srcStar.y);
+            let speed = (srcStar.massDriver || 1) * 20;
+            let turns = Math.max(1, Math.ceil(dist / speed));
+
+            gameState.packets.push({
+                sourceStarIndex: gameState.selectedStarIndex,
                 targetStarIndex: targetIdx,
-                destinationName: targetStar.name,
-                action: action,
+                iron, bora, germ,
                 turnsRemaining: turns,
-                warpSpeed: warp
+                totalTurns: turns
             });
 
-            gameState.events.push(`[${gameState.year}] Added waypoint order to ${targetStar.name}.`);
-            updateWaypointEstimates();
+            document.getElementById('packet-modal').classList.remove('active');
+            gameState.events.push(`[${gameState.year}] Mineral packet launched from ${srcStar.name} to ${dstStar.name} (${turns} turns transit).`);
+            updateUI();
             drawGalaxy();
+            alert("Mineral packet successfully launched!");
         });
 
-        // Fleet roster modal
-        const fleetRosterModal = document.getElementById('fleet-roster-modal');
-        document.getElementById('btn-fleet-roster').addEventListener('click', () => {
-            const listEl = document.getElementById('fleet-ships-list');
-            listEl.innerHTML = gameState.fleet.ships.map(sh => `<div>• <b>${sh.name}</b>: ${sh.count} hulls</div>`).join('');
-            fleetRosterModal.classList.add('active');
-        });
-        document.getElementById('btn-close-fleet-roster').addEventListener('click', () => fleetRosterModal.classList.remove('active'));
-        document.getElementById('btn-build-ship-fleet').addEventListener('click', () => {
-            if (gameState.fleet.ships.length > 0) {
-                gameState.fleet.ships[0].count += 1;
-                alert("Fleet reinforced with new ship hull!");
-                const listEl = document.getElementById('fleet-ships-list');
-                listEl.innerHTML = gameState.fleet.ships.map(sh => `<div>• <b>${sh.name}</b>: ${sh.count} hulls</div>`).join('');
+        document.getElementById('btn-colonize').addEventListener('click', () => {
+            const star = gameState.stars[gameState.selectedStarIndex];
+            let dist = Math.hypot(star.x - gameState.fleet.x, star.y - gameState.fleet.y);
+            if (dist > 15) {
+                alert("Your fleet must be in orbit around this star system to colonize it.");
+                return;
             }
+            if (star.owner) {
+                alert("This system is already owned.");
+                return;
+            }
+            if (gameState.fleet.colonists < 10000) {
+                alert("Your fleet requires at least 10,000 colonists to establish a new colony.");
+                return;
+            }
+            gameState.fleet.colonists -= 10000;
+            star.owner = gameState.empireName;
+            star.pop = 10000;
+            star.mines = 2;
+            star.factories = 2;
+            star.massDriver = 1;
+            star.scouted = true;
+            gameState.events.push(`[${gameState.year}] New colony established at ${star.name}!`);
+            updateUI();
+            drawGalaxy();
+            alert(`Successfully colonized ${star.name}!`);
         });
 
-        // Cargo modal
-        const cargoModal = document.getElementById('cargo-modal');
         document.getElementById('btn-cargo-modal').addEventListener('click', () => {
             const star = gameState.stars[gameState.selectedStarIndex];
             document.getElementById('cargo-p-iron').innerText = star.iron;
             document.getElementById('cargo-p-bora').innerText = star.bora;
             document.getElementById('cargo-p-germ').innerText = star.germ;
             document.getElementById('cargo-p-col').innerText = star.pop.toLocaleString();
-
+            
             document.getElementById('cargo-f-iron').innerText = gameState.fleet.iron;
             document.getElementById('cargo-f-bora').innerText = gameState.fleet.bora;
             document.getElementById('cargo-f-germ').innerText = gameState.fleet.germ;
             document.getElementById('cargo-f-col').innerText = gameState.fleet.colonists.toLocaleString();
             document.getElementById('cargo-f-fuel').innerText = gameState.fleet.fuel;
-            cargoModal.classList.add('active');
+
+            document.getElementById('cargo-modal').classList.add('active');
         });
-        document.getElementById('btn-close-cargo').addEventListener('click', () => cargoModal.classList.remove('active'));
+        document.getElementById('btn-close-cargo').addEventListener('click', () => document.getElementById('cargo-modal').classList.remove('active'));
         document.getElementById('btn-load-colony-ship').addEventListener('click', () => {
             const star = gameState.stars[gameState.selectedStarIndex];
-            if (star.pop >= 10000) {
-                star.pop -= 10000;
-                gameState.fleet.colonists += 10000;
-                alert("Transferred 10,000 colonists aboard fleet module!");
-                cargoModal.classList.remove('active');
+            let dist = Math.hypot(star.x - gameState.fleet.x, star.y - gameState.fleet.y);
+            if (dist > 15) {
+                alert("Fleet must be in orbit to transfer cargo.");
+                return;
+            }
+            if (star.pop < 15000) {
+                alert("Planet population too low to embark 10,000 colonists.");
+                return;
+            }
+            star.pop -= 10000;
+            gameState.fleet.colonists += 10000;
+            document.getElementById('cargo-p-col').innerText = star.pop.toLocaleString();
+            document.getElementById('cargo-f-col').innerText = gameState.fleet.colonists.toLocaleString();
+            updateUI();
+            alert("Loaded 10,000 colonists into fleet transport hold.");
+        });
+
+        document.getElementById('btn-bombard').addEventListener('click', () => {
+            const star = gameState.stars[gameState.selectedStarIndex];
+            let dist = Math.hypot(star.x - gameState.fleet.x, star.y - gameState.fleet.y);
+            if (dist > 15) {
+                alert("Fleet must be orbiting the target system to conduct orbital bombardment.");
+                return;
+            }
+            if (!star.owner || star.owner === gameState.empireName) {
+                alert("Can only bombard enemy-owned systems.");
+                return;
+            }
+            let damage = 5000;
+            star.pop = Math.max(0, star.pop - damage);
+            star.factories = Math.max(0, star.factories - 2);
+            gameState.events.push(`[${gameState.year}] Fleet bombarded ${star.name}, reducing population and infrastructure.`);
+            updateUI();
+            alert(`Orbital bombardment executed on ${star.name}! Enemy population decreased.`);
+        });
+
+        document.getElementById('btn-invade').addEventListener('click', () => {
+            const star = gameState.stars[gameState.selectedStarIndex];
+            let dist = Math.hypot(star.x - gameState.fleet.x, star.y - gameState.fleet.y);
+            if (dist > 15) {
+                alert("Fleet must be orbiting the target system to launch a ground invasion.");
+                return;
+            }
+            if (!star.owner || star.owner === gameState.empireName) {
+                alert("Can only invade enemy-owned systems.");
+                return;
+            }
+            if (gameState.fleet.colonists < 5000) {
+                alert("Need at least 5,000 troops/colonists in fleet to invade.");
+                return;
+            }
+            gameState.fleet.colonists -= 5000;
+            if (star.pop <= 5000) {
+                let oldOwner = star.owner;
+                star.owner = gameState.empireName;
+                star.pop = 5000;
+                gameState.events.push(`[${gameState.year}] Ground invasion successful! Captured ${star.name} from ${oldOwner}.`);
                 updateUI();
+                drawGalaxy();
+                alert(`Invasion successful! ${star.name} is now under your control.`);
             } else {
-                alert("Insufficient planetary population to load 10,000 colonists!");
+                star.pop -= 5000;
+                gameState.events.push(`[${gameState.year}] Ground invasion on ${star.name} met heavy resistance.`);
+                updateUI();
+                alert("Invasion met heavy resistance. Enemy forces reduced but planet holds.");
             }
         });
 
-        // Scoreboard modal
-        const scoreboardModal = document.getElementById('scoreboard-modal');
-        document.getElementById('btn-scoreboard').addEventListener('click', () => {
-            let totalStars = gameState.stars.length;
-            let pStars = gameState.stars.filter(s => s.owner === gameState.empireName).length;
-            let pScore = 1000 + (pStars * 200) + Object.values(gameState.tech).reduce((a,b)=>a+b, 0) * 100;
-
-            let rankingHtml = `<div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #332244; font-weight: bold;"><span>Empire Name</span><span>Score</span></div>`;
-            rankingHtml += `<div style="display: flex; justify-content: space-between; padding: 4px 0; color: #32cd32;"><span>${gameState.empireName} (You)</span><span>${pScore.toLocaleString()} pts</span></div>`;
-
-            gameState.aiEmpires.forEach(ai => {
-                let aiStars = gameState.stars.filter(s => s.owner === ai.name).length;
-                let aiScore = (ai.score || 1200) + (aiStars * 200);
-                rankingHtml += `<div style="display: flex; justify-content: space-between; padding: 4px 0; color: #ff4500;"><span>${ai.name}</span><span>${aiScore.toLocaleString()} pts</span></div>`;
-            });
-
-            document.getElementById('scoreboard-table-body').innerHTML = rankingHtml;
-            scoreboardModal.classList.add('active');
+        document.getElementById('btn-fleet-roster').addEventListener('click', () => {
+            const list = document.getElementById('fleet-ships-list');
+            list.innerHTML = gameState.fleet.ships.map(s => `<div>• ${s.name} x${s.count}</div>`).join('');
+            document.getElementById('fleet-roster-modal').classList.add('active');
         });
-        document.getElementById('btn-close-scoreboard').addEventListener('click', () => scoreboardModal.classList.remove('active'));
+        document.getElementById('btn-close-fleet-roster').addEventListener('click', () => document.getElementById('fleet-roster-modal').classList.remove('active'));
+        document.getElementById('btn-build-ship-fleet').addEventListener('click', () => {
+            let homeworld = gameState.stars[0];
+            if (homeworld.iron < 100 || homeworld.bora < 100 || homeworld.germ < 100) {
+                alert("Homeworld requires at least 100kT of each mineral to build fleet reinforcements.");
+                return;
+            }
+            homeworld.iron -= 100;
+            homeworld.bora -= 100;
+            homeworld.germ -= 100;
+            if (gameState.fleet.ships.length > 0) {
+                gameState.fleet.ships[0].count += 1;
+            }
+            const list = document.getElementById('fleet-ships-list');
+            list.innerHTML = gameState.fleet.ships.map(s => `<div>• ${s.name} x${s.count}</div>`).join('');
+            updateUI();
+            alert("Fleet reinforced successfully!");
+        });
 
-        // Help / Tutorial modal
-        const tutorialModal = document.getElementById('tutorial-modal');
-        document.getElementById('btn-help').addEventListener('click', () => tutorialModal.classList.add('active'));
-        document.getElementById('btn-close-tutorial').addEventListener('click', () => tutorialModal.classList.remove('active'));
+        document.getElementById('btn-waypoint-modal').addEventListener('click', () => {
+            const select = document.getElementById('wp-target-select');
+            select.innerHTML = gameState.stars.filter(s => s.scouted).map(s => `<option value="${gameState.stars.indexOf(s)}">${s.name}</option>`).join('');
+            updateWaypointQueueDisplay();
+            document.getElementById('waypoint-modal').classList.add('active');
+        });
+        document.getElementById('btn-close-waypoint').addEventListener('click', () => document.getElementById('waypoint-modal').classList.remove('active'));
+        document.getElementById('wp-warp-speed').addEventListener('input', (e) => {
+            document.getElementById('lbl-warp-val').innerText = e.target.value;
+        });
+        document.getElementById('btn-add-waypoint').addEventListener('click', () => {
+            let targetIdx = parseInt(document.getElementById('wp-target-select').value);
+            let action = document.getElementById('wp-action-select').value;
+            let warp = parseInt(document.getElementById('wp-warp-speed').value);
+            let targetStar = gameState.stars[targetIdx];
+            
+            gameState.fleet.waypoints.push({
+                targetStarIndex: targetIdx,
+                targetName: targetStar.name,
+                action: action,
+                warp: warp
+            });
+            updateWaypointQueueDisplay();
+            drawGalaxy();
+            alert(`Waypoint added: ${targetStar.name} (${action}, Warp ${warp})`);
+        });
 
-        // Game over return title
+        function updateWaypointQueueDisplay() {
+            const qDiv = document.getElementById('current-waypoint-queue');
+            if (gameState.fleet.waypoints.length === 0) {
+                qDiv.innerHTML = '-- Waypoint Queue is Empty --';
+            } else {
+                qDiv.innerHTML = gameState.fleet.waypoints.map((wp, i) => `<div>${i+1}. ${wp.targetName} [${wp.action}, Warp ${wp.warp}]</div>`).join('');
+            }
+        }
+
+        document.getElementById('btn-lay-mines').addEventListener('click', () => {
+            gameState.minefields.push({ x: gameState.fleet.x, y: gameState.fleet.y, owner: gameState.empireName });
+            gameState.events.push(`[${gameState.year}] Minefield deployed at current coordinates.`);
+            drawGalaxy();
+            alert("Minefield deployed successfully!");
+        });
+
+        document.getElementById('btn-prev-planet').addEventListener('click', () => {
+            let playerStars = gameState.stars.map((s, i) => ({s, i})).filter(obj => obj.s.owner === gameState.empireName);
+            if (playerStars.length === 0) return;
+            let currPos = playerStars.findIndex(obj => obj.i === gameState.selectedStarIndex);
+            let nextPos = (currPos - 1 + playerStars.length) % playerStars.length;
+            gameState.selectedStarIndex = playerStars[nextPos].i;
+            updateUI();
+            drawGalaxy();
+        });
+        document.getElementById('btn-next-planet').addEventListener('click', () => {
+            let playerStars = gameState.stars.map((s, i) => ({s, i})).filter(obj => obj.s.owner === gameState.empireName);
+            if (playerStars.length === 0) return;
+            let currPos = playerStars.findIndex(obj => obj.i === gameState.selectedStarIndex);
+            let nextPos = (currPos + 1) % playerStars.length;
+            gameState.selectedStarIndex = playerStars[nextPos].i;
+            updateUI();
+            drawGalaxy();
+        });
+
+        document.getElementById('btn-scoreboard').addEventListener('click', () => {
+            const tableBody = document.getElementById('scoreboard-table-body');
+            let scores = [{ name: gameState.empireName, score: 2500, planets: gameState.stars.filter(s => s.owner === gameState.empireName).length }];
+            gameState.aiEmpires.forEach(ai => {
+                scores.push({ name: ai.name, score: ai.score || 1500, planets: gameState.stars.filter(s => s.owner === ai.name).length });
+            });
+            scores.sort((a, b) => b.score - a.score);
+            tableBody.innerHTML = scores.map((sc, idx) => `<div>#${idx+1} <b>${sc.name}</b> — Score: ${sc.score} | Systems: ${sc.planets}</div>`).join('');
+            document.getElementById('scoreboard-modal').classList.add('active');
+        });
+        document.getElementById('btn-close-scoreboard').addEventListener('click', () => document.getElementById('scoreboard-modal').classList.remove('active'));
+
+        document.getElementById('btn-save-game').addEventListener('click', downloadSaveFile);
+        document.getElementById('btn-load-game-dash').addEventListener('click', () => document.getElementById('import-file-input').click());
+
+        document.getElementById('btn-help').addEventListener('click', () => document.getElementById('tutorial-modal').classList.add('active'));
+        document.getElementById('btn-close-tutorial').addEventListener('click', () => document.getElementById('tutorial-modal').classList.remove('active'));
+
+        document.getElementById('btn-close-combat').addEventListener('click', () => document.getElementById('combat-modal').classList.remove('active'));
         document.getElementById('btn-return-title').addEventListener('click', () => {
             document.getElementById('game-over-modal').classList.remove('active');
             switchView('view-title');
         });
 
-        // Planet navigation in dashboard
-        document.getElementById('btn-prev-planet').addEventListener('click', () => {
-            gameState.selectedStarIndex = (gameState.selectedStarIndex - 1 + gameState.stars.length) % gameState.stars.length;
-            updateUI();
-            drawGalaxy();
-        });
-        document.getElementById('btn-next-planet').addEventListener('click', () => {
-            gameState.selectedStarIndex = (gameState.selectedStarIndex + 1) % gameState.stars.length;
+        document.getElementById('btn-end-turn').addEventListener('click', () => {
+            gameState.year++;
+
+            gameState.stars.forEach(star => {
+                if (star.owner === gameState.empireName) {
+                    star.iron += star.mines * 8;
+                    star.bora += star.mines * 6;
+                    star.germ += star.mines * 4;
+
+                    if (star.queue.length > 0) {
+                        let item = star.queue[0];
+                        if (item === 'Factory') star.factories++;
+                        else if (item === 'Mine') star.mines++;
+                        star.queue.shift();
+                    }
+
+                    if (star.pop < 1000000) {
+                        star.pop = Math.round(star.pop * (1 + gameState.growthRate * 0.1));
+                    }
+                }
+            });
+
+            gameState.packets.forEach(pkt => {
+                if (pkt.turnsRemaining > 0) {
+                    pkt.turnsRemaining--;
+                    if (pkt.turnsRemaining === 0) {
+                        let dstStar = gameState.stars[pkt.targetStarIndex];
+                        dstStar.iron += pkt.iron;
+                        dstStar.bora += pkt.bora;
+                        dstStar.germ += pkt.germ;
+                        gameState.events.push(`[${gameState.year}] Mineral packet arrived at ${dstStar.name}!`);
+                    }
+                }
+            });
+            gameState.packets = gameState.packets.filter(pkt => pkt.turnsRemaining > 0);
+
+            if (gameState.fleet.waypoints.length > 0) {
+                let wp = gameState.fleet.waypoints[0];
+                let targetStar = gameState.stars[wp.targetStarIndex];
+                let dist = Math.hypot(targetStar.x - gameState.fleet.x, targetStar.y - gameState.fleet.y);
+                let speed = wp.warp * wp.warp * 2;
+                if (dist <= speed) {
+                    gameState.fleet.x = targetStar.x;
+                    gameState.fleet.y = targetStar.y;
+                    gameState.fleet.destinationName = targetStar.name;
+                    targetStar.scouted = true;
+                    gameState.events.push(`[${gameState.year}] Fleet arrived at ${targetStar.name}.`);
+                    
+                    if (wp.action === 'Colonize' && !targetStar.owner && gameState.fleet.colonists >= 10000) {
+                        gameState.fleet.colonists -= 10000;
+                        targetStar.owner = gameState.empireName;
+                        targetStar.pop = 10000;
+                        targetStar.mines = 2;
+                        targetStar.factories = 2;
+                        targetStar.scouted = true;
+                        gameState.events.push(`[${gameState.year}] Automated colonize action established colony at ${targetStar.name}.`);
+                    }
+                    gameState.fleet.waypoints.shift();
+                } else {
+                    let angle = Math.atan2(targetStar.y - gameState.fleet.y, targetStar.x - gameState.fleet.x);
+                    gameState.fleet.x += Math.round(Math.cos(angle) * speed);
+                    gameState.fleet.y += Math.round(Math.sin(angle) * speed);
+                }
+            }
+
+            gameState.aiEmpires.forEach(ai => {
+                ai.score += Math.floor(Math.random() * 50) + 10;
+                gameState.stars.forEach(star => {
+                    if (star.owner === ai.name) {
+                        star.pop += 500;
+                        if (Math.random() < 0.3) star.factories++;
+                        if (Math.random() < 0.3) star.mines++;
+                    }
+                });
+            });
+
+            if (gameState.victoryConditions.elimination) {
+                let aiRemaining = gameState.stars.some(s => s.owner && s.owner !== gameState.empireName);
+                if (!aiRemaining && gameState.aiEmpires.length > 0) {
+                    triggerVictory("All rival AI empires have been eliminated!");
+                }
+            }
+
             updateUI();
             drawGalaxy();
         });
 
-        // Initialize starfield background animation
-        window.onload = () => {
-            resizeBg();
-        };
+        function triggerVictory(message) {
+            document.getElementById('go-message').innerText = message;
+            document.getElementById('game-over-modal').classList.add('active');
+        }
     </script>
 </body>
 </html>
