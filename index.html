@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FreeSpace 4x - Version 0.7.32</title>
+    <title>FreeSpace 4x - Version 0.7.35</title>
     <style>
         body, html {
             margin: 0;
@@ -54,7 +54,7 @@
 
         .title-top-group {
             text-align: center;
-            margin-top: 12vh;
+            margin-top: 15vh;
         }
 
         h1.game-title {
@@ -69,8 +69,8 @@
 
         .version-text {
             color: #da70d6;
-            font-size: 1rem;
-            margin-top: 15px;
+            font-size: 0.95rem;
+            margin-top: 8px;
             font-weight: 500;
         }
 
@@ -426,7 +426,6 @@
     <div id="view-title" class="view active">
         <div class="title-top-group">
             <h1 class="game-title">FreeSpace 4x</h1>
-            <div class="version-text">Version 0.7.32 (Created: September 29, 2026, 12:46 PM)</div>
         </div>
         <div class="title-button-row">
             <button id="btn-new-game" class="classic-btn"><u>N</u>ew Game...</button>
@@ -436,6 +435,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div style="margin-top: 4px;"><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
+            <div class="version-text">Version 0.7.35 (Created: September 29, 2026)</div>
         </div>
     </div>
 
@@ -520,7 +520,7 @@
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: flex-end;">
                 <div class="form-group" style="margin-bottom: 0;">
-                    <button id="btn-open-advanced-setup" class="nav-button" style="background: #251a3a; border-color: #da70d6; color: #da70d6;">⚙️ Advanced Options...</button>
+                    <button id="btn-open-advanced-setup" class="nav-button" style="background: #251a3a; border-color: #da70d6; color: #da70d6;">⚙ Advanced Options...</button>
                 </div>
                 <div class="form-group" style="margin-bottom: 0;">
                     <button id="btn-open-victory-setup" class="nav-button" style="background: #251a3a; border-color: #8a2be2; color: #da70d6;">🏆 Victory Conditions...</button>
@@ -666,12 +666,15 @@
     <div id="view-dashboard" class="view">
         <div class="dash-toolbar">
             <button class="tool-icon" id="btn-queue-item">➕ Queue Mine/Factory</button>
+            <button class="tool-icon" id="btn-scout-system" style="background-color: #1a2a3a; border-color: #00ffff; color: #00ffff;">🔭 Scout & Scan System</button>
+            <button class="tool-icon" id="btn-deploy-scanner" style="background-color: #2a1a3a; border-color: #da70d6; color: #da70d6;">🛰️ Deploy Scanner Buoy</button>
             <button class="tool-icon" id="btn-packet-modal" style="background-color: #2a1a2a; border-color: #da70d6; color: #ffd700;">📦 Launch Mineral Packet</button>
             <button class="tool-icon" id="btn-colonize" style="background-color: #1a3a2a; border-color: #32cd32; color: #32cd32;">🌍 Colonize Planet</button>
             <button class="tool-icon" id="btn-cargo-modal" style="background-color: #2a221a; border-color: #ffa500; color: #ffa500;">📦 Cargo & Transfer</button>
             <button class="tool-icon" id="btn-bombard" style="background-color: #3a1a1a; border-color: #ff4500; color: #ff4500;">🔥 Orbital Bombardment</button>
             <button class="tool-icon" id="btn-invade" style="background-color: #3a2a1a; border-color: #ff8c00; color: #ff8c00;">⚔️ Ground Invasion</button>
-            <button class="tool-icon" id="btn-fleet-roster" style="background-color: #1a2a3a; border-color: #00ffff; color: #00ffff;">🚀 Fleet Roster</button>
+            <button class="tool-icon" id="btn-fleet-movement" style="background-color: #1a2a3a; border-color: #00ffff; color: #00ffff;">🚀 Fleet Movement</button>
+            <button class="tool-icon" id="btn-fleet-roster" style="background-color: #1a2a3a; border-color: #00ffff; color: #00ffff;">📋 Fleet Roster</button>
             <button class="tool-icon" id="btn-open-economy" style="background-color: #3a2a1a; border-color: #ffd700; color: #ffd700;">💰 Economy</button>
             <button class="tool-icon" id="btn-open-research" style="background-color: #251a3a; border-color: #8a2be2; color: #da70d6;">🔬 Research</button>
             <button class="tool-icon" id="btn-open-design">🛠️ Ship Design</button>
@@ -735,7 +738,10 @@
                             <button class="tool-icon" id="btn-waypoint-modal" style="flex: 1; background: #251a3a; border-color: #8a2be2; color: #da70d6;">🗺️ Manage Waypoint Queue</button>
                             <button class="tool-icon" id="btn-lay-mines" style="background: #3a1a1a; border-color: #ff4500; color: #ff4500;">🧨 Lay Minefield</button>
                         </div>
-                        <div id="production-queue-list" style="background: #08080c; border: 1px solid #2a1b3d; padding: 8px; font-size: 11px; color: #aaa; min-height: 85px;">
+                        <div id="active-scouts-list" style="background: #08080c; border: 1px solid #00ffff; padding: 6px; font-size: 11px; color: #00ffff; margin-bottom: 6px; display: none;">
+                            <b>Active Scout Missions:</b> <span id="lbl-active-scouts">None</span>
+                        </div>
+                        <div id="production-queue-list" style="background: #08080c; border: 1px solid #2a1b3d; padding: 8px; font-size: 11px; color: #aaa; min-height: 70px;">
                             -- Queue is Empty ---
                         </div>
                     </div>
@@ -767,6 +773,12 @@
                         <div class="hab-bar-container">
                             <div class="hab-bar-label"><span>Radiation</span> <span id="lbl-rad-val">50</span></div>
                             <div class="hab-bar-track"><div class="hab-bar-fill hab-fill-rad" id="hab-fill-rad"></div></div>
+                        </div>
+
+                        <!-- NEW: Direct Fleet Move Action on Selected System -->
+                        <div id="system-fleet-action-box" style="margin-top: 10px; border-top: 1px solid #332244; padding-top: 8px;">
+                            <div id="system-dist-info" style="font-size: 11px; color: #00ffff; margin-bottom: 6px;">Distance from Fleet: 0 ly (Current)</div>
+                            <button id="btn-move-fleet-to-system" class="tool-icon" style="width: 100%; background: #1a2a3a; border-color: #00ffff; color: #00ffff; text-align: center; padding: 7px;">🚀 Move Fleet Here (0 turns)</button>
                         </div>
                     </div>
                 </div>
@@ -834,6 +846,8 @@
                         <option value="DoNothing">Do Nothing / Orbit</option>
                         <option value="Colonize">Colonize Planet</option>
                         <option value="UnloadCargo">Unload Colonists / Cargo</option>
+                        <option value="ScoutSystem">🔭 Scout & Scan System Intel (Turns)</option>
+                        <option value="DeployScanner">🛰️ Deploy Remote Scanner Buoy</option>
                         <option value="LayMines">Lay Minefield</option>
                         <option value="SweepMines">Sweep Enemy Mines</option>
                     </select>
@@ -866,6 +880,29 @@
                 -- No combat engagement recorded --
             </div>
             <button class="nav-button btn-primary" id="btn-close-combat">Acknowledge Report</button>
+        </div>
+    </div>
+
+    <!-- FLEET MOVEMENT & STATUS MODAL -->
+    <div id="fleet-movement-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 680px;">
+            <h2 class="screen-header">🚀 Fleet Movement & Ship Status</h2>
+            <div style="font-size: 13px; margin-bottom: 15px; color: #ccc;">
+                Inspect your expeditionary fleet's current location, active movement status, and ship assignments.
+            </div>
+            <div style="background: #121019; border: 1px solid #332244; padding: 12px; border-radius: 4px; font-size: 12px; margin-bottom: 15px;">
+                <div style="font-weight: bold; color: #da70d6; margin-bottom: 6px;">Fleet Identification: <span id="fm-fleet-name" style="color: #fff;">Pioneer Fleet #1</span></div>
+                <div>Current Location: <span id="fm-fleet-location" style="color: #32cd32;">Orbiting Homeworld</span></div>
+                <div>Movement Status: <span id="fm-movement-status" style="color: #00ffff;">Stationary / Orbiting</span></div>
+                <div>Coordinates: X: <span id="fm-fleet-x">0</span>, Y: <span id="fm-fleet-y">0</span></div>
+            </div>
+            <div style="font-weight: bold; color: #da70d6; margin-bottom: 6px;">Assigned Ships & Current Activities:</div>
+            <div id="fm-ships-status-list" style="background: #08080c; border: 1px solid #2a1b3d; padding: 10px; border-radius: 4px; font-size: 12px; margin-bottom: 15px; max-height: 200px; overflow-y: auto;">
+                -- No ship status available --
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button class="nav-button" id="btn-close-fleet-movement">Close</button>
+            </div>
         </div>
     </div>
 
@@ -1021,7 +1058,7 @@
     <!-- VICTORY CONDITIONS SETUP MODAL -->
     <div id="victory-setup-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 600px;">
-            <h2 class="screen-header">Configure Game Victory Conditions (v0.7.32)</h2>
+            <h2 class="screen-header">Configure Game Victory Conditions (v0.7.35)</h2>
             <div style="font-size: 13px; margin-bottom: 15px; color: #ccc;">
                 Select active victory conditions and parameters below.
             </div>
@@ -1092,11 +1129,11 @@
     <!-- TUTORIAL MODAL -->
     <div id="tutorial-modal" class="modal-overlay">
         <div class="modal-content">
-            <h2 class="screen-header">FreeSpace 4x Version 0.7.32 Ultimate Guide</h2>
+            <h2 class="screen-header">FreeSpace 4x Version 0.7.35 Ultimate Guide</h2>
             <ul style="font-size: 13px; line-height: 1.5; color: #ccc; padding-left: 20px;">
-                <li><b>Fog of War & Discovery:</b> Rival homeworlds are hidden at game start and must be discovered by exploring the galaxy with your fleet.</li>
-                <li><b>Real Star Systems:</b> Systems are procedurally named after real star systems.</li>
-                <li><b>Toolbar Functionality:</b> All top dashboard buttons and shortcut actions are fully operational.</li>
+                <li><b>Non-Overlapping Star Map:</b> Star systems are procedurally generated with guaranteed minimum separation spacing so they never overlap even when fully zoomed in.</li>
+                <li><b>Direct Fleet Movement:</b> Click any system on the tactical map to view distance and turn travel time, then click <b>Move Fleet Here</b> to dispatch your fleet! Monitor ship status via the <b>Fleet Movement</b> button.</li>
+                <li><b>Turn-Based Scouting & Buoys:</b> Send scout ships or deploy Remote Scanner Buoys to map systems and view population, defense, and ore reserves.</li>
             </ul>
             <button class="nav-button btn-primary" id="btn-close-tutorial" style="margin-top: 15px;">Return to Game</button>
         </div>
@@ -1173,14 +1210,6 @@
                 tech: false,
                 techLevel: 10,
                 techFieldsCount: 6,
-                prodCapEnabled: false,
-                prodCapVal: 5000,
-                capitalShipsEnabled: false,
-                capitalShipsVal: 50,
-                scoreThresholdEnabled: false,
-                scoreThresholdValue: 15000,
-                exceedSecondPlaceEnabled: false,
-                exceedSecondPlacePct: 50,
                 elimination: false,
                 turnLimit: 2500
             },
@@ -1198,19 +1227,27 @@
             ],
             stars: [],
             aiEmpires: [],
+            scannerBuoys: [],
+            scoutMissions: [],
             fleet: { 
                 name: "Pioneer Fleet #1", 
                 x: 0, y: 0, 
                 waypoints: [], 
                 destinationName: "Homeworld",
+                isMoving: false,
+                targetX: 0,
+                targetY: 0,
+                targetName: "",
+                turnsRemaining: 0,
+                totalTurns: 0,
                 fuel: 600,
                 maxFuel: 600,
                 mass: 55,
                 colonists: 10000,
                 iron: 0, bora: 0, germ: 0,
                 ships: [
-                    { name: "Explorer Mk II", count: 2 },
-                    { name: "Strikemaster Mk IV", count: 2 }
+                    { name: "Explorer Mk II", count: 2, activity: "Patrolling / Scouting" },
+                    { name: "Strikemaster Mk IV", count: 2, activity: "Combat Escort Ready" }
                 ]
             },
             packets: [], 
@@ -1362,7 +1399,6 @@
             else if (gameState.starDensity === 'packed') densityDivisor = 2100;
 
             let starCount = Math.max(10, Math.round(area / densityDivisor));
-
             let shuffledStarNames = [...realStarSystems].sort(() => Math.random() - 0.5);
             
             let baseName = gameState.empireName.split(' ')[0] || "Empire";
@@ -1432,19 +1468,33 @@
                 }
             }
 
+            // Minimum separation distance between stars to prevent any overlapping on star map when zoomed in
+            const minStarSeparation = 35;
+
             for (let i = 1; i < starCount; i++) {
-                let x, y;
-                if (gameState.advancedOptions.galaxyClumping && clusterCenters.length > 0) {
-                    let cluster = clusterCenters[Math.floor(Math.random() * clusterCenters.length)];
-                    let angle = Math.random() * Math.PI * 2;
-                    let dist = Math.random() * (spread * 0.18);
-                    x = Math.round(cluster.x + Math.cos(angle) * dist);
-                    y = Math.round(cluster.y + Math.sin(angle) * dist);
-                } else {
-                    let angle = Math.random() * Math.PI * 2;
-                    let dist = Math.random() * (spread * 0.5);
-                    x = Math.round(Math.cos(angle) * dist);
-                    y = Math.round(Math.sin(angle) * dist);
+                let x, y, valid = false, attempts = 0;
+                while (!valid && attempts < 200) {
+                    attempts++;
+                    if (gameState.advancedOptions.galaxyClumping && clusterCenters.length > 0) {
+                        let cluster = clusterCenters[Math.floor(Math.random() * clusterCenters.length)];
+                        let angle = Math.random() * Math.PI * 2;
+                        let dist = Math.random() * (spread * 0.18);
+                        x = Math.round(cluster.x + Math.cos(angle) * dist);
+                        y = Math.round(cluster.y + Math.sin(angle) * dist);
+                    } else {
+                        let angle = Math.random() * Math.PI * 2;
+                        let dist = Math.random() * (spread * 0.5);
+                        x = Math.round(Math.cos(angle) * dist);
+                        y = Math.round(Math.sin(angle) * dist);
+                    }
+
+                    valid = true;
+                    for (let existing of generatedStars) {
+                        if (Math.hypot(existing.x - x, existing.y - y) < minStarSeparation) {
+                            valid = false;
+                            break;
+                        }
+                    }
                 }
 
                 let starName = shuffledStarNames[(i - 1) % shuffledStarNames.length] + (i > shuffledStarNames.length ? ` ${Math.floor(i / shuffledStarNames.length) + 1}` : '');
@@ -1477,8 +1527,11 @@
             gameState.fleet.x = homeX;
             gameState.fleet.y = homeY;
             gameState.fleet.destinationName = homeStarName;
+            gameState.fleet.isMoving = false;
+            gameState.scannerBuoys = [];
+            gameState.scoutMissions = [];
 
-            // Setup AI Rivals from customized configuration
+            // Setup AI Rivals
             gameState.aiEmpires = [];
             if (gameState.aiEmpiresEnabled && gameState.aiOpponentCount > 0) {
                 const actualRaces = ["humanoid", "robotoids", "turindines", "automitons", "rototills", "cybertrons"];
@@ -1534,7 +1587,7 @@
                         star.mines = ai.difficulty === 'hard' ? 8 : 6;
                         star.factories = ai.difficulty === 'hard' ? 7 : 5;
                         star.massDriver = ai.difficulty === 'hard' ? 3 : 2;
-                        star.scouted = false; // Rival homeworlds must be discovered!
+                        star.scouted = false;
                         ai.capitalIndex = closestStarIdx;
                     }
                 });
@@ -1556,31 +1609,130 @@
             gameState.stars.forEach(star => {
                 if (star.owner === gameState.empireName) {
                     star.scouted = true;
-                } else if (star.owner) {
-                    // Rival/AI owned stars remain unscouted unless fleet is physically at the star
-                    let distToFleet = Math.hypot(star.x - gameState.fleet.x, star.y - gameState.fleet.y);
-                    if (distToFleet <= 15) {
-                        star.scouted = true;
-                    }
                 } else {
                     let distToFleet = Math.hypot(star.x - gameState.fleet.x, star.y - gameState.fleet.y);
+                    if (distToFleet <= 15) star.scouted = true;
                     if (distToFleet <= scanRadius) star.scouted = true;
+
                     gameState.stars.forEach(ownedStar => {
                         if (ownedStar.owner === gameState.empireName) {
                             let distToOwned = Math.hypot(star.x - ownedStar.x, star.y - ownedStar.y);
                             if (distToOwned <= scanRadius) star.scouted = true;
                         }
                     });
+
+                    gameState.scannerBuoys.forEach(buoy => {
+                        let distBuoy = Math.hypot(star.x - buoy.x, star.y - buoy.y);
+                        if (distBuoy <= buoy.range) star.scouted = true;
+                    });
                 }
             });
             document.getElementById('val-scanner-range').innerText = scanRadius;
+        }
+
+        function scoutSelectedSystem() {
+            const star = gameState.stars[gameState.selectedStarIndex];
+            if (star.scouted) {
+                alert(`System "${star.name}" has already been scouted and surveyed.`);
+                return;
+            }
+            let existingMission = gameState.scoutMissions.find(sm => sm.targetStarIndex === gameState.selectedStarIndex);
+            if (existingMission) {
+                alert(`Scout ships are already en route to survey ${star.name}. ETA: ${existingMission.turnsRemaining} turns.`);
+                return;
+            }
+
+            let dist = Math.hypot(gameState.fleet.x - star.x, gameState.fleet.y - star.y);
+            let warpSpeed = 7;
+            let turns = Math.max(1, Math.ceil(dist / (warpSpeed * warpSpeed * 0.15)));
+
+            gameState.scoutMissions.push({
+                targetStarIndex: gameState.selectedStarIndex,
+                targetName: star.name,
+                startX: gameState.fleet.x,
+                startY: gameState.fleet.y,
+                targetX: star.x,
+                targetY: star.y,
+                turnsRemaining: turns,
+                totalTurns: turns
+            });
+
+            let msg = `[${gameState.year}] Dispatched scout ships toward ${star.name} (Distance: ${Math.round(dist)} ly, ETA: ${turns} turns).`;
+            gameState.events.unshift(msg);
+            if (gameState.events.length > 30) gameState.events.pop();
+            renderEventLog();
+            updateUI();
+            drawGalaxy();
+            alert(`🔭 Scout Mission Dispatched!\n\nScout ships have been sent from the fleet to survey ${star.name}.\nDistance: ${Math.round(dist)} ly\nEstimated Time: ${turns} turns to report back.`);
+        }
+
+        function deployScannerBuoy() {
+            const star = gameState.stars[gameState.selectedStarIndex];
+            let dist = Math.hypot(gameState.fleet.x - star.x, gameState.fleet.y - star.y);
+            if (dist > 15) {
+                alert("Fleet must be orbiting or located at the target star system to deploy a Remote Scanner Buoy.");
+                return;
+            }
+            let buoyRange = 250 + (gameState.tech.electronics * 50);
+            gameState.scannerBuoys.push({ x: star.x, y: star.y, range: buoyRange, name: `${star.name} Buoy` });
+            star.scouted = true;
+            let msg = `[${gameState.year}] Deployed Remote Scanner Buoy at ${star.name} (Sensor Range: ${buoyRange}ly).`;
+            gameState.events.unshift(msg);
+            renderEventLog();
+            updateUI();
+            drawGalaxy();
+            alert(`🛰 Remote Scanner Buoy deployed successfully at ${star.name}! Sensor coverage radius: ${buoyRange}ly.`);
+        }
+
+        // --- DIRECT FLEET MOVEMENT TO SELECTED SYSTEM ---
+        function moveFleetToSelectedSystem() {
+            const star = gameState.stars[gameState.selectedStarIndex];
+            if (gameState.fleet.isMoving) {
+                alert(`Fleet is already en route to ${gameState.fleet.targetName}. Please wait for arrival or complete current journey.`);
+                return;
+            }
+            let dist = Math.hypot(gameState.fleet.x - star.x, gameState.fleet.y - star.y);
+            if (dist < 2) {
+                alert(`Fleet is already located at ${star.name}.`);
+                return;
+            }
+
+            let warpSpeed = 7;
+            let turns = Math.max(1, Math.ceil(dist / (warpSpeed * warpSpeed * 0.15)));
+
+            gameState.fleet.isMoving = true;
+            gameState.fleet.startX = gameState.fleet.x;
+            gameState.fleet.startY = gameState.fleet.y;
+            gameState.fleet.targetX = star.x;
+            gameState.fleet.targetY = star.y;
+            gameState.fleet.targetName = star.name;
+            gameState.fleet.turnsRemaining = turns;
+            gameState.fleet.totalTurns = turns;
+
+            // Update ship activities
+            gameState.fleet.ships.forEach(s => {
+                s.activity = `Warp transit to ${star.name} (${turns} turns)`;
+            });
+
+            let msg = `[${gameState.year}] Fleet ${gameState.fleet.name} ordered to depart for ${star.name} (Distance: ${Math.round(dist)} ly, ETA: ${turns} turns).`;
+            gameState.events.unshift(msg);
+            if (gameState.events.length > 30) gameState.events.pop();
+            renderEventLog();
+            updateUI();
+            drawGalaxy();
+            alert(`🚀 Fleet Movement Dispatched!\n\nFleet is now underway toward ${star.name}.\nDistance: ${Math.round(dist)} ly\nTransit Time: ${turns} turns. You must wait ${turns} turns for arrival.`);
+        }
+
+        function renderEventLog() {
+            const logBox = document.getElementById('event-log-box');
+            logBox.innerHTML = gameState.events.map(ev => `<div>${ev}</div>`).join('');
         }
 
         function downloadSaveFile() {
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(gameState, null, 2));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `freespace_4x_v0.7.32_year_${gameState.year}.json`);
+            downloadAnchor.setAttribute("download", `freespace_4x_v0.7.35_year_${gameState.year}.json`);
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
@@ -1593,7 +1745,10 @@
                 fileReader.onload = event => {
                     try {
                         gameState = JSON.parse(event.target.result);
+                        if (!gameState.scoutMissions) gameState.scoutMissions = [];
+                        if (gameState.fleet.isMoving === undefined) gameState.fleet.isMoving = false;
                         updateUI();
+                        renderEventLog();
                         switchView('view-dashboard');
                         alert("Save file loaded successfully!");
                     } catch (error) {
@@ -1631,160 +1786,97 @@
         function drawGalaxy() {
             gCtx.fillStyle = '#050508';
             gCtx.fillRect(0, 0, galaxyCanvas.width, galaxyCanvas.height);
+
             gCtx.save();
             gCtx.translate(galaxyCanvas.width / 2 + mapPanX, galaxyCanvas.height / 2 + mapPanY);
             gCtx.scale(mapZoom, mapZoom);
 
-            let scanRadius = 130 + (gameState.tech.electronics * 35);
-
-            gameState.stars.forEach(star => {
-                if (star.owner === gameState.empireName) {
-                    const rc = getStarRenderCoord(star);
-                    gCtx.strokeStyle = 'rgba(65, 105, 225, 0.2)';
-                    gCtx.lineWidth = 1;
-                    gCtx.beginPath();
-                    gCtx.arc(rc.x, rc.y, scanRadius, 0, Math.PI * 2);
-                    gCtx.stroke();
-                }
-            });
-
-            gameState.minefields.forEach(mf => {
-                gCtx.strokeStyle = 'rgba(255, 69, 0, 0.5)';
-                gCtx.lineWidth = 1;
-                gCtx.setLineDash([3, 3]);
+            // Draw Scanner Buoy Ranges
+            gameState.scannerBuoys.forEach(buoy => {
                 gCtx.beginPath();
-                gCtx.arc(mf.x, mf.y, 35, 0, Math.PI * 2);
+                gCtx.arc(buoy.x, buoy.y, buoy.range, 0, Math.PI * 2);
+                gCtx.fillStyle = 'rgba(138, 43, 226, 0.04)';
+                gCtx.fill();
+                gCtx.strokeStyle = 'rgba(138, 43, 226, 0.25)';
+                gCtx.lineWidth = 1 / mapZoom;
                 gCtx.stroke();
-                gCtx.setLineDash([]);
             });
 
-            gameState.packets.forEach(pkt => {
-                const srcStar = gameState.stars[pkt.sourceStarIndex];
-                const dstStar = gameState.stars[pkt.targetStarIndex];
-                if (srcStar && dstStar) {
-                    const src = getStarRenderCoord(srcStar);
-                    const dst = getStarRenderCoord(dstStar);
-                    gCtx.strokeStyle = 'rgba(255, 215, 0, 0.7)';
-                    gCtx.lineWidth = 1;
-                    gCtx.setLineDash([2, 6]);
-                    gCtx.beginPath();
-                    gCtx.moveTo(src.x, src.y);
-                    gCtx.lineTo(dst.x, dst.y);
-                    gCtx.stroke();
-                    gCtx.setLineDash([]);
-
-                    let progress = 1 - (pkt.turnsRemaining / pkt.totalTurns);
-                    let curX = src.x + (dst.x - src.x) * progress;
-                    let curY = src.y + (dst.y - src.y) * progress;
-                    gCtx.fillStyle = '#ffd700';
-                    gCtx.beginPath();
-                    gCtx.arc(curX, curY, 3, 0, Math.PI * 2);
-                    gCtx.fill();
-                }
-            });
-
-            if (gameState.fleet.waypoints.length > 0) {
-                gCtx.strokeStyle = 'rgba(181, 21, 181, 0.7)';
-                gCtx.lineWidth = 1.5;
-                gCtx.setLineDash([4, 4]);
-                gCtx.beginPath();
-                gCtx.moveTo(gameState.fleet.x, gameState.fleet.y);
-                gameState.fleet.waypoints.forEach(wp => {
-                    const st = getStarRenderCoord(gameState.stars[wp.targetStarIndex]);
-                    gCtx.lineTo(st.x, st.y);
-                });
-                gCtx.stroke();
-                gCtx.setLineDash([]);
-            }
-
+            // Draw Star Systems
             gameState.stars.forEach((star, index) => {
                 const rc = getStarRenderCoord(star);
-                const isSelected = (index === gameState.selectedStarIndex);
+                let isSelected = (index === gameState.selectedStarIndex);
+                let radius = isSelected ? 7 : 4.5;
+
+                gCtx.beginPath();
+                gCtx.arc(rc.x, rc.y, radius, 0, Math.PI * 2);
+                if (star.owner === gameState.empireName) {
+                    gCtx.fillStyle = '#32cd32';
+                } else if (star.owner) {
+                    gCtx.fillStyle = '#ff4500';
+                } else if (star.scouted) {
+                    gCtx.fillStyle = '#00ffff';
+                } else {
+                    gCtx.fillStyle = '#555577';
+                }
+                gCtx.fill();
+
                 if (isSelected) {
-                    gCtx.strokeStyle = '#b515b5';
-                    gCtx.lineWidth = 2;
-                    gCtx.beginPath();
-                    gCtx.arc(rc.x, rc.y, 14, 0, Math.PI * 2);
+                    gCtx.strokeStyle = '#ffff00';
+                    gCtx.lineWidth = 2 / mapZoom;
                     gCtx.stroke();
                 }
 
-                let starColor = '#4169e1';
-                if (!star.scouted) starColor = '#555566';
-                else if (star.owner === gameState.empireName) starColor = '#32cd32';
-                else if (star.owner) starColor = '#ff4500';
-
-                gCtx.fillStyle = starColor;
-                gCtx.beginPath();
-                gCtx.arc(rc.x, rc.y, 5, 0, Math.PI * 2);
-                gCtx.fill();
-
-                gCtx.fillStyle = star.scouted ? '#b0a0c0' : '#666677';
-                gCtx.font = '11px Segoe UI';
-                gCtx.fillText(star.scouted ? star.name : "Unexplored", rc.x + 8, rc.y + 4);
+                // Render star names clearly without overlapping clutter
+                if (mapZoom > 0.6 || isSelected || star.owner === gameState.empireName) {
+                    gCtx.fillStyle = isSelected ? '#ffffff' : '#aaaaaa';
+                    gCtx.font = `${Math.max(9, 10 / mapZoom)}px 'Segoe UI', sans-serif`;
+                    gCtx.fillText(star.name, rc.x + 7, rc.y + 3);
+                }
             });
 
-            gCtx.fillStyle = '#da70d6';
+            // Draw Fleet position
+            let fleetRenderCoord = { x: gameState.fleet.x, y: gameState.fleet.y };
+            if (mapZoom > 1.0) {
+                let spreadFactor = 1.0 + (mapZoom - 1.0) * 0.35;
+                fleetRenderCoord.x *= spreadFactor;
+                fleetRenderCoord.y *= spreadFactor;
+            }
+
             gCtx.beginPath();
-            gCtx.arc(gameState.fleet.x, gameState.fleet.y, 4, 0, Math.PI * 2);
+            gCtx.arc(fleetRenderCoord.x, fleetRenderCoord.y, 6, 0, Math.PI * 2);
+            gCtx.fillStyle = '#da70d6';
             gCtx.fill();
+            gCtx.strokeStyle = '#ffffff';
+            gCtx.lineWidth = 1.5 / mapZoom;
+            gCtx.stroke();
+
+            gCtx.fillStyle = '#da70d6';
+            gCtx.font = `bold ${Math.max(10, 11 / mapZoom)}px 'Segoe UI', sans-serif`;
+            gCtx.fillText(`🚀 ${gameState.fleet.name}`, fleetRenderCoord.x + 9, fleetRenderCoord.y - 4);
 
             gCtx.restore();
         }
 
-        galaxyCanvas.addEventListener('pointerdown', e => { isDragging = true; startX = e.clientX - mapPanX; startY = e.clientY - mapPanY; });
-        window.addEventListener('pointermove', e => { if (!isDragging) return; mapPanX = e.clientX - startX; mapPanY = e.clientY - startY; drawGalaxy(); });
-        window.addEventListener('pointerup', () => isDragging = false);
+        window.addEventListener('resize', resizeGalaxyCanvas);
 
-        galaxyCanvas.addEventListener('touchstart', e => {
-            if (e.touches.length === 2) {
-                initialPinchDistance = Math.hypot(
-                    e.touches[0].clientX - e.touches[1].clientX,
-                    e.touches[0].clientY - e.touches[1].clientY
-                );
-                initialZoom = mapZoom;
-                isDragging = false;
-            }
-        }, { passive: false });
-
-        galaxyCanvas.addEventListener('touchmove', e => {
-            if (e.touches.length === 2 && initialPinchDistance !== null) {
-                e.preventDefault();
-                let currentDist = Math.hypot(
-                    e.touches[0].clientX - e.touches[1].clientX,
-                    e.touches[0].clientY - e.touches[1].clientY
-                );
-                let factor = currentDist / initialPinchDistance;
-                mapZoom = Math.max(0.2, Math.min(5.0, initialZoom * factor));
-                drawGalaxy();
-            }
-        }, { passive: false });
-
-        galaxyCanvas.addEventListener('touchend', e => {
-            if (e.touches.length < 2) {
-                initialPinchDistance = null;
-            }
+        galaxyCanvas.addEventListener('mousedown', e => {
+            isDragging = true;
+            startX = e.clientX - mapPanX;
+            startY = e.clientY - mapPanY;
         });
+        window.addEventListener('mousemove', e => {
+            if (!isDragging) return;
+            mapPanX = e.clientX - startX;
+            mapPanY = e.clientY - startY;
+            drawGalaxy();
+        });
+        window.addEventListener('mouseup', () => { isDragging = false; });
 
         galaxyCanvas.addEventListener('wheel', e => {
             e.preventDefault();
-            const zoomFactor = 1.1;
-            const rect = galaxyCanvas.getBoundingClientRect();
-            const mouseX = e.clientX - rect.left;
-            const mouseY = e.clientY - rect.top;
-
-            const worldX = (mouseX - (galaxyCanvas.width / 2 + mapPanX)) / mapZoom;
-            const worldY = (mouseY - (galaxyCanvas.height / 2 + mapPanY)) / mapZoom;
-
-            if (e.deltaY < 0) {
-                mapZoom *= zoomFactor;
-            } else {
-                mapZoom /= zoomFactor;
-            }
-            mapZoom = Math.max(0.2, Math.min(5.0, mapZoom));
-
-            mapPanX = mouseX - (galaxyCanvas.width / 2) - worldX * mapZoom;
-            mapPanY = mouseY - (galaxyCanvas.height / 2) - worldY * mapZoom;
-
+            let zoomFactor = e.deltaY < 0 ? 1.15 : 0.88;
+            mapZoom = Math.max(0.3, Math.min(4.0, mapZoom * zoomFactor));
             drawGalaxy();
         }, { passive: false });
 
@@ -1793,7 +1885,7 @@
             const worldX = (e.clientX - rect.left - (galaxyCanvas.width / 2 + mapPanX)) / mapZoom;
             const worldY = (e.clientY - rect.top - (galaxyCanvas.height / 2 + mapPanY)) / mapZoom;
 
-            let closest = -1, minDist = 35;
+            let closest = -1, minDist = 40;
             gameState.stars.forEach((star, i) => {
                 const rc = getStarRenderCoord(star);
                 let dist = Math.hypot(rc.x - worldX, rc.y - worldY);
@@ -1807,112 +1899,108 @@
             }
         });
 
-        function updateUI() {
-            updateScannerVisibility();
-            const star = gameState.stars[gameState.selectedStarIndex];
-            
-            document.getElementById('header-planet-name').innerText = star.scouted ? star.name : "Unexplored System";
-            document.getElementById('summary-panel-title').innerText = star.scouted ? `${star.name} Summary` : "Unexplored Object";
-            
-            if (star.scouted) {
-                document.getElementById('val-iron').innerText = `${star.iron}kT`;
-                document.getElementById('val-bora').innerText = `${star.bora}kT`;
-                document.getElementById('val-germ').innerText = `${star.germ}kT`;
-                document.getElementById('conc-iron').innerText = star.feConc;
-                document.getElementById('conc-bora').innerText = star.boConc;
-                document.getElementById('conc-germ').innerText = star.geConc;
-            } else {
-                document.getElementById('val-iron').innerText = "???";
-                document.getElementById('val-bora').innerText = "???";
-                document.getElementById('val-germ').innerText = "???";
-            }
-
-            document.getElementById('val-mines').innerText = star.mines || 0;
-            document.getElementById('val-factories').innerText = star.factories || 0;
-            document.getElementById('val-md-level').innerText = star.massDriver || 1;
-            document.getElementById('summary-pop').innerText = star.pop.toLocaleString();
-            
-            const ownerEl = document.getElementById('summary-owner');
-            ownerEl.innerText = star.owner ? (star.scouted ? star.owner : "Controlled (Unexplored)") : (star.scouted ? "Unowned" : "Unscouted");
-            ownerEl.style.color = star.owner === gameState.empireName ? "#32cd32" : (star.owner && star.scouted ? "#ff4500" : "#888");
-
-            document.getElementById('lbl-year').innerText = gameState.year;
-            document.getElementById('lbl-empire-display').innerText = `${gameState.empireName} [${gameState.prt}]`;
-            
-            document.getElementById('val-fleet-fuel').innerText = `${gameState.fleet.fuel}mg`;
-            document.getElementById('val-fleet-col').innerText = gameState.fleet.colonists.toLocaleString();
-            document.getElementById('val-fleet-iron').innerText = `${gameState.fleet.iron}kT`;
-
-            let habScore = calculateHabitability(star, gameState.preferences);
-            document.getElementById('summary-hab-score').innerText = star.scouted ? `${habScore}%` : "???";
-            document.getElementById('lbl-grav-val').innerText = star.scouted ? star.grav : "??";
-            document.getElementById('lbl-temp-val').innerText = star.scouted ? star.temp : "??";
-            document.getElementById('lbl-rad-val').innerText = star.scouted ? star.rad : "??";
-
-            document.getElementById('hab-fill-grav').style.width = star.scouted ? `${Math.max(5, Math.abs(100 - Math.abs(star.grav - gameState.preferences.grav) * 2.2))}%` : "0%";
-            document.getElementById('hab-fill-temp').style.width = star.scouted ? `${Math.max(5, Math.abs(100 - Math.abs(star.temp - gameState.preferences.temp) * 2.2))}%` : "0%";
-            document.getElementById('hab-fill-rad').style.width = star.scouted ? `${Math.max(5, Math.abs(100 - Math.abs(star.rad - gameState.preferences.rad) * 2.2))}%` : "0%";
-
-            document.getElementById('tech-energy').innerText = gameState.tech.energy;
-            document.getElementById('tech-weapons').innerText = gameState.tech.weapons;
-            document.getElementById('tech-propulsion').innerText = gameState.tech.propulsion;
-            document.getElementById('tech-construction').innerText = gameState.tech.construction;
-            document.getElementById('tech-electronics').innerText = gameState.tech.electronics;
-            document.getElementById('tech-biotechnology').innerText = gameState.tech.biotechnology;
-            document.getElementById('research-focus').value = gameState.researchFocus;
-
-            let totalFactories = gameState.stars.reduce((acc, s) => acc + (s.owner === gameState.empireName ? s.factories : 0), 0);
-            let totalMines = gameState.stars.reduce((acc, s) => acc + (s.owner === gameState.empireName ? s.mines : 0), 0);
-            document.getElementById('val-total-factories').innerText = totalFactories;
-            document.getElementById('val-total-mines').innerText = totalMines;
-            document.getElementById('val-annual-income').innerText = `${totalFactories * 14} Resources`;
-
-            const queueList = document.getElementById('production-queue-list');
-            if (star.queue.length === 0) {
-                queueList.innerHTML = '<span style="color: #777; font-style: italic;">-- Queue is Empty ---</span>';
-            } else {
-                queueList.innerHTML = star.queue.map(item => `<div>• Building: ${item}</div>`).join('');
-            }
-        }
-
         function switchView(viewId) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
             if (viewId === 'view-dashboard') {
-                setTimeout(() => {
-                    resizeGalaxyCanvas();
-                    drawGalaxy();
-                    updateUI();
-                }, 50);
+                setTimeout(resizeGalaxyCanvas, 50);
             }
         }
 
-        // --- BUTTON EVENT LISTENERS WIRING ---
         document.getElementById('btn-new-game').addEventListener('click', () => switchView('view-race-setup'));
-        document.getElementById('btn-open-game').addEventListener('click', () => document.getElementById('import-file-input').click());
-        document.getElementById('btn-continue-game').addEventListener('click', () => {
-            if (gameState.stars.length > 0) {
-                switchView('view-dashboard');
-            } else {
-                generateGalaxy();
-                switchView('view-dashboard');
-            }
-        });
-
         document.querySelectorAll('.btn-back-title').forEach(btn => btn.addEventListener('click', () => switchView('view-title')));
+
         document.getElementById('btn-launch-sp').addEventListener('click', () => {
             gameState.empireName = document.getElementById('sp-empire-name').value || "Human Directorate";
-            applyRaceSetup(document.getElementById('sp-race').value);
             gameState.mapSize = document.getElementById('sp-map-size').value;
             gameState.starDensity = document.getElementById('sp-density').value;
             gameState.playerPosition = document.getElementById('sp-player-position').value;
             gameState.aiOpponentCount = parseInt(document.getElementById('sp-ai-count').value);
+            applyRaceSetup(document.getElementById('sp-race').value);
             generateGalaxy();
+            updateUI();
             switchView('view-dashboard');
         });
 
-        document.getElementById('btn-open-advanced-setup').addEventListener('click', () => document.getElementById('advanced-setup-modal').classList.add('active'));
-        document.getElementById('btn-close-advanced').addEventListener('click', () => document.getElementById('advanced-setup-modal').classList.remove('active'));
+        document.getElementById('btn-continue-game').addEventListener('click', () => {
+            switchView('view-dashboard');
+            updateUI();
+        });
+
+        document.getElementById('btn-open-game').addEventListener('click', () => document.getElementById('import-file-input').click());
+        document.getElementById('btn-load-game-dash').addEventListener('click', () => document.getElementById('import-file-input').click());
+        document.getElementById('btn-save-game').addEventListener('click', downloadSaveFile);
+
+        // --- MODAL CONTROLS ---
+        const modals = {
+            research: document.getElementById('view-research'),
+            economy: document.getElementById('view-economy'),
+            design: document.getElementById('view-ship-design'),
+            packet: document.getElementById('packet-modal'),
+            waypoint: document.getElementById('waypoint-modal'),
+            combat: document.getElementById('combat-modal'),
+            fleetMovement: document.getElementById('fleet-movement-modal'),
+            fleetRoster: document.getElementById('fleet-roster-modal'),
+            scoreboard: document.getElementById('scoreboard-modal'),
+            cargo: document.getElementById('cargo-modal'),
+            advanced: document.getElementById('advanced-setup-modal'),
+            victory: document.getElementById('victory-setup-modal'),
+            gameOver: document.getElementById('game-over-modal'),
+            tutorial: document.getElementById('tutorial-modal')
+        };
+
+        function closeModal(modalEl) {
+            if (modalEl.classList.contains('view')) {
+                switchView('view-dashboard');
+            } else {
+                modalEl.classList.remove('active');
+            }
+        }
+
+        document.getElementById('btn-open-research').addEventListener('click', () => switchView('view-research'));
+        document.getElementById('btn-close-research').addEventListener('click', () => switchView('view-dashboard'));
+        document.getElementById('btn-open-economy').addEventListener('click', () => switchView('view-economy'));
+        document.getElementById('btn-close-economy').addEventListener('click', () => switchView('view-dashboard'));
+        document.getElementById('btn-open-design').addEventListener('click', () => switchView('view-ship-design'));
+        document.getElementById('btn-close-design').addEventListener('click', () => switchView('view-dashboard'));
+
+        document.getElementById('btn-packet-modal').addEventListener('click', () => {
+            populatePacketTargets();
+            modals.packet.classList.add('active');
+        });
+        document.getElementById('btn-close-packet').addEventListener('click', () => modals.packet.classList.remove('active'));
+
+        document.getElementById('btn-waypoint-modal').addEventListener('click', () => {
+            populateWaypointTargets();
+            modals.waypoint.classList.add('active');
+        });
+        document.getElementById('btn-close-waypoint').addEventListener('click', () => modals.waypoint.classList.remove('active'));
+
+        document.getElementById('btn-fleet-movement').addEventListener('click', () => {
+            updateFleetMovementModal();
+            modals.fleetMovement.classList.add('active');
+        });
+        document.getElementById('btn-close-fleet-movement').addEventListener('click', () => modals.fleetMovement.classList.remove('active'));
+
+        document.getElementById('btn-fleet-roster').addEventListener('click', () => {
+            updateFleetRosterModal();
+            modals.fleetRoster.classList.add('active');
+        });
+        document.getElementById('btn-close-fleet-roster').addEventListener('click', () => modals.fleetRoster.classList.remove('active'));
+
+        document.getElementById('btn-cargo-modal').addEventListener('click', () => {
+            updateCargoModal();
+            modals.cargo.classList.add('active');
+        });
+        document.getElementById('btn-close-cargo').addEventListener('click', () => modals.cargo.classList.remove('active'));
+
+        document.getElementById('btn-scoreboard').addEventListener('click', () => {
+            updateScoreboardModal();
+            modals.scoreboard.classList.add('active');
+        });
+        document.getElementById('btn-close-scoreboard').addEventListener('click', () => modals.scoreboard.classList.remove('active'));
+
+        document.getElementById('btn-open-advanced-setup').addEventListener('click', () => modals.advanced.classList.add('active'));
         document.getElementById('btn-save-advanced').addEventListener('click', () => {
             gameState.advancedOptions.beginnerMinerals = document.getElementById('adv-beginner-minerals').checked;
             gameState.advancedOptions.slowerTech = document.getElementById('adv-slower-tech').checked;
@@ -1921,439 +2009,325 @@
             gameState.advancedOptions.galaxyClumping = document.getElementById('adv-galaxy-clumping').checked;
             gameState.advancedOptions.aiAlliances = document.getElementById('adv-ai-alliances').checked;
             gameState.advancedOptions.publicScores = document.getElementById('adv-public-scores').checked;
-            document.getElementById('advanced-setup-modal').classList.remove('active');
+            modals.advanced.classList.remove('active');
         });
+        document.getElementById('btn-close-advanced').addEventListener('click', () => modals.advanced.classList.remove('active'));
 
-        document.getElementById('btn-open-victory-setup').addEventListener('click', () => document.getElementById('victory-setup-modal').classList.add('active'));
-        document.getElementById('btn-close-victory').addEventListener('click', () => document.getElementById('victory-setup-modal').classList.remove('active'));
+        document.getElementById('btn-open-victory-setup').addEventListener('click', () => modals.victory.classList.add('active'));
         document.getElementById('btn-save-victory').addEventListener('click', () => {
             gameState.victoryConditions.domination = document.getElementById('vc-domination').checked;
             gameState.victoryConditions.dominationPct = parseInt(document.getElementById('vc-domination-pct').value);
             gameState.victoryConditions.tech = document.getElementById('vc-tech').checked;
             gameState.victoryConditions.techLevel = parseInt(document.getElementById('vc-tech-level').value);
-            gameState.victoryConditions.techFieldsCount = parseInt(document.getElementById('vc-tech-fields').value);
             gameState.victoryConditions.scoreLimit = document.getElementById('vc-score').checked;
             gameState.victoryConditions.elimination = document.getElementById('vc-elimination').checked;
             gameState.victoryConditions.turnLimit = parseInt(document.getElementById('vc-turn-limit').value);
-            gameState.victoryConditions.requiredCount = parseInt(document.getElementById('vc-required-count').value);
-            document.getElementById('victory-setup-modal').classList.remove('active');
+            modals.victory.classList.remove('active');
+        });
+        document.getElementById('btn-close-victory').addEventListener('click', () => modals.victory.classList.remove('active'));
+
+        document.getElementById('btn-help').addEventListener('click', () => modals.tutorial.classList.add('active'));
+        document.getElementById('btn-close-tutorial').addEventListener('click', () => modals.tutorial.classList.remove('active'));
+        document.getElementById('btn-close-combat').addEventListener('click', () => modals.combat.classList.remove('active'));
+        document.getElementById('btn-return-title').addEventListener('click', () => {
+            modals.gameOver.classList.remove('active');
+            switchView('view-title');
         });
 
-        document.getElementById('btn-open-research').addEventListener('click', () => switchView('view-research'));
-        document.getElementById('btn-close-research').addEventListener('click', () => switchView('view-dashboard'));
-        document.getElementById('research-focus').addEventListener('change', (e) => { gameState.researchFocus = e.target.value; });
+        // --- DASHBOARD ACTIONS ---
+        document.getElementById('btn-scout-system').addEventListener('click', scoutSelectedSystem);
+        document.getElementById('btn-deploy-scanner').addEventListener('click', deployScannerBuoy);
+        document.getElementById('btn-move-fleet-to-system').addEventListener('click', moveFleetToSelectedSystem);
 
-        document.getElementById('btn-open-economy').addEventListener('click', () => switchView('view-economy'));
-        document.getElementById('btn-close-economy').addEventListener('click', () => switchView('view-dashboard'));
-        document.getElementById('slider-budget-research').addEventListener('input', (e) => {
-            let val = parseInt(e.target.value);
-            document.getElementById('slider-budget-manufacturing').value = 100 - val;
-            document.getElementById('lbl-budget-research').innerText = val;
-            document.getElementById('lbl-budget-manufacturing').innerText = 100 - val;
-        });
-        document.getElementById('slider-budget-manufacturing').addEventListener('input', (e) => {
-            let val = parseInt(e.target.value);
-            document.getElementById('slider-budget-research').value = 100 - val;
-            document.getElementById('lbl-budget-manufacturing').innerText = val;
-            document.getElementById('lbl-budget-research').innerText = 100 - val;
-        });
-        document.getElementById('btn-save-economy').addEventListener('click', () => {
-            gameState.budget.research = parseInt(document.getElementById('slider-budget-research').value);
-            gameState.budget.manufacturing = parseInt(document.getElementById('slider-budget-manufacturing').value);
-            switchView('view-dashboard');
-        });
+        document.getElementById('btn-colonize').addEventListener('click', () => {
+            const star = gameState.stars[gameState.selectedStarIndex];
+            if (star.owner) {
+                alert("Star system is already colonized or claimed.");
+                return;
+            }
+            if (gameState.fleet.colonists < 5000) {
+                alert("Fleet requires at least 5,000 colonists to establish a new colony.");
+                return;
+            }
+            let dist = Math.hypot(gameState.fleet.x - star.x, gameState.fleet.y - star.y);
+            if (dist > 15) {
+                alert("Fleet must be orbiting or located at the star system to colonize.");
+                return;
+            }
+            let hab = calculateHabitability(star, gameState.preferences);
+            if (hab < 15) {
+                alert(`Habitability rating too low (${hab}%) for viable colonization.`);
+                return;
+            }
 
-        document.getElementById('btn-open-design').addEventListener('click', () => switchView('view-ship-design'));
-        document.getElementById('btn-close-design').addEventListener('click', () => switchView('view-dashboard'));
-        document.getElementById('btn-save-design').addEventListener('click', () => {
-            let name = document.getElementById('design-name').value;
-            let hull = document.getElementById('design-hull').value;
-            gameState.designs.push({ name, hull, engine: document.getElementById('design-engine').value, scanner: document.getElementById('design-scanner').value, shield: document.getElementById('design-shield').value, weapon: document.getElementById('design-weapon').value, mass: 125, cost: 145, attack: 110, defense: 60 });
-            alert(`Ship design "${name}" saved successfully!`);
-            switchView('view-dashboard');
+            gameState.fleet.colonists -= 5000;
+            star.owner = gameState.empireName;
+            star.pop = 5000;
+            star.mines = 2;
+            star.factories = 2;
+            star.scouted = true;
+
+            let msg = `[${gameState.year}] Successfully established new colony at ${star.name}!`;
+            gameState.events.unshift(msg);
+            renderEventLog();
+            updateUI();
+            drawGalaxy();
+            alert(`🌍 Colonization Successful!\n\nNew colony established at ${star.name} with 5,000 pioneer colonists.`);
         });
 
         document.getElementById('btn-queue-item').addEventListener('click', () => {
             const star = gameState.stars[gameState.selectedStarIndex];
             if (star.owner !== gameState.empireName) {
-                alert("You can only queue construction on planets owned by your empire.");
+                alert("You can only queue construction items on planets owned by your empire.");
                 return;
             }
-            let choice = prompt("What would you like to queue on " + star.name + "? Type 'factory' or 'mine':", "factory");
-            if (choice) {
-                choice = choice.toLowerCase().trim();
-                if (choice === 'factory' || choice === 'mine') {
-                    star.queue.push(choice === 'factory' ? 'Factory' : 'Mine');
-                    updateUI();
-                    drawGalaxy();
-                } else {
-                    alert("Please type 'factory' or 'mine'.");
+            star.mines++;
+            star.factories++;
+            let msg = `[${gameState.year}] Constructed 1 Mine and 1 Factory at ${star.name}.`;
+            gameState.events.unshift(msg);
+            renderEventLog();
+            updateUI();
+            alert(`➕ Infrastructure expanded at ${star.name}: +1 Mine, +1 Factory.`);
+        });
+
+        document.getElementById('btn-prev-planet').addEventListener('click', () => {
+            let ownedStars = gameState.stars.filter(s => s.owner === gameState.empireName);
+            if (ownedStars.length === 0) return;
+            let currentStar = gameState.stars[gameState.selectedStarIndex];
+            let idx = ownedStars.findIndex(s => s.name === currentStar.name);
+            idx = (idx - 1 + ownedStars.length) % ownedStars.length;
+            let targetStar = ownedStars[idx];
+            gameState.selectedStarIndex = gameState.stars.findIndex(s => s.name === targetStar.name);
+            updateUI();
+            drawGalaxy();
+        });
+
+        document.getElementById('btn-next-planet').addEventListener('click', () => {
+            let ownedStars = gameState.stars.filter(s => s.owner === gameState.empireName);
+            if (ownedStars.length === 0) return;
+            let currentStar = gameState.stars[gameState.selectedStarIndex];
+            let idx = ownedStars.findIndex(s => s.name === currentStar.name);
+            idx = (idx + 1) % ownedStars.length;
+            let targetStar = ownedStars[idx];
+            gameState.selectedStarIndex = gameState.stars.findIndex(s => s.name === targetStar.name);
+            updateUI();
+            drawGalaxy();
+        });
+
+        // --- TURN PROCESSING ---
+        document.getElementById('btn-end-turn').addEventListener('click', () => {
+            gameState.year++;
+
+            // Process Fleet Movement
+            if (gameState.fleet.isMoving) {
+                gameState.fleet.turnsRemaining--;
+                if (gameState.fleet.turnsRemaining <= 0) {
+                    gameState.fleet.isMoving = false;
+                    gameState.fleet.x = gameState.fleet.targetX;
+                    gameState.fleet.y = gameState.fleet.targetY;
+                    gameState.fleet.destinationName = gameState.fleet.targetName;
+                    gameState.fleet.ships.forEach(s => { s.activity = "Orbiting / Stationed"; });
+                    gameState.events.unshift(`[${gameState.year}] Fleet ${gameState.fleet.name} has arrived at ${gameState.fleet.destinationName}.`);
                 }
             }
-        });
 
-        document.getElementById('btn-packet-modal').addEventListener('click', () => {
-            const star = gameState.stars[gameState.selectedStarIndex];
-            if (star.owner !== gameState.empireName) {
-                alert("Select one of your owned planets with a Mass Driver to launch mineral packets.");
-                return;
-            }
-            const select = document.getElementById('packet-target-select');
-            select.innerHTML = gameState.stars.filter((s, i) => i !== gameState.selectedStarIndex && s.scouted).map((s, i) => `<option value="${gameState.stars.indexOf(s)}">${s.name} (${Math.round(Math.hypot(s.x - star.x, s.y - star.y))} ly)</option>`).join('');
-            document.getElementById('packet-md-level').innerText = star.massDriver || 1;
-            document.getElementById('packet-modal').classList.add('active');
-        });
-        document.getElementById('btn-close-packet').addEventListener('click', () => document.getElementById('packet-modal').classList.remove('active'));
-        document.getElementById('btn-fire-packet').addEventListener('click', () => {
-            const srcStar = gameState.stars[gameState.selectedStarIndex];
-            const targetIdx = parseInt(document.getElementById('packet-target-select').value);
-            const dstStar = gameState.stars[targetIdx];
-            let iron = parseInt(document.getElementById('packet-iron').value) || 0;
-            let bora = parseInt(document.getElementById('packet-bora').value) || 0;
-            let germ = parseInt(document.getElementById('packet-germ').value) || 0;
+            // Process Scout Missions
+            gameState.scoutMissions.forEach(sm => {
+                sm.turnsRemaining--;
+                if (sm.turnsRemaining <= 0) {
+                    let star = gameState.stars[sm.targetStarIndex];
+                    star.scouted = true;
+                    gameState.events.unshift(`[${gameState.year}] Scout report received from ${star.name}. System intelligence mapped.`);
+                }
+            });
+            gameState.scoutMissions = gameState.scoutMissions.filter(sm => sm.turnsRemaining > 0);
 
-            if (srcStar.iron < iron || srcStar.bora < bora || srcStar.germ < germ) {
-                alert("Not enough minerals in planetary stockpile.");
-                return;
-            }
-            srcStar.iron -= iron;
-            srcStar.bora -= bora;
-            srcStar.germ -= germ;
-
-            let dist = Math.hypot(dstStar.x - srcStar.x, dstStar.y - srcStar.y);
-            let speed = (srcStar.massDriver || 1) * 20;
-            let turns = Math.max(1, Math.ceil(dist / speed));
-
-            gameState.packets.push({
-                sourceStarIndex: gameState.selectedStarIndex,
-                targetStarIndex: targetIdx,
-                iron, bora, germ,
-                turnsRemaining: turns,
-                totalTurns: turns
+            // Process Planet Growth & Economy
+            gameState.stars.forEach(star => {
+                if (star.owner === gameState.empireName && star.pop > 0) {
+                    let hab = calculateHabitability(star, gameState.preferences);
+                    let growth = Math.round(star.pop * gameState.growthRate * (hab / 100));
+                    star.pop = Math.min(1000000, star.pop + growth);
+                    star.iron += star.mines * 8;
+                    star.bora += star.mines * 6;
+                    star.germ += star.mines * 5;
+                }
             });
 
-            document.getElementById('packet-modal').classList.remove('active');
-            gameState.events.push(`[${gameState.year}] Mineral packet launched from ${srcStar.name} to ${dstStar.name} (${turns} turns transit).`);
+            // Process AI Empires
+            gameState.aiEmpires.forEach(ai => {
+                let aiStars = gameState.stars.filter(s => s.owner === ai.name);
+                aiStars.forEach(s => {
+                    if (s.pop > 0) {
+                        s.pop = Math.min(500000, s.pop + 1200);
+                        s.iron += s.mines * 8;
+                        s.bora += s.mines * 6;
+                        s.germ += s.mines * 5;
+                    }
+                });
+                ai.score = aiStars.length * 250 + ai.techLevel * 300;
+            });
+
+            updateScannerVisibility();
             updateUI();
+            renderEventLog();
             drawGalaxy();
-            alert("Mineral packet successfully launched!");
+            checkVictoryConditions();
         });
 
-        document.getElementById('btn-colonize').addEventListener('click', () => {
-            const star = gameState.stars[gameState.selectedStarIndex];
-            let dist = Math.hypot(star.x - gameState.fleet.x, star.y - gameState.fleet.y);
-            if (dist > 15) {
-                alert("Your fleet must be in orbit around this star system to colonize it.");
-                return;
-            }
-            if (star.owner) {
-                alert("This system is already owned.");
-                return;
-            }
-            if (gameState.fleet.colonists < 10000) {
-                alert("Your fleet requires at least 10,000 colonists to establish a new colony.");
-                return;
-            }
-            gameState.fleet.colonists -= 10000;
-            star.owner = gameState.empireName;
-            star.pop = 10000;
-            star.mines = 2;
-            star.factories = 2;
-            star.massDriver = 1;
-            star.scouted = true;
-            gameState.events.push(`[${gameState.year}] New colony established at ${star.name}!`);
-            updateUI();
-            drawGalaxy();
-            alert(`Successfully colonized ${star.name}!`);
-        });
+        function checkVictoryConditions() {
+            let totalStars = gameState.stars.length;
+            let playerStars = gameState.stars.filter(s => s.owner === gameState.empireName).length;
+            let dominationPct = Math.round((playerStars / totalStars) * 100);
 
-        document.getElementById('btn-cargo-modal').addEventListener('click', () => {
+            if (gameState.victoryConditions.domination && dominationPct >= gameState.victoryConditions.dominationPct) {
+                triggerVictory(`Total Domination Achieved! Your empire controls ${dominationPct}% of star systems in the galaxy.`);
+            } else if (gameState.victoryConditions.elimination && gameState.aiEmpires.every(ai => gameState.stars.filter(s => s.owner === ai.name).length === 0)) {
+                triggerVictory(`Galactic Elimination Victory! All rival AI empires have been eliminated from known space.`);
+            } else if (gameState.year >= gameState.victoryConditions.turnLimit) {
+                triggerVictory(`Turn / Year Limit Reached (${gameState.year}). Simulation concluded.`);
+            }
+        }
+
+        function triggerVictory(msg) {
+            document.getElementById('go-message').innerText = msg;
+            modals.gameOver.classList.add('active');
+        }
+
+        function populatePacketTargets() {
+            const select = document.getElementById('packet-target-select');
+            select.innerHTML = gameState.stars.map((s, i) => `<option value="${i}">${s.name} (${s.owner ? s.owner : 'Unclaimed'})</option>`).join('');
+        }
+
+        function populateWaypointTargets() {
+            const select = document.getElementById('wp-target-select');
+            select.innerHTML = gameState.stars.map((s, i) => `<option value="${i}">${s.name}</option>`).join('');
+        }
+
+        function updateFleetMovementModal() {
+            document.getElementById('fm-fleet-name').innerText = gameState.fleet.name;
+            document.getElementById('fm-fleet-location').innerText = gameState.fleet.isMoving ? `En route to ${gameState.fleet.targetName}` : `Orbiting ${gameState.fleet.destinationName}`;
+            document.getElementById('fm-movement-status').innerText = gameState.fleet.isMoving ? `Warp Transit (${gameState.fleet.turnsRemaining} turns remaining)` : `Stationary / Ready`;
+            document.getElementById('fm-fleet-x').innerText = gameState.fleet.x;
+            document.getElementById('fm-fleet-y').innerText = gameState.fleet.y;
+
+            const list = document.getElementById('fm-ships-status-list');
+            list.innerHTML = gameState.fleet.ships.map(s => `
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px; border-bottom: 1px dotted #221831; padding-bottom: 3px;">
+                    <div><b>${s.count}x ${s.name}</b></div>
+                    <div style="color: #00ffff;">Status: ${s.activity || 'Active / Ready'}</div>
+                </div>
+            `).join('');
+        }
+
+        function updateFleetRosterModal() {
+            const list = document.getElementById('fleet-ships-list');
+            list.innerHTML = gameState.fleet.ships.map(s => `
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <div><b>${s.name}</b> (Count: ${s.count})</div>
+                    <div style="color: #da70d6;">Mass: ${s.count * 45} kT</div>
+                </div>
+            `).join('');
+        }
+
+        function updateCargoModal() {
             const star = gameState.stars[gameState.selectedStarIndex];
             document.getElementById('cargo-p-iron').innerText = star.iron;
             document.getElementById('cargo-p-bora').innerText = star.bora;
             document.getElementById('cargo-p-germ').innerText = star.germ;
-            document.getElementById('cargo-p-col').innerText = star.pop.toLocaleString();
-            
+            document.getElementById('cargo-p-col').innerText = star.pop;
+
             document.getElementById('cargo-f-iron').innerText = gameState.fleet.iron;
             document.getElementById('cargo-f-bora').innerText = gameState.fleet.bora;
             document.getElementById('cargo-f-germ').innerText = gameState.fleet.germ;
-            document.getElementById('cargo-f-col').innerText = gameState.fleet.colonists.toLocaleString();
+            document.getElementById('cargo-f-col').innerText = gameState.fleet.colonists;
             document.getElementById('cargo-f-fuel').innerText = gameState.fleet.fuel;
-
-            document.getElementById('cargo-modal').classList.add('active');
-        });
-        document.getElementById('btn-close-cargo').addEventListener('click', () => document.getElementById('cargo-modal').classList.remove('active'));
-        document.getElementById('btn-load-colony-ship').addEventListener('click', () => {
-            const star = gameState.stars[gameState.selectedStarIndex];
-            let dist = Math.hypot(star.x - gameState.fleet.x, star.y - gameState.fleet.y);
-            if (dist > 15) {
-                alert("Fleet must be in orbit to transfer cargo.");
-                return;
-            }
-            if (star.pop < 15000) {
-                alert("Planet population too low to embark 10,000 colonists.");
-                return;
-            }
-            star.pop -= 10000;
-            gameState.fleet.colonists += 10000;
-            document.getElementById('cargo-p-col').innerText = star.pop.toLocaleString();
-            document.getElementById('cargo-f-col').innerText = gameState.fleet.colonists.toLocaleString();
-            updateUI();
-            alert("Loaded 10,000 colonists into fleet transport hold.");
-        });
-
-        document.getElementById('btn-bombard').addEventListener('click', () => {
-            const star = gameState.stars[gameState.selectedStarIndex];
-            let dist = Math.hypot(star.x - gameState.fleet.x, star.y - gameState.fleet.y);
-            if (dist > 15) {
-                alert("Fleet must be orbiting the target system to conduct orbital bombardment.");
-                return;
-            }
-            if (!star.owner || star.owner === gameState.empireName) {
-                alert("Can only bombard enemy-owned systems.");
-                return;
-            }
-            let damage = 5000;
-            star.pop = Math.max(0, star.pop - damage);
-            star.factories = Math.max(0, star.factories - 2);
-            gameState.events.push(`[${gameState.year}] Fleet bombarded ${star.name}, reducing population and infrastructure.`);
-            updateUI();
-            alert(`Orbital bombardment executed on ${star.name}! Enemy population decreased.`);
-        });
-
-        document.getElementById('btn-invade').addEventListener('click', () => {
-            const star = gameState.stars[gameState.selectedStarIndex];
-            let dist = Math.hypot(star.x - gameState.fleet.x, star.y - gameState.fleet.y);
-            if (dist > 15) {
-                alert("Fleet must be orbiting the target system to launch a ground invasion.");
-                return;
-            }
-            if (!star.owner || star.owner === gameState.empireName) {
-                alert("Can only invade enemy-owned systems.");
-                return;
-            }
-            if (gameState.fleet.colonists < 5000) {
-                alert("Need at least 5,000 troops/colonists in fleet to invade.");
-                return;
-            }
-            gameState.fleet.colonists -= 5000;
-            if (star.pop <= 5000) {
-                let oldOwner = star.owner;
-                star.owner = gameState.empireName;
-                star.pop = 5000;
-                gameState.events.push(`[${gameState.year}] Ground invasion successful! Captured ${star.name} from ${oldOwner}.`);
-                updateUI();
-                drawGalaxy();
-                alert(`Invasion successful! ${star.name} is now under your control.`);
-            } else {
-                star.pop -= 5000;
-                gameState.events.push(`[${gameState.year}] Ground invasion on ${star.name} met heavy resistance.`);
-                updateUI();
-                alert("Invasion met heavy resistance. Enemy forces reduced but planet holds.");
-            }
-        });
-
-        document.getElementById('btn-fleet-roster').addEventListener('click', () => {
-            const list = document.getElementById('fleet-ships-list');
-            list.innerHTML = gameState.fleet.ships.map(s => `<div>• ${s.name} x${s.count}</div>`).join('');
-            document.getElementById('fleet-roster-modal').classList.add('active');
-        });
-        document.getElementById('btn-close-fleet-roster').addEventListener('click', () => document.getElementById('fleet-roster-modal').classList.remove('active'));
-        document.getElementById('btn-build-ship-fleet').addEventListener('click', () => {
-            let homeworld = gameState.stars[0];
-            if (homeworld.iron < 100 || homeworld.bora < 100 || homeworld.germ < 100) {
-                alert("Homeworld requires at least 100kT of each mineral to build fleet reinforcements.");
-                return;
-            }
-            homeworld.iron -= 100;
-            homeworld.bora -= 100;
-            homeworld.germ -= 100;
-            if (gameState.fleet.ships.length > 0) {
-                gameState.fleet.ships[0].count += 1;
-            }
-            const list = document.getElementById('fleet-ships-list');
-            list.innerHTML = gameState.fleet.ships.map(s => `<div>• ${s.name} x${s.count}</div>`).join('');
-            updateUI();
-            alert("Fleet reinforced successfully!");
-        });
-
-        document.getElementById('btn-waypoint-modal').addEventListener('click', () => {
-            const select = document.getElementById('wp-target-select');
-            select.innerHTML = gameState.stars.filter(s => s.scouted).map(s => `<option value="${gameState.stars.indexOf(s)}">${s.name}</option>`).join('');
-            updateWaypointQueueDisplay();
-            document.getElementById('waypoint-modal').classList.add('active');
-        });
-        document.getElementById('btn-close-waypoint').addEventListener('click', () => document.getElementById('waypoint-modal').classList.remove('active'));
-        document.getElementById('wp-warp-speed').addEventListener('input', (e) => {
-            document.getElementById('lbl-warp-val').innerText = e.target.value;
-        });
-        document.getElementById('btn-add-waypoint').addEventListener('click', () => {
-            let targetIdx = parseInt(document.getElementById('wp-target-select').value);
-            let action = document.getElementById('wp-action-select').value;
-            let warp = parseInt(document.getElementById('wp-warp-speed').value);
-            let targetStar = gameState.stars[targetIdx];
-            
-            gameState.fleet.waypoints.push({
-                targetStarIndex: targetIdx,
-                targetName: targetStar.name,
-                action: action,
-                warp: warp
-            });
-            updateWaypointQueueDisplay();
-            drawGalaxy();
-            alert(`Waypoint added: ${targetStar.name} (${action}, Warp ${warp})`);
-        });
-
-        function updateWaypointQueueDisplay() {
-            const qDiv = document.getElementById('current-waypoint-queue');
-            if (gameState.fleet.waypoints.length === 0) {
-                qDiv.innerHTML = '-- Waypoint Queue is Empty --';
-            } else {
-                qDiv.innerHTML = gameState.fleet.waypoints.map((wp, i) => `<div>${i+1}. ${wp.targetName} [${wp.action}, Warp ${wp.warp}]</div>`).join('');
-            }
         }
 
-        document.getElementById('btn-lay-mines').addEventListener('click', () => {
-            gameState.minefields.push({ x: gameState.fleet.x, y: gameState.fleet.y, owner: gameState.empireName });
-            gameState.events.push(`[${gameState.year}] Minefield deployed at current coordinates.`);
-            drawGalaxy();
-            alert("Minefield deployed successfully!");
-        });
+        function updateScoreboardModal() {
+            const body = document.getElementById('scoreboard-table-body');
+            let rankings = [
+                { name: gameState.empireName, score: gameState.stars.filter(s => s.owner === gameState.empireName).length * 250 + 1500, type: "Player" },
+                ...gameState.aiEmpires.map(ai => ({ name: ai.name, score: ai.score, type: "AI Rival" }))
+            ].sort((a, b) => b.score - a.score);
 
-        document.getElementById('btn-prev-planet').addEventListener('click', () => {
-            let playerStars = gameState.stars.map((s, i) => ({s, i})).filter(obj => obj.s.owner === gameState.empireName);
-            if (playerStars.length === 0) return;
-            let currPos = playerStars.findIndex(obj => obj.i === gameState.selectedStarIndex);
-            let nextPos = (currPos - 1 + playerStars.length) % playerStars.length;
-            gameState.selectedStarIndex = playerStars[nextPos].i;
-            updateUI();
-            drawGalaxy();
-        });
-        document.getElementById('btn-next-planet').addEventListener('click', () => {
-            let playerStars = gameState.stars.map((s, i) => ({s, i})).filter(obj => obj.s.owner === gameState.empireName);
-            if (playerStars.length === 0) return;
-            let currPos = playerStars.findIndex(obj => obj.i === gameState.selectedStarIndex);
-            let nextPos = (currPos + 1) % playerStars.length;
-            gameState.selectedStarIndex = playerStars[nextPos].i;
-            updateUI();
-            drawGalaxy();
-        });
-
-        document.getElementById('btn-scoreboard').addEventListener('click', () => {
-            const tableBody = document.getElementById('scoreboard-table-body');
-            let scores = [{ name: gameState.empireName, score: 2500, planets: gameState.stars.filter(s => s.owner === gameState.empireName).length }];
-            gameState.aiEmpires.forEach(ai => {
-                scores.push({ name: ai.name, score: ai.score || 1500, planets: gameState.stars.filter(s => s.owner === ai.name).length });
-            });
-            scores.sort((a, b) => b.score - a.score);
-            tableBody.innerHTML = scores.map((sc, idx) => `<div>#${idx+1} <b>${sc.name}</b> — Score: ${sc.score} | Systems: ${sc.planets}</div>`).join('');
-            document.getElementById('scoreboard-modal').classList.add('active');
-        });
-        document.getElementById('btn-close-scoreboard').addEventListener('click', () => document.getElementById('scoreboard-modal').classList.remove('active'));
-
-        document.getElementById('btn-save-game').addEventListener('click', downloadSaveFile);
-        document.getElementById('btn-load-game-dash').addEventListener('click', () => document.getElementById('import-file-input').click());
-
-        document.getElementById('btn-help').addEventListener('click', () => document.getElementById('tutorial-modal').classList.add('active'));
-        document.getElementById('btn-close-tutorial').addEventListener('click', () => document.getElementById('tutorial-modal').classList.remove('active'));
-
-        document.getElementById('btn-close-combat').addEventListener('click', () => document.getElementById('combat-modal').classList.remove('active'));
-        document.getElementById('btn-return-title').addEventListener('click', () => {
-            document.getElementById('game-over-modal').classList.remove('active');
-            switchView('view-title');
-        });
-
-        document.getElementById('btn-end-turn').addEventListener('click', () => {
-            gameState.year++;
-
-            gameState.stars.forEach(star => {
-                if (star.owner === gameState.empireName) {
-                    star.iron += star.mines * 8;
-                    star.bora += star.mines * 6;
-                    star.germ += star.mines * 4;
-
-                    if (star.queue.length > 0) {
-                        let item = star.queue[0];
-                        if (item === 'Factory') star.factories++;
-                        else if (item === 'Mine') star.mines++;
-                        star.queue.shift();
-                    }
-
-                    if (star.pop < 1000000) {
-                        star.pop = Math.round(star.pop * (1 + gameState.growthRate * 0.1));
-                    }
-                }
-            });
-
-            gameState.packets.forEach(pkt => {
-                if (pkt.turnsRemaining > 0) {
-                    pkt.turnsRemaining--;
-                    if (pkt.turnsRemaining === 0) {
-                        let dstStar = gameState.stars[pkt.targetStarIndex];
-                        dstStar.iron += pkt.iron;
-                        dstStar.bora += pkt.bora;
-                        dstStar.germ += pkt.germ;
-                        gameState.events.push(`[${gameState.year}] Mineral packet arrived at ${dstStar.name}!`);
-                    }
-                }
-            });
-            gameState.packets = gameState.packets.filter(pkt => pkt.turnsRemaining > 0);
-
-            if (gameState.fleet.waypoints.length > 0) {
-                let wp = gameState.fleet.waypoints[0];
-                let targetStar = gameState.stars[wp.targetStarIndex];
-                let dist = Math.hypot(targetStar.x - gameState.fleet.x, targetStar.y - gameState.fleet.y);
-                let speed = wp.warp * wp.warp * 2;
-                if (dist <= speed) {
-                    gameState.fleet.x = targetStar.x;
-                    gameState.fleet.y = targetStar.y;
-                    gameState.fleet.destinationName = targetStar.name;
-                    targetStar.scouted = true;
-                    gameState.events.push(`[${gameState.year}] Fleet arrived at ${targetStar.name}.`);
-                    
-                    if (wp.action === 'Colonize' && !targetStar.owner && gameState.fleet.colonists >= 10000) {
-                        gameState.fleet.colonists -= 10000;
-                        targetStar.owner = gameState.empireName;
-                        targetStar.pop = 10000;
-                        targetStar.mines = 2;
-                        targetStar.factories = 2;
-                        targetStar.scouted = true;
-                        gameState.events.push(`[${gameState.year}] Automated colonize action established colony at ${targetStar.name}.`);
-                    }
-                    gameState.fleet.waypoints.shift();
-                } else {
-                    let angle = Math.atan2(targetStar.y - gameState.fleet.y, targetStar.x - gameState.fleet.x);
-                    gameState.fleet.x += Math.round(Math.cos(angle) * speed);
-                    gameState.fleet.y += Math.round(Math.sin(angle) * speed);
-                }
-            }
-
-            gameState.aiEmpires.forEach(ai => {
-                ai.score += Math.floor(Math.random() * 50) + 10;
-                gameState.stars.forEach(star => {
-                    if (star.owner === ai.name) {
-                        star.pop += 500;
-                        if (Math.random() < 0.3) star.factories++;
-                        if (Math.random() < 0.3) star.mines++;
-                    }
-                });
-            });
-
-            if (gameState.victoryConditions.elimination) {
-                let aiRemaining = gameState.stars.some(s => s.owner && s.owner !== gameState.empireName);
-                if (!aiRemaining && gameState.aiEmpires.length > 0) {
-                    triggerVictory("All rival AI empires have been eliminated!");
-                }
-            }
-
-            updateUI();
-            drawGalaxy();
-        });
-
-        function triggerVictory(message) {
-            document.getElementById('go-message').innerText = message;
-            document.getElementById('game-over-modal').classList.add('active');
+            body.innerHTML = rankings.map((r, i) => `
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px; border-bottom: 1px dotted #221831; padding-bottom: 4px;">
+                    <div>#${i+1} <b>${r.name}</b> (${r.type})</div>
+                    <div style="color: #ffd700;">Score: ${r.score}</div>
+                </div>
+            `).join('');
         }
+
+        function updateUI() {
+            const star = gameState.stars[gameState.selectedStarIndex];
+            document.getElementById('header-planet-name').innerText = star.name;
+            document.getElementById('summary-panel-title').innerText = `${star.name} Summary`;
+            document.getElementById('val-iron').innerText = `${star.iron}kT`;
+            document.getElementById('conc-iron').innerText = star.feConc;
+            document.getElementById('val-bora').innerText = `${star.bora}kT`;
+            document.getElementById('conc-bora').innerText = star.boConc;
+            document.getElementById('val-germ').innerText = `${star.germ}kT`;
+            document.getElementById('conc-germ').innerText = star.geConc;
+            document.getElementById('val-mines').innerText = star.mines;
+            document.getElementById('val-factories').innerText = star.factories;
+            document.getElementById('val-md-level').innerText = star.massDriver;
+
+            document.getElementById('summary-pop').innerText = star.pop.toLocaleString();
+            let ownerText = star.owner ? star.owner : "Unclaimed / Uncolonized";
+            document.getElementById('summary-owner').innerText = ownerText;
+            document.getElementById('summary-owner').style.color = star.owner === gameState.empireName ? '#32cd32' : (star.owner ? '#ff4500' : '#aaa');
+
+            let hab = calculateHabitability(star, gameState.preferences);
+            document.getElementById('summary-hab-score').innerText = `${hab}%`;
+            document.getElementById('lbl-grav-val').innerText = star.grav;
+            document.getElementById('hab-fill-grav').style.width = `${Math.min(100, star.grav)}%`;
+            document.getElementById('lbl-temp-val').innerText = star.temp;
+            document.getElementById('hab-fill-temp').style.width = `${Math.min(100, star.temp)}%`;
+            document.getElementById('lbl-rad-val').innerText = star.rad;
+            document.getElementById('hab-fill-rad').style.width = `${Math.min(100, star.rad)}%`;
+
+            // Fleet info status
+            document.getElementById('val-waypoint').innerText = gameState.fleet.isMoving ? `En route to ${gameState.fleet.targetName} (${gameState.fleet.turnsRemaining} turns left)` : `Orbiting ${gameState.fleet.destinationName}`;
+            document.getElementById('val-fleet-fuel').innerText = `${gameState.fleet.fuel}mg`;
+            document.getElementById('val-fleet-col').innerText = gameState.fleet.colonists.toLocaleString();
+            document.getElementById('val-fleet-iron').innerText = `${gameState.fleet.iron}kT`;
+
+            // Active Scout missions display
+            const scoutsList = document.getElementById('active-scouts-list');
+            if (gameState.scoutMissions.length > 0) {
+                scoutsList.style.display = 'block';
+                document.getElementById('lbl-active-scouts').innerText = gameState.scoutMissions.map(sm => `${sm.targetName} (${sm.turnsRemaining} turns)`).join(', ');
+            } else {
+                scoutsList.style.display = 'none';
+            }
+
+            // Calculate distance and turn ETA for moving fleet to selected star
+            let distToSelected = Math.hypot(gameState.fleet.x - star.x, gameState.fleet.y - star.y);
+            let warpSpeed = 7;
+            let turnsToSelected = Math.max(1, Math.ceil(distToSelected / (warpSpeed * warpSpeed * 0.15)));
+            document.getElementById('system-dist-info').innerText = `Distance from Fleet: ${Math.round(distToSelected)} ly (ETA: ${turnsToSelected} turns)`;
+            const moveBtn = document.getElementById('btn-move-fleet-to-system');
+            if (Math.round(distToSelected) <= 2) {
+                moveBtn.innerText = `🚀 Fleet is Orbiting System`;
+                moveBtn.disabled = true;
+                moveBtn.style.opacity = '0.5';
+            } else if (gameState.fleet.isMoving) {
+                moveBtn.innerText = `🚀 Fleet in Transit (${gameState.fleet.turnsRemaining} turns)`;
+                moveBtn.disabled = true;
+                moveBtn.style.opacity = '0.5';
+            } else {
+                moveBtn.innerText = `🚀 Move Fleet Here (${turnsToSelected} turns)`;
+                moveBtn.disabled = false;
+                moveBtn.style.opacity = '1.0';
+            }
+
+            document.getElementById('lbl-year').innerText = gameState.year;
+            document.getElementById('lbl-empire-display').innerText = gameState.empireName;
+        }
+
+        // Initialize default view
+        switchView('view-title');
     </script>
 </body>
 </html>
