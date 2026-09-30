@@ -193,6 +193,39 @@
             min-width: 0;
         }
 
+        .setup-row-3 {
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .setup-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .setup-buttons .nav-button {
+            width: 100%;
+        }
+
+        .setup-footer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .setup-footer .nav-button {
+            width: 100%;
+        }
+
+        @media (max-width: 560px) {
+            .setup-row-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .nav-button {
             background-color: #2a2238;
             color: #e0e0e0;
@@ -210,6 +243,11 @@
         .nav-button:hover {
             background-color: #3b2e50;
             border-color: #7755aa;
+        }
+
+        .nav-button:disabled {
+            opacity: 0.45;
+            cursor: default;
         }
 
         .btn-primary {
@@ -696,26 +734,624 @@
             border-left-color: #ffff00;
             background: #22222c;
         }
+
+        .wiz-box {
+            display: flex;
+            flex-direction: column;
+            max-width: 1000px;
+            height: calc(100% - 40px);
+            max-height: none;
+            overflow: hidden;
+        }
+
+        .wiz-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .wiz-title {
+            margin: 0;
+            color: #da70d6;
+            font-size: 1.25rem;
+        }
+
+        .wiz-sub {
+            font-size: 12px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .wiz-points {
+            background: #121019;
+            border: 1px solid #554477;
+            border-radius: 6px;
+            padding: 6px 14px;
+            text-align: center;
+            min-width: 140px;
+            flex-shrink: 0;
+        }
+
+        .wiz-points-label {
+            display: block;
+            font-size: 10px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0;
+            font-weight: normal;
+        }
+
+        .wiz-points-val {
+            font-size: 28px;
+            font-weight: bold;
+            color: #32cd32;
+            line-height: 1.1;
+        }
+
+        .wiz-points.over {
+            border-color: #ff4500;
+        }
+
+        .wiz-points.over .wiz-points-val {
+            color: #ff4500;
+        }
+
+        .wiz-tabs {
+            display: flex;
+            gap: 6px;
+            margin: 12px 0;
+            overflow-x: auto;
+            flex-shrink: 0;
+            padding-bottom: 2px;
+        }
+
+        .wiz-tab {
+            flex: 1 0 auto;
+            background: #1e182c;
+            border: 1px solid #3d2c55;
+            color: #b8a8cc;
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .wiz-tab:hover {
+            background: #2e2444;
+            border-color: #9370db;
+        }
+
+        .wiz-tab.on {
+            background: #511281;
+            border-color: #da70d6;
+            color: #fff;
+        }
+
+        .wiz-tab b {
+            color: #da70d6;
+            margin-right: 4px;
+        }
+
+        .wiz-tab.on b {
+            color: #fff;
+        }
+
+        .wiz-layout {
+            display: grid;
+            grid-template-columns: 1fr 250px;
+            gap: 14px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .wiz-main {
+            overflow-y: auto;
+            min-height: 0;
+            padding-right: 6px;
+        }
+
+        .wiz-ledger {
+            overflow-y: auto;
+            min-height: 0;
+            background: #121019;
+            border: 1px solid #332244;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        .wiz-ledger h4 {
+            margin: 0 0 8px 0;
+            color: #da70d6;
+            font-size: 13px;
+        }
+
+        .wiz-ledger-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 3px 0;
+            border-bottom: 1px dotted #221831;
+        }
+
+        .wiz-ledger-row b.gain {
+            color: #32cd32;
+        }
+
+        .wiz-ledger-row b.spend {
+            color: #ff8c66;
+        }
+
+        .wiz-ledger-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid #554477;
+            font-weight: bold;
+            color: #e0d0f0;
+        }
+
+        .wiz-foot {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-shrink: 0;
+            align-items: center;
+        }
+
+        .wiz-foot .nav-button {
+            width: auto;
+            flex: 1;
+        }
+
+        .wiz-foot-note {
+            font-size: 12px;
+            color: #ff8c66;
+            min-height: 16px;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .wiz-intro {
+            font-size: 13px;
+            color: #aaa;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .wiz-icons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .wiz-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 22px;
+            background: #1e182c;
+            border: 1px solid #3d2c55;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .wiz-icon:hover {
+            border-color: #9370db;
+        }
+
+        .wiz-icon.on {
+            background: #511281;
+            border-color: #da70d6;
+            box-shadow: 0 0 8px rgba(218, 112, 214, 0.55);
+        }
+
+        .wiz-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .wiz-card {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px 8px;
+            background: #121019;
+            border: 1px solid #332244;
+            border-radius: 4px;
+            padding: 9px 10px;
+            cursor: pointer;
+            margin: 0;
+            color: #e0d0f0;
+            font-weight: normal;
+        }
+
+        .wiz-card:hover {
+            border-color: #7755aa;
+        }
+
+        .wiz-card.on {
+            border-color: #da70d6;
+            background: #1d172c;
+            box-shadow: inset 0 0 0 1px rgba(218, 112, 214, 0.35);
+        }
+
+        .wiz-card input {
+            accent-color: #b515b5;
+            margin: 0;
+            flex-shrink: 0;
+        }
+
+        .wiz-card-name {
+            font-size: 13px;
+            font-weight: bold;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .wiz-card-desc {
+            flex-basis: 100%;
+            font-size: 11px;
+            color: #999;
+            line-height: 1.5;
+            font-weight: normal;
+        }
+
+        .wiz-pill {
+            font-size: 11px;
+            font-weight: bold;
+            padding: 1px 7px;
+            border-radius: 10px;
+            background: #221831;
+            border: 1px solid #443355;
+            color: #ff8c66;
+        }
+
+        .wiz-pill.gain {
+            color: #32cd32;
+        }
+
+        .wiz-status {
+            font-size: 10px;
+            padding: 1px 6px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .wiz-status.live {
+            background: rgba(50, 205, 50, 0.16);
+            color: #32cd32;
+            border: 1px solid rgba(50, 205, 50, 0.4);
+        }
+
+        .wiz-status.rec {
+            background: rgba(150, 150, 170, 0.12);
+            color: #999;
+            border: 1px solid rgba(150, 150, 170, 0.3);
+        }
+
+        .wiz-desc {
+            background: #121019;
+            border: 1px solid #332244;
+            border-radius: 4px;
+            padding: 12px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .wiz-desc p {
+            margin: 6px 0 0 0;
+        }
+
+        .wiz-live {
+            color: #32cd32;
+        }
+
+        .wiz-rec {
+            color: #999;
+        }
+
+        .wiz-group-title {
+            color: #da70d6;
+            font-size: 13px;
+            font-weight: bold;
+            margin: 6px 0 8px 0;
+        }
+
+        .wiz-env {
+            background: #121019;
+            border: 1px solid #332244;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+        }
+
+        .wiz-env-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .wiz-env-read {
+            color: #da70d6;
+            font-size: 12px;
+        }
+
+        .wiz-band {
+            position: relative;
+            height: 12px;
+            background: #08080c;
+            border: 1px solid #2a1b3d;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .wiz-band-fill {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #511281, #b515b5, #511281);
+        }
+
+        .wiz-env-ctrl {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 10px;
+            align-items: end;
+        }
+
+        .wiz-env-ctrl label {
+            font-size: 11px;
+            margin-bottom: 2px;
+        }
+
+        .wiz-env-ctrl input[type="range"] {
+            padding: 0;
+            height: 22px;
+            accent-color: #b515b5;
+        }
+
+        .wiz-check {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin: 0;
+            padding-bottom: 2px;
+            font-weight: normal;
+            color: #e0d0f0;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .wiz-check input {
+            accent-color: #b515b5;
+            margin: 0;
+        }
+
+        .wiz-growth {
+            background: #121019;
+            border: 1px solid #332244;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+        }
+
+        .wiz-growth input[type="range"] {
+            padding: 0;
+            height: 22px;
+            accent-color: #b515b5;
+        }
+
+        .wiz-summary {
+            background: #1d172c;
+            border: 1px solid #554477;
+            border-radius: 4px;
+            padding: 10px 12px;
+            font-size: 13px;
+            color: #e0d0f0;
+        }
+
+        .wiz-econ-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            background: #121019;
+            border: 1px solid #332244;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #ddd;
+        }
+
+        .wiz-econ-row input[type="number"] {
+            width: 84px;
+            padding: 5px 6px;
+            font-size: 13px;
+        }
+
+        .wiz-econ-pts {
+            margin-left: auto;
+            font-size: 12px;
+            font-weight: bold;
+            color: #999;
+        }
+
+        .wiz-econ-pts.gain {
+            color: #32cd32;
+        }
+
+        .wiz-econ-pts.spend {
+            color: #ff8c66;
+        }
+
+        .wiz-res-row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 10px;
+            align-items: center;
+            background: #121019;
+            border: 1px solid #332244;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .wiz-seg {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 4px;
+        }
+
+        .wiz-seg button {
+            background: #1e182c;
+            border: 1px solid #3d2c55;
+            color: #b8a8cc;
+            border-radius: 3px;
+            padding: 7px 6px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .wiz-seg button:hover {
+            border-color: #9370db;
+        }
+
+        .wiz-seg button.on {
+            background: #511281;
+            border-color: #da70d6;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .wiz-seg small {
+            display: block;
+            font-size: 10px;
+            opacity: 0.85;
+        }
+
+        .race-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #1a1a22;
+            border: 1px solid #332244;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .race-row-icon {
+            font-size: 26px;
+            width: 36px;
+            text-align: center;
+        }
+
+        .race-row-info {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .race-row-name {
+            font-weight: bold;
+            color: #e0d0f0;
+            font-size: 14px;
+        }
+
+        .race-row-meta {
+            font-size: 11px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .race-row-btns {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .race-row-btns .tool-icon {
+            padding: 6px 10px;
+        }
+
+        .wiz-empty {
+            font-size: 13px;
+            color: #999;
+            padding: 16px;
+            text-align: center;
+            background: #121019;
+            border: 1px dashed #443355;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 760px) {
+            .wiz-layout {
+                grid-template-columns: 1fr;
+            }
+            .wiz-ledger {
+                display: none;
+            }
+            .wiz-cards {
+                grid-template-columns: 1fr;
+            }
+            .wiz-env-ctrl {
+                grid-template-columns: 1fr 1fr;
+            }
+            .wiz-env-ctrl .wiz-check {
+                grid-column: 1 / -1;
+            }
+            .wiz-res-row {
+                grid-template-columns: 1fr;
+            }
+            .wiz-points {
+                min-width: 110px;
+                padding: 4px 10px;
+            }
+            .wiz-foot {
+                flex-wrap: wrap;
+            }
+            .wiz-foot .nav-button {
+                flex: 1 1 40%;
+            }
+        }
     </style>
 </head>
 <body>
 
     <canvas id="starfield"></canvas>
     <input type="file" id="import-file-input" style="display: none;" accept=".json">
+    <input type="file" id="race-import-input" style="display: none;" accept=".json">
 
     <div id="view-title" class="view active">
         <div class="title-top-group">
             <h1 class="game-title">FreeSpace 4x</h1>
         </div>
         <div class="title-button-row">
-            <button id="btn-new-game" class="classic-btn"><u>N</u>ew Game...</button>
-            <button id="btn-open-game" class="classic-btn"><u>O</u>pen Game...</button>
+            <button id="btn-new-game" class="classic-btn"><u>N</u>ew Game</button>
+            <button id="btn-open-game" class="classic-btn"><u>O</u>pen Game</button>
             <button id="btn-continue-game" class="classic-btn"><u>C</u>ontinue Game</button>
         </div>
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.7.64 (Updated: September 30, 2026 1:45 PM)</div>
+            <div class="version-text">Version 0.7.66 (Updated: September 30, 2026 3:38 PM)</div>
         </div>
     </div>
 
@@ -740,8 +1376,8 @@
                     </select>
                 </div>
             </div>
-            <div class="setup-row">
-                <div class="form-group">
+            <div class="setup-row setup-row-3">
+<div class="form-group">
                     <label for="sp-map-size">Universe Size:</label>
                     <select id="sp-map-size">
                         <option value="tiny">Tiny (400 x 400 ly)</option>
@@ -751,7 +1387,7 @@
                         <option value="huge">Huge (2000 x 2000 ly)</option>
                     </select>
                 </div>
-                <div class="form-group">
+<div class="form-group">
                     <label for="sp-density">Star Density:</label>
                     <select id="sp-density">
                         <option value="sparse">Sparse</option>
@@ -760,9 +1396,7 @@
                         <option value="packed">Packed</option>
                     </select>
                 </div>
-            </div>
-            <div class="setup-row">
-                <div class="form-group">
+<div class="form-group">
                     <label for="sp-player-position">Player Position:</label>
                     <select id="sp-player-position">
                         <option value="close">Close (Inner Core)</option>
@@ -774,17 +1408,14 @@
             </div>
             <div id="setup-galaxy-summary" style="background: #121019; border: 1px solid #332244; padding: 8px 12px; border-radius: 4px; font-size: 12px; color: #da70d6; margin-bottom: 14px;"></div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: flex-end;">
-                <div class="form-group" style="margin-bottom: 0;">
-                    <button id="btn-open-advanced-setup" class="nav-button" style="background: #251a3a; border-color: #da70d6; color: #da70d6;">⚙ Advanced Options...</button>
-                </div>
-                <div class="form-group" style="margin-bottom: 0;">
-                    <button id="btn-open-victory-setup" class="nav-button" style="background: #251a3a; border-color: #8a2be2; color: #da70d6;">🏆 Victory Conditions...</button>
-                </div>
+            <div class="setup-buttons">
+                <button id="btn-open-race-manager" class="nav-button" style="background: #251a3a; border-color: #b515b5; color: #f0b0f0;">🧬 Custom Race</button>
+                <button id="btn-configure-rivals" class="nav-button" style="background: #251a3a; border-color: #da70d6; color: #da70d6;">⚔ AI Opponents</button>
+                <button id="btn-open-advanced-setup" class="nav-button" style="background: #251a3a; border-color: #da70d6; color: #da70d6;">⚙ Advanced Options</button>
+                <button id="btn-open-victory-setup" class="nav-button" style="background: #251a3a; border-color: #8a2be2; color: #da70d6;">🏆 Victory Conditions</button>
             </div>
-            <div style="display: flex; gap: 10px; margin-top: 25px;">
+            <div class="setup-footer">
                 <button class="nav-button btn-back-title">Back</button>
-                <button id="btn-configure-rivals" class="nav-button" style="background: #251a3a; border-color: #da70d6; color: #da70d6;">⚔ AI Opponents...</button>
                 <button id="btn-launch-game" class="nav-button btn-primary">Create Galaxy</button>
             </div>
         </div>
@@ -794,13 +1425,40 @@
         <div class="container-box" style="max-width: 900px;">
             <h2 class="screen-header">AI Opponents</h2>
             <div style="font-size: 13px; margin-bottom: 15px; color: #aaa;">
-                Add or remove AI opponents and set each one's empire name, race and intelligence level. Every opponent starts with a pre-generated empire name you can change. Choose Random for a race or intelligence level and the game picks one when the galaxy is created.
+                Add or remove AI opponents and set each one's empire name, race and intelligence level. Every opponent starts with a pre-generated empire name you can change. Choose Random for a race or intelligence level and the game picks one when the galaxy is created. Your saved custom races are listed under Custom Races in each race menu.
             </div>
             <div id="rivals-container" style="max-height: 65vh; overflow-y: auto; margin-bottom: 15px;">
             </div>
             <div style="display: flex; gap: 10px;">
                 <button id="btn-rivals-back" class="nav-button" style="flex: 1;">Back to Setup</button>
                 <button id="btn-add-rival" class="nav-button btn-primary" style="flex: 1;">+ Add AI Opponent</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-race-wizard" class="view">
+        <div class="container-box wiz-box">
+            <div class="wiz-head">
+                <div>
+                    <h2 class="wiz-title">🧬 Custom Race Wizard</h2>
+                    <div class="wiz-sub" id="wiz-subtitle"></div>
+                </div>
+                <div class="wiz-points" id="wiz-points">
+                    <span class="wiz-points-label">Advantage Points Left</span>
+                    <span class="wiz-points-val" id="wiz-points-val">25</span>
+                </div>
+            </div>
+            <div class="wiz-tabs" id="wiz-tabs"></div>
+            <div class="wiz-layout">
+                <div class="wiz-main" id="wiz-body"></div>
+                <div class="wiz-ledger" id="wiz-ledger"></div>
+            </div>
+            <div class="wiz-foot-note" id="wiz-foot-note"></div>
+            <div class="wiz-foot">
+                <button class="nav-button" id="btn-wiz-cancel">Cancel</button>
+                <button class="nav-button" id="btn-wiz-back">&#9664; Back</button>
+                <button class="nav-button" id="btn-wiz-next">Next &#9654;</button>
+                <button class="nav-button btn-primary" id="btn-wiz-finish">Save Race</button>
             </div>
         </div>
     </div>
@@ -1154,6 +1812,22 @@
         </div>
     </div>
 
+    <div id="race-manager-modal" class="modal-overlay" style="z-index: 1100;">
+        <div class="modal-content" style="max-width: 720px;">
+            <h2 class="screen-header" style="color: #da70d6;">🧬 Custom Races</h2>
+            <div class="wiz-intro">
+                Design your own races with the Race Wizard. Saved races appear under Custom Races in Choose Race and in every AI opponent's race list. They are kept in this browser and copied into every saved game that uses them.
+            </div>
+            <div id="race-manager-list"></div>
+            <div style="display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap;">
+                <button class="nav-button btn-primary" id="btn-race-new" style="flex: 2; min-width: 150px;">+ Create New Race</button>
+                <button class="nav-button" id="btn-race-import" style="flex: 1; min-width: 100px;">Import</button>
+                <button class="nav-button" id="btn-race-export" style="flex: 1; min-width: 100px;">Export All</button>
+                <button class="nav-button" id="btn-race-close" style="flex: 1; min-width: 100px;">Close</button>
+            </div>
+        </div>
+    </div>
+
     <div id="victory-modal" class="modal-overlay" style="z-index: 1100;">
         <div class="modal-content" style="max-width: 680px;">
             <h2 class="screen-header" style="color: #da70d6;">🏆 Victory Conditions</h2>
@@ -1245,43 +1919,47 @@
         const HELP_HTML = `
             <div style="text-align:left;">
                 <p><b style="color:#da70d6;">Goal</b><br>Grow your empire from a single homeworld: scan the galaxy, colonize habitable worlds, mine ore, build infrastructure and outscore your AI opponents. Check the Scoreboard under Management to see how you rank. If the game was created with Victory Conditions, the first empire to meet them wins (see Victory Conditions below).</p>
-                <p><b style="color:#da70d6;">The New Game Screen</b><br>Empire Name and Choose Race sit on one row, above Universe Size and Star Density. Choose Race offers <b>Random Race</b>, which picks one of the six races for you when you press Create Galaxy (the log tells you which). Player Position sets how far apart the homeworlds start. Advanced Options, Victory Conditions and AI Opponents each open their own screen.</p>
-                <p><b style="color:#da70d6;">AI Opponents</b><br>The AI Opponents screen lists every rival. Each starts with a pre-generated <b>Empire Name</b> that you can edit (clear it and a fresh name is generated), a race and an intelligence level. Both race and intelligence offer <b>Random</b>, resolved when the galaxy is created. Intelligence runs Novice, Average, Good, Expert, Master and scales how fast the rival earns Resources. You can have up to 15 opponents.</p>
+                <p><b style="color:#da70d6;">The New Game Screen</b><br>Empire Name and Choose Race sit on one row. Universe Size, Star Density and Player Position share the next row. Choose Race offers <b>Random Race</b>, which picks one of the six built-in races for you when you press Create Galaxy (the log tells you which), and lists your saved custom races under their own <b>Custom Races</b> heading. Player Position sets how far apart the homeworlds start. Four buttons sit below, two to a row: <b>Custom Race</b> opens your race list and the Race Wizard (see Custom Races below), <b>AI Opponents</b> opens the rival setup and shows how many rivals you have in brackets, and <b>Advanced Options</b> and <b>Victory Conditions</b> each show how many choices are ticked. Back and Create Galaxy sit on the bottom row.</p>
+                <p><b style="color:#da70d6;">Custom Races and the Race Wizard</b><br>On the New Game screen, <b>Custom Race</b> opens your list of saved races. <b>Create New Race</b> starts the Race Wizard. Each saved race also has <b>Play As</b> (makes it your race for the next game), <b>Edit</b>, <b>Copy</b> and <b>Delete</b>. Saved races appear under Custom Races in Choose Race and in every AI opponent's race menu, so you can cast your creations as your rivals too. Races are kept in this browser, and every saved game carries a copy of the custom races it uses, so a game file opened on another machine brings its races with it and adds any you do not have yet to your list. <b>Export All</b> and <b>Import</b> move your whole list as a JSON file. You can keep up to 24 custom races.</p>
+                <p><b style="color:#da70d6;">Advantage Points</b><br>Every race is built from a pool of Advantage Points. A new race starts with 25 left. Strengths spend points and handicaps refund them, and a race can only be saved when 0 or more points are left. The counter at the top right updates as you choose, and the Point Ledger beside the wizard lists every cost and refund so you can see where the points went. On a narrow screen the ledger is hidden, but the counter stays. Points you do not spend (up to 50) can go into a starting bonus picked on the Identity tab: <b>Surface minerals</b> (+20 kT of each ore per point at your homeworld), <b>Mineral concentrations</b> (+1 concentration on each mineral per 2 points, up to 100), <b>Mines</b> or <b>Factories</b> (+1 per 2 points) or <b>Defenses</b> (+1 Missile Battery per 5 points).</p>
+                <p><b style="color:#da70d6;">The Six Wizard Tabs</b><br>You can jump between tabs at any time, or use Back and Next. <b>1 Identity</b>: race name, plural name, an icon, an optional preset (loads the traits of one of the six built-in races as a starting point, keeping your name and icon) and the leftover points bonus. <b>2 Primary Trait</b>: exactly one of ten, such as Hyper-Expansion, Super-Stealth, War Monger, Jack of All Trades. The primary trait sets your empire's whole style. <b>3 Lesser Traits</b>: any mix of fourteen. Advantages (Improved Fuel Efficiency, Total Terraforming, Advanced Remote Mining, Improved Starbases, Generalized Research, Ultimate Recycling, Mineral Alchemy) cost points. Handicaps (No Ram Scoop Engines, Cheap Engines, Only Basic Remote Mining, No Advanced Scanners, Low Starting Population, Bleeding Edge Technology, Regenerating Shields) refund them. <b>4 Environment</b>: for Gravity, Temperature and Radiation pick an Ideal value and a Tolerance. The purple band shows the conditions your people can live in, in real units. A wide band means many planets suit you but costs points, a narrow band refunds points. Ticking Immune makes that factor irrelevant, at the highest price. The wizard tells you how many planets to expect to be habitable (for example 1 in 5), and the same odds apply in the galaxy. The growth rate slider runs from 1 to 20 percent a year, and faster growth costs points. <b>5 Economy</b>: seven numbers that say how much one colonist, factory and mine produces, what factories and mines cost and how many a population can run, plus a checkbox that makes factories use 1 kT less Germanium. Better numbers cost points, worse numbers refund them. <b>6 Research</b>: each of the six fields can cost 75 percent extra (refunds points), a standard amount, or 50 percent less (costs points). A checkbox lets every expensive field start at Tech 4, at a price.</p>
+                <p><b style="color:#da70d6;">What a Custom Race Does In This Game</b><br>The wizard marks each trait <b>Active</b> or <b>Recorded</b>. Active effects: your habitat ranges and immunities decide which planets are habitable; the growth rate sets how fast colonists breed (15 percent is the normal 5 percent a year, 20 percent is about 6.7 percent); every number on the Economy tab is used for Resources, factories, mines and their build costs; the Research tab sets what each level costs; <b>Hyper-Expansion</b> doubles growth and halves every planet's population cap; <b>Super-Stealth</b> widens scanner range by 30 percent; <b>Jack of All Trades</b> starts you at Tech 3 in every field and raises every planet's population cap by 20 percent; <b>Improved Fuel Efficiency</b> cuts fuel use by 15 percent; <b>Improved Starbases</b> makes Space Stations and Starbases 20 percent cheaper; <b>Only Basic Remote Mining</b> raises every planet's population cap by 10 percent; <b>Low Starting Population</b> gives your homeworld 30 percent fewer colonists at the start. The other traits are saved on the race and count toward its points, but they need systems the game does not have yet (terraforming, stargates, mines, combat and so on), so they have no effect for now.</p>
+                <p><b style="color:#da70d6;">AI Opponents</b><br>The AI Opponents screen lists every rival. Each starts with a pre-generated <b>Empire Name</b> that you can edit (clear it and a fresh name is generated), a race and an intelligence level. Both race and intelligence offer <b>Random</b>, resolved when the galaxy is created. Random picks from the six built-in races; to cast a custom race as a rival, choose it under Custom Races. Intelligence runs Novice, Average, Good, Expert, Master and scales how fast the rival earns Resources. You can have up to 15 opponents.</p>
                 <p><b style="color:#da70d6;">The Two Currencies: Resources and Ore</b><br>Nothing is built with one currency alone. <b style="color:#ffa040;">Resources</b> are your industrial labor and factory output. <b style="color:#da70d6;">Ore</b> is the physical matter: <span style="color:#4169e1;">Ironium</span>, <span style="color:#32cd32;">Boranium</span> and <span style="color:#ffd700;">Germanium</span>, dug out of planets by mines. Every hull, factory and ship needs a mix of both. Plenty of Ore but no factories means your queues stall for lack of Resources. Plenty of Resources but a mine running dry of Germanium means your queues stall for lack of Ore. Watch both.</p>
-                <p><b style="color:#da70d6;">Resources</b><br>Each planet makes 1 Resource per 1,000 colonists plus 1 Resource per operating factory. Only 1 factory per 1,000 colonists can operate, so a small colony cannot run a huge factory complex. Your homeworld starts with 25,000 colonists and 10 factories, producing 35 Resources a year. Population growth raises income directly. The Planet panel shows each planet's Resources per year.</p>
-                <p><b style="color:#da70d6;">Ore and Mining</b><br>Ironium, Boranium and Germanium each have a concentration from 1 to 100 percent. Each operating mine digs 1 kT per year of each mineral at 100 percent concentration, scaled down by the real concentration. Like factories, only 1 mine per 1,000 colonists can operate. Every 1,000 kT mined of a mineral lowers its concentration by 1 point, so old worlds slowly run dry. Ore piles up on the planet where it is mined and can be moved by fleets (see Cargo).</p>
+                <p><b style="color:#da70d6;">Resources</b><br>With the standard economy each planet makes 1 Resource per 1,000 colonists plus 1 Resource per operating factory. Only 1 factory per 1,000 colonists can operate, so a small colony cannot run a huge factory complex. Your homeworld starts with 25,000 colonists and 10 factories, producing 35 Resources a year. Population growth raises income directly. The Planet panel shows each planet's Resources per year. A custom race can change every one of these numbers on the Economy tab of the wizard.</p>
+                <p><b style="color:#da70d6;">Ore and Mining</b><br>Ironium, Boranium and Germanium each have a concentration from 1 to 100 percent. With the standard economy each operating mine digs 1 kT per year of each mineral at 100 percent concentration, scaled down by the real concentration. Like factories, only 1 mine per 1,000 colonists can operate. Every 1,000 kT mined of a mineral lowers its concentration by 1 point, so old worlds slowly run dry. Ore piles up on the planet where it is mined and can be moved by fleets (see Cargo).</p>
                 <p><b style="color:#da70d6;">The Budget: Research vs Manufacturing</b><br>Management, Economy splits your Resources between research and manufacturing (starts at 15 percent research). Research Resources flow into your active research field. Manufacturing Resources pay for the build queue on the planet that produced them. Manufacturing Resources that no queue item can use are lost, so keep every productive planet busy.</p>
                 <p><b style="color:#da70d6;">The Planet Picture</b><br>The picture at the top left is the selected planet, turning slowly. Every planet is drawn from its own data. The share of ocean follows its habitability: a high habitability world is mostly blue water with green continents and swirling white clouds, a hostile world has dry dark basins instead of seas. Temperature adds ice caps and snowy peaks on cold worlds and a glowing, lava-streaked surface and a thick haze on hot ones. The color of the land comes from the ore under it: rich Ironium gives rusty red, rich Boranium gives blue-green, rich Germanium gives gold, and the richer the ore overall the deeper the tint. A planet you have not scanned is a gray, dim sphere with a question mark.</p>
                 <p><b style="color:#da70d6;">What the Panels Show</b><br>The panels only show what you can act on. The Production Queue appears only for a planet your empire has colonized. The Fleets in Orbit panel appears only when one or more of your fleets are in orbit of the selected planet, and it lists just the fleets there. Selecting a planet where you have a fleet selects that fleet. When another fleet of yours is selected and you pick a planet it is not at, the planet panel offers Send Fleet Here.</p>
                 <p><b style="color:#da70d6;">The Planet Menu</b><br>Select one of your planets, then open the Planet menu. <b>Structures</b> appears only on a planet you have colonized. <b>Ship Construction</b> appears only on a planet whose starbase has a ship dock, exactly as in Stars!, where a raw colony cannot build ships until it has a space station. <b>Upgrade Space Station</b> appears on a planet orbited by a Space Station or Orbital Fort, and <b>Upgrade Starbase</b> appears on a planet orbited by a Heavy Starbase or Ultra Station. If a planet has none of these, for example a neutral or rival world, the Planet button is hidden entirely.</p>
-                <p><b style="color:#da70d6;">Structures</b><br>Structures queues planetary buildings: Mine (5 Resources), Factory (10 Resources, 4 Germanium) and Missile Battery (15 Resources, 5 Ironium, 5 Boranium). On a planet with nothing in orbit it also offers <b>Space Station / Starbase</b>, which opens the Starbase Designer. Once a planet has an orbital installation, or one is already in its queue, that choice disappears: upgrade it from the Planet menu instead. Missile Batteries are planetary defenses. They are counted and shown on the planet, but there is no combat yet, so they do not fight.</p>
+                <p><b style="color:#da70d6;">Structures</b><br>Structures queues planetary buildings: Mine (5 Resources), Factory (10 Resources, 4 Germanium) and Missile Battery (15 Resources, 5 Ironium, 5 Boranium). These are the standard costs; a custom race can make mines and factories cheaper or dearer, and the list always shows your own prices. On a planet with nothing in orbit it also offers <b>Space Station / Starbase</b>, which opens the Starbase Designer. Once a planet has an orbital installation, or one is already in its queue, that choice disappears: upgrade it from the Planet menu instead. Missile Batteries are planetary defenses. They are counted and shown on the planet, but there is no combat yet, so they do not fight.</p>
                 <p><b style="color:#da70d6;">Space Stations and Starbases</b><br>As in Stars!, an orbital installation is not a fixed building. It is an immobile ship hull anchored to a planet, and you design it yourself. A planet can have only one at a time: a Space Station and a Starbase never orbit the same world together. In the Starbase Designer pick a hull, then fill its slots with components, name the design and save it. Saved designs can be reused on any planet. Hulls: <b>Orbital Fort</b> (4 slots, no dock, cheap defense) and <b>Space Station</b> (6 slots, has a ship dock, available from the start) are the early, light hulls with a small mass budget, good for refueling, repairs and deterring scouts. <b>Heavy Starbase</b> (10 slots, dock, needs Construction 5) and <b>Ultra Station</b> (16 slots, dock, needs Construction 10) are the late-game fortress hulls with room for heavy armor, several shields and big weapons. Components: <b>Armor Plating</b>, <b>Beam Weapon</b>, <b>Shield Generator</b> (needs Energy 2) and <b>Capital Torpedo</b> (needs Weapons 3). Weapon attack grows 10 percent for each Weapons level above 1. The designer shows armor, shields, attack, slots used, ship dock and the full cost. An installation with a dock unlocks Ship Construction on that planet. Every installation, dock or not, refuels fleets in orbit. Armor, shields and weapons are recorded on the design, but combat is not in the game yet.</p>
                 <p><b style="color:#da70d6;">Upgrading a Space Station or Starbase</b><br>You cannot add a component to a built installation, and you cannot stack a second one. Stars! has one orbital slot per planet, so an upgrade is a replacement: pick Upgrade Space Station or Upgrade Starbase from the Planet menu, design a better hull and queue it. The upgrade costs the new design minus half the value of the old installation. The old one keeps working and keeps its dock until the new one is finished, and then it is replaced. If the new design has no dock you will be warned, because the planet would lose Ship Construction. Only one order for an orbital installation can be in the queue on a planet at a time.</p>
                 <p><b style="color:#da70d6;">Ship Construction</b><br>On a planet with a docked installation, Ship Construction queues Scout (12 Resources, 4 Ironium, 2 Germanium), Colony Ship (18 Resources, 10 Ironium, 3 Germanium, and 5,000 colonists taken from the planet when it finishes, so the planet needs 7,500), Small Freighter (12 Resources, 10 Ironium, 3 Germanium) and Destroyer (25 Resources, 15 Ironium, 10 Boranium, 5 Germanium). A finished ship appears as a new fleet in orbit of the planet that built it, with a full fuel tank.</p>
                 <p><b style="color:#da70d6;">The Production Queue</b><br>Nothing is paid when you queue. Each turn the planet spends its manufacturing Resources and the Ore it needs on the first item in the queue, then moves down the list. An item is finished once its full cost is paid. If an item lacks Ore, it waits and the next item gets the Resources. The queue shows a percent complete only for items that take more than one turn to build. An item that your planet can pay for in a single turn just finishes at the end of the turn, so it shows no percent.</p>
-                <p><b style="color:#da70d6;">Research</b><br>Choose a field under Management, Research. Six fields each have levels 1 to 26. The next level of a field costs 60 times the square of its current level in Resources (double that if Slower Tech Advances is on). The screen shows progress and an estimate of years to the next level. Electronics widens your scanner range. Propulsion Drives unlocks better engines (see Engines). Construction unlocks bigger hulls, Energy unlocks Shield Generators and Weapons unlocks Capital Torpedoes and stronger beams. Biotechnology advances and counts toward your score, but does not unlock anything yet.</p>
+                <p><b style="color:#da70d6;">Research</b><br>Choose a field under Management, Research. Six fields each have levels 1 to 26. The next level of a field costs 60 times the square of its current level in Resources (double that if Slower Tech Advances is on). A custom race multiplies that cost by 1.75 in every field set to Costs 75% extra and by 0.5 in every field set to Costs 50% less, and the screen always shows your real cost. The screen shows progress and an estimate of years to the next level. Electronics widens your scanner range. Propulsion Drives unlocks better engines (see Engines). Construction unlocks bigger hulls, Energy unlocks Shield Generators and Weapons unlocks Capital Torpedoes and stronger beams. Biotechnology advances and counts toward your score, but does not unlock anything yet.</p>
                 <p><b style="color:#da70d6;">Turn Flow</b><br>Give your orders, then press End Turn. Each turn advances the year by one: fleets move along their waypoints and burn fuel, waypoint tasks run, orbital installations refuel the fleets in orbit, production queues spend Resources and Ore, mines dig new Ore, research advances, populations grow or shrink, random events may strike, AI empires add income and scanner discovery re-runs. Victory Conditions are checked at the end of every turn. The turn report lists fleet movements, Resources produced, what was spent on research and manufacturing, anything built, Ore mined, events and any queue waiting on Ore.</p>
                 <p><b style="color:#da70d6;">Random Events</b><br>Unless No Random Events is ticked, each year there is a small chance that something happens to one of your planets: a <b>mineral strike</b> raises the concentration of one mineral, a <b>population boom</b> adds colonists, a <b>plague</b> kills some of them, or a <b>salvage find</b> drops a cache of Ore on the planet. Events appear in the Galactic Event Log and the turn report.</p>
                 <p><b style="color:#da70d6;">Your Starting Fleet</b><br>Like Stars! you begin with a single Long Range Scout in orbit of your homeworld. It carries 300 mg of fuel and an ER 50 scanner, and its job is to map the nearby stars: ore, concentrations and green worlds worth colonizing. Your homeworld starts with a Basic Space Station that has a ship dock. Colony ships, freighters and warships are built there.</p>
                 <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Colored dots show ownership and habitability; the legend is in the lower left.</p>
-                <p><b style="color:#da70d6;">Playing on a Phone or Tablet</b><br>On a narrow screen the Star Map sits at the top of the dashboard and the planet, fleet and queue panels scroll underneath it. Drag with one finger to pan, pinch with two fingers to zoom around the point between your fingers, and tap a star or fleet to select it. A touch screen has no Shift key, so to plot a course turn on Fleet, Plot Course Mode (or the Plot button in the Fleets in Orbit panel) and tap stars or empty space on the map to add waypoints. The map resizes when you turn the device.</p>
+                <p><b style="color:#da70d6;">Playing on a Phone or Tablet</b><br>On a narrow screen the Star Map sits at the top of the dashboard and the planet, fleet and queue panels scroll underneath it. Drag with one finger to pan, pinch with two fingers to zoom around the point between your fingers, and tap a star or fleet to select it. A touch screen has no Shift key, so to plot a course turn on Fleet, Plot Course Mode (or the Plot button in the Fleets in Orbit panel) and tap stars or empty space on the map to add waypoints. The map resizes when you turn the device. The Race Wizard also fits a phone: its tabs scroll sideways and the Point Ledger is hidden, but the Advantage Points counter stays in view.</p>
                 <p><b style="color:#da70d6;">Fleets on the Map</b><br>Every group of ships is a fleet. Your fleets are cyan arrowheads with their name beside them. A fleet in orbit slowly circles its planet; several fleets share the orbit, evenly spaced. A fleet in deep space sits where it is. Pick a fleet in the Fleets in Orbit panel, in the Fleet Roster, or by clicking its arrow on the map. A fleet with orders shows a line to each waypoint, a numbered box at each stop with its travel time in years, and the current warp next to its name. A dashed orange leg means you do not have the fuel to finish that leg. When a fleet is selected, dashed rings show how far it moves in one year: green for its free speed, amber for the warp of its first waypoint. Toggle the rings with Fleet, Range Rings.</p>
                 <p><b style="color:#da70d6;">The Fleet Menu and Fleet Actions</b><br>The Fleet menu always offers Manage Waypoints, Plot Course Mode and Range Rings. Below them the menu adds actions that only make sense where you are. Select a planet that has one of your fleets in orbit and the matching actions appear: <b>Colonize Planet</b> on a neutral world when a fleet there has a Colony Ship, <b>Cargo and Transfer</b> on one of your planets when a fleet there can carry cargo, <b>Merge Fleets Here</b> when two or more of your fleets share the orbit, and <b>Orbital Bombardment</b> and <b>Ground Invasion</b> at a rival homeworld. With no fleet in orbit of the selected planet, these actions are not shown.</p>
                 <p><b style="color:#da70d6;">Warp Speed and Travel Time</b><br>A fleet travels at a Warp factor from 1 to 10. In one year it covers the warp squared in light years: Warp 4 is 16 ly, Warp 6 is 36 ly, Warp 9 is 81 ly. A fleet stops at every waypoint it reaches, even if it could have gone farther that year. Travel time to a waypoint is the distance divided by the speed, rounded up to whole years.</p>
-                <p><b style="color:#da70d6;">Fuel</b><br>Fuel is measured in milligrams (mg). Each ship has a tank: Scout 300, Colony Ship 200, Small Freighter 130, Destroyer 280. The fuel a fleet burns is: fleet mass in kT times the engine's fuel use at that warp times the distance in ly, divided by 200. Fleet mass is the hulls plus cargo, so a loaded colony ship burns far more than a scout. Speeds at or below your engine's free speed burn no fuel at all. Faster warps burn fuel quickly: Warp 10 is fast but can empty a tank in a few years. If a fleet runs out of fuel part way along a leg it stalls in deep space, and from then on it can only drift at Warp 1 (1 ly a year) until it is refueled. Plan long trips with the Waypoints window, which shows the fuel each leg needs and warns when a leg cannot be finished.</p>
+                <p><b style="color:#da70d6;">Fuel</b><br>Fuel is measured in milligrams (mg). Each ship has a tank: Scout 300, Colony Ship 200, Small Freighter 130, Destroyer 280. The fuel a fleet burns is: fleet mass in kT times the engine's fuel use at that warp times the distance in ly, divided by 200 (and cut by 15 percent for a race with Improved Fuel Efficiency). Fleet mass is the hulls plus cargo, so a loaded colony ship burns far more than a scout. Speeds at or below your engine's free speed burn no fuel at all. Faster warps burn fuel quickly: Warp 10 is fast but can empty a tank in a few years. If a fleet runs out of fuel part way along a leg it stalls in deep space, and from then on it can only drift at Warp 1 (1 ly a year) until it is refueled. Plan long trips with the Waypoints window, which shows the fuel each leg needs and warns when a leg cannot be finished.</p>
                 <p><b style="color:#da70d6;">Engines</b><br>Your Propulsion level picks the engine every ship uses: Quick Jump 5 (level 1, free up to Warp 5), Long Hump 6 (level 3, free to Warp 6), Daddy Long Legs 7 (level 5, free to Warp 7), Alpha Drive 8 (level 7, free to Warp 8) and Trans-Galactic Drive 9 (level 9, free to Warp 9). A better engine also burns less fuel at the warps above its free speed. The Research screen shows your current engine.</p>
                 <p><b style="color:#da70d6;">Refueling</b><br>Only a planet with a Space Station or Starbase refuels fleets. Your homeworld has one. Any fleet in orbit of such a planet of yours is topped up at the end of every turn. Colonies have nothing in orbit until you build one, so a scout far from home has to make its tank last, and a forward Space Station is the way to extend your reach. An installation also counts toward your score.</p>
                 <p><b style="color:#da70d6;">Waypoints and Tasks</b><br>Fleet, Manage Waypoints (or the Waypoints button) opens the route window. Add the selected star as a waypoint, or turn on Fleet, Plot Course Mode (the Plot button) and click stars or empty space on the map to add waypoints. You can also hold Shift and click the map at any time. Each waypoint has its own Warp and its own Task, and any waypoint can be removed. The Send Fleet Here button on the planet panel replaces the route with a single waypoint at the selected planet. Tasks run when the fleet arrives at a planet: Colonize uses one Colony Ship and its colonists to found a colony on a habitable, scanned neutral world. Load Ore picks up all the Ironium, Boranium and Germanium the fleet can carry from one of your planets, and Unload Ore puts the fleet's ore on the planet. A finished waypoint is removed from the list.</p>
                 <p><b style="color:#da70d6;">Cargo and Transfer</b><br>Fleet, Cargo and Transfer appears when your selected planet is one of yours and a fleet that can carry cargo is in orbit there. Enter a positive number to load from the planet onto the fleet and a negative number to unload. Ore is in kT. Colonists move in single colonists, at 100 colonists per kT of cargo, and a planet always keeps at least 1,000. A fleet can carry no more than the combined capacity of its ships: Colony Ship 50 kT, Small Freighter 70 kT. Scouts and Destroyers carry nothing.</p>
                 <p><b style="color:#da70d6;">Merging Fleets</b><br>Fleet, Merge Fleets Here joins every one of your fleets in the same orbit as the selected fleet into one, adding their ships, cargo and fuel and clearing the route. It only appears when at least two of your fleets are in orbit of the selected planet.</p>
-                <p><b style="color:#da70d6;">Scanning and Discovery</b><br>Star locations are always visible, but what is on them is not. Planets inside scanner range of your scanner-equipped fleets or any owned planet reveal their Ore, concentrations, environment and habitability. Scouts and Destroyers carry scanners; Colony Ships and Freighters do not, though any fleet in orbit of a planet surveys it. Rival homeworlds stay hidden until a scanner finds them. Range is 50 ly plus 25 ly per Electronics level above 1 (Turindines get +30%). Scanning happens at the end of the turn, so a fast scout can fly past a system between turns without seeing it. Out-of-range planets keep their last survey data, marked with the year it was taken.</p>
-                <p><b style="color:#da70d6;">Habitability</b><br>Each planet has gravity, temperature and radiation. The shaded band on each bar is the range your race tolerates and the marker is the planet. A planet with every value inside the band is habitable, and the closer to center the better. Any value outside the band makes the planet hostile. Maximum population is habitability percent of 100,000.</p>
-                <p><b style="color:#da70d6;">Colonizing</b><br>Build a Colony Ship (the planet needs a ship dock and at least 7,500 colonists), fly it to a scanned, habitable, neutral planet and use the Colonize task on the waypoint, or Fleet, Colonize Planet once it is in orbit. The ship is used up and its colonists (up to 5,000) found the colony. Hostile and unscanned planets cannot be colonized. A new colony makes about 5 Resources a year: queue a factory or mine first. A new colony cannot build ships until you give it a Space Station with a dock. Populations grow 5 percent per turn up to their maximum.</p>
+                <p><b style="color:#da70d6;">Scanning and Discovery</b><br>Star locations are always visible, but what is on them is not. Planets inside scanner range of your scanner-equipped fleets or any owned planet reveal their Ore, concentrations, environment and habitability. Scouts and Destroyers carry scanners; Colony Ships and Freighters do not, though any fleet in orbit of a planet surveys it. Rival homeworlds stay hidden until a scanner finds them. Range is 50 ly plus 25 ly per Electronics level above 1 (Turindines and Super-Stealth races get +30%). Scanning happens at the end of the turn, so a fast scout can fly past a system between turns without seeing it. Out-of-range planets keep their last survey data, marked with the year it was taken.</p>
+                <p><b style="color:#da70d6;">Habitability</b><br>Each planet has gravity, temperature and radiation. The shaded band on each bar is the range your race tolerates and the marker is the planet. A planet with every value inside the band is habitable, and the closer to center the better. Any value outside the band makes the planet hostile. A factor your race is immune to counts as perfect everywhere, and its band fills the whole bar. Maximum population is habitability percent of 100,000, changed by your race's population traits (Hyper-Expansion halves it, Jack of All Trades adds 20 percent, Only Basic Remote Mining adds 10 percent).</p>
+                <p><b style="color:#da70d6;">Colonizing</b><br>Build a Colony Ship (the planet needs a ship dock and at least 7,500 colonists), fly it to a scanned, habitable, neutral planet and use the Colonize task on the waypoint, or Fleet, Colonize Planet once it is in orbit. The ship is used up and its colonists (up to 5,000) found the colony. Hostile and unscanned planets cannot be colonized. A new colony makes about 5 Resources a year: queue a factory or mine first. A new colony cannot build ships until you give it a Space Station with a dock. Populations grow 5 percent per turn (your race's growth rate) up to their maximum.</p>
                 <p><b style="color:#da70d6;">Advanced Options</b><br>On the New Game screen, Advanced Options opens a box where you can add any of these to the game. <b>Beginner: Maximum Minerals</b> gives every homeworld 100 percent mineral concentrations and every other world at least 50 percent. <b>Slower Tech Advances</b> doubles the cost of every research level. <b>Accelerated BBS Play</b> speeds up the opening: you begin with an extra loaded Colony Ship and a Small Freighter at your homeworld, and AI empires start with 50 percent more banked Resources. <b>No Random Events</b> turns off random events. <b>AI Opponents can form alliances</b> lets rivals team up over time; allied rivals each earn 10 percent more. <b>Public Player Scores</b> (on by default) shows every empire's score on the Scoreboard; turn it off to hide rival scores. <b>Galaxy clumping</b> gathers stars into tight clusters with empty space between them; off gives a looser, more even spread.</p>
                 <p><b style="color:#da70d6;">Victory Conditions</b><br>On the New Game screen, Victory Conditions opens a box where you can tick any of these. <b>Own a share of all planets</b> is ticked to start with at 60 percent; set it anywhere from 10 to 100 percent of every planet in the galaxy. <b>Attain a tech level</b>: a level from 1 to 26 in a number of fields from 1 to 6. <b>Exceed a score</b>: from 1,000 to 1,000,000. <b>Exceed second place score by a percentage</b>: your score must be at least that much higher than the runner-up (starts at 100 percent, meaning double the second best score; choose 1 to 1,000). <b>Own capital ships</b>: from 2 to 1,000 (capital ships cannot be built yet, so this cannot be met until ship design arrives). <b>Highest score after a number of years</b>: from 10 to 1,000,000 years. At the bottom, pick how many of the ticked conditions a winner must meet (1 up to the number ticked), and how many years must pass before a winner can be declared (10 to 1,000,000). Every empire is judged the same way at the end of each turn, and if several qualify the highest score wins. The Scoreboard lists the active conditions. After a winner is declared you can keep playing.</p>
                 <p><b style="color:#da70d6;">Management</b><br>Economy shows your Resources, the research and manufacturing split, operating factories and mines, and Ore mined and stockpiled. Research lets you pick the field and shows progress and your engine. <b>Fleet Roster</b> lists every fleet with its position, fuel, cargo and route. Each fleet has a <b>Select and Center</b> button: it closes the roster, selects that fleet, selects the planet it is orbiting and moves the star map to it (a fleet in deep space is selected and centered on its position). Scoreboard ranks every empire by planets, ships, tech, Resources per year and Ore.</p>
-                <p><b style="color:#da70d6;">Saving</b><br>Save File stores the game in this browser, including every fleet, its waypoints and fuel, tech levels, research progress, your budget, your starbase designs, every planet's orbital installation, your Advanced Options and Victory Conditions. Continue Game on the title screen loads that save. Load File and Open Game import a saved JSON file. Saves from before version 0.7.62 load with Public Player Scores on, every other option off and no victory conditions; saves from before 0.7.61 have every existing starbase converted into a Basic Space Station with a dock; saves from before 0.7.60 have their single fleet converted into the fleet system; saves from before 0.7.59 are also converted to the new economy. Abandon Game returns to the title screen and discards unsaved progress.</p>
-                <p style="margin-bottom:0;color:#aaa;">Tip: your first turns are about turning Resources into more Resources. Queue factories and mines on the homeworld, watch Germanium (factories need it), send the scout out at Warp 5 on free fuel to find colony targets, and use Ship Construction to queue a Colony Ship when you spot a green world. Once a colony is established, give it a Space Station so it can build for itself.</p>
+                <p><b style="color:#da70d6;">Saving</b><br>Save File stores the game in this browser, including every fleet, its waypoints and fuel, tech levels, research progress, your budget, your starbase designs, every planet's orbital installation, your Advanced Options and Victory Conditions, and a copy of every custom race in play (yours and your rivals'). Continue Game on the title screen loads that save. Load File and Open Game import a saved JSON file, and any custom races inside it that are not already in your list are added to it. Your list of custom races is saved in this browser the moment you save a race in the wizard, separately from any game. Saves from before version 0.7.62 load with Public Player Scores on, every other option off and no victory conditions; saves from before 0.7.61 have every existing starbase converted into a Basic Space Station with a dock; saves from before 0.7.60 have their single fleet converted into the fleet system; saves from before 0.7.59 are also converted to the new economy. Abandon Game returns to the title screen and discards unsaved progress.</p>
+                <p style="margin-bottom:0;color:#aaa;">Tip: your first turns are about turning Resources into more Resources. Queue factories and mines on the homeworld, watch Germanium (factories need it), send the scout out at Warp 5 on free fuel to find colony targets, and use Ship Construction to queue a Colony Ship when you spot a green world. Once a colony is established, give it a Space Station so it can build for itself. Designing a race? Start from a preset, change one thing at a time and watch the Advantage Points counter and the Point Ledger.</p>
             </div>
         `;
 
@@ -1681,8 +2359,6 @@
         const ORE_KEYS = ['iron', 'bora', 'germ'];
         const COST_KEYS = ['res', 'iron', 'bora', 'germ'];
         const ORE_NAMES = { iron: 'Ironium', bora: 'Boranium', germ: 'Germanium' };
-        const COLONISTS_PER_RESOURCE = 1000;
-        const COLONISTS_PER_OPERATING_UNIT = 1000;
         const COLONY_SHIP_LOAD = 5000;
         const COLONY_SHIP_MIN_POP = 7500;
         const COLONY_MIN_LOAD = 1000;
@@ -1752,8 +2428,8 @@
             else if (key === 'biotechnology') techBiotechnology = value;
         }
 
-        function researchCost(level) {
-            return Math.round(60 * level * level * (gameOptions.slowTech ? 2 : 1));
+        function researchCost(level, field) {
+            return Math.round(60 * level * level * (gameOptions.slowTech ? 2 : 1) * raceResearchMult(playerRace, field));
         }
 
         function resetResearchState() {
@@ -1790,6 +2466,8 @@
             d.slots.forEach(s => {
                 if (s && COMPONENTS[s]) COST_KEYS.forEach(k => { c[k] += COMPONENTS[s].cost[k]; });
             });
+            const m = raceStarbaseCostMult(playerRace);
+            if (m !== 1) COST_KEYS.forEach(k => { c[k] = Math.round(c[k] * m); });
             return c;
         }
 
@@ -1862,6 +2540,379 @@
             rototills:  { grav: { c: 50, h: 38 }, temp: { c: 50, h: 38 }, rad: { c: 50, h: 38 } },
             cybertrons: { grav: { c: 62, h: 24 }, temp: { c: 42, h: 32 }, rad: { c: 68, h: 26 } }
         };
+        const RACE_LIB_KEY = 'freespace4x_races';
+        const MAX_CUSTOM_RACES = 24;
+        const RACE_ICONS = ['🧑', '🤖', '👽', '🦎', '🐙', '🦂', '🐺', '🦅', '🐉', '🪲', '🧬', '🌀', '🔥', '❄️', '🌿', '⚙️'];
+        const BONUS_OPTIONS = [
+            { key: 'minerals', label: 'Surface minerals', per: '+20 kT of each ore per point' },
+            { key: 'concentrations', label: 'Mineral concentrations', per: '+1 on each mineral per 2 points' },
+            { key: 'mines', label: 'Mines', per: '+1 mine per 2 points' },
+            { key: 'factories', label: 'Factories', per: '+1 factory per 2 points' },
+            { key: 'defenses', label: 'Defenses', per: '+1 Missile Battery per 5 points' },
+            { key: 'none', label: 'Nothing', per: 'leftover points are not used' }
+        ];
+        const MAX_BONUS_POINTS = 50;
+        const HAB_AXES = [
+            { key: 'grav', label: 'Gravity', fmt: v => gravToG(v).toFixed(2) + 'g' },
+            { key: 'temp', label: 'Temperature', fmt: v => tempToC(v) + '°C' },
+            { key: 'rad', label: 'Radiation', fmt: v => Math.round(v) + ' mR' }
+        ];
+        const HAB_IMMUNE_COST = 24;
+        const HAB_MIN_TOLERANCE = 5;
+        const HAB_MAX_TOLERANCE = 50;
+        const GROWTH_NORMAL = 15;
+        const RES_FIELD_LABELS = { energy: 'Energy', weapons: 'Weapons', propulsion: 'Propulsion', construction: 'Construction', electronics: 'Electronics', biotechnology: 'Biotechnology' };
+        const RESEARCH_MODES = {
+            exp: { label: 'Costs 75% extra', short: '+75%', mult: 1.75, cost: -12 },
+            std: { label: 'Standard cost', short: 'Standard', mult: 1, cost: 0 },
+            cheap: { label: 'Costs 50% less', short: '-50%', mult: 0.5, cost: 16 }
+        };
+        const DEFAULT_ECON = { popPerRes: 1000, facOut: 10, facCost: 10, facOperate: 10, mineOut: 10, mineCost: 5, mineOperate: 10, germLess: false };
+        const GERM_LESS_COST = 10;
+        const ECON_FIELDS = [
+            { key: 'popPerRes', label: 'Colonists needed for 1 Resource', short: 'Colonists per Resource', min: 700, max: 2500, step: 100, cost: v => v <= 1000 ? Math.round((1000 - v) / 20) : -Math.round((v - 1000) / 60) },
+            { key: 'facOut', label: 'Resources produced by 10 factories', short: 'Factory output', min: 5, max: 15, step: 1, cost: v => (v - 10) * 5 },
+            { key: 'facCost', label: 'Resources to build a factory', short: 'Factory cost', min: 5, max: 15, step: 1, cost: v => (10 - v) * 3 },
+            { key: 'facOperate', label: 'Factories 10,000 colonists can operate', short: 'Factories operated', min: 5, max: 25, step: 1, cost: v => (v - 10) * 2 },
+            { key: 'mineOut', label: 'kT mined by 10 mines (at 100% concentration)', short: 'Mine output', min: 5, max: 25, step: 1, cost: v => (v - 10) * 2 },
+            { key: 'mineCost', label: 'Resources to build a mine', short: 'Mine cost', min: 2, max: 15, step: 1, cost: v => (5 - v) * 2 },
+            { key: 'mineOperate', label: 'Mines 10,000 colonists can operate', short: 'Mines operated', min: 5, max: 25, step: 1, cost: v => Math.round((v - 10) * 1.5) }
+        ];
+        const PRT_LIST = [
+            { key: 'HE', name: 'Hyper-Expansion', cost: 70, active: true, desc: 'Breeds fast but lives cramped. Colonists grow at double the normal rate and every planet holds half as many. Expanding quickly is how you win.' },
+            { key: 'SS', name: 'Super-Stealth', cost: 62, active: true, desc: 'Spies and sneaks. Your scanners reach 30 percent further. (Cloaking and stealing cargo need combat and fleets that do not exist yet.)' },
+            { key: 'WM', name: 'War Monger', cost: 60, active: false, desc: 'Masters of ships and weapons, with stronger starting fleets and cheaper warships. Recorded until combat arrives.' },
+            { key: 'CA', name: 'Claim Adjuster', cost: 50, active: false, desc: 'Remakes worlds to suit them, with terraforming as a core talent. Recorded until terraforming arrives.' },
+            { key: 'IS', name: 'Inner Strength', cost: 58, active: false, desc: 'Fortress builders, with stronger defenses and faster healing. Recorded until combat arrives.' },
+            { key: 'SD', name: 'Space Demolition', cost: 55, active: false, desc: 'Mine layers, with powerful minefields. Recorded until minefields arrive.' },
+            { key: 'PP', name: 'Packet Physics', cost: 52, active: false, desc: 'Hurls minerals across space in mass packets. Recorded until mineral packets arrive.' },
+            { key: 'IT', name: 'Interstellar Traveler', cost: 58, active: false, desc: 'Gates and traders, at home in deep space. Recorded until stargates arrive.' },
+            { key: 'AR', name: 'Alternate Reality', cost: 45, active: false, desc: 'Lives on orbital habitats and needs no planets. Recorded until orbital habitats arrive.' },
+            { key: 'JOAT', name: 'Jack of All Trades', cost: 50, active: true, desc: 'Good at everything, great at nothing. You start at Tech 3 in every field and every planet holds 20 percent more colonists.' }
+        ];
+        const LRT_LIST = [
+            { key: 'IFE', name: 'Improved Fuel Efficiency', cost: 15, active: true, desc: 'Engines burn 15 percent less fuel.' },
+            { key: 'TT', name: 'Total Terraforming', cost: 20, active: false, desc: 'Can reshape a planet far beyond normal limits. Recorded until terraforming arrives.' },
+            { key: 'ARM', name: 'Advanced Remote Mining', cost: 10, active: false, desc: 'Better remote mining ships. Recorded until remote mining arrives.' },
+            { key: 'ISB', name: 'Improved Starbases', cost: 12, active: true, desc: 'Space Stations and Starbases cost 20 percent less.' },
+            { key: 'GR', name: 'Generalized Research', cost: 14, active: false, desc: 'Part of the research on every planet helps every field. Recorded for now.' },
+            { key: 'UR', name: 'Ultimate Recycling', cost: 10, active: false, desc: 'Scrapped ships return most of their cost. Recorded until ships can be scrapped.' },
+            { key: 'MA', name: 'Mineral Alchemy', cost: 10, active: false, desc: 'Cheaper to turn one ore into another. Recorded until alchemy arrives.' },
+            { key: 'NRSE', name: 'No Ram Scoop Engines', cost: -10, active: false, desc: 'Cannot use ram scoop engines. Recorded until they exist.' },
+            { key: 'CE', name: 'Cheap Engines', cost: -8, active: false, desc: 'Engines are cheap but fragile at high warp. Recorded for now.' },
+            { key: 'OBRM', name: 'Only Basic Remote Mining', cost: -10, active: true, desc: 'Cannot use advanced mining ships, but the homeland makes up for it: every planet holds 10 percent more colonists.' },
+            { key: 'NAS', name: 'No Advanced Scanners', cost: -12, active: false, desc: 'Cannot build advanced scanners. Recorded for now.' },
+            { key: 'LSP', name: 'Low Starting Population', cost: -10, active: true, desc: 'Your homeworld starts with 30 percent fewer colonists.' },
+            { key: 'BET', name: 'Bleeding Edge Technology', cost: -8, active: false, desc: 'New tech costs more until it is well understood. Recorded for now.' },
+            { key: 'RS', name: 'Regenerating Shields', cost: -6, active: false, desc: 'Shields regenerate but armor is weaker. Recorded until combat arrives.' }
+        ];
+        const PRESET_PRT = { humanoid: 'JOAT', robotoids: 'HE', turindines: 'SS', automitons: 'IS', rototills: 'CA', cybertrons: 'WM' };
+
+        let raceLibrary = [];
+        let gameRaces = {};
+
+        function newRaceId() {
+            return 'cr_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+        }
+
+        function isCustomRaceId(id) {
+            return typeof id === 'string' && id.indexOf('cr_') === 0;
+        }
+
+        function presetDef(key) {
+            const h = raceHab[key] || raceHab.humanoid;
+            const hab = {};
+            HAB_AXES.forEach(a => { hab[a.key] = { c: h[a.key].c, h: h[a.key].h, imm: false }; });
+            const research = {};
+            TECH_KEYS.forEach(k => { research[k] = 'std'; });
+            return {
+                id: '',
+                name: RACE_NAMES[key] || 'Humanoid',
+                plural: RACE_NAMES[key] || 'Humanoid',
+                icon: RACE_ICONS[0],
+                prt: PRESET_PRT[key] || 'JOAT',
+                lrt: [],
+                hab: hab,
+                growth: GROWTH_NORMAL,
+                econ: Object.assign({}, DEFAULT_ECON),
+                research: research,
+                startTech4: false,
+                bonus: 'minerals'
+            };
+        }
+
+        function blankRaceDef() {
+            const d = presetDef('humanoid');
+            d.id = newRaceId();
+            d.name = 'New Race';
+            d.plural = 'New Races';
+            return d;
+        }
+
+        function cleanRaceDef(raw) {
+            if (!raw || typeof raw !== 'object') return null;
+            const base = presetDef('humanoid');
+            const d = {};
+            d.id = typeof raw.id === 'string' && /^cr_[a-z0-9]{3,24}$/.test(raw.id) ? raw.id : newRaceId();
+            d.name = String(raw.name || '').trim().slice(0, 24) || 'Unnamed Race';
+            d.plural = String(raw.plural || '').trim().slice(0, 24) || d.name;
+            d.icon = typeof raw.icon === 'string' && raw.icon ? Array.from(raw.icon).slice(0, 2).join('') : RACE_ICONS[0];
+            d.prt = PRT_LIST.some(x => x.key === raw.prt) ? raw.prt : 'JOAT';
+            const lrtIn = Array.isArray(raw.lrt) ? raw.lrt : [];
+            d.lrt = LRT_LIST.map(x => x.key).filter(k => lrtIn.indexOf(k) !== -1);
+            d.hab = {};
+            HAB_AXES.forEach(a => {
+                const src = raw.hab && raw.hab[a.key] ? raw.hab[a.key] : {};
+                d.hab[a.key] = {
+                    c: clampInt(src.c, 0, 100, base.hab[a.key].c),
+                    h: clampInt(src.h, HAB_MIN_TOLERANCE, HAB_MAX_TOLERANCE, base.hab[a.key].h),
+                    imm: !!src.imm
+                };
+            });
+            d.growth = clampInt(raw.growth, 1, 20, GROWTH_NORMAL);
+            d.econ = {};
+            ECON_FIELDS.forEach(f => {
+                d.econ[f.key] = clampInt(raw.econ ? raw.econ[f.key] : undefined, f.min, f.max, DEFAULT_ECON[f.key]);
+            });
+            d.econ.germLess = !!(raw.econ && raw.econ.germLess);
+            d.research = {};
+            TECH_KEYS.forEach(k => {
+                const m = raw.research ? raw.research[k] : null;
+                d.research[k] = RESEARCH_MODES[m] ? m : 'std';
+            });
+            d.startTech4 = !!raw.startTech4;
+            d.bonus = BONUS_OPTIONS.some(b => b.key === raw.bonus) ? raw.bonus : 'minerals';
+            return d;
+        }
+
+        function cloneRaceDef(d) {
+            return cleanRaceDef(JSON.parse(JSON.stringify(d)));
+        }
+
+        function habBand(a) {
+            if (a.imm) return { lo: 0, hi: 100, w: 100 };
+            const lo = Math.max(0, a.c - a.h);
+            const hi = Math.min(100, a.c + a.h);
+            return { lo: lo, hi: hi, w: hi - lo };
+        }
+
+        function habAxisCost(a) {
+            if (a.imm) return HAB_IMMUNE_COST;
+            return Math.round((habBand(a).w - 60) * 0.4);
+        }
+
+        function habitableFraction(d) {
+            let f = 1;
+            HAB_AXES.forEach(a => {
+                const h = d.hab[a.key];
+                if (!h.imm) f *= habBand(h).w / 100;
+            });
+            return f;
+        }
+
+        function growthCost(rate) {
+            return rate < GROWTH_NORMAL ? (rate - GROWTH_NORMAL) * 4 : (rate - GROWTH_NORMAL) * 6;
+        }
+
+        function expensiveFieldCount(d) {
+            return TECH_KEYS.filter(k => d.research[k] === 'exp').length;
+        }
+
+        function raceCost(d) {
+            const items = [];
+            const prt = PRT_LIST.find(x => x.key === d.prt);
+            items.push({ group: 'Primary Trait', label: prt.name, pts: prt.cost });
+            d.lrt.forEach(k => {
+                const l = LRT_LIST.find(x => x.key === k);
+                if (l) items.push({ group: 'Lesser Traits', label: l.name, pts: l.cost });
+            });
+            HAB_AXES.forEach(a => {
+                const h = d.hab[a.key];
+                items.push({ group: 'Environment', label: a.label + (h.imm ? ' (immune)' : ' range'), pts: habAxisCost(h) });
+            });
+            items.push({ group: 'Environment', label: 'Growth rate ' + d.growth + '%', pts: growthCost(d.growth) });
+            ECON_FIELDS.forEach(f => {
+                items.push({ group: 'Economy', label: f.short + ' ' + d.econ[f.key], pts: f.cost(d.econ[f.key]) });
+            });
+            if (d.econ.germLess) items.push({ group: 'Economy', label: 'Factories use 1 less Germanium', pts: GERM_LESS_COST });
+            TECH_KEYS.forEach(k => {
+                items.push({ group: 'Research', label: RES_FIELD_LABELS[k] + ' ' + RESEARCH_MODES[d.research[k]].short, pts: RESEARCH_MODES[d.research[k]].cost });
+            });
+            if (d.startTech4 && expensiveFieldCount(d) > 0) {
+                items.push({ group: 'Research', label: 'Expensive fields start at Tech 4', pts: 6 * expensiveFieldCount(d) });
+            }
+            let total = 0;
+            items.forEach(i => { total += i.pts; });
+            return { items: items, total: total };
+        }
+
+        const RACE_POOL = raceCost(presetDef('humanoid')).total + 25;
+
+        function raceLeftPoints(d) {
+            return RACE_POOL - raceCost(d).total;
+        }
+
+        function loadRaceLibrary() {
+            raceLibrary = [];
+            try {
+                const arr = JSON.parse(localStorage.getItem(RACE_LIB_KEY) || '[]');
+                if (Array.isArray(arr)) {
+                    arr.forEach(r => {
+                        const d = cleanRaceDef(r);
+                        if (d && !raceLibrary.some(x => x.id === d.id) && raceLibrary.length < MAX_CUSTOM_RACES) raceLibrary.push(d);
+                    });
+                }
+            } catch (e) {
+                raceLibrary = [];
+            }
+        }
+
+        function saveRaceLibrary() {
+            try {
+                localStorage.setItem(RACE_LIB_KEY, JSON.stringify(raceLibrary));
+            } catch (e) {}
+        }
+
+        function libraryRace(id) {
+            return raceLibrary.find(r => r.id === id) || null;
+        }
+
+        function addRacesToLibrary(list) {
+            let added = 0;
+            (Array.isArray(list) ? list : []).forEach(raw => {
+                const d = cleanRaceDef(raw);
+                if (!d || libraryRace(d.id) || raceLibrary.length >= MAX_CUSTOM_RACES) return;
+                raceLibrary.push(d);
+                added++;
+            });
+            if (added) saveRaceLibrary();
+            return added;
+        }
+
+        function registerGameRace(d) {
+            gameRaces[d.id] = d;
+            RACE_NAMES[d.id] = d.name;
+            const h = {};
+            HAB_AXES.forEach(a => { h[a.key] = { c: d.hab[a.key].c, h: d.hab[a.key].h, imm: d.hab[a.key].imm }; });
+            raceHab[d.id] = h;
+        }
+
+        function clearGameRaces() {
+            Object.keys(gameRaces).forEach(id => {
+                delete raceHab[id];
+                delete RACE_NAMES[id];
+            });
+            gameRaces = {};
+        }
+
+        function raceDefOf(id) {
+            return gameRaces[id] || null;
+        }
+
+        function raceHasPrt(id, k) {
+            const d = raceDefOf(id);
+            return !!d && d.prt === k;
+        }
+
+        function raceHasLrt(id, k) {
+            const d = raceDefOf(id);
+            return !!d && d.lrt.indexOf(k) !== -1;
+        }
+
+        function racePopMult(id) {
+            let m = 1;
+            if (raceHasPrt(id, 'HE')) m *= 0.5;
+            if (raceHasPrt(id, 'JOAT')) m *= 1.2;
+            if (raceHasLrt(id, 'OBRM')) m *= 1.1;
+            return m;
+        }
+
+        function raceGrowthMult(id) {
+            const d = raceDefOf(id);
+            if (!d) return 1;
+            return (d.growth / GROWTH_NORMAL) * (d.prt === 'HE' ? 2 : 1);
+        }
+
+        function raceScannerMult(id) {
+            if (id === 'turindines' || raceHasPrt(id, 'SS')) return 1.3;
+            return 1;
+        }
+
+        function raceFuelMult(id) {
+            return raceHasLrt(id, 'IFE') ? 0.85 : 1;
+        }
+
+        function raceStarbaseCostMult(id) {
+            return raceHasLrt(id, 'ISB') ? 0.8 : 1;
+        }
+
+        function raceResearchMult(id, field) {
+            const d = raceDefOf(id);
+            if (!d || !field) return 1;
+            return RESEARCH_MODES[d.research[field] || 'std'].mult;
+        }
+
+        function raceEcon(id) {
+            const d = raceDefOf(id);
+            return d ? d.econ : DEFAULT_ECON;
+        }
+
+        function econOfPlanet(p) {
+            return raceEcon(raceOfOwner(p.owner) || playerRace);
+        }
+
+        function raceStartLevels(id) {
+            const out = {};
+            TECH_KEYS.forEach(k => { out[k] = 1; });
+            const d = raceDefOf(id);
+            if (!d) return out;
+            if (d.prt === 'JOAT') TECH_KEYS.forEach(k => { out[k] = 3; });
+            if (d.startTech4) TECH_KEYS.forEach(k => { if (d.research[k] === 'exp') out[k] = Math.max(out[k], 4); });
+            return out;
+        }
+
+        function applyRaceHomeBonus(p, id) {
+            const d = raceDefOf(id);
+            if (!d) return;
+            p.maxPop = Math.round(100000 * racePopMult(id));
+            if (d.lrt.indexOf('LSP') !== -1) p.pop = Math.round(p.pop * 0.7);
+            const pts = Math.min(MAX_BONUS_POINTS, Math.max(0, raceLeftPoints(d)));
+            if (d.bonus === 'minerals') {
+                ORE_KEYS.forEach(k => { p[k] += 20 * pts; });
+            } else if (d.bonus === 'concentrations') {
+                ORE_KEYS.forEach(k => { p[k + 'Conc'] = Math.min(100, p[k + 'Conc'] + Math.floor(pts / 2)); });
+            } else if (d.bonus === 'mines') {
+                p.mines += Math.floor(pts / 2);
+            } else if (d.bonus === 'factories') {
+                p.factories += Math.floor(pts / 2);
+            } else if (d.bonus === 'defenses') {
+                p.defenses += Math.floor(pts / 5);
+            }
+        }
+
+        function buildCostFor(type) {
+            const base = BUILD_COSTS[type];
+            if (type !== 'mine' && type !== 'factory') return base;
+            const e = raceEcon(playerRace);
+            if (type === 'mine') return Object.assign({}, base, { res: e.mineCost });
+            return Object.assign({}, base, { res: e.facCost, germ: Math.max(0, base.germ - (e.germLess ? 1 : 0)) });
+        }
+
+        function raceLabel(id) {
+            return RACE_NAMES[id] || (libraryRace(id) ? libraryRace(id).name : 'Unknown Race');
+        }
+
+        function adoptGameRaces(ids) {
+            clearGameRaces();
+            ids.forEach(id => {
+                if (!isCustomRaceId(id) || gameRaces[id]) return;
+                const d = libraryRace(id);
+                if (d) registerGameRace(cloneRaceDef(d));
+            });
+        }
+
+        loadRaceLibrary();
+
         const MINE_DEPLETION_KT = 1000;
         const BASE_SCANNER_RANGE = 50;
         const SCANNER_RANGE_PER_LEVEL = 25;
@@ -1887,6 +2938,10 @@
             let sumSq = 0;
             let overshoot = 0;
             ['grav', 'temp', 'rad'].forEach(k => {
+                if (r[k].imm) {
+                    sumSq += 1;
+                    return;
+                }
                 const d = Math.abs(p[k] - r[k].c) / r[k].h;
                 if (d > 1) {
                     overshoot += Math.min(d - 1, 1) * 50;
@@ -1900,7 +2955,7 @@
         }
 
         function maxPopFor(hab) {
-            return hab > 0 ? Math.round(hab / 100 * 100000) : 0;
+            return hab > 0 ? Math.round(hab / 100 * 100000 * racePopMult(playerRace)) : 0;
         }
 
         function rollConcentration() {
@@ -1925,18 +2980,24 @@
             return { iron: 0, bora: 0, germ: 0 };
         }
 
-        function operableCount(p, built) {
-            return Math.min(built, Math.floor(p.pop / COLONISTS_PER_OPERATING_UNIT));
+        function operableFactories(p) {
+            return Math.min(p.factories, Math.floor(p.pop * econOfPlanet(p).facOperate / 10000));
+        }
+
+        function operableMines(p) {
+            return Math.min(p.mines, Math.floor(p.pop * econOfPlanet(p).mineOperate / 10000));
         }
 
         function planetResources(p) {
-            const fromPop = Math.floor(p.pop / COLONISTS_PER_RESOURCE);
-            const factories = operableCount(p, p.factories);
-            return { pop: fromPop, factories: factories, total: fromPop + factories };
+            const e = econOfPlanet(p);
+            const fromPop = Math.floor(p.pop / e.popPerRes);
+            const operating = operableFactories(p);
+            const factories = Math.floor(operating * e.facOut / 10);
+            return { pop: fromPop, factories: factories, operating: operating, total: fromPop + factories };
         }
 
         function planetOreYield(p) {
-            const m = operableCount(p, p.mines);
+            const m = operableMines(p) * econOfPlanet(p).mineOut / 10;
             return {
                 iron: m * p.ironConc / 100,
                 bora: m * p.boraConc / 100,
@@ -1958,9 +3019,9 @@
                 e.total += r.total;
                 e.fromPop += r.pop;
                 e.fromFactories += r.factories;
-                e.factoriesOperating += r.factories;
+                e.factoriesOperating += r.operating;
                 e.factoriesBuilt += p.factories;
-                e.minesOperating += operableCount(p, p.mines);
+                e.minesOperating += operableMines(p);
                 e.minesBuilt += p.mines;
                 const y = planetOreYield(p);
                 ORE_KEYS.forEach(k => {
@@ -1976,7 +3037,7 @@
         function mineMinerals(p) {
             if (!p.carry) p.carry = emptyStore();
             if (!p.mined) p.mined = emptyStore();
-            const operating = operableCount(p, p.mines);
+            const operating = operableMines(p) * econOfPlanet(p).mineOut / 10;
             [['iron', 'ironConc'], ['bora', 'boraConc'], ['germ', 'germConc']].forEach(([k, c]) => {
                 const raw = operating * p[c] / 100 + p.carry[k];
                 const whole = Math.floor(raw);
@@ -2050,7 +3111,7 @@
 
         function fuelPerLy(warp) {
             const w = Math.max(1, Math.min(10, Math.round(warp)));
-            return currentEngine().eff[w - 1];
+            return currentEngine().eff[w - 1] * raceFuelMult(playerRace);
         }
 
         function defaultWarpFor(f) {
@@ -2299,7 +3360,7 @@
         }
 
         function getScannerRange() {
-            const mult = playerRace === 'turindines' ? 1.3 : 1;
+            const mult = raceScannerMult(playerRace);
             return Math.round((BASE_SCANNER_RANGE + (techElectronics - 1) * SCANNER_RANGE_PER_LEVEL) * mult);
         }
 
@@ -2453,6 +3514,7 @@
                 fleetVersion: FLEET_VERSION,
                 currentMapDimension,
                 playerRace,
+                customRaces: Object.keys(gameRaces).map(id => gameRaces[id]),
                 techLevels: getTechLevels(),
                 researchProgress,
                 researchField,
@@ -2485,7 +3547,13 @@
             }
             ensureFleetSelection();
             currentMapDimension = data.currentMapDimension || 800;
+            const savedRaces = Array.isArray(data.customRaces) ? data.customRaces.map(cleanRaceDef).filter(Boolean) : [];
+            addRacesToLibrary(savedRaces);
+            clearGameRaces();
+            savedRaces.forEach(registerGameRace);
             playerRace = data.playerRace || 'humanoid';
+            if (isCustomRaceId(playerRace) && !gameRaces[playerRace]) playerRace = 'humanoid';
+            refreshRaceSelects();
             const levels = data.techLevels || {};
             TECH_KEYS.forEach(k => setTechLevel(k, levels[k] || 1));
             researchProgress = Object.assign(emptyResearch(), data.researchProgress || {});
@@ -2529,7 +3597,7 @@
         }
 
         function getItemCost(item) {
-            return item.cost || BUILD_COSTS[item.type];
+            return item.cost || buildCostFor(item.type);
         }
 
         function itemLabel(item) {
@@ -2545,7 +3613,7 @@
         }
 
         function costText(type) {
-            return costTextFor(BUILD_COSTS[type]);
+            return costTextFor(buildCostFor(type));
         }
 
         function queueItemPercent(item) {
@@ -2690,8 +3758,8 @@
             const messages = [];
             researchProgress[researchField] += points;
             let level = getTechLevels()[researchField];
-            while (level < MAX_TECH_LEVEL && researchProgress[researchField] >= researchCost(level)) {
-                researchProgress[researchField] -= researchCost(level);
+            while (level < MAX_TECH_LEVEL && researchProgress[researchField] >= researchCost(level, researchField)) {
+                researchProgress[researchField] -= researchCost(level, researchField);
                 level++;
                 setTechLevel(researchField, level);
                 messages.push(TECH_NAMES[researchField] + ' reached level ' + level + '.');
@@ -2722,14 +3790,14 @@
                 const active = k === researchField;
                 const text = lvl >= MAX_TECH_LEVEL
                     ? 'Level ' + lvl + ' (maximum)'
-                    : 'Level ' + lvl + ' (' + Math.floor(researchProgress[k]) + ' / ' + researchCost(lvl) + ' Resources)';
+                    : 'Level ' + lvl + ' (' + Math.floor(researchProgress[k]) + ' / ' + researchCost(lvl, k) + ' Resources)';
                 return `<div style="${active ? 'color: #ffd700; font-weight: bold;' : ''}">${TECH_NAMES[k]}: ${text}${active ? ' &#9668; researching' : ''}</div>`;
             }).join('');
             const lvl = levels[researchField];
             let eta = 'never (no Resources assigned)';
             if (lvl >= MAX_TECH_LEVEL) eta = 'already at maximum';
             else if (eco.research > 0) {
-                const years = Math.ceil((researchCost(lvl) - researchProgress[researchField]) / eco.research);
+                const years = Math.ceil((researchCost(lvl, researchField) - researchProgress[researchField]) / eco.research);
                 eta = years + ' year' + (years === 1 ? '' : 's');
             }
             const eng = currentEngine();
@@ -2769,7 +3837,7 @@
         }
 
         function buildCostSummaryText(type, qty) {
-            const c = BUILD_COSTS[type];
+            const c = buildCostFor(type);
             const parts = [(c.res * qty) + ' Resources'];
             ORE_KEYS.forEach(k => {
                 if (c[k] > 0) parts.push((c[k] * qty) + ' ' + ORE_NAMES[k]);
@@ -2809,8 +3877,8 @@
             document.getElementById('build-avail-iron').innerText = p.iron;
             document.getElementById('build-avail-bora').innerText = p.bora;
             document.getElementById('build-avail-germ').innerText = p.germ;
-            document.getElementById('build-curr-mines').innerText = p.mines + ' (' + operableCount(p, p.mines) + ' operating)';
-            document.getElementById('build-curr-fact').innerText = p.factories + ' (' + operableCount(p, p.factories) + ' operating)';
+            document.getElementById('build-curr-mines').innerText = p.mines + ' (' + operableMines(p) + ' operating)';
+            document.getElementById('build-curr-fact').innerText = p.factories + ' (' + operableFactories(p) + ' operating)';
             document.getElementById('build-curr-def').innerText = p.defenses || 0;
             document.getElementById('build-curr-starbase').innerText = starbaseLabel(p);
             const select = document.getElementById('build-item-type');
@@ -2909,7 +3977,10 @@
         function showView(viewId) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
-            if (viewId === 'view-race-setup') updateGalaxySetupSummary();
+            if (viewId === 'view-race-setup') {
+                updateGalaxySetupSummary();
+                updateSetupButtonLabels();
+            }
         }
 
         document.getElementById('sp-map-size').addEventListener('change', updateGalaxySetupSummary);
@@ -2954,8 +4025,10 @@
         function updateSetupButtonLabels() {
             const advCount = Object.keys(setupOptions).filter(k => setupOptions[k]).length;
             const vicCount = VICTORY_KEYS.filter(k => setupVictory[k].on).length;
-            document.getElementById('btn-open-advanced-setup').innerText = '⚙ Advanced Options (' + advCount + ')...';
-            document.getElementById('btn-open-victory-setup').innerText = '🏆 Victory Conditions (' + vicCount + ')...';
+            document.getElementById('btn-open-advanced-setup').innerText = '⚙ Advanced Options (' + advCount + ')';
+            document.getElementById('btn-open-victory-setup').innerText = '🏆 Victory Conditions (' + vicCount + ')';
+            document.getElementById('btn-open-race-manager').innerText = '🧬 Custom Race';
+            document.getElementById('btn-configure-rivals').innerText = '⚔ AI Opponents (' + rivalConfigs.length + ')';
         }
 
         function renderAdvancedList(values) {
@@ -3140,6 +4213,7 @@
                                 ${raceOpt('automitons', 'Automitons (Fortified)')}
                                 ${raceOpt('rototills', 'Rototills (Environmental)')}
                                 ${raceOpt('cybertrons', 'Cybertrons (Weapons)')}
+                                ${customRaceOptions(rival.race)}
                             </select>
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">
@@ -3951,13 +5025,15 @@
             const densityVal = document.getElementById('sp-density').value;
             const totalPlanetCount = Math.max(getGalaxyPlanetCount(mapSizeVal, densityVal), rivalConfigs.length + 1);
 
-            const chosenRace = document.getElementById('sp-race').value;
+            let chosenRace = document.getElementById('sp-race').value;
+            if (isCustomRaceId(chosenRace) && !libraryRace(chosenRace)) chosenRace = 'humanoid';
             const playerRandom = chosenRace === 'random';
             playerRace = playerRandom ? pickRandom(RACE_KEYS) : chosenRace;
 
             aiRivals = [];
             rivalConfigs.forEach((config, idx) => {
-                const race = config.race === 'random' ? pickRandom(RACE_KEYS) : config.race;
+                let race = config.race === 'random' ? pickRandom(RACE_KEYS) : config.race;
+                if (isCustomRaceId(race) && !libraryRace(race)) race = 'humanoid';
                 const difficulty = config.difficulty === 'random' ? pickRandom(INTELLIGENCE_KEYS) : config.difficulty;
                 const mods = getIntelligenceMods(difficulty);
                 aiRivals.push({
@@ -3975,9 +5051,12 @@
                 });
             });
 
+            adoptGameRaces([playerRace].concat(aiRivals.map(r => r.race)));
             currentYear = START_YEAR;
             document.getElementById('lbl-year').innerText = currentYear;
             resetResearchState();
+            const startLevels = raceStartLevels(playerRace);
+            TECH_KEYS.forEach(k => setTechLevel(k, startLevels[k]));
             resetDesigns();
             playerFleets = [];
             nextFleetId = 1;
@@ -4026,6 +5105,10 @@
             planets.push(makeHomeworld(empireName.split(' ')[0] + " Prime", homePositions[0], 'player', playerRace));
             aiRivals.forEach((rival, idx) => {
                 planets.push(makeHomeworld(rival.name.split(' ')[0] + " Prime", homePositions[idx + 1], rival.id, rival.race));
+            });
+            planets.forEach(p => {
+                if (p.owner === 'player') applyRaceHomeBonus(p, playerRace);
+                else if (p.owner.indexOf('rival_') === 0) applyRaceHomeBonus(p, raceOfOwner(p.owner));
             });
 
             const starNames = ["Aegis", "Vega", "Sirius", "Rigel", "Polaris", "Antares", "Betelgeuse", "Canopus", "Arcturus", "Capella", "Procyon", "Achernar", "Hadar", "Acrux", "Spica", "Alnitak", "Alioth", "Mirfak", "Regulus", "Adhara", "Shaula", "Castor", "Gacrux", "Bellatrix", "Elnath", "Miaplacidus", "Alnilam", "Kaus", "Avior", "Alkaid", "Atria", "Alhena", "Peacock", "Alsephina", "Mirzam", "Alphard", "Hamal", "Diphda", "Nunki", "Menkar", "Alpheratz", "Rasalhague", "Kochab", "Deneb", "Algol"];
@@ -4086,6 +5169,7 @@
             document.getElementById('event-log-box').innerHTML = '';
             logEvent('Galaxy mapped. Welcome commander. Your Long Range Scout waits in orbit of ' + playerHome.name + '.');
             if (playerRandom) logEvent('Random Race: your people are the ' + RACE_NAMES[playerRace] + '.');
+            else if (isCustomRaceId(playerRace)) logEvent('Custom Race: your people are the ' + raceDefOf(playerRace).plural + '.');
             if (gameOptions.bbsPlay) logEvent('Accelerated BBS Play: a loaded Colony Ship and a Small Freighter wait in orbit beside your Scout.');
             logEvent(victorySummaryText(gameVictory));
             updateDiscovery(true);
@@ -4830,8 +5914,8 @@
                 const fill = document.getElementById('hab-fill-' + a.key);
                 const range = document.getElementById('hab-range-' + a.key);
                 const lbl = document.getElementById('lbl-' + a.key + '-val');
-                const lo = Math.max(0, r[a.key].c - r[a.key].h);
-                const hi = Math.min(100, r[a.key].c + r[a.key].h);
+                const lo = r[a.key].imm ? 0 : Math.max(0, r[a.key].c - r[a.key].h);
+                const hi = r[a.key].imm ? 100 : Math.min(100, r[a.key].c + r[a.key].h);
                 range.style.left = lo + '%';
                 range.style.width = (hi - lo) + '%';
                 if (p.explored) {
@@ -5239,7 +6323,7 @@
                     mineMinerals(p);
                     ORE_KEYS.forEach(k => { mined[k] += p[k] - before[k]; });
                     if (p.pop < p.maxPop) {
-                        p.pop = Math.min(p.maxPop, Math.floor(p.pop * 1.05));
+                        p.pop = Math.min(p.maxPop, Math.max(p.pop + 1, Math.floor(p.pop * (1 + 0.05 * raceGrowthMult(playerRace)))));
                     } else if (p.pop > p.maxPop) {
                         p.pop = Math.max(p.maxPop, Math.floor(p.pop * 0.95));
                     }
@@ -5303,6 +6387,438 @@
         document.getElementById('btn-close-turn-report').addEventListener('click', () => {
             document.getElementById('turn-report-modal').classList.remove('active');
         });
+
+        const WIZ_TABS = ['Identity', 'Primary Trait', 'Lesser Traits', 'Environment', 'Economy', 'Research'];
+        let wiz = null;
+
+        function customRaceOptions(selected) {
+            if (!raceLibrary.length) return '';
+            return '<optgroup label="Custom Races">' + raceLibrary.map(r =>
+                `<option value="${r.id}" ${selected === r.id ? 'selected' : ''}>${escapeHtml(r.icon + ' ' + r.name)}</option>`
+            ).join('') + '</optgroup>';
+        }
+
+        function refreshRaceSelects() {
+            const sel = document.getElementById('sp-race');
+            const prev = sel.value;
+            Array.from(sel.querySelectorAll('optgroup')).forEach(g => g.remove());
+            sel.insertAdjacentHTML('beforeend', customRaceOptions(prev));
+            sel.value = Array.from(sel.options).some(o => o.value === prev) ? prev : 'humanoid';
+            rivalConfigs.forEach(r => {
+                if (isCustomRaceId(r.race) && !libraryRace(r.race)) r.race = 'humanoid';
+            });
+            renderRivalConfigurator();
+            updateSetupButtonLabels();
+        }
+
+        function ptsText(pts) {
+            if (pts > 0) return '-' + pts;
+            if (pts < 0) return '+' + (-pts);
+            return '0';
+        }
+
+        function ptsPill(pts) {
+            return `<span class="wiz-pill ${pts < 0 ? 'gain' : ''}">${ptsText(pts)}</span>`;
+        }
+
+        function oddsText(d) {
+            const f = habitableFraction(d);
+            if (f >= 0.999) return 'Every planet';
+            return '1 in ' + Math.max(1, Math.round(1 / f));
+        }
+
+        function raceMetaLine(d) {
+            const prt = PRT_LIST.find(x => x.key === d.prt);
+            return prt.name + ' | ' + d.lrt.length + ' lesser trait' + (d.lrt.length === 1 ? '' : 's') + ' | ' + oddsText(d) + ' planets habitable | ' + raceLeftPoints(d) + ' points left';
+        }
+
+        function renderRaceManager() {
+            const box = document.getElementById('race-manager-list');
+            if (!raceLibrary.length) {
+                box.innerHTML = '<div class="wiz-empty">You have not made any custom races yet. Press Create New Race to open the Race Wizard.</div>';
+            } else {
+                box.innerHTML = raceLibrary.map(r => `
+                    <div class="race-row">
+                        <div class="race-row-icon">${escapeHtml(r.icon)}</div>
+                        <div class="race-row-info">
+                            <div class="race-row-name">${escapeHtml(r.name)}</div>
+                            <div class="race-row-meta">${escapeHtml(raceMetaLine(r))}</div>
+                        </div>
+                        <div class="race-row-btns">
+                            <button class="nav-button tool-icon" style="width:auto;" data-act="play" data-id="${r.id}">Play As</button>
+                            <button class="nav-button tool-icon" style="width:auto;" data-act="edit" data-id="${r.id}">Edit</button>
+                            <button class="nav-button tool-icon" style="width:auto;" data-act="copy" data-id="${r.id}">Copy</button>
+                            <button class="nav-button tool-icon" style="width:auto;" data-act="delete" data-id="${r.id}">Delete</button>
+                        </div>
+                    </div>`).join('');
+            }
+            document.getElementById('btn-race-new').disabled = raceLibrary.length >= MAX_CUSTOM_RACES;
+            document.getElementById('btn-race-export').disabled = raceLibrary.length === 0;
+        }
+
+        function openRaceManager() {
+            renderRaceManager();
+            document.getElementById('race-manager-modal').classList.add('active');
+        }
+
+        function closeRaceManager() {
+            document.getElementById('race-manager-modal').classList.remove('active');
+        }
+
+        function openWizard(def, isNew) {
+            wiz = { def: def, tab: 0, isNew: isNew, snapshot: JSON.stringify(def) };
+            closeRaceManager();
+            showView('view-race-wizard');
+            renderWizard();
+        }
+
+        function leaveWizard() {
+            wiz = null;
+            showView('view-race-setup');
+            openRaceManager();
+        }
+
+        function wizBonusText(d) {
+            const pts = Math.min(MAX_BONUS_POINTS, Math.max(0, raceLeftPoints(d)));
+            if (d.bonus === 'minerals') return '+' + (20 * pts) + ' kT of each ore at your homeworld';
+            if (d.bonus === 'concentrations') return '+' + Math.floor(pts / 2) + ' concentration on each mineral at your homeworld';
+            if (d.bonus === 'mines') return '+' + Math.floor(pts / 2) + ' mines at your homeworld';
+            if (d.bonus === 'factories') return '+' + Math.floor(pts / 2) + ' factories at your homeworld';
+            if (d.bonus === 'defenses') return '+' + Math.floor(pts / 5) + ' Missile Batteries at your homeworld';
+            return 'No starting bonus';
+        }
+
+        function wizCardHtml(type, name, value, checked, title, status, pts, desc) {
+            return `<label class="wiz-card ${checked ? 'on' : ''}">
+                <input type="${type}" name="${name}" value="${value}" ${checked ? 'checked' : ''}>
+                <span class="wiz-card-name">${escapeHtml(title)}</span>
+                ${status === null ? '' : `<span class="wiz-status ${status ? 'live' : 'rec'}">${status ? 'Active' : 'Recorded'}</span>`}
+                ${pts === null ? '' : ptsPill(pts)}
+                <span class="wiz-card-desc">${escapeHtml(desc)}</span>
+            </label>`;
+        }
+
+        function wizTabIdentity(d) {
+            const presets = RACE_KEYS.map(k => `<option value="${k}">${RACE_NAMES[k]} (${PRT_LIST.find(x => x.key === PRESET_PRT[k]).name})</option>`).join('');
+            return `
+                <div class="setup-row">
+                    <div class="form-group"><label for="wiz-name">Race Name</label><input type="text" id="wiz-name" maxlength="24" value="${escapeHtml(d.name)}"></div>
+                    <div class="form-group"><label for="wiz-plural">Plural Name</label><input type="text" id="wiz-plural" maxlength="24" value="${escapeHtml(d.plural)}"></div>
+                </div>
+                <div class="form-group"><label>Icon</label>
+                    <div class="wiz-icons">${RACE_ICONS.map(ic => `<button type="button" class="wiz-icon ${ic === d.icon ? 'on' : ''}" data-icon="${ic}">${ic}</button>`).join('')}</div>
+                </div>
+                <div class="form-group"><label for="wiz-preset">Start from a preset</label>
+                    <select id="wiz-preset"><option value="">Choose to replace all traits with a built-in race...</option>${presets}</select>
+                </div>
+                <div class="wiz-group-title">Leftover Points Bonus</div>
+                <div class="wiz-cards">${BONUS_OPTIONS.map(b => wizCardHtml('radio', 'bonus', b.key, d.bonus === b.key, b.label, null, null, b.per)).join('')}</div>
+                <div class="wiz-summary" id="wiz-bonus-effect"></div>`;
+        }
+
+        function wizTabPrimary(d) {
+            return `<div class="wiz-group-title">Choose exactly one</div><div class="wiz-cards">${PRT_LIST.map(p => wizCardHtml('radio', 'prt', p.key, d.prt === p.key, p.name, p.active, p.cost, p.desc)).join('')}</div>`;
+        }
+
+        function wizTabLesser(d) {
+            const adv = LRT_LIST.filter(l => l.cost > 0);
+            const han = LRT_LIST.filter(l => l.cost < 0);
+            const cards = list => list.map(l => wizCardHtml('checkbox', 'lrt', l.key, d.lrt.indexOf(l.key) !== -1, l.name, l.active, l.cost, l.desc)).join('');
+            return `<div class="wiz-group-title">Advantages (cost points)</div><div class="wiz-cards">${cards(adv)}</div>
+                <div class="wiz-group-title">Handicaps (refund points)</div><div class="wiz-cards">${cards(han)}</div>`;
+        }
+
+        function wizTabEnvironment(d) {
+            const axes = HAB_AXES.map(a => {
+                const h = d.hab[a.key];
+                return `<div class="wiz-env">
+                    <div class="wiz-env-head"><b>${a.label}</b><span class="wiz-env-read" id="env-read-${a.key}"></span></div>
+                    <div class="wiz-band"><div class="wiz-band-fill" id="env-fill-${a.key}"></div></div>
+                    <div class="wiz-env-ctrl">
+                        <div><label>Ideal: <span id="env-c-${a.key}"></span></label><input type="range" min="0" max="100" value="${h.c}" data-axis="${a.key}" data-f="c"></div>
+                        <div><label>Tolerance: <span id="env-h-${a.key}"></span></label><input type="range" min="${HAB_MIN_TOLERANCE}" max="${HAB_MAX_TOLERANCE}" value="${h.h}" data-axis="${a.key}" data-f="h"></div>
+                        <label class="wiz-check"><input type="checkbox" data-axis="${a.key}" data-f="imm" ${h.imm ? 'checked' : ''}>Immune</label>
+                    </div>
+                </div>`;
+            }).join('');
+            return axes + `<div class="wiz-growth">
+                    <div class="wiz-env-head"><b>Growth Rate: <span id="grow-val"></span></b><span class="wiz-env-read" id="grow-eff"></span></div>
+                    <input type="range" min="1" max="20" value="${d.growth}" id="wiz-growth-range">
+                </div>
+                <div class="wiz-summary" id="env-summary"></div>`;
+        }
+
+        function wizTabEconomy(d) {
+            const rows = ECON_FIELDS.map(f => `<div class="wiz-econ-row">
+                <span style="flex: 1; min-width: 210px;">${f.label}</span>
+                <input type="number" min="${f.min}" max="${f.max}" step="${f.step}" value="${d.econ[f.key]}" data-econ="${f.key}">
+                <span class="wiz-econ-pts" id="econ-pts-${f.key}"></span>
+            </div>`).join('');
+            return rows + `<div class="wiz-econ-row">
+                <label class="wiz-check" style="flex: 1;"><input type="checkbox" id="wiz-germ" ${d.econ.germLess ? 'checked' : ''}>Factories cost 1 kT less Germanium</label>
+                <span class="wiz-econ-pts" id="econ-pts-germ"></span>
+            </div>
+            <div class="wiz-summary" id="econ-example"></div>`;
+        }
+
+        function wizTabResearch(d) {
+            const rows = TECH_KEYS.map(k => `<div class="wiz-res-row"><b>${RES_FIELD_LABELS[k]}</b>
+                <div class="wiz-seg">${['exp', 'std', 'cheap'].map(m => `<button type="button" class="${d.research[k] === m ? 'on' : ''}" data-field="${k}" data-mode="${m}">${RESEARCH_MODES[m].label}<small>${ptsText(RESEARCH_MODES[m].cost)} pts</small></button>`).join('')}</div>
+            </div>`).join('');
+            return rows + `<div class="wiz-econ-row">
+                <label class="wiz-check" style="flex: 1;"><input type="checkbox" id="wiz-start4" ${d.startTech4 ? 'checked' : ''}>Every field that costs 75% extra starts at Tech 4</label>
+                <span class="wiz-econ-pts" id="econ-pts-start4"></span>
+            </div>`;
+        }
+
+        function renderWizard() {
+            const d = wiz.def;
+            document.getElementById('wiz-subtitle').innerText = (wiz.isNew ? 'Creating a new race' : 'Editing ' + d.name) + ' | Advantage Point pool ' + RACE_POOL;
+            document.getElementById('wiz-tabs').innerHTML = WIZ_TABS.map((t, i) =>
+                `<button class="wiz-tab ${i === wiz.tab ? 'on' : ''}" data-tab="${i}"><b>${i + 1}</b>${t}</button>`).join('');
+            const body = document.getElementById('wiz-body');
+            const top = body.scrollTop;
+            const builders = [wizTabIdentity, wizTabPrimary, wizTabLesser, wizTabEnvironment, wizTabEconomy, wizTabResearch];
+            body.innerHTML = builders[wiz.tab](d);
+            body.scrollTop = wiz.keepScroll ? top : 0;
+            wiz.keepScroll = false;
+            bindWizardBody();
+            wizRefresh();
+        }
+
+        function wizRerender() {
+            wiz.keepScroll = true;
+            renderWizard();
+        }
+
+        function bindWizardBody() {
+            const d = wiz.def;
+            const body = document.getElementById('wiz-body');
+            if (wiz.tab === 0) {
+                document.getElementById('wiz-name').addEventListener('input', e => { d.name = e.target.value; wizRefresh(); });
+                document.getElementById('wiz-plural').addEventListener('input', e => { d.plural = e.target.value; });
+                body.querySelectorAll('.wiz-icon').forEach(b => b.addEventListener('click', () => { d.icon = b.dataset.icon; wizRerender(); }));
+                body.querySelectorAll('input[name="bonus"]').forEach(r => r.addEventListener('change', () => { d.bonus = r.value; wizRerender(); }));
+                document.getElementById('wiz-preset').addEventListener('change', e => {
+                    const key = e.target.value;
+                    if (!key) return;
+                    const p = presetDef(key);
+                    d.prt = p.prt;
+                    d.lrt = p.lrt;
+                    d.hab = p.hab;
+                    d.growth = p.growth;
+                    d.econ = p.econ;
+                    d.research = p.research;
+                    d.startTech4 = p.startTech4;
+                    wizRerender();
+                });
+            } else if (wiz.tab === 1) {
+                body.querySelectorAll('input[name="prt"]').forEach(r => r.addEventListener('change', () => { d.prt = r.value; wizRerender(); }));
+            } else if (wiz.tab === 2) {
+                body.querySelectorAll('input[name="lrt"]').forEach(c => c.addEventListener('change', () => {
+                    const i = d.lrt.indexOf(c.value);
+                    if (c.checked && i === -1) d.lrt.push(c.value);
+                    if (!c.checked && i !== -1) d.lrt.splice(i, 1);
+                    wizRerender();
+                }));
+            } else if (wiz.tab === 3) {
+                body.querySelectorAll('[data-axis]').forEach(el => {
+                    el.addEventListener('input', () => {
+                        const h = d.hab[el.dataset.axis];
+                        if (el.dataset.f === 'imm') h.imm = el.checked;
+                        else h[el.dataset.f] = parseInt(el.value);
+                        wizRefresh();
+                    });
+                });
+                document.getElementById('wiz-growth-range').addEventListener('input', e => { d.growth = parseInt(e.target.value); wizRefresh(); });
+            } else if (wiz.tab === 4) {
+                body.querySelectorAll('[data-econ]').forEach(el => {
+                    const f = ECON_FIELDS.find(x => x.key === el.dataset.econ);
+                    el.addEventListener('input', () => {
+                        if (el.value === '') return;
+                        d.econ[f.key] = clampInt(el.value, f.min, f.max, DEFAULT_ECON[f.key]);
+                        wizRefresh();
+                    });
+                    el.addEventListener('change', () => {
+                        d.econ[f.key] = clampInt(el.value, f.min, f.max, DEFAULT_ECON[f.key]);
+                        el.value = d.econ[f.key];
+                        wizRefresh();
+                    });
+                });
+                document.getElementById('wiz-germ').addEventListener('change', e => { d.econ.germLess = e.target.checked; wizRefresh(); });
+            } else if (wiz.tab === 5) {
+                body.querySelectorAll('.wiz-seg button').forEach(b => b.addEventListener('click', () => { d.research[b.dataset.field] = b.dataset.mode; wizRerender(); }));
+                document.getElementById('wiz-start4').addEventListener('change', e => { d.startTech4 = e.target.checked; wizRefresh(); });
+            }
+        }
+
+        function wizRefresh() {
+            const d = wiz.def;
+            const cost = raceCost(d);
+            const left = RACE_POOL - cost.total;
+            document.getElementById('wiz-points-val').innerText = left;
+            document.getElementById('wiz-points').classList.toggle('over', left < 0);
+            let led = `<h4>Point Ledger</h4><div class="wiz-ledger-row"><span>Advantage Point pool</span><b>${RACE_POOL}</b></div>`;
+            let group = '';
+            cost.items.filter(i => i.pts !== 0).forEach(i => {
+                if (i.group !== group) {
+                    group = i.group;
+                    led += `<div class="wiz-group-title" style="margin: 8px 0 2px 0;">${group}</div>`;
+                }
+                led += `<div class="wiz-ledger-row"><span>${escapeHtml(i.label)}</span><b class="${i.pts < 0 ? 'gain' : 'spend'}">${ptsText(i.pts)}</b></div>`;
+            });
+            led += `<div class="wiz-ledger-total"><span>Points left</span><span>${left}</span></div>`;
+            led += `<div style="margin-top: 8px; color: #999;">Bonus: ${escapeHtml(wizBonusText(d))}</div>`;
+            document.getElementById('wiz-ledger').innerHTML = led;
+            const note = document.getElementById('wiz-foot-note');
+            if (!d.name.trim()) note.innerText = 'Give your race a name to save it.';
+            else if (left < 0) note.innerText = 'Over budget by ' + (-left) + ' points. Drop a strength or add a handicap to save.';
+            else note.innerText = '';
+            document.getElementById('btn-wiz-back').disabled = wiz.tab === 0;
+            document.getElementById('btn-wiz-next').disabled = wiz.tab === WIZ_TABS.length - 1;
+            document.getElementById('btn-wiz-finish').disabled = left < 0 || !d.name.trim();
+            document.querySelectorAll('#wiz-tabs .wiz-tab').forEach((t, i) => t.classList.toggle('on', i === wiz.tab));
+            if (wiz.tab === 0) document.getElementById('wiz-bonus-effect').innerText = 'Your ' + left + ' unspent points (up to ' + MAX_BONUS_POINTS + ' count): ' + wizBonusText(d) + '.';
+            if (wiz.tab === 3) wizRefreshEnvironment(d);
+            if (wiz.tab === 4) wizRefreshEconomy(d);
+            if (wiz.tab === 5) document.getElementById('econ-pts-start4').innerText = ptsText(d.startTech4 && expensiveFieldCount(d) > 0 ? 6 * expensiveFieldCount(d) : 0) + ' pts';
+        }
+
+        function wizRefreshEnvironment(d) {
+            HAB_AXES.forEach(a => {
+                const h = d.hab[a.key];
+                const band = habBand(h);
+                const fill = document.getElementById('env-fill-' + a.key);
+                fill.style.left = band.lo + '%';
+                fill.style.width = band.w + '%';
+                document.getElementById('env-read-' + a.key).innerText = h.imm ? 'Immune: any value suits your people (' + ptsText(habAxisCost(h)) + ' pts)' :
+                    a.fmt(band.lo) + ' to ' + a.fmt(band.hi) + ' (' + ptsText(habAxisCost(h)) + ' pts)';
+                document.getElementById('env-c-' + a.key).innerText = a.fmt(h.c);
+                document.getElementById('env-h-' + a.key).innerText = '±' + h.h;
+                document.querySelectorAll('[data-axis="' + a.key + '"][data-f="c"], [data-axis="' + a.key + '"][data-f="h"]').forEach(el => { el.disabled = h.imm; });
+            });
+            document.getElementById('grow-val').innerText = d.growth + '%';
+            const eff = d.growth / GROWTH_NORMAL * 5 * (d.prt === 'HE' ? 2 : 1);
+            document.getElementById('grow-eff').innerText = 'about ' + eff.toFixed(1) + '% a year in this game (' + ptsText(growthCost(d.growth)) + ' pts)';
+            document.getElementById('env-summary').innerText = oddsText(d) + ' of the planets in the galaxy will be habitable to your people.';
+        }
+
+        function wizRefreshEconomy(d) {
+            ECON_FIELDS.forEach(f => {
+                const pts = f.cost(d.econ[f.key]);
+                const el = document.getElementById('econ-pts-' + f.key);
+                el.innerText = ptsText(pts) + ' pts';
+                el.className = 'wiz-econ-pts ' + (pts < 0 ? 'gain' : pts > 0 ? 'spend' : '');
+            });
+            const g = document.getElementById('econ-pts-germ');
+            g.innerText = ptsText(d.econ.germLess ? GERM_LESS_COST : 0) + ' pts';
+            g.className = 'wiz-econ-pts ' + (d.econ.germLess ? 'spend' : '');
+            const e = d.econ;
+            const ops = Math.min(10, Math.floor(25000 * e.facOperate / 10000));
+            const res = Math.floor(25000 / e.popPerRes) + Math.floor(ops * e.facOut / 10);
+            document.getElementById('econ-example').innerText = 'Example: a planet with 25,000 colonists and 10 factories runs ' + ops + ' factories and makes ' + res + ' Resources a year.';
+        }
+
+        function saveWizardRace() {
+            const d = cleanRaceDef(wiz.def);
+            if (!d || raceLeftPoints(d) < 0) return;
+            const i = raceLibrary.findIndex(r => r.id === d.id);
+            if (i >= 0) raceLibrary[i] = d;
+            else if (raceLibrary.length >= MAX_CUSTOM_RACES) {
+                gameAlert('You can keep up to ' + MAX_CUSTOM_RACES + ' custom races. Delete one first.');
+                return;
+            } else raceLibrary.push(d);
+            saveRaceLibrary();
+            refreshRaceSelects();
+            leaveWizard();
+        }
+
+        document.getElementById('btn-open-race-manager').addEventListener('click', openRaceManager);
+        document.getElementById('btn-race-close').addEventListener('click', closeRaceManager);
+        document.getElementById('btn-race-new').addEventListener('click', () => openWizard(blankRaceDef(), true));
+        document.getElementById('wiz-tabs').addEventListener('click', e => {
+            const b = e.target.closest('.wiz-tab');
+            if (!b || !wiz) return;
+            wiz.tab = parseInt(b.dataset.tab);
+            renderWizard();
+        });
+        document.getElementById('btn-wiz-back').addEventListener('click', () => { if (wiz && wiz.tab > 0) { wiz.tab--; renderWizard(); } });
+        document.getElementById('btn-wiz-next').addEventListener('click', () => { if (wiz && wiz.tab < WIZ_TABS.length - 1) { wiz.tab++; renderWizard(); } });
+        document.getElementById('btn-wiz-finish').addEventListener('click', saveWizardRace);
+        document.getElementById('btn-wiz-cancel').addEventListener('click', () => {
+            if (!wiz) return;
+            if (JSON.stringify(wiz.def) === wiz.snapshot) leaveWizard();
+            else gameConfirm('Discard your changes to this race?', leaveWizard, 'Discard Changes', 'Discard');
+        });
+
+        document.getElementById('race-manager-list').addEventListener('click', e => {
+            const b = e.target.closest('button[data-act]');
+            if (!b) return;
+            const r = libraryRace(b.dataset.id);
+            if (!r) return;
+            const act = b.dataset.act;
+            if (act === 'play') {
+                document.getElementById('sp-race').value = r.id;
+                closeRaceManager();
+            } else if (act === 'edit') {
+                openWizard(cloneRaceDef(r), false);
+            } else if (act === 'copy') {
+                if (raceLibrary.length >= MAX_CUSTOM_RACES) {
+                    gameAlert('You can keep up to ' + MAX_CUSTOM_RACES + ' custom races. Delete one first.');
+                    return;
+                }
+                const c = cloneRaceDef(r);
+                c.id = newRaceId();
+                c.name = (r.name + ' Copy').slice(0, 24);
+                raceLibrary.push(c);
+                saveRaceLibrary();
+                refreshRaceSelects();
+                renderRaceManager();
+            } else if (act === 'delete') {
+                gameConfirm('Delete the race "' + r.name + '"? Games already started keep their own copy.', () => {
+                    raceLibrary = raceLibrary.filter(x => x.id !== r.id);
+                    saveRaceLibrary();
+                    refreshRaceSelects();
+                    renderRaceManager();
+                }, 'Delete Race', 'Delete');
+            }
+        });
+
+        document.getElementById('btn-race-export').addEventListener('click', () => {
+            if (!raceLibrary.length) return;
+            const blob = new Blob([JSON.stringify({ game: 'freespace4x', races: raceLibrary }, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'freespace4x_custom_races.json';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        });
+
+        document.getElementById('btn-race-import').addEventListener('click', () => document.getElementById('race-import-input').click());
+        document.getElementById('race-import-input').addEventListener('change', e => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = () => {
+                try {
+                    const j = JSON.parse(reader.result);
+                    const list = Array.isArray(j) ? j : (j && Array.isArray(j.races) ? j.races : []);
+                    const added = addRacesToLibrary(list);
+                    refreshRaceSelects();
+                    renderRaceManager();
+                    gameAlert(added + ' race' + (added === 1 ? '' : 's') + ' imported. ' + (list.length - added) + ' skipped (already in your list or over the limit).');
+                } catch (err) {
+                    gameAlert('That file is not a valid race list.');
+                }
+            };
+            reader.readAsText(file);
+            e.target.value = '';
+        });
+
+        refreshRaceSelects();
 
         updateSetupButtonLabels();
 
