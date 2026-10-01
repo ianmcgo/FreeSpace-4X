@@ -1824,7 +1824,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.8.6 (Updated: October 1, 2026 6:54 AM)</div>
+            <div class="version-text">Version 0.8.7 (Updated: October 1, 2026 7:25 AM)</div>
         </div>
     </div>
 
@@ -2007,6 +2007,8 @@
                 <button type="button" class="nav-button" id="mpg-cancel" style="color: #ff8c66;">✖ Cancel Game</button>
                 <button type="button" class="nav-button" id="mpg-leave" style="color: #ff8c66;">⇠ Leave Game</button>
                 <button type="button" class="nav-button" id="mpg-remove" style="color: #ff8c66;">🗑 Remove from My Games</button>
+                <button type="button" class="nav-button" id="mpg-skip" style="color: #ffd700;">⏭ Skip Turn</button>
+                <button type="button" class="nav-button" id="mpg-resign" style="color: #ff8c66;">🏳 Resign</button>
                 <button type="button" class="nav-button" id="mpg-refresh">↻ Refresh</button>
                 <button type="button" class="nav-button" id="mpg-back">Back</button>
             </div>
@@ -2366,6 +2368,7 @@
                 <button type="button" class="tool-icon" id="mp-banner-retry" style="color: #ffd700;">⟳ Retry Upload</button>
                 <button type="button" class="tool-icon" id="mp-banner-report">📜 Turn Report</button>
                 <button type="button" class="tool-icon" id="mp-banner-check">↻ Check</button>
+                <button type="button" class="tool-icon" id="mp-banner-skip" style="color: #ffd700;">⏭ Skip Turn</button>
                 <button type="button" class="tool-icon" id="mp-banner-lobby">⇠ Game Lobby</button>
             </div>
             <div>Empire: <span id="lbl-empire-display" style="color: #da70d6;">Human Directorate</span></div>
@@ -2526,6 +2529,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="mpo-limit">Turn Time Limit</label>
+                    <select id="mpo-limit">
+                        <option value="0">No limit</option>
+                        <option value="24">24 hours</option>
+                        <option value="48">48 hours</option>
+                        <option value="72">72 hours</option>
+                        <option value="168">1 week</option>
+                    </select>
+                    <div class="mp-hint">When a player has had the turn for longer than this, any other player can skip it. The skipped empire follows its standing orders for that turn.</div>
+                </div>
                 <div class="mp-status" id="mpo-status" style="margin: 0 0 6px 0;"></div>
                 <div class="wiz-group-title" style="margin-top: 14px;">Game Options</div>
             </div>
@@ -2651,16 +2665,18 @@
                 <p><b style="color:#da70d6;">The Multiplayer Lobby</b><br>The lobby shows the username you are signed in as. <b>Change Username</b> lets you pick a new one at any time; names are unique, so if someone already has the name you want (in any mix of upper and lower case) you are asked to choose another. <b>Sign Out</b> forgets your sign-in on this browser. The lobby also has <b>Create Multiplayer Game</b>, <b>Join Multiplayer Game</b> and <b>My Games</b>.</p>
                 <p><b style="color:#da70d6;">Creating a Multiplayer Game</b><br>In the lobby press <b>Create Multiplayer Game</b>. You get the New Game screen titled New Multiplayer Game. At the top, <b>Multiplayer Game Name</b> is what other players see in the list of games (it starts as Multiplayer Game). Your Empire Name and Choose Race are your own empire; universe size, star density, player position, Victory Conditions and Advanced Options work exactly as in single player and apply to everyone. The <b>Opponents</b> button (it replaces AI Opponents) shows how many player spots and AI opponents the game has. When everything is set, press <b>Create Multiplayer Game</b>. Back returns to the lobby without creating anything. You can have up to 10 games waiting for players at once.</p>
                 <p><b style="color:#da70d6;">Opponents: Player Spots and AI</b><br>On the Opponents screen, <b>Add Player Spot</b> adds a seat for another person and <b>Add AI Opponent</b> adds a computer empire with its own name, race and intelligence. A multiplayer game needs at least one Player Spot. Up to 15 opponents fit in a game, so 16 empires in all. Remove takes a spot or AI out. Turn order is decided when the game begins (see When the Game Begins).</p>
-                <p><b style="color:#da70d6;">Multiplayer Options</b><br>When creating a multiplayer game, Advanced Options starts with a Multiplayer Options section. (The game's name is on the New Multiplayer Game screen itself.) <b>Who Can Join</b> is Public (selected to start with: anyone can join) or Private: a password is then required, 4 to 64 characters, and players must type it to join. Players you invite by email or username will not need it. <b>Allow custom races</b> is off to start with, and then every empire, AI included, uses one of the six built-in races. Turn it on and choose one rule: <b>Anyone can bring their own custom race</b>, where each player may pick one of their own Race Wizard designs when they join, or <b>Only the game creator chooses races</b>, where you set the race of every Player Spot yourself on the Opponents screen (built-in, random, one of your custom races, or Player's choice to let them pick a built-in race).</p>
-                <p><b style="color:#da70d6;">The Game Lobby</b><br>After you create a game, or when you open one from My Games, you see its lobby. The top box shows its status (for example Waiting for players: 1 of 3 player spots filled), the host, public or private, the galaxy settings, the custom race rule, the advanced options and the victory conditions. Below it every empire is listed by seat: players who have joined with their username, empire and race (yours is marked You, the creator is marked Host), AI opponents with their race and intelligence, and open spots shown as <b>Waiting for player...</b>. <b>Refresh</b> reloads the list. <b>Cancel Game</b>, shown only to the creator before the game starts, deletes the game for everyone. <b>Leave Game</b>, shown to players who joined before the game starts, gives your spot back so someone else can take it (the creator cancels instead). <b>Invite Player</b> sends someone an invitation (see Inviting Players). Back returns to the screen you came from.</p>
+                <p><b style="color:#da70d6;">Multiplayer Options</b><br>When creating a multiplayer game, Advanced Options starts with a Multiplayer Options section. (The game's name is on the New Multiplayer Game screen itself.) <b>Who Can Join</b> is Public (selected to start with: anyone can join) or Private: a password is then required, 4 to 64 characters, and players must type it to join. Players you invite by email or username will not need it. <b>Allow custom races</b> is off to start with, and then every empire, AI included, uses one of the six built-in races. Turn it on and choose one rule: <b>Anyone can bring their own custom race</b>, where each player may pick one of their own Race Wizard designs when they join, or <b>Only the game creator chooses races</b>, where you set the race of every Player Spot yourself on the Opponents screen (built-in, random, one of your custom races, or Player's choice to let them pick a built-in race). <b>Turn Time Limit</b> (72 hours to start with; also 24 hours, 48 hours, 1 week or No limit) is how long a player may hold the turn before the others are allowed to skip it (see Turn Time Limit and Skipping).</p>
+                <p><b style="color:#da70d6;">The Game Lobby</b><br>After you create a game, or when you open one from My Games, you see its lobby. The top box shows its status (for example Waiting for players: 1 of 3 player spots filled), the host, public or private, the galaxy settings, the custom race rule, the advanced options and the victory conditions. Below it every empire is listed by seat: players who have joined with their username, empire and race (yours is marked You, the creator is marked Host), AI opponents with their race and intelligence, and open spots shown as <b>Waiting for player...</b>. <b>Refresh</b> reloads the list. <b>Cancel Game</b>, shown only to the creator before the game starts, deletes the game for everyone. <b>Leave Game</b>, shown to players who joined before the game starts, gives your spot back so someone else can take it (the creator cancels instead). <b>Invite Player</b> sends someone an invitation (see Inviting Players). Once the game is running the lobby also shows the turn time limit, a Resigned badge on players who have left and a Playing now badge on the player whose turn it is, with <b>Resign</b>, <b>Skip Turn</b> (when the current turn is overdue) and, for finished games or after you resign, <b>Remove from My Games</b>. Back returns to the screen you came from.</p>
                 <p><b style="color:#da70d6;">Inviting Players</b><br>Any player in a game that is still waiting for players can press <b>Invite Player</b> in its lobby and type an <b>email address</b> or a <b>username</b>, then press Send Invite. The person gets an email with a <b>Join the Game</b> link straight to that game. The link works even for a private game without the password, so you do not have to share it. If they have no account yet, the link opens the sign in screen: they press Register, create an account, and land in the game ready to press Join This Game. Players invited by username (or by the email of their account) also see the invitation under <b>Invitations</b> at the top of their Multiplayer Lobby, with Open and Decline. Each invitation link can be used once. Inviting someone does not hold a spot for them: spots go to whoever joins first. A game can send up to 30 invitations, and the same person can be invited again after 10 minutes.</p>
-                <p><b style="color:#da70d6;">Game Emails</b><br>Multiplayer games send email to the address of each player's account: an <b>invitation</b> when someone invites you, <b>the game has begun</b> when every spot is filled (saying who plays first), and <b>your turn</b> whenever the player before you ends their turn (and when a new year begins). Every email has a button that opens the game; sign in if asked and you go straight to it, and if it is your turn the galaxy opens ready to play. Emails can take a minute to arrive; check your spam folder if they do not. The game never shows your email address to other players.</p>
-                <p><b style="color:#da70d6;">Multiplayer Victory and Game Over</b><br>Victory Conditions are checked when a round closes, that is, after the last player in the round presses End Turn. As soon as an empire (a player's or an AI's) meets them, the game ends for everyone. The player who closed the round sees their turn report and then a <b>Victory!</b> or <b>Game Over</b> box with the final standings: every empire's rank, player, planets, starbases, ships, tech and score, with the winner in gold and your own row marked in green. Every score is revealed at the end, even if Public Player Scores was off. Players who are watching the galaxy see the same box within a few seconds, and every player gets an email with the result and the standings. <b>Game Lobby</b> takes you to the game's lobby, which now shows the result; <b>Look Around</b> keeps the final galaxy open (view only) until you leave. The saved galaxy is then removed from the server, so a finished game cannot be opened again, but its result stays in My Games marked Finished (and 🏆 Victory if you won). When you no longer need it, open the game and press <b>Remove from My Games</b>; once every player has removed it, it is deleted for good. A game with no Victory Conditions never ends on its own. If sending the result fails, the bar at the bottom offers Retry Upload, just like a normal turn.</p>
+                <p><b style="color:#da70d6;">Game Emails</b><br>Multiplayer games send email to the address of each player's account: an <b>invitation</b> when someone invites you, <b>the game has begun</b> when every spot is filled (saying who plays first), and <b>your turn</b> whenever the player before you ends their turn (and when a new year begins), resigns or is skipped. You are also emailed when another player <b>resigns</b>, when <b>your turn is skipped</b> for running past the turn time limit, and when the game ends (with the final standings, or without a winner if every player resigned). Every email has a button that opens the game; sign in if asked and you go straight to it, and if it is your turn the galaxy opens ready to play. Emails can take a minute to arrive; check your spam folder if they do not. The game never shows your email address to other players.</p>
+                <p><b style="color:#da70d6;">Multiplayer Victory and Game Over</b><br>Victory Conditions are checked when a round closes, that is, after the last player in the round presses End Turn. As soon as an empire (a player's or an AI's) meets them, the game ends for everyone. The player who closed the round sees their turn report and then a <b>Victory!</b> or <b>Game Over</b> box with the final standings: every empire's rank, player, planets, starbases, ships, tech and score, with the winner in gold and your own row marked in green. Every score is revealed at the end, even if Public Player Scores was off. Players who are watching the galaxy see the same box within a few seconds, and every player gets an email with the result and the standings. <b>Game Lobby</b> takes you to the game's lobby, which now shows the result; <b>Look Around</b> keeps the final galaxy open (view only) until you leave. Resigned empires cannot win and are marked (resigned) in the standings. The saved galaxy is then removed from the server, so a finished game cannot be opened again, but its result stays in My Games marked Finished (and 🏆 Victory if you won). When you no longer need it, open the game and press <b>Remove from My Games</b>; once every player has removed it, it is deleted for good. A game with no Victory Conditions never ends on its own. If sending the result fails, the bar at the bottom offers Retry Upload, just like a normal turn.</p>
                 <p><b style="color:#da70d6;">Joining a Multiplayer Game</b><br>In the lobby press <b>Join Multiplayer Game</b> to see every game waiting for players, newest first: its name (a lock means it is private), the host, how many spots are open, the number of empires, the galaxy size and the custom race rule. Games you are already in say Joined. Pick a game to open its lobby and read its settings, then press <b>Join This Game</b>. Fill in the form: the <b>Game Password</b> if the game is private (ask the host for it), <b>Your Empire Name</b> (it starts as your username plus Empire, and must be different from every other empire in the game), and <b>Your Race</b>: Random or one of the six built-in races, plus your own Race Wizard designs when the host allows anyone to bring custom races. If the host chose the race for the spot you are taking, the form shows that race instead. Press <b>Join Game</b>. You take the first open spot, and the game appears in My Games. You can be in as many games as you like.</p>
                 <p><b style="color:#da70d6;">When the Game Begins</b><br>The moment the last Player Spot is filled, the game status changes to Starting and the browser of the player who joined last builds the galaxy: every empire gets its homeworld, starting scout and starting technology, Random races are decided, every custom race in play is included, and the finished galaxy is saved on the multiplayer server. This takes a few seconds. The player who built the galaxy plays first, so nobody waits: the galaxy opens for them straight away. The other players follow in a random order drawn at that moment, and that order then stays the same every year. AI empires always move last, after every player. If the last player closed their browser before the upload finished, the next player to open the game's lobby builds the galaxy automatically (or presses <b>Build Galaxy Now</b>) and plays first instead.</p>
                 <p><b style="color:#da70d6;">Taking Your Turn</b><br>When it is your turn, the game lobby button reads <b>Play Your Turn</b> and My Games marks the game Your turn. The galaxy opens on your own empire, seen through your own scanners: you only know what your empire has found. The bar at the bottom shows the game's name and Your turn. Play exactly as in a single player game, then press <b>End Turn</b>. Your empire moves forward (fleets, building, mining, growth, research and your random events), your turn report appears, and your turn is sent to the server for the next player. If you are the last player in the round, the round also closes: the year advances, the AI empires take their turn and the victory conditions are checked. You do not need to stay: close the game any time, your turn is already saved. If sending fails (for example the connection drops), the bar says your turn has not been sent and shows <b>Retry Upload</b>; press it once you are back online. Do not close the page before it is sent, or that turn is lost and you will play it again.</p>
                 <p><b style="color:#da70d6;">Watching While Others Play</b><br>When it is not your turn, <b>Open Galaxy</b> shows the latest saved galaxy through your own empire's eyes. A VIEW ONLY badge appears in the toolbar and the bar at the bottom says who the game is waiting for. You can look at every planet, fleet, report and screen, open Research, Economy, the Fleet Roster and the Scoreboard, and plan, but orders cannot be given: queueing, designing, waypoints, cargo, colonizing, budget and research changes are blocked, and End Turn reads Waiting. The bar has <b>Turn Report</b> (your last turn's report), <b>Check</b> (asks the server straight away) and <b>Game Lobby</b> (leaves the galaxy). The game also checks for news by itself every 15 seconds and whenever you come back to the tab. When another player ends a turn the galaxy refreshes quietly, keeping your map position, and when it becomes your turn a Your Turn! message appears and the galaxy unlocks. Save File and Load File are not used in multiplayer games: the server keeps the only save, updated at the end of every turn. Abandon Game simply returns to the game lobby.</p>
-                <p><b style="color:#da70d6;">My Games</b><br>My Games in the lobby lists every multiplayer game you created or joined, newest activity first, with its status, host, how many players have joined, the number of empires and the galaxy size. A lock means the game is private. Pick a game to open its lobby. Sign in on any device to see the same list.</p>
+                <p><b style="color:#da70d6;">My Games</b><br>My Games in the lobby lists every multiplayer game you created or joined, games where it is your turn first, then running games by newest activity, then finished games. Each card shows its status, host, progress (players joined, the year and whose turn it is, or the result), the number of empires and the galaxy size. A lock means the game is private. Badges: <b>Your turn</b>, <b>Turn overdue</b> (the player whose turn it is has run past the turn time limit, so you can skip them) and <b>🏆 Victory</b>. Pick a game to open its lobby. Sign in on any device to see the same list.</p>
+                <p><b style="color:#da70d6;">Turn Time Limit and Skipping</b><br>A game created with a Turn Time Limit shows it in the game lobby, together with how long the current turn has been going and when it can be skipped. The empire whose turn it is carries a <b>Playing now</b> badge. Once the limit has passed, every other player who has not resigned sees <b>Skip (name)'s Turn</b> in the game lobby and <b>⏭ Skip Turn</b> in the bar at the bottom of the galaxy, and the bar counts down the hours until then. Skipping passes the turn to the next player and emails the skipped player. Their empire does not lose its turn: it follows its standing orders (building queues, research and fleet waypoints carry on as set), and that happens in the browser of the next player when their galaxy opens. Their Your Turn box lists any empires that played on standing orders. If the skipped player was still playing, their turn is not sent; the galaxy reloads with the latest moves. A game with No limit cannot have turns skipped.</p>
+                <p><b style="color:#da70d6;">Resigning</b><br>In a game that is in progress, <b>🏳 Resign</b> in the game lobby lets you leave for good (it cannot be undone). Your empire stays in the galaxy, keeps its planets and fleets and follows its standing orders every round, but you can no longer give orders and it cannot win. The other players are emailed and the turn order passes over you from then on: whoever plays before you runs your empire's turn on standing orders as part of their End Turn, and their turn report says so. If it was your turn, the turn passes on at once. You can still open the galaxy to watch, or press Remove from My Games to hide it. If every player resigns, the game ends without a winner, everyone is emailed and the saved galaxy is deleted. If only one player is left, they keep playing against the AI empires and the resigned empires; their turn comes straight back after each End Turn. Before a game starts, use Leave Game (or Cancel Game if you created it) instead.</p>
                 <p><b style="color:#da70d6;">The New Game Screen</b><br>Empire Name and Choose Race sit on one row. Universe Size, Star Density and Player Position share the next row. Choose Race offers <b>Random Race</b>, which picks one of the six built-in races for you when you press Create Galaxy (the log tells you which), and lists your saved custom races under their own <b>Custom Races</b> heading. Player Position sets how far apart the homeworlds start. Four buttons sit below, two to a row: <b>Custom Race</b> opens your race list and the Race Wizard (see Custom Races below), <b>AI Opponents</b> opens the rival setup and shows how many rivals you have in brackets, and <b>Advanced Options</b> and <b>Victory Conditions</b> each show how many choices are ticked. Back and Create Galaxy sit on the bottom row.</p>
                 <p><b style="color:#da70d6;">Custom Races and the Race Wizard</b><br>On the New Game screen, <b>Custom Race</b> opens your list of saved races. <b>Create New Race</b> starts the Race Wizard. Each saved race also has <b>Play As</b> (makes it your race for the next game), <b>Edit</b>, <b>Copy</b> and <b>Delete</b>. Saved races appear under Custom Races in Choose Race and in every AI opponent's race menu, so you can cast your creations as your rivals too. Races are kept in this browser, and every saved game carries a copy of the custom races it uses, so a game file opened on another machine brings its races with it and adds any you do not have yet to your list. <b>Export All</b> and <b>Import</b> move your whole list as a JSON file. You can keep up to 24 custom races.</p>
                 <p><b style="color:#da70d6;">Advantage Points</b><br>Every race is built from a pool of Advantage Points. A new race starts with 25 left. Strengths spend points and handicaps refund them, and a race can only be saved when 0 or more points are left. The counter at the top right updates as you choose, and the Point Ledger beside the wizard lists every cost and refund so you can see where the points went. On a narrow screen the ledger is hidden, but the counter stays. Points you do not spend (up to 50) can go into a starting bonus picked on the Identity tab: <b>Surface minerals</b> (+20 kT of each ore per point at your homeworld), <b>Mineral concentrations</b> (+1 concentration on each mineral per 2 points, up to 100), <b>Mines</b> or <b>Factories</b> (+1 per 2 points) or <b>Defenses</b> (+1 Missile Battery per 5 points).</p>
@@ -7109,6 +7125,7 @@
                 name: live ? empireName : e.name,
                 isPlayer: live,
                 isHuman: true,
+                resigned: !!e.mpResigned,
                 planets: owned.length,
                 starbases: starbases,
                 unarmed: unarmed,
@@ -7216,6 +7233,7 @@
             const need = Math.min(v.required, n);
             const winners = [];
             ranked.forEach(emp => {
+                if (emp.resigned) return;
                 let met = 0;
                 if (v.planets.on && planets.length && emp.planets / planets.length * 100 >= v.planets.pct) met++;
                 if (v.tech.on && emp.fieldLevels.filter(l => l >= v.tech.level).length >= v.tech.fields) met++;
@@ -8251,7 +8269,7 @@
         let mpCurrentGame = null;
 
         function defaultMpOptions() {
-            return { name: MP_DEFAULT_GAME_NAME, isPrivate: false, password: '', customRaces: false, raceRule: 'anyone' };
+            return { name: MP_DEFAULT_GAME_NAME, isPrivate: false, password: '', customRaces: false, raceRule: 'anyone', turnLimit: 72 };
         }
 
         function mpCreatorAssigns() {
@@ -8425,6 +8443,7 @@
             document.getElementById('mpo-custom').checked = mo.customRaces;
             document.getElementById('mpo-rule-anyone').checked = mo.raceRule !== 'creator';
             document.getElementById('mpo-rule-creator').checked = mo.raceRule === 'creator';
+            document.getElementById('mpo-limit').value = String(mo.turnLimit || 0);
             mpSetStatus('mpo-status', '');
             refreshMpOptionsForm();
         }
@@ -8435,7 +8454,8 @@
                 isPrivate: document.getElementById('mpo-private').checked,
                 password: document.getElementById('mpo-password').value.trim(),
                 customRaces: document.getElementById('mpo-custom').checked,
-                raceRule: document.getElementById('mpo-rule-creator').checked ? 'creator' : 'anyone'
+                raceRule: document.getElementById('mpo-rule-creator').checked ? 'creator' : 'anyone',
+                turnLimit: parseInt(document.getElementById('mpo-limit').value, 10) || 0
             };
         }
 
@@ -8491,7 +8511,8 @@
                 options: Object.assign({}, DEFAULT_OPTIONS, setupOptions),
                 victory: cloneVictory(setupVictory),
                 customRaces: mpOptions.customRaces,
-                raceRule: rule
+                raceRule: rule,
+                turnLimitHours: mpOptions.turnLimit || 0
             };
             mpSetBusy(true, ['btn-launch-game']);
             mpSetStatus('setup-status', 'Creating your game...');
@@ -8536,8 +8557,11 @@
             }
             const host = st.seat === 0 ? '<span class="seat-badge">Host</span>' : '';
             const me = st.is_me ? '<span class="seat-badge" style="color: #32cd32; border-color: #1f6b1f;">You</span>' : '';
-            return `<div class="seat-row ${st.is_me ? 'me' : ''}"><div class="seat-icon">👤</div><div class="seat-main">
-                <div class="seat-name">${escapeHtml(st.username || 'Player')}${host}${me}</div>
+            const resigned = st.status === 'resigned';
+            const gone = resigned ? '<span class="seat-badge" style="color: #ff8c66; border-color: #7a3b22;">Resigned</span>' : '';
+            const playing = game && game.status === 'active' && game.current_seat === st.seat && !resigned ? '<span class="seat-badge" style="color: #00ffff; border-color: #0a6a7a;">Playing now</span>' : '';
+            return `<div class="seat-row ${st.is_me ? 'me' : ''}" ${resigned ? 'style="opacity: 0.6;"' : ''}><div class="seat-icon">${resigned ? '🏳' : '👤'}</div><div class="seat-main">
+                <div class="seat-name">${escapeHtml(st.username || 'Player')}${host}${me}${gone}${playing}</div>
                 <div class="seat-sub">Empire: ${escapeHtml(st.empire_name || 'Not chosen yet')} | Race: ${escapeHtml(seatRaceLabel(st.race, st.race_def))}</div>
             </div>${n}</div>`;
         }
@@ -8560,14 +8584,18 @@
                 statusText += `, year ${g.year}, turn ${g.turn_number}: waiting for ${cur ? (cur.is_me ? 'you' : (cur.username || 'a player')) : 'a player'}`;
             } else if (g.status === 'finished') {
                 const sm = g.summary || {};
-                statusText += ` in the year ${sm.year || g.year}: ${sm.winner_seat !== null && sm.winner_seat !== undefined && sm.winner_seat === g.my_seat ? 'you won' : 'won by ' + (sm.winner_name || 'an empire')}`;
+                statusText += sm.abandoned ? ` in the year ${sm.year || g.year}: every player resigned, no winner`
+                    : ` in the year ${sm.year || g.year}: ${sm.winner_seat !== null && sm.winner_seat !== undefined && sm.winner_seat === g.my_seat ? 'you won' : 'won by ' + (sm.winner_name || 'an empire')}`;
             }
+            const clock = mpTurnClock(g);
             document.getElementById('mpg-info').innerHTML =
                 `<div>Status: <b style="color: ${g.status === 'lobby' ? '#ffd700' : '#32cd32'};">${escapeHtml(statusText)}</b></div>` +
                 `<div>Host: <b>${escapeHtml(g.creator_name || '?')}</b> | ${g.is_private ? '<b>Private</b> (password needed to join)' : '<b>Public</b> (anyone can join)'}</div>` +
                 `<div>Galaxy: <b>${escapeHtml(selectOptionText('sp-map-size', st.sizeKey || 'medium'))}</b>, ${escapeHtml(selectOptionText('sp-density', st.densityKey || 'normal'))} density (${total} planets), ${escapeHtml(selectOptionText('sp-player-position', st.positionKey || 'moderate'))}</div>` +
                 `<div>Custom races: <b>${escapeHtml(ruleText)}</b></div>` +
                 `<div>Advanced options: ${opts.length ? escapeHtml(opts.join(', ')) : 'none'}</div>` +
+                `<div>Turn time limit: <b>${clock.limit ? clock.limit + ' hours' : 'none'}</b>${clock.text ? ' | ' + escapeHtml(clock.text) : ''}</div>` +
+                (g.my_status === 'resigned' && g.status === 'active' ? '<div style="color: #ff8c66;">You have resigned from this game. You can still watch it.</div>' : '') +
                 `<div style="color: #ffd700; margin-top: 4px;">${escapeHtml(victorySummaryText(mergeVictory(st.victory)))}</div>`;
             document.getElementById('mpg-seats').innerHTML = (data.seats || []).map(x => seatRowHtml(x, g)).join('');
             const resultBox = document.getElementById('mpg-result');
@@ -8584,12 +8612,15 @@
             show('mpg-join', canJoin && document.getElementById('mpg-joinform').style.display === 'none');
             show('mpg-leave', g.is_member && lobby && !g.is_creator);
             show('mpg-cancel', g.is_creator && lobby);
-            show('mpg-remove', g.is_member && g.status === 'finished');
+            show('mpg-remove', g.is_member && (g.status === 'finished' || (g.status === 'active' && g.my_status === 'resigned')));
+            show('mpg-resign', g.is_member && g.status === 'active' && g.my_status !== 'resigned');
+            show('mpg-skip', g.is_member && g.status === 'active' && g.my_status !== 'resigned' && clock.overdue && g.current_seat !== g.my_seat);
+            document.getElementById('mpg-skip').innerText = '⏭ Skip ' + mpSeatLabel(data.seats, g.current_seat) + "'s Turn";
             const inviteOpen = document.getElementById('mpg-inviteform').style.display === 'block';
             show('mpg-invite', g.is_member && lobby && !inviteOpen);
             if (!(g.is_member && lobby)) document.getElementById('mpg-inviteform').style.display = 'none';
             show('mpg-open', g.is_member && g.status === 'active');
-            document.getElementById('mpg-open').innerText = g.status === 'active' && g.current_seat === g.my_seat ? '🎮 Play Your Turn' : '🌌 Open Galaxy (view only)';
+            document.getElementById('mpg-open').innerText = g.status === 'active' && g.current_seat === g.my_seat && g.my_status !== 'resigned' ? '🎮 Play Your Turn' : '🌌 Open Galaxy (view only)';
             show('mpg-start', g.is_member && g.status === 'starting' && !g.has_state);
             if (!canJoin) document.getElementById('mpg-joinform').style.display = 'none';
         }
@@ -8675,9 +8706,10 @@
             let progress = '';
             if (x.status === 'lobby') progress = 'Players: ' + x.humans_joined + ' of ' + x.human_seats;
             else if (x.status === 'active') progress = 'Year ' + x.year + ', ' + (x.is_my_turn ? 'your turn' : 'waiting for ' + (x.current_name || 'a player'));
-            else if (x.status === 'finished') progress = (x.i_won ? 'You won' : 'Won by ' + (x.winner_name || 'an empire')) + ' in ' + x.year;
+            else if (x.status === 'finished') progress = x.abandoned ? 'Ended without a winner in ' + x.year : (x.i_won ? 'You won' : 'Won by ' + (x.winner_name || 'an empire')) + ' in ' + x.year;
+            if (x.status === 'active' && x.my_status === 'resigned') progress = 'Year ' + x.year + ', you resigned';
             return `<button type="button" class="game-card" data-id="${x.id}">
-                <div class="game-card-title">${x.is_private ? '🔒 ' : ''}${escapeHtml(x.name)}<span class="game-status ${x.status}">${escapeHtml(GAME_STATUS_LABELS[x.status] || x.status)}</span>${x.is_my_turn ? '<span class="game-status starting">Your turn</span>' : ''}${x.i_won ? '<span class="game-status won">🏆 Victory</span>' : ''}</div>
+                <div class="game-card-title">${x.is_private ? '🔒 ' : ''}${escapeHtml(x.name)}<span class="game-status ${x.status}">${escapeHtml(GAME_STATUS_LABELS[x.status] || x.status)}</span>${x.is_my_turn ? '<span class="game-status starting">Your turn</span>' : ''}${x.i_won ? '<span class="game-status won">🏆 Victory</span>' : ''}${x.can_skip ? '<span class="game-status lobby">Turn overdue</span>' : ''}</div>
                 <div class="game-card-sub">Host: ${escapeHtml(x.creator_name || '?')}${x.is_creator ? ' (you)' : ''} | ${escapeHtml(progress)} | ${x.seat_count} empires | ${escapeHtml(size)} galaxy</div>
             </button>`;
         }
@@ -8710,6 +8742,8 @@
         document.getElementById('mpg-refresh').addEventListener('click', mpRefreshGame);
         document.getElementById('mpg-cancel').addEventListener('click', mpCancelGame);
         document.getElementById('mpg-remove').addEventListener('click', mpRemoveFinished);
+        document.getElementById('mpg-resign').addEventListener('click', mpResign);
+        document.getElementById('mpg-skip').addEventListener('click', () => mpSkipTurn(mpCurrentGame && mpCurrentGame.game.id));
         document.getElementById('mpg-invite').addEventListener('click', mpShowInviteForm);
         document.getElementById('mpi-close').addEventListener('click', mpHideInviteForm);
         document.getElementById('mpg-inviteform').addEventListener('submit', mpSendInvite);
@@ -9046,6 +9080,24 @@
             turn_order: 'The turn order of this game is missing on the server.',
             summary: 'The final result of the game could not be recorded.'
         };
+        const RESIGN_ERRORS = {
+            not_signed_in: 'You are signed out. Sign in again.',
+            not_found: 'This game no longer exists.',
+            not_member: 'You are not a player in this game.',
+            not_active: 'You can only resign from a game that is in progress. Before it starts, use Leave Game (or Cancel Game if you created it).',
+            already_resigned: 'You have already resigned from this game.'
+        };
+        const SKIP_ERRORS = {
+            not_signed_in: 'You are signed out. Sign in again.',
+            not_found: 'This game no longer exists.',
+            not_member: 'You are not a player in this game.',
+            not_active: 'This game is not in progress.',
+            resigned: 'You have resigned from this game, so you cannot skip turns.',
+            own_turn: 'It is your own turn. Play it and press End Turn.',
+            no_limit: 'This game has no turn time limit, so turns cannot be skipped.',
+            too_soon: 'The turn time limit has not run out yet.',
+            turn_order: 'The turn order of this game is missing on the server.'
+        };
         const MP_POLL_MS = 15000;
         const MP_BLOCK_CLICK = '#btn-confirm-build, #btn-sb-confirm, #btn-sb-save, #btn-sb-delete, #btn-cargo-apply, #btn-wp-add-star, #btn-wp-clear, .wp-remove, #btn-save-economy, #btn-merge-fleets, #fleet-context-actions [data-action], #btn-move-fleet-to-system';
         const MP_BLOCK_CHANGE = '.wp-warp, .wp-task, #wp-fleet-name, #research-focus';
@@ -9072,6 +9124,38 @@
             gameAlert('You are viewing the galaxy while ' + who + ' plays. You can look at every planet, fleet and screen, but orders can only be given on your own turn. The game checks for your turn every few seconds.', 'View Only');
         }
 
+        function mpSeatLabel(seats, seat) {
+            const x = (seats || []).find(st => st.seat === seat);
+            if (!x) return 'the player';
+            if (x.is_me) return 'your';
+            return x.username || x.empire_name || 'the player';
+        }
+
+        function mpFormatHours(h) {
+            if (h < 1) {
+                const m = Math.max(1, Math.round(h * 60));
+                return m + (m === 1 ? ' minute' : ' minutes');
+            }
+            if (h < 48) return Math.round(h) + ' hour' + (Math.round(h) === 1 ? '' : 's');
+            return Math.round(h / 24) + ' days';
+        }
+
+        function mpTurnClock(g, fetchedAt) {
+            const limit = g.turn_limit_hours || 0;
+            const out = { limit: limit, overdue: false, text: '', hoursLeft: null };
+            if (g.status !== 'active' || !g.turn_started_at) return out;
+            const now = (g.server_now ? Date.parse(g.server_now) : Date.now()) + (fetchedAt ? Date.now() - fetchedAt : 0);
+            const elapsed = Math.max(0, (now - Date.parse(g.turn_started_at)) / 3600000);
+            out.text = 'this turn started ' + mpFormatHours(elapsed) + ' ago';
+            if (limit) {
+                const left = limit - elapsed;
+                out.hoursLeft = left;
+                out.overdue = left <= 0;
+                out.text += out.overdue ? ' and is overdue, so it can be skipped' : ', it can be skipped in ' + mpFormatHours(left);
+            }
+            return out;
+        }
+
         function mpUpdateChrome() {
             const banner = document.getElementById('mp-banner');
             const endBtn = document.getElementById('btn-end-turn');
@@ -9091,6 +9175,9 @@
             } else if (mpGame.finished) {
                 text.className = '';
                 text.textContent = '🏆 ' + name + ': the game is over (view only)';
+            } else if (mpGame.resigned) {
+                text.className = 'wait';
+                text.textContent = '🏳 ' + name + ': you have resigned (view only)';
             } else if (mpGame.myTurn) {
                 text.className = '';
                 text.textContent = '🎮 ' + name + ': your turn, year ' + currentYear;
@@ -9101,6 +9188,12 @@
             document.getElementById('mp-banner-retry').style.display = mpPending ? 'inline-block' : 'none';
             document.getElementById('mp-banner-report').style.display = lastTurnReport ? 'inline-block' : 'none';
             document.getElementById('mp-banner-check').style.display = !mpGame.myTurn && !mpPending && !mpGame.finished ? 'inline-block' : 'none';
+            const clock = mpGame.clock ? mpTurnClock(mpGame.clock, mpGame.clock.fetchedAt) : { overdue: false };
+            const canSkip = !mpGame.myTurn && !mpPending && !mpGame.finished && !mpGame.resigned && clock.overdue && mpGame.currentSeat !== mpGame.mySeat;
+            document.getElementById('mp-banner-skip').style.display = canSkip ? 'inline-block' : 'none';
+            if (!mpGame.myTurn && !mpPending && !mpGame.finished && !mpGame.resigned && clock.limit && !clock.overdue && clock.hoursLeft !== null) {
+                text.textContent += ' | skippable in ' + mpFormatHours(clock.hoursLeft);
+            }
             endBtn.disabled = !mpGame.myTurn;
             endBtn.innerText = mpGame.myTurn ? '⏳ End Turn' : (mpPending ? '⚠ Not Sent' : (mpGame.finished ? '🏆 Game Over' : '⌛ Waiting'));
         }
@@ -9120,9 +9213,15 @@
             let myIdx = empires.findIndex(e => e.mpSeat === g.my_seat);
             if (myIdx < 0 && mpProfile) myIdx = empires.findIndex(e => e.userId === mpProfile.id);
             if (myIdx < 0) throw { message: 'Your empire could not be found in this galaxy.' };
+            mpMarkResigned(data.seats);
+            const iResigned = g.my_status === 'resigned';
+            let caught = { names: [], winner: null };
+            if (g.status === 'active' && !iResigned && g.current_seat === g.my_seat && stateTurn === g.turn_number && activeEmpireIndex !== myIdx) {
+                caught = mpCatchUp(myIdx);
+            }
             const currentIdx = activeEmpireIndex;
             if (currentIdx !== myIdx) switchToEmpire(myIdx);
-            const myTurn = g.status === 'active' && g.current_seat === g.my_seat && currentIdx === myIdx && stateTurn === g.turn_number;
+            const myTurn = !iResigned && g.status === 'active' && g.current_seat === g.my_seat && currentIdx === myIdx && stateTurn === g.turn_number;
             mpGame = {
                 id: g.id,
                 name: g.name,
@@ -9133,6 +9232,8 @@
                 currentSeat: g.current_seat,
                 seats: data.seats || [],
                 myTurn: myTurn,
+                resigned: iResigned,
+                clock: { status: g.status, turn_started_at: g.turn_started_at, turn_limit_hours: g.turn_limit_hours, server_now: g.server_now, fetchedAt: Date.now() },
                 meta: state.multiplayer || { gameId: g.id, name: g.name, version: 1 }
             };
             mpReadOnly = !myTurn;
@@ -9148,12 +9249,21 @@
                 }, 80);
             }
             mpUpdateChrome();
+            if (myTurn && caught.winner) {
+                mpGame.myTurn = false;
+                mpReadOnly = true;
+                mpPending = { finish: true, summary: mpBuildSummary(caught.winner), year: currentYear, turn: mpGame.turnNumber };
+                mpUpdateChrome();
+                setTimeout(mpUploadPending, 0);
+                return;
+            }
             if (myTurn) {
                 mpStopPolling();
-                if (!opts.silent) {
+                const autoNote = caught.names.length ? '\n\n' + caught.names.join(', ') + (caught.names.length === 1 ? ' did' : ' did') + ' not play, so the server passed the turn on and ' + (caught.names.length === 1 ? 'that empire' : 'those empires') + ' followed standing orders before your turn.' : '';
+                if (!opts.silent || caught.names.length) {
                     gameDialog({
                         title: opts.firstTurn ? 'You Go First!' : 'Your Turn',
-                        message: (opts.firstTurn ? 'You filled the last spot and built the galaxy, so you take the first turn of ' + g.name + '.' : 'It is your turn in ' + g.name + ', year ' + currentYear + '.') + '\n\nGive your orders as in a single player game, then press End Turn. Your turn is sent to the server and the next player is told it is their turn.',
+                        message: (opts.firstTurn ? 'You filled the last spot and built the galaxy, so you take the first turn of ' + g.name + '.' : 'It is your turn in ' + g.name + ', year ' + currentYear + '.') + autoNote + '\n\nGive your orders as in a single player game, then press End Turn. Your turn is sent to the server and the next player is told it is their turn.',
                         okLabel: "Let's Go",
                         hideCancel: true
                     });
@@ -9192,19 +9302,35 @@
             document.getElementById('lbl-year').innerText = result.year;
             mpGame.myTurn = false;
             mpReadOnly = true;
-            if (result.winner) {
-                mpPending = { finish: true, summary: mpBuildSummary(result.winner), year: currentYear, turn: mpGame.turnNumber };
+            let winner = result.winner;
+            let nextIdx = (myIdx + 1) % empires.length;
+            const autoNames = [];
+            while (!winner && nextIdx !== myIdx && empires[nextIdx] && empires[nextIdx].mpResigned) {
+                switchToEmpire(nextIdx);
+                const auto = runEndTurn();
+                autoNames.push(empires[nextIdx].name);
+                if (auto.winner) winner = auto.winner;
+                nextIdx = (nextIdx + 1) % empires.length;
+            }
+            if (winner) {
+                if (activeEmpireIndex !== myIdx) switchToEmpire(myIdx);
+                document.getElementById('lbl-year').innerText = currentYear;
+                mpPending = { finish: true, summary: mpBuildSummary(winner), year: currentYear, turn: mpGame.turnNumber };
                 showTurnReport(result.year, result.html);
                 updateDashboardPlanetView();
                 mpUpdateChrome();
                 await mpUploadPending();
                 return;
             }
-            const nextIdx = (myIdx + 1) % empires.length;
-            if (nextIdx !== myIdx) switchToEmpire(nextIdx);
+            if (activeEmpireIndex !== nextIdx) switchToEmpire(nextIdx);
             const state = buildSaveData();
             state.multiplayer = mpGame.meta;
-            if (nextIdx !== myIdx) switchToEmpire(myIdx);
+            if (activeEmpireIndex !== myIdx) switchToEmpire(myIdx);
+            if (autoNames.length) {
+                result.html += `<div style="color: #ff8c66;">• Resigned ${autoNames.length === 1 ? 'empire' : 'empires'} ${escapeHtml(autoNames.join(', '))} followed standing orders.</div>`;
+                lastTurnReport = result.html;
+                document.getElementById('lbl-year').innerText = currentYear;
+            }
             showTurnReport(result.year, result.html);
             if (document.getElementById('waypoint-modal').classList.contains('active')) renderWaypointModal();
             updateDashboardPlanetView();
@@ -9245,6 +9371,10 @@
                 mpGame.turnNumber = r.turn_number;
                 mpGame.currentSeat = r.next_seat;
                 mpGame.year = r.year;
+                if (r.next_seat === mpGame.mySeat) {
+                    setTimeout(() => mpEnterGalaxy(mpGame.id, { keepView: true }), 0);
+                    return;
+                }
                 mpStartPolling();
             } catch (err) {
                 gameAlert(mpErrorText(err) + '\n\nYour turn is kept in this browser. Press Retry Upload in the bar at the bottom to send it. Closing the page before it is sent loses this turn.', 'Turn Not Sent');
@@ -9276,6 +9406,8 @@
                     mpShowGameOver(data.game.summary || {});
                     return;
                 }
+                mpGame.clock = { status: r.status, turn_started_at: r.turn_started_at, turn_limit_hours: r.turn_limit_hours, server_now: r.server_now, fetchedAt: Date.now() };
+                mpUpdateChrome();
                 if (r.turn_number !== mpGame.turnNumber || r.status !== 'active') {
                     const mine = r.status === 'active' && r.current_seat === mpGame.mySeat;
                     const name = mpGame.name;
@@ -9298,6 +9430,83 @@
             }
         }
 
+        function mpMarkResigned(seats) {
+            empires.forEach(e => {
+                const x = (seats || []).find(st => st.seat === e.mpSeat);
+                e.mpResigned = !!(x && x.status === 'resigned');
+            });
+        }
+
+        function mpCatchUp(myIdx) {
+            const names = [];
+            let winner = null;
+            let guard = empires.length;
+            while (activeEmpireIndex !== myIdx && guard-- > 0) {
+                names.push(empireName);
+                const r = runEndTurn();
+                if (r.winner) {
+                    winner = r.winner;
+                    break;
+                }
+                switchToEmpire((activeEmpireIndex + 1) % empires.length);
+            }
+            return { names: names, winner: winner };
+        }
+
+        function mpResign() {
+            if (!mpCurrentGame) return;
+            const g = mpCurrentGame.game;
+            gameConfirm('Resign from "' + g.name + '"?\n\nYour empire stays in the galaxy and keeps following its standing orders (building queues, research and fleet waypoints), but you can no longer give orders and it cannot win. The other players are told, and the game goes on without waiting for you. You can still watch the game. This cannot be undone.', async () => {
+                mpSetStatus('mpg-status', 'Resigning...');
+                try {
+                    const res = await sb.rpc('resign_game', { gid: g.id });
+                    if (res.error) throw res.error;
+                    const r = res.data || {};
+                    if (!r.ok) {
+                        mpSetStatus('mpg-status', RESIGN_ERRORS[r.error] || ('Could not resign (' + r.error + ').'), 'error');
+                        return;
+                    }
+                    mpNotify();
+                    await mpLoadGame(g.id, false);
+                    mpSetStatus('mpg-status', r.ended ? 'You resigned. You were the last player, so the game has ended without a winner.' : 'You resigned from this game. The other players have been told.', 'ok');
+                } catch (err) {
+                    mpSetStatus('mpg-status', mpErrorText(err), 'error');
+                }
+            }, 'Resign', 'Resign');
+        }
+
+        function mpSkipTurn(gid) {
+            if (!gid) return;
+            const inGalaxy = !!(mpGame && mpGame.id === gid);
+            const seats = inGalaxy ? mpGame.seats : (mpCurrentGame && mpCurrentGame.seats);
+            const seat = inGalaxy ? mpGame.currentSeat : (mpCurrentGame && mpCurrentGame.game.current_seat);
+            const who = mpSeatLabel(seats, seat);
+            gameConfirm('Skip ' + who + "'s turn? They have run out of time. Their empire follows its standing orders for this turn, the turn passes to the next player, and they are emailed that their turn was skipped.", async () => {
+                const say = (msg, kind) => {
+                    if (inGalaxy) gameAlert(msg, 'Skip Turn');
+                    else mpSetStatus('mpg-status', msg, kind);
+                };
+                try {
+                    const res = await sb.rpc('skip_turn', { gid: gid });
+                    if (res.error) throw res.error;
+                    const r = res.data || {};
+                    if (!r.ok) {
+                        say(SKIP_ERRORS[r.error] || ('Could not skip the turn (' + r.error + ').'), 'error');
+                        return;
+                    }
+                    mpNotify();
+                    if (inGalaxy) {
+                        await mpEnterGalaxy(gid, { keepView: true });
+                    } else {
+                        await mpLoadGame(gid, false);
+                        mpSetStatus('mpg-status', who + "'s turn was skipped.", 'ok');
+                    }
+                } catch (err) {
+                    say(mpErrorText(err), 'error');
+                }
+            }, 'Skip Turn', 'Skip');
+        }
+
         function mpBuildSummary(winner) {
             const ranked = calculateScores();
             const seatOf = id => {
@@ -9313,7 +9522,7 @@
                 return {
                     rank: emp.rank,
                     name: emp.name,
-                    player: emp.isHuman ? playerOf(seat) : 'AI',
+                    player: emp.isHuman ? playerOf(seat) + (emp.resigned ? ' (resigned)' : '') : 'AI',
                     seat: seat,
                     planets: emp.planets,
                     starbases: emp.starbases,
@@ -9339,7 +9548,9 @@
             sm = sm || {};
             const won = typeof sm.winner_seat === 'number' && sm.winner_seat === mySeat;
             const who = sm.winner_kind === 'ai' ? (sm.winner_name || 'An AI empire') + ' (AI)' : (sm.winner_name || 'An empire') + (sm.winner_player ? ' (' + sm.winner_player + ')' : '');
-            const head = won
+            const head = sm.abandoned
+                ? `🏳 The game ended in the year ${escapeHtml(sm.year || '')} without a winner: every player resigned.`
+                : won
                 ? `🏆 <b>Victory!</b> Your empire, <b>${escapeHtml(sm.winner_name || '')}</b>, won in the year ${escapeHtml(sm.year || '')}.`
                 : `🏁 The game ended in the year ${escapeHtml(sm.year || '')}. <b>${escapeHtml(who)}</b> met the victory conditions and won.`;
             const rows = Array.isArray(sm.standings) ? sm.standings : [];
@@ -9362,9 +9573,9 @@
             mpReadOnly = true;
             mpUpdateChrome();
             const won = typeof summary.winner_seat === 'number' && summary.winner_seat === mpGame.mySeat;
-            logEvent((won ? 'VICTORY! ' : 'GAME OVER. ') + (summary.winner_name || 'An empire') + ' has met the victory conditions.');
+            logEvent(summary.abandoned ? 'GAME OVER. Every player resigned.' : (won ? 'VICTORY! ' : 'GAME OVER. ') + (summary.winner_name || 'An empire') + ' has met the victory conditions.');
             gameDialog({
-                title: won ? '🏆 Victory!' : '🏁 Game Over',
+                title: won ? '🏆 Victory!' : (summary.abandoned ? '🏳 Game Ended' : '🏁 Game Over'),
                 html: mpResultHtml(summary, mpGame.mySeat) + '<div style="margin-top: 10px; font-size: 12px; color: #999;">Every player has been emailed the result. The saved galaxy has been removed from the server; you can look around this final view until you leave, and the result stays in My Games.</div>',
                 maxWidth: '620px',
                 okLabel: 'Game Lobby',
@@ -9446,6 +9657,7 @@
 
         document.getElementById('mp-banner-retry').addEventListener('click', mpUploadPending);
         document.getElementById('mp-banner-check').addEventListener('click', () => mpPoll(true));
+        document.getElementById('mp-banner-skip').addEventListener('click', () => mpSkipTurn(mpGame && mpGame.id));
         document.getElementById('mp-banner-lobby').addEventListener('click', mpExitGalaxy);
         document.getElementById('mp-banner-report').addEventListener('click', () => {
             const e = empires[activeEmpireIndex];
