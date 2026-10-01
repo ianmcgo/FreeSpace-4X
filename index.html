@@ -1049,6 +1049,11 @@
             border: 1px solid #1f6b1f;
         }
 
+        .game-status.starting {
+            color: #00ffff;
+            border: 1px solid #0a6a7a;
+        }
+
         .game-status.finished {
             color: #aaa;
             border: 1px solid #555;
@@ -1671,7 +1676,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.8.2 (Updated: September 30, 2026 8:54 PM)</div>
+            <div class="version-text">Version 0.8.3 (Updated: September 30, 2026 9:26 PM)</div>
         </div>
     </div>
 
@@ -1784,7 +1789,7 @@
                 </button>
                 <button type="button" class="mp-action" id="mp-join-game">
                     <span class="mp-action-icon">🛰</span>
-                    <span><span class="mp-action-title">Join Multiplayer Game</span><span class="mp-soon">Coming next</span><span class="mp-action-desc" style="display: block;">Browse games other players have listed and take an open spot.</span></span>
+                    <span><span class="mp-action-title">Join Multiplayer Game</span><span class="mp-action-desc" style="display: block;">Browse games other players have listed and take an open spot.</span></span>
                 </button>
                 <button type="button" class="mp-action" id="mp-my-games">
                     <span class="mp-action-icon">📜</span>
@@ -1803,12 +1808,56 @@
             <div class="mp-card mpg-info" id="mpg-info"></div>
             <div class="wiz-group-title">Empires</div>
             <div id="mpg-seats"></div>
+            <form class="mp-card" id="mpg-joinform" style="display: none; margin-top: 12px;">
+                <div class="wiz-group-title" style="margin-top: 0;">Join This Game</div>
+                <div class="form-group" id="mpj-pass-group">
+                    <label for="mpj-password">Game Password</label>
+                    <input type="text" id="mpj-password" maxlength="64" autocomplete="off">
+                    <div class="mp-hint">This game is private. Ask the host for the password.</div>
+                </div>
+                <div class="form-group">
+                    <label for="mpj-empire">Your Empire Name</label>
+                    <input type="text" id="mpj-empire" maxlength="32" autocomplete="off">
+                </div>
+                <div class="form-group" id="mpj-race-group">
+                    <label for="mpj-race">Your Race</label>
+                    <select id="mpj-race"></select>
+                    <div class="mp-hint" id="mpj-race-hint"></div>
+                </div>
+                <div class="form-group" id="mpj-preset-group">
+                    <label>Your Race</label>
+                    <div style="font-size: 13px; color: #e6d8f5;" id="mpj-preset"></div>
+                    <div class="mp-hint">The host chose the race for this spot.</div>
+                </div>
+                <div class="mp-status" id="mpj-status"></div>
+                <div class="mpg-btns">
+                    <button type="button" class="nav-button" id="mpj-cancel">Cancel</button>
+                    <button type="submit" class="nav-button btn-primary" id="mpj-submit">Join Game</button>
+                </div>
+            </form>
             <div class="mp-status" id="mpg-status"></div>
             <div class="mpg-btns">
-                <button type="button" class="nav-button" id="mpg-refresh">↻ Refresh</button>
+                <button type="button" class="nav-button btn-primary" id="mpg-join">➕ Join This Game</button>
+                <button type="button" class="nav-button btn-primary" id="mpg-open">🌌 Open Galaxy</button>
+                <button type="button" class="nav-button btn-primary" id="mpg-start">🌌 Build Galaxy Now</button>
                 <button type="button" class="nav-button" id="mpg-invite">✉ Invite Player</button>
                 <button type="button" class="nav-button" id="mpg-cancel" style="color: #ff8c66;">✖ Cancel Game</button>
-                <button type="button" class="nav-button" id="mpg-back">Back to Lobby</button>
+                <button type="button" class="nav-button" id="mpg-leave" style="color: #ff8c66;">⇠ Leave Game</button>
+                <button type="button" class="nav-button" id="mpg-refresh">↻ Refresh</button>
+                <button type="button" class="nav-button" id="mpg-back">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-mp-join" class="view">
+        <div class="container-box mp-box" style="max-width: 640px;">
+            <h2 class="screen-header">Join Multiplayer Game</h2>
+            <div style="font-size: 12px; color: #aaa; margin-bottom: 12px; line-height: 1.5;">Games waiting for players, newest first. A lock means you need the password from the host. Pick a game to see its settings and join.</div>
+            <div id="mpjl-list"></div>
+            <div class="mp-status" id="mpjl-status"></div>
+            <div class="mpg-btns">
+                <button type="button" class="nav-button" id="mpjl-refresh">↻ Refresh</button>
+                <button type="button" class="nav-button" id="mpjl-back">Back to Lobby</button>
             </div>
         </div>
     </div>
@@ -2429,11 +2478,13 @@
                 <p><b style="color:#da70d6;">Goal</b><br>Grow your empire from a single homeworld: scan the galaxy, colonize habitable worlds, mine ore, build infrastructure and outscore your AI opponents. Check the Scoreboard under Management to see how you rank. If the game was created with Victory Conditions, the first empire to meet them wins (see Victory Conditions below).</p>
                 <p><b style="color:#da70d6;">Multiplayer and Your Account</b><br>Press <b>Multiplayer</b> on the title screen (or the M key) to play against other people over the internet. You need a free account first. On the <b>Register</b> tab choose a <b>username</b> (3 to 20 letters, numbers, - or _, no spaces; other players see this name), enter your <b>email</b> and a <b>password</b> of at least 6 characters, and press Create Account. There is no confirmation email: you go straight into the Multiplayer Lobby. Your email is only used to sign in and to send you game emails; other players never see it. Next time use the <b>Sign In</b> tab. This browser remembers you, so Multiplayer takes you straight to the lobby until you press Sign Out. Multiplayer needs an internet connection; if the online service cannot be reached, single player still works as normal.</p>
                 <p><b style="color:#da70d6;">Forgot Your Password</b><br>On the Sign In tab press <b>Forgot password?</b>, check the email address and press Send Reset Email. Open the link in that email, ideally on the same device: the game opens on a Set a New Password screen. Type the new password twice and press Save Password, and you are signed in and taken to the lobby. If no email arrives within a few minutes, check your spam folder.</p>
-                <p><b style="color:#da70d6;">The Multiplayer Lobby</b><br>The lobby shows the username you are signed in as. <b>Change Username</b> lets you pick a new one at any time; names are unique, so if someone already has the name you want (in any mix of upper and lower case) you are asked to choose another. <b>Sign Out</b> forgets your sign-in on this browser. The lobby also has <b>Create Multiplayer Game</b>, <b>Join Multiplayer Game</b> (arriving in the next update) and <b>My Games</b>.</p>
+                <p><b style="color:#da70d6;">The Multiplayer Lobby</b><br>The lobby shows the username you are signed in as. <b>Change Username</b> lets you pick a new one at any time; names are unique, so if someone already has the name you want (in any mix of upper and lower case) you are asked to choose another. <b>Sign Out</b> forgets your sign-in on this browser. The lobby also has <b>Create Multiplayer Game</b>, <b>Join Multiplayer Game</b> and <b>My Games</b>.</p>
                 <p><b style="color:#da70d6;">Creating a Multiplayer Game</b><br>In the lobby press <b>Create Multiplayer Game</b>. You get the New Game screen titled New Multiplayer Game. Your Empire Name and Choose Race are your own empire; universe size, star density, player position, Victory Conditions and Advanced Options work exactly as in single player and apply to everyone. The <b>Opponents</b> button (it replaces AI Opponents) shows how many player spots and AI opponents the game has. When everything is set, press <b>Create Multiplayer Game</b>. Back returns to the lobby without creating anything. You can have up to 10 games waiting for players at once.</p>
                 <p><b style="color:#da70d6;">Opponents: Player Spots and AI</b><br>On the Opponents screen, <b>Add Player Spot</b> adds a seat for another person and <b>Add AI Opponent</b> adds a computer empire with its own name, race and intelligence. A multiplayer game needs at least one Player Spot. Up to 15 opponents fit in a game, so 16 empires in all. You always take the first seat and play first each round; the other humans follow in seat order as they appear on the list. Remove takes a spot or AI out.</p>
                 <p><b style="color:#da70d6;">Multiplayer Options</b><br>When creating a multiplayer game, Advanced Options starts with a Multiplayer Options section. <b>Game Name</b> is what other players see in the list of games (it starts as Multiplayer Game). <b>Who Can Join</b> is Public (selected to start with: anyone can join) or Private: a password is then required, 4 to 64 characters, and players must type it to join. Players you invite by email or username will not need it. <b>Allow custom races</b> is off to start with, and then every empire, AI included, uses one of the six built-in races. Turn it on and choose one rule: <b>Anyone can bring their own custom race</b>, where each player may pick one of their own Race Wizard designs when they join, or <b>Only the game creator chooses races</b>, where you set the race of every Player Spot yourself on the Opponents screen (built-in, random, one of your custom races, or Player's choice to let them pick a built-in race).</p>
-                <p><b style="color:#da70d6;">The Game Lobby</b><br>After you create a game, or when you open one from My Games, you see its lobby. The top box shows its status (for example Waiting for players: 1 of 3 player spots filled), the host, public or private, the galaxy settings, the custom race rule, the advanced options and the victory conditions. Below it every empire is listed by seat: players who have joined with their username, empire and race (yours is marked You, the creator is marked Host), AI opponents with their race and intelligence, and open spots shown as <b>Waiting for player...</b>. <b>Refresh</b> reloads the list. <b>Cancel Game</b>, shown only to the creator before the game starts, deletes the game for everyone. <b>Invite Player</b> arrives in the next update. When every Player Spot is filled the game will begin and everyone will be emailed.</p>
+                <p><b style="color:#da70d6;">The Game Lobby</b><br>After you create a game, or when you open one from My Games, you see its lobby. The top box shows its status (for example Waiting for players: 1 of 3 player spots filled), the host, public or private, the galaxy settings, the custom race rule, the advanced options and the victory conditions. Below it every empire is listed by seat: players who have joined with their username, empire and race (yours is marked You, the creator is marked Host), AI opponents with their race and intelligence, and open spots shown as <b>Waiting for player...</b>. <b>Refresh</b> reloads the list. <b>Cancel Game</b>, shown only to the creator before the game starts, deletes the game for everyone. <b>Leave Game</b>, shown to players who joined before the game starts, gives your spot back so someone else can take it (the creator cancels instead). <b>Invite Player</b> arrives in the next update. Back returns to the screen you came from.</p>
+                <p><b style="color:#da70d6;">Joining a Multiplayer Game</b><br>In the lobby press <b>Join Multiplayer Game</b> to see every game waiting for players, newest first: its name (a lock means it is private), the host, how many spots are open, the number of empires, the galaxy size and the custom race rule. Games you are already in say Joined. Pick a game to open its lobby and read its settings, then press <b>Join This Game</b>. Fill in the form: the <b>Game Password</b> if the game is private (ask the host for it), <b>Your Empire Name</b> (it starts as your username plus Empire, and must be different from every other empire in the game), and <b>Your Race</b>: Random or one of the six built-in races, plus your own Race Wizard designs when the host allows anyone to bring custom races. If the host chose the race for the spot you are taking, the form shows that race instead. Press <b>Join Game</b>. You take the first open spot, and the game appears in My Games. You can be in as many games as you like.</p>
+                <p><b style="color:#da70d6;">When the Game Begins</b><br>The moment the last Player Spot is filled, the game status changes to Starting and the browser of the player who joined last builds the galaxy: every empire gets its homeworld, starting scout and starting technology, Random races are decided, every custom race in play is included, and the finished galaxy is saved on the multiplayer server. This takes a few seconds. The game then shows <b>In progress</b>, year 2400, waiting for the host, who always plays the first turn. If that player closed their browser before the upload finished, the next player to open the game's lobby builds it automatically, or presses <b>Build Galaxy Now</b>. <b>Open Galaxy</b> (playing your turns and watching the other players' turns) arrives in the next update.</p>
                 <p><b style="color:#da70d6;">My Games</b><br>My Games in the lobby lists every multiplayer game you created or joined, newest activity first, with its status, host, how many players have joined, the number of empires and the galaxy size. A lock means the game is private. Pick a game to open its lobby. Sign in on any device to see the same list.</p>
                 <p><b style="color:#da70d6;">The New Game Screen</b><br>Empire Name and Choose Race sit on one row. Universe Size, Star Density and Player Position share the next row. Choose Race offers <b>Random Race</b>, which picks one of the six built-in races for you when you press Create Galaxy (the log tells you which), and lists your saved custom races under their own <b>Custom Races</b> heading. Player Position sets how far apart the homeworlds start. Four buttons sit below, two to a row: <b>Custom Race</b> opens your race list and the Race Wizard (see Custom Races below), <b>AI Opponents</b> opens the rival setup and shows how many rivals you have in brackets, and <b>Advanced Options</b> and <b>Victory Conditions</b> each show how many choices are ticked. Back and Create Galaxy sit on the bottom row.</p>
                 <p><b style="color:#da70d6;">Custom Races and the Race Wizard</b><br>On the New Game screen, <b>Custom Race</b> opens your list of saved races. <b>Create New Race</b> starts the Race Wizard. Each saved race also has <b>Play As</b> (makes it your race for the next game), <b>Edit</b>, <b>Copy</b> and <b>Delete</b>. Saved races appear under Custom Races in Choose Race and in every AI opponent's race menu, so you can cast your creations as your rivals too. Races are kept in this browser, and every saved game carries a copy of the custom races it uses, so a game file opened on another machine brings its races with it and adds any you do not have yet to your list. <b>Export All</b> and <b>Import</b> move your whole list as a JSON file. You can keep up to 24 custom races.</p>
@@ -3065,6 +3116,7 @@
                 seat: seat,
                 kind: 'human',
                 userId: null,
+                mpSeat: null,
                 name: name,
                 race: race,
                 fleets: [],
@@ -3185,6 +3237,7 @@
             e.id = typeof src.id === 'string' && src.id ? src.id : humanEmpireId(seat);
             e.kind = 'human';
             e.userId = src.userId || null;
+            e.mpSeat = Number.isInteger(src.mpSeat) ? src.mpSeat : null;
             e.fleets = Array.isArray(src.fleets) ? src.fleets : [];
             e.fleets.forEach(f => {
                 if (!f.waypoints) f.waypoints = [];
@@ -3583,8 +3636,11 @@
             return RACE_NAMES[id] || (libraryRace(id) ? libraryRace(id).name : 'Unknown Race');
         }
 
-        function adoptGameRaces(ids) {
+        function adoptGameRaces(ids, extraDefs) {
             clearGameRaces();
+            (extraDefs || []).forEach(d => {
+                if (d && ids.indexOf(d.id) !== -1 && !gameRaces[d.id]) registerGameRace(cloneRaceDef(d));
+            });
             ids.forEach(id => {
                 if (!isCustomRaceId(id) || gameRaces[id]) return;
                 const d = libraryRace(id);
@@ -5747,9 +5803,9 @@
 
         const STAR_NAMES = ["Aegis", "Vega", "Sirius", "Rigel", "Polaris", "Antares", "Betelgeuse", "Canopus", "Arcturus", "Capella", "Procyon", "Achernar", "Hadar", "Acrux", "Spica", "Alnitak", "Alioth", "Mirfak", "Regulus", "Adhara", "Shaula", "Castor", "Gacrux", "Bellatrix", "Elnath", "Miaplacidus", "Alnilam", "Kaus", "Avior", "Alkaid", "Atria", "Alhena", "Peacock", "Alsephina", "Mirzam", "Alphard", "Hamal", "Diphda", "Nunki", "Menkar", "Alpheratz", "Rasalhague", "Kochab", "Deneb", "Algol"];
 
-        function resolveRaceChoice(race) {
-            let r = race === 'random' ? pickRandom(RACE_KEYS) : race;
-            if (isCustomRaceId(r) && !libraryRace(r) && !gameRaces[r]) r = 'humanoid';
+        function resolveRaceChoice(race, extraIds) {
+            let r = race === 'random' || race === 'choice' || !race ? pickRandom(RACE_KEYS) : race;
+            if (isCustomRaceId(r) && !libraryRace(r) && !gameRaces[r] && (extraIds || []).indexOf(r) === -1) r = 'humanoid';
             return r;
         }
 
@@ -5806,12 +5862,14 @@
             const sizeKey = galaxyDimensions[cfg.sizeKey] ? cfg.sizeKey : 'medium';
             const mapDimension = galaxyDimensions[sizeKey];
             currentMapDimension = mapDimension;
-            const humans = cfg.humans.map(h => ({ name: h.name || 'Human Directorate', race: resolveRaceChoice(h.race), randomRace: h.race === 'random', userId: h.userId || null }));
+            const extraDefs = (cfg.raceDefs || []).map(cleanRaceDef).filter(Boolean);
+            const extraIds = extraDefs.map(d => d.id);
+            const humans = cfg.humans.map(h => ({ name: h.name || 'Human Directorate', race: resolveRaceChoice(h.race, extraIds), randomRace: h.race === 'random', userId: h.userId || null, mpSeat: Number.isInteger(h.mpSeat) ? h.mpSeat : null }));
             const totalPlanetCount = Math.max(getGalaxyPlanetCount(sizeKey, cfg.densityKey), cfg.rivals.length + humans.length);
 
             aiRivals = [];
             cfg.rivals.forEach((config, idx) => {
-                const race = resolveRaceChoice(config.race);
+                const race = resolveRaceChoice(config.race, extraIds);
                 const difficulty = config.difficulty === 'random' ? pickRandom(INTELLIGENCE_KEYS) : (config.difficulty || 'average');
                 const mods = getIntelligenceMods(difficulty);
                 aiRivals.push({
@@ -5829,13 +5887,14 @@
                 });
             });
 
-            adoptGameRaces(humans.map(h => h.race).concat(aiRivals.map(r => r.race)));
+            adoptGameRaces(humans.map(h => h.race).concat(aiRivals.map(r => r.race)), extraDefs);
             currentYear = START_YEAR;
             planets = [];
             myEmpireId = '';
             empires = humans.map((h, i) => {
                 const e = newEmpireRecord(i, h.name, h.race);
                 e.userId = h.userId;
+                e.mpSeat = h.mpSeat;
                 return e;
             });
 
@@ -7976,7 +8035,7 @@
             ['cybertrons', 'Cybertrons (Weapons)']
         ];
         const INTELLIGENCE_LABELS = { random: 'Random', novice: 'Novice', average: 'Average', good: 'Good', expert: 'Expert', master: 'Master' };
-        const GAME_STATUS_LABELS = { lobby: 'Waiting for players', active: 'In progress', finished: 'Finished', cancelled: 'Cancelled' };
+        const GAME_STATUS_LABELS = { lobby: 'Waiting for players', starting: 'Starting', active: 'In progress', finished: 'Finished', cancelled: 'Cancelled' };
         const CREATE_GAME_ERRORS = {
             not_signed_in: 'You are signed out. Go back to the lobby and sign in again.',
             name: 'The game name can be at most 40 characters.',
@@ -8288,7 +8347,11 @@
             const total = getGalaxyPlanetCount(st.sizeKey || 'medium', st.densityKey || 'normal');
             let statusText = GAME_STATUS_LABELS[g.status] || g.status;
             if (g.status === 'lobby') statusText += `: ${g.humans_joined} of ${g.human_seats} player spots filled`;
-            else if (g.status === 'active') statusText += `, year ${g.year}`;
+            else if (g.status === 'starting') statusText += ': every spot is filled and the galaxy is being built';
+            else if (g.status === 'active') {
+                const cur = (data.seats || []).find(x => x.seat === g.current_seat);
+                statusText += `, year ${g.year}, turn ${g.turn_number}: waiting for ${cur ? (cur.is_me ? 'you' : (cur.username || 'a player')) : 'a player'}`;
+            }
             document.getElementById('mpg-info').innerHTML =
                 `<div>Status: <b style="color: ${g.status === 'lobby' ? '#ffd700' : '#32cd32'};">${escapeHtml(statusText)}</b></div>` +
                 `<div>Host: <b>${escapeHtml(g.creator_name || '?')}</b> | ${g.is_private ? '<b>Private</b> (password needed to join)' : '<b>Public</b> (anyone can join)'}</div>` +
@@ -8297,22 +8360,39 @@
                 `<div>Advanced options: ${opts.length ? escapeHtml(opts.join(', ')) : 'none'}</div>` +
                 `<div style="color: #ffd700; margin-top: 4px;">${escapeHtml(victorySummaryText(mergeVictory(st.victory)))}</div>`;
             document.getElementById('mpg-seats').innerHTML = (data.seats || []).map(x => seatRowHtml(x, g)).join('');
-            const canCancel = g.is_creator && g.status === 'lobby';
-            document.getElementById('mpg-cancel').style.display = canCancel ? 'block' : 'none';
-            document.getElementById('mpg-invite').style.display = g.status === 'lobby' && g.is_member ? 'block' : 'none';
+            const lobby = g.status === 'lobby';
+            const show = (id, on) => { document.getElementById(id).style.display = on ? 'block' : 'none'; };
+            const canJoin = !g.is_member && lobby && g.humans_joined < g.human_seats;
+            show('mpg-join', canJoin && document.getElementById('mpg-joinform').style.display === 'none');
+            show('mpg-leave', g.is_member && lobby && !g.is_creator);
+            show('mpg-cancel', g.is_creator && lobby);
+            show('mpg-invite', g.is_member && lobby);
+            show('mpg-open', g.is_member && g.status === 'active');
+            show('mpg-start', g.is_member && g.status === 'starting' && !g.has_state);
+            if (!canJoin) document.getElementById('mpg-joinform').style.display = 'none';
         }
 
-        async function mpLoadGame(id) {
+        async function mpFetchGame(id) {
             const res = await sb.rpc('get_game', { gid: id });
             if (res.error) throw res.error;
             const r = res.data || {};
             if (!r.ok) throw { message: r.error === 'not_found' ? 'This game no longer exists, or it has started without you.' : 'Could not open this game (' + r.error + ').' };
-            renderGameLobby(r);
             return r;
         }
 
-        async function mpOpenGame(id, note) {
+        async function mpLoadGame(id, autoStart) {
+            const r = await mpFetchGame(id);
+            renderGameLobby(r);
+            if (autoStart !== false && r.game.is_member && r.game.status === 'starting' && !r.game.has_state && !mpStarting) {
+                setTimeout(() => mpStartGalaxy(id), 0);
+            }
+            return r;
+        }
+
+        async function mpOpenGame(id, note, from) {
             if (!mpClient()) return;
+            mpGameFrom = from || 'lobby';
+            document.getElementById('mpg-joinform').style.display = 'none';
             document.getElementById('mpg-title').textContent = 'Game Lobby';
             document.getElementById('mpg-info').innerHTML = 'Loading...';
             document.getElementById('mpg-seats').innerHTML = '';
@@ -8345,6 +8425,7 @@
             if (!mpCurrentGame) return;
             const g = mpCurrentGame.game;
             gameConfirm('Cancel "' + g.name + '"? The game is deleted for everyone who has joined, and it cannot be undone.', async () => {
+                mpGameFrom = 'mygames';
                 mpSetStatus('mpg-status', 'Cancelling...');
                 try {
                     const res = await sb.rpc('cancel_game', { gid: g.id });
@@ -8398,14 +8479,299 @@
 
         document.getElementById('mpm-list').addEventListener('click', (e) => {
             const b = e.target.closest ? e.target.closest('.game-card') : null;
-            if (b) mpOpenGame(b.dataset.id);
+            if (b) mpOpenGame(b.dataset.id, null, 'mygames');
         });
         document.getElementById('mpm-refresh').addEventListener('click', mpShowMyGames);
         document.getElementById('mpm-back').addEventListener('click', mpShowLobby);
         document.getElementById('mpg-refresh').addEventListener('click', mpRefreshGame);
         document.getElementById('mpg-cancel').addEventListener('click', mpCancelGame);
         document.getElementById('mpg-invite').addEventListener('click', () => mpComingSoon('Inviting players by email or username'));
-        document.getElementById('mpg-back').addEventListener('click', mpShowLobby);
+        document.getElementById('mpg-back').addEventListener('click', mpGameBack);
+
+
+        const JOIN_ERRORS = {
+            not_signed_in: 'You are signed out. Go back to the lobby and sign in again.',
+            not_found: 'This game no longer exists.',
+            not_open: 'This game is no longer taking players.',
+            already_joined: 'You are already in this game.',
+            wrong_password: 'That password is not right. Ask the host for the game password.',
+            empire_name: 'Empire names are 1 to 32 characters.',
+            empire_name_taken: 'Another empire in this game already has that name. Choose a different one.',
+            full: 'Every spot in this game has just been taken.',
+            custom_races_off: 'This game does not let players bring custom races. Pick a built-in race.',
+            race_def: 'Your custom race could not be read. Pick it again or choose a built-in race.',
+            race: 'Pick one of the races in the list.'
+        };
+        const START_ERRORS = {
+            not_signed_in: 'You are signed out. Sign in again.',
+            not_found: 'This game no longer exists.',
+            not_member: 'Only players in this game can start it.',
+            not_ready: 'The game is not ready to start yet: some spots are still open.',
+            state: 'The galaxy is too large to upload. Ask the host to choose a smaller universe.'
+        };
+        let mpGameFrom = 'lobby';
+        let mpStarting = false;
+
+        function mpGameBack() {
+            document.getElementById('mpg-joinform').style.display = 'none';
+            if (mpGameFrom === 'join') mpShowJoinList();
+            else if (mpGameFrom === 'mygames') mpShowMyGames();
+            else mpShowLobby();
+        }
+
+        function bytesToBase64(bytes) {
+            let bin = '';
+            const CHUNK = 0x8000;
+            for (let i = 0; i < bytes.length; i += CHUNK) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + CHUNK));
+            return btoa(bin);
+        }
+
+        function base64ToBytes(b64) {
+            const bin = atob(b64);
+            const out = new Uint8Array(bin.length);
+            for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+            return out;
+        }
+
+        async function packState(obj) {
+            const json = JSON.stringify(obj);
+            if (typeof CompressionStream === 'function') {
+                try {
+                    const stream = new Blob([json]).stream().pipeThrough(new CompressionStream('gzip'));
+                    const buf = new Uint8Array(await new Response(stream).arrayBuffer());
+                    return 'gz:' + bytesToBase64(buf);
+                } catch (e) {}
+            }
+            return 'js:' + json;
+        }
+
+        async function unpackState(text) {
+            if (typeof text !== 'string') throw { message: 'The saved game could not be read.' };
+            if (text.indexOf('gz:') === 0) {
+                if (typeof DecompressionStream !== 'function') throw { message: 'This browser is too old to open compressed saves. Update it or use another browser.' };
+                const stream = new Blob([base64ToBytes(text.slice(3))]).stream().pipeThrough(new DecompressionStream('gzip'));
+                return JSON.parse(await new Response(stream).text());
+            }
+            if (text.indexOf('js:') === 0) return JSON.parse(text.slice(3));
+            return JSON.parse(text);
+        }
+
+        function mpBuildGalaxy(data) {
+            const g = data.game;
+            const st = g.settings || {};
+            const seats = (data.seats || []).slice().sort((a, b) => a.seat - b.seat);
+            const defs = seats.map(x => (x.race_def ? cleanRaceDef(x.race_def) : null));
+            const raceOf = (x, i) => (defs[i] ? defs[i].id : x.race);
+            const humanSeats = [];
+            const aiSeats = [];
+            seats.forEach((x, i) => {
+                if (x.kind === 'human') humanSeats.push({ seat: x.seat, name: x.empire_name || ('Empire ' + (x.seat + 1)), race: raceOf(x, i), userId: x.user_id || null });
+                else aiSeats.push({ seat: x.seat, name: x.empire_name || freshAiName(), race: raceOf(x, i), difficulty: x.difficulty || 'average' });
+            });
+            createGalaxy({
+                sizeKey: st.sizeKey || 'medium',
+                densityKey: st.densityKey || 'normal',
+                positionKey: st.positionKey || 'moderate',
+                options: Object.assign({}, DEFAULT_OPTIONS, st.options || {}),
+                victory: mergeVictory(st.victory),
+                humans: humanSeats.map(h => ({ name: h.name, race: h.race, userId: h.userId, mpSeat: h.seat })),
+                rivals: aiSeats.map(a => ({ name: a.name, race: a.race, difficulty: a.difficulty })),
+                raceDefs: defs.filter(Boolean)
+            });
+            const state = buildSaveData();
+            state.multiplayer = { gameId: g.id, name: g.name, version: 1 };
+            const seatRaces = humanSeats.map((h, i) => ({ seat: h.seat, race: empires[i].race }))
+                .concat(aiSeats.map((a, i) => ({ seat: a.seat, race: aiRivals[i].race })));
+            return { state: state, seatRaces: seatRaces };
+        }
+
+        async function mpStartGalaxy(gid) {
+            if (mpStarting || !mpClient()) return;
+            mpStarting = true;
+            mpSetBusy(true, ['mpg-start']);
+            try {
+                mpSetStatus('mpg-status', 'Every spot is filled. Building the galaxy...');
+                const data = await mpFetchGame(gid);
+                if (data.game.status !== 'starting' || data.game.has_state) {
+                    renderGameLobby(data);
+                    mpSetStatus('mpg-status', '');
+                    return;
+                }
+                const built = mpBuildGalaxy(data);
+                mpSetStatus('mpg-status', 'Uploading the galaxy...');
+                const packed = await packState(built.state);
+                const res = await sb.rpc('start_game', { gid: gid, p_state: packed, p_seat_races: built.seatRaces });
+                if (res.error) throw res.error;
+                const r = res.data || {};
+                if (!r.ok && r.error !== 'already_started') throw { message: START_ERRORS[r.error] || ('Could not start the game (' + r.error + ').') };
+                const after = await mpLoadGame(gid, false);
+                const host = (after.seats || []).find(x => x.seat === 0);
+                mpSetStatus('mpg-status', 'The galaxy is ready and the game has begun! ' + (host && host.is_me ? 'You take' : ((host && host.username) || 'The host') + ' takes') + ' the first turn.', 'ok');
+            } catch (err) {
+                mpSetStatus('mpg-status', mpErrorText(err) + ' Press Build Galaxy Now to try again.', 'error');
+                document.getElementById('mpg-start').style.display = 'block';
+            } finally {
+                mpStarting = false;
+                mpSetBusy(false, ['mpg-start']);
+            }
+        }
+
+        function mpFirstOpenSeat() {
+            if (!mpCurrentGame) return null;
+            return (mpCurrentGame.seats || []).filter(x => x.kind === 'human' && !x.filled).sort((a, b) => a.seat - b.seat)[0] || null;
+        }
+
+        function mpShowJoinForm() {
+            if (!mpCurrentGame || !mpProfile) return;
+            const g = mpCurrentGame.game;
+            const seat = mpFirstOpenSeat();
+            if (!seat) {
+                mpSetStatus('mpg-status', JOIN_ERRORS.full, 'error');
+                return;
+            }
+            const preset = seat.race_preset === undefined || seat.race_preset === null ? seat.race !== 'choice' : !!seat.race_preset;
+            document.getElementById('mpj-pass-group').style.display = g.is_private ? 'block' : 'none';
+            document.getElementById('mpj-password').value = '';
+            const taken = (mpCurrentGame.seats || []).map(x => (x.empire_name || '').toLowerCase());
+            let name = (mpProfile.username + ' Empire').slice(0, 32);
+            if (taken.indexOf(name.toLowerCase()) !== -1) name = (mpProfile.username + ' Dominion').slice(0, 32);
+            document.getElementById('mpj-empire').value = name;
+            document.getElementById('mpj-race-group').style.display = preset ? 'none' : 'block';
+            document.getElementById('mpj-preset-group').style.display = preset ? 'block' : 'none';
+            document.getElementById('mpj-preset').textContent = seatRaceLabel(seat.race, seat.race_def);
+            const allowCustom = g.race_rule === 'anyone';
+            document.getElementById('mpj-race').innerHTML = raceSelectOptions('humanoid', false, allowCustom);
+            document.getElementById('mpj-race-hint').textContent = allowCustom
+                ? (raceLibrary.length ? 'You may bring one of your own custom races (listed under Custom Races).' : 'You may bring a custom race. Design one with Custom Race on the single player New Game screen first.')
+                : 'This game uses the six built-in races.';
+            mpSetStatus('mpj-status', '');
+            document.getElementById('mpg-joinform').style.display = 'block';
+            document.getElementById('mpg-join').style.display = 'none';
+            setTimeout(() => document.getElementById(g.is_private ? 'mpj-password' : 'mpj-empire').focus(), 0);
+        }
+
+        function mpHideJoinForm() {
+            document.getElementById('mpg-joinform').style.display = 'none';
+            if (mpCurrentGame) renderGameLobby(mpCurrentGame);
+        }
+
+        async function mpJoinGame(e) {
+            e.preventDefault();
+            if (mpBusy || !mpClient() || !mpCurrentGame) return;
+            const g = mpCurrentGame.game;
+            const seat = mpFirstOpenSeat();
+            const preset = document.getElementById('mpj-preset-group').style.display === 'block';
+            const password = document.getElementById('mpj-password').value.trim();
+            const empire = document.getElementById('mpj-empire').value.trim();
+            if (g.is_private && !password) {
+                mpSetStatus('mpj-status', 'Enter the game password.', 'error');
+                return;
+            }
+            if (!empire || empire.length > 32) {
+                mpSetStatus('mpj-status', JOIN_ERRORS.empire_name, 'error');
+                return;
+            }
+            let race = preset && seat ? seat.race : document.getElementById('mpj-race').value;
+            let raceDef = null;
+            if (!preset && isCustomRaceId(race)) {
+                const lib = libraryRace(race);
+                if (!lib) {
+                    mpSetStatus('mpj-status', JOIN_ERRORS.race_def, 'error');
+                    return;
+                }
+                raceDef = cloneRaceDef(lib);
+                race = raceDef.id;
+            }
+            mpSetBusy(true, ['mpj-submit']);
+            mpSetStatus('mpj-status', 'Joining...');
+            try {
+                const res = await sb.rpc('join_game', { gid: g.id, p_password: g.is_private ? password : null, p_empire_name: empire, p_race: race, p_race_def: raceDef });
+                if (res.error) throw res.error;
+                const r = res.data || {};
+                if (!r.ok) {
+                    mpSetStatus('mpj-status', JOIN_ERRORS[r.error] || ('Could not join (' + r.error + ').'), 'error');
+                    return;
+                }
+                document.getElementById('mpg-joinform').style.display = 'none';
+                if (r.started) {
+                    await mpLoadGame(g.id, false);
+                    await mpStartGalaxy(g.id);
+                } else {
+                    await mpLoadGame(g.id);
+                    mpSetStatus('mpg-status', 'You joined as seat ' + (r.seat + 1) + '! The game starts as soon as every Player Spot is filled. Find it again any time in My Games.', 'ok');
+                }
+            } catch (err) {
+                mpSetStatus('mpj-status', mpErrorText(err), 'error');
+            } finally {
+                mpSetBusy(false, ['mpj-submit']);
+            }
+        }
+
+        function mpLeaveGame() {
+            if (!mpCurrentGame) return;
+            const g = mpCurrentGame.game;
+            gameConfirm('Leave "' + g.name + '"? Your spot opens up again for someone else.', async () => {
+                mpSetStatus('mpg-status', 'Leaving...');
+                try {
+                    const res = await sb.rpc('leave_game', { gid: g.id });
+                    if (res.error) throw res.error;
+                    const r = res.data || {};
+                    if (!r.ok) {
+                        const why = r.error === 'already_started' ? 'This game has already started, so you can no longer leave it here.'
+                            : r.error === 'creator_cannot_leave' ? 'You created this game. Use Cancel Game instead.'
+                            : 'Could not leave the game (' + r.error + ').';
+                        mpSetStatus('mpg-status', why, 'error');
+                        return;
+                    }
+                    await mpLoadGame(g.id);
+                    mpSetStatus('mpg-status', 'You left the game. Your spot is open again.', 'ok');
+                } catch (err) {
+                    mpSetStatus('mpg-status', mpErrorText(err), 'error');
+                }
+            }, 'Leave Game', 'Leave');
+        }
+
+        function openGameCardHtml(x) {
+            const size = selectOptionText('sp-map-size', x.size_key || 'medium').split(' (')[0];
+            const open = Math.max(0, x.human_seats - x.humans_joined);
+            const rule = x.race_rule === 'anyone' ? 'custom races welcome' : x.race_rule === 'creator' ? 'host picks races' : 'built-in races';
+            return `<button type="button" class="game-card" data-id="${x.id}">
+                <div class="game-card-title">${x.is_private ? '🔒 ' : ''}${escapeHtml(x.name)}${x.is_member ? '<span class="game-status active">Joined</span>' : ''}</div>
+                <div class="game-card-sub">Host: ${escapeHtml(x.creator_name || '?')} | ${open} open spot${open === 1 ? '' : 's'} (${x.humans_joined} of ${x.human_seats} joined) | ${x.seat_count} empires | ${escapeHtml(size)} galaxy | ${escapeHtml(rule)}</div>
+            </button>`;
+        }
+
+        async function mpShowJoinList() {
+            if (!mpClient()) return;
+            showView('view-mp-join');
+            const list = document.getElementById('mpjl-list');
+            list.innerHTML = '<div class="wiz-empty">Loading...</div>';
+            mpSetStatus('mpjl-status', '');
+            try {
+                const res = await sb.rpc('list_open_games');
+                if (res.error) throw res.error;
+                const games = Array.isArray(res.data) ? res.data : [];
+                list.innerHTML = games.length
+                    ? games.map(openGameCardHtml).join('')
+                    : '<div class="wiz-empty">No games are waiting for players right now. Create one from the lobby, or press Refresh in a little while.</div>';
+            } catch (err) {
+                list.innerHTML = '';
+                mpSetStatus('mpjl-status', mpErrorText(err), 'error');
+            }
+        }
+
+        document.getElementById('mpjl-list').addEventListener('click', (e) => {
+            const b = e.target.closest ? e.target.closest('.game-card') : null;
+            if (b) mpOpenGame(b.dataset.id, null, 'join');
+        });
+        document.getElementById('mpjl-refresh').addEventListener('click', mpShowJoinList);
+        document.getElementById('mpjl-back').addEventListener('click', mpShowLobby);
+        document.getElementById('mpg-join').addEventListener('click', mpShowJoinForm);
+        document.getElementById('mpj-cancel').addEventListener('click', mpHideJoinForm);
+        document.getElementById('mpg-joinform').addEventListener('submit', mpJoinGame);
+        document.getElementById('mpg-leave').addEventListener('click', mpLeaveGame);
+        document.getElementById('mpg-start').addEventListener('click', () => { if (mpCurrentGame) mpStartGalaxy(mpCurrentGame.game.id); });
+        document.getElementById('mpg-open').addEventListener('click', () => mpComingSoon('Opening the galaxy and taking turns'));
 
         document.getElementById('btn-multiplayer').addEventListener('click', openMultiplayer);
         document.getElementById('mp-tab-signin').addEventListener('click', () => mpShowTab('signin'));
@@ -8426,7 +8792,7 @@
         });
         document.getElementById('mp-rename-form').addEventListener('submit', mpSaveRename);
         document.getElementById('mp-create-game').addEventListener('click', mpStartCreate);
-        document.getElementById('mp-join-game').addEventListener('click', () => mpComingSoon('Joining a multiplayer game'));
+        document.getElementById('mp-join-game').addEventListener('click', mpShowJoinList);
         document.getElementById('mp-my-games').addEventListener('click', mpShowMyGames);
 
         mpClient();
