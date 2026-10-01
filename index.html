@@ -899,6 +899,161 @@
             vertical-align: middle;
         }
 
+        .mp-choice-row {
+            display: flex;
+            gap: 8px 18px;
+            flex-wrap: wrap;
+        }
+
+        .mp-choice-row .wiz-check {
+            font-size: 13px;
+        }
+
+        .mp-choice-row.disabled {
+            opacity: 0.45;
+        }
+
+        .seat-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #1a1a22;
+            border: 1px solid #332244;
+            border-left: 3px solid #554477;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+        }
+
+        .seat-row.me {
+            border-left-color: #32cd32;
+        }
+
+        .seat-row.open {
+            border-left-color: #ffd700;
+            border-style: dashed;
+            border-left-style: solid;
+        }
+
+        .seat-row.ai {
+            border-left-color: #ff4500;
+        }
+
+        .seat-icon {
+            font-size: 22px;
+            width: 30px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .seat-main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .seat-name {
+            font-weight: bold;
+            color: #e6d8f5;
+            font-size: 14px;
+        }
+
+        .seat-sub {
+            font-size: 12px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .seat-num {
+            font-size: 11px;
+            color: #777;
+            flex-shrink: 0;
+        }
+
+        .seat-badge {
+            font-size: 10px;
+            border-radius: 3px;
+            padding: 1px 6px;
+            margin-left: 6px;
+            vertical-align: middle;
+            border: 1px solid #554477;
+            color: #da70d6;
+            font-weight: normal;
+        }
+
+        .mpg-info {
+            font-size: 12px;
+            line-height: 1.7;
+            color: #ccc;
+        }
+
+        .mpg-info b {
+            color: #e6d8f5;
+        }
+
+        .mpg-btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .game-card {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: #1a1a22;
+            border: 1px solid #332244;
+            border-left: 3px solid #da70d6;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            color: #ddd;
+        }
+
+        .game-card:hover {
+            background: #22222c;
+            border-color: #7755aa;
+            border-left-color: #da70d6;
+        }
+
+        .game-card-title {
+            font-weight: bold;
+            color: #e6d8f5;
+            font-size: 14px;
+        }
+
+        .game-card-sub {
+            font-size: 12px;
+            color: #999;
+            margin-top: 3px;
+        }
+
+        .game-status {
+            font-size: 10px;
+            border-radius: 3px;
+            padding: 1px 6px;
+            margin-left: 6px;
+            vertical-align: middle;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .game-status.lobby {
+            color: #ffd700;
+            border: 1px solid #806a00;
+        }
+
+        .game-status.active {
+            color: #32cd32;
+            border: 1px solid #1f6b1f;
+        }
+
+        .game-status.finished {
+            color: #aaa;
+            border: 1px solid #555;
+        }
+
         .wiz-box {
             display: flex;
             flex-direction: column;
@@ -1516,7 +1671,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.8.1 (Updated: September 30, 2026 8:30 PM)</div>
+            <div class="version-text">Version 0.8.2 (Updated: September 30, 2026 8:54 PM)</div>
         </div>
     </div>
 
@@ -1625,15 +1780,15 @@
             <div class="mp-actions">
                 <button type="button" class="mp-action" id="mp-create-game">
                     <span class="mp-action-icon">🚀</span>
-                    <span><span class="mp-action-title">Create Multiplayer Game</span><span class="mp-soon">Coming next</span><span class="mp-action-desc" style="display: block;">Set up a galaxy with spots for other players and AI opponents.</span></span>
+                    <span><span class="mp-action-title">Create Multiplayer Game</span><span class="mp-action-desc" style="display: block;">Set up a galaxy with spots for other players and AI opponents.</span></span>
                 </button>
                 <button type="button" class="mp-action" id="mp-join-game">
                     <span class="mp-action-icon">🛰</span>
-                    <span><span class="mp-action-title">Join Multiplayer Game</span><span class="mp-soon">Coming soon</span><span class="mp-action-desc" style="display: block;">Browse games other players have listed and take an open spot.</span></span>
+                    <span><span class="mp-action-title">Join Multiplayer Game</span><span class="mp-soon">Coming next</span><span class="mp-action-desc" style="display: block;">Browse games other players have listed and take an open spot.</span></span>
                 </button>
                 <button type="button" class="mp-action" id="mp-my-games">
                     <span class="mp-action-icon">📜</span>
-                    <span><span class="mp-action-title">My Games</span><span class="mp-soon">Coming soon</span><span class="mp-action-desc" style="display: block;">Return to games you have joined, take your turn or watch the galaxy.</span></span>
+                    <span><span class="mp-action-title">My Games</span><span class="mp-action-desc" style="display: block;">Return to games you have joined, take your turn or watch the galaxy.</span></span>
                 </button>
             </div>
             <div style="margin-top: 18px;">
@@ -1642,9 +1797,39 @@
         </div>
     </div>
 
+    <div id="view-mp-game" class="view">
+        <div class="container-box" style="max-width: 680px;">
+            <h2 class="screen-header" id="mpg-title">Game Lobby</h2>
+            <div class="mp-card mpg-info" id="mpg-info"></div>
+            <div class="wiz-group-title">Empires</div>
+            <div id="mpg-seats"></div>
+            <div class="mp-status" id="mpg-status"></div>
+            <div class="mpg-btns">
+                <button type="button" class="nav-button" id="mpg-refresh">↻ Refresh</button>
+                <button type="button" class="nav-button" id="mpg-invite">✉ Invite Player</button>
+                <button type="button" class="nav-button" id="mpg-cancel" style="color: #ff8c66;">✖ Cancel Game</button>
+                <button type="button" class="nav-button" id="mpg-back">Back to Lobby</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-mp-mygames" class="view">
+        <div class="container-box mp-box" style="max-width: 640px;">
+            <h2 class="screen-header">My Games</h2>
+            <div style="font-size: 12px; color: #aaa; margin-bottom: 12px; line-height: 1.5;">Every multiplayer game you created or joined. Pick one to open it.</div>
+            <div id="mpm-list"></div>
+            <div class="mp-status" id="mpm-status"></div>
+            <div class="mpg-btns">
+                <button type="button" class="nav-button" id="mpm-refresh">↻ Refresh</button>
+                <button type="button" class="nav-button" id="mpm-back">Back to Lobby</button>
+            </div>
+        </div>
+    </div>
+
     <div id="view-race-setup" class="view">
         <div class="container-box">
-            <h2 class="screen-header">New Game</h2>
+            <h2 class="screen-header" id="setup-title">New Game</h2>
+            <div id="setup-mp-note" class="mp-hint" style="display: none; font-size: 12px; margin: -4px 0 12px 0; line-height: 1.5;">You are creating a multiplayer game. Your empire name and race below are yours; the other players choose theirs when they join. Set the player spots and AI opponents under Opponents, and the game name and privacy under Advanced Options.</div>
             <div class="setup-row">
                 <div class="form-group">
                     <label for="sp-empire-name">Empire Name:</label>
@@ -1701,8 +1886,9 @@
                 <button id="btn-open-advanced-setup" class="nav-button" style="background: #251a3a; border-color: #da70d6; color: #da70d6;">⚙ Advanced Options</button>
                 <button id="btn-open-victory-setup" class="nav-button" style="background: #251a3a; border-color: #8a2be2; color: #da70d6;">🏆 Victory Conditions</button>
             </div>
-            <div class="setup-footer">
-                <button class="nav-button btn-back-title">Back</button>
+            <div class="mp-status" id="setup-status" style="margin: 12px 0 0 0;"></div>
+            <div class="setup-footer" style="margin-top: 12px;">
+                <button class="nav-button" id="btn-setup-back">Back</button>
                 <button id="btn-launch-game" class="nav-button btn-primary">Create Galaxy</button>
             </div>
         </div>
@@ -1710,14 +1896,15 @@
 
     <div id="view-rival-setup" class="view">
         <div class="container-box" style="max-width: 900px;">
-            <h2 class="screen-header">AI Opponents</h2>
-            <div style="font-size: 13px; margin-bottom: 15px; color: #aaa;">
+            <h2 class="screen-header" id="rival-setup-title">AI Opponents</h2>
+            <div style="font-size: 13px; margin-bottom: 15px; color: #aaa; line-height: 1.5;" id="rival-setup-desc">
                 Add or remove AI opponents and set each one's empire name, race and intelligence level. Every opponent starts with a pre-generated empire name you can change. Choose Random for a race or intelligence level and the game picks one when the galaxy is created. Your saved custom races are listed under Custom Races in each race menu.
             </div>
             <div id="rivals-container" style="max-height: 65vh; overflow-y: auto; margin-bottom: 15px;">
             </div>
             <div style="display: flex; gap: 10px;">
                 <button id="btn-rivals-back" class="nav-button" style="flex: 1;">Back to Setup</button>
+                <button id="btn-add-spot" class="nav-button btn-primary" style="flex: 1; display: none;">+ Add Player Spot</button>
                 <button id="btn-add-rival" class="nav-button btn-primary" style="flex: 1;">+ Add AI Opponent</button>
             </div>
         </div>
@@ -2090,6 +2277,39 @@
             <div style="font-size: 12px; color: #aaa; line-height: 1.5; margin-bottom: 12px;">
                 Tick any option to add it to this game. These settings are locked in when you press Create Galaxy and are saved with the game.
             </div>
+            <div id="adv-mp" style="display: none;">
+                <div class="wiz-group-title">Multiplayer Options</div>
+                <div class="form-group">
+                    <label for="mpo-name">Game Name</label>
+                    <input type="text" id="mpo-name" maxlength="40" autocomplete="off">
+                    <div class="mp-hint">Shown in the list of games other players can join.</div>
+                </div>
+                <div class="form-group">
+                    <label>Who Can Join</label>
+                    <div class="mp-choice-row">
+                        <label class="wiz-check"><input type="radio" name="mpo-vis" value="public" id="mpo-public">Public: anyone can join</label>
+                        <label class="wiz-check"><input type="radio" name="mpo-vis" value="private" id="mpo-private">Private: a password is needed</label>
+                    </div>
+                </div>
+                <div class="form-group" id="mpo-pass-group" style="display: none;">
+                    <label for="mpo-password">Game Password</label>
+                    <input type="text" id="mpo-password" maxlength="64" autocomplete="off">
+                    <div class="mp-hint">4 to 64 characters. Give it to the players you want; anyone you invite by email or username joins without it.</div>
+                </div>
+                <div class="opt-row">
+                    <input type="checkbox" id="mpo-custom">
+                    <div style="flex: 1;">
+                        <label for="mpo-custom">Allow custom races</label>
+                        <div class="opt-desc">Off: every empire uses one of the six built-in races. On: custom races from the Race Wizard may be played, by these rules:</div>
+                        <div class="mp-choice-row" id="mpo-rule-row" style="flex-direction: column; margin-top: 6px;">
+                            <label class="wiz-check"><input type="radio" name="mpo-rule" value="anyone" id="mpo-rule-anyone">Anyone can bring their own custom race when they join</label>
+                            <label class="wiz-check"><input type="radio" name="mpo-rule" value="creator" id="mpo-rule-creator">Only the game creator chooses races (set each player spot's race under Opponents)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mp-status" id="mpo-status" style="margin: 0 0 6px 0;"></div>
+                <div class="wiz-group-title" style="margin-top: 14px;">Game Options</div>
+            </div>
             <div id="adv-list"></div>
             <div style="display: flex; gap: 10px; margin-top: 14px;">
                 <button class="nav-button" id="btn-adv-reset">Reset</button>
@@ -2209,7 +2429,12 @@
                 <p><b style="color:#da70d6;">Goal</b><br>Grow your empire from a single homeworld: scan the galaxy, colonize habitable worlds, mine ore, build infrastructure and outscore your AI opponents. Check the Scoreboard under Management to see how you rank. If the game was created with Victory Conditions, the first empire to meet them wins (see Victory Conditions below).</p>
                 <p><b style="color:#da70d6;">Multiplayer and Your Account</b><br>Press <b>Multiplayer</b> on the title screen (or the M key) to play against other people over the internet. You need a free account first. On the <b>Register</b> tab choose a <b>username</b> (3 to 20 letters, numbers, - or _, no spaces; other players see this name), enter your <b>email</b> and a <b>password</b> of at least 6 characters, and press Create Account. There is no confirmation email: you go straight into the Multiplayer Lobby. Your email is only used to sign in and to send you game emails; other players never see it. Next time use the <b>Sign In</b> tab. This browser remembers you, so Multiplayer takes you straight to the lobby until you press Sign Out. Multiplayer needs an internet connection; if the online service cannot be reached, single player still works as normal.</p>
                 <p><b style="color:#da70d6;">Forgot Your Password</b><br>On the Sign In tab press <b>Forgot password?</b>, check the email address and press Send Reset Email. Open the link in that email, ideally on the same device: the game opens on a Set a New Password screen. Type the new password twice and press Save Password, and you are signed in and taken to the lobby. If no email arrives within a few minutes, check your spam folder.</p>
-                <p><b style="color:#da70d6;">The Multiplayer Lobby</b><br>The lobby shows the username you are signed in as. <b>Change Username</b> lets you pick a new one at any time; names are unique, so if someone already has the name you want (in any mix of upper and lower case) you are asked to choose another. <b>Sign Out</b> forgets your sign-in on this browser. The lobby also has <b>Create Multiplayer Game</b>, <b>Join Multiplayer Game</b> and <b>My Games</b>. These are being built now and arrive in the next updates; creating your account today means you are ready when they do.</p>
+                <p><b style="color:#da70d6;">The Multiplayer Lobby</b><br>The lobby shows the username you are signed in as. <b>Change Username</b> lets you pick a new one at any time; names are unique, so if someone already has the name you want (in any mix of upper and lower case) you are asked to choose another. <b>Sign Out</b> forgets your sign-in on this browser. The lobby also has <b>Create Multiplayer Game</b>, <b>Join Multiplayer Game</b> (arriving in the next update) and <b>My Games</b>.</p>
+                <p><b style="color:#da70d6;">Creating a Multiplayer Game</b><br>In the lobby press <b>Create Multiplayer Game</b>. You get the New Game screen titled New Multiplayer Game. Your Empire Name and Choose Race are your own empire; universe size, star density, player position, Victory Conditions and Advanced Options work exactly as in single player and apply to everyone. The <b>Opponents</b> button (it replaces AI Opponents) shows how many player spots and AI opponents the game has. When everything is set, press <b>Create Multiplayer Game</b>. Back returns to the lobby without creating anything. You can have up to 10 games waiting for players at once.</p>
+                <p><b style="color:#da70d6;">Opponents: Player Spots and AI</b><br>On the Opponents screen, <b>Add Player Spot</b> adds a seat for another person and <b>Add AI Opponent</b> adds a computer empire with its own name, race and intelligence. A multiplayer game needs at least one Player Spot. Up to 15 opponents fit in a game, so 16 empires in all. You always take the first seat and play first each round; the other humans follow in seat order as they appear on the list. Remove takes a spot or AI out.</p>
+                <p><b style="color:#da70d6;">Multiplayer Options</b><br>When creating a multiplayer game, Advanced Options starts with a Multiplayer Options section. <b>Game Name</b> is what other players see in the list of games (it starts as Multiplayer Game). <b>Who Can Join</b> is Public (selected to start with: anyone can join) or Private: a password is then required, 4 to 64 characters, and players must type it to join. Players you invite by email or username will not need it. <b>Allow custom races</b> is off to start with, and then every empire, AI included, uses one of the six built-in races. Turn it on and choose one rule: <b>Anyone can bring their own custom race</b>, where each player may pick one of their own Race Wizard designs when they join, or <b>Only the game creator chooses races</b>, where you set the race of every Player Spot yourself on the Opponents screen (built-in, random, one of your custom races, or Player's choice to let them pick a built-in race).</p>
+                <p><b style="color:#da70d6;">The Game Lobby</b><br>After you create a game, or when you open one from My Games, you see its lobby. The top box shows its status (for example Waiting for players: 1 of 3 player spots filled), the host, public or private, the galaxy settings, the custom race rule, the advanced options and the victory conditions. Below it every empire is listed by seat: players who have joined with their username, empire and race (yours is marked You, the creator is marked Host), AI opponents with their race and intelligence, and open spots shown as <b>Waiting for player...</b>. <b>Refresh</b> reloads the list. <b>Cancel Game</b>, shown only to the creator before the game starts, deletes the game for everyone. <b>Invite Player</b> arrives in the next update. When every Player Spot is filled the game will begin and everyone will be emailed.</p>
+                <p><b style="color:#da70d6;">My Games</b><br>My Games in the lobby lists every multiplayer game you created or joined, newest activity first, with its status, host, how many players have joined, the number of empires and the galaxy size. A lock means the game is private. Pick a game to open its lobby. Sign in on any device to see the same list.</p>
                 <p><b style="color:#da70d6;">The New Game Screen</b><br>Empire Name and Choose Race sit on one row. Universe Size, Star Density and Player Position share the next row. Choose Race offers <b>Random Race</b>, which picks one of the six built-in races for you when you press Create Galaxy (the log tells you which), and lists your saved custom races under their own <b>Custom Races</b> heading. Player Position sets how far apart the homeworlds start. Four buttons sit below, two to a row: <b>Custom Race</b> opens your race list and the Race Wizard (see Custom Races below), <b>AI Opponents</b> opens the rival setup and shows how many rivals you have in brackets, and <b>Advanced Options</b> and <b>Victory Conditions</b> each show how many choices are ticked. Back and Create Galaxy sit on the bottom row.</p>
                 <p><b style="color:#da70d6;">Custom Races and the Race Wizard</b><br>On the New Game screen, <b>Custom Race</b> opens your list of saved races. <b>Create New Race</b> starts the Race Wizard. Each saved race also has <b>Play As</b> (makes it your race for the next game), <b>Edit</b>, <b>Copy</b> and <b>Delete</b>. Saved races appear under Custom Races in Choose Race and in every AI opponent's race menu, so you can cast your creations as your rivals too. Races are kept in this browser, and every saved game carries a copy of the custom races it uses, so a game file opened on another machine brings its races with it and adds any you do not have yet to your list. <b>Export All</b> and <b>Import</b> move your whole list as a JSON file. You can keep up to 24 custom races.</p>
                 <p><b style="color:#da70d6;">Advantage Points</b><br>Every race is built from a pool of Advantage Points. A new race starts with 25 left. Strengths spend points and handicaps refund them, and a race can only be saved when 0 or more points are left. The counter at the top right updates as you choose, and the Point Ledger beside the wizard lists every cost and refund so you can see where the points went. On a narrow screen the ledger is hidden, but the counter stays. Points you do not spend (up to 50) can go into a starting bonus picked on the Identity tab: <b>Surface minerals</b> (+20 kT of each ore per point at your homeworld), <b>Mineral concentrations</b> (+1 concentration on each mineral per 2 points, up to 100), <b>Mines</b> or <b>Factories</b> (+1 per 2 points) or <b>Defenses</b> (+1 Missile Battery per 5 points).</p>
@@ -2395,7 +2620,7 @@
             const densityKey = document.getElementById('sp-density').value;
             const dim = galaxyDimensions[sizeKey];
             const total = getGalaxyPlanetCount(sizeKey, densityKey);
-            const empireCount = rivalConfigs.length + 1;
+            const empireCount = (setupMode === 'mp' ? mpSlots.length : rivalConfigs.length) + 1;
             document.getElementById('setup-galaxy-summary').innerText =
                 `Galaxy: ${dim} x ${dim} ly | ${total} planets total | ${empireCount} empires (${Math.max(0, total - empireCount)} unclaimed worlds)`;
         }
@@ -2522,10 +2747,12 @@
         let aiRivals = [];
         let rivalConfigs = [];
         const MAX_AI_OPPONENTS = 15;
+        let setupMode = 'single';
+        let mpSlots = [];
         let currentMapDimension = 800;
 
         function freshAiName() {
-            const used = rivalConfigs.map(r => r.name);
+            const used = rivalConfigs.map(r => r.name).concat(mpSlots.filter(x => x.kind === 'ai').map(x => x.name));
             const free = AI_EMPIRE_NAMES.filter(n => used.indexOf(n) === -1);
             if (free.length) return pickRandom(free);
             return 'Empire ' + (rivalConfigs.length + 1);
@@ -4467,6 +4694,8 @@
         document.getElementById('sp-density').addEventListener('change', updateGalaxySetupSummary);
 
         function goNewGame() {
+            setupMode = 'single';
+            applySetupModeUi();
             showView('view-race-setup');
         }
 
@@ -4509,7 +4738,13 @@
             document.getElementById('btn-open-advanced-setup').innerText = '⚙ Advanced Options (' + advCount + ')';
             document.getElementById('btn-open-victory-setup').innerText = '🏆 Victory Conditions (' + vicCount + ')';
             document.getElementById('btn-open-race-manager').innerText = '🧬 Custom Race';
-            document.getElementById('btn-configure-rivals').innerText = '⚔ AI Opponents (' + rivalConfigs.length + ')';
+            if (setupMode === 'mp') {
+                const spots = mpSlots.filter(x => x.kind === 'human').length;
+                const ai = mpSlots.length - spots;
+                document.getElementById('btn-configure-rivals').innerText = '⚔ Opponents (' + spots + ' player' + (spots === 1 ? '' : 's') + ', ' + ai + ' AI)';
+            } else {
+                document.getElementById('btn-configure-rivals').innerText = '⚔ AI Opponents (' + rivalConfigs.length + ')';
+            }
         }
 
         function renderAdvancedList(values) {
@@ -4532,15 +4767,26 @@
 
         document.getElementById('btn-open-advanced-setup').addEventListener('click', () => {
             renderAdvancedList(setupOptions);
+            fillMpOptionsForm(mpOptions);
             document.getElementById('advanced-modal').classList.add('active');
         });
         document.getElementById('btn-adv-reset').addEventListener('click', () => {
             renderAdvancedList(DEFAULT_OPTIONS);
+            fillMpOptionsForm(defaultMpOptions());
         });
         document.getElementById('btn-adv-cancel').addEventListener('click', () => {
             document.getElementById('advanced-modal').classList.remove('active');
         });
         document.getElementById('btn-adv-ok').addEventListener('click', () => {
+            if (setupMode === 'mp') {
+                const mo = readMpOptionsForm();
+                if (mo.isPrivate && (mo.password.length < 4 || mo.password.length > 64)) {
+                    mpSetStatus('mpo-status', 'A private game needs a password of 4 to 64 characters.', 'error');
+                    document.getElementById('mpo-password').focus();
+                    return;
+                }
+                mpOptions = mo;
+            }
             setupOptions = readAdvancedList();
             document.getElementById('advanced-modal').classList.remove('active');
             updateSetupButtonLabels();
@@ -4658,6 +4904,10 @@
         });
 
         document.getElementById('btn-add-rival').addEventListener('click', () => {
+            if (setupMode === 'mp') {
+                mpAddSlot('ai');
+                return;
+            }
             if (rivalConfigs.length >= MAX_AI_OPPONENTS) return;
             newRivalConfig();
             renderRivalConfigurator();
@@ -4666,6 +4916,10 @@
         });
 
         function renderRivalConfigurator() {
+            if (setupMode === 'mp') {
+                renderOpponentsMp();
+                return;
+            }
             const container = document.getElementById('rivals-container');
             container.innerHTML = '';
 
@@ -5671,6 +5925,10 @@
         }
 
         document.getElementById('btn-launch-game').addEventListener('click', () => {
+            if (setupMode === 'mp') {
+                mpCreateGame();
+                return;
+            }
             createGalaxy(setupConfigFromScreen());
             showActiveEmpireDashboard();
         });
@@ -6935,6 +7193,9 @@
             rivalConfigs.forEach(r => {
                 if (isCustomRaceId(r.race) && !libraryRace(r.race)) r.race = 'humanoid';
             });
+            mpSlots.forEach(r => {
+                if (isCustomRaceId(r.race) && !libraryRace(r.race)) r.race = r.kind === 'human' ? 'choice' : 'humanoid';
+            });
             renderRivalConfigurator();
             updateSetupButtonLabels();
         }
@@ -7703,6 +7964,449 @@
             gameAlert(what + ' arrives in the next multiplayer update. Your account is ready, so you will be able to use it straight away.', 'Coming Soon');
         }
 
+
+        const MP_DEFAULT_GAME_NAME = 'Multiplayer Game';
+        const SINGLE_RIVAL_DESC = document.getElementById('rival-setup-desc').innerHTML;
+        const BUILTIN_RACE_OPTIONS = [
+            ['humanoid', 'Humanoid (Balanced)'],
+            ['robotoids', 'Robotoids (Fast Expansion)'],
+            ['turindines', 'Turindines (Stealth)'],
+            ['automitons', 'Automitons (Fortified)'],
+            ['rototills', 'Rototills (Environmental)'],
+            ['cybertrons', 'Cybertrons (Weapons)']
+        ];
+        const INTELLIGENCE_LABELS = { random: 'Random', novice: 'Novice', average: 'Average', good: 'Good', expert: 'Expert', master: 'Master' };
+        const GAME_STATUS_LABELS = { lobby: 'Waiting for players', active: 'In progress', finished: 'Finished', cancelled: 'Cancelled' };
+        const CREATE_GAME_ERRORS = {
+            not_signed_in: 'You are signed out. Go back to the lobby and sign in again.',
+            name: 'The game name can be at most 40 characters.',
+            race_rule: 'The custom race setting is not valid.',
+            password: 'A private game needs a password of 4 to 64 characters (Advanced Options).',
+            settings: 'The galaxy settings could not be saved.',
+            seats: 'The list of empires is not valid. Check the Opponents screen.',
+            too_many_games: 'You already have 10 games waiting for players. Cancel one in My Games first.',
+            race_def: 'One of the custom races could not be read. Pick it again or choose another race.',
+            custom_races_off: 'A custom race is chosen but custom races are turned off. Turn on Allow custom races in Advanced Options, or pick built-in races.',
+            seat_race: 'Only the game creator chooses races when "Only the game creator chooses races" is set in Advanced Options.',
+            empire_name: 'Every empire needs a name of 1 to 32 characters.',
+            need_player_spot: 'Add at least one Player Spot under Opponents so another person can join.'
+        };
+        let mpOptions = defaultMpOptions();
+        let mpCurrentGame = null;
+
+        function defaultMpOptions() {
+            return { name: MP_DEFAULT_GAME_NAME, isPrivate: false, password: '', customRaces: false, raceRule: 'anyone' };
+        }
+
+        function mpCreatorAssigns() {
+            return mpOptions.customRaces && mpOptions.raceRule === 'creator';
+        }
+
+        function applySetupModeUi() {
+            const mp = setupMode === 'mp';
+            document.getElementById('setup-title').innerText = mp ? 'New Multiplayer Game' : 'New Game';
+            document.getElementById('setup-mp-note').style.display = mp ? 'block' : 'none';
+            document.getElementById('btn-launch-game').innerText = mp ? 'Create Multiplayer Game' : 'Create Galaxy';
+            document.getElementById('adv-mp').style.display = mp ? 'block' : 'none';
+            document.getElementById('rival-setup-title').innerText = mp ? 'Opponents' : 'AI Opponents';
+            document.getElementById('rival-setup-desc').innerHTML = mp
+                ? 'Add a <b>Player Spot</b> for every person you want to play against, and add <b>AI Opponents</b> if you like. You need at least one Player Spot. Spots are filled in order as players join; the game starts when every spot is taken. You always play first.'
+                : SINGLE_RIVAL_DESC;
+            document.getElementById('btn-add-spot').style.display = mp ? 'block' : 'none';
+            mpSetStatus('setup-status', '');
+            updateSetupButtonLabels();
+            updateGalaxySetupSummary();
+        }
+
+        function newMpSlot(kind) {
+            if (kind === 'human') return { kind: 'human', race: 'choice' };
+            return { kind: 'ai', name: freshAiName(), race: 'humanoid', difficulty: 'average' };
+        }
+
+        function mpStartCreate() {
+            setupMode = 'mp';
+            mpSlots = [];
+            mpSlots.push(newMpSlot('human'));
+            mpOptions = defaultMpOptions();
+            applySetupModeUi();
+            showView('view-race-setup');
+        }
+
+        function mpLeaveCreate() {
+            setupMode = 'single';
+            applySetupModeUi();
+            if (mpProfile) mpShowLobby();
+            else showView('view-title');
+        }
+
+        function mpNormalizeSlots() {
+            mpSlots.forEach(sl => {
+                const custom = isCustomRaceId(sl.race);
+                if (custom && (!mpOptions.customRaces || !libraryRace(sl.race))) sl.race = sl.kind === 'human' ? 'choice' : 'humanoid';
+                if (sl.kind === 'human' && !mpCreatorAssigns()) sl.race = 'choice';
+            });
+        }
+
+        function mpAddSlot(kind) {
+            if (mpSlots.length >= MAX_AI_OPPONENTS) {
+                gameAlert('A game can have at most ' + (MAX_AI_OPPONENTS + 1) + ' empires, including yours.');
+                return;
+            }
+            mpSlots.push(newMpSlot(kind));
+            renderOpponentsMp();
+            const c = document.getElementById('rivals-container');
+            c.scrollTop = c.scrollHeight;
+        }
+
+        function raceSelectOptions(selected, includeChoice, includeCustom) {
+            const opt = (v, label) => `<option value="${v}" ${selected === v ? 'selected' : ''}>${escapeHtml(label)}</option>`;
+            let html = '';
+            if (includeChoice) html += opt('choice', "Player's choice");
+            html += opt('random', 'Random Race');
+            BUILTIN_RACE_OPTIONS.forEach(r => { html += opt(r[0], r[1]); });
+            if (includeCustom) html += customRaceOptions(selected);
+            return html;
+        }
+
+        function renderOpponentsMp() {
+            mpNormalizeSlots();
+            const box = document.getElementById('rivals-container');
+            const assigns = mpCreatorAssigns();
+            let spotNo = 0;
+            let aiNo = 0;
+            if (!mpSlots.length) {
+                box.innerHTML = '<div class="wiz-empty">No opponents yet. Add at least one Player Spot.</div>';
+            } else {
+                box.innerHTML = mpSlots.map((sl, idx) => {
+                    const remove = `<button class="nav-button mp-slot-remove" data-idx="${idx}" style="width: auto; padding: 3px 10px; font-size: 12px;">Remove</button>`;
+                    if (sl.kind === 'human') {
+                        spotNo++;
+                        const raceUi = assigns
+                            ? `<div class="form-group" style="margin-bottom: 0;"><label>Race for this player:</label><select class="mp-slot-race" data-idx="${idx}">${raceSelectOptions(sl.race, true, true)}</select></div>`
+                            : `<div class="opt-desc">${mpOptions.customRaces ? 'The player chooses their race when they join and may bring one of their own custom races.' : 'The player chooses one of the six built-in races when they join.'}</div>`;
+                        return `<div class="rival-card" style="border-left: 3px solid #ffd700;">
+                            <h4 style="display: flex; justify-content: space-between; align-items: center;"><span>👤 Player Spot ${spotNo}</span>${remove}</h4>
+                            <div style="font-size: 12px; color: #ffd700; margin-bottom: 6px;">Waiting for a player to join</div>
+                            ${raceUi}
+                        </div>`;
+                    }
+                    aiNo++;
+                    const intelOpt = (v) => `<option value="${v}" ${sl.difficulty === v ? 'selected' : ''}>${INTELLIGENCE_LABELS[v]}</option>`;
+                    return `<div class="rival-card" style="border-left: 3px solid #ff4500;">
+                        <h4 style="display: flex; justify-content: space-between; align-items: center;"><span>🤖 AI Opponent ${aiNo}</span>${remove}</h4>
+                        <div class="form-group">
+                            <label>Empire Name:</label>
+                            <input type="text" class="mp-slot-name" data-idx="${idx}" maxlength="32" value="${escapeHtml(sl.name)}">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label>Race:</label>
+                                <select class="mp-slot-race" data-idx="${idx}">${raceSelectOptions(sl.race, false, mpOptions.customRaces)}</select>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label>Intelligence:</label>
+                                <select class="mp-slot-diff" data-idx="${idx}">${['random', 'novice', 'average', 'good', 'expert', 'master'].map(intelOpt).join('')}</select>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
+            }
+            const full = mpSlots.length >= MAX_AI_OPPONENTS;
+            document.getElementById('btn-add-rival').disabled = full;
+            document.getElementById('btn-add-spot').disabled = full;
+            updateSetupButtonLabels();
+        }
+
+        document.getElementById('rivals-container').addEventListener('click', (e) => {
+            const b = e.target.closest ? e.target.closest('.mp-slot-remove') : null;
+            if (!b || setupMode !== 'mp') return;
+            mpSlots.splice(parseInt(b.dataset.idx), 1);
+            renderOpponentsMp();
+        });
+
+        document.getElementById('rivals-container').addEventListener('change', (e) => {
+            if (setupMode !== 'mp') return;
+            const t = e.target;
+            const sl = mpSlots[parseInt(t.dataset.idx)];
+            if (!sl) return;
+            if (t.classList.contains('mp-slot-name')) {
+                const typed = t.value.trim().slice(0, 32);
+                sl.name = '';
+                sl.name = typed || freshAiName();
+                t.value = sl.name;
+            } else if (t.classList.contains('mp-slot-race')) {
+                sl.race = t.value;
+            } else if (t.classList.contains('mp-slot-diff')) {
+                sl.difficulty = t.value;
+            }
+        });
+
+        document.getElementById('btn-add-spot').addEventListener('click', () => mpAddSlot('human'));
+        document.getElementById('btn-setup-back').addEventListener('click', () => {
+            if (setupMode === 'mp') mpLeaveCreate();
+            else showView('view-title');
+        });
+
+        function refreshMpOptionsForm() {
+            const priv = document.getElementById('mpo-private').checked;
+            const custom = document.getElementById('mpo-custom').checked;
+            document.getElementById('mpo-pass-group').style.display = priv ? 'block' : 'none';
+            document.getElementById('mpo-rule-row').classList.toggle('disabled', !custom);
+            document.querySelectorAll('input[name="mpo-rule"]').forEach(r => { r.disabled = !custom; });
+        }
+
+        function fillMpOptionsForm(mo) {
+            document.getElementById('mpo-name').value = mo.name;
+            document.getElementById('mpo-public').checked = !mo.isPrivate;
+            document.getElementById('mpo-private').checked = mo.isPrivate;
+            document.getElementById('mpo-password').value = mo.password;
+            document.getElementById('mpo-custom').checked = mo.customRaces;
+            document.getElementById('mpo-rule-anyone').checked = mo.raceRule !== 'creator';
+            document.getElementById('mpo-rule-creator').checked = mo.raceRule === 'creator';
+            mpSetStatus('mpo-status', '');
+            refreshMpOptionsForm();
+        }
+
+        function readMpOptionsForm() {
+            return {
+                name: document.getElementById('mpo-name').value.trim().slice(0, 40) || MP_DEFAULT_GAME_NAME,
+                isPrivate: document.getElementById('mpo-private').checked,
+                password: document.getElementById('mpo-password').value.trim(),
+                customRaces: document.getElementById('mpo-custom').checked,
+                raceRule: document.getElementById('mpo-rule-creator').checked ? 'creator' : 'anyone'
+            };
+        }
+
+        document.getElementById('adv-mp').addEventListener('change', refreshMpOptionsForm);
+
+        function seatRaceLabel(race, def) {
+            if (race === 'choice') return "Player's choice";
+            if (race === 'random') return 'Random';
+            if (def && def.name) return def.name + ' (custom)';
+            return RACE_NAMES[race] || race;
+        }
+
+        function selectOptionText(selectId, value) {
+            const o = Array.from(document.getElementById(selectId).options).find(x => x.value === value);
+            return o ? o.text : value;
+        }
+
+        async function mpCreateGame() {
+            if (mpBusy) return;
+            if (!mpClient() || !mpProfile) {
+                mpSetStatus('setup-status', CREATE_GAME_ERRORS.not_signed_in, 'error');
+                return;
+            }
+            mpNormalizeSlots();
+            if (!mpSlots.some(sl => sl.kind === 'human')) {
+                mpSetStatus('setup-status', CREATE_GAME_ERRORS.need_player_spot, 'error');
+                return;
+            }
+            if (mpOptions.isPrivate && (mpOptions.password.length < 4 || mpOptions.password.length > 64)) {
+                mpSetStatus('setup-status', CREATE_GAME_ERRORS.password, 'error');
+                return;
+            }
+            const myRace = document.getElementById('sp-race').value;
+            if (isCustomRaceId(myRace) && (!mpOptions.customRaces || !libraryRace(myRace))) {
+                mpSetStatus('setup-status', 'Your race is a custom race, but custom races are turned off for this game. Turn on Allow custom races in Advanced Options, or choose a built-in race.', 'error');
+                return;
+            }
+            const empire = (document.getElementById('sp-empire-name').value.trim() || 'Human Directorate').slice(0, 32);
+            const defOf = r => (isCustomRaceId(r) && libraryRace(r) ? cloneRaceDef(libraryRace(r)) : null);
+            const seats = [{ kind: 'human', empire_name: empire, race: myRace, race_def: defOf(myRace) }].concat(mpSlots.map(sl => sl.kind === 'human'
+                ? { kind: 'human', race: sl.race, race_def: defOf(sl.race) }
+                : { kind: 'ai', empire_name: (sl.name || freshAiName()).slice(0, 32), race: sl.race, race_def: defOf(sl.race), difficulty: sl.difficulty }));
+            const rule = mpOptions.customRaces ? mpOptions.raceRule : 'off';
+            const settings = {
+                version: 1,
+                sizeKey: document.getElementById('sp-map-size').value,
+                densityKey: document.getElementById('sp-density').value,
+                positionKey: document.getElementById('sp-player-position').value,
+                options: Object.assign({}, DEFAULT_OPTIONS, setupOptions),
+                victory: cloneVictory(setupVictory),
+                customRaces: mpOptions.customRaces,
+                raceRule: rule
+            };
+            mpSetBusy(true, ['btn-launch-game']);
+            mpSetStatus('setup-status', 'Creating your game...');
+            try {
+                const res = await sb.rpc('create_game', {
+                    p_name: mpOptions.name,
+                    p_private: mpOptions.isPrivate,
+                    p_password: mpOptions.isPrivate ? mpOptions.password : null,
+                    p_settings: settings,
+                    p_race_rule: rule,
+                    p_seats: seats
+                });
+                if (res.error) throw res.error;
+                const r = res.data || {};
+                if (!r.ok) {
+                    mpSetStatus('setup-status', CREATE_GAME_ERRORS[r.error] || ('Could not create the game (' + r.error + ').'), 'error');
+                    return;
+                }
+                setupMode = 'single';
+                applySetupModeUi();
+                await mpOpenGame(r.game_id, 'Your game is created and listed for other players. It starts as soon as every Player Spot is filled.');
+            } catch (err) {
+                mpSetStatus('setup-status', mpErrorText(err), 'error');
+            } finally {
+                mpSetBusy(false, ['btn-launch-game']);
+            }
+        }
+
+        function seatRowHtml(st, game) {
+            const n = '<span class="seat-num">Seat ' + (st.seat + 1) + '</span>';
+            if (st.kind === 'ai') {
+                return `<div class="seat-row ai"><div class="seat-icon">🤖</div><div class="seat-main">
+                    <div class="seat-name">${escapeHtml(st.empire_name || 'AI Empire')}<span class="seat-badge">AI</span></div>
+                    <div class="seat-sub">Race: ${escapeHtml(seatRaceLabel(st.race, st.race_def))} | Intelligence: ${escapeHtml(INTELLIGENCE_LABELS[st.difficulty] || st.difficulty || 'Average')}</div>
+                </div>${n}</div>`;
+            }
+            if (!st.filled) {
+                return `<div class="seat-row open"><div class="seat-icon">⏳</div><div class="seat-main">
+                    <div class="seat-name" style="color: #ffd700;">Waiting for player...</div>
+                    <div class="seat-sub">Race: ${escapeHtml(seatRaceLabel(st.race, st.race_def))}</div>
+                </div>${n}</div>`;
+            }
+            const host = st.seat === 0 ? '<span class="seat-badge">Host</span>' : '';
+            const me = st.is_me ? '<span class="seat-badge" style="color: #32cd32; border-color: #1f6b1f;">You</span>' : '';
+            return `<div class="seat-row ${st.is_me ? 'me' : ''}"><div class="seat-icon">👤</div><div class="seat-main">
+                <div class="seat-name">${escapeHtml(st.username || 'Player')}${host}${me}</div>
+                <div class="seat-sub">Empire: ${escapeHtml(st.empire_name || 'Not chosen yet')} | Race: ${escapeHtml(seatRaceLabel(st.race, st.race_def))}</div>
+            </div>${n}</div>`;
+        }
+
+        function renderGameLobby(data) {
+            const g = data.game;
+            const st = g.settings || {};
+            mpCurrentGame = data;
+            document.getElementById('mpg-title').textContent = (g.is_private ? '🔒 ' : '') + g.name;
+            const opts = OPTION_META.filter(o => st.options && st.options[o.key]).map(o => o.title);
+            const ruleText = g.race_rule === 'anyone' ? 'Allowed: anyone can bring their own'
+                : g.race_rule === 'creator' ? 'Allowed: the game creator chooses races'
+                : 'Off: built-in races only';
+            const total = getGalaxyPlanetCount(st.sizeKey || 'medium', st.densityKey || 'normal');
+            let statusText = GAME_STATUS_LABELS[g.status] || g.status;
+            if (g.status === 'lobby') statusText += `: ${g.humans_joined} of ${g.human_seats} player spots filled`;
+            else if (g.status === 'active') statusText += `, year ${g.year}`;
+            document.getElementById('mpg-info').innerHTML =
+                `<div>Status: <b style="color: ${g.status === 'lobby' ? '#ffd700' : '#32cd32'};">${escapeHtml(statusText)}</b></div>` +
+                `<div>Host: <b>${escapeHtml(g.creator_name || '?')}</b> | ${g.is_private ? '<b>Private</b> (password needed to join)' : '<b>Public</b> (anyone can join)'}</div>` +
+                `<div>Galaxy: <b>${escapeHtml(selectOptionText('sp-map-size', st.sizeKey || 'medium'))}</b>, ${escapeHtml(selectOptionText('sp-density', st.densityKey || 'normal'))} density (${total} planets), ${escapeHtml(selectOptionText('sp-player-position', st.positionKey || 'moderate'))}</div>` +
+                `<div>Custom races: <b>${escapeHtml(ruleText)}</b></div>` +
+                `<div>Advanced options: ${opts.length ? escapeHtml(opts.join(', ')) : 'none'}</div>` +
+                `<div style="color: #ffd700; margin-top: 4px;">${escapeHtml(victorySummaryText(mergeVictory(st.victory)))}</div>`;
+            document.getElementById('mpg-seats').innerHTML = (data.seats || []).map(x => seatRowHtml(x, g)).join('');
+            const canCancel = g.is_creator && g.status === 'lobby';
+            document.getElementById('mpg-cancel').style.display = canCancel ? 'block' : 'none';
+            document.getElementById('mpg-invite').style.display = g.status === 'lobby' && g.is_member ? 'block' : 'none';
+        }
+
+        async function mpLoadGame(id) {
+            const res = await sb.rpc('get_game', { gid: id });
+            if (res.error) throw res.error;
+            const r = res.data || {};
+            if (!r.ok) throw { message: r.error === 'not_found' ? 'This game no longer exists, or it has started without you.' : 'Could not open this game (' + r.error + ').' };
+            renderGameLobby(r);
+            return r;
+        }
+
+        async function mpOpenGame(id, note) {
+            if (!mpClient()) return;
+            document.getElementById('mpg-title').textContent = 'Game Lobby';
+            document.getElementById('mpg-info').innerHTML = 'Loading...';
+            document.getElementById('mpg-seats').innerHTML = '';
+            mpSetStatus('mpg-status', '');
+            showView('view-mp-game');
+            try {
+                await mpLoadGame(id);
+                if (note) mpSetStatus('mpg-status', note, 'ok');
+            } catch (err) {
+                document.getElementById('mpg-info').innerHTML = '';
+                mpSetStatus('mpg-status', mpErrorText(err), 'error');
+            }
+        }
+
+        async function mpRefreshGame() {
+            if (!mpCurrentGame || mpBusy) return;
+            mpSetBusy(true, ['mpg-refresh']);
+            mpSetStatus('mpg-status', 'Refreshing...');
+            try {
+                await mpLoadGame(mpCurrentGame.game.id);
+                mpSetStatus('mpg-status', '');
+            } catch (err) {
+                mpSetStatus('mpg-status', mpErrorText(err), 'error');
+            } finally {
+                mpSetBusy(false, ['mpg-refresh']);
+            }
+        }
+
+        function mpCancelGame() {
+            if (!mpCurrentGame) return;
+            const g = mpCurrentGame.game;
+            gameConfirm('Cancel "' + g.name + '"? The game is deleted for everyone who has joined, and it cannot be undone.', async () => {
+                mpSetStatus('mpg-status', 'Cancelling...');
+                try {
+                    const res = await sb.rpc('cancel_game', { gid: g.id });
+                    if (res.error) throw res.error;
+                    const r = res.data || {};
+                    if (!r.ok) {
+                        const why = r.error === 'already_started' ? 'This game has already started and can no longer be cancelled.'
+                            : r.error === 'not_creator' ? 'Only the player who created the game can cancel it.'
+                            : 'Could not cancel the game (' + r.error + ').';
+                        mpSetStatus('mpg-status', why, 'error');
+                        return;
+                    }
+                    mpCurrentGame = null;
+                    await mpShowMyGames();
+                    mpSetStatus('mpm-status', '"' + g.name + '" was cancelled.', 'ok');
+                } catch (err) {
+                    mpSetStatus('mpg-status', mpErrorText(err), 'error');
+                }
+            }, 'Cancel Game', 'Yes, Cancel It');
+        }
+
+        function gameCardHtml(x) {
+            const size = selectOptionText('sp-map-size', x.size_key || 'medium').split(' (')[0];
+            let progress = '';
+            if (x.status === 'lobby') progress = 'Players: ' + x.humans_joined + ' of ' + x.human_seats;
+            else if (x.status === 'active') progress = 'Year ' + x.year;
+            return `<button type="button" class="game-card" data-id="${x.id}">
+                <div class="game-card-title">${x.is_private ? '🔒 ' : ''}${escapeHtml(x.name)}<span class="game-status ${x.status}">${escapeHtml(GAME_STATUS_LABELS[x.status] || x.status)}</span></div>
+                <div class="game-card-sub">Host: ${escapeHtml(x.creator_name || '?')}${x.is_creator ? ' (you)' : ''} | ${escapeHtml(progress)} | ${x.seat_count} empires | ${escapeHtml(size)} galaxy</div>
+            </button>`;
+        }
+
+        async function mpShowMyGames() {
+            if (!mpClient()) return;
+            showView('view-mp-mygames');
+            const list = document.getElementById('mpm-list');
+            list.innerHTML = '<div class="wiz-empty">Loading...</div>';
+            mpSetStatus('mpm-status', '');
+            try {
+                const res = await sb.rpc('my_games');
+                if (res.error) throw res.error;
+                const games = Array.isArray(res.data) ? res.data : [];
+                list.innerHTML = games.length
+                    ? games.map(gameCardHtml).join('')
+                    : '<div class="wiz-empty">You are not in any multiplayer games yet. Create one from the lobby.</div>';
+            } catch (err) {
+                list.innerHTML = '';
+                mpSetStatus('mpm-status', mpErrorText(err), 'error');
+            }
+        }
+
+        document.getElementById('mpm-list').addEventListener('click', (e) => {
+            const b = e.target.closest ? e.target.closest('.game-card') : null;
+            if (b) mpOpenGame(b.dataset.id);
+        });
+        document.getElementById('mpm-refresh').addEventListener('click', mpShowMyGames);
+        document.getElementById('mpm-back').addEventListener('click', mpShowLobby);
+        document.getElementById('mpg-refresh').addEventListener('click', mpRefreshGame);
+        document.getElementById('mpg-cancel').addEventListener('click', mpCancelGame);
+        document.getElementById('mpg-invite').addEventListener('click', () => mpComingSoon('Inviting players by email or username'));
+        document.getElementById('mpg-back').addEventListener('click', mpShowLobby);
+
         document.getElementById('btn-multiplayer').addEventListener('click', openMultiplayer);
         document.getElementById('mp-tab-signin').addEventListener('click', () => mpShowTab('signin'));
         document.getElementById('mp-tab-register').addEventListener('click', () => mpShowTab('register'));
@@ -7721,9 +8425,9 @@
             mpSetStatus('mp-lobby-status', '');
         });
         document.getElementById('mp-rename-form').addEventListener('submit', mpSaveRename);
-        document.getElementById('mp-create-game').addEventListener('click', () => mpComingSoon('Creating a multiplayer game'));
+        document.getElementById('mp-create-game').addEventListener('click', mpStartCreate);
         document.getElementById('mp-join-game').addEventListener('click', () => mpComingSoon('Joining a multiplayer game'));
-        document.getElementById('mp-my-games').addEventListener('click', () => mpComingSoon('My Games'));
+        document.getElementById('mp-my-games').addEventListener('click', mpShowMyGames);
 
         mpClient();
 
