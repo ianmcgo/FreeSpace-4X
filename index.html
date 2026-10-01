@@ -172,7 +172,7 @@
             font-size: 0.9rem;
         }
 
-        input[type="text"], select, input[type="number"], input[type="range"] {
+        input[type="text"], input[type="email"], input[type="password"], select, input[type="number"], input[type="range"] {
             width: 100%;
             padding: 9px;
             background-color: #121218;
@@ -733,6 +733,170 @@
         .roster-card.selected {
             border-left-color: #ffff00;
             background: #22222c;
+        }
+
+        .mp-box {
+            max-width: 560px;
+        }
+
+        .mp-tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .mp-tabs .wiz-tab {
+            flex: 1;
+        }
+
+        .mp-status {
+            min-height: 18px;
+            font-size: 12px;
+            line-height: 1.5;
+            margin: 4px 0 12px 0;
+            color: #aaa;
+        }
+
+        .mp-status.error {
+            color: #ff8c66;
+        }
+
+        .mp-status.ok {
+            color: #32cd32;
+        }
+
+        .mp-link {
+            background: none;
+            border: none;
+            color: #da70d6;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 0;
+        }
+
+        .mp-link:hover {
+            color: #ff00ff;
+        }
+
+        .mp-hint {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+            font-weight: normal;
+        }
+
+        .mp-card {
+            background: #121019;
+            border: 1px solid #332244;
+            border-radius: 6px;
+            padding: 14px;
+            margin-bottom: 16px;
+        }
+
+        .mp-card-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .mp-user {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e6d8f5;
+        }
+
+        .mp-email {
+            font-size: 12px;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        .mp-card-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .mp-card-btns .nav-button {
+            width: auto;
+            padding: 7px 12px;
+            font-size: 12px;
+        }
+
+        .mp-rename {
+            display: none;
+            gap: 8px;
+            margin-top: 12px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .mp-rename.open {
+            display: flex;
+        }
+
+        .mp-rename input {
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .mp-rename .nav-button {
+            width: auto;
+        }
+
+        .mp-actions {
+            display: grid;
+            gap: 10px;
+        }
+
+        .mp-action {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-align: left;
+            padding: 14px 16px;
+            background: #1e182c;
+            border: 1px solid #554477;
+            border-radius: 6px;
+            color: #e0e0e0;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .mp-action:hover {
+            background: #2e2444;
+            border-color: #da70d6;
+        }
+
+        .mp-action-icon {
+            font-size: 26px;
+            width: 34px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .mp-action-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #da70d6;
+        }
+
+        .mp-action-desc {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 2px;
+        }
+
+        .mp-soon {
+            font-size: 10px;
+            color: #ffd700;
+            border: 1px solid #806a00;
+            border-radius: 3px;
+            padding: 1px 6px;
+            margin-left: 6px;
+            vertical-align: middle;
         }
 
         .wiz-box {
@@ -1347,11 +1511,134 @@
             <button id="btn-new-game" class="classic-btn"><u>N</u>ew Game</button>
             <button id="btn-open-game" class="classic-btn"><u>O</u>pen Game</button>
             <button id="btn-continue-game" class="classic-btn"><u>C</u>ontinue Game</button>
+            <button id="btn-multiplayer" class="classic-btn"><u>M</u>ultiplayer</button>
         </div>
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.7.66 (Updated: September 30, 2026 3:38 PM)</div>
+            <div class="version-text">Version 0.8.1 (Updated: September 30, 2026 8:30 PM)</div>
+        </div>
+    </div>
+
+    <div id="view-mp-auth" class="view">
+        <div class="container-box mp-box">
+            <h2 class="screen-header">Multiplayer</h2>
+            <div class="mp-tabs">
+                <button type="button" class="wiz-tab on" id="mp-tab-signin">Sign In</button>
+                <button type="button" class="wiz-tab" id="mp-tab-register">Register</button>
+            </div>
+            <form id="mp-form-signin" autocomplete="on">
+                <div class="form-group">
+                    <label for="mp-signin-email">Email</label>
+                    <input type="email" id="mp-signin-email" autocomplete="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="mp-signin-password">Password</label>
+                    <input type="password" id="mp-signin-password" autocomplete="current-password" required>
+                </div>
+                <div style="text-align: right; margin-top: -6px; margin-bottom: 8px;">
+                    <button type="button" class="mp-link" id="mp-forgot">Forgot password?</button>
+                </div>
+                <div class="mp-status" id="mp-signin-status"></div>
+                <div class="setup-footer" style="margin-top: 6px;">
+                    <button type="button" class="nav-button btn-back-title">Back</button>
+                    <button type="submit" class="nav-button btn-primary" id="mp-signin-btn">Sign In</button>
+                </div>
+            </form>
+            <form id="mp-form-register" autocomplete="on" style="display: none;">
+                <div class="form-group">
+                    <label for="mp-reg-username">Username</label>
+                    <input type="text" id="mp-reg-username" maxlength="20" autocomplete="username" required>
+                    <div class="mp-hint">3 to 20 letters, numbers, - or _. Other players see this name. You can change it later in the lobby.</div>
+                </div>
+                <div class="form-group">
+                    <label for="mp-reg-email">Email</label>
+                    <input type="email" id="mp-reg-email" autocomplete="email" required>
+                    <div class="mp-hint">Used to sign in and for game emails. Never shown to other players.</div>
+                </div>
+                <div class="setup-row">
+                    <div class="form-group">
+                        <label for="mp-reg-password">Password</label>
+                        <input type="password" id="mp-reg-password" autocomplete="new-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mp-reg-password2">Confirm Password</label>
+                        <input type="password" id="mp-reg-password2" autocomplete="new-password" required>
+                    </div>
+                </div>
+                <div class="mp-hint" style="margin-top: -6px; margin-bottom: 8px;">At least 6 characters.</div>
+                <div class="mp-status" id="mp-reg-status"></div>
+                <div class="setup-footer" style="margin-top: 6px;">
+                    <button type="button" class="nav-button btn-back-title">Back</button>
+                    <button type="submit" class="nav-button btn-primary" id="mp-reg-btn">Create Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="view-mp-reset" class="view">
+        <div class="container-box mp-box">
+            <h2 class="screen-header">Set a New Password</h2>
+            <div style="font-size: 13px; color: #aaa; margin-bottom: 14px; line-height: 1.5;">You opened a password reset link. Choose a new password for <b id="mp-reset-email" style="color: #e6d8f5;"></b>.</div>
+            <form id="mp-form-reset">
+                <div class="setup-row">
+                    <div class="form-group">
+                        <label for="mp-reset-password">New Password</label>
+                        <input type="password" id="mp-reset-password" autocomplete="new-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mp-reset-password2">Confirm Password</label>
+                        <input type="password" id="mp-reset-password2" autocomplete="new-password" required>
+                    </div>
+                </div>
+                <div class="mp-status" id="mp-reset-status"></div>
+                <div class="setup-footer" style="margin-top: 6px;">
+                    <button type="button" class="nav-button" id="mp-reset-cancel">Cancel</button>
+                    <button type="submit" class="nav-button btn-primary" id="mp-reset-btn">Save Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="view-mp-lobby" class="view">
+        <div class="container-box mp-box">
+            <h2 class="screen-header">Multiplayer Lobby</h2>
+            <div class="mp-card">
+                <div class="mp-card-row">
+                    <div>
+                        <div style="font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.05em;">Signed in as</div>
+                        <div class="mp-user" id="mp-lobby-username"></div>
+                        <div class="mp-email" id="mp-lobby-email"></div>
+                    </div>
+                    <div class="mp-card-btns">
+                        <button type="button" class="nav-button" id="mp-rename-open">Change Username</button>
+                        <button type="button" class="nav-button" id="mp-signout">Sign Out</button>
+                    </div>
+                </div>
+                <form class="mp-rename" id="mp-rename-form">
+                    <input type="text" id="mp-rename-input" maxlength="20" autocomplete="off">
+                    <button type="submit" class="nav-button btn-primary" id="mp-rename-save">Save</button>
+                    <button type="button" class="nav-button" id="mp-rename-cancel">Cancel</button>
+                </form>
+                <div class="mp-status" id="mp-lobby-status" style="margin-bottom: 0;"></div>
+            </div>
+            <div class="mp-actions">
+                <button type="button" class="mp-action" id="mp-create-game">
+                    <span class="mp-action-icon">🚀</span>
+                    <span><span class="mp-action-title">Create Multiplayer Game</span><span class="mp-soon">Coming next</span><span class="mp-action-desc" style="display: block;">Set up a galaxy with spots for other players and AI opponents.</span></span>
+                </button>
+                <button type="button" class="mp-action" id="mp-join-game">
+                    <span class="mp-action-icon">🛰</span>
+                    <span><span class="mp-action-title">Join Multiplayer Game</span><span class="mp-soon">Coming soon</span><span class="mp-action-desc" style="display: block;">Browse games other players have listed and take an open spot.</span></span>
+                </button>
+                <button type="button" class="mp-action" id="mp-my-games">
+                    <span class="mp-action-icon">📜</span>
+                    <span><span class="mp-action-title">My Games</span><span class="mp-soon">Coming soon</span><span class="mp-action-desc" style="display: block;">Return to games you have joined, take your turn or watch the galaxy.</span></span>
+                </button>
+            </div>
+            <div style="margin-top: 18px;">
+                <button type="button" class="nav-button btn-back-title">Back to Title</button>
+            </div>
         </div>
     </div>
 
@@ -1915,10 +2202,14 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script>
         const HELP_HTML = `
             <div style="text-align:left;">
                 <p><b style="color:#da70d6;">Goal</b><br>Grow your empire from a single homeworld: scan the galaxy, colonize habitable worlds, mine ore, build infrastructure and outscore your AI opponents. Check the Scoreboard under Management to see how you rank. If the game was created with Victory Conditions, the first empire to meet them wins (see Victory Conditions below).</p>
+                <p><b style="color:#da70d6;">Multiplayer and Your Account</b><br>Press <b>Multiplayer</b> on the title screen (or the M key) to play against other people over the internet. You need a free account first. On the <b>Register</b> tab choose a <b>username</b> (3 to 20 letters, numbers, - or _, no spaces; other players see this name), enter your <b>email</b> and a <b>password</b> of at least 6 characters, and press Create Account. There is no confirmation email: you go straight into the Multiplayer Lobby. Your email is only used to sign in and to send you game emails; other players never see it. Next time use the <b>Sign In</b> tab. This browser remembers you, so Multiplayer takes you straight to the lobby until you press Sign Out. Multiplayer needs an internet connection; if the online service cannot be reached, single player still works as normal.</p>
+                <p><b style="color:#da70d6;">Forgot Your Password</b><br>On the Sign In tab press <b>Forgot password?</b>, check the email address and press Send Reset Email. Open the link in that email, ideally on the same device: the game opens on a Set a New Password screen. Type the new password twice and press Save Password, and you are signed in and taken to the lobby. If no email arrives within a few minutes, check your spam folder.</p>
+                <p><b style="color:#da70d6;">The Multiplayer Lobby</b><br>The lobby shows the username you are signed in as. <b>Change Username</b> lets you pick a new one at any time; names are unique, so if someone already has the name you want (in any mix of upper and lower case) you are asked to choose another. <b>Sign Out</b> forgets your sign-in on this browser. The lobby also has <b>Create Multiplayer Game</b>, <b>Join Multiplayer Game</b> and <b>My Games</b>. These are being built now and arrive in the next updates; creating your account today means you are ready when they do.</p>
                 <p><b style="color:#da70d6;">The New Game Screen</b><br>Empire Name and Choose Race sit on one row. Universe Size, Star Density and Player Position share the next row. Choose Race offers <b>Random Race</b>, which picks one of the six built-in races for you when you press Create Galaxy (the log tells you which), and lists your saved custom races under their own <b>Custom Races</b> heading. Player Position sets how far apart the homeworlds start. Four buttons sit below, two to a row: <b>Custom Race</b> opens your race list and the Race Wizard (see Custom Races below), <b>AI Opponents</b> opens the rival setup and shows how many rivals you have in brackets, and <b>Advanced Options</b> and <b>Victory Conditions</b> each show how many choices are ticked. Back and Create Galaxy sit on the bottom row.</p>
                 <p><b style="color:#da70d6;">Custom Races and the Race Wizard</b><br>On the New Game screen, <b>Custom Race</b> opens your list of saved races. <b>Create New Race</b> starts the Race Wizard. Each saved race also has <b>Play As</b> (makes it your race for the next game), <b>Edit</b>, <b>Copy</b> and <b>Delete</b>. Saved races appear under Custom Races in Choose Race and in every AI opponent's race menu, so you can cast your creations as your rivals too. Races are kept in this browser, and every saved game carries a copy of the custom races it uses, so a game file opened on another machine brings its races with it and adds any you do not have yet to your list. <b>Export All</b> and <b>Import</b> move your whole list as a JSON file. You can keep up to 24 custom races.</p>
                 <p><b style="color:#da70d6;">Advantage Points</b><br>Every race is built from a pool of Advantage Points. A new race starts with 25 left. Strengths spend points and handicaps refund them, and a race can only be saved when 0 or more points are left. The counter at the top right updates as you choose, and the Point Ledger beside the wizard lists every cost and refund so you can see where the points went. On a narrow screen the ledger is hidden, but the counter stays. Points you do not spend (up to 50) can go into a starting bonus picked on the Identity tab: <b>Surface minerals</b> (+20 kT of each ore per point at your homeworld), <b>Mineral concentrations</b> (+1 concentration on each mineral per 2 points, up to 100), <b>Mines</b> or <b>Factories</b> (+1 per 2 points) or <b>Defenses</b> (+1 Missile Battery per 5 points).</p>
@@ -1939,6 +2230,8 @@
                 <p><b style="color:#da70d6;">The Production Queue</b><br>Nothing is paid when you queue. Each turn the planet spends its manufacturing Resources and the Ore it needs on the first item in the queue, then moves down the list. An item is finished once its full cost is paid. If an item lacks Ore, it waits and the next item gets the Resources. The queue shows a percent complete only for items that take more than one turn to build. An item that your planet can pay for in a single turn just finishes at the end of the turn, so it shows no percent.</p>
                 <p><b style="color:#da70d6;">Research</b><br>Choose a field under Management, Research. Six fields each have levels 1 to 26. The next level of a field costs 60 times the square of its current level in Resources (double that if Slower Tech Advances is on). A custom race multiplies that cost by 1.75 in every field set to Costs 75% extra and by 0.5 in every field set to Costs 50% less, and the screen always shows your real cost. The screen shows progress and an estimate of years to the next level. Electronics widens your scanner range. Propulsion Drives unlocks better engines (see Engines). Construction unlocks bigger hulls, Energy unlocks Shield Generators and Weapons unlocks Capital Torpedoes and stronger beams. Biotechnology advances and counts toward your score, but does not unlock anything yet.</p>
                 <p><b style="color:#da70d6;">Turn Flow</b><br>Give your orders, then press End Turn. Each turn advances the year by one: fleets move along their waypoints and burn fuel, waypoint tasks run, orbital installations refuel the fleets in orbit, production queues spend Resources and Ore, mines dig new Ore, research advances, populations grow or shrink, random events may strike, AI empires add income and scanner discovery re-runs. Victory Conditions are checked at the end of every turn. The turn report lists fleet movements, Resources produced, what was spent on research and manufacturing, anything built, Ore mined, events and any queue waiting on Ore.</p>
+                <p><b style="color:#da70d6;">Turns and Rounds</b><br>Every turn is part of a round. When you press End Turn, only your own empire moves forward: your fleets fly, your queues build, your mines dig, your colonists grow, your research advances and your random events roll. Once every human empire in the galaxy has ended its turn, the round closes: the year advances by one, AI empires bank their income, AI alliances may form and the Victory Conditions are checked. In a single player game you are the only human, so every End Turn closes the round at once and the year advances straight away. In a multiplayer game (coming soon) the year only changes after the last player in the round has ended their turn; until then your turn report shows the year your empire has reached and says the rest of the galaxy is still catching up.</p>
+                <p><b style="color:#da70d6;">Your Own View of the Galaxy</b><br>Each empire keeps its own record of what it has seen. The planets you have scanned, your survey dates, your fleets, your technology, your research, your budget, your starbase designs and your Galactic Event Log belong to your empire alone. In a game with more than one human, another player's scans never reveal anything to you, and their worlds show as rival worlds (red) once your own scanners find them.</p>
                 <p><b style="color:#da70d6;">Random Events</b><br>Unless No Random Events is ticked, each year there is a small chance that something happens to one of your planets: a <b>mineral strike</b> raises the concentration of one mineral, a <b>population boom</b> adds colonists, a <b>plague</b> kills some of them, or a <b>salvage find</b> drops a cache of Ore on the planet. Events appear in the Galactic Event Log and the turn report.</p>
                 <p><b style="color:#da70d6;">Your Starting Fleet</b><br>Like Stars! you begin with a single Long Range Scout in orbit of your homeworld. It carries 300 mg of fuel and an ER 50 scanner, and its job is to map the nearby stars: ore, concentrations and green worlds worth colonizing. Your homeworld starts with a Basic Space Station that has a ship dock. Colony ships, freighters and warships are built there.</p>
                 <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Colored dots show ownership and habitability; the legend is in the lower left.</p>
@@ -1958,7 +2251,7 @@
                 <p><b style="color:#da70d6;">Advanced Options</b><br>On the New Game screen, Advanced Options opens a box where you can add any of these to the game. <b>Beginner: Maximum Minerals</b> gives every homeworld 100 percent mineral concentrations and every other world at least 50 percent. <b>Slower Tech Advances</b> doubles the cost of every research level. <b>Accelerated BBS Play</b> speeds up the opening: you begin with an extra loaded Colony Ship and a Small Freighter at your homeworld, and AI empires start with 50 percent more banked Resources. <b>No Random Events</b> turns off random events. <b>AI Opponents can form alliances</b> lets rivals team up over time; allied rivals each earn 10 percent more. <b>Public Player Scores</b> (on by default) shows every empire's score on the Scoreboard; turn it off to hide rival scores. <b>Galaxy clumping</b> gathers stars into tight clusters with empty space between them; off gives a looser, more even spread.</p>
                 <p><b style="color:#da70d6;">Victory Conditions</b><br>On the New Game screen, Victory Conditions opens a box where you can tick any of these. <b>Own a share of all planets</b> is ticked to start with at 60 percent; set it anywhere from 10 to 100 percent of every planet in the galaxy. <b>Attain a tech level</b>: a level from 1 to 26 in a number of fields from 1 to 6. <b>Exceed a score</b>: from 1,000 to 1,000,000. <b>Exceed second place score by a percentage</b>: your score must be at least that much higher than the runner-up (starts at 100 percent, meaning double the second best score; choose 1 to 1,000). <b>Own capital ships</b>: from 2 to 1,000 (capital ships cannot be built yet, so this cannot be met until ship design arrives). <b>Highest score after a number of years</b>: from 10 to 1,000,000 years. At the bottom, pick how many of the ticked conditions a winner must meet (1 up to the number ticked), and how many years must pass before a winner can be declared (10 to 1,000,000). Every empire is judged the same way at the end of each turn, and if several qualify the highest score wins. The Scoreboard lists the active conditions. After a winner is declared you can keep playing.</p>
                 <p><b style="color:#da70d6;">Management</b><br>Economy shows your Resources, the research and manufacturing split, operating factories and mines, and Ore mined and stockpiled. Research lets you pick the field and shows progress and your engine. <b>Fleet Roster</b> lists every fleet with its position, fuel, cargo and route. Each fleet has a <b>Select and Center</b> button: it closes the roster, selects that fleet, selects the planet it is orbiting and moves the star map to it (a fleet in deep space is selected and centered on its position). Scoreboard ranks every empire by planets, ships, tech, Resources per year and Ore.</p>
-                <p><b style="color:#da70d6;">Saving</b><br>Save File stores the game in this browser, including every fleet, its waypoints and fuel, tech levels, research progress, your budget, your starbase designs, every planet's orbital installation, your Advanced Options and Victory Conditions, and a copy of every custom race in play (yours and your rivals'). Continue Game on the title screen loads that save. Load File and Open Game import a saved JSON file, and any custom races inside it that are not already in your list are added to it. Your list of custom races is saved in this browser the moment you save a race in the wizard, separately from any game. Saves from before version 0.7.62 load with Public Player Scores on, every other option off and no victory conditions; saves from before 0.7.61 have every existing starbase converted into a Basic Space Station with a dock; saves from before 0.7.60 have their single fleet converted into the fleet system; saves from before 0.7.59 are also converted to the new economy. Abandon Game returns to the title screen and discards unsaved progress.</p>
+                <p><b style="color:#da70d6;">Saving</b><br>Save File stores the game in this browser, including every fleet, its waypoints and fuel, tech levels, research progress, your budget, your starbase designs, every planet's orbital installation, your Advanced Options and Victory Conditions, and a copy of every custom race in play (yours and your rivals'). Continue Game on the title screen loads that save. Since version 0.8.0 the save also keeps your Galactic Event Log (the last 300 entries) and your latest turn report, and it uses a new format that can hold several human empires; older saves are converted automatically the first time you load them. Load File and Open Game import a saved JSON file, and any custom races inside it that are not already in your list are added to it. Your list of custom races is saved in this browser the moment you save a race in the wizard, separately from any game. Saves from before version 0.7.62 load with Public Player Scores on, every other option off and no victory conditions; saves from before 0.7.61 have every existing starbase converted into a Basic Space Station with a dock; saves from before 0.7.60 have their single fleet converted into the fleet system; saves from before 0.7.59 are also converted to the new economy. Abandon Game returns to the title screen and discards unsaved progress.</p>
                 <p style="margin-bottom:0;color:#aaa;">Tip: your first turns are about turning Resources into more Resources. Queue factories and mines on the homeworld, watch Germanium (factories need it), send the scout out at Warp 5 on free fuel to find colony targets, and use Ship Construction to queue a Colony Ship when you spot a green world. Once a colony is established, give it a Space Station so it can build for itself. Designing a race? Start from a preset, change one thing at a time and watch the Advantage Points counter and the Point Ledger.</p>
             </div>
         `;
@@ -2102,9 +2395,9 @@
             const densityKey = document.getElementById('sp-density').value;
             const dim = galaxyDimensions[sizeKey];
             const total = getGalaxyPlanetCount(sizeKey, densityKey);
-            const empires = rivalConfigs.length + 1;
+            const empireCount = rivalConfigs.length + 1;
             document.getElementById('setup-galaxy-summary').innerText =
-                `Galaxy: ${dim} x ${dim} ly | ${total} planets total | ${empires} empires (${Math.max(0, total - empires)} unclaimed worlds)`;
+                `Galaxy: ${dim} x ${dim} ly | ${total} planets total | ${empireCount} empires (${Math.max(0, total - empireCount)} unclaimed worlds)`;
         }
 
         function gaussian() {
@@ -2432,23 +2725,11 @@
             return Math.round(60 * level * level * (gameOptions.slowTech ? 2 : 1) * raceResearchMult(playerRace, field));
         }
 
-        function resetResearchState() {
-            TECH_KEYS.forEach(k => setTechLevel(k, 1));
-            researchProgress = emptyResearch();
-            researchField = 'energy';
-            budgetResearch = DEFAULT_BUDGET_RESEARCH;
-        }
-
         function defaultDesigns() {
             return [
                 { id: 1, name: 'Basic Space Station', hull: 'station', slots: ['armor', 'armor', 'beam', 'beam', '', ''] },
                 { id: 2, name: 'Orbital Fort', hull: 'fort', slots: ['armor', 'armor', 'beam', 'beam'] }
             ];
-        }
-
-        function resetDesigns() {
-            starbaseDesigns = defaultDesigns();
-            nextDesignId = 3;
         }
 
         function hullUnlocked(key) {
@@ -2513,7 +2794,7 @@
         }
 
         function planetHasDock(p) {
-            return p.owner === 'player' && !!p.hasStarbase && !!p.starbase && !!p.starbase.dock;
+            return p.owner === myEmpireId && !!p.hasStarbase && !!p.starbase && !!p.starbase.dock;
         }
 
         function hasStarbaseOrder(p) {
@@ -2531,6 +2812,179 @@
 
         let selectedPlanetIndex = 0;
         let playerRace = 'humanoid';
+
+        const SAVE_VERSION = 2;
+        const MAX_LOG_LINES = 300;
+        let empires = [];
+        let activeEmpireIndex = 0;
+        let myEmpireId = 'player';
+        let eventLog = [];
+        let lastTurnReport = '';
+        let empireTurnActive = false;
+
+        function humanEmpireId(seat) {
+            return seat === 0 ? 'player' : 'player_' + seat;
+        }
+
+        function yearNow() {
+            return currentYear + (empireTurnActive ? 1 : 0);
+        }
+
+        function newEmpireRecord(seat, name, race) {
+            const tech = {};
+            TECH_KEYS.forEach(k => { tech[k] = 1; });
+            return {
+                id: humanEmpireId(seat),
+                seat: seat,
+                kind: 'human',
+                userId: null,
+                name: name,
+                race: race,
+                fleets: [],
+                nextFleetId: 1,
+                selectedFleetId: null,
+                selectedPlanet: 0,
+                tech: tech,
+                researchProgress: emptyResearch(),
+                researchField: 'energy',
+                budgetResearch: DEFAULT_BUDGET_RESEARCH,
+                designs: defaultDesigns(),
+                nextDesignId: 3,
+                explored: [],
+                revealed: [],
+                lastScan: [],
+                log: [],
+                report: '',
+                reportYear: 0
+            };
+        }
+
+        function empireById(id) {
+            return empires.find(e => e.id === id) || null;
+        }
+
+        function isForeignOwner(owner) {
+            return owner !== 'neutral' && owner !== myEmpireId;
+        }
+
+        function ownerDisplayName(owner) {
+            if (owner === 'neutral') return 'Neutral';
+            const e = empireById(owner);
+            if (e) return owner === myEmpireId ? empireName : e.name;
+            const r = aiRivals.find(x => x.id === owner);
+            return r ? r.name : 'Unknown Empire';
+        }
+
+        function storeActiveEmpire() {
+            const e = empires[activeEmpireIndex];
+            if (!e) return;
+            e.name = empireName;
+            e.race = playerRace;
+            e.fleets = playerFleets;
+            e.nextFleetId = nextFleetId;
+            e.selectedFleetId = selectedFleetId;
+            e.selectedPlanet = selectedPlanetIndex;
+            e.tech = getTechLevels();
+            e.researchProgress = researchProgress;
+            e.researchField = researchField;
+            e.budgetResearch = budgetResearch;
+            e.designs = starbaseDesigns;
+            e.nextDesignId = nextDesignId;
+            e.explored = planets.map(p => !!p.explored);
+            e.revealed = planets.map(p => p.revealed !== false);
+            e.lastScan = planets.map(p => p.lastScan || 0);
+            e.log = eventLog;
+            e.report = lastTurnReport;
+        }
+
+        function loadEmpire(idx) {
+            const e = empires[idx];
+            if (!e) return;
+            activeEmpireIndex = idx;
+            myEmpireId = e.id;
+            empireName = e.name;
+            playerRace = e.race;
+            playerFleets = e.fleets;
+            nextFleetId = e.nextFleetId || (playerFleets.reduce((m, f) => Math.max(m, f.id), 0) + 1);
+            selectedFleetId = e.selectedFleetId;
+            TECH_KEYS.forEach(k => setTechLevel(k, (e.tech && e.tech[k]) || 1));
+            researchProgress = Object.assign(emptyResearch(), e.researchProgress || {});
+            researchField = e.researchField || 'energy';
+            budgetResearch = e.budgetResearch !== undefined ? e.budgetResearch : DEFAULT_BUDGET_RESEARCH;
+            starbaseDesigns = e.designs && e.designs.length ? e.designs : defaultDesigns();
+            nextDesignId = e.nextDesignId || (starbaseDesigns.reduce((m, d) => Math.max(m, d.id), 0) + 1);
+            eventLog = Array.isArray(e.log) ? e.log : [];
+            lastTurnReport = e.report || '';
+            planets.forEach((p, i) => {
+                p.explored = !!e.explored[i];
+                p.revealed = e.revealed[i] !== false;
+                p.lastScan = e.lastScan[i] || 0;
+                if (p.owner === myEmpireId) {
+                    p.explored = true;
+                    p.revealed = true;
+                }
+                p.hab = habitabilityFor(playerRace, p);
+                if (p.owner === 'neutral') p.maxPop = maxPopFor(p.hab);
+            });
+            selectedPlanetIndex = Math.max(0, Math.min(planets.length - 1, e.selectedPlanet || 0));
+            plotMode = false;
+            panelFleetId = null;
+            ensureFleetSelection();
+        }
+
+        function switchToEmpire(idx) {
+            storeActiveEmpire();
+            loadEmpire(idx);
+        }
+
+        function logToAllEmpires(msg) {
+            empires.forEach((e, i) => {
+                if (i === activeEmpireIndex) {
+                    logEvent(msg);
+                } else {
+                    if (!Array.isArray(e.log)) e.log = [];
+                    e.log.push('[' + currentYear + '] ' + msg);
+                    if (e.log.length > MAX_LOG_LINES) e.log.splice(0, e.log.length - MAX_LOG_LINES);
+                }
+            });
+        }
+
+        function normalizeEmpire(raw, i) {
+            const src = raw || {};
+            let race = src.race || 'humanoid';
+            if (isCustomRaceId(race) && !gameRaces[race]) race = 'humanoid';
+            const seat = Number.isInteger(src.seat) ? src.seat : i;
+            const e = newEmpireRecord(seat, String(src.name || ('Empire ' + (i + 1))), race);
+            e.id = typeof src.id === 'string' && src.id ? src.id : humanEmpireId(seat);
+            e.kind = 'human';
+            e.userId = src.userId || null;
+            e.fleets = Array.isArray(src.fleets) ? src.fleets : [];
+            e.fleets.forEach(f => {
+                if (!f.waypoints) f.waypoints = [];
+                if (!f.cargo) f.cargo = { iron: 0, bora: 0, germ: 0, colonists: 0 };
+                ['iron', 'bora', 'germ', 'colonists'].forEach(k => { if (!f.cargo[k]) f.cargo[k] = 0; });
+                if (f.fuel === undefined) f.fuel = fleetFuelCapacity(f);
+            });
+            e.nextFleetId = src.nextFleetId || (e.fleets.reduce((m, f) => Math.max(m, f.id), 0) + 1);
+            e.selectedFleetId = src.selectedFleetId !== undefined ? src.selectedFleetId : null;
+            e.selectedPlanet = src.selectedPlanet || 0;
+            TECH_KEYS.forEach(k => { e.tech[k] = clampInt(src.tech ? src.tech[k] : 1, 1, MAX_TECH_LEVEL, 1); });
+            e.researchProgress = Object.assign(emptyResearch(), src.researchProgress || {});
+            e.researchField = TECH_KEYS.indexOf(src.researchField) !== -1 ? src.researchField : 'energy';
+            e.budgetResearch = src.budgetResearch !== undefined ? clampInt(src.budgetResearch, 0, 100, DEFAULT_BUDGET_RESEARCH) : DEFAULT_BUDGET_RESEARCH;
+            const designs = Array.isArray(src.designs) ? src.designs.filter(d => d && HULLS[d.hull]) : [];
+            e.designs = designs.length ? designs : defaultDesigns();
+            e.nextDesignId = src.nextDesignId || (e.designs.reduce((m, d) => Math.max(m, d.id), 0) + 1);
+            const n = planets.length;
+            const okArr = a => Array.isArray(a) && a.length === n;
+            e.explored = okArr(src.explored) ? src.explored.map(Boolean) : planets.map(p => p.owner === e.id);
+            e.revealed = okArr(src.revealed) ? src.revealed.map(v => v !== false) : planets.map(p => p.owner === 'neutral' || p.owner === e.id);
+            e.lastScan = okArr(src.lastScan) ? src.lastScan.map(v => v || 0) : planets.map(() => 0);
+            e.log = Array.isArray(src.log) ? src.log.slice(-MAX_LOG_LINES).map(String) : [];
+            e.report = typeof src.report === 'string' ? src.report : '';
+            e.reportYear = src.reportYear || 0;
+            return e;
+        }
 
         const raceHab = {
             humanoid:   { grav: { c: 50, h: 30 }, temp: { c: 50, h: 30 }, rad: { c: 50, h: 30 } },
@@ -3013,7 +3467,7 @@
                 yield: emptyStore(), stock: emptyStore(), worlds: 0
             };
             planets.forEach(p => {
-                if (p.owner !== 'player') return;
+                if (p.owner !== myEmpireId) return;
                 e.worlds++;
                 const r = planetResources(p);
                 e.total += r.total;
@@ -3260,7 +3714,7 @@
         function colonizeWith(f, p) {
             const ship = f.ships.find(s => s.type === 'Colony Ship' && s.count > 0);
             if (!ship) return { ok: false, msg: 'has no Colony Ship to colonize with.' };
-            if (p.owner === 'player') return { ok: false, msg: p.name + ' is already colonized by your empire.' };
+            if (p.owner === myEmpireId) return { ok: false, msg: p.name + ' is already colonized by your empire.' };
             if (p.owner !== 'neutral') return { ok: false, msg: p.name + ' is already inhabited by another empire.' };
             if (!p.explored) return { ok: false, msg: p.name + ' has not been scanned, so it cannot be colonized yet.' };
             if (p.hab <= 0) return { ok: false, msg: p.name + ' is hostile to your race (habitability ' + p.hab + '%). Colonists would not survive.' };
@@ -3268,7 +3722,7 @@
             if (load < COLONY_MIN_LOAD) return { ok: false, msg: 'carries too few colonists (' + load + ') to found a colony.' };
             ship.count--;
             f.cargo.colonists -= load;
-            p.owner = 'player';
+            p.owner = myEmpireId;
             p.pop = load;
             p.maxPop = maxPopFor(p.hab);
             initPlanetQueue(p);
@@ -3290,7 +3744,7 @@
                 notes.push(f.name + ' ' + r.msg);
                 return;
             }
-            if (p.owner !== 'player') {
+            if (p.owner !== myEmpireId) {
                 notes.push(f.name + ': ' + TASK_LABELS[w.task] + ' skipped, ' + p.name + ' is not one of your planets.');
                 return;
             }
@@ -3322,7 +3776,7 @@
         function refuelFleets() {
             playerFleets.forEach(f => {
                 const idx = fleetOrbitIndex(f);
-                if (idx >= 0 && planets[idx].owner === 'player' && planets[idx].hasStarbase) {
+                if (idx >= 0 && planets[idx].owner === myEmpireId && planets[idx].hasStarbase) {
                     f.fuel = fleetFuelCapacity(f);
                 }
             });
@@ -3370,7 +3824,7 @@
                 if (fleetHasScanner(f)) sources.push({ x: f.x, y: f.y });
             });
             planets.forEach(p => {
-                if (p.owner === 'player') sources.push({ x: p.x, y: p.y });
+                if (p.owner === myEmpireId) sources.push({ x: p.x, y: p.y });
             });
             return sources;
         }
@@ -3385,12 +3839,25 @@
             return best;
         }
 
-        function logEvent(msg) {
+        function appendLogLine(line) {
             const box = document.getElementById('event-log-box');
             const row = document.createElement('div');
-            row.textContent = '[' + currentYear + '] ' + msg;
+            row.textContent = line;
             box.appendChild(row);
             box.scrollTop = box.scrollHeight;
+        }
+
+        function logEvent(msg) {
+            const line = '[' + yearNow() + '] ' + msg;
+            eventLog.push(line);
+            if (eventLog.length > MAX_LOG_LINES) eventLog.splice(0, eventLog.length - MAX_LOG_LINES);
+            appendLogLine(line);
+        }
+
+        function renderEventLog() {
+            const box = document.getElementById('event-log-box');
+            box.innerHTML = '';
+            eventLog.forEach(appendLogLine);
         }
 
         function updateDiscovery(announce) {
@@ -3399,10 +3866,10 @@
             const newWorlds = [];
             const newRivals = [];
             planets.forEach(p => {
-                if (p.owner === 'player') {
+                if (p.owner === myEmpireId) {
                     p.explored = true;
                     p.revealed = true;
-                    p.lastScan = currentYear;
+                    p.lastScan = yearNow();
                     return;
                 }
                 if (nearestScannerDistance(p, sources) <= range || orbitedByFleet(p)) {
@@ -3411,11 +3878,11 @@
                     }
                     p.explored = true;
                     p.revealed = true;
-                    p.lastScan = currentYear;
+                    p.lastScan = yearNow();
                 }
             });
             if (announce) {
-                newRivals.forEach(p => logEvent('Contact! Rival homeworld ' + p.name + ' discovered at (' + p.x + ', ' + p.y + ').'));
+                newRivals.forEach(p => logEvent('Contact! ' + ownerDisplayName(p.owner) + ' world ' + p.name + ' discovered at (' + Math.round(p.x) + ', ' + Math.round(p.y) + ').'));
                 if (newWorlds.length) logEvent('Scanners surveyed ' + newWorlds.length + ' new world(s).');
             }
             return newWorlds.length + newRivals.length;
@@ -3432,7 +3899,9 @@
         }
 
         function raceOfOwner(owner) {
-            if (owner === 'player') return playerRace;
+            if (owner === myEmpireId) return playerRace;
+            const e = empireById(owner);
+            if (e) return e.race;
             const r = aiRivals.find(x => x.id === owner);
             return r ? r.race : null;
         }
@@ -3469,7 +3938,7 @@
             return [f];
         }
 
-        function migrateLoadedGame() {
+        function migratePlanets() {
             planets.forEach(p => {
                 if (p.grav === undefined) {
                     const ownerRace = raceOfOwner(p.owner);
@@ -3490,37 +3959,50 @@
                 if (p.defenses === undefined) p.defenses = 0;
                 if (p.hasStarbase && (!p.starbase || !HULLS[p.starbase.hull])) p.starbase = defaultStarbase();
                 if (!p.hasStarbase) p.starbase = null;
-                p.hab = habitabilityFor(playerRace, p);
-                if (p.owner === 'neutral') p.maxPop = maxPopFor(p.hab);
             });
-            playerFleets.forEach(f => {
-                if (!f.waypoints) f.waypoints = [];
-                if (!f.cargo) f.cargo = { iron: 0, bora: 0, germ: 0, colonists: 0 };
-                ['iron', 'bora', 'germ', 'colonists'].forEach(k => { if (!f.cargo[k]) f.cargo[k] = 0; });
-                if (f.fuel === undefined) f.fuel = fleetFuelCapacity(f);
-            });
-            updateDiscovery(false);
+        }
+
+        function legacyEmpireFromSave(data) {
+            const raw = {
+                id: 'player',
+                seat: 0,
+                name: data.empireName || 'Human Directorate',
+                race: playerRace,
+                nextFleetId: data.nextFleetId,
+                selectedFleetId: data.selectedFleetId,
+                tech: data.techLevels || {},
+                researchProgress: data.researchProgress,
+                researchField: data.researchField,
+                budgetResearch: data.budgetResearch,
+                designs: data.starbaseDesigns,
+                nextDesignId: data.nextDesignId,
+                explored: planets.map(p => !!p.explored),
+                revealed: planets.map(p => p.revealed !== false),
+                lastScan: planets.map(p => p.lastScan || 0),
+                log: []
+            };
+            if (data.playerFleets) {
+                raw.fleets = data.playerFleets;
+            } else {
+                raw.fleets = convertLegacyFleet(data.playerFleet || { x: 0, y: 0, ships: [], colonists: 0, iron: 0 });
+                raw.nextFleetId = 2;
+                raw.selectedFleetId = 1;
+            }
+            return normalizeEmpire(raw, 0);
         }
 
         function buildSaveData() {
+            storeActiveEmpire();
             return {
+                saveVersion: SAVE_VERSION,
                 currentYear,
-                empireName,
                 planets,
                 aiRivals,
-                playerFleets,
-                nextFleetId,
-                selectedFleetId,
+                empires,
+                activeEmpire: activeEmpireIndex,
                 fleetVersion: FLEET_VERSION,
                 currentMapDimension,
-                playerRace,
                 customRaces: Object.keys(gameRaces).map(id => gameRaces[id]),
-                techLevels: getTechLevels(),
-                researchProgress,
-                researchField,
-                budgetResearch,
-                starbaseDesigns,
-                nextDesignId,
                 econVersion: ECON_VERSION,
                 gameOptions,
                 gameVictory,
@@ -3528,47 +4010,36 @@
             };
         }
 
-        function applySaveData(data) {
+        function restoreSaveState(data) {
             currentYear = data.currentYear;
-            empireName = data.empireName;
             planets = data.planets;
-            aiRivals = data.aiRivals;
+            aiRivals = Array.isArray(data.aiRivals) ? data.aiRivals : [];
             gameOptions = Object.assign({}, DEFAULT_OPTIONS, data.gameOptions || {});
             gameVictory = mergeVictory(data.gameVictory);
             victoryDeclared = !!data.victoryDeclared;
-            if (data.playerFleets) {
-                playerFleets = data.playerFleets;
-                nextFleetId = data.nextFleetId || (playerFleets.reduce((m, f) => Math.max(m, f.id), 0) + 1);
-                selectedFleetId = data.selectedFleetId !== undefined ? data.selectedFleetId : null;
-            } else {
-                playerFleets = convertLegacyFleet(data.playerFleet || { x: 0, y: 0, ships: [], colonists: 0, iron: 0 });
-                nextFleetId = 2;
-                selectedFleetId = 1;
-            }
-            ensureFleetSelection();
             currentMapDimension = data.currentMapDimension || 800;
             const savedRaces = Array.isArray(data.customRaces) ? data.customRaces.map(cleanRaceDef).filter(Boolean) : [];
             addRacesToLibrary(savedRaces);
             clearGameRaces();
             savedRaces.forEach(registerGameRace);
-            playerRace = data.playerRace || 'humanoid';
+            const hasEmpires = Array.isArray(data.empires) && data.empires.length > 0;
+            empires = [];
+            myEmpireId = hasEmpires ? (data.empires[0].id || 'player') : 'player';
+            playerRace = (hasEmpires ? data.empires[0].race : data.playerRace) || 'humanoid';
             if (isCustomRaceId(playerRace) && !gameRaces[playerRace]) playerRace = 'humanoid';
-            refreshRaceSelects();
-            const levels = data.techLevels || {};
-            TECH_KEYS.forEach(k => setTechLevel(k, levels[k] || 1));
-            researchProgress = Object.assign(emptyResearch(), data.researchProgress || {});
-            researchField = data.researchField || 'energy';
-            budgetResearch = data.budgetResearch !== undefined ? data.budgetResearch : DEFAULT_BUDGET_RESEARCH;
-            if (data.starbaseDesigns && data.starbaseDesigns.length) {
-                starbaseDesigns = data.starbaseDesigns.filter(d => HULLS[d.hull]);
-                if (!starbaseDesigns.length) starbaseDesigns = defaultDesigns();
-                nextDesignId = data.nextDesignId || (starbaseDesigns.reduce((m, d) => Math.max(m, d.id), 0) + 1);
-            } else {
-                resetDesigns();
-            }
             if ((data.econVersion || 1) < ECON_VERSION) convertLegacyEconomy();
-            migrateLoadedGame();
-            selectedPlanetIndex = Math.max(0, fleetOrbitIndex(getSelectedFleet() || { x: -1, y: -1 }));
+            migratePlanets();
+            empires = hasEmpires ? data.empires.map((e, i) => normalizeEmpire(e, i)) : [legacyEmpireFromSave(data)];
+            const idx = clampInt(data.activeEmpire, 0, empires.length - 1, 0);
+            loadEmpire(idx);
+            updateDiscovery(false);
+            storeActiveEmpire();
+        }
+
+        function showActiveEmpireDashboard() {
+            refreshRaceSelects();
+            renderEventLog();
+            refreshPlotButtons();
             document.getElementById('lbl-empire-display').innerText = empireName;
             document.getElementById('lbl-year').innerText = currentYear;
             showView('view-dashboard');
@@ -3578,6 +4049,15 @@
                 fitMapToGalaxy();
                 drawGalaxyMap();
             }, 50);
+        }
+
+        function applySaveData(data) {
+            restoreSaveState(data);
+            if (!data.empires) {
+                const f = getSelectedFleet();
+                selectedPlanetIndex = Math.max(0, f ? fleetOrbitIndex(f) : 0);
+            }
+            showActiveEmpireDashboard();
         }
 
         function initPlanetQueue(planet) {
@@ -3726,7 +4206,7 @@
 
         function processProductionQueues(stats) {
             planets.forEach(p => {
-                if (p.owner !== 'player') return;
+                if (p.owner !== myEmpireId) return;
                 initPlanetQueue(p);
                 const r = planetResources(p);
                 const budget = { res: r.total * (100 - budgetResearch) / 100 };
@@ -4020,6 +4500,7 @@
             if (k === 'n') goNewGame();
             else if (k === 'o') goOpenGame();
             else if (k === 'c') goContinueGame();
+            else if (k === 'm') openMultiplayer();
         });
 
         function updateSetupButtonLabels() {
@@ -4285,7 +4766,7 @@
 
         function openBuildModal(mode) {
             const p = planets[selectedPlanetIndex];
-            if (p.owner !== 'player') {
+            if (p.owner !== myEmpireId) {
                 gameAlert('You can only build on colonies owned by your empire.');
                 return;
             }
@@ -4311,7 +4792,7 @@
 
         function queueOnSelectedPlanet(type, qty) {
             const p = planets[selectedPlanetIndex];
-            if (p.owner !== 'player') {
+            if (p.owner !== myEmpireId) {
                 gameAlert('You can only build on colonies owned by your empire.');
                 return false;
             }
@@ -4359,7 +4840,7 @@
 
         function openStarbaseDesigner(mode) {
             const p = planets[selectedPlanetIndex];
-            if (p.owner !== 'player') {
+            if (p.owner !== myEmpireId) {
                 gameAlert('You can only build orbital installations at colonies owned by your empire.');
                 return;
             }
@@ -4609,10 +5090,10 @@
                 if (p.owner === 'neutral' && here.some(f => f.ships.some(s => s.type === 'Colony Ship' && s.count > 0))) {
                     items.push(['colonize', '🌍 Colonize Planet', '#32cd32']);
                 }
-                if (p.owner === 'player' && here.some(f => fleetCargoCapacity(f) > 0)) {
+                if (p.owner === myEmpireId && here.some(f => fleetCargoCapacity(f) > 0)) {
                     items.push(['cargo', '📦 Cargo &amp; Transfer', '#ffa500']);
                 }
-                if (p.owner.startsWith('rival_')) {
+                if (isForeignOwner(p.owner)) {
                     items.push(['bombard', '🔥 Orbital Bombardment', '#ff4500']);
                     items.push(['invade', '⚔ Ground Invasion', '#ff8c00']);
                 }
@@ -4660,7 +5141,7 @@
 
         function actionBombard() {
             const p = planets[selectedPlanetIndex];
-            if (p.owner === 'player') {
+            if (p.owner === myEmpireId) {
                 gameAlert('Cannot bombard your own colony!');
                 return;
             }
@@ -4671,11 +5152,11 @@
 
         function actionInvade() {
             const p = planets[selectedPlanetIndex];
-            if (p.owner === 'player') {
+            if (p.owner === myEmpireId) {
                 gameAlert('Planet already belongs to your empire.');
                 return;
             }
-            p.owner = 'player';
+            p.owner = myEmpireId;
             initPlanetQueue(p);
             updateDashboardPlanetView();
             gameAlert(`Ground invasion successful! ${p.name} has been captured.`);
@@ -4704,7 +5185,7 @@
                 { key: 'germ', label: 'Germanium (kT)', cls: 'text-germ', planet: p.germ, fleet: f.cargo.germ },
                 { key: 'colonists', label: 'Colonists', cls: '', planet: p.pop, fleet: f.cargo.colonists }
             ];
-            let html = `<div style="font-size: 12px; margin-bottom: 10px; line-height: 1.6;"><b>${escapeHtml(f.name)}</b> at <b>${escapeHtml(p.name)}</b> (${p.owner === 'player' ? 'your planet' : 'not your planet, transfers disabled'})<br>` +
+            let html = `<div style="font-size: 12px; margin-bottom: 10px; line-height: 1.6;"><b>${escapeHtml(f.name)}</b> at <b>${escapeHtml(p.name)}</b> (${p.owner === myEmpireId ? 'your planet' : 'not your planet, transfers disabled'})<br>` +
                 `Cargo used: <b>${cargoKt(f).toFixed(1)}</b> of <b>${fleetCargoCapacity(f)}</b> kT. Enter a positive number to load onto the fleet, a negative number to unload.</div>`;
             html += '<div class="cargo-grid"><b>Cargo</b><b>On planet</b><b>On fleet</b><b>Transfer</b>';
             rows.forEach(r => {
@@ -4719,7 +5200,7 @@
             const idx = f ? fleetOrbitIndex(f) : -1;
             if (!f || idx < 0) return;
             const p = planets[idx];
-            if (p.owner !== 'player') {
+            if (p.owner !== myEmpireId) {
                 gameAlert('You can only transfer cargo at your own planets.');
                 return;
             }
@@ -5010,31 +5491,74 @@
             updateDashboardPlanetView();
         });
 
-        document.getElementById('btn-launch-game').addEventListener('click', () => {
-            empireName = document.getElementById('sp-empire-name').value || "Human Directorate";
-            document.getElementById('lbl-empire-display').innerText = empireName;
+        const STAR_NAMES = ["Aegis", "Vega", "Sirius", "Rigel", "Polaris", "Antares", "Betelgeuse", "Canopus", "Arcturus", "Capella", "Procyon", "Achernar", "Hadar", "Acrux", "Spica", "Alnitak", "Alioth", "Mirfak", "Regulus", "Adhara", "Shaula", "Castor", "Gacrux", "Bellatrix", "Elnath", "Miaplacidus", "Alnilam", "Kaus", "Avior", "Alkaid", "Atria", "Alhena", "Peacock", "Alsephina", "Mirzam", "Alphard", "Hamal", "Diphda", "Nunki", "Menkar", "Alpheratz", "Rasalhague", "Kochab", "Deneb", "Algol"];
 
-            gameOptions = Object.assign({}, DEFAULT_OPTIONS, setupOptions);
-            gameVictory = cloneVictory(setupVictory);
+        function resolveRaceChoice(race) {
+            let r = race === 'random' ? pickRandom(RACE_KEYS) : race;
+            if (isCustomRaceId(r) && !libraryRace(r) && !gameRaces[r]) r = 'humanoid';
+            return r;
+        }
+
+        function makeHomeworld(name, pos, owner, race) {
+            const hab = raceHab[race] || raceHab.humanoid;
+            return {
+                name: name,
+                x: pos.x,
+                y: pos.y,
+                owner: owner,
+                pop: 25000,
+                maxPop: 100000,
+                mines: 10,
+                factories: 10,
+                defenses: 0,
+                md: 1,
+                iron: 900,
+                ironConc: rollHomeConcentration(),
+                bora: 650,
+                boraConc: rollHomeConcentration(),
+                germ: 800,
+                germConc: rollHomeConcentration(),
+                grav: hab.grav.c,
+                temp: hab.temp.c,
+                rad: hab.rad.c,
+                hab: 100,
+                explored: false,
+                revealed: false,
+                lastScan: 0,
+                hasStarbase: true,
+                starbase: defaultStarbase(),
+                productionQueue: [],
+                carry: emptyStore(),
+                mined: emptyStore()
+            };
+        }
+
+        function homeworldName(empire, used) {
+            const base = String(empire || 'Empire').trim().split(' ')[0] || 'Empire';
+            let name = base + ' Prime';
+            let n = 2;
+            while (used.indexOf(name) !== -1) {
+                name = base + ' Prime ' + n;
+                n++;
+            }
+            used.push(name);
+            return name;
+        }
+
+        function createGalaxy(cfg) {
+            gameOptions = Object.assign({}, DEFAULT_OPTIONS, cfg.options || {});
+            gameVictory = cloneVictory(cfg.victory || DEFAULT_VICTORY);
             victoryDeclared = false;
-
-            const mapSizeVal = document.getElementById('sp-map-size').value;
-            const mapDimension = galaxyDimensions[mapSizeVal] || 1200;
+            const sizeKey = galaxyDimensions[cfg.sizeKey] ? cfg.sizeKey : 'medium';
+            const mapDimension = galaxyDimensions[sizeKey];
             currentMapDimension = mapDimension;
-
-            const densityVal = document.getElementById('sp-density').value;
-            const totalPlanetCount = Math.max(getGalaxyPlanetCount(mapSizeVal, densityVal), rivalConfigs.length + 1);
-
-            let chosenRace = document.getElementById('sp-race').value;
-            if (isCustomRaceId(chosenRace) && !libraryRace(chosenRace)) chosenRace = 'humanoid';
-            const playerRandom = chosenRace === 'random';
-            playerRace = playerRandom ? pickRandom(RACE_KEYS) : chosenRace;
+            const humans = cfg.humans.map(h => ({ name: h.name || 'Human Directorate', race: resolveRaceChoice(h.race), randomRace: h.race === 'random', userId: h.userId || null }));
+            const totalPlanetCount = Math.max(getGalaxyPlanetCount(sizeKey, cfg.densityKey), cfg.rivals.length + humans.length);
 
             aiRivals = [];
-            rivalConfigs.forEach((config, idx) => {
-                let race = config.race === 'random' ? pickRandom(RACE_KEYS) : config.race;
-                if (isCustomRaceId(race) && !libraryRace(race)) race = 'humanoid';
-                const difficulty = config.difficulty === 'random' ? pickRandom(INTELLIGENCE_KEYS) : config.difficulty;
+            cfg.rivals.forEach((config, idx) => {
+                const race = resolveRaceChoice(config.race);
+                const difficulty = config.difficulty === 'random' ? pickRandom(INTELLIGENCE_KEYS) : (config.difficulty || 'average');
                 const mods = getIntelligenceMods(difficulty);
                 aiRivals.push({
                     id: `rival_${idx}`,
@@ -5051,77 +5575,31 @@
                 });
             });
 
-            adoptGameRaces([playerRace].concat(aiRivals.map(r => r.race)));
+            adoptGameRaces(humans.map(h => h.race).concat(aiRivals.map(r => r.race)));
             currentYear = START_YEAR;
-            document.getElementById('lbl-year').innerText = currentYear;
-            resetResearchState();
-            const startLevels = raceStartLevels(playerRace);
-            TECH_KEYS.forEach(k => setTechLevel(k, startLevels[k]));
-            resetDesigns();
-            playerFleets = [];
-            nextFleetId = 1;
-            selectedFleetId = null;
-            panelFleetId = null;
-            plotMode = false;
-            refreshPlotButtons();
             planets = [];
-
-            const posVal = document.getElementById('sp-player-position').value;
-            const homePositions = generateHomeworldPositions(aiRivals.length + 1, mapDimension, posVal);
-
-            const makeHomeworld = (name, pos, owner, race) => {
-                const hab = raceHab[race] || raceHab.humanoid;
-                return {
-                    name: name,
-                    x: pos.x,
-                    y: pos.y,
-                    owner: owner,
-                    pop: 25000,
-                    maxPop: 100000,
-                    mines: 10,
-                    factories: 10,
-                    defenses: 0,
-                    md: 1,
-                    iron: 900,
-                    ironConc: rollHomeConcentration(),
-                    bora: 650,
-                    boraConc: rollHomeConcentration(),
-                    germ: 800,
-                    germConc: rollHomeConcentration(),
-                    grav: hab.grav.c,
-                    temp: hab.temp.c,
-                    rad: hab.rad.c,
-                    hab: 100,
-                    explored: owner === 'player',
-                    revealed: owner === 'player',
-                    hasStarbase: true,
-                    starbase: defaultStarbase(),
-                    productionQueue: [],
-                    carry: emptyStore(),
-                    mined: emptyStore()
-                };
-            };
-
-            planets.push(makeHomeworld(empireName.split(' ')[0] + " Prime", homePositions[0], 'player', playerRace));
-            aiRivals.forEach((rival, idx) => {
-                planets.push(makeHomeworld(rival.name.split(' ')[0] + " Prime", homePositions[idx + 1], rival.id, rival.race));
-            });
-            planets.forEach(p => {
-                if (p.owner === 'player') applyRaceHomeBonus(p, playerRace);
-                else if (p.owner.indexOf('rival_') === 0) applyRaceHomeBonus(p, raceOfOwner(p.owner));
+            myEmpireId = '';
+            empires = humans.map((h, i) => {
+                const e = newEmpireRecord(i, h.name, h.race);
+                e.userId = h.userId;
+                return e;
             });
 
-            const starNames = ["Aegis", "Vega", "Sirius", "Rigel", "Polaris", "Antares", "Betelgeuse", "Canopus", "Arcturus", "Capella", "Procyon", "Achernar", "Hadar", "Acrux", "Spica", "Alnitak", "Alioth", "Mirfak", "Regulus", "Adhara", "Shaula", "Castor", "Gacrux", "Bellatrix", "Elnath", "Miaplacidus", "Alnilam", "Kaus", "Avior", "Alkaid", "Atria", "Alhena", "Peacock", "Alsephina", "Mirzam", "Alphard", "Hamal", "Diphda", "Nunki", "Menkar", "Alpheratz", "Rasalhague", "Kochab", "Deneb", "Algol"];
+            const homePositions = generateHomeworldPositions(humans.length + aiRivals.length, mapDimension, cfg.positionKey);
+            const usedNames = [];
+            empires.forEach((e, i) => planets.push(makeHomeworld(homeworldName(e.name, usedNames), homePositions[i], e.id, e.race)));
+            aiRivals.forEach((rival, idx) => planets.push(makeHomeworld(homeworldName(rival.name, usedNames), homePositions[humans.length + idx], rival.id, rival.race)));
+            planets.forEach(p => applyRaceHomeBonus(p, raceOfOwner(p.owner)));
+
             let nameIdx = 0;
             const neutralPositions = generateStarPositions(totalPlanetCount, mapDimension, homePositions, gameOptions.clumping);
             for (let i = 0; i < neutralPositions.length; i++) {
-                const sName = starNames[nameIdx % starNames.length] + (nameIdx >= starNames.length ? `-${Math.floor(nameIdx / starNames.length) + 1}` : '');
+                const sName = STAR_NAMES[nameIdx % STAR_NAMES.length] + (nameIdx >= STAR_NAMES.length ? `-${Math.floor(nameIdx / STAR_NAMES.length) + 1}` : '');
                 nameIdx++;
                 const env = randomEnv();
                 const ironConc = rollMineral();
                 const boraConc = rollMineral();
                 const germConc = rollMineral();
-
                 planets.push({
                     name: sName,
                     x: neutralPositions[i].x,
@@ -5145,6 +5623,7 @@
                     hab: 0,
                     explored: false,
                     revealed: true,
+                    lastScan: 0,
                     hasStarbase: false,
                     starbase: null,
                     productionQueue: [],
@@ -5153,35 +5632,47 @@
                 });
             }
 
-            planets.forEach(p => {
-                p.hab = habitabilityFor(playerRace, p);
-                if (p.owner === 'neutral') p.maxPop = maxPopFor(p.hab);
+            empires.forEach((e, i) => {
+                e.explored = planets.map(p => p.owner === e.id);
+                e.revealed = planets.map(p => p.owner === 'neutral' || p.owner === e.id);
+                e.lastScan = planets.map(() => 0);
+                e.tech = raceStartLevels(e.race);
+                loadEmpire(i);
+                const home = planets.find(p => p.owner === e.id);
+                createFleet(home.x, home.y, [{ type: 'Scout', count: 1 }]);
+                if (gameOptions.bbsPlay) {
+                    createFleet(home.x, home.y, [{ type: 'Colony Ship', count: 1 }], { colonists: COLONY_SHIP_LOAD });
+                    createFleet(home.x, home.y, [{ type: 'Small Freighter', count: 1 }]);
+                }
+                selectedFleetId = playerFleets[0].id;
+                selectedPlanetIndex = planets.indexOf(home);
+                logEvent('Galaxy mapped. Welcome commander. Your Long Range Scout waits in orbit of ' + home.name + '.');
+                if (humans[i].randomRace) logEvent('Random Race: your people are the ' + RACE_NAMES[playerRace] + '.');
+                else if (isCustomRaceId(playerRace)) logEvent('Custom Race: your people are the ' + raceDefOf(playerRace).plural + '.');
+                if (empires.length > 1) logEvent('This galaxy has ' + empires.length + ' human empires and ' + aiRivals.length + ' AI empires. The year advances when every human has ended their turn.');
+                if (gameOptions.bbsPlay) logEvent('Accelerated BBS Play: a loaded Colony Ship and a Small Freighter wait in orbit beside your Scout.');
+                logEvent(victorySummaryText(gameVictory));
+                updateDiscovery(true);
+                storeActiveEmpire();
             });
+            loadEmpire(0);
+        }
 
-            const playerHome = planets.find(p => p.owner === 'player');
-            createFleet(playerHome.x, playerHome.y, [{ type: 'Scout', count: 1 }]);
-            if (gameOptions.bbsPlay) {
-                createFleet(playerHome.x, playerHome.y, [{ type: 'Colony Ship', count: 1 }], { colonists: COLONY_SHIP_LOAD });
-                createFleet(playerHome.x, playerHome.y, [{ type: 'Small Freighter', count: 1 }]);
-            }
-            selectedFleetId = playerFleets[0].id;
+        function setupConfigFromScreen() {
+            return {
+                sizeKey: document.getElementById('sp-map-size').value,
+                densityKey: document.getElementById('sp-density').value,
+                positionKey: document.getElementById('sp-player-position').value,
+                options: Object.assign({}, setupOptions),
+                victory: cloneVictory(setupVictory),
+                humans: [{ name: document.getElementById('sp-empire-name').value || 'Human Directorate', race: document.getElementById('sp-race').value }],
+                rivals: rivalConfigs.map(r => ({ name: r.name, race: r.race, difficulty: r.difficulty }))
+            };
+        }
 
-            document.getElementById('event-log-box').innerHTML = '';
-            logEvent('Galaxy mapped. Welcome commander. Your Long Range Scout waits in orbit of ' + playerHome.name + '.');
-            if (playerRandom) logEvent('Random Race: your people are the ' + RACE_NAMES[playerRace] + '.');
-            else if (isCustomRaceId(playerRace)) logEvent('Custom Race: your people are the ' + raceDefOf(playerRace).plural + '.');
-            if (gameOptions.bbsPlay) logEvent('Accelerated BBS Play: a loaded Colony Ship and a Small Freighter wait in orbit beside your Scout.');
-            logEvent(victorySummaryText(gameVictory));
-            updateDiscovery(true);
-
-            selectedPlanetIndex = 0;
-            updateDashboardPlanetView();
-            showView('view-dashboard');
-            setTimeout(() => {
-                resizeMapCanvas();
-                fitMapToGalaxy();
-                drawGalaxyMap();
-            }, 50);
+        document.getElementById('btn-launch-game').addEventListener('click', () => {
+            createGalaxy(setupConfigFromScreen());
+            showActiveEmpireDashboard();
         });
 
         const mapCanvas = document.getElementById('galaxy-canvas');
@@ -5594,7 +6085,7 @@
             mapCtx.lineWidth = 1 / mapScale;
             mapCtx.strokeStyle = 'rgba(0, 255, 255, 0.16)';
             planets.forEach(p => {
-                if (p.owner === 'player') {
+                if (p.owner === myEmpireId) {
                     mapCtx.beginPath();
                     mapCtx.arc(p.x - halfDim, p.y - halfDim, range, 0, Math.PI * 2);
                     mapCtx.stroke();
@@ -5612,8 +6103,8 @@
                 mapCtx.beginPath();
                 mapCtx.arc(p.x - halfDim, p.y - halfDim, dotRadius, 0, Math.PI * 2);
                 let pColor = '#888888';
-                if (p.owner === 'player') pColor = '#32cd32';
-                else if (p.owner.startsWith('rival_')) pColor = '#ff4500';
+                if (p.owner === myEmpireId) pColor = '#32cd32';
+                else if (isForeignOwner(p.owner)) pColor = '#ff4500';
                 else if (p.explored) pColor = p.hab > 0 ? '#4fc3f7' : '#8b3a3a';
 
                 mapCtx.fillStyle = pColor;
@@ -5643,7 +6134,7 @@
             const legend = [
                 ['#32cd32', 'Your world'],
                 ['#ffd700', 'Station or starbase with ship dock'],
-                ['#ff4500', 'Rival homeworld'],
+                ['#ff4500', 'Rival world'],
                 ['#4fc3f7', 'Habitable'],
                 ['#8b3a3a', 'Hostile'],
                 ['#888888', 'Unscanned'],
@@ -5970,7 +6461,7 @@
         }
 
         function updatePlanetMenu(p) {
-            const owned = p.owner === 'player';
+            const owned = p.owner === myEmpireId;
             const showStructures = owned;
             const showShips = planetHasDock(p);
             const kind = owned ? installationKind(p) : null;
@@ -6000,12 +6491,9 @@
             document.getElementById('summary-starbase').innerText = known ? (p.hasStarbase ? starbaseLabel(p) : 'No') : '?';
 
             let ownerText;
-            if (p.owner === 'player') ownerText = 'Owned';
+            if (p.owner === myEmpireId) ownerText = 'Owned';
             else if (p.owner === 'neutral') ownerText = known ? 'Neutral / Unclaimed' : 'Unscanned';
-            else {
-                const rival = aiRivals.find(r => r.id === p.owner);
-                ownerText = rival ? rival.name : 'AI Opponent Empire';
-            }
+            else ownerText = ownerDisplayName(p.owner);
             document.getElementById('summary-owner').innerText = ownerText;
 
             const habEl = document.getElementById('summary-hab-score');
@@ -6048,14 +6536,14 @@
                 actionBox.style.display = 'none';
             }
 
-            document.getElementById('queue-panel').style.display = p.owner === 'player' ? 'flex' : 'none';
+            document.getElementById('queue-panel').style.display = p.owner === myEmpireId ? 'flex' : 'none';
 
             const scanDist = nearestScannerDistance(p);
             const msgEl = document.getElementById('summary-unexplored-msg');
             if (!known) {
                 msgEl.style.display = 'block';
                 msgEl.innerText = `System unexplored. Nearest scanner is ${Math.round(scanDist)} ly away (range ${range} ly). Move a scout within range to reveal ore deposits and habitability.`;
-            } else if (p.owner !== 'player' && scanDist > range && !orbitedByFleet(p)) {
+            } else if (p.owner !== myEmpireId && scanDist > range && !orbitedByFleet(p)) {
                 msgEl.style.display = 'block';
                 msgEl.innerText = `Survey data from year ${p.lastScan || currentYear}. Out of scanner range; current values may differ.`;
             } else {
@@ -6092,43 +6580,41 @@
             updateDashboardPlanetView();
         });
 
-        function calculateScores() {
-            const empires = [];
-
-            const playerPlanets = planets.filter(p => p.owner === 'player');
-            const playerStarbases = playerPlanets.filter(p => p.hasStarbase).length;
+        function humanEmpireStats(e) {
+            const live = e.id === myEmpireId;
+            const fleets = live ? playerFleets : (e.fleets || []);
+            const tech = live ? getTechLevels() : e.tech;
+            const owned = planets.filter(p => p.owner === e.id);
             const allShips = [];
-            playerFleets.forEach(f => f.ships.forEach(s => allShips.push(s)));
-            const playerUnarmed = allShips.filter(s => s.type === 'Scout' || s.type === 'Colony Ship' || s.type === 'Small Freighter' || s.type === 'Buoy').reduce((sum, s) => sum + s.count, 0);
-            const playerEscorts = allShips.filter(s => s.type === 'Destroyer' || s.type === 'Frigate').reduce((sum, s) => sum + s.count, 0);
-            const playerCapitals = allShips.filter(s => s.type === 'Cruiser' || s.type === 'Battleship').reduce((sum, s) => sum + s.count, 0);
-            const playerTechLevels = (techEnergy + techWeapons + techPropulsion + techConstruction + techElectronics + techBiotechnology) - 6;
-            const playerResources = empireEconomy().total;
-            const playerOre = playerPlanets.reduce((sum, p) => sum + p.iron + p.bora + p.germ, 0) + playerFleets.reduce((sum, f) => sum + f.cargo.iron + f.cargo.bora + f.cargo.germ, 0);
+            fleets.forEach(f => f.ships.forEach(sh => allShips.push(sh)));
+            const sumOf = types => allShips.filter(sh => types.indexOf(sh.type) !== -1).reduce((sum, sh) => sum + sh.count, 0);
+            const unarmed = sumOf(['Scout', 'Colony Ship', 'Small Freighter', 'Buoy']);
+            const escorts = sumOf(['Destroyer', 'Frigate']);
+            const capitals = sumOf(['Cruiser', 'Battleship']);
+            const starbases = owned.filter(p => p.hasStarbase).length;
+            const techSum = TECH_KEYS.reduce((sum, k) => sum + (tech[k] || 1), 0) - TECH_KEYS.length;
+            const resources = owned.reduce((sum, p) => sum + planetResources(p).total, 0);
+            const ore = owned.reduce((sum, p) => sum + p.iron + p.bora + p.germ, 0) + fleets.reduce((sum, f) => sum + f.cargo.iron + f.cargo.bora + f.cargo.germ, 0);
+            const score = (owned.length * 100) + (starbases * 150) + (unarmed * 20) + (escorts * 50) + (capitals * 200) + (techSum * 30) + Math.floor(resources * 5) + Math.floor(ore / 50);
+            return {
+                id: e.id,
+                name: live ? empireName : e.name,
+                isPlayer: live,
+                isHuman: true,
+                planets: owned.length,
+                starbases: starbases,
+                unarmed: unarmed,
+                escorts: escorts,
+                capitals: capitals,
+                tech: techSum,
+                fieldLevels: TECH_KEYS.map(k => tech[k] || 1),
+                resources: resources,
+                score: score
+            };
+        }
 
-            const playerTotalScore = (playerPlanets.length * 100) +
-                                   (playerStarbases * 150) +
-                                   (playerUnarmed * 20) +
-                                   (playerEscorts * 50) +
-                                   (playerCapitals * 200) +
-                                   (playerTechLevels * 30) +
-                                   Math.floor(playerResources * 5) +
-                                   Math.floor(playerOre / 50);
-
-            empires.push({
-                id: 'player',
-                name: empireName,
-                isPlayer: true,
-                planets: playerPlanets.length,
-                starbases: playerStarbases,
-                unarmed: playerUnarmed,
-                escorts: playerEscorts,
-                capitals: playerCapitals,
-                tech: playerTechLevels,
-                fieldLevels: TECH_KEYS.map(k => getTechLevels()[k]),
-                resources: playerResources,
-                score: playerTotalScore
-            });
+        function calculateScores() {
+            const ranked = empires.map(humanEmpireStats);
 
             aiRivals.forEach(rival => {
                 const rivalPlanets = planets.filter(p => p.owner === rival.id);
@@ -6150,10 +6636,11 @@
                                  Math.floor(rivalOre / 50);
 
                 const rivalField = Math.max(1, Math.round(rivalTech / 6));
-                empires.push({
+                ranked.push({
                     id: rival.id,
                     name: rival.name,
                     isPlayer: false,
+                    isHuman: false,
                     planets: rivalPlanets.length,
                     starbases: rivalStarbases,
                     unarmed: rivalUnarmed,
@@ -6166,20 +6653,20 @@
                 });
             });
 
-            empires.sort((a, b) => b.score - a.score);
-            empires.forEach((emp, index) => { emp.rank = index + 1; });
+            ranked.sort((a, b) => b.score - a.score);
+            ranked.forEach((emp, index) => { emp.rank = index + 1; });
 
-            return empires;
+            return ranked;
         }
 
         function openScoreboardModal() {
-            const empires = calculateScores();
+            const ranked = calculateScores();
             const tbody = document.getElementById('scoreboard-tbody');
             tbody.innerHTML = '';
             document.getElementById('scoreboard-victory').innerText = victorySummaryText(gameVictory) + (victoryDeclared ? ' A winner has already been declared.' : '');
 
             const cell = 'padding: 8px; border-bottom: 1px solid #332244; text-align: center;';
-            empires.forEach(emp => {
+            ranked.forEach(emp => {
                 const tr = document.createElement('tr');
                 if (emp.isPlayer) {
                     tr.style.backgroundColor = 'rgba(181, 21, 181, 0.18)';
@@ -6217,17 +6704,17 @@
             if (n === 0 || victoryDeclared) return null;
             const elapsed = currentYear - START_YEAR;
             if (elapsed < v.minYears) return null;
-            const empires = calculateScores();
+            const ranked = calculateScores();
             const need = Math.min(v.required, n);
             const winners = [];
-            empires.forEach(emp => {
+            ranked.forEach(emp => {
                 let met = 0;
                 if (v.planets.on && planets.length && emp.planets / planets.length * 100 >= v.planets.pct) met++;
                 if (v.tech.on && emp.fieldLevels.filter(l => l >= v.tech.level).length >= v.tech.fields) met++;
                 if (v.score.on && emp.score >= v.score.value) met++;
-                if (v.lead.on && emp.id === empires[0].id && (empires.length < 2 || emp.score >= empires[1].score * (1 + v.lead.pct / 100))) met++;
+                if (v.lead.on && emp.id === ranked[0].id && (ranked.length < 2 || emp.score >= ranked[1].score * (1 + v.lead.pct / 100))) met++;
                 if (v.capitals.on && emp.capitals >= v.capitals.count) met++;
-                if (v.highest.on && elapsed >= v.highest.years && emp.id === empires[0].id) met++;
+                if (v.highest.on && elapsed >= v.highest.years && emp.id === ranked[0].id) met++;
                 if (met >= need) winners.push(emp);
             });
             if (!winners.length) return null;
@@ -6261,7 +6748,7 @@
             const notes = [];
             if (gameOptions.noEvents) return notes;
             if (Math.random() > 0.12) return notes;
-            const owned = planets.filter(p => p.owner === 'player');
+            const owned = planets.filter(p => p.owner === myEmpireId);
             if (!owned.length) return notes;
             const p = owned[Math.floor(Math.random() * owned.length)];
             const roll = Math.random();
@@ -6303,10 +6790,9 @@
             return notes;
         }
 
-        document.getElementById('btn-end-turn').addEventListener('click', () => {
-            currentYear++;
-            document.getElementById('lbl-year').innerText = currentYear;
-            document.getElementById('tr-year').innerText = currentYear;
+        function processEmpireTurn() {
+            empireTurnActive = true;
+            const reportYear = currentYear + 1;
 
             const fleetNotes = [];
             processFleets(fleetNotes);
@@ -6318,7 +6804,7 @@
 
             const mined = emptyStore();
             planets.forEach(p => {
-                if (p.owner === 'player') {
+                if (p.owner === myEmpireId) {
                     const before = { iron: p.iron, bora: p.bora, germ: p.germ };
                     mineMinerals(p);
                     ORE_KEYS.forEach(k => { mined[k] += p[k] - before[k]; });
@@ -6336,23 +6822,12 @@
             const techNotes = advanceResearch(eco.research);
             techNotes.forEach(n => logEvent(n));
 
-            const allianceNotes = processAiAlliances();
-            allianceNotes.forEach(n => logEvent(n));
-
-            aiRivals.forEach(rival => {
-                const mods = getIntelligenceMods(rival.difficulty);
-                const allyBonus = rival.allies && rival.allies.length ? 1.1 : 1;
-                const income = planets
-                    .filter(p => p.owner === rival.id)
-                    .reduce((sum, p) => sum + planetResources(p).total, 0);
-                rival.bankedResources = (rival.bankedResources || 500) + Math.floor(income * mods.resourceMult * allyBonus);
-            });
-
             updateDiscovery(true);
+            empireTurnActive = false;
 
             const builtKeys = Object.keys(stats.built);
             const builtText = builtKeys.length ? builtKeys.map(k => stats.built[k] + ' ' + k).join(', ') : 'nothing completed';
-            let reportHtml = `<div><b>Year ${currentYear} Report:</b></div>`;
+            let reportHtml = `<div><b>Year ${reportYear} Report:</b></div>`;
             if (fleetNotes.length) {
                 reportHtml += `<div>• <b style="color:#00ffff;">Fleets:</b></div>`;
                 fleetNotes.forEach(n => {
@@ -6364,7 +6839,7 @@
             reportHtml += `<div>• <b>Manufacturing:</b> ${stats.manufacturing.toFixed(1)} Resources available, ${(stats.manufacturing - stats.unspent).toFixed(1)} spent, ${stats.unspent.toFixed(1)} unspent and lost</div>`;
             reportHtml += `<div>• <b>Built:</b> ${escapeHtml(builtText)}</div>`;
             reportHtml += `<div>• <b>Ore mined:</b> <span class="text-iron">Ironium</span> ${mined.iron} kT, <span class="text-bora">Boranium</span> ${mined.bora} kT, <span class="text-germ">Germanium</span> ${mined.germ} kT</div>`;
-            eventNotes.concat(allianceNotes).forEach(n => {
+            eventNotes.forEach(n => {
                 reportHtml += `<div style="color:#ffd700;">• Event: ${escapeHtml(n)}</div>`;
             });
             stats.stalls.forEach(s => {
@@ -6373,15 +6848,68 @@
             if (stats.unspent > 0.5) {
                 reportHtml += `<div style="color:#ffaa00;">• Unused manufacturing Resources are wasted. Add items to your build queues.</div>`;
             }
-            reportHtml += `<div>• Population and AI empires advanced.</div>`;
-            document.getElementById('turn-report-body').innerHTML = reportHtml;
+            return { year: reportYear, html: reportHtml };
+        }
 
+        function processRoundEnd() {
+            currentYear++;
+            const notes = processAiAlliances();
+            aiRivals.forEach(rival => {
+                const mods = getIntelligenceMods(rival.difficulty);
+                const allyBonus = rival.allies && rival.allies.length ? 1.1 : 1;
+                const income = planets
+                    .filter(p => p.owner === rival.id)
+                    .reduce((sum, p) => sum + planetResources(p).total, 0);
+                rival.bankedResources = (rival.bankedResources || 500) + Math.floor(income * mods.resourceMult * allyBonus);
+            });
+            notes.forEach(n => logToAllEmpires(n));
+            return { notes: notes, winner: evaluateVictory() };
+        }
+
+        function closesRound() {
+            return activeEmpireIndex >= empires.length - 1;
+        }
+
+        function runEndTurn() {
+            let rep;
+            try {
+                rep = processEmpireTurn();
+            } finally {
+                empireTurnActive = false;
+            }
+            let html = rep.html;
+            let winner = null;
+            const roundClosed = closesRound();
+            if (roundClosed) {
+                const round = processRoundEnd();
+                round.notes.forEach(n => {
+                    html += `<div style="color:#ffd700;">• Event: ${escapeHtml(n)}</div>`;
+                });
+                html += `<div>• Population and AI empires advanced.</div>`;
+                winner = round.winner;
+            } else {
+                html += `<div>• Your empire has advanced to ${rep.year}. The year changes for the whole galaxy once every human empire has ended its turn.</div>`;
+            }
+            lastTurnReport = html;
+            const e = empires[activeEmpireIndex];
+            if (e) e.reportYear = rep.year;
+            storeActiveEmpire();
+            return { year: rep.year, html: html, roundClosed: roundClosed, winner: winner };
+        }
+
+        function showTurnReport(year, html) {
+            document.getElementById('tr-year').innerText = year;
+            document.getElementById('turn-report-body').innerHTML = html;
             document.getElementById('turn-report-modal').classList.add('active');
+        }
+
+        document.getElementById('btn-end-turn').addEventListener('click', () => {
+            const result = runEndTurn();
+            document.getElementById('lbl-year').innerText = result.year;
+            showTurnReport(result.year, result.html);
             if (document.getElementById('waypoint-modal').classList.contains('active')) renderWaypointModal();
             updateDashboardPlanetView();
-
-            const winner = evaluateVictory();
-            if (winner) declareVictory(winner);
+            if (result.winner) declareVictory(result.winner);
         });
 
         document.getElementById('btn-close-turn-report').addEventListener('click', () => {
@@ -6817,6 +7345,387 @@
             reader.readAsText(file);
             e.target.value = '';
         });
+
+        const MP_CONFIG = {
+            url: 'https://puiypjgnbqddudbfghuy.supabase.co',
+            key: 'sb_publishable_pZ8n4b_NPT8ls1L5Ot-Row_ToI6v0Be',
+            siteUrl: 'https://ianmcgo.github.io/FreeSpace-4X/'
+        };
+        const USERNAME_RE = /^[A-Za-z0-9_-]{3,20}$/;
+        const MIN_PASSWORD = 6;
+        let sb = null;
+        let mpSession = null;
+        let mpProfile = null;
+        let mpBusy = false;
+
+        function mpClient() {
+            if (sb) return sb;
+            if (!window.supabase || typeof window.supabase.createClient !== 'function') return null;
+            try {
+                sb = window.supabase.createClient(MP_CONFIG.url, MP_CONFIG.key, {
+                    auth: {
+                        flowType: 'implicit',
+                        persistSession: true,
+                        autoRefreshToken: true,
+                        detectSessionInUrl: true,
+                        storageKey: 'freespace4x_auth'
+                    }
+                });
+            } catch (e) {
+                sb = null;
+                return null;
+            }
+            sb.auth.onAuthStateChange((event, session) => {
+                mpSession = session;
+                if (event === 'PASSWORD_RECOVERY') {
+                    setTimeout(() => mpShowReset(session), 0);
+                } else if (event === 'SIGNED_OUT') {
+                    mpProfile = null;
+                }
+            });
+            return sb;
+        }
+
+        function mpRedirectUrl() {
+            if (location.protocol === 'https:' || location.protocol === 'http:') return location.origin + location.pathname;
+            return MP_CONFIG.siteUrl;
+        }
+
+        function mpSetStatus(id, text, kind) {
+            const el = document.getElementById(id);
+            el.textContent = text || '';
+            el.className = 'mp-status' + (kind ? ' ' + kind : '');
+        }
+
+        function mpSetBusy(on, btnIds) {
+            mpBusy = on;
+            (btnIds || []).forEach(id => {
+                const b = document.getElementById(id);
+                if (b) b.disabled = on;
+            });
+        }
+
+        function mpErrorText(err) {
+            const msg = String((err && (err.message || err.error_description || err.msg)) || err || 'Unknown error');
+            const code = err && (err.code || err.error_code);
+            if (/invalid login credentials/i.test(msg)) return 'That email and password do not match an account.';
+            if (/already registered|already exists|user_already_exists/i.test(msg) || code === 'user_already_exists') return 'An account with that email already exists. Sign in instead, or use Forgot password.';
+            if (/email not confirmed/i.test(msg)) return 'This account has not been confirmed. Turn off "Confirm email" in the Supabase Auth settings, or confirm the account from its email.';
+            if (/rate limit|too many/i.test(msg)) return 'Too many attempts. Wait a minute and try again.';
+            if (/password should be at least|weak password/i.test(msg)) return 'That password is too short or too weak. Use at least ' + MIN_PASSWORD + ' characters.';
+            if (/failed to fetch|network|load failed/i.test(msg)) return 'Could not reach the multiplayer server. Check your internet connection.';
+            if (/profiles|relation .* does not exist|PGRST20|schema cache|could not find the function/i.test(msg) || code === 'PGRST202' || code === 'PGRST205' || code === '42P01') return 'The multiplayer database is not set up yet (run 01_accounts.sql in the Supabase SQL Editor).';
+            if (/invalid email|unable to validate email/i.test(msg)) return 'That email address does not look right.';
+            return msg;
+        }
+
+        async function mpLoadProfile() {
+            const user = mpSession && mpSession.user;
+            if (!user) return null;
+            const res = await sb.from('profiles').select('username').eq('id', user.id).maybeSingle();
+            if (res.error) throw res.error;
+            if (!res.data) throw { message: 'Your account has no player profile yet (run 01_accounts.sql in the Supabase SQL Editor).' };
+            mpProfile = { id: user.id, email: user.email || '', username: res.data.username };
+            return mpProfile;
+        }
+
+        function mpShowTab(which) {
+            const reg = which === 'register';
+            document.getElementById('mp-tab-signin').classList.toggle('on', !reg);
+            document.getElementById('mp-tab-register').classList.toggle('on', reg);
+            document.getElementById('mp-form-signin').style.display = reg ? 'none' : 'block';
+            document.getElementById('mp-form-register').style.display = reg ? 'block' : 'none';
+            mpSetStatus('mp-signin-status', '');
+            mpSetStatus('mp-reg-status', '');
+            setTimeout(() => document.getElementById(reg ? 'mp-reg-username' : 'mp-signin-email').focus(), 0);
+        }
+
+        function mpShowAuth(tab) {
+            showView('view-mp-auth');
+            mpShowTab(tab || 'signin');
+        }
+
+        function mpShowLobby() {
+            if (!mpProfile) return;
+            document.getElementById('mp-lobby-username').textContent = mpProfile.username;
+            document.getElementById('mp-lobby-email').textContent = mpProfile.email;
+            document.getElementById('mp-rename-form').classList.remove('open');
+            mpSetStatus('mp-lobby-status', '');
+            showView('view-mp-lobby');
+        }
+
+        function mpShowReset(session) {
+            const user = session && session.user;
+            document.getElementById('mp-reset-email').textContent = user && user.email ? user.email : 'your account';
+            document.getElementById('mp-reset-password').value = '';
+            document.getElementById('mp-reset-password2').value = '';
+            mpSetStatus('mp-reset-status', '');
+            showView('view-mp-reset');
+        }
+
+        function mpClearUrlTokens() {
+            if (location.hash && /access_token|type=recovery|error/.test(location.hash)) {
+                history.replaceState(null, '', location.pathname + location.search);
+            }
+        }
+
+        async function openMultiplayer() {
+            const client = mpClient();
+            if (!client) {
+                gameAlert('Multiplayer needs an internet connection. The online library could not be loaded, so only single player games are available right now.', 'Multiplayer Unavailable');
+                return;
+            }
+            if (mpBusy) return;
+            mpSetBusy(true, ['btn-multiplayer']);
+            try {
+                const res = await client.auth.getSession();
+                mpSession = res.data ? res.data.session : null;
+                if (!mpSession) {
+                    mpShowAuth('signin');
+                    return;
+                }
+                await mpLoadProfile();
+                mpShowLobby();
+            } catch (err) {
+                mpShowAuth('signin');
+                mpSetStatus('mp-signin-status', mpErrorText(err), 'error');
+            } finally {
+                mpSetBusy(false, ['btn-multiplayer']);
+            }
+        }
+
+        async function mpSignIn(e) {
+            e.preventDefault();
+            if (mpBusy || !mpClient()) return;
+            const email = document.getElementById('mp-signin-email').value.trim();
+            const password = document.getElementById('mp-signin-password').value;
+            if (!email || !password) {
+                mpSetStatus('mp-signin-status', 'Enter your email and password.', 'error');
+                return;
+            }
+            mpSetBusy(true, ['mp-signin-btn']);
+            mpSetStatus('mp-signin-status', 'Signing in...');
+            try {
+                const res = await sb.auth.signInWithPassword({ email: email, password: password });
+                if (res.error) throw res.error;
+                mpSession = res.data.session;
+                await mpLoadProfile();
+                document.getElementById('mp-signin-password').value = '';
+                mpShowLobby();
+            } catch (err) {
+                mpSetStatus('mp-signin-status', mpErrorText(err), 'error');
+            } finally {
+                mpSetBusy(false, ['mp-signin-btn']);
+            }
+        }
+
+        async function mpRegister(e) {
+            e.preventDefault();
+            if (mpBusy || !mpClient()) return;
+            const username = document.getElementById('mp-reg-username').value.trim();
+            const email = document.getElementById('mp-reg-email').value.trim();
+            const password = document.getElementById('mp-reg-password').value;
+            const password2 = document.getElementById('mp-reg-password2').value;
+            if (!USERNAME_RE.test(username)) {
+                mpSetStatus('mp-reg-status', 'Usernames are 3 to 20 characters: letters, numbers, - or _ (no spaces).', 'error');
+                return;
+            }
+            if (!email) {
+                mpSetStatus('mp-reg-status', 'Enter your email address.', 'error');
+                return;
+            }
+            if (password.length < MIN_PASSWORD) {
+                mpSetStatus('mp-reg-status', 'Passwords need at least ' + MIN_PASSWORD + ' characters.', 'error');
+                return;
+            }
+            if (password !== password2) {
+                mpSetStatus('mp-reg-status', 'The two passwords do not match.', 'error');
+                return;
+            }
+            mpSetBusy(true, ['mp-reg-btn']);
+            mpSetStatus('mp-reg-status', 'Checking username...');
+            try {
+                const avail = await sb.rpc('username_available', { name: username });
+                if (avail.error) throw avail.error;
+                if (avail.data === false) {
+                    mpSetStatus('mp-reg-status', 'The username "' + username + '" is already taken. Try another.', 'error');
+                    return;
+                }
+                mpSetStatus('mp-reg-status', 'Creating your account...');
+                const res = await sb.auth.signUp({ email: email, password: password, options: { data: { username: username }, emailRedirectTo: mpRedirectUrl() } });
+                if (res.error) throw res.error;
+                if (!res.data.session) {
+                    if (res.data.user && Array.isArray(res.data.user.identities) && res.data.user.identities.length === 0) {
+                        throw { message: 'User already registered' };
+                    }
+                    mpSetStatus('mp-reg-status', 'Account created, but Supabase is still asking for email confirmation. Check your inbox, or turn off "Confirm email" in the Supabase Auth settings.', 'error');
+                    return;
+                }
+                mpSession = res.data.session;
+                await mpLoadProfile();
+                document.getElementById('mp-reg-password').value = '';
+                document.getElementById('mp-reg-password2').value = '';
+                mpShowLobby();
+                if (mpProfile.username !== username) {
+                    mpSetStatus('mp-lobby-status', 'Someone took "' + username + '" a moment before you, so your username is ' + mpProfile.username + '. You can change it here.', 'error');
+                } else {
+                    mpSetStatus('mp-lobby-status', 'Welcome, ' + mpProfile.username + '! Your account is ready.', 'ok');
+                }
+            } catch (err) {
+                mpSetStatus('mp-reg-status', mpErrorText(err), 'error');
+            } finally {
+                mpSetBusy(false, ['mp-reg-btn']);
+            }
+        }
+
+        function mpForgotPassword() {
+            if (!mpClient()) return;
+            const typed = document.getElementById('mp-signin-email').value.trim();
+            gameDialog({
+                title: 'Forgot Password',
+                html: '<div style="margin-bottom: 10px;">Enter the email you registered with. We will send a link that lets you choose a new password.</div>' +
+                    '<input type="email" id="mp-forgot-email" autocomplete="email" value="' + escapeHtml(typed) + '">',
+                okLabel: 'Send Reset Email',
+                onOk: async () => {
+                    const email = (document.getElementById('mp-forgot-email').value || '').trim();
+                    if (!email) {
+                        mpSetStatus('mp-signin-status', 'Enter an email address to reset a password.', 'error');
+                        return;
+                    }
+                    mpSetStatus('mp-signin-status', 'Sending reset email...');
+                    try {
+                        const res = await sb.auth.resetPasswordForEmail(email, { redirectTo: mpRedirectUrl() });
+                        if (res.error) throw res.error;
+                        mpSetStatus('mp-signin-status', 'If an account exists for ' + email + ', a password reset email is on its way. Open the link in it on this device.', 'ok');
+                    } catch (err) {
+                        mpSetStatus('mp-signin-status', mpErrorText(err), 'error');
+                    }
+                }
+            });
+            setTimeout(() => {
+                const el = document.getElementById('mp-forgot-email');
+                if (el) el.focus();
+            }, 0);
+        }
+
+        async function mpSaveNewPassword(e) {
+            e.preventDefault();
+            if (mpBusy || !mpClient()) return;
+            const p1 = document.getElementById('mp-reset-password').value;
+            const p2 = document.getElementById('mp-reset-password2').value;
+            if (p1.length < MIN_PASSWORD) {
+                mpSetStatus('mp-reset-status', 'Passwords need at least ' + MIN_PASSWORD + ' characters.', 'error');
+                return;
+            }
+            if (p1 !== p2) {
+                mpSetStatus('mp-reset-status', 'The two passwords do not match.', 'error');
+                return;
+            }
+            mpSetBusy(true, ['mp-reset-btn']);
+            mpSetStatus('mp-reset-status', 'Saving...');
+            try {
+                const res = await sb.auth.updateUser({ password: p1 });
+                if (res.error) throw res.error;
+                mpClearUrlTokens();
+                const s = await sb.auth.getSession();
+                mpSession = s.data ? s.data.session : mpSession;
+                await mpLoadProfile();
+                mpShowLobby();
+                mpSetStatus('mp-lobby-status', 'Your password has been changed.', 'ok');
+            } catch (err) {
+                mpSetStatus('mp-reset-status', mpErrorText(err), 'error');
+            } finally {
+                mpSetBusy(false, ['mp-reset-btn']);
+            }
+        }
+
+        async function mpSignOut() {
+            if (!mpClient()) return;
+            try {
+                await sb.auth.signOut();
+            } catch (err) {}
+            mpSession = null;
+            mpProfile = null;
+            showView('view-title');
+        }
+
+        function mpOpenRename() {
+            const form = document.getElementById('mp-rename-form');
+            const input = document.getElementById('mp-rename-input');
+            input.value = mpProfile ? mpProfile.username : '';
+            form.classList.add('open');
+            mpSetStatus('mp-lobby-status', '3 to 20 letters, numbers, - or _. The new name shows everywhere, including games you are already in.');
+            setTimeout(() => {
+                input.focus();
+                input.select();
+            }, 0);
+        }
+
+        async function mpSaveRename(e) {
+            e.preventDefault();
+            if (mpBusy || !mpClient() || !mpProfile) return;
+            const wanted = document.getElementById('mp-rename-input').value.trim();
+            if (wanted === mpProfile.username) {
+                document.getElementById('mp-rename-form').classList.remove('open');
+                mpSetStatus('mp-lobby-status', '');
+                return;
+            }
+            if (!USERNAME_RE.test(wanted)) {
+                mpSetStatus('mp-lobby-status', 'Usernames are 3 to 20 characters: letters, numbers, - or _ (no spaces).', 'error');
+                return;
+            }
+            mpSetBusy(true, ['mp-rename-save']);
+            mpSetStatus('mp-lobby-status', 'Saving...');
+            try {
+                const res = await sb.rpc('set_username', { new_name: wanted });
+                if (res.error) throw res.error;
+                const r = res.data || {};
+                if (!r.ok) {
+                    const why = r.error === 'taken' ? 'The username "' + wanted + '" is already taken.'
+                        : r.error === 'format' ? 'Usernames are 3 to 20 characters: letters, numbers, - or _ (no spaces).'
+                        : r.error === 'not_signed_in' ? 'You have been signed out. Sign in again.'
+                        : 'Could not change your username.';
+                    mpSetStatus('mp-lobby-status', why, 'error');
+                    return;
+                }
+                mpProfile.username = r.username;
+                document.getElementById('mp-lobby-username').textContent = r.username;
+                document.getElementById('mp-rename-form').classList.remove('open');
+                mpSetStatus('mp-lobby-status', 'Your username is now ' + r.username + '.', 'ok');
+            } catch (err) {
+                mpSetStatus('mp-lobby-status', mpErrorText(err), 'error');
+            } finally {
+                mpSetBusy(false, ['mp-rename-save']);
+            }
+        }
+
+        function mpComingSoon(what) {
+            gameAlert(what + ' arrives in the next multiplayer update. Your account is ready, so you will be able to use it straight away.', 'Coming Soon');
+        }
+
+        document.getElementById('btn-multiplayer').addEventListener('click', openMultiplayer);
+        document.getElementById('mp-tab-signin').addEventListener('click', () => mpShowTab('signin'));
+        document.getElementById('mp-tab-register').addEventListener('click', () => mpShowTab('register'));
+        document.getElementById('mp-form-signin').addEventListener('submit', mpSignIn);
+        document.getElementById('mp-form-register').addEventListener('submit', mpRegister);
+        document.getElementById('mp-forgot').addEventListener('click', mpForgotPassword);
+        document.getElementById('mp-form-reset').addEventListener('submit', mpSaveNewPassword);
+        document.getElementById('mp-reset-cancel').addEventListener('click', () => {
+            mpClearUrlTokens();
+            showView('view-title');
+        });
+        document.getElementById('mp-signout').addEventListener('click', mpSignOut);
+        document.getElementById('mp-rename-open').addEventListener('click', mpOpenRename);
+        document.getElementById('mp-rename-cancel').addEventListener('click', () => {
+            document.getElementById('mp-rename-form').classList.remove('open');
+            mpSetStatus('mp-lobby-status', '');
+        });
+        document.getElementById('mp-rename-form').addEventListener('submit', mpSaveRename);
+        document.getElementById('mp-create-game').addEventListener('click', () => mpComingSoon('Creating a multiplayer game'));
+        document.getElementById('mp-join-game').addEventListener('click', () => mpComingSoon('Joining a multiplayer game'));
+        document.getElementById('mp-my-games').addEventListener('click', () => mpComingSoon('My Games'));
+
+        mpClient();
 
         refreshRaceSelects();
 
