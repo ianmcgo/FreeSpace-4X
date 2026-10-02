@@ -6931,12 +6931,17 @@ const DEFENDERS_PER_POP=100;
             return out;
         }
 
-        function etaText(sim, item) {
+        function etaText(sim, item, p) {
             if (item.auto) {
                 if (sim.atLimit) return 'at its limit';
                 return sim.done ? 'reaches its limit in ' + sim.done + (sim.done === 1 ? ' year' : ' years') : 'not at its limit within ' + SIM_TURNS + ' years';
             }
-            if (!sim.done) return 'not finished within ' + SIM_TURNS + ' years';
+            if (!sim.done) {
+                const pct = queueItemPercent(item);
+                const turns = itemTurns(p, item);
+                const remaining = Math.ceil(turns * (100 - pct) / 100);
+                return pct + '% done, ~' + remaining + ' more ' + (remaining === 1 ? 'turn' : 'turns');
+            }
             const all = sim.done === 1 ? 'finishes at End Turn' : 'done in ' + sim.done + ' years';
             if (item.quantity > 1 && sim.first && sim.first < sim.done) return 'first unit in ' + sim.first + (sim.first === 1 ? ' year' : ' years') + ', all ' + all;
             return all;
@@ -6958,7 +6963,7 @@ const DEFENDERS_PER_POP=100;
             return `<div class="q-row" draggable="true" data-i="${i}">
                 <div class="q-line"><span class="q-grip" title="Drag to reorder">&#8942;&#8942;</span><b>${escapeHtml(itemLabel(item))}</b> ${count} ${tag}${showPercent ? ' <span class="q-pct">(' + queueItemPercent(item) + '% of next unit)</span>' : ''}</div>
                 <div class="q-sub">Each: ${costTextFor(c)}</div>
-                <div class="q-sub q-eta">${etaText(sim, item)}</div>
+                <div class="q-sub q-eta">${etaText(sim, item, p)}</div>
                 ${waiting.length ? `<div class="q-warn">Short of ${waiting.join(', ')}</div>` : ''}
                 <div class="q-btns">
                     ${btn('up', '&#9650;', 'Move up', i === 0 ? ' disabled' : '')}
