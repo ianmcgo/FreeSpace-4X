@@ -2104,7 +2104,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.52.0 (Updated: October 03, 2026 06:40 AM)</div>
+            <div class="version-text">Version 0.53.0 (Updated: October 03, 2026 07:05 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -3183,7 +3183,7 @@
         <div class="modal-content" style="max-width: 560px;">
             <h2 class="screen-header" style="color: #32cd32;">🤝 Diplomacy</h2>
             <div id="dip-body"></div>
-            <div style="font-size:11px;color:#aaa;margin-top:8px;line-height:1.5;">Your stance toward each empire is your own decision and the others are not told. <b>Friend:</b> you never attack them, your minefields do not hit them, they refuel at your docks and may use your stargates. <b>Neutral:</b> attacked only by battle plans set to Neutrals &amp; Enemies or Everyone; patrols leave them alone. <b>Enemy:</b> attacked by every battle plan and by patrols. Changes count from the next year played out.</div>
+            <div style="font-size:11px;color:#aaa;margin-top:8px;line-height:1.5;">Everyone starts neutral. <b>Neutral:</b> ask for an alliance or declare war. <b>Allied:</b> break the alliance (both become neutral) or declare war. <b>At War:</b> request a stand down (both become neutral if accepted). Orders happen when the year is played out; a war starts the year after. Only empires at war fight each other.</div>
             <div style="display: flex; gap: 8px; margin-top: 12px;">
                 <button class="nav-button btn-primary" id="btn-dip-close" style="flex: 1;">Close</button>
             </div>
@@ -3287,7 +3287,7 @@
                 <p><b style="color:#da70d6;">Ship Design Files</b><br>The Ship Designer can save designs to your device and load them into another game. <b>Download This Design</b> saves the selected saved design and <b>Download All Designs</b> saves every active one, as a .json file holding each design's name, hull, parts slot by slot, mass and cost. <b>Upload Designs</b> reads such a file. Every design in it is checked against this game: the hull and every part must be unlocked by your current technology, allowed for your race's traits, and (for Mystery Trader items) owned, and the design must be complete (engines, matching engine types, parts in slots that take them). Designs that pass are added with a new name if the name is already taken. Designs you cannot build are refused, and a window lists each one with what is missing, for example the tech level needed and the level you have. A design is only added while you have fewer than 16 active designs.</p>
                 <p><b style="color:#da70d6;">Automation Files</b><br>Your standing orders can move between games. <b>Export Automation</b> (in Settings, or in the Autobuild window) saves a .json file with your Autobuild rules and switch, your custom zip orders, your battle plans, your research budget and next-field choice, and the Missing-Order Warning setting. <b>Import Automation</b> reads such a file and lets you tick which of these to replace in the current game; everything else stays as it is. Fleets that used a battle plan that is not in the imported list go back to Default.</p>
                 <p><b style="color:#da70d6;">Fleet Management and Naming Ships</b><br><b>Fleet, Manage Ships and Names</b> lists each ship in the selected fleet. Rename the fleet or any single ship, select ships and <b>Split</b> them into a new fleet, <b>Scrap</b> them (see Scrapping), or retrofit them at a Fleet Yard. Damaged ships show their damage percent. Fuel is shared by the whole fleet and is burned for the whole fleet mass.</p>
-                <p><b style="color:#da70d6;">Combat</b><br>Combat happens every year after all fleets of every empire have moved, wherever fleets of empires that are hostile to each other share a location or come within <b>5 light years</b> (an armed fleet that ends its move within 5 light years of an enemy fleet, or whose path for the year passed within 5 light years of where an enemy fleet ended up, or an armed fleet that stayed put while an enemy ended or passed within 5 light years of it; jump gates and wormholes leave no path), or a fleet sits at an enemy world with defenses or an armed starbase. It is fought on a 10 by 10 battle board for up to 16 rounds. Each fleet becomes tokens, one per ship design, holding all its ships of that design; shields of a token are one pooled stack. Every round has three parts: (1) every token picks a target from its battle plan, (2) tokens move in up to three phases, heaviest first with a random margin of 15 percent, and (3) weapons fire from the highest initiative to the lowest (hull initiative plus battle computers plus the weapon's own initiative; shorter ranges first on ties). A token moves 0.5 to 2.5 squares a round: (best warp - 4) / 4 minus mass / 280 per engine, plus a quarter square per Maneuvering Jet and half a square per Overthruster (War Monger races half a square more); an Energy Dampener anywhere in the battle slows every token by one square a round. <b>Beams</b> always hit and lose 10 percent of their power over their full range; damage goes to shields first, then armor, and a beam token that destroys its target spills the rest onto other tokens in that square (up to one token per ship firing). Gatling weapons hit every enemy token in range. Sappers only damage shields. Capacitors raise beam damage, and Beam Deflectors lower it. <b>Torpedoes</b> may miss: each one hits by its accuracy, raised by battle computers (they cut the miss chance) and lowered by the target's jammers, which cancel one to one. A hit puts half its damage on armor and half on shields; a miss still does an eighth of its damage to shields. A torpedo strike can kill at most one ship per hit. Capital missiles do double damage to a token whose shields are gone. Starbase weapons get +1 range. Cloaked fleets may stay unseen until they fire. Players who survive a battle against ships with better technology have up to a 50 percent chance of learning a level in one field where the enemy was ahead. Review any fight in <b>Management, Battle Reports</b> and press Watch Replay. You are also told about battles you were not in when a scanner of yours covers the place where they happened (the scan range of a planet, a fleet with a scanner or a mineral packet; cloaking is ignored). Those battles are listed and can be replayed the same way, with a note that your scanners saw them.</p>
+                <p><b style="color:#da70d6;">Combat</b><br>Combat happens every year after all fleets of every empire have moved, wherever fleets of empires that are at war with each other share a location or come within <b>5 light years</b> (an armed fleet that ends its move within 5 light years of an enemy fleet, or whose path for the year passed within 5 light years of where an enemy fleet ended up, or an armed fleet that stayed put while an enemy ended or passed within 5 light years of it; jump gates and wormholes leave no path), or a fleet sits at an enemy world with defenses or an armed starbase. It is fought on a 10 by 10 battle board for up to 16 rounds. Each fleet becomes tokens, one per ship design, holding all its ships of that design; shields of a token are one pooled stack. Every round has three parts: (1) every token picks a target from its battle plan, (2) tokens move in up to three phases, heaviest first with a random margin of 15 percent, and (3) weapons fire from the highest initiative to the lowest (hull initiative plus battle computers plus the weapon's own initiative; shorter ranges first on ties). A token moves 0.5 to 2.5 squares a round: (best warp - 4) / 4 minus mass / 280 per engine, plus a quarter square per Maneuvering Jet and half a square per Overthruster (War Monger races half a square more); an Energy Dampener anywhere in the battle slows every token by one square a round. <b>Beams</b> always hit and lose 10 percent of their power over their full range; damage goes to shields first, then armor, and a beam token that destroys its target spills the rest onto other tokens in that square (up to one token per ship firing). Gatling weapons hit every enemy token in range. Sappers only damage shields. Capacitors raise beam damage, and Beam Deflectors lower it. <b>Torpedoes</b> may miss: each one hits by its accuracy, raised by battle computers (they cut the miss chance) and lowered by the target's jammers, which cancel one to one. A hit puts half its damage on armor and half on shields; a miss still does an eighth of its damage to shields. A torpedo strike can kill at most one ship per hit. Capital missiles do double damage to a token whose shields are gone. Starbase weapons get +1 range. Cloaked fleets may stay unseen until they fire. Players who survive a battle against ships with better technology have up to a 50 percent chance of learning a level in one field where the enemy was ahead. Empires that are neutral or allied never fight, even when they share a location, pass close by or orbit the planets of the other empire (the Attack Who setting of a battle plan therefore only matters between empires at war). Review any fight in <b>Management, Battle Reports</b> and press Watch Replay. You are also told about battles you were not in when a scanner of yours covers the place where they happened (the scan range of a planet, a fleet with a scanner or a mineral packet; cloaking is ignored). Those battles are listed and can be replayed the same way, with a note that your scanners saw them.</p>
                 <p><b style="color:#da70d6;">Battle Plans</b><br>Open <b>Management, Battle Plans</b> (or pick Battle Plans... in a fleet's plan list) to edit your plans. A plan has a <b>Primary Target</b> and a <b>Secondary Target</b> (None/Disengage, Any, Starbase, Bombers/Freighters, Armed Ships, Unarmed Ships, Fuel Transports, Freighters), a <b>Tactic</b> (Disengage, Disengage if challenged, Minimize damage to self, Maximize net damage, Maximize damage ratio, Maximize damage), <b>Attack Who</b> (Enemies, Neutrals and Enemies, Everyone) and <b>Dump Cargo</b>. Each round a token targets the nearest enemy that matches its primary target, then its secondary target; with neither it disengages. Disengaging tokens run from the enemy and leave the battle after moving 7 squares. Every armed token that is not disengaging always moves toward its target until it is within the range of all of its weapons, so that every weapon can fire, whichever of Minimize damage, Maximize net damage, Maximize damage ratio or Maximize damage is chosen (Minimize damage only breaks ties between equally close squares in favor of squares that enemy weapons cover less), and Disengage if challenged fights until it is hit. Tokens fire at targets in range even while moving toward their primary target. Unarmed tokens always disengage. The built in plans are Default (Armed Ships, then Any, Maximize damage ratio), Kill Starbase, Max-Defense, Sniper and Chicken; you can copy, rename and delete plans (up to 14; Default stays). Each fleet picks its plan in the Fleets in Orbit panel. Starbases and planetary defenses always shoot armed ships first, then anything.</p>
                 <p><b style="color:#da70d6;">Battle Replay</b><br>Every battle report of the last eight battles has <b>Watch Replay</b>. The replay shows the 10 by 10 board: each square with tokens shows a ship or starbase symbol in your color or the enemy's, the number of tokens at top left and the number of ships at top right. The square of the token that is acting is framed in blue and a square being hit shows an explosion. The controls go to the start, one phase back, play or pause, one phase forward and to the end. The text tells who moved or fired, with what, how many torpedoes hit, and the damage to shields and armor. Click a square to select a token there (click again for the next token) and see its details.</p>
                 <p><b style="color:#da70d6;">Cloaking and Scanners</b><br>Cloaking is measured in cloak units per kT of ship. The cloak percent follows a curve: 100 units per kT give 50 percent, 300 give 75 percent, about 800 give 90 percent and 1,300 give the maximum of 98 percent. Stealth Cloak gives 70 units, Super-Stealth Cloak 140, Ultra-Stealth Cloak 540, and Transport Cloaking 300 but only on unarmed ships; Super-Stealth races also get 300 units on every ship. Cargo and uncloaked ships in the same fleet dilute the cloak, because the units are spread over the whole mass. A cloaked fleet is only seen inside the cloak-reduced range of a scanner: a 75 percent cloak means a scanner has to be within a quarter of its range, normal or penetrating. Tachyon Detectors in the scanning fleet cut enemy cloaking: each set of detectors multiplies it by 0.95 to the power of the square root of their number. Cloaks give no protection from minefields.</p>
@@ -3389,7 +3389,7 @@
                 <p><b style="color:#da70d6;">Stargates</b><br>A stargate is built on a planet that has a starbase in orbit: pick it in the planet's Structures list (one gate at a time; a better gate replaces the old one). Each gate has a safe mass and a range: Stargate 100/250 (Propulsion 5, Construction 5), any/300 (Propulsion 6, Construction 10), 150/600 (Propulsion 11, Construction 7), 300/500 (Propulsion 9, Construction 13), 100/any (Propulsion 16, Construction 12), any/800 (Propulsion 12, Construction 18) and any/any (Propulsion 19, Construction 24). To use one, give a fleet orbiting a gate planet a waypoint at another planet with a stargate of yours or a Friend's, and set its speed to <b>Use Stargate</b> in the Waypoints window. The fleet arrives next year, whatever the distance, and burns no fuel. Every ship must be within the smaller mass limit of the two gates, and the distance within the range of the starting gate. Over the limits (up to five times) the speed shows Danger: the fleet arrives damaged and some ships may be destroyed; more than five times over shows Never. Fleets carrying cargo cannot use a gate (fuel is not cargo), except for Interstellar Traveler races, whose gates between their own planets also have no mass or range limit, cost 25% less and hurt ships half as much. Hyper-Expansion races cannot build stargates. A ship with the Jump Gate trader item can use Use Stargate from anywhere. The planet summary shows a planet's gate next to its starbase. (The gate list and tech levels follow the original game as best I remember them; costs and the damage for going over the limits are my estimates.)</p>
                 <p><b style="color:#da70d6;">Wormholes</b><br>Wormholes are rare openings in deep space, never close to a planet, that link two distant points. They are hard to see: a normal scanner finds one only within a quarter of its range (planet-penetrating scanners at their full penetrating range), and a fleet that passes over one finds it. Once found it stays on your map as a purple swirl; click it to see where it leads (Unknown until you have been through it or found the other end) and how stable it is, from Rock Solid (stays put for 30 years or more) to Very Unstable (moves within about 5 years). Each end also drifts a little every year and jumps somewhere new when its time runs out, which also makes its destination unknown again. To travel, plot a waypoint on the wormhole in plot mode; the waypoint follows the wormhole as it drifts. When the fleet reaches the opening it comes out at the other end in the same year, with no fuel used and no mass or cargo limit. Make sure the fleet has fuel to get home from wherever it ends up.</p>
                 <p><b style="color:#da70d6;">Numbers at a Glance</b><br>Exact constants used by the game, for planning and checking. <b>Population:</b> one population unit is 1,000,000 colonists in internal accounting. <b>Terraforming limits (normal):</b> the Gravity, Temperature and Radiation fields at level 1, 5, 10, 16 allow 3, 7, 11, 15 percent change, and those steps also need Biotechnology 1, 2, 3, 4. <b>Total Terraforming</b> (Claim Adjuster or the Total Terraforming trait): Biotechnology 0, 3, 6, 9, 13, 17, 22, 25 allow 3, 5, 7, 10, 15, 20, 25, 30 percent. <b>Claim Adjuster</b> terraforms up to 200 steps a year per planet at no cost. <b>Trait modifiers:</b> Weapon costs x0.75 for Weapons Master and x1.25 for Inner Strength; Inner Strength defenses cost x0.6; Cheap Engines cost x0.5 but may fail above warp 6 (10 percent chance a turn); Total Terraforming terraform cost x0.7; Inner Strength freighters grow colonists at half the planet growth rate; Packet Physics packets have a 50 percent chance to nudge the target planet 1 percent toward ideal on impact. <b>Stargate travel</b> uses warp 11. Mines, fuel and combat numbers are in their own entries.</p>
-                <p><b style="color:#da70d6;">Diplomacy</b><br>Management, <b>Diplomacy</b> lists every other empire and lets you set your stance toward each: <b>Friend</b>, <b>Neutral</b> or <b>Enemy</b> (every empire starts as an Enemy). It is your own decision; the others are not told and may see you differently. Friends are never attacked by your fleets or starbases, are not hit by your minefields, refuel at your planets with docks and may use your stargates, and you get the same from them if they count you as a Friend. Neutrals are only attacked by battle plans whose Attack Who is Neutrals &amp; Enemies or Everyone; patrols leave them alone and you do not sweep a Friend's minefields. Enemies are fair game for everything. AI empires choose their own friends among themselves.</p>
+                <p><b style="color:#da70d6;">Diplomacy</b><br>Every empire starts <b>Neutral</b> toward every other empire. Open Management, <b>Diplomacy</b> to see your status with each empire you have met and to give diplomatic orders. A relation is shared: both empires always have the same status. <b>Neutral:</b> you can <b>Ask for Alliance</b> or <b>Declare War</b>. <b>Allied:</b> you can <b>Break Alliance</b> (you both become neutral at once) or <b>Declare War</b> directly. <b>At War:</b> you can <b>Request Stand Down</b>; if the other empire accepts you both become neutral. Orders are carried out when the year is played out. A war declaration takes effect after that year, so the war is on from the following year. Fleets and starbases fight, bomb, invade and lay damaging minefields only against empires they are at war with. Neutral or allied ships that meet, pass close by, or orbit the planets and starbases of the other empire never fight, and troops cannot land on a planet of an empire you are not at war with. Allies refuel at your planets with docks, use your stargates and are safe from your minefields; your patrols only chase empires you are at war with. <b>AI answers:</b> an AI decides on an alliance by its intelligence: smarter AIs want a longer peace first, distrust much stronger neighbours and remember your past attacks, broken alliances and war declarations, and an AI that does not know you refuses. An AI weighs a stand down by who is winning. Smarter AIs also declare war more often when they believe they are stronger, judging you only from what they have seen of your worlds. <b>Requests to a player</b> (or from an AI to you) appear at the start of the next year in the year summary window, which you cannot close until you accept or reject each one.</p>
                 <p><b style="color:#da70d6;">The Mystery Trader</b><br>Now and then a light blue Mystery Trader enters known space and everyone is told. It flies at Warp 7 to 13 and is visible on the map whatever your scanners are doing. Tap it to see its heading in a Fleet Summary box, which takes the place of the Planet Summary until you tap a planet; dotted numbered ticks on the map show where it will be at the end of each coming year if it keeps its course. To trade, a single fleet carrying at least 5,000 kT of minerals (any mix of Ironium, Boranium and Germanium) must be at the exact spot the trader reaches at the end of a turn. In plot mode a tap near a tick snaps your waypoint to it exactly. The trader absorbs all the minerals in that fleet\'s hold (colonists are kept) and gives either 2 to 6 levels of tech spread over random fields, or one of 12 special items. Each trader trades once and then leaves, and what it carries is fixed when it appears. If you already own its item you get a different one you do not own, and if you own them all you get the tech instead; if everything is maxed it is unable to teach you anything new. The trader changes direction now and then, turns away from crowds of fleets, cannot be attacked, and lets any empire\'s fleet trade, so enemies can attack your freighters before you reach it. Item parts need no tech once you own them. See Mystery Trader Items for the list. Advanced Options, No Random Events, switches the Mystery Trader off.</p>
                 <p style="margin-bottom:0;color:#aaa;">Tip: your first turns are about turning Resources into more Resources. Autobuild queues mines and factories for you (check Management, Autobuild), or queue them yourself on the homeworld, and watch Germanium (factories need it), send the scout out at Warp 5 on free fuel to find colony targets, and use Ship Construction to queue a Colony Ship when you spot a green world. Once a colony is established, give it a Space Station so it can build for itself. Designing a race? Start from a preset, change one thing at a time and watch the Advantage Points counter and the Point Ledger.</p>
             </div>
@@ -3762,7 +3762,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.52.0';
+        const GAME_VERSION = '0.53.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -4574,6 +4574,10 @@ const DEFENDERS_PER_POP=100;
             e.zipOrders = cleanZipOrders(src.zipOrders);
             e.battlePlans = cleanBattlePlans(src.battlePlans && src.battlePlans.length ? src.battlePlans : defaultBattlePlans());
             if (src.relations && typeof src.relations === 'object') e.relations = Object.assign({}, src.relations);
+            if (src.dipOrders && typeof src.dipOrders === 'object') e.dipOrders = Object.assign({}, src.dipOrders);
+            if (Array.isArray(src.dipInbox)) e.dipInbox = src.dipInbox.filter(x => x && x.from && (x.kind === 'ally' || x.kind === 'standdown')).map(x => ({ from: String(x.from), kind: x.kind, year: Number(x.year) || 0 }));
+            if (src.dipReplies && typeof src.dipReplies === 'object') e.dipReplies = Object.assign({}, src.dipReplies);
+            if (src.dipMem && typeof src.dipMem === 'object') e.dipMem = JSON.parse(JSON.stringify(src.dipMem));
             if (src.mpGone === 'ai' || src.mpGone === 'remove') e.mpGone = src.mpGone;
             if (src.goneTo) e.goneTo = String(src.goneTo);
             return e;
@@ -5900,34 +5904,309 @@ const DEFENDERS_PER_POP=100;
             return best;
         }
 
-        const RELATION_LABELS = { friend: 'Friend', neutral: 'Neutral', enemy: 'Enemy' };
+        const RELATION_LABELS = { friend: 'Allied', neutral: 'Neutral', enemy: 'At War' };
+        const DIP_ORDER_LABELS = { war: 'Declare War', ally: 'Ask for Alliance', standdown: 'Request Stand Down', break: 'Break Alliance' };
+        const DIP_IQ = { novice: 0.1, average: 0.3, good: 0.5, expert: 0.75, master: 1 };
+        const DIP_AI_WAR_YEAR = 2410;
+        const dipWarQueue = [];
+
+        function dipEnsure(e) {
+            if (!e.relations) e.relations = {};
+            if (!e.dipOrders) e.dipOrders = {};
+            if (!Array.isArray(e.dipInbox)) e.dipInbox = [];
+            if (!e.dipReplies) e.dipReplies = {};
+            if (!e.dipMem) e.dipMem = {};
+            return e;
+        }
+
+        function dipMemory(e, id) {
+            dipEnsure(e);
+            if (!e.dipMem[id]) e.dipMem[id] = { opinion: 0, hostile: 0 };
+            return e.dipMem[id];
+        }
+
+        function setMutualRelation(a, b, value) {
+            const ea = empireById(a);
+            const eb = empireById(b);
+            if (!ea || !eb) return;
+            dipEnsure(ea).relations[b] = value;
+            dipEnsure(eb).relations[a] = value;
+        }
+
+        function dipIq(e) {
+            const key = DIP_IQ[e.aiDifficulty] !== undefined ? e.aiDifficulty : (legacyIntelligence[e.aiDifficulty] || 'average');
+            return DIP_IQ[key];
+        }
+
+        function dipEmpirePower(e) {
+            let power = 0;
+            planets.forEach(p => { if (p.owner === e.id) power += 10 + Math.min(20, (p.pop || 0) / 20000); });
+            const tech = e.tech || {};
+            TECH_KEYS.forEach(k => { power += 2 * (tech[k] || 1); });
+            (e.fleets || []).forEach(f => {
+                power += fleetShipCount(f) * (fleetIsArmed(e, f) ? 4 : 1);
+            });
+            return power;
+        }
+
+        function dipPerceivedPower(ai, other) {
+            const iq = dipIq(ai);
+            let owned = 0;
+            let known = 0;
+            planets.forEach((p, i) => {
+                if (p.owner !== other.id) return;
+                owned++;
+                if (ai.explored && ai.explored[i]) known++;
+            });
+            if (known === 0) return 0;
+            const k = known / owned;
+            const guess = dipEmpirePower(other) * (0.55 + 0.45 * iq) * (k + (1 - k) * iq);
+            const noise = 1 + (Math.random() - 0.5) * 0.8 * (1 - iq);
+            return Math.max(1, guess * noise);
+        }
+
+        function dipAiDecide(resp, req, kind) {
+            const iq = dipIq(resp);
+            const mem = dipMemory(resp, req.id);
+            const mine = dipEmpirePower(resp);
+            const theirs = dipPerceivedPower(resp, req);
+            if (theirs <= 0) return false;
+            if (kind === 'ally') {
+                const threat = theirs / Math.max(1, mine);
+                return mem.hostile < 1 && threat <= 2.2 - 1.2 * iq && mem.opinion >= 3 + 12 * iq;
+            }
+            const edge = mine / theirs;
+            const chance = Math.max(0.05, Math.min(0.95, 0.85 - iq * 0.5 * Math.max(0, edge - 0.7) + mem.opinion / 200));
+            return Math.random() < chance;
+        }
+
+        function dipValidOrder(rel, kind) {
+            if (kind === 'war') return rel !== 'enemy';
+            if (kind === 'ally') return rel === 'neutral';
+            if (kind === 'standdown') return rel === 'enemy';
+            if (kind === 'break') return rel === 'friend';
+            return false;
+        }
+
+        function dipRequestWord(kind) {
+            return kind === 'ally' ? 'alliance' : 'stand down';
+        }
+
+        function dipRecordBattle(res) {
+            res.owners.forEach(a => {
+                res.owners.forEach(b => {
+                    if (a === b) return;
+                    const e = empireById(a);
+                    if (e && empireRelation(a, b) === 'enemy') dipMemory(e, b).opinion = Math.max(-100, dipMemory(e, b).opinion - 3);
+                });
+            });
+        }
+
+        function dipStartPhase() {
+            const notes = [];
+            const say = (line, owners) => {
+                owners.forEach(o => logToOwner(o, line));
+                notes.push({ line: line, owners: owners.slice() });
+            };
+            empires.forEach(e => dipEnsure(e));
+            empires.forEach(e => {
+                Object.keys(e.dipReplies).forEach(fromId => {
+                    const r = e.dipReplies[fromId];
+                    const from = empireById(fromId);
+                    if (!from || from.mpGone) return;
+                    if (r.answer === 'accept') {
+                        if (!dipValidOrder(empireRelation(e.id, fromId), r.kind)) return;
+                        setMutualRelation(e.id, fromId, r.kind === 'ally' ? 'friend' : 'neutral');
+                        dipMemory(e, fromId).opinion += 10;
+                        dipMemory(from, e.id).opinion += 10;
+                        say(r.kind === 'ally' ? e.name + ' accepted the alliance with ' + from.name + '. They are now allies.' : e.name + ' accepted the stand down request of ' + from.name + '. They are now neutral.', [e.id, fromId]);
+                    } else {
+                        say(e.name + ' rejected your ' + dipRequestWord(r.kind) + ' request.', [fromId]);
+                    }
+                });
+                e.dipReplies = {};
+            });
+            empires.forEach(e => {
+                if (e.mpGone) return;
+                Object.keys(e.dipOrders).forEach(id => {
+                    const kind = e.dipOrders[id];
+                    const to = empireById(id);
+                    if (!to || to.mpGone) return;
+                    const rel = empireRelation(e.id, id);
+                    if (!dipValidOrder(rel, kind)) return;
+                    if (kind === 'war') {
+                        dipWarQueue.push({ from: e.id, to: id });
+                    } else if (kind === 'break') {
+                        setMutualRelation(e.id, id, 'neutral');
+                        dipMemory(to, e.id).opinion -= 20;
+                        dipMemory(to, e.id).hostile += 1;
+                        say(e.name + ' broke the alliance with ' + to.name + '. They are now neutral.', [e.id, id]);
+                    } else if (to.kind === 'ai') {
+                        if (dipAiDecide(to, e, kind)) {
+                            setMutualRelation(e.id, id, kind === 'ally' ? 'friend' : 'neutral');
+                            dipMemory(to, e.id).opinion += 10;
+                            dipMemory(e, id).opinion += 10;
+                            say(kind === 'ally' ? to.name + ' accepted your alliance request. You are now allies.' : to.name + ' accepted your stand down request. You are now neutral.', [e.id, id]);
+                        } else {
+                            say(to.name + ' rejected your ' + dipRequestWord(kind) + ' request.', [e.id]);
+                        }
+                    } else {
+                        if (!to.dipInbox.some(x => x.from === e.id && x.kind === kind)) to.dipInbox.push({ from: e.id, kind: kind, year: currentYear });
+                        say('Your ' + dipRequestWord(kind) + ' request was sent to ' + to.name + '. They will answer at the start of next year.', [e.id]);
+                    }
+                });
+                e.dipOrders = {};
+            });
+            return notes;
+        }
+
+        function dipEndPhase() {
+            const notes = [];
+            const say = (line, owners) => {
+                owners.forEach(o => logToOwner(o, line));
+                notes.push({ line: line, owners: owners.slice() });
+            };
+            dipAiWarPhase();
+            dipAiStandDownPhase(say);
+            dipWarQueue.splice(0).forEach(w => {
+                const a = empireById(w.from);
+                const b = empireById(w.to);
+                if (!a || !b || a.mpGone || b.mpGone) return;
+                if (empireRelation(w.from, w.to) === 'enemy') return;
+                setMutualRelation(w.from, w.to, 'enemy');
+                dipMemory(b, w.from).opinion = Math.max(-100, dipMemory(b, w.from).opinion - 40);
+                dipMemory(b, w.from).hostile += 3;
+                say(a.name + ' declared war on ' + b.name + '. They are at war from now on.', [w.from, w.to]);
+            });
+            empires.forEach(e => {
+                dipEnsure(e);
+                Object.keys(e.dipMem).forEach(id => {
+                    const m = e.dipMem[id];
+                    const rel = empireRelation(e.id, id);
+                    m.opinion = Math.max(-100, Math.min(40, m.opinion + (rel === 'friend' ? 2 : rel === 'neutral' ? 1 : -1)));
+                    m.hostile = Math.max(0, m.hostile - 0.25);
+                });
+            });
+            return notes;
+        }
+
+        function dipAiWarPhase() {
+            if (currentYear < DIP_AI_WAR_YEAR) return;
+            empires.forEach(ai => {
+                if (ai.kind !== 'ai' || ai.mpGone) return;
+                const iq = dipIq(ai);
+                const atWar = empires.filter(o => o.id !== ai.id && !o.mpGone && empireRelation(ai.id, o.id) === 'enemy').length;
+                if (atWar >= 2) return;
+                const mine = dipEmpirePower(ai);
+                let pick = null;
+                empires.forEach(o => {
+                    if (o.id === ai.id || o.mpGone || empireRelation(ai.id, o.id) !== 'neutral') return;
+                    const theirs = dipPerceivedPower(ai, o);
+                    if (theirs <= 0) return;
+                    const edge = mine / theirs;
+                    const mem = dipMemory(ai, o.id);
+                    let chance = 0.004;
+                    if (edge >= 1.25) chance += 0.012 + 0.04 * iq * Math.min(2, edge - 1);
+                    if (mem.opinion < -10) chance += 0.01;
+                    if (mem.opinion > 15) chance *= 0.3;
+                    if (edge < 0.8) chance *= (1 - iq) * 0.5;
+                    if (Math.random() < chance && (!pick || edge > pick.edge)) pick = { id: o.id, edge: edge };
+                });
+                if (pick) dipWarQueue.push({ from: ai.id, to: pick.id });
+            });
+        }
+
+        function dipAiStandDownPhase(say) {
+            empires.forEach(ai => {
+                if (ai.kind !== 'ai' || ai.mpGone || dipIq(ai) < 0.3) return;
+                const mine = dipEmpirePower(ai);
+                empires.forEach(o => {
+                    if (o.id === ai.id || o.mpGone || empireRelation(ai.id, o.id) !== 'enemy') return;
+                    const theirs = dipPerceivedPower(ai, o);
+                    if (theirs <= 0 || mine / theirs >= 0.75 || Math.random() >= 0.25) return;
+                    if (o.kind === 'ai') {
+                        if (o.id < ai.id || !dipAiDecide(o, ai, 'standdown')) return;
+                        setMutualRelation(ai.id, o.id, 'neutral');
+                        say(ai.name + ' and ' + o.name + ' have stood down and are now neutral.', [ai.id, o.id]);
+                    } else if (!dipEnsure(o).dipInbox.some(x => x.from === ai.id && x.kind === 'standdown')) {
+                        o.dipInbox.push({ from: ai.id, kind: 'standdown', year: currentYear });
+                    }
+                });
+            });
+        }
+
+        function dipInboxItems(e) {
+            dipEnsure(e);
+            e.dipInbox = e.dipInbox.filter(x => {
+                const from = empireById(x.from);
+                return from && !from.mpGone && dipValidOrder(empireRelation(e.id, x.from), x.kind) && x.kind !== 'war' && x.kind !== 'break';
+            });
+            return e.dipInbox;
+        }
+
+        function dipInboxHtml() {
+            const me = empires[activeEmpireIndex];
+            if (!me) return '';
+            const items = dipInboxItems(me);
+            if (!items.length) return '';
+            return '<div id="dip-inbox" style="margin-top:12px;border:1px solid #32cd32;padding:8px;border-radius:4px;"><b style="color:#32cd32;">Diplomacy: answer before you continue</b>' + items.map(x => {
+                const from = empireById(x.from);
+                const text = x.kind === 'ally' ? ' asks to form an alliance with you.' : ' asks you to stand down. If you accept, you both become neutral.';
+                return '<div style="margin-top:6px;"><b>' + escapeHtml(from.name) + '</b>' + text + '<div style="margin-top:4px;"><button class="tool-icon dip-answer" data-from="' + escapeHtml(x.from) + '" data-kind="' + x.kind + '" data-ans="accept" style="color:#32cd32;">Accept</button> <button class="tool-icon dip-answer" data-from="' + escapeHtml(x.from) + '" data-kind="' + x.kind + '" data-ans="reject" style="color:#ff6b6b;">Reject</button></div></div>';
+            }).join('') + '</div>';
+        }
+
+        function dipSyncReportClose() {
+            const me = empires[activeEmpireIndex];
+            const btn = document.getElementById('btn-close-turn-report');
+            const pending = !!me && !ordersBlocked() && dipInboxItems(me).length > 0;
+            btn.disabled = pending;
+            btn.innerText = pending ? 'Accept or reject each request to continue' : 'Acknowledge & Continue';
+        }
+
+        function dipAnswer(fromId, kind, answer) {
+            const me = empires[activeEmpireIndex];
+            if (!me) return;
+            dipEnsure(me);
+            me.dipReplies[fromId] = { kind: kind, answer: answer };
+            me.dipInbox = me.dipInbox.filter(x => !(x.from === fromId && x.kind === kind));
+            const from = empireById(fromId);
+            logEvent('You ' + (answer === 'accept' ? 'accepted' : 'rejected') + ' the ' + dipRequestWord(kind) + ' request of ' + (from ? from.name : fromId) + '.');
+            const box = document.getElementById('dip-inbox');
+            if (box) box.outerHTML = dipInboxHtml();
+            dipSyncReportClose();
+        }
+
+        function setDipOrder(id, kind) {
+            const me = dipEnsure(empires[activeEmpireIndex]);
+            if (!kind) delete me.dipOrders[id];
+            else me.dipOrders[id] = kind;
+            renderDiplomacy();
+        }
 
         function renderDiplomacy() {
-            const me = empires[activeEmpireIndex];
+            const me = dipEnsure(empires[activeEmpireIndex]);
             const others = empires.filter(e => e.id !== myEmpireId && !e.mpGone);
             const rows = others.map(e => {
                 const r = empireRelation(myEmpireId, e.id);
                 const seen = planets.some(p => p.owner === e.id && p.revealed !== false) || visibleForeignFleets().some(v => v.e === e);
-                return `<tr><td><b>${escapeHtml(e.name)}</b><div style="font-size:11px;color:#aaa;">${e.kind === 'ai' ? 'AI empire' : 'Player empire'}${e.mpResigned ? ', resigned' : ''}${seen ? '' : ', not met yet'}</div></td><td><select class="dip-rel" data-id="${escapeHtml(e.id)}">${Object.keys(RELATION_LABELS).map(k => `<option value="${k}" ${k === r ? 'selected' : ''}>${RELATION_LABELS[k]}</option>`).join('')}</select></td></tr>`;
+                const pending = me.dipOrders[e.id];
+                const kinds = r === 'neutral' ? ['ally', 'war'] : r === 'friend' ? ['break', 'war'] : ['standdown'];
+                const color = r === 'friend' ? '#ffd700' : r === 'enemy' ? '#ff6b6b' : '#ddd';
+                let cell;
+                if (!seen) cell = '<span style="color:#aaa;">Not met yet</span>';
+                else if (pending) cell = '<span style="color:#00ffff;">Order: ' + DIP_ORDER_LABELS[pending] + '</span> <button class="tool-icon dip-order" data-id="' + escapeHtml(e.id) + '" data-kind="">Cancel</button>';
+                else cell = kinds.map(k => '<button class="tool-icon dip-order" data-id="' + escapeHtml(e.id) + '" data-kind="' + k + '">' + DIP_ORDER_LABELS[k] + '</button>').join(' ');
+                return '<tr><td><b>' + escapeHtml(e.name) + '</b><div style="font-size:11px;color:#aaa;">' + (e.kind === 'ai' ? 'AI empire' : 'Player empire') + (e.mpResigned ? ', resigned' : '') + '</div></td><td style="color:' + color + ';"><b>' + RELATION_LABELS[r] + '</b></td><td>' + cell + '</td></tr>';
             }).join('');
             document.getElementById('dip-body').innerHTML = others.length
-                ? `<table class="mf-table"><tr><th>Empire</th><th>Your stance</th></tr>${rows}</table>`
+                ? '<table class="mf-table"><tr><th>Empire</th><th>Status</th><th>Orders</th></tr>' + rows + '</table>'
                 : '<div style="color:#aaa;">There are no other empires.</div>';
-            if (me && !me.relations) me.relations = {};
         }
 
         function openDiplomacy() {
             renderDiplomacy();
             document.getElementById('diplomacy-modal').classList.add('active');
-        }
-
-        function setRelation(id, value) {
-            const me = empires[activeEmpireIndex];
-            if (!me || !RELATION_LABELS[value]) return;
-            me.relations = me.relations || {};
-            me.relations[id] = value;
-            const other = empireById(id);
-            logEvent('You now treat ' + (other ? other.name : id) + ' as ' + RELATION_LABELS[value] + '.');
         }
 
         function wpName(w) {
@@ -6328,7 +6607,7 @@ const DEFENDERS_PER_POP=100;
             const range = f.patrol.range || 50;
             let best = null;
             visibleForeignFleets().forEach(v => {
-                if (empireRelation(myEmpireId, v.e.id) === 'friend') return;
+                if (empireRelation(myEmpireId, v.e.id) !== 'enemy') return;
                 const d = Math.hypot(v.f.x - f.x, v.f.y - f.y);
                 if (d <= range && (!best || d < best.d)) best = { v: v, d: d };
             });
@@ -6340,9 +6619,13 @@ const DEFENDERS_PER_POP=100;
 
         function empireRelation(a, b) {
             if (a === b) return 'friend';
-            const e = empireById(a);
-            const r = e && e.relations && e.relations[b];
-            return r === 'friend' || r === 'neutral' ? r : 'enemy';
+            const ea = empireById(a);
+            const eb = empireById(b);
+            const ra = ea && ea.relations ? ea.relations[b] : null;
+            const rb = eb && eb.relations ? eb.relations[a] : null;
+            if (ra === 'enemy' || rb === 'enemy') return 'enemy';
+            if (ra === 'friend' && rb === 'friend') return 'friend';
+            return 'neutral';
         }
 
         function routeNewFleet(p, f) {
@@ -10596,11 +10879,7 @@ const DEFENDERS_PER_POP=100;
 
         function wantsToAttack(attackerId, victimId, who) {
             if (attackerId === victimId) return false;
-            if (who === 'everyone') return true;
-            const rel = empireRelation(attackerId, victimId);
-            if (rel === 'friend') return false;
-            if (rel === 'neutral') return who === 'neutrals';
-            return true;
+            return empireRelation(attackerId, victimId) === 'enemy';
         }
 
         function buildBattleTokens(group) {
@@ -11210,6 +11489,7 @@ const DEFENDERS_PER_POP=100;
                 });
                 notes.push({ line: line, owners: res.owners.slice() });
                 fought.push({ res: res, html: html, line: line });
+                dipRecordBattle(res);
                 applyBattleResult(res);
                 battleTechGain(res).forEach(n => notes.push(n));
             });
@@ -11266,7 +11546,7 @@ const DEFENDERS_PER_POP=100;
         }
 
         function mineImmune(m, owner) {
-            return m.owner === owner || empireRelation(m.owner, owner) === 'friend';
+            return m.owner === owner || empireRelation(m.owner, owner) !== 'enemy';
         }
 
         function mineSafeWarpFor(type, raceId) {
@@ -11498,7 +11778,7 @@ const DEFENDERS_PER_POP=100;
                     if (pi < 0) return;
                     const p = planets[pi];
                     if (p.owner === 'neutral' || p.owner === e.id) return;
-                    if (empireRelation(e.id, p.owner) === 'friend') return;
+                    if (empireRelation(e.id, p.owner) !== 'enemy') return;
                     const victimId = p.owner;
                     if (p.hasStarbase) {
                         const m = f.name + ' cannot bomb ' + p.name + ' while its starbase survives.';
@@ -11936,16 +12216,24 @@ const DEFENDERS_PER_POP=100;
             updateDashboardPlanetView();
         });
         document.getElementById('btn-dip-close').addEventListener('click', () => document.getElementById('diplomacy-modal').classList.remove('active'));
-        document.getElementById('dip-body').addEventListener('change', e => {
-            const sel = e.target.closest('.dip-rel');
-            if (!sel) return;
+        document.getElementById('dip-body').addEventListener('click', e => {
+            const b = e.target.closest('.dip-order');
+            if (!b) return;
             if (ordersBlocked()) {
-                renderDiplomacy();
                 mpReadOnlyNotice();
                 return;
             }
-            setRelation(sel.dataset.id, sel.value);
-            renderDiplomacy();
+            const other = empireById(b.dataset.id);
+            const kind = b.dataset.kind;
+            if (kind === 'war' || kind === 'break') {
+                gameConfirm((kind === 'war' ? 'Declare war on ' : 'Break the alliance with ') + (other ? other.name : 'this empire') + '? ' + (kind === 'war' ? 'You will be at war from next year.' : 'You both become neutral.'), () => setDipOrder(b.dataset.id, kind), 'Diplomacy', 'Confirm');
+            } else {
+                setDipOrder(b.dataset.id, kind);
+            }
+        });
+        document.getElementById('turn-report-body').addEventListener('click', e => {
+            const b = e.target.closest('.dip-answer');
+            if (b) dipAnswer(b.dataset.from, b.dataset.kind, b.dataset.ans);
         });
         document.getElementById('btn-mf-close').addEventListener('click', () => document.getElementById('minefield-modal').classList.remove('active'));
         document.getElementById('mf-body').addEventListener('change', e => {
@@ -12287,6 +12575,13 @@ const DEFENDERS_PER_POP=100;
             Object.keys(byPlanet).forEach(k => {
                 const p = planets[+k];
                 const list = byPlanet[k].filter(x => p.owner !== x.e.id && p.owner !== 'neutral');
+                list.slice().forEach(x => {
+                    if (empireRelation(x.e.id, p.owner) === 'enemy') return;
+                    const msg = x.f.name + ' cannot land troops on ' + p.name + ': you are not at war with ' + ownerDisplayName(p.owner) + '. The troops stay aboard.';
+                    logToOwner(x.e.id, msg);
+                    notes.push({ line: msg, owners: [x.e.id] });
+                    list.splice(list.indexOf(x), 1);
+                });
                 if (!list.length) return;
                 if (p.hasStarbase) {
                     list.forEach(x => {
@@ -12425,6 +12720,15 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.53.0', d: 'Oct 3, 2026 7:05 AM', t: "Diplomacy: Neutral Start, War, Alliance and Stand Down", items: [
+                "Every empire now starts neutral toward every other empire. Before, everyone started as an enemy and each empire chose its own stance.",
+                "Diplomacy (Management menu) is rebuilt around orders. Neutral: Ask for Alliance or Declare War. Allied: Break Alliance (both become neutral) or Declare War. At War: Request Stand Down (both become neutral if accepted). Relations are now shared by both empires.",
+                "Orders are carried out when the year is played out. A declaration of war takes effect after that year, so the war starts the following year.",
+                "Battles, bombing, invasions and damaging minefields now happen only between empires at war. Neutral and allied fleets that meet, pass close by or orbit each other's planets and starbases no longer fight. Patrols only chase empires you are at war with.",
+                "AI empires decide on alliance and stand down requests from their intelligence level, what they know of you and your past actions (war declarations, broken alliances, battles). Smarter AIs also declare war more often when they feel stronger. AIs may ask you to stand down when they are losing.",
+                "Requests sent to a player, and requests from an AI, appear at the start of the next year in the year summary window. You cannot close it until you accept or reject each one.",
+                "Help: Diplomacy and Combat updated."
+            ] },
             { v: '0.52.0', d: 'Oct 3, 2026 6:40 AM', t: "Late Joins and Resignations Are Public", items: [
                 "When a player joins a game in progress, every empire's Event Log now says that a new empire has joined the galaxy.",
                 "When a player resigns, every empire's Event Log now tells what happened to that empire (an AI takes over, or the empire collapses and its planets become uninhabited).",
@@ -13679,7 +13983,7 @@ const DEFENDERS_PER_POP=100;
             const e = v.e;
             const f = v.f;
             const rel = empireRelation(myEmpireId, e.id);
-            const relText = rel === 'friend' ? 'Friend' : rel === 'neutral' ? 'Neutral' : 'Enemy';
+            const relText = rel === 'friend' ? 'Allied' : rel === 'neutral' ? 'Neutral' : 'At War';
             const sources = getScannerSources().filter(x => x.ships);
             const close = sources.some(sc => {
                 const d = Math.hypot(sc.x - f.x, sc.y - f.y);
@@ -15598,6 +15902,7 @@ const DEFENDERS_PER_POP=100;
             const reportYear = currentYear + 1;
             const claims = [];
             ensureWormholes();
+            const dipStart = dipStartPhase();
             empireTurnActive = true;
             try {
                 const aiNotes = aiOrdersPhase();
@@ -15637,7 +15942,7 @@ const DEFENDERS_PER_POP=100;
             }
             storeActiveEmpire();
             currentYear++;
-            const roundNotes = [];
+            const roundNotes = dipStart.slice();
             moveMysteryTraders();
             moveWormholes();
             roundNotes.push.apply(roundNotes, processPackets());
@@ -15647,6 +15952,7 @@ const DEFENDERS_PER_POP=100;
             roundNotes.push.apply(roundNotes, detonateMinefields());
             roundNotes.push.apply(roundNotes, resolveTraderTrades());
             traderNews.splice(0).forEach(l => roundNotes.push({ line: l, owners: empires.map(x => x.id) }));
+            roundNotes.push.apply(roundNotes, dipEndPhase());
             loadEmpire(activeEmpireIndex);
             empires.forEach((e, i) => {
                 roundNotes.forEach(x => { if (x.owners.indexOf(e.id) !== -1) ctx[i].round.push(x.line); });
@@ -15689,8 +15995,9 @@ const DEFENDERS_PER_POP=100;
 
         function showTurnReport(year, html) {
             document.getElementById('tr-year').innerText = year;
-            document.getElementById('turn-report-body').innerHTML = html;
+            document.getElementById('turn-report-body').innerHTML = html + dipInboxHtml();
             document.getElementById('turn-report-modal').classList.add('active');
+            dipSyncReportClose();
         }
 
         document.getElementById('btn-end-turn').addEventListener('click', () => {
