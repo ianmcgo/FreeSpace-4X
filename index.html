@@ -2079,7 +2079,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.34.0 (Updated: October 02, 2026 09:45 PM)</div>
+            <div class="version-text">Version 0.39.0 (Updated: October 03, 2026 05:10 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -2572,11 +2572,24 @@
                     </div>
                 </div>
 
-                <div class="retro-panel" style="flex-grow: 1;">
+                <div class="retro-panel" id="log-panel" style="flex-grow: 1;">
                     <div class="retro-header"><span>Galactic Event Log</span><span>▲</span></div>
+                    <div id="log-tabs" style="display: none; align-items: center; gap: 4px; padding: 3px 6px 0; border-bottom: 1px solid #1a3a4a;">
+                        <button type="button" id="log-tab-events" style="background: none; border: none; border-bottom: 2px solid #00ffff; color: #00ffff; font-size: 11px; padding: 2px 8px; cursor: pointer;">Events</button>
+                        <button type="button" id="log-tab-chat" style="background: none; border: none; border-bottom: 2px solid transparent; color: #888; font-size: 11px; padding: 2px 8px; cursor: pointer;">💬 Chat</button>
+                        <button type="button" id="log-tab-both" style="background: none; border: none; border-bottom: 2px solid transparent; color: #888; font-size: 11px; padding: 2px 8px; cursor: pointer;">Both</button>
+                        <button type="button" id="chat-size" style="display: none; margin-left: auto; background: none; border: none; color: #888; font-size: 11px; padding: 2px 6px; cursor: pointer;">▾ Smaller</button>
+                    </div>
                     <div class="retro-body" id="event-log-box" style="font-size: 11px; color: #aaa; max-height: 120px;">
                         <div>[2400] Galaxy mapped. Welcome commander.</div>
                     </div>
+                    <div class="retro-body" id="chat-box" style="display: none; font-size: 11px; color: #aaa; max-height: 150px; overflow-y: auto;"></div>
+                    <div class="retro-body" id="both-box" style="display: none; font-size: 11px; color: #aaa; max-height: 150px; overflow-y: auto;"></div>
+                    <form id="chat-form" style="display: none; gap: 4px; padding: 4px 6px;">
+                        <input type="text" id="chat-input" maxlength="500" autocomplete="off" placeholder="Message all players" style="flex: 1; min-width: 0; font-size: 12px; padding: 3px 6px;">
+                        <button type="submit" id="chat-send" class="tool-icon" style="padding: 2px 10px;">Send</button>
+                        <button type="button" id="chat-clear" class="tool-icon" style="display: none; padding: 2px 8px; color: #ff8c66;" title="Host only: clear the chat for every player">🧹 Clear</button>
+                    </form>
                 </div>
             </div>
 
@@ -2672,9 +2685,11 @@
             <div><b>Year: <span id="lbl-year">2400</span></b></div>
             <div id="mp-banner">
                 <span id="mp-banner-text"></span>
+                <span id="mp-banner-info" style="font-size: 12px; color: #9fe8b0;"></span>
                 <button type="button" class="tool-icon" id="mp-banner-retry" style="color: #ffd700;">⟳ Retry Upload</button>
                 <button type="button" class="tool-icon" id="mp-banner-report">📜 Turn Report</button>
                 <button type="button" class="tool-icon" id="mp-banner-check">↻ Check</button>
+                <button type="button" class="tool-icon" id="mp-banner-chat" style="display: none; color: #00ffff;">💬 Chat</button>
                 <button type="button" class="tool-icon" id="mp-banner-skip" style="color: #ffd700;">⏭ Play Without Late Players</button>
                 <button type="button" class="tool-icon" id="mp-banner-lobby">⇠ Game Lobby</button>
             </div>
@@ -3283,6 +3298,8 @@
                 <p><b style="color:#da70d6;">Watching While Others Play</b><br>While the year is being played out, the galaxy is view only for a moment: a VIEW ONLY badge appears and the bar says the year is being played out. Otherwise you can always look around and give orders. A player who has resigned watches the game in view only mode. The game checks the server every few seconds and loads the new year by itself.</p>
                 <p><b style="color:#da70d6;">My Games</b><br>My Games in the lobby lists every multiplayer game you created or joined, games where it is your turn first, then running games by newest activity, then finished games. Each card shows its status, host, progress (players joined, the year and whose turn it is, or the result), the number of empires and the galaxy size. A lock means the game is private. Badges: <b>Your turn</b>, <b>Turn overdue</b> (the player whose turn it is has run past the turn time limit, so you can skip them) and <b>🏆 Victory</b>. Pick a game to open its lobby. Sign in on any device to see the same list.</p>
                 <p><b style="color:#da70d6;">Turn Time Limit and Skipping</b><br>Every multiplayer game has a deadline for each year, set by its Play Type (see Play Types). The bar at the bottom of the galaxy and the game lobby show who you are still waiting for (each player carries a <b>Giving orders</b> or <b>Orders sent</b> badge) and a countdown to the deadline; it ticks every second, and in a Blitz game it shows minutes and seconds and the bar pulses in the last minute if your own orders are not in. Everyone gives orders at the same time and can press End Turn at any time, then keep changing orders and press End Turn again until the last player is in. When the last human sends orders, the AI empires add theirs and the whole year is played out at once. Once the deadline has passed, a player who has sent orders can play the year without the late players: in Turn-a-Day and Blitz games this happens automatically in the browser of the first such player who has the game open; in a Custom game press <b>Play the Year Without</b> (in the lobby or in the bar at the bottom). The late players' empires follow their standing orders for that year: building queues, research and fleet waypoints carry on. Outside Blitz games they are emailed that their orders were not sent in time.</p>
+                <p><b style="color:#da70d6;">Who Is Online and How Long the Year Has Run</b><br>The bar at the top of the galaxy shows <b>🟢 Online 2 of 3</b> with the names of the players who have this game open right now, and <b>⏱ Year 2403 running 3h 12m</b>, the time since the current year was generated (it ticks every second, and starts again when a new year is played out). The lobby of a running game shows the same two lines, and every player in it carries a green <b>● Online</b> or grey <b>○ Offline</b> badge. A player counts as online while their browser tab shows the galaxy of that game; a player whose tab is hidden, closed or on another page counts as offline after up to about a minute, and the list refreshes every 20 seconds. Empires of players who resigned and AI empires are not listed. The online list needs <b>12_online.sql</b> to be run once in the Supabase SQL Editor; without it the year timer still works but the online list stays hidden.</p>
+                <p><b style="color:#da70d6;">Chat</b><br>In a multiplayer game the Galactic Event Log panel has three tabs: <b>Events</b> (your own log, as always), <b>💬 Chat</b> (messages from the players) and <b>Both</b> (events and chat together, ordered by game year, with the chat of a year shown after the events of that year, so you can see what was said around what happened). The bar at the bottom of the galaxy has a <b>💬 Chat</b> button that opens the Chat tab and brings the panel into view (handy on a phone, where the panel sits further down the page). Type a message (up to 500 characters) and press Enter or Send on the Chat or Both tab; it goes to every player in the game. Each message shows the game year, your local time, a dot, and the sender's name in that player's seat colour (seat 1 cyan, seat 2 gold, and so on). A <b>green dot</b> means the player is online right now, a <b>grey dot</b> offline (see Who Is Online); no dot means that player's status is not known. Your own messages have a green bar on their left. While the Chat or Both tab is open new messages appear within a few seconds; while it is closed the game checks about every 20 seconds, and the number of messages you have not read yet is shown in brackets on the tab and on the bar button, which turn gold. Opening the Chat or Both tab marks everything as read (this is remembered in your browser, per game). The list is 300 pixels high; press <b>▾ Smaller</b> for 150 pixels or <b>▴ Bigger</b> to enlarge it again. Chat is only open while the game is running, it is shared by all players (private messages are not possible yet), and the server keeps the last 200 messages of each game. Chat messages are not part of your saved game and are never written into your Events log; the Both tab only shows them next to it. Chat needs <b>13_chat.sql</b> to be run once in the Supabase SQL Editor; until then the Chat tab says that chat is not set up. <b>Host tools:</b> the host (seat 1, who created the game) sees a <b>🧹 Clear</b> button next to Send, which deletes the whole chat for every player after a confirmation, and can type commands in the chat box: <b>/clear</b>, <b>/mute name</b> (the player can still read the chat but cannot send messages) and <b>/unmute name</b>, using the player's username. Everyone sees a short orange notice when the chat is cleared, a player is muted or unmuted, or a player joins the running game late. When the game is over the chat is closed (you can still read it). While you have unread messages the number also shows in the browser tab title. The host tools and notices need <b>14_chat_host.sql</b> to be run once in the Supabase SQL Editor (after 13_chat.sql).</p>
                 <p><b style="color:#da70d6;">Play Types</b><br>The Multiplayer Options of a new game set its <b>Play Type</b>. <b>Custom time limit</b>: the Turn Time Limit (24 hours, 48 hours, 72 hours, 1 week or No limit) is how long players have for each year; after it any player who has sent orders may play the year without the others. <b>Turn-a-Day (play by email)</b>: the classic pace of one year a day. Pick a daily deadline in your local time (it is stored as the same moment for every player, wherever they live). The year is played out as soon as every player has sent orders, or at the deadline without the late players; tick <b>Only play out the year at the daily deadline</b> to always wait for the deadline, which gives everyone the full day for planning, messages and calculations. A year that starts within an hour of the deadline runs until the next day's deadline. Everyone gets a year summary by email. <b>Blitz (everyone online)</b>: every player is online at once and a year lasts 5, 10, 15, 20, 30 or 60 minutes; when the timer runs out the year is played out automatically without anyone who is late, the galaxy checks for news every 5 seconds, the Orders Sent message is skipped, and no emails are sent each year. The play type is shown in the lobby and as a tag in My Games.</p>
                 <p><b style="color:#da70d6;">Resigning</b><br>In a game that is in progress, <b>🏳 Resign</b> in the game lobby lets you leave for good (it cannot be undone); the confirmation tells you what will happen to your empire. What happens depends on the game's When a Player Resigns option (see Multiplayer Options). <b>A new AI empire takes over:</b> your planets, ships and starbases go to a new computer empire with a random name, race and intelligence, which plays on and can win like any AI opponent. <b>The empire is removed:</b> your ships are scrapped and your planets become uninhabited. Both changes are made in the galaxy of the next player whose turn comes up, and everyone's event log records them. <b>The empire keeps its standing orders:</b> it stays in the galaxy, keeps its planets and fleets and follows its standing orders every round, but it cannot win. In every case you can no longer give orders. The other players are emailed and the turn order passes over you from then on: whoever plays before you runs your empire's turn on standing orders as part of their End Turn, and their turn report says so. If it was your turn, the turn passes on at once. You can still open the galaxy to watch, or press Remove from My Games to hide it. If every player resigns, the game ends without a winner, everyone is emailed and the saved galaxy is deleted. If only one player is left, they keep playing against the AI empires and the resigned empires; their turn comes straight back after each End Turn. Before a game starts, use Leave Game (or Cancel Game if you created it) instead.</p>
                 <p><b style="color:#da70d6;">The New Game Screen</b><br>Empire Name and Choose Race sit on one row. Universe Size, Star Density and Player Position share the next row. Choose Race offers <b>Random Race</b>, which picks one of the six built-in races for you when you press Create Galaxy (the log tells you which), and lists your saved custom races under their own <b>Custom Races</b> heading. Player Position sets how far apart the homeworlds start. Four buttons sit below, two to a row: <b>Custom Race</b> opens your race list and the Race Wizard (see Custom Races below), <b>AI Opponents</b> opens the rival setup and shows how many rivals you have in brackets, and <b>Advanced Options</b> and <b>Victory Conditions</b> each show how many choices are ticked. Back and Create Galaxy sit on the bottom row.</p>
@@ -3728,7 +3745,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.34.0';
+        const GAME_VERSION = '0.39.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -12222,6 +12239,36 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.39.0', d: 'Oct 3, 2026 5:10 AM', t: "In-Game Chat, Part 4", items: [
+                "Host tools: the host gets a Clear button next to Send (everyone's chat is deleted after a confirmation) and the chat commands /clear, /mute name and /unmute name. A muted player can still read the chat but cannot send messages.",
+                "Short orange notices appear in the chat when the chat is cleared, a player is muted or unmuted, or a player joins the running game late.",
+                "The chat closes when the game is over (you can still read it). Unread messages also show as a number in the browser tab title.",
+                "This finishes the chat. Needs the new 14_chat_host.sql run once in the Supabase SQL Editor after 13_chat.sql. Messages still arrive by checking every few seconds; instant delivery was left out because it needs more server setup that could not be tested."
+            ] },
+            { v: '0.38.0', d: 'Oct 3, 2026 5:05 AM', t: "In-Game Chat, Part 3", items: [
+                "New Both tab on the Galactic Event Log: your events and the chat together, ordered by game year, with the chat of a year after that year's events. You can type and send messages from it too.",
+                "Chat names now use a colour for each player's seat, and a dot before each name shows whether that player is online (green) or offline (grey). The dots update every 20 seconds. Your own messages have a green bar on the left.",
+                "Opening either the Chat or Both tab marks messages as read. The Smaller / Bigger button works on both.",
+                "Coming next: part 4 (host tools and polish). Nothing new has to be run in Supabase for this part."
+            ] },
+            { v: '0.37.0', d: 'Oct 3, 2026 5:00 AM', t: "In-Game Chat, Part 2", items: [
+                "New 💬 Chat button in the bar at the bottom of the galaxy. It opens the Chat tab of the Galactic Event Log and scrolls the panel into view, which helps on a phone.",
+                "Unread messages are counted in brackets on both the button and the Chat tab, and they turn gold. The game checks for new messages about every 20 seconds while the Chat tab is closed. Opening the tab marks everything read; this is remembered in your browser for each game.",
+                "The chat list is now 300 pixels high, with a Smaller / Bigger button to switch to 150 pixels.",
+                "Coming next: part 3 (a combined Events and Chat view, online dots and seat colours) and part 4 (host tools and polish). Nothing new has to be run in Supabase for this part."
+            ] },
+            { v: '0.36.0', d: 'Oct 3, 2026 4:55 AM', t: "In-Game Chat, Part 1", items: [
+                "Multiplayer games now have chat. The Galactic Event Log panel has two tabs, Events and Chat. Open Chat to talk with every player in the game; new messages show up within a few seconds while the tab is open.",
+                "Messages show the game year and time. They can be up to 500 characters, are limited to a few per ten seconds, and the server keeps the last 200 per game. Chat is not saved inside your game file.",
+                "This is part 1 of 4. Coming next: unread count and a Chat button in the top bar with a bigger panel (part 2), a combined Events and Chat view with online dots and seat colours (part 3), host tools and polish (part 4).",
+                "Needs the new 13_chat.sql run once in the Supabase SQL Editor. Help gained Chat."
+            ] },
+            { v: '0.35.0', d: 'Oct 3, 2026 4:25 AM', t: "Who Is Online and How Long the Year Has Run", items: [
+                "The multiplayer bar at the top of the galaxy now shows who is online in the game right now (names and how many of the players) and how long the current year has been running since it was generated, counting up live.",
+                "The lobby of a running game shows the same year timer and online list, and every player has a green Online or grey Offline badge.",
+                "Online means the player has that game open in a visible browser tab. The list refreshes every 20 seconds. Resigned players and AI empires are not listed.",
+                "Needs the new 12_online.sql run once in the Supabase SQL Editor; until then the year timer works but the online list is hidden. Help gained Who Is Online and How Long the Year Has Run."
+            ] },
             { v: '0.34.0', d: 'Oct 2, 2026 9:45 PM', t: "Invite Players Into a Running Game", items: [
                 "The host of a multiplayer game can now invite new players after the game has started. In the galaxy, Settings has a new Invite to Game button (only the host sees it). Type an email address or a username and the person gets an email with a link.",
                 "The invited player signs in, then sees a Join window to create their empire (name and race) first. Their empire is then placed on a random uninhabited planet as a new homeworld, with a Long Range Scout and starting technology, and they go straight into the game.",
@@ -16639,6 +16686,106 @@ const DEFENDERS_PER_POP=100;
             }
         }
 
+        function mpElapsedText(ms) {
+            const sec = Math.max(0, Math.floor(ms / 1000));
+            const d = Math.floor(sec / 86400);
+            const h = Math.floor((sec % 86400) / 3600);
+            const m = Math.floor((sec % 3600) / 60);
+            if (d > 0) return d + 'd ' + h + 'h ' + m + 'm';
+            if (h > 0) return h + 'h ' + String(m).padStart(2, '0') + 'm';
+            return m + 'm ' + String(sec % 60).padStart(2, '0') + 's';
+        }
+
+        function mpClockElapsedMs(g, fetchedAt) {
+            if (!g || g.status !== 'active' || !g.turn_started_at) return null;
+            const now = (g.server_now ? Date.parse(g.server_now) : Date.now()) + (fetchedAt ? Date.now() - fetchedAt : 0);
+            return Math.max(0, now - Date.parse(g.turn_started_at));
+        }
+
+        let mpOnlineData = { gid: null, seats: [] };
+        let mpOnlineMissing = false;
+
+        async function mpRefreshOnline(gid) {
+            if (!gid || mpOnlineMissing || !mpClient() || !mpProfile) return false;
+            try {
+                const res = await sb.rpc('game_online', { gid: gid });
+                if (res.error) {
+                    if (res.error.code === 'PGRST202' || /game_online/.test(res.error.message || '')) mpOnlineMissing = true;
+                    return false;
+                }
+                const r = res.data || {};
+                if (!r.ok) return false;
+                mpOnlineData = { gid: gid, seats: Array.isArray(r.seats) ? r.seats : [], at: Date.now() };
+                return true;
+            } catch (err) {
+                return false;
+            }
+        }
+
+        function mpOnlineSummary(gid, seats) {
+            const humans = (seats || []).filter(x => x.kind === 'human' && x.filled && x.status !== 'resigned');
+            if (!humans.length) return null;
+            const known = mpOnlineData.gid === gid && !mpOnlineMissing;
+            const on = humans.filter(x => x.is_me || (known && mpOnlineData.seats.indexOf(x.seat) >= 0));
+            const off = humans.filter(x => on.indexOf(x) < 0);
+            return {
+                known: known,
+                online: on,
+                offline: off,
+                total: humans.length,
+                text: on.map(x => (x.username || 'Player') + (x.is_me ? ' (you)' : '')).join(', '),
+                tip: off.length ? 'Not online: ' + off.map(x => x.username || 'Player').join(', ') : 'Every player is online'
+            };
+        }
+
+        function mpRenderBannerInfo() {
+            const el = document.getElementById('mp-banner-info');
+            if (!el) return;
+            if (!mpGame || mpGame.finished) {
+                el.textContent = '';
+                return;
+            }
+            const parts = [];
+            const sum = mpOnlineSummary(mpGame.id, mpGame.seats);
+            if (sum && sum.known) {
+                parts.push('🟢 Online ' + sum.online.length + ' of ' + sum.total + ': ' + sum.text);
+                el.title = sum.tip;
+            } else {
+                el.title = '';
+            }
+            const ms = mpClockElapsedMs(mpGame.clock, mpGame.clock && mpGame.clock.fetchedAt);
+            if (ms !== null) parts.push('⏱ Year ' + currentYear + ' running ' + mpElapsedText(ms));
+            el.textContent = parts.join(' | ');
+            mpChatPaintDots();
+        }
+
+        function mpPaintLobbyOnline() {
+            const data = mpCurrentGame;
+            if (!data || !data.game) return;
+            const g = data.game;
+            const box = document.getElementById('mpg-online');
+            if (box) {
+                const sum = g.status === 'active' ? mpOnlineSummary(g.id, data.seats) : null;
+                box.innerHTML = sum && sum.known
+                    ? 'Online now: <b style="color: #9fe8b0;">' + (sum.text ? escapeHtml(sum.text) : 'nobody') + '</b> (' + sum.online.length + ' of ' + sum.total + ' players)'
+                    : '';
+            }
+            const seatsBox = document.getElementById('mpg-seats');
+            if (seatsBox && data.seats) seatsBox.innerHTML = data.seats.map(x => seatRowHtml(x, g)).join('');
+        }
+
+        function mpInfoTick() {
+            mpRenderBannerInfo();
+            const data = mpCurrentGame;
+            const el = document.getElementById('mpg-elapsed');
+            if (el && data && data.game) {
+                const ms = mpClockElapsedMs(data.game, data.fetchedAt);
+                el.textContent = ms === null ? '' : mpElapsedText(ms);
+            }
+        }
+
+        setInterval(mpInfoTick, 1000);
+
         function seatRowHtml(st, game) {
             const n = '<span class="seat-num">Seat ' + (st.seat + 1) + '</span>';
             if (st.kind === 'ai') {
@@ -16657,9 +16804,11 @@ const DEFENDERS_PER_POP=100;
             const me = st.is_me ? '<span class="seat-badge" style="color: #32cd32; border-color: #1f6b1f;">You</span>' : '';
             const resigned = st.status === 'resigned';
             const gone = resigned ? '<span class="seat-badge" style="color: #ff8c66; border-color: #7a3b22;">Resigned</span>' : '';
+            const onlineSum = game && game.status === 'active' && !resigned ? mpOnlineSummary(game.id, [st]) : null;
+            const onlineBadge = onlineSum && onlineSum.known ? (onlineSum.online.length ? '<span class="seat-badge" style="color: #9fe8b0; border-color: #1f6b3a;">● Online</span>' : '<span class="seat-badge" style="color: #888; border-color: #444;">○ Offline</span>') : '';
             const playing = game && game.status === 'active' && !resigned ? (st.submitted ? '<span class="seat-badge" style="color: #32cd32; border-color: #1f6b1f;">Orders sent</span>' : '<span class="seat-badge" style="color: #00ffff; border-color: #0a6a7a;">Giving orders</span>') : '';
             return `<div class="seat-row ${st.is_me ? 'me' : ''}" ${resigned ? 'style="opacity: 0.6;"' : ''}><div class="seat-icon">${resigned ? '🏳' : '👤'}</div><div class="seat-main">
-                <div class="seat-name">${escapeHtml(st.username || 'Player')}${host}${me}${gone}${playing}</div>
+                <div class="seat-name">${escapeHtml(st.username || 'Player')}${host}${me}${gone}${onlineBadge}${playing}</div>
                 <div class="seat-sub">Empire: ${escapeHtml(st.empire_name || 'Not chosen yet')} | Race: ${escapeHtml(seatRaceLabel(st.race, st.race_def))}</div>
             </div>${n}</div>`;
         }
@@ -16668,6 +16817,7 @@ const DEFENDERS_PER_POP=100;
             const g = data.game;
             const st = g.settings || {};
             mpCurrentGame = data;
+            data.fetchedAt = Date.now();
             document.getElementById('mpg-title').textContent = (g.is_private ? '🔒 ' : '') + g.name;
             const opts = OPTION_META.filter(o => st.options && st.options[o.key]).map(o => o.title);
             const ruleText = g.race_rule === 'anyone' ? 'Allowed: anyone can bring their own'
@@ -16693,10 +16843,14 @@ const DEFENDERS_PER_POP=100;
                 `<div>Custom races: <b>${escapeHtml(ruleText)}</b></div>` +
                 `<div>Advanced options: ${opts.length ? escapeHtml(opts.join(', ')) : 'none'}</div>` +
                 `<div>Play type: <b>${escapeHtml(playTypeText(st, clock.limit))}</b>${clock.text ? ' | ' + escapeHtml(clock.text) : ''}</div>` +
+                (g.status === 'active' ? `<div>Year ${escapeHtml(String(g.year))} has been running for <b id="mpg-elapsed" style="color: #9fe8b0;"></b></div><div id="mpg-online"></div>` : '') +
                 `<div>When a player resigns: <b>${escapeHtml((RESIGN_RULES[st.resignRule] || RESIGN_RULES.standing).label)}</b></div>` +
                 (g.my_status === 'resigned' && g.status === 'active' ? '<div style="color: #ff8c66;">You have resigned from this game. You can still watch it.</div>' : '') +
                 `<div style="color: #ffd700; margin-top: 4px;">${escapeHtml(victorySummaryText(mergeVictory(st.victory)))}</div>`;
             document.getElementById('mpg-seats').innerHTML = (data.seats || []).map(x => seatRowHtml(x, g)).join('');
+            mpInfoTick();
+            mpPaintLobbyOnline();
+            if (g.status === 'active' && g.is_member) mpRefreshOnline(g.id).then(ok => { if (ok && mpCurrentGame === data) mpPaintLobbyOnline(); });
             const resultBox = document.getElementById('mpg-result');
             if (g.status === 'finished' && g.summary) {
                 resultBox.innerHTML = mpResultHtml(g.summary, g.my_seat);
@@ -17294,6 +17448,8 @@ const DEFENDERS_PER_POP=100;
         function mpUpdateChrome() {
             const banner = document.getElementById('mp-banner');
             mpSyncLateInviteButton();
+            mpRenderBannerInfo();
+            mpChatSyncUi();
             const endBtn = document.getElementById('btn-end-turn');
             document.body.classList.toggle('mp-readonly', !!(mpGame && mpReadOnly));
             if (!mpGame) {
@@ -17490,6 +17646,7 @@ const DEFENDERS_PER_POP=100;
             mpUpdateChrome();
             mpStartPolling();
             mpPresence(true);
+            mpRefreshOnline(g.id).then(() => mpRenderBannerInfo());
             if (opts.newYear || !opts.silent) mpMaybeShowReport(g.id, g.my_seat);
             if (canOrder && !mpGame.submitted && !opts.silent) {
                 gameDialog({
@@ -18057,7 +18214,14 @@ const DEFENDERS_PER_POP=100;
 
         function mpPresenceStart() {
             if (mpPresenceTimer) return;
-            mpPresenceTimer = setInterval(() => mpPresence(true), MP_PRESENCE_MS);
+            mpPresenceTimer = setInterval(() => {
+                mpPresence(true);
+                if (mpGame && !mpGame.finished) {
+                    mpRefreshOnline(mpGame.id).then(() => mpRenderBannerInfo());
+                } else if (!mpGame && mpCurrentGame && mpCurrentGame.game && mpCurrentGame.game.status === 'active' && mpCurrentGame.game.is_member && document.getElementById('view-mp-game').classList.contains('active') && document.visibilityState === 'visible') {
+                    mpRefreshOnline(mpCurrentGame.game.id).then(ok => { if (ok) mpPaintLobbyOnline(); });
+                }
+            }, MP_PRESENCE_MS);
         }
 
         document.getElementById('btn-year-email').addEventListener('click', mpToggleYearEmail);
@@ -18482,6 +18646,412 @@ const DEFENDERS_PER_POP=100;
         document.getElementById('late-invite-close').addEventListener('click', mpCloseLateInvite);
         document.getElementById('late-join-form').addEventListener('submit', mpLateJoinSubmit);
         document.getElementById('late-join-cancel').addEventListener('click', mpCloseLateJoin);
+
+        const CHAT_ERRORS = {
+            not_signed_in: 'You are signed out. Sign in again.',
+            not_member: 'Only players in this game can chat.',
+            not_active: 'Chat is only open while the game is running.',
+            empty: 'Type a message first.',
+            too_long: 'Messages can be up to 500 characters.',
+            slow_down: 'You are sending messages too fast. Wait a few seconds.',
+            muted: 'The host has muted you in this chat.',
+            not_host: 'Only the host can do that.',
+            no_such_seat: 'That player is not in this game.',
+            self: 'You cannot mute yourself.'
+        };
+        const MP_BASE_TITLE = document.title;
+        const MP_SEAT_COLORS = ['#00ffff', '#ffd700', '#ff7f50', '#9acd32', '#da70d6', '#1e90ff', '#ff69b4', '#40e0d0', '#f4a460', '#b0e0e6', '#ba55d3', '#7fffd4', '#ffa07a', '#87ceeb', '#eee8aa', '#dda0dd'];
+        const MP_CHAT_TABS = ['events', 'chat', 'both'];
+        let mpChatTab = 'events';
+        let mpChatGid = null;
+        let mpChatLast = 0;
+        let mpChatMissing = false;
+        let mpChatBusy = false;
+        let mpChatSeen = 0;
+        let mpChatUnread = 0;
+        let mpChatTickCount = 0;
+        let mpChatBig = true;
+        let mpChatMsgs = [];
+        let mpChatBothSig = '';
+        let mpChatDotsKey = '';
+
+        function mpChatViewing() {
+            return (mpChatTab === 'chat' || mpChatTab === 'both') && document.visibilityState === 'visible' && !!mpChatGid;
+        }
+
+        function mpChatLoadSeen(gid) {
+            try { return parseInt(localStorage.getItem('freespace.chatSeen.' + gid), 10) || 0; } catch (err) { return 0; }
+        }
+
+        function mpChatSaveSeen() {
+            try { localStorage.setItem('freespace.chatSeen.' + mpChatGid, String(mpChatSeen)); } catch (err) { }
+        }
+
+        function mpChatRenderBadge() {
+            const n = mpChatUnread;
+            const label = n > 99 ? '99+' : String(n);
+            const tab = document.getElementById('log-tab-chat');
+            const btn = document.getElementById('mp-banner-chat');
+            tab.textContent = '💬 Chat' + (n ? ' (' + label + ')' : '');
+            btn.textContent = '💬 Chat' + (n ? ' (' + label + ')' : '');
+            btn.style.color = n ? '#ffd700' : '#00ffff';
+            btn.style.fontWeight = n ? 'bold' : '';
+            if (mpChatTab !== 'chat') tab.style.color = n ? '#ffd700' : '#888';
+            document.title = (n && mpGame ? '(' + label + ') ' : '') + MP_BASE_TITLE;
+        }
+
+        function mpChatMarkSeenIfViewing() {
+            if (!mpChatViewing()) return;
+            mpChatSeen = Math.max(mpChatSeen, mpChatLast);
+            mpChatUnread = 0;
+            mpChatSaveSeen();
+            mpChatRenderBadge();
+        }
+
+        function mpChatApplySize() {
+            const h = mpChatBig ? '300px' : '150px';
+            document.getElementById('chat-box').style.maxHeight = h;
+            document.getElementById('both-box').style.maxHeight = h;
+            document.getElementById('chat-size').textContent = mpChatBig ? '▾ Smaller' : '▴ Bigger';
+        }
+
+        function mpChatActiveBox() {
+            return document.getElementById(mpChatTab === 'both' ? 'both-box' : 'chat-box');
+        }
+
+        function mpChatNote(text) {
+            const box = mpChatActiveBox();
+            const row = document.createElement('div');
+            row.style.color = '#ffb347';
+            row.textContent = text;
+            box.appendChild(row);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function mpChatSeatColor(seat) {
+            return MP_SEAT_COLORS[((seat % MP_SEAT_COLORS.length) + MP_SEAT_COLORS.length) % MP_SEAT_COLORS.length];
+        }
+
+        function mpChatDotState(seat, sum) {
+            if (!sum || !sum.known) return null;
+            if (!sum.online.concat(sum.offline).some(x => x.seat === seat)) return null;
+            return sum.online.some(x => x.seat === seat);
+        }
+
+        function mpChatCurrentSummary() {
+            return mpGame ? mpOnlineSummary(mpGame.id, mpGame.seats) : null;
+        }
+
+        function mpChatPaintDots() {
+            if (!mpGame) return;
+            const key = mpGame.id + ':' + (mpOnlineData.at || 0) + ':' + (mpOnlineMissing ? 1 : 0);
+            if (key === mpChatDotsKey) return;
+            mpChatDotsKey = key;
+            const sum = mpChatCurrentSummary();
+            document.querySelectorAll('.chat-dot').forEach(el => {
+                const st = mpChatDotState(parseInt(el.dataset.seat, 10), sum);
+                el.textContent = st === null ? '' : '●';
+                el.style.color = st ? '#32cd32' : '#555';
+                el.title = st === null ? '' : (st ? 'Online' : 'Offline');
+            });
+        }
+
+        function mpChatRowEl(m, sum) {
+            const row = document.createElement('div');
+            if (m.kind === 'system' || m.kind === 'clear') {
+                const t = new Date(m.created_at).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+                row.style.color = '#ffb347';
+                row.style.fontStyle = 'italic';
+                row.textContent = '[' + m.year + ' ' + t + '] ⚙ ' + m.body;
+                return row;
+            }
+            const mine = !!(mpGame && m.seat === mpGame.mySeat);
+            if (mine) {
+                row.style.borderLeft = '2px solid #32cd32';
+                row.style.paddingLeft = '4px';
+            }
+            const when = new Date(m.created_at).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+            const stamp = document.createElement('span');
+            stamp.style.color = '#667';
+            stamp.textContent = '[' + m.year + ' ' + when + '] ';
+            const dot = document.createElement('span');
+            dot.className = 'chat-dot';
+            dot.dataset.seat = String(m.seat);
+            const st = mpChatDotState(m.seat, sum);
+            dot.textContent = st === null ? '' : '●';
+            dot.style.color = st ? '#32cd32' : '#555';
+            dot.title = st === null ? '' : (st ? 'Online' : 'Offline');
+            dot.style.marginRight = '3px';
+            const name = document.createElement('span');
+            name.style.color = mpChatSeatColor(m.seat);
+            name.style.fontWeight = 'bold';
+            name.textContent = (m.username || 'Player') + ': ';
+            const text = document.createElement('span');
+            text.style.color = '#ddd';
+            text.textContent = m.body;
+            row.appendChild(stamp);
+            row.appendChild(dot);
+            row.appendChild(name);
+            row.appendChild(text);
+            return row;
+        }
+
+        function mpChatRenderBoth(force) {
+            const box = document.getElementById('both-box');
+            const lastLine = eventLog.length ? eventLog[eventLog.length - 1] : '';
+            const sig = eventLog.length + '|' + lastLine + '|' + mpChatLast + '|' + mpChatMsgs.length + '|' + (mpGame ? mpGame.id : '');
+            if (!force && sig === mpChatBothSig) return;
+            mpChatBothSig = sig;
+            const nearEnd = force || box.scrollHeight - box.scrollTop - box.clientHeight < 40;
+            const items = [];
+            let lastYear = 0;
+            eventLog.forEach((line, i) => {
+                const m = /^\[(-?\d+)\]/.exec(line);
+                if (m) lastYear = parseInt(m[1], 10);
+                items.push({ y: lastYear, k: 0, n: i, line: line });
+            });
+            mpChatMsgs.forEach((c, i) => items.push({ y: Number.isFinite(c.year) ? c.year : currentYear, k: 1, n: i, msg: c }));
+            items.sort((a, b) => a.y - b.y || a.k - b.k || a.n - b.n);
+            const sum = mpChatCurrentSummary();
+            const frag = document.createDocumentFragment();
+            items.forEach(it => {
+                if (it.msg) {
+                    frag.appendChild(mpChatRowEl(it.msg, sum));
+                } else {
+                    const row = document.createElement('div');
+                    row.textContent = it.line;
+                    frag.appendChild(row);
+                }
+            });
+            box.innerHTML = '';
+            box.appendChild(frag);
+            if (nearEnd) box.scrollTop = box.scrollHeight;
+        }
+
+        function mpChatSetTab(tab) {
+            mpChatTab = tab;
+            const chat = tab === 'chat';
+            const both = tab === 'both';
+            document.getElementById('event-log-box').style.display = chat || both ? 'none' : '';
+            document.getElementById('chat-box').style.display = chat ? 'block' : 'none';
+            document.getElementById('both-box').style.display = both ? 'block' : 'none';
+            document.getElementById('chat-form').style.display = chat || both ? 'flex' : 'none';
+            document.getElementById('chat-size').style.display = chat || both ? 'inline-block' : 'none';
+            MP_CHAT_TABS.forEach(t => {
+                const b = document.getElementById('log-tab-' + t);
+                b.style.color = t === tab ? '#00ffff' : '#888';
+                b.style.borderBottomColor = t === tab ? '#00ffff' : 'transparent';
+            });
+            mpChatApplySize();
+            if (chat || both) {
+                if (both) mpChatRenderBoth(true);
+                const box = mpChatActiveBox();
+                box.scrollTop = box.scrollHeight;
+                mpChatMarkSeenIfViewing();
+                mpChatFetch();
+                document.getElementById('chat-input').focus();
+            } else {
+                mpChatRenderBadge();
+            }
+        }
+
+        function mpChatOpen() {
+            if (!mpGame) return;
+            mpChatSetTab(mpChatTab === 'both' ? 'both' : 'chat');
+            document.getElementById('log-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function mpChatSyncUi() {
+            const tabs = document.getElementById('log-tabs');
+            const btn = document.getElementById('mp-banner-chat');
+            if (!tabs) return;
+            if (!mpGame) {
+                if (mpChatTab !== 'events') mpChatSetTab('events');
+                tabs.style.display = 'none';
+                btn.style.display = 'none';
+                mpChatGid = null;
+                document.title = MP_BASE_TITLE;
+                return;
+            }
+            if (mpChatGid !== mpGame.id) {
+                mpChatGid = mpGame.id;
+                mpChatLast = 0;
+                mpChatMissing = false;
+                mpChatSeen = mpChatLoadSeen(mpGame.id);
+                mpChatUnread = 0;
+                mpChatMsgs = [];
+                mpChatBothSig = '';
+                mpChatDotsKey = '';
+                document.getElementById('chat-box').innerHTML = '';
+                document.getElementById('both-box').innerHTML = '';
+                if (mpChatTab !== 'events') mpChatSetTab('events');
+                mpChatRenderBadge();
+                setTimeout(mpChatFetch, 0);
+            }
+            tabs.style.display = 'flex';
+            btn.style.display = 'inline-block';
+            const closed = !!mpGame.finished;
+            const chatInput = document.getElementById('chat-input');
+            chatInput.disabled = closed;
+            document.getElementById('chat-send').disabled = closed;
+            chatInput.placeholder = closed ? 'The game is over, chat is closed' : (mpGame.mySeat === 0 ? 'Message all players (host: /clear, /mute name, /unmute name)' : 'Message all players');
+            document.getElementById('chat-clear').style.display = mpGame.mySeat === 0 ? 'inline-block' : 'none';
+            if (mpChatTab === 'both') mpChatRenderBoth(false);
+        }
+
+        function mpChatAppend(list) {
+            const box = document.getElementById('chat-box');
+            const nearEnd = box.scrollHeight - box.scrollTop - box.clientHeight < 40 || mpChatLast === 0;
+            const sum = mpChatCurrentSummary();
+            list.forEach(m => {
+                if (m.id <= mpChatLast) return;
+                mpChatLast = m.id;
+                if (m.kind === 'clear') {
+                    mpChatMsgs = [];
+                    box.innerHTML = '';
+                    mpChatUnread = 0;
+                    mpChatBothSig = '';
+                }
+                if ((!m.kind || m.kind === 'chat') && !(mpGame && m.seat === mpGame.mySeat) && m.id > mpChatSeen) mpChatUnread++;
+                mpChatMsgs.push(m);
+                if (mpChatMsgs.length > 300) mpChatMsgs.shift();
+                box.appendChild(mpChatRowEl(m, sum));
+                while (box.children.length > 300) box.removeChild(box.firstChild);
+            });
+            if (nearEnd) box.scrollTop = box.scrollHeight;
+            if (mpChatTab === 'both') mpChatRenderBoth(false);
+            mpChatMarkSeenIfViewing();
+            mpChatRenderBadge();
+        }
+
+        async function mpChatFetch() {
+            if (!mpGame || mpChatBusy || mpChatMissing || !mpClient()) return;
+            const gid = mpGame.id;
+            mpChatBusy = true;
+            try {
+                const res = await sb.rpc('get_chat', { gid: gid, p_after: mpChatLast });
+                if (res.error) {
+                    if (res.error.code === 'PGRST202' || /get_chat/.test(res.error.message || '')) {
+                        mpChatMissing = true;
+                        mpChatNote('Chat is not set up on the server yet. Run 13_chat.sql in the Supabase SQL Editor, then reload.');
+                    }
+                    return;
+                }
+                const r = res.data || {};
+                if (!r.ok || !mpGame || mpGame.id !== gid) return;
+                mpChatAppend(Array.isArray(r.messages) ? r.messages : []);
+            } catch (err) {
+            } finally {
+                mpChatBusy = false;
+            }
+        }
+
+        function mpChatHostError(err) {
+            if (err && (err.code === 'PGRST202' || /clear_chat|chat_mute/.test(err.message || ''))) {
+                mpChatNote('Host tools are not set up on the server yet. Run 14_chat_host.sql in the Supabase SQL Editor.');
+            } else {
+                mpChatNote(mpErrorText(err));
+            }
+        }
+
+        function mpChatClear() {
+            if (!mpGame || mpGame.mySeat !== 0 || !mpClient()) return;
+            gameConfirm('Clear the chat for every player in this game? This cannot be undone.', async () => {
+                if (!mpGame) return;
+                try {
+                    const res = await sb.rpc('clear_chat', { gid: mpGame.id });
+                    if (res.error) throw res.error;
+                    const r = res.data || {};
+                    if (!r.ok) mpChatNote(CHAT_ERRORS[r.error] || ('Could not clear the chat (' + r.error + ').'));
+                    else await mpChatFetch();
+                } catch (err) {
+                    mpChatHostError(err);
+                }
+            }, 'Clear Chat', 'Clear');
+        }
+
+        async function mpChatCommand(text) {
+            const parts = text.slice(1).trim().split(/\s+/);
+            const cmd = (parts.shift() || '').toLowerCase();
+            const arg = parts.join(' ').trim();
+            if (cmd === 'clear') {
+                mpChatClear();
+                return;
+            }
+            if (cmd === 'mute' || cmd === 'unmute') {
+                if (!arg) {
+                    mpChatNote('Use /' + cmd + ' and a player name.');
+                    return;
+                }
+                const target = (mpGame.seats || []).find(x => x.kind === 'human' && x.filled && String(x.username || '').toLowerCase() === arg.toLowerCase());
+                if (!target) {
+                    mpChatNote('No player named ' + arg + ' in this game.');
+                    return;
+                }
+                try {
+                    const res = await sb.rpc('chat_mute', { gid: mpGame.id, p_seat: target.seat, p_on: cmd === 'mute' });
+                    if (res.error) throw res.error;
+                    const r = res.data || {};
+                    if (!r.ok) mpChatNote(CHAT_ERRORS[r.error] || ('Could not do that (' + r.error + ').'));
+                    else await mpChatFetch();
+                } catch (err) {
+                    mpChatHostError(err);
+                }
+                return;
+            }
+            mpChatNote('Host commands: /clear, /mute name, /unmute name.');
+        }
+
+        async function mpChatSend(e) {
+            e.preventDefault();
+            if (!mpGame || mpChatMissing || !mpClient()) return;
+            const input = document.getElementById('chat-input');
+            const body = input.value.trim();
+            if (!body) return;
+            if (body.charAt(0) === '/' && mpGame.mySeat === 0) {
+                input.value = '';
+                await mpChatCommand(body);
+                input.focus();
+                return;
+            }
+            const btn = document.getElementById('chat-send');
+            btn.disabled = true;
+            try {
+                const res = await sb.rpc('send_chat', { gid: mpGame.id, p_body: body });
+                if (res.error) throw res.error;
+                const r = res.data || {};
+                if (!r.ok) {
+                    mpChatNote(CHAT_ERRORS[r.error] || ('Message not sent (' + r.error + ').'));
+                    return;
+                }
+                input.value = '';
+                await mpChatFetch();
+            } catch (err) {
+                mpChatNote(mpErrorText(err));
+            } finally {
+                btn.disabled = !!(mpGame && mpGame.finished);
+                input.focus();
+            }
+        }
+
+        setInterval(() => {
+            if (!mpGame || document.visibilityState !== 'visible') return;
+            mpChatTickCount++;
+            if (mpChatTab === 'chat' || mpChatTab === 'both' || mpChatTickCount % 5 === 0) mpChatFetch();
+            if (mpChatTab === 'both') mpChatRenderBoth(false);
+        }, 4000);
+
+        document.addEventListener('visibilitychange', mpChatMarkSeenIfViewing);
+        document.getElementById('mp-banner-chat').addEventListener('click', mpChatOpen);
+        document.getElementById('chat-size').addEventListener('click', () => {
+            mpChatBig = !mpChatBig;
+            mpChatApplySize();
+        });
+        document.getElementById('log-tab-events').addEventListener('click', () => mpChatSetTab('events'));
+        document.getElementById('log-tab-chat').addEventListener('click', () => mpChatSetTab('chat'));
+        document.getElementById('log-tab-both').addEventListener('click', () => mpChatSetTab('both'));
+        document.getElementById('chat-form').addEventListener('submit', mpChatSend);
+        document.getElementById('chat-clear').addEventListener('click', mpChatClear);
 
         document.getElementById('btn-multiplayer').addEventListener('click', openMultiplayer);
         document.getElementById('mp-tab-signin').addEventListener('click', () => mpShowTab('signin'));
