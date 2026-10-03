@@ -520,8 +520,19 @@
             display: none;
         }
 
+        #summary-panel { order: 1; }
+        #queue-panel { order: 2; }
+        #fleet-panel { order: 3; }
+        #log-panel { order: 4; }
+
         @media (max-width: 899px) {
             .dash-workspace > * {
+                flex-shrink: 0;
+            }
+            .dash-workspace > .dash-col {
+                display: contents !important;
+            }
+            .dash-col > .retro-panel {
                 flex-shrink: 0;
             }
             .dash-workspace > .map-col {
@@ -2079,7 +2090,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.39.0 (Updated: October 03, 2026 05:10 AM)</div>
+            <div class="version-text">Version 0.44.0 (Updated: October 03, 2026 06:05 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -2549,29 +2560,6 @@
 
         <div class="dash-workspace">
             <div class="dash-col" style="display: flex; flex-direction: column; gap: 8px;">
-                <div class="retro-panel">
-                    <div class="retro-header"><span id="header-planet-name">Homeworld</span><span>▲</span></div>
-                    <div class="retro-body" style="display: flex; align-items: center; justify-content: space-between;">
-                        <canvas id="planet-pic" width="96" height="96"></canvas>
-                        <div style="display: flex; flex-direction: column; gap: 6px;">
-                            <button class="tool-icon" id="btn-prev-planet">Prev</button>
-                            <button class="tool-icon" id="btn-next-planet">Next</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="retro-panel">
-                    <div class="retro-header"><span>Ore On Hand &amp; Concentrations</span><span>▲</span></div>
-                    <div class="retro-body">
-                        <div class="ore-row"><span class="ore-name text-iron">Ironium</span><span class="ore-amt" id="val-iron">0kT</span><span class="ore-bar"><i></i><b id="conc-iron">0%</b></span></div>
-                        <div class="ore-row"><span class="ore-name text-bora">Boranium</span><span class="ore-amt" id="val-bora">0kT</span><span class="ore-bar"><i></i><b id="conc-bora">0%</b></span></div>
-                        <div class="ore-row"><span class="ore-name text-germ">Germanium</span><span class="ore-amt" id="val-germ">0kT</span><span class="ore-bar"><i></i><b id="conc-germ">0%</b></span></div>
-                        <div id="res-line" style="font-size: 12px; margin-top: 6px; padding-top: 5px; border-top: 1px solid #332244;">Resources: ?</div>
-                        <div style="font-size: 12px; margin-top: 4px;">Mines: <span id="val-mines">10</span> | Factories: <span id="val-factories">10</span> | Mass Driver: <span id="val-md-level" style="color: #ffd700;">1</span></div>
-                        <div style="font-size: 12px; margin-top: 4px;">Defenses: <span id="val-defenses">0</span></div>
-                    </div>
-                </div>
-
                 <div class="retro-panel" id="log-panel" style="flex-grow: 1;">
                     <div class="retro-header"><span>Galactic Event Log</span><span>▲</span></div>
                     <div id="log-tabs" style="display: none; align-items: center; gap: 4px; padding: 3px 6px 0; border-bottom: 1px solid #1a3a4a;">
@@ -2627,17 +2615,25 @@
                     </div>
                 </div>
 
-                <div class="retro-panel" style="flex-grow: 1;">
+                <div class="retro-panel" id="summary-panel" style="flex-grow: 1;">
                     <div class="retro-header"><span id="summary-panel-title">Homeworld Summary</span><span>▲</span></div>
                     <div class="retro-body">
-                        <div style="font-size: 12px; margin-bottom: 6px;">Pop: <span id="summary-pop">25,000</span> | Status: <span id="summary-owner" style="color: #32cd32;">Owned</span></div>
-                        <div style="font-size: 11px; color: #da70d6; margin-bottom: 6px;">Habitability Rating: <span id="summary-hab-score">100%</span> | Starbase: <span id="summary-starbase">No</span></div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                            <canvas id="planet-pic" width="96" height="96" style="flex-shrink: 0;"></canvas>
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="font-size: 12px; margin-bottom: 6px;">Pop: <span id="summary-pop">25,000</span> | Status: <span id="summary-owner" style="color: #32cd32;">Owned</span></div>
+                                <div style="font-size: 11px; color: #da70d6;">Habitability Rating: <span id="summary-hab-score">100%</span> | Starbase: <span id="summary-starbase">No</span></div>
+                            </div>
+                        </div>
 
-                        <div id="summary-ore-box" style="background: rgba(18, 16, 25, var(--pa)); border: 1px solid #332244; padding: 6px; border-radius: 4px; font-size: 11px; margin-bottom: 6px; display: none;">
-                            <div style="color: #da70d6; font-weight: bold; margin-bottom: 3px;">Planet Ore Deposits:</div>
-                            <div class="ore-row"><span class="ore-name text-iron">Ironium</span><span class="ore-amt" id="summary-iron-val">0kT</span><span class="ore-bar"><i></i><b id="summary-iron-conc">0%</b></span></div>
-                            <div class="ore-row"><span class="ore-name text-bora">Boranium</span><span class="ore-amt" id="summary-bora-val">0kT</span><span class="ore-bar"><i></i><b id="summary-bora-conc">0%</b></span></div>
-                            <div class="ore-row"><span class="ore-name text-germ">Germanium</span><span class="ore-amt" id="summary-germ-val">0kT</span><span class="ore-bar"><i></i><b id="summary-germ-conc">0%</b></span></div>
+                        <div id="summary-ore-box" style="background: rgba(18, 16, 25, var(--pa)); border: 1px solid #332244; padding: 6px; border-radius: 4px; font-size: 11px; margin-bottom: 6px;">
+                            <div style="color: #da70d6; font-weight: bold; margin-bottom: 3px;">Ore On Hand &amp; Concentrations</div>
+                        <div class="ore-row"><span class="ore-name text-iron">Ironium</span><span class="ore-amt" id="val-iron">0kT</span><span class="ore-bar"><i></i><b id="conc-iron">0%</b></span></div>
+                        <div class="ore-row"><span class="ore-name text-bora">Boranium</span><span class="ore-amt" id="val-bora">0kT</span><span class="ore-bar"><i></i><b id="conc-bora">0%</b></span></div>
+                        <div class="ore-row"><span class="ore-name text-germ">Germanium</span><span class="ore-amt" id="val-germ">0kT</span><span class="ore-bar"><i></i><b id="conc-germ">0%</b></span></div>
+                        <div id="res-line" style="font-size: 12px; margin-top: 6px; padding-top: 5px; border-top: 1px solid #332244;">Resources: ?</div>
+                        <div style="font-size: 12px; margin-top: 4px;">Mines: <span id="val-mines">10</span> | Factories: <span id="val-factories">10</span> | Mass Driver: <span id="val-md-level" style="color: #ffd700;">1</span></div>
+                        <div style="font-size: 12px; margin-top: 4px;">Defenses: <span id="val-defenses">0</span></div>
                         </div>
                         <div id="summary-unexplored-msg" style="font-size: 11px; color: #ffaa00; margin-bottom: 6px; font-style: italic;">
                             System unexplored. Send scout or fleet to scan ore deposits.
@@ -3327,7 +3323,7 @@
                 <p><b style="color:#da70d6;">Autobuild</b><br>Autobuild fills a planet's queue for you. It is an empire-wide ordered list of rules (Management, Autobuild, or the Rules button in the Production Queue panel). When a planet's queue runs empty the game reads the list from the top; the first rule whose condition is true and whose Ore is on hand adds an item to the queue, the planet builds it in the same turn, and the list is read again, so a planet can climb the whole ladder in one turn. Each rule has an item (Mine, Factory, Defense, Scout, Small Freighter, Destroyer or Colony Ship), a condition and an on or off switch. Conditions: <b>while below the planet limit</b> (Mines and Factories only: the number the planet's colonists supply or can run) and <b>until this many</b> (the planet has that many; for ships, the whole empire has that many built and queued, and the planet needs a ship dock; Colony Ships also need 7,500 colonists). Use the arrows to change priority. A rule is skipped when the planet cannot pay the Ore for one unit, so planets never queue things they cannot build. The default list is Mines, then Factories, then up to 5 Defenses, in that order. Under <b>Follow empire rules or Off</b> in the Production Queue panel, a single planet can switch Autobuild off, for example while you build a colony ship or starbase by hand. Items queued by Autobuild carry an Autobuild tag, and the turn report lists what it queued. Terraforming rules are not possible yet because the game has no terraforming. A new game starts with Autobuild on; saves from before version 0.9.0 load with it off.</p>
                 <p><b style="color:#da70d6;">Mines and Factories</b><br>The economy is a loop: colonists give Resources, factories add more Resources, Resources and Ore build mines, factories and ships, and mines dig the Ore. <b>Mines</b> dig Ironium, Boranium and Germanium every year; a richer concentration gives more, and digging slowly lowers it (see Ore and Mining). By default every mine works as long as the planet has colonists (turn on Mines need colonists under Advanced Options for 10 mines per 10,000 working colonists). <b>Factories</b> need workers: 10 per 10,000 working colonists for the standard economy, and any extra factories sit idle until the population grows. The queue panel and the Year Report say how many are idle. A custom race changes these numbers in the Race Wizard.</p>
                 <p><b style="color:#da70d6;">Pop-up Windows</b><br>Everything you open from the Planet, Fleet, Management and Settings menus, including Structures, Ship Construction, Manage Waypoints, Manage Ships and Names, Fleet Roster, Ship Designer, Autobuild, Battle Reports, Battle Plans, Minefields, Diplomacy, Reports, Scoreboard, Help and Updates, opens in the middle of the screen over the blank scrolling star field, the same way Research does. To close a window, click outside it, or use its Close or Back button; either one returns you to the main game view. Panel Transparency is the one exception that keeps the game visible behind it so you can watch your changes.</p>
-                <p><b style="color:#da70d6;">Ore Concentration Bars</b><br>The Ore On Hand panel and the Planet Ore Deposits box show each ore on one line: its name, how many kilotons are on hand or in the ground, and a bar for the concentration. The bar fills to the concentration percentage. Green means 75% and up, an excellent mining world for that ore; yellow means 26% to 74%, a middling one; red means 0% to 25%, so mines there will produce little. A gray bar with a question mark means the world has not been surveyed yet.</p>
+                <p><b style="color:#da70d6;">Ore Concentration Bars</b><br>The planet picture and the ore are both inside the Planet Summary box, with the population, status, habitability and starbase text to the right of the picture; ore is in the Ore On Hand &amp; Concentrations section under the population and habitability lines. That section also carries the Resources, Mines, Factories, Mass Driver and Defenses lines. It shows each ore on one line: its name, how many kilotons are on hand or in the ground, and a bar for the concentration. The bar fills to the concentration percentage. Green means 75% and up, an excellent mining world for that ore; yellow means 26% to 74%, a middling one; red means 0% to 25%, so mines there will produce little. A gray bar with a question mark means the world has not been surveyed yet.</p>
                 <p><b style="color:#da70d6;">Game Images</b><br>The Cabal Coffers Gaming logo on the title screen and the small Ironium, Boranium and Germanium icons beside ore names are loaded from the game's GitHub images folder instead of being built into the game file. They need an internet connection the first time they are shown, and your browser keeps them afterward. If an image cannot be reached the game keeps working and only that picture is missing.</p>
                 <p><b style="color:#da70d6;">Panel Transparency</b><br>Every panel, menu and window in the game is partly see-through, so the scrolling star field from the title screen shows behind it, including behind the star map. Open Settings, then Panel Transparency, and drag the slider: 0% gives solid panels and higher values let more of the stars show through (the highest setting is 95%). Menus and pop-up windows never go fully clear, so their text stays readable. The window sits in the middle of the screen and leaves the game visible behind it so you can watch the change as you drag. Reset puts it back to 30%. Your choice is saved in this browser and applies on every screen, including the setup screens.</p>
                 <p><b style="color:#da70d6;">Help and Updates Windows</b><br>Help is sorted into three levels: <b>Basic</b> (start with Absolute Beginner), <b>Advanced</b> and <b>Autistic level</b> (exact numbers and edge cases). Settings, Help and Settings, Updates open the same window with two tabs. Every topic is a collapsible section. The Contents list on the left jumps to a topic and opens it, Expand All and Collapse All open or close everything, and the search box filters the sections to those containing every word you type, opens them and highlights the matches. Clear the box (or press Escape) to see everything again. On a narrow screen the Contents button shows or hides the list. Updates lists every version, newest first, and a new entry is added to it with each release.</p>
@@ -3745,7 +3741,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.39.0';
+        const GAME_VERSION = '0.44.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -12239,6 +12235,34 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.44.0', d: 'Oct 3, 2026 6:05 AM', t: "Planet Boxes in a New Order", items: [
+                "When you select a planet, the boxes now run in this order: Planet Summary, Production Queue, Fleet in orbit, then the Event Log. On a phone they sit under the star map in that order.",
+                "On a wide screen the Event Log stays in its own left column and the middle column now runs Planet Summary, Production Queue, then Fleet.",
+                "The Production Queue still only appears for planets you own."
+            ] },
+            { v: '0.43.0', d: 'Oct 3, 2026 5:52 AM', t: "Summary Text Beside the Picture", items: [
+                "The Prev and Next buttons beside the planet picture are removed. Pick a planet by tapping it on the star map.",
+                "The population, status, habitability and starbase text now sits to the right of the planet picture instead of under it, which makes the Planet Summary box shorter.",
+                "Help: Ore Concentration Bars now describes the new layout."
+            ] },
+            { v: '0.42.0', d: 'Oct 3, 2026 5:41 AM', t: "Planet Picture Inside the Summary", items: [
+                "The planet picture and the Prev and Next buttons are now at the top of the Planet Summary box. The separate planet picture panel is gone, so the whole planet is in one box.",
+                "The planet's name is shown in the Planet Summary box title, for example \"Basic Prime Summary\".",
+                "The Event Log is now the first panel in the left column, above the Fleet panel.",
+                "Help: Ore Concentration Bars now mentions the picture and the buttons."
+            ] },
+            { v: '0.41.0', d: 'Oct 3, 2026 5:30 AM', t: "One Planet Summary Box", items: [
+                "The Ore On Hand & Concentrations panel is no longer a separate box. Everything about the selected planet is now in the one Planet Summary box.",
+                "From the top of the box down: population and status, habitability and starbase, Ore On Hand & Concentrations (ore amounts and bars, Resources, Mines, Factories, Mass Driver, Defenses), the survey note, the Gravity, Temperature and Radiation bars, then Send a Fleet Here.",
+                "There is one less panel to scroll past between the planet picture and the Production Queue.",
+                "Help: Ore Concentration Bars now says where the ore section is."
+            ] },
+            { v: '0.40.0', d: 'Oct 3, 2026 5:18 AM', t: "One Ore Panel Per Planet", items: [
+                "The Planet Ore Deposits box inside the Planet Summary is gone. It showed exactly the same Ironium, Boranium and Germanium amounts and concentration bars as the Ore On Hand & Concentrations panel, so selecting a planet showed them twice.",
+                "Ore On Hand & Concentrations is now the only place a planet's ore appears. It still has the amounts, the concentration bars, Resources, Mines, Factories, Mass Driver and Defenses.",
+                "The Planet Summary keeps population, status, habitability, the Gravity, Temperature and Radiation bars, the unexplored-system note and Send a Fleet Here, so it is shorter and easier to scroll on a phone.",
+                "Help: Ore Concentration Bars now says the ore panel is the single place ore is shown."
+            ] },
             { v: '0.39.0', d: 'Oct 3, 2026 5:10 AM', t: "In-Game Chat, Part 4", items: [
                 "Host tools: the host gets a Clear button next to Send (everyone's chat is deleted after a confirmation) and the chat commands /clear, /mute name and /unmute name. A muted player can still read the chat but cannot send messages.",
                 "Short orange notices appear in the chat when the chat is cleared, a player is muted or unmuted, or a player joins the running game late.",
@@ -14259,7 +14283,6 @@ const DEFENDERS_PER_POP=100;
             const q = v => known ? v : '?';
             const qk = v => known ? v + 'kT' : '?';
 
-            document.getElementById('header-planet-name').innerText = p.name;
             document.getElementById('summary-panel-title').innerText = p.name + " Summary";
             let popText = '?';
             if (known && p.owner === myEmpireId) {
@@ -14317,18 +14340,6 @@ const DEFENDERS_PER_POP=100;
                 msgEl.style.display = 'none';
             }
 
-            if (known) {
-                document.getElementById('summary-ore-box').style.display = 'block';
-                document.getElementById('summary-iron-val').innerText = p.iron + 'kT';
-                setOreBar('summary-iron-conc', p.ironConc);
-                document.getElementById('summary-bora-val').innerText = p.bora + 'kT';
-                setOreBar('summary-bora-conc', p.boraConc);
-                document.getElementById('summary-germ-val').innerText = p.germ + 'kT';
-                setOreBar('summary-germ-conc', p.germConc);
-            } else {
-                document.getElementById('summary-ore-box').style.display = 'none';
-            }
-
             updatePlanetMenu(p);
             updateHabDisplay(p);
             updateQueueDisplay(selectedPlanetIndex);
@@ -14336,16 +14347,6 @@ const DEFENDERS_PER_POP=100;
             renderFleetContextActions();
             drawGalaxyMap();
         }
-
-        document.getElementById('btn-next-planet').addEventListener('click', () => {
-            selectPlanet(stepPlanetSelection(1));
-            updateDashboardPlanetView();
-        });
-
-        document.getElementById('btn-prev-planet').addEventListener('click', () => {
-            selectPlanet(stepPlanetSelection(-1));
-            updateDashboardPlanetView();
-        });
 
         function shipClassFor(e, type) {
             const info = e.id === myEmpireId ? shipInfo(type) : infoFor(e, type);
