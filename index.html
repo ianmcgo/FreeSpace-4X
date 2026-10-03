@@ -2091,7 +2091,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.45.0 (Updated: October 03, 2026 06:20 AM)</div>
+            <div class="version-text">Version 0.46.0 (Updated: October 03, 2026 06:38 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -2620,7 +2620,6 @@
                     <div class="retro-header"><span id="fleet-summary-title">Fleet Summary</span><span>▲</span></div>
                     <div class="retro-body">
                         <div id="fleet-summary-body"></div>
-                        <button type="button" class="tool-icon" id="btn-fleet-summary-close" style="width: 100%; margin-top: 8px; text-align: center; padding: 6px;">Close Fleet Summary</button>
                     </div>
                 </div>
 
@@ -3294,7 +3293,7 @@
                 <p><b style="color:#da70d6;">The Game Lobby</b><br>After you create a game, or when you open one from My Games, you see its lobby. The top box shows its status (for example Waiting for players: 1 of 3 player spots filled), the host, public or private, the galaxy settings, the custom race rule, the advanced options and the victory conditions. Below it every empire is listed by seat: players who have joined with their username, empire and race (yours is marked You, the creator is marked Host), AI opponents with their race and intelligence, and open spots shown as <b>Waiting for player...</b>. <b>Refresh</b> reloads the list. <b>Cancel Game</b>, shown only to the creator before the game starts, deletes the game for everyone. <b>Leave Game</b>, shown to players who joined before the game starts, gives your spot back so someone else can take it (the creator cancels instead). <b>Invite Player</b> sends someone an invitation (see Inviting Players). Once the game is running the lobby also shows the turn time limit, a Resigned badge on players who have left and a Playing now badge on the player whose turn it is, with <b>Resign</b>, <b>Skip Turn</b> (when the current turn is overdue) and, for finished games or after you resign, <b>Remove from My Games</b>. Back returns to the screen you came from.</p>
                 <p><b style="color:#da70d6;">Inviting Players</b><br>Any player in a game that is still waiting for players can press <b>Invite Player</b> in its lobby and type an <b>email address</b> or a <b>username</b>, then press Send Invite. The person gets an email with a <b>Join the Game</b> link straight to that game. The link works even for a private game without the password, so you do not have to share it. If they have no account yet, the link opens the sign in screen: they press Register, create an account, and land in the game ready to press Join This Game. Players invited by username (or by the email of their account) also see the invitation under <b>Invitations</b> at the top of their Multiplayer Lobby, with Open and Decline. Each invitation link can be used once. Inviting someone does not hold a spot for them: spots go to whoever joins first. A game can send up to 30 invitations, and the same person can be invited again after 10 minutes.</p>
                 <p><b style="color:#da70d6;">Inviting Players After the Game Has Started</b><br>The host (the player who created the game) can bring new players into a game that is already running. In the galaxy open <b>Settings</b> and press <b>✉ Invite to Game</b> (only the host sees it), type an <b>email address</b> or a <b>username</b> and press Send Invite. The person gets an email with a link; players with an account also see the invitation under Invitations in their Multiplayer Lobby. When they open it and sign in (or register first) they see a <b>Join</b> window where they choose their <b>empire name</b> and <b>race</b> (custom races only if the game allows them). Their empire is then added to the galaxy on a <b>random uninhabited planet</b>, preferably well away from the other empires, as a new homeworld with the usual starting population, mines, factories and starbase, plus a Long Range Scout and the starting technology of their race. The game keeps its current year, so the newcomer starts behind the others and the other players are told that a new empire has joined, without being told where. The new player gives orders like everyone else; until they send orders the year waits for them just as for any other player, subject to the game's time limit. A late invitation can be used once, the host can send up to 30 per game, and a game can hold at most 16 human players. The server scripts <b>11_late_invites.sql</b> and the updated notify function must be installed for this to work.</p>
-                <p><b style="color:#da70d6;">Examining Enemy Fleets</b><br>An enemy fleet that one of your scanners can see is drawn as a red triangle beside its position on the star map. Click the triangle to examine it. A Fleet Summary box opens in the left column, in the place of the Planet Summary (tap a planet, or Close Fleet Summary, to bring the Planet Summary back). It names the empire and says whether it is a friend, neutral or an enemy, gives the fleet's position and whether it is in orbit or deep space, and lists every ship design and hull with its count, plus the total ship count and mass. When one of your penetrating scanners reaches the fleet, or one of your fleets or planets is at the same spot, a close scan also shows armor, beam weapons, torpedo launchers, bombs, colony ships, scanner ships and cargo space. Cargo actually on board and where the fleet is heading cannot be seen. A fleet your scanners cannot see cannot be clicked, and cloaked ships may stay hidden even inside your range.</p>
+                <p><b style="color:#da70d6;">Examining Enemy Fleets</b><br>An enemy fleet that one of your scanners can see is drawn as a red triangle beside its position on the star map. Click the triangle to examine it. A Fleet Summary box opens in the left column, in the place of the Planet Summary, and the Production Queue and Fleets in Orbit boxes are hidden with it (tap a planet to bring them back). You can tap one of your own fleets the same way: its Fleet Summary shows its position, ships, mass, warp, fuel, cargo and orders, with Waypoints and Plot buttons. It names the empire and says whether it is a friend, neutral or an enemy, gives the fleet's position and whether it is in orbit or deep space, and lists every ship design and hull with its count, plus the total ship count and mass. When one of your penetrating scanners reaches the fleet, or one of your fleets or planets is at the same spot, a close scan also shows armor, beam weapons, torpedo launchers, bombs, colony ships, scanner ships and cargo space. Cargo actually on board and where the fleet is heading cannot be seen. A fleet your scanners cannot see cannot be clicked, and cloaked ships may stay hidden even inside your range.</p>
                 <p><b style="color:#da70d6;">Game Emails</b><br>Multiplayer games send email to the address of each player's account: an <b>invitation</b> when someone invites you, <b>the game has begun</b> when every spot is filled, and, only if you turn it on, a <b>year summary</b> every time the galaxy moves on to a new year. Year summary emails are off for every account until you switch them on with <b>Settings, Year Summary Emails</b> in the galaxy or the <b>Year Summary Emails</b> button on the Multiplayer Lobby. You never get one for a game you are looking at: while the game is open and its tab is visible the game tells the server you are here, and no email is sent to you for a year that moves on at that time. Switch to another tab, close the game or leave to the lobby and the next year summary is emailed. The year summary lists your planets, population, fleets, Resources produced, items built, technology gained, battles, bombing and the reports of your fleets, so you can see how the year went before you open the game. If you did not send orders before the time limit ran out you also get an email saying the year was played out without you. A resignation is announced to every player and the end of the game (with final standings) to everyone.</p>
                 <p><b style="color:#da70d6;">Multiplayer Victory and Game Over</b><br>Victory Conditions are checked at the end of every year, after every empire's orders have been carried out. As soon as an empire (a player's or an AI's) meets them, the game ends for everyone. The player whose browser played out that year sends the result to the server, every player is emailed the final standings, and the saved galaxy is removed from the server. The result stays in My Games until you remove it.</p>
                 <p><b style="color:#da70d6;">Joining a Multiplayer Game</b><br>In the lobby press <b>Join Multiplayer Game</b> to see every game waiting for players, newest first: its name (a lock means it is private), the host, how many spots are open, the number of empires, the galaxy size and the custom race rule. Games you are already in say Joined. Pick a game to open its lobby and read its settings, then press <b>Join This Game</b>. Fill in the form: the <b>Game Password</b> if the game is private (ask the host for it), <b>Your Empire Name</b> (it starts as your username plus Empire, and must be different from every other empire in the game), and <b>Your Race</b>: Random or one of the six built-in races, plus your own Race Wizard designs when the host allows anyone to bring custom races. If the host chose the race for the spot you are taking, the form shows that race instead. Press <b>Join Game</b>. You take the first open spot, and the game appears in My Games. You can be in as many games as you like.</p>
@@ -3378,7 +3377,7 @@
                 <p><b style="color:#da70d6;">Wormholes</b><br>Wormholes are rare openings in deep space, never close to a planet, that link two distant points. They are hard to see: a normal scanner finds one only within a quarter of its range (planet-penetrating scanners at their full penetrating range), and a fleet that passes over one finds it. Once found it stays on your map as a purple swirl; click it to see where it leads (Unknown until you have been through it or found the other end) and how stable it is, from Rock Solid (stays put for 30 years or more) to Very Unstable (moves within about 5 years). Each end also drifts a little every year and jumps somewhere new when its time runs out, which also makes its destination unknown again. To travel, plot a waypoint on the wormhole in plot mode; the waypoint follows the wormhole as it drifts. When the fleet reaches the opening it comes out at the other end in the same year, with no fuel used and no mass or cargo limit. Make sure the fleet has fuel to get home from wherever it ends up.</p>
                 <p><b style="color:#da70d6;">Numbers at a Glance</b><br>Exact constants used by the game, for planning and checking. <b>Population:</b> one population unit is 1,000,000 colonists in internal accounting. <b>Terraforming limits (normal):</b> the Gravity, Temperature and Radiation fields at level 1, 5, 10, 16 allow 3, 7, 11, 15 percent change, and those steps also need Biotechnology 1, 2, 3, 4. <b>Total Terraforming</b> (Claim Adjuster or the Total Terraforming trait): Biotechnology 0, 3, 6, 9, 13, 17, 22, 25 allow 3, 5, 7, 10, 15, 20, 25, 30 percent. <b>Claim Adjuster</b> terraforms up to 200 steps a year per planet at no cost. <b>Trait modifiers:</b> Weapon costs x0.75 for Weapons Master and x1.25 for Inner Strength; Inner Strength defenses cost x0.6; Cheap Engines cost x0.5 but may fail above warp 6 (10 percent chance a turn); Total Terraforming terraform cost x0.7; Inner Strength freighters grow colonists at half the planet growth rate; Packet Physics packets have a 50 percent chance to nudge the target planet 1 percent toward ideal on impact. <b>Stargate travel</b> uses warp 11. Mines, fuel and combat numbers are in their own entries.</p>
                 <p><b style="color:#da70d6;">Diplomacy</b><br>Management, <b>Diplomacy</b> lists every other empire and lets you set your stance toward each: <b>Friend</b>, <b>Neutral</b> or <b>Enemy</b> (every empire starts as an Enemy). It is your own decision; the others are not told and may see you differently. Friends are never attacked by your fleets or starbases, are not hit by your minefields, refuel at your planets with docks and may use your stargates, and you get the same from them if they count you as a Friend. Neutrals are only attacked by battle plans whose Attack Who is Neutrals &amp; Enemies or Everyone; patrols leave them alone and you do not sweep a Friend's minefields. Enemies are fair game for everything. AI empires choose their own friends among themselves.</p>
-                <p><b style="color:#da70d6;">The Mystery Trader</b><br>Now and then a light blue Mystery Trader enters known space and everyone is told. It flies at Warp 7 to 13 and is visible on the map whatever your scanners are doing. Tap it to see its heading in a Fleet Summary box, which takes the place of the Planet Summary until you tap a planet or close it; dotted numbered ticks on the map show where it will be at the end of each coming year if it keeps its course. To trade, a single fleet carrying at least 5,000 kT of minerals (any mix of Ironium, Boranium and Germanium) must be at the exact spot the trader reaches at the end of a turn. In plot mode a tap near a tick snaps your waypoint to it exactly. The trader absorbs all the minerals in that fleet\'s hold (colonists are kept) and gives either 2 to 6 levels of tech spread over random fields, or one of 12 special items. Each trader trades once and then leaves, and what it carries is fixed when it appears. If you already own its item you get a different one you do not own, and if you own them all you get the tech instead; if everything is maxed it is unable to teach you anything new. The trader changes direction now and then, turns away from crowds of fleets, cannot be attacked, and lets any empire\'s fleet trade, so enemies can attack your freighters before you reach it. Item parts need no tech once you own them. See Mystery Trader Items for the list. Advanced Options, No Random Events, switches the Mystery Trader off.</p>
+                <p><b style="color:#da70d6;">The Mystery Trader</b><br>Now and then a light blue Mystery Trader enters known space and everyone is told. It flies at Warp 7 to 13 and is visible on the map whatever your scanners are doing. Tap it to see its heading in a Fleet Summary box, which takes the place of the Planet Summary until you tap a planet; dotted numbered ticks on the map show where it will be at the end of each coming year if it keeps its course. To trade, a single fleet carrying at least 5,000 kT of minerals (any mix of Ironium, Boranium and Germanium) must be at the exact spot the trader reaches at the end of a turn. In plot mode a tap near a tick snaps your waypoint to it exactly. The trader absorbs all the minerals in that fleet\'s hold (colonists are kept) and gives either 2 to 6 levels of tech spread over random fields, or one of 12 special items. Each trader trades once and then leaves, and what it carries is fixed when it appears. If you already own its item you get a different one you do not own, and if you own them all you get the tech instead; if everything is maxed it is unable to teach you anything new. The trader changes direction now and then, turns away from crowds of fleets, cannot be attacked, and lets any empire\'s fleet trade, so enemies can attack your freighters before you reach it. Item parts need no tech once you own them. See Mystery Trader Items for the list. Advanced Options, No Random Events, switches the Mystery Trader off.</p>
                 <p style="margin-bottom:0;color:#aaa;">Tip: your first turns are about turning Resources into more Resources. Autobuild queues mines and factories for you (check Management, Autobuild), or queue them yourself on the homeworld, and watch Germanium (factories need it), send the scout out at Warp 5 on free fuel to find colony targets, and use Ship Construction to queue a Colony Ship when you spot a green world. Once a colony is established, give it a Space Station so it can build for itself. Designing a race? Start from a preset, change one thing at a time and watch the Advantage Points counter and the Point Ledger.</p>
             </div>
         `;
@@ -3750,7 +3749,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.45.0';
+        const GAME_VERSION = '0.46.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -5430,17 +5429,54 @@ const DEFENDERS_PER_POP=100;
             return playerFleets.filter(f => fleetOrbitIndex(f) === selectedPlanetIndex);
         }
 
+        let fleetSummaryActive = false;
+        let fleetSummaryOwnId = null;
+
         function showFleetSummary(title, html) {
+            fleetSummaryActive = true;
+            fleetSummaryOwnId = null;
             document.getElementById('fleet-summary-title').innerText = title;
             document.getElementById('fleet-summary-body').innerHTML = html;
             document.getElementById('summary-panel').style.display = 'none';
             document.getElementById('fleet-summary-panel').style.display = 'flex';
+            document.getElementById('fleet-panel').style.display = 'none';
+            document.getElementById('queue-panel').style.display = 'none';
+        }
+
+        function ownFleetSummaryHtml(f) {
+            return '<div class="fleet-box">' + renderFleetDetails(f) + '</div>' +
+                '<div style="display: flex; gap: 6px; margin-top: 8px;">' +
+                '<button type="button" class="tool-icon" id="fs-waypoints" style="flex: 1; background: rgba(37, 26, 58, var(--pa)); border-color: #8a2be2; color: #da70d6;">🗺️ Waypoints</button>' +
+                '<button type="button" class="tool-icon" id="fs-plot" style="flex: 1; background: rgba(26, 42, 58, var(--pa)); border-color: #00ffff; color: #00ffff;">📍 Plot: ' + (plotMode ? 'ON' : 'OFF') + '</button>' +
+                '</div>';
+        }
+
+        function showOwnFleetSummary(f) {
+            selectedFleetId = f.id;
+            showFleetSummary('Fleet Summary', ownFleetSummaryHtml(f));
+            fleetSummaryOwnId = f.id;
         }
 
         function hideFleetSummary() {
+            if (!fleetSummaryActive) return;
+            fleetSummaryActive = false;
+            fleetSummaryOwnId = null;
             document.getElementById('fleet-summary-panel').style.display = 'none';
             document.getElementById('summary-panel').style.display = '';
         }
+
+        document.getElementById('fleet-summary-body').addEventListener('click', (e) => {
+            const f = fleetSummaryOwnId !== null ? getFleetById(fleetSummaryOwnId) : null;
+            if (!f) return;
+            if (e.target.closest('#fs-waypoints')) {
+                selectedFleetId = f.id;
+                openWaypointModal();
+            } else if (e.target.closest('#fs-plot')) {
+                selectedFleetId = f.id;
+                plotMode = !plotMode;
+                refreshPlotButtons();
+            }
+        });
 
         function selectPlanet(idx) {
             hideFleetSummary();
@@ -8634,6 +8670,8 @@ const DEFENDERS_PER_POP=100;
         function refreshPlotButtons() {
             document.getElementById('btn-toggle-plot').innerText = '📍 Plot Course Mode: ' + (plotMode ? 'ON' : 'OFF');
             document.getElementById('btn-plot-panel').innerText = '📍 Plot: ' + (plotMode ? 'ON' : 'OFF');
+            const fsPlot = document.getElementById('fs-plot');
+            if (fsPlot) fsPlot.innerText = '📍 Plot: ' + (plotMode ? 'ON' : 'OFF');
             document.getElementById('btn-plot-panel').style.background = plotMode ? '#0a5a5a' : '#1a2a3a';
             mapCanvas.classList.toggle('plotting', plotMode);
         }
@@ -12257,6 +12295,13 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.46.0', d: 'Oct 3, 2026 6:38 AM', t: "Fleet Summary for Every Fleet", items: [
+                "Tapping any fleet on the star map (enemy, Mystery Trader or your own) opens a Fleet Summary box. The Production Queue and Fleets in Orbit boxes of the planet nearby are no longer shown while it is open.",
+                "Tapping one of your own fleets now shows its Fleet Summary: name, position, ships, mass, warp, fuel, cargo and orders, with Waypoints and Plot buttons for that fleet. The summary updates as the fleet changes.",
+                "The Close Fleet Summary button is gone. Tap a planet on the star map to bring the Planet Summary, Production Queue and Fleets in Orbit back.",
+                "Tapping your own fleet no longer jumps the planet selection to the planet it is orbiting.",
+                "Help: Examining Enemy Fleets updated."
+            ] },
             { v: '0.45.0', d: 'Oct 3, 2026 6:20 AM', t: "Fleet Summary Box Instead of a Popup", items: [
                 "Tapping an enemy fleet or the Mystery Trader on the star map now opens a Fleet Summary box instead of a popup window.",
                 "The Fleet Summary takes the place of the Planet Summary, so the Planet Summary is closed while it is open. Tap a planet or one of your own fleets, or press Close Fleet Summary, to bring the Planet Summary back.",
@@ -13634,18 +13679,13 @@ const DEFENDERS_PER_POP=100;
             } else if (traderHit) {
                 showTraderInfo(traderHit);
             } else if (fleetHit) {
-                hideFleetSummary();
-                selectedFleetId = fleetHit.id;
-                const orbitIdx = fleetOrbitIndex(fleetHit);
-                if (orbitIdx >= 0) selectedPlanetIndex = orbitIdx;
+                showOwnFleetSummary(fleetHit);
                 updateDashboardPlanetView();
             } else if (planetHit !== -1) {
                 selectPlanet(planetHit);
                 updateDashboardPlanetView();
             }
         }
-
-        document.getElementById('btn-fleet-summary-close').addEventListener('click', hideFleetSummary);
 
         function zoomMapAt(mx, my, factor) {
             const anchor = screenToWorld(mx, my);
@@ -14269,7 +14309,7 @@ const DEFENDERS_PER_POP=100;
             ensureFleetSelection();
             const here = fleetsAtSelectedPlanet();
             const panel = document.getElementById('fleet-panel');
-            if (!here.length) {
+            if (fleetSummaryActive || !here.length) {
                 panel.style.display = 'none';
                 panelFleetId = null;
                 return;
@@ -14308,6 +14348,11 @@ const DEFENDERS_PER_POP=100;
 
         function updateDashboardPlanetView() {
             if (planets.length === 0) return;
+            if (fleetSummaryOwnId !== null) {
+                const sf = getFleetById(fleetSummaryOwnId);
+                if (sf) document.getElementById('fleet-summary-body').innerHTML = ownFleetSummaryHtml(sf);
+                else hideFleetSummary();
+            }
             const p = planets[selectedPlanetIndex];
             const known = p.explored;
             const range = getScannerRange();
@@ -14357,7 +14402,7 @@ const DEFENDERS_PER_POP=100;
 
             renderSendFleetBox();
 
-            document.getElementById('queue-panel').style.display = p.owner === myEmpireId ? 'flex' : 'none';
+            document.getElementById('queue-panel').style.display = p.owner === myEmpireId && !fleetSummaryActive ? 'flex' : 'none';
 
             const scanDist = nearestScannerDistance(p);
             const msgEl = document.getElementById('summary-unexplored-msg');
