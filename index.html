@@ -1255,6 +1255,30 @@
             color: #ff8c66;
         }
 
+        #mp-banner-text:empty {
+            display: none;
+        }
+
+        #mp-banner-people {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        #mp-banner-people > div:empty {
+            display: none;
+        }
+
+        #year-sub {
+            display: none;
+            font-size: 11px;
+            font-weight: normal;
+            color: #9fe8b0;
+            line-height: 1.35;
+        }
+
         #mp-banner .tool-icon {
             padding: 3px 8px;
             font-size: 11px;
@@ -2104,7 +2128,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.53.0 (Updated: October 03, 2026 07:05 AM)</div>
+            <div class="version-text">Version 0.54.0 (Updated: October 03, 2026 07:34 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -2699,14 +2723,13 @@
         </div>
 
         <div class="dash-footer">
-            <div><b>Year: <span id="lbl-year">2400</span></b></div>
+            <div><b>Year: <span id="lbl-year">2400</span></b><div id="year-sub"><div id="year-running"></div><div id="year-ends"></div></div></div>
             <div id="mp-banner">
                 <span id="mp-banner-text"></span>
-                <span id="mp-banner-info" style="font-size: 12px; color: #9fe8b0;"></span>
+                <div id="mp-banner-people"><div id="mp-online-line"></div><div id="mp-wait-line"></div></div>
                 <button type="button" class="tool-icon" id="mp-banner-retry" style="color: #ffd700;">⟳ Retry Upload</button>
                 <button type="button" class="tool-icon" id="mp-banner-report">📜 Turn Report</button>
                 <button type="button" class="tool-icon" id="mp-banner-check">↻ Check</button>
-                <button type="button" class="tool-icon" id="mp-banner-chat" style="display: none; color: #00ffff;">💬 Chat</button>
                 <button type="button" class="tool-icon" id="mp-banner-skip" style="color: #ffd700;">⏭ Play Without Late Players</button>
                 <button type="button" class="tool-icon" id="mp-banner-lobby">⇠ Game Lobby</button>
             </div>
@@ -3306,17 +3329,17 @@
                 <p><b style="color:#da70d6;">The Game Lobby</b><br>After you create a game, or when you open one from My Games, you see its lobby. The top box shows its status (for example Waiting for players: 1 of 3 player spots filled), the host, public or private, the galaxy settings, the custom race rule, the advanced options and the victory conditions. Below it every empire is listed by seat: players who have joined with their username, empire and race (yours is marked You, the creator is marked Host), AI opponents with their race and intelligence, and open spots shown as <b>Waiting for player...</b>. <b>Refresh</b> reloads the list. <b>Cancel Game</b>, shown only to the creator before the game starts, deletes the game for everyone. <b>Leave Game</b>, shown to players who joined before the game starts, gives your spot back so someone else can take it (the creator cancels instead). <b>Invite Player</b> sends someone an invitation (see Inviting Players). Once the game is running the lobby also shows the turn time limit, a Resigned badge on players who have left and a Playing now badge on the player whose turn it is, with <b>Resign</b>, <b>Skip Turn</b> (when the current turn is overdue) and, for finished games or after you resign, <b>Remove from My Games</b>. Back returns to the screen you came from.</p>
                 <p><b style="color:#da70d6;">Inviting Players</b><br>Any player in a game that is still waiting for players can press <b>Invite Player</b> in its lobby and type an <b>email address</b> or a <b>username</b>, then press Send Invite. The person gets an email with a <b>Join the Game</b> link straight to that game. The link works even for a private game without the password, so you do not have to share it. If they have no account yet, the link opens the sign in screen: they press Register, create an account, and land in the game ready to press Join This Game. Players invited by username (or by the email of their account) also see the invitation under <b>Invitations</b> at the top of their Multiplayer Lobby, with Open and Decline. Each invitation link can be used once. Inviting someone does not hold a spot for them: spots go to whoever joins first. A game can send up to 30 invitations, and the same person can be invited again after 10 minutes.</p>
                 <p><b style="color:#da70d6;">Inviting Players After the Game Has Started</b><br>The host (the player who created the game) can bring new players into a game that is already running. In the galaxy open <b>Settings</b> and press <b>✉ Invite to Game</b> (only the host sees it), type an <b>email address</b> or a <b>username</b> and press Send Invite. The person gets an email with a link; players with an account also see the invitation under Invitations in their Multiplayer Lobby. When they open it and sign in (or register first) they see a <b>Join</b> window where they choose their <b>empire name</b> and <b>race</b> (custom races only if the game allows them). Their empire is then added to the galaxy on a <b>random uninhabited planet</b>, preferably well away from the other empires, as a new homeworld with the usual starting population, mines, factories and starbase, plus a Long Range Scout and the starting technology of their race. The game keeps its current year, so the newcomer starts behind the others and the other players are told that a new empire has joined, without being told where. The new player gives orders like everyone else; until they send orders the year waits for them just as for any other player, subject to the game's time limit. A late invitation can be used once, the host can send up to 30 per game, and a game can hold at most 16 human players. The server scripts <b>11_late_invites.sql</b> and the updated notify function must be installed for this to work.</p>
-                <p><b style="color:#da70d6;">Examining Enemy Fleets</b><br>An enemy fleet that one of your scanners can see is drawn as a red triangle beside its position on the star map, labelled with the name its owner gave that fleet (no ship count; zoom in to see the labels). Click the triangle to examine it. A Fleet Summary box opens in the left column, in the place of the Planet Summary, and the Production Queue and Fleets in Orbit boxes are hidden with it (tap a planet to bring them back). At the bottom of an enemy fleet's summary, <b>Send a Fleet to This Fleet</b> lets you pick one of your fleets and a Warp speed and press Send Fleet: the fleet's route is replaced by one waypoint at the enemy fleet, and while your scanners can still see that fleet your fleet follows it each year (if you lose sight of it, your fleet heads for the last place it was seen). The line above the button tells you the distance, years and fuel for the trip, and a fuel warning offers a slower Warp if the trip is too far. You can tap one of your own fleets the same way: its Fleet Summary shows its position, ships, mass, warp, fuel, cargo and orders, with Waypoints and Plot buttons. It names the empire and says whether it is a friend, neutral or an enemy, gives the fleet's position and whether it is in orbit or deep space, and lists every ship design and hull with its count, plus the total ship count and mass. When one of your penetrating scanners reaches the fleet, or one of your fleets or planets is at the same spot, a close scan also shows armor, beam weapons, torpedo launchers, bombs, colony ships, scanner ships and cargo space. Cargo actually on board and where the fleet is heading cannot be seen. A fleet your scanners cannot see cannot be clicked, and cloaked ships may stay hidden even inside your range.</p>
+                <p><b style="color:#da70d6;">Examining Enemy Fleets</b><br>An enemy fleet that one of your scanners can see is drawn as a triangle in its owner's empire color beside its position on the star map, labelled with the name its owner gave that fleet (no ship count; zoom in to see the labels). Click the triangle to examine it. A Fleet Summary box opens in the left column, in the place of the Planet Summary, and the Production Queue and Fleets in Orbit boxes are hidden with it (tap a planet to bring them back). At the bottom of an enemy fleet's summary, <b>Send a Fleet to This Fleet</b> lets you pick one of your fleets and a Warp speed and press Send Fleet: the fleet's route is replaced by one waypoint at the enemy fleet, and while your scanners can still see that fleet your fleet follows it each year (if you lose sight of it, your fleet heads for the last place it was seen). The line above the button tells you the distance, years and fuel for the trip, and a fuel warning offers a slower Warp if the trip is too far. You can tap one of your own fleets the same way: its Fleet Summary shows its position, ships, mass, warp, fuel, cargo and orders, with Waypoints and Plot buttons. It names the empire and says whether it is a friend, neutral or an enemy, gives the fleet's position and whether it is in orbit or deep space, and lists every ship design and hull with its count, plus the total ship count and mass. When one of your penetrating scanners reaches the fleet, or one of your fleets or planets is at the same spot, a close scan also shows armor, beam weapons, torpedo launchers, bombs, colony ships, scanner ships and cargo space. Cargo actually on board and where the fleet is heading cannot be seen. A fleet your scanners cannot see cannot be clicked, and cloaked ships may stay hidden even inside your range.</p>
                 <p><b style="color:#da70d6;">Game Emails</b><br>Multiplayer games send email to the address of each player's account: an <b>invitation</b> when someone invites you, <b>the game has begun</b> when every spot is filled, and, only if you turn it on, a <b>year summary</b> every time the galaxy moves on to a new year. Year summary emails are off for every account until you switch them on with <b>Settings, Year Summary Emails</b> in the galaxy or the <b>Year Summary Emails</b> button on the Multiplayer Lobby. You never get one for a game you are looking at: while the game is open and its tab is visible the game tells the server you are here, and no email is sent to you for a year that moves on at that time. Switch to another tab, close the game or leave to the lobby and the next year summary is emailed. The year summary lists your planets, population, fleets, Resources produced, items built, technology gained, battles, bombing and the reports of your fleets, so you can see how the year went before you open the game. If you did not send orders before the time limit ran out you also get an email saying the year was played out without you. A resignation is announced to every player and the end of the game (with final standings) to everyone.</p>
                 <p><b style="color:#da70d6;">Multiplayer Victory and Game Over</b><br>Victory Conditions are checked at the end of every year, after every empire's orders have been carried out. As soon as an empire (a player's or an AI's) meets them, the game ends for everyone. The player whose browser played out that year sends the result to the server, every player is emailed the final standings, and the saved galaxy is removed from the server. The result stays in My Games until you remove it.</p>
                 <p><b style="color:#da70d6;">Joining a Multiplayer Game</b><br>In the lobby press <b>Join Multiplayer Game</b> to see every game waiting for players, newest first: its name (a lock means it is private), the host, how many spots are open, the number of empires, the galaxy size and the custom race rule. Games you are already in say Joined. Pick a game to open its lobby and read its settings, then press <b>Join This Game</b>. Fill in the form: the <b>Game Password</b> if the game is private (ask the host for it), <b>Your Empire Name</b> (it starts as your username plus Empire, and must be different from every other empire in the game), and <b>Your Race</b>: Random or one of the six built-in races, plus your own Race Wizard designs when the host allows anyone to bring custom races. If the host chose the race for the spot you are taking, the form shows that race instead. Press <b>Join Game</b>. You take the first open spot, and the game appears in My Games. You can be in as many games as you like.</p>
                 <p><b style="color:#da70d6;">When the Game Begins</b><br>The moment the last Player Spot is filled, the game status changes to Starting and the browser of the player who joined last builds the galaxy: every empire gets its homeworld, starting fleet and starting technology, and Random races are picked. Every player is emailed that the game has begun. From then on all players give their orders for the year at the same time.</p>
-                <p><b style="color:#da70d6;">Taking Your Turn</b><br>When your orders are needed, the game lobby button reads <b>Give Your Orders</b> and My Games marks the game. The galaxy opens on your own empire, seen through your own scanners. The bar at the bottom tells you the year and which other players the year is still waiting for. Give your orders and press <b>End Turn</b>: your orders are sent to the server and the bar says <b>orders sent</b>. Until the last player is in you can keep changing your orders; the End Turn button then reads <b>Resend Orders</b>. When the last player sends orders, that player's browser fetches everybody's orders, adds the AI empires' orders, plays out the year for the whole galaxy and uploads the new year. Every player is emailed a year summary, and the next time you open the galaxy your Year Report opens by itself. If the browser that is playing out the year is closed or loses its connection, any other player's browser that is open picks the job up automatically after a few minutes.</p>
+                <p><b style="color:#da70d6;">Taking Your Turn</b><br>When your orders are needed, the game lobby button reads <b>Give Your Orders</b> and My Games marks the game. The galaxy opens on your own empire, seen through your own scanners. The bottom panel shows the year with how long it has been running and when it ends, who is online, and who you are waiting on. Give your orders and press <b>End Turn</b>: your orders are sent to the server and your name drops off everyone's Waiting on line. Until the last player is in you can keep changing your orders; the End Turn button then reads <b>Resend Orders</b>. When the last player sends orders, that player's browser fetches everybody's orders, adds the AI empires' orders, plays out the year for the whole galaxy and uploads the new year. Every player is emailed a year summary, and the next time you open the galaxy your Year Report opens by itself. If the browser that is playing out the year is closed or loses its connection, any other player's browser that is open picks the job up automatically after a few minutes.</p>
                 <p><b style="color:#da70d6;">Watching While Others Play</b><br>While the year is being played out, the galaxy is view only for a moment: a VIEW ONLY badge appears and the bar says the year is being played out. Otherwise you can always look around and give orders. A player who has resigned watches the game in view only mode. The game checks the server every few seconds and loads the new year by itself.</p>
                 <p><b style="color:#da70d6;">My Games</b><br>My Games in the lobby lists every multiplayer game you created or joined, games where it is your turn first, then running games by newest activity, then finished games. Each card shows its status, host, progress (players joined, the year and whose turn it is, or the result), the number of empires and the galaxy size. A lock means the game is private. Badges: <b>Your turn</b>, <b>Turn overdue</b> (the player whose turn it is has run past the turn time limit, so you can skip them) and <b>🏆 Victory</b>. Pick a game to open its lobby. Sign in on any device to see the same list.</p>
-                <p><b style="color:#da70d6;">Turn Time Limit and Skipping</b><br>Every multiplayer game has a deadline for each year, set by its Play Type (see Play Types). The bar at the bottom of the galaxy and the game lobby show who you are still waiting for (each player carries a <b>Giving orders</b> or <b>Orders sent</b> badge) and a countdown to the deadline; it ticks every second, and in a Blitz game it shows minutes and seconds and the bar pulses in the last minute if your own orders are not in. Everyone gives orders at the same time and can press End Turn at any time, then keep changing orders and press End Turn again until the last player is in. When the last human sends orders, the AI empires add theirs and the whole year is played out at once. Once the deadline has passed, a player who has sent orders can play the year without the late players: in Turn-a-Day and Blitz games this happens automatically in the browser of the first such player who has the game open; in a Custom game press <b>Play the Year Without</b> (in the lobby or in the bar at the bottom). The late players' empires follow their standing orders for that year: building queues, research and fleet waypoints carry on. Outside Blitz games they are emailed that their orders were not sent in time.</p>
-                <p><b style="color:#da70d6;">Who Is Online and How Long the Year Has Run</b><br>The bar at the top of the galaxy shows <b>🟢 Online 2 of 3</b> with the names of the players who have this game open right now, and <b>⏱ Year 2403 running 3h 12m</b>, the time since the current year was generated (it ticks every second, and starts again when a new year is played out). The lobby of a running game shows the same two lines, and every player in it carries a green <b>● Online</b> or grey <b>○ Offline</b> badge. A player counts as online while their browser tab shows the galaxy of that game; a player whose tab is hidden, closed or on another page counts as offline after up to about a minute, and the list refreshes every 20 seconds. Empires of players who resigned and AI empires are not listed. The online list needs <b>12_online.sql</b> to be run once in the Supabase SQL Editor; without it the year timer still works but the online list stays hidden.</p>
-                <p><b style="color:#da70d6;">Chat</b><br>In a multiplayer game the Galactic Event Log panel has three tabs: <b>Events</b> (your own log, as always), <b>💬 Chat</b> (messages from the players) and <b>Both</b> (events and chat together, ordered by game year, with the chat of a year shown after the events of that year, so you can see what was said around what happened). The bar at the bottom of the galaxy has a <b>💬 Chat</b> button that opens the Chat tab and brings the panel into view (handy on a phone, where the panel sits further down the page). Type a message (up to 500 characters) and press Enter or Send on the Chat or Both tab; it goes to every player in the game. Each message shows the game year, your local time, a dot, and the sender's name in that player's seat colour (seat 1 cyan, seat 2 gold, and so on). A <b>green dot</b> means the player is online right now, a <b>grey dot</b> offline (see Who Is Online); no dot means that player's status is not known. Your own messages have a green bar on their left. While the Chat or Both tab is open new messages appear within a few seconds; while it is closed the game checks about every 20 seconds, and the number of messages you have not read yet is shown in brackets on the tab and on the bar button, which turn gold. Opening the Chat or Both tab marks everything as read (this is remembered in your browser, per game). On a phone or narrow screen the list is 300 pixels high; press <b>▾ Smaller</b> for 150 pixels or <b>▴ Bigger</b> to enlarge it again. On a wide (desktop) screen the Events, Chat and Both lists fill the panel down to its bottom edge and the Smaller / Bigger button is not shown. Chat is only open while the game is running, it is shared by all players (private messages are not possible yet), and the server keeps the last 200 messages of each game. Chat messages are not part of your saved game and are never written into your Events log; the Both tab only shows them next to it. Chat needs <b>13_chat.sql</b> to be run once in the Supabase SQL Editor; until then the Chat tab says that chat is not set up. <b>Host tools:</b> the host (seat 1, who created the game) sees a <b>🧹 Clear</b> button next to Send, which deletes the whole chat for every player after a confirmation, and can type commands in the chat box: <b>/clear</b>, <b>/mute name</b> (the player can still read the chat but cannot send messages) and <b>/unmute name</b>, using the player's username. Everyone sees a short orange notice when the chat is cleared, a player is muted or unmuted, or a player joins the running game late. When the game is over the chat is closed (you can still read it). While you have unread messages the number also shows in the browser tab title. The host tools and notices need <b>14_chat_host.sql</b> to be run once in the Supabase SQL Editor (after 13_chat.sql).</p>
+                <p><b style="color:#da70d6;">Turn Time Limit and Skipping</b><br>Every multiplayer game has a deadline for each year, set by its Play Type (see Play Types). The bottom panel of the galaxy lists who you are waiting on, and under the year it shows <b>Year ends in 5h 12m</b>, the time left before the year is played out and late players are skipped; the game lobby shows who is still to send orders (each player carries a <b>Giving orders</b> or <b>Orders sent</b> badge) and the deadline. The countdown ticks every second, under an hour it shows minutes and seconds, and in a Blitz game the panel pulses in the last minute if your own orders are not in. Everyone gives orders at the same time and can press End Turn at any time, then keep changing orders and press End Turn again until the last player is in. When the last human sends orders, the AI empires add theirs and the whole year is played out at once. Once the deadline has passed, a player who has sent orders can play the year without the late players: in Turn-a-Day and Blitz games this happens automatically in the browser of the first such player who has the game open; in a Custom game press <b>Play the Year Without</b> (in the lobby or in the bar at the bottom). The late players' empires follow their standing orders for that year: building queues, research and fleet waypoints carry on. Outside Blitz games they are emailed that their orders were not sent in time.</p>
+                <p><b style="color:#da70d6;">Who Is Online and How Long the Year Has Run</b><br>The bottom panel of the galaxy lists <b>🟢 Online:</b> the players who have this game open right now, and <b>⏳ Waiting on:</b> the other players who have not sent orders yet. Under the year it shows <b>Running 3h 12m</b>, the time since the current year was generated (it ticks every second, and starts again when a new year is played out), and <b>Year ends in 5h 12m</b>. Every name is shown in that player's empire color. The lobby of a running game shows the running time and the online list, and every player in it carries a green <b>● Online</b> or grey <b>○ Offline</b> badge. A player counts as online while their browser tab shows the galaxy of that game; a player whose tab is hidden, closed or on another page counts as offline after up to about a minute, and the list refreshes every 20 seconds. Empires of players who resigned and AI empires are not listed. The online list needs <b>12_online.sql</b> to be run once in the Supabase SQL Editor; without it the year timer still works but the online list stays hidden.</p>
+                <p><b style="color:#da70d6;">Chat</b><br>In a multiplayer game the Galactic Event Log panel has three tabs: <b>Events</b> (your own log, as always), <b>💬 Chat</b> (messages from the players) and <b>Both</b> (events and chat together, ordered by game year, with the chat of a year shown after the events of that year, so you can see what was said around what happened). Type a message (up to 500 characters) and press Enter or Send on the Chat or Both tab; it goes to every player in the game. Each message shows the game year, your local time, a dot, and the sender's name in that player's empire color (the same color as their planets and fleets on the star map). A <b>green dot</b> means the player is online right now, a <b>grey dot</b> offline (see Who Is Online); no dot means that player's status is not known. Your own messages have a green bar on their left. While the Chat or Both tab is open new messages appear within a few seconds; while it is closed the game checks about every 20 seconds, and the number of messages you have not read yet is shown in brackets on the tab, which turns gold. Opening the Chat or Both tab marks everything as read (this is remembered in your browser, per game). On a phone or narrow screen the list is 300 pixels high; press <b>▾ Smaller</b> for 150 pixels or <b>▴ Bigger</b> to enlarge it again. On a wide (desktop) screen the Events, Chat and Both lists fill the panel down to its bottom edge and the Smaller / Bigger button is not shown. Chat is only open while the game is running, it is shared by all players (private messages are not possible yet), and the server keeps the last 200 messages of each game. Chat messages are not part of your saved game and are never written into your Events log; the Both tab only shows them next to it. Chat needs <b>13_chat.sql</b> to be run once in the Supabase SQL Editor; until then the Chat tab says that chat is not set up. <b>Host tools:</b> the host (seat 1, who created the game) sees a <b>🧹 Clear</b> button next to Send, which deletes the whole chat for every player after a confirmation, and can type commands in the chat box: <b>/clear</b>, <b>/mute name</b> (the player can still read the chat but cannot send messages) and <b>/unmute name</b>, using the player's username. Everyone sees a short orange notice when the chat is cleared, a player is muted or unmuted, or a player joins the running game late. When the game is over the chat is closed (you can still read it). While you have unread messages the number also shows in the browser tab title. The host tools and notices need <b>14_chat_host.sql</b> to be run once in the Supabase SQL Editor (after 13_chat.sql).</p>
                 <p><b style="color:#da70d6;">Play Types</b><br>The Multiplayer Options of a new game set its <b>Play Type</b>. <b>Custom time limit</b>: the Turn Time Limit (24 hours, 48 hours, 72 hours, 1 week or No limit) is how long players have for each year; after it any player who has sent orders may play the year without the others. <b>Turn-a-Day (play by email)</b>: the classic pace of one year a day. Pick a daily deadline in your local time (it is stored as the same moment for every player, wherever they live). The year is played out as soon as every player has sent orders, or at the deadline without the late players; tick <b>Only play out the year at the daily deadline</b> to always wait for the deadline, which gives everyone the full day for planning, messages and calculations. A year that starts within an hour of the deadline runs until the next day's deadline. Everyone gets a year summary by email. <b>Blitz (everyone online)</b>: every player is online at once and a year lasts 5, 10, 15, 20, 30 or 60 minutes; when the timer runs out the year is played out automatically without anyone who is late, the galaxy checks for news every 5 seconds, the Orders Sent message is skipped, and no emails are sent each year. The play type is shown in the lobby and as a tag in My Games.</p>
                 <p><b style="color:#da70d6;">Resigning</b><br>In a game that is in progress, <b>🏳 Resign</b> in the game lobby lets you leave for good (it cannot be undone); the confirmation tells you what will happen to your empire. What happens depends on the game's When a Player Resigns option (see Multiplayer Options). <b>A new AI empire takes over:</b> your planets, ships and starbases go to a new computer empire with a random name, race and intelligence, which plays on and can win like any AI opponent. <b>The empire is removed:</b> your ships are scrapped and your planets become uninhabited. Both changes are made in the galaxy of the next player whose turn comes up, and everyone's event log records them. <b>The empire keeps its standing orders:</b> it stays in the galaxy, keeps its planets and fleets and follows its standing orders every round, but it cannot win. In every case you can no longer give orders. The other players are emailed and the turn order passes over you from then on: whoever plays before you runs your empire's turn on standing orders as part of their End Turn, and their turn report says so. If it was your turn, the turn passes on at once. You can still open the galaxy to watch, or press Remove from My Games to hide it. If every player resigns, the game ends without a winner, everyone is emailed and the saved galaxy is deleted. If only one player is left, they keep playing against the AI empires and the resigned empires; their turn comes straight back after each End Turn. Before a game starts, use Leave Game (or Cancel Game if you created it) instead.</p>
                 <p><b style="color:#da70d6;">The New Game Screen</b><br>Empire Name and Choose Race sit on one row. Universe Size, Star Density and Player Position share the next row. Choose Race offers <b>Random Race</b>, which picks one of the six built-in races for you when you press Create Galaxy (the log tells you which), and lists your saved custom races under their own <b>Custom Races</b> heading. Player Position sets how far apart the homeworlds start. Four buttons sit below, two to a row: <b>Custom Race</b> opens your race list and the Race Wizard (see Custom Races below), <b>AI Opponents</b> opens the rival setup and shows how many rivals you have in brackets, and <b>Advanced Options</b> and <b>Victory Conditions</b> each show how many choices are ticked. Back and Create Galaxy sit on the bottom row.</p>
@@ -3358,9 +3381,9 @@
                 <p><b style="color:#da70d6;">Your Own View of the Galaxy</b><br>Each empire keeps its own record of what it has seen. The planets you have scanned, your survey dates, your fleets, your technology, your research, your budget, your starbase designs and your Galactic Event Log belong to your empire alone. In a game with more than one human, another player's scans never reveal anything to you, and their worlds show as rival worlds (red) once your own scanners find them. Your Galactic Event Log is private too: it lists only what happened to you, plus battles your scanners detected. Every empire hears about the Mystery Trader, a player joining late and a player resigning.</p>
                 <p><b style="color:#da70d6;">Random Events</b><br>Unless No Random Events is ticked, each year there is a small chance that something happens to one of your planets: a <b>mineral strike</b> raises the concentration of one mineral, a <b>population boom</b> adds colonists, a <b>plague</b> kills some of them, or a <b>salvage find</b> drops a cache of Ore on the planet. Events appear in the Galactic Event Log and the turn report.</p>
                 <p><b style="color:#da70d6;">Your Starting Fleet</b><br>You begin with a Long Range Scout in orbit of your homeworld: a Scout hull with a Quick Jump 5 engine, a Rhino Scanner (50 ly) and a fuel tank, 300 mg of fuel in all. Its job is to map the nearby stars. Your homeworld starts with a Basic Space Station that has a ship dock. Colony ships, freighters and warships are built there.</p>
-                <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Colored dots show ownership and habitability; the legend is in the lower left.</p>
+                <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Every empire in the game, AI empires included, is given its own random color when the game begins. An empire's planets, planet names, fleets and fleet names are drawn in its color, and the empire name at the bottom right uses yours. Planets nobody owns show habitability: blue is habitable, dark red hostile, grey not scanned yet; a gold center means a ship dock. The legend in the lower left lists your empire and every empire you have met, each in its color, and adds more columns when it gets long.</p>
                 <p><b style="color:#da70d6;">Playing on a Phone or Tablet</b><br>On a narrow screen the Star Map sits at the top of the dashboard and the planet, fleet and queue panels scroll underneath it. Drag with one finger to pan, pinch with two fingers to zoom around the point between your fingers, and tap a star or fleet to select it. A touch screen has no Shift key, so to plot a course turn on Fleet, Plot Course Mode (or the Plot button in the Fleets in Orbit panel) and tap stars or empty space on the map to add waypoints. The map resizes when you turn the device. The Race Wizard also fits a phone: its tabs scroll sideways and the Point Ledger is hidden, but the Advantage Points counter stays in view.</p>
-                <p><b style="color:#da70d6;">Fleets on the Map</b><br>Every group of ships is a fleet. Your fleets are cyan arrowheads with their name beside them. A fleet in orbit slowly circles its planet; several fleets share the orbit, evenly spaced. A fleet in deep space sits where it is. Pick a fleet in the Fleets in Orbit panel, in the Fleet Roster, or by clicking its arrow on the map. A fleet with orders shows a line to each waypoint, a numbered box at each stop with its travel time in years, and the current warp next to its name. A dashed orange leg means you do not have the fuel to finish that leg. When a fleet is selected, dashed rings show how far it moves in one year: green for its free speed, amber for the warp of its first waypoint. Toggle the rings with Fleet, Range Rings.</p>
+                <p><b style="color:#da70d6;">Fleets on the Map</b><br>Every group of ships is a fleet. Your fleets are arrowheads in your empire color with their name beside them. A fleet in orbit slowly circles its planet; several fleets share the orbit, evenly spaced. A fleet in deep space sits where it is. Pick a fleet in the Fleets in Orbit panel, in the Fleet Roster, or by clicking its arrow on the map. A fleet with orders shows a line to each waypoint, a numbered box at each stop with its travel time in years, and the current warp next to its name. A dashed orange leg means you do not have the fuel to finish that leg. When a fleet is selected, dashed rings show how far it moves in one year: green for its free speed, amber for the warp of its first waypoint. Toggle the rings with Fleet, Range Rings.</p>
                 <p><b style="color:#da70d6;">The Fleet Menu and Fleet Actions</b><br>The Fleet menu always offers Manage Waypoints, Plot Course Mode and Range Rings. Below them the menu adds actions that only make sense where you are. Select a planet that has one of your fleets in orbit and the matching actions appear: <b>Colonize Planet</b> on a neutral world when a fleet there has a Colony Ship, <b>Cargo and Transfer</b> on one of your planets when a fleet there can carry cargo, <b>Merge Fleets Here</b> and <b>Fleet Transfer</b> when two or more of your fleets share the orbit, and <b>Orbital Bombardment</b> and <b>Ground Invasion</b> at a rival homeworld. With no fleet in orbit of the selected planet, these actions are not shown.</p>
                 <p><b style="color:#da70d6;">Warp Speed and Travel Time</b><br>A fleet travels at a Warp factor from 1 to 10. In one year it covers the warp squared in light years: Warp 4 is 16 ly, Warp 6 is 36 ly, Warp 9 is 81 ly. A fleet stops at every waypoint it reaches, even if it could have gone farther that year. Travel time to a waypoint is the distance divided by the speed, rounded up to whole years.</p>
                 <p><b style="color:#da70d6;">Fuel</b><br>Fuel is measured in milligrams (mg) and is shared by every ship in a fleet. Each hull has a tank, and fuel tanks add more. Every engine has a fuel table: the percent of normal fuel it burns at each warp from 1 to 10 (shown in the Ship Designer and the Equipment Catalog). The fuel a ship burns in a year is its mass in kT (hull, parts and its share of the cargo) times that percent times the distance in light years, divided by 2,000, so fuel use climbs steeply at high warps. Improved Fuel Efficiency races burn 15 percent less. Ships burn no fuel in battle. Warp 1 is always free, and ramscoop engines are free up to their free speed. <b>Running out:</b> a fleet travels at its ordered speed until its tank is empty, then a ramscoop fleet carries on at its free speed and any other fleet limps along at Warp 1. <b>Ramscoops make fuel:</b> a ship with a ramscoop engine travelling at or below the fleet's free speed gathers fuel, more the slower it goes (my estimate: half a mg per light year for each warp below the free speed plus one). <b>Fuel makers:</b> Fuel Transport and Super-Fuel Xport hulls make 200 mg of fuel a year wherever they are, and an Anti-matter Generator 50 mg. <b>Orders that run dry are refused:</b> when you add a waypoint, change a warp or send a fleet somewhere it cannot reach on the fuel it will have, a Not Enough Fuel window says how much the leg needs and offers the fastest warp that makes it; nothing is ordered unless you accept. The check counts refuelling at your own planets with docks along the route.</p>
@@ -3382,7 +3405,7 @@
                 <p><b style="color:#da70d6;">Advanced Options</b><br>On the New Game screen, Advanced Options opens a box where you can add any of these to the game. <b>Beginner: Maximum Minerals</b> gives every homeworld 100 percent mineral concentrations and every other world at least 50 percent. <b>Slower Tech Advances</b> doubles the cost of every research level. <b>Accelerated BBS Play</b> speeds up the opening: you begin with an extra loaded Colony Ship and a Small Freighter at your homeworld, and AI empires start with 50 percent more banked Resources. <b>No Random Events</b> turns off random events. <b>AI Opponents can form alliances</b> lets rivals team up over time; allied rivals each earn 10 percent more. <b>Public Player Scores</b> (on by default) shows every empire's score on the Scoreboard; turn it off to hide rival scores. <b>Galaxy clumping</b> gathers stars into tight clusters with empty space between them; off gives a looser, more even spread. <b>Mines need colonists (classic operating limit)</b> is off to start with, and then every mine works while its planet has any colonist; ticked, only a limited number of mines can operate per 10,000 colonists, like factories.</p>
                 <p><b style="color:#da70d6;">Victory Conditions</b><br>On the New Game screen, Victory Conditions opens a box where you can tick any of these. <b>Own a share of all planets</b> is ticked to start with at 60 percent; set it anywhere from 10 to 100 percent of every planet in the galaxy. <b>Attain a tech level</b>: a level from 1 to 26 in a number of fields from 1 to 6. <b>Exceed a score</b>: from 1,000 to 1,000,000. <b>Exceed second place score by a percentage</b>: your score must be at least that much higher than the runner-up (starts at 100 percent, meaning double the second best score; choose 1 to 1,000). <b>Own capital ships</b>: from 2 to 1,000 (capital ships cannot be built yet, so this cannot be met until ship design arrives). <b>Highest score after a number of years</b>: from 10 to 1,000,000 years. At the bottom, pick how many of the ticked conditions a winner must meet (1 up to the number ticked), and how many years must pass before a winner can be declared (10 to 1,000,000). Every empire is judged the same way at the end of each turn, and if several qualify the highest score wins. The Scoreboard lists the active conditions. In a single player game you can keep playing after a winner is declared. In a multiplayer game the game ends (see Multiplayer Victory and Game Over).</p>
                 <p><b style="color:#da70d6;">Management</b><br>Economy shows your Resources, the research and manufacturing split, operating factories and mines, and Ore mined and stockpiled. Research lets you pick the field and shows progress and your engine. <b>Fleet Roster</b> lists every fleet with its position, fuel, cargo and route. Each fleet has a <b>Select and Center</b> button: it closes the roster, selects that fleet, selects the planet it is orbiting and moves the star map to it (a fleet in deep space is selected and centered on its position). Scoreboard ranks every empire by planets, ships, tech, Resources per year and Ore. <b>Autobuild</b> opens your empire's Autobuild rules (see Autobuild).</p>
-                <p><b style="color:#da70d6;">Saving</b><br>Save File stores the game in this browser, including every fleet, its waypoints and fuel, tech levels, research progress, your budget, your starbase designs, every planet's orbital installation, your Advanced Options and Victory Conditions, and a copy of every custom race in play (yours and your rivals'). Continue Game on the title screen loads that save. Since version 0.8.0 the save also keeps your Galactic Event Log (the last 300 entries) and your latest turn report, and it uses a new format that can hold several human empires; older saves are converted automatically the first time you load them. Load File and Open Game import a saved JSON file, and any custom races inside it that are not already in your list are added to it. Your list of custom races is saved in this browser the moment you save a race in the wizard, separately from any game. Saves from before version 0.7.62 load with Public Player Scores on, every other option off and no victory conditions; saves from before 0.7.61 have every existing starbase converted into a Basic Space Station with a dock; saves from before 0.7.60 have their single fleet converted into the fleet system; saves from before 0.7.59 are also converted to the new economy. Since version 0.9.0 the save also keeps your Autobuild rules, each planet's Autobuild switch, auto items in queues, mineral packets in flight, Mystery Traders and the items you own; saves from before 0.9.0 load with Autobuild switched off (the default rules are there, tick Autobuild is on to use them). Abandon Game returns to the title screen and discards unsaved progress.</p>
+                <p><b style="color:#da70d6;">Saving</b><br>Save File stores the game in this browser, including every fleet, its waypoints and fuel, tech levels, research progress, your budget, your starbase designs, every planet's orbital installation, your Advanced Options and Victory Conditions, and a copy of every custom race in play (yours and your rivals'). Continue Game on the title screen loads that save. Since version 0.8.0 the save also keeps your Galactic Event Log (the last 300 entries) and your latest turn report, and it uses a new format that can hold several human empires; older saves are converted automatically the first time you load them. Load File and Open Game import a saved JSON file, and any custom races inside it that are not already in your list are added to it. Your list of custom races is saved in this browser the moment you save a race in the wizard, separately from any game. Saves from before version 0.7.62 load with Public Player Scores on, every other option off and no victory conditions; saves from before 0.7.61 have every existing starbase converted into a Basic Space Station with a dock; saves from before 0.7.60 have their single fleet converted into the fleet system; saves from before 0.7.59 are also converted to the new economy. Since version 0.9.0 the save also keeps your Autobuild rules, each planet's Autobuild switch, auto items in queues, mineral packets in flight, Mystery Traders and the items you own; saves from before 0.9.0 load with Autobuild switched off (the default rules are there, tick Autobuild is on to use them). Abandon Game returns to the title screen and discards unsaved progress. In a multiplayer game Save File and Load File are not offered, because the server keeps the game.</p>
                 <p><b style="color:#da70d6;">Resources Belong to Planets</b><br>Every planet makes its own Resources from its colonists and its operating factories, and every planet spends them only on its own production queue. There is no empire-wide bank or shared pool: Resources a planet does not spend this turn are lost, and one planet can never pay for another planet\'s buildings. Research is the one shared pool: the research share of every planet is added together and put into the field you chose. Minerals are also kept per planet. To move minerals or colonists between planets use freighters, or fire mineral packets.</p>
                 <p><b style="color:#da70d6;">Colonizing and Cargo</b><br>A ship with a Colonization Module and colonists in its hold can found a colony on an uninhabited world you have surveyed. On a world with 0% or lower habitability for your race the colonists die off, and you are warned first. The colonists come from the planet that built the colony ship, and a planet keeps a minimum population when it loads them. Ships carry four cargo types: colonists, Ironium, Boranium and Germanium. Use Cargo and Transfer in orbit of your own planets (or load and unload tasks on waypoints) to move them. Every kT of cargo adds to the ship\'s mass, which lowers its top warp and increases the fuel it burns, so check fuel before you load a heavy freighter.</p>
                 <p><b style="color:#da70d6;">Mass Drivers and Mineral Packets</b><br>No planet starts with a Mass Driver. Queue one under Structures once your Propulsion is high enough: level 1 needs Propulsion 3, level 2 needs 5, and so on up to level 6 at Propulsion 13. Each level also acts as a packet accelerator: a level N driver fires one packet a year of up to 250 x N kT at Warp 3 + 2 x N, and catches packets up to that same warp. Open the Planet menu and choose Fire Mineral Packet, pick any known planet and the minerals to load; they leave the planet immediately and fly toward the target at warp squared light years a year. A world of yours with a driver of enough speed catches the packet and the minerals go straight into its stockpile. A slower driver catches only part of it, and a world with no driver cannot catch it at all. What is not caught hits the planet as a weapon, killing colonists and destroying mines, factories and defenses, and that works against enemy planets too. A packet that hits an uninhabited world is simply lost. You can see your own packets and any packet flying at one of your planets.</p>
@@ -3762,7 +3785,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.53.0';
+        const GAME_VERSION = '0.54.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -4428,6 +4451,54 @@ const DEFENDERS_PER_POP=100;
             return r ? r.name : 'Unknown Empire';
         }
 
+        const EMPIRE_PALETTE = ['#ff5252', '#ff9f1a', '#ffe14d', '#c8ff2e', '#32cd32', '#1de9b6', '#3d7bff', '#b388ff', '#d500f9', '#ff4dd2', '#ffb3c1', '#cfa07a'];
+
+        function hslToHex(h, s, l) {
+            const a = s * Math.min(l, 1 - l);
+            const f = n => {
+                const k = (n + h / 30) % 12;
+                const c = l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1));
+                return Math.round(255 * c).toString(16).padStart(2, '0');
+            };
+            return '#' + f(0) + f(8) + f(4);
+        }
+
+        function shadeColor(hex, amount) {
+            const n = parseInt(hex.slice(1), 16);
+            const target = amount >= 0 ? 255 : 0;
+            const f = Math.abs(amount);
+            const mix = shift => Math.round(((n >> shift) & 255) * (1 - f) + target * f);
+            return 'rgb(' + mix(16) + ', ' + mix(8) + ', ' + mix(0) + ')';
+        }
+
+        function assignEmpireColors(randomize) {
+            const used = empires.filter(e => e.color).map(e => e.color);
+            const free = EMPIRE_PALETTE.filter(c => used.indexOf(c) < 0);
+            if (randomize) {
+                for (let i = free.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    const t = free[i];
+                    free[i] = free[j];
+                    free[j] = t;
+                }
+            }
+            empires.forEach((e, i) => {
+                if (e.color) return;
+                e.color = free.length ? free.shift() : hslToHex((i * 137.508) % 360, 0.75, 0.62);
+            });
+        }
+
+        function empireColor(ownerId) {
+            const e = empireById(ownerId);
+            if (!e) return '#ff4500';
+            if (!e.color) assignEmpireColors(false);
+            return e.color || '#ff4500';
+        }
+
+        function paintEmpireLabel() {
+            document.getElementById('lbl-empire-display').style.color = empireColor(myEmpireId);
+        }
+
         function storeActiveEmpire() {
             const e = empires[activeEmpireIndex];
             if (!e) return;
@@ -4528,6 +4599,7 @@ const DEFENDERS_PER_POP=100;
             if (src.aiTakeover) e.aiTakeover = true;
             e.userId = src.userId || null;
             e.mpSeat = Number.isInteger(src.mpSeat) ? src.mpSeat : null;
+            if (typeof src.color === 'string' && /^#[0-9a-fA-F]{6}$/.test(src.color)) e.color = src.color.toLowerCase();
             e.fleets = Array.isArray(src.fleets) ? src.fleets : [];
             e.fleets.forEach(f => {
                 if (!f.waypoints) f.waypoints = [];
@@ -7327,6 +7399,7 @@ const DEFENDERS_PER_POP=100;
             migratePlanets();
             empires = hasEmpires ? data.empires.map((e, i) => normalizeEmpire(e, i)) : [legacyEmpireFromSave(data)];
             ensureAiEmpires();
+            assignEmpireColors(false);
             const idx = clampInt(data.activeEmpire, 0, empires.length - 1, 0);
             loadEmpire(idx);
             updateDiscovery(false);
@@ -7338,6 +7411,7 @@ const DEFENDERS_PER_POP=100;
             renderEventLog();
             refreshPlotButtons();
             document.getElementById('lbl-empire-display').innerText = empireName;
+            paintEmpireLabel();
             document.getElementById('lbl-year').innerText = currentYear;
             showView('view-dashboard');
             updateDashboardPlanetView();
@@ -12720,6 +12794,14 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.54.0', d: 'Oct 3, 2026 7:34 AM', t: "Empire Colors and a Cleaner Bottom Panel", items: [
+                "Every empire in a game, AI empires included, gets its own random color when the game begins (a player who joins late gets one too). Planets, planet names, fleets and fleet names on the star map are drawn in the owner's color, and your empire name at the bottom right and the player names in chat and in the bottom panel use it as well. Saves from before this version get colors the first time they load.",
+                "The star map legend now lists your empire and every empire you have met, each with its color, plus the dock, habitable, hostile and unscanned markers. Long legends continue in extra columns.",
+                "Bottom panel in multiplayer: how long the year has been running and Year ends in x h y m now sit under the year. Removed the game name, the orders sent text and the late players are skipped text. It now lists who is online and who you are waiting on.",
+                "The Chat link is gone from the bottom panel; use the Chat tab of the Galactic Event Log. The tab still shows the unread count.",
+                "Save File and Load File are hidden in multiplayer games, since the server keeps the game.",
+                "Help: Taking Your Turn, Turn Time Limit and Skipping, Who Is Online, Chat, The Star Map, Fleets on the Map, Examining Enemy Fleets and Saving updated."
+            ] },
             { v: '0.53.0', d: 'Oct 3, 2026 7:05 AM', t: "Diplomacy: Neutral Start, War, Alliance and Stand Down", items: [
                 "Every empire now starts neutral toward every other empire. Before, everyone started as an enemy and each empire chose its own stance.",
                 "Diplomacy (Management menu) is rebuilt around orders. Neutral: Ask for Alliance or Declare War. Allied: Break Alliance (both become neutral) or Declare War. At War: Request Stand Down (both become neutral if accepted). Relations are now shared by both empires.",
@@ -13785,6 +13867,7 @@ const DEFENDERS_PER_POP=100;
                 rival.live = true;
                 empires.push(newAiEmpireRecord(humans.length + idx, rival));
             });
+            assignEmpireColors(true);
             planets.forEach(p => applyRaceHomeBonus(p, raceOfOwner(p.owner)));
 
             let nameIdx = 0;
@@ -14263,7 +14346,7 @@ const DEFENDERS_PER_POP=100;
             touchMode = null;
         });
 
-        function drawFleetIcon(ctx, x, y, angle, selected) {
+        function drawFleetIcon(ctx, x, y, angle, selected, color) {
             ctx.save();
             ctx.translate(x, y);
             ctx.rotate(angle);
@@ -14273,10 +14356,10 @@ const DEFENDERS_PER_POP=100;
             ctx.lineTo(-3, 0);
             ctx.lineTo(-5, 5);
             ctx.closePath();
-            ctx.fillStyle = selected ? '#ffffff' : '#00ffff';
+            ctx.fillStyle = selected ? '#ffffff' : color;
             ctx.fill();
             ctx.lineWidth = 1.2;
-            ctx.strokeStyle = selected ? '#ffff00' : '#0a6a7a';
+            ctx.strokeStyle = selected ? '#ffff00' : shadeColor(color, -0.5);
             ctx.stroke();
             ctx.restore();
         }
@@ -14380,10 +14463,11 @@ const DEFENDERS_PER_POP=100;
             lastForeignDrawn = visibleForeignFleets();
             lastForeignDrawn.forEach(v => {
                 const sp = worldToScreen(v.f.x, v.f.y);
+                const fc = empireColor(v.e.id);
                 ctx.save();
                 ctx.translate(sp.x + 9, sp.y - 9);
-                ctx.fillStyle = '#ff4040';
-                ctx.strokeStyle = '#ffb0b0';
+                ctx.fillStyle = fc;
+                ctx.strokeStyle = shadeColor(fc, 0.55);
                 ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(0, -6);
@@ -14394,12 +14478,13 @@ const DEFENDERS_PER_POP=100;
                 ctx.stroke();
                 ctx.restore();
                 if (mapScale >= 0.6) {
-                    ctx.fillStyle = '#ff9090';
+                    ctx.fillStyle = fc;
                     ctx.font = '10px Segoe UI';
                     ctx.fillText(v.f.name || 'Fleet', sp.x + 16, sp.y - 6);
                 }
             });
 
+            const myColor = empireColor(myEmpireId);
             playerFleets.forEach(f => {
                 const pos = fleetIconPosition(f, stacks);
                 const isSel = sel && f.id === sel.id;
@@ -14409,9 +14494,9 @@ const DEFENDERS_PER_POP=100;
                     const origin = worldToScreen(f.x, f.y);
                     angle = Math.atan2(t.y - origin.y, t.x - origin.x);
                 }
-                drawFleetIcon(mapCtx, pos.x, pos.y, angle, isSel);
+                drawFleetIcon(mapCtx, pos.x, pos.y, angle, isSel, myColor);
                 if (isSel || mapScale >= 0.7) {
-                    ctx.fillStyle = isSel ? '#ffffff' : '#9fe';
+                    ctx.fillStyle = isSel ? '#ffffff' : myColor;
                     ctx.font = '10px Segoe UI';
                     ctx.fillText(f.name + (f.waypoints.length ? ' (Warp ' + f.waypoints[0].warp + ')' : ''), pos.x + 10, pos.y + 4);
                 }
@@ -14459,8 +14544,7 @@ const DEFENDERS_PER_POP=100;
                 mapCtx.beginPath();
                 mapCtx.arc(p.x - halfDim, p.y - halfDim, dotRadius, 0, Math.PI * 2);
                 let pColor = '#888888';
-                if (p.owner === myEmpireId) pColor = '#32cd32';
-                else if (isForeignOwner(p.owner)) pColor = '#ff4500';
+                if (p.owner !== 'neutral') pColor = empireColor(p.owner);
                 else if (p.explored) pColor = p.hab > 0 ? '#4fc3f7' : '#8b3a3a';
 
                 mapCtx.fillStyle = pColor;
@@ -14477,7 +14561,7 @@ const DEFENDERS_PER_POP=100;
                 }
 
                 if (showLabels || index === selectedPlanetIndex || p.owner !== 'neutral') {
-                    mapCtx.fillStyle = '#d0d0e0';
+                    mapCtx.fillStyle = p.owner !== 'neutral' ? pColor : '#d0d0e0';
                     mapCtx.font = '10px Segoe UI';
                     mapCtx.fillText(p.name, p.x - halfDim + dotRadius + 4, p.y - halfDim + 3);
                 }
@@ -14489,24 +14573,28 @@ const DEFENDERS_PER_POP=100;
             drawTraderLayer();
             drawFleetLayer();
 
-            const legend = [
-                ['#32cd32', 'Your world'],
-                ['#ffd700', 'Station or starbase with ship dock'],
-                ['#ff4500', 'Rival world'],
-                ['#4fc3f7', 'Habitable'],
-                ['#8b3a3a', 'Hostile'],
-                ['#888888', 'Unscanned'],
-                ['#00ffff', 'Your fleet']
-            ];
+            const legend = [[empireColor(myEmpireId), empireName + ' (you)']];
+            empires.forEach(e => {
+                if (e.id === myEmpireId || e.mpGone) return;
+                const met = planets.some(p => p.owner === e.id && p.revealed !== false) || (lastForeignDrawn || []).some(v => v.e === e);
+                if (met) legend.push([empireColor(e.id), e.name]);
+            });
+            legend.push(['#ffd700', 'Station or starbase with ship dock'], ['#4fc3f7', 'Habitable'], ['#8b3a3a', 'Hostile'], ['#888888', 'Unscanned']);
             mapCtx.font = '11px Segoe UI';
+            const rowsFit = Math.max(4, Math.floor((mapCanvas.height - 12) / 15));
+            const rowsPerCol = Math.min(legend.length, rowsFit);
+            const colWidth = legend.reduce((m, item) => Math.max(m, mapCtx.measureText(item[1]).width), 0) + 34;
             legend.forEach((item, i) => {
-                const y = mapCanvas.height - 10 - (legend.length - 1 - i) * 15;
+                const col = Math.floor(i / rowsPerCol);
+                const row = i % rowsPerCol;
+                const x = 14 + col * colWidth;
+                const y = mapCanvas.height - 10 - (rowsPerCol - 1 - row) * 15;
                 mapCtx.beginPath();
-                mapCtx.arc(14, y, 4, 0, Math.PI * 2);
+                mapCtx.arc(x, y, 4, 0, Math.PI * 2);
                 mapCtx.fillStyle = item[0];
                 mapCtx.fill();
                 mapCtx.fillStyle = '#b0b0c0';
-                mapCtx.fillText(item[1], 24, y + 4);
+                mapCtx.fillText(item[1], x + 10, y + 4);
             });
         }
 
@@ -17301,24 +17389,74 @@ const DEFENDERS_PER_POP=100;
             };
         }
 
-        function mpRenderBannerInfo() {
-            const el = document.getElementById('mp-banner-info');
-            if (!el) return;
-            if (!mpGame || mpGame.finished) {
-                el.textContent = '';
+        function mpSeatColor(seat) {
+            const e = empires.find(x => x.mpSeat === seat);
+            return e ? empireColor(e.id) : '#9fe8b0';
+        }
+
+        function mpFillPeople(el, label, entries, none) {
+            const key = label + '|' + entries.map(x => x.name + x.color).join(',') + '|' + none;
+            if (el.dataset.key === key) return;
+            el.dataset.key = key;
+            el.textContent = '';
+            const head = document.createElement('span');
+            head.textContent = label + ' ';
+            head.style.color = '#b0b0c0';
+            el.appendChild(head);
+            if (!entries.length) {
+                const n = document.createElement('span');
+                n.textContent = none;
+                n.style.color = '#888';
+                el.appendChild(n);
                 return;
             }
-            const parts = [];
-            const sum = mpOnlineSummary(mpGame.id, mpGame.seats);
-            if (sum && sum.known) {
-                parts.push('🟢 Online ' + sum.online.length + ' of ' + sum.total + ': ' + sum.text);
-                el.title = sum.tip;
-            } else {
-                el.title = '';
+            entries.forEach((x, i) => {
+                if (i) el.appendChild(document.createTextNode(', '));
+                const b = document.createElement('b');
+                b.textContent = x.name;
+                b.style.color = x.color;
+                el.appendChild(b);
+            });
+        }
+
+        function mpClearPeople(el) {
+            el.textContent = '';
+            el.dataset.key = '';
+        }
+
+        function mpRenderBannerInfo() {
+            const sub = document.getElementById('year-sub');
+            const running = document.getElementById('year-running');
+            const ends = document.getElementById('year-ends');
+            const onlineEl = document.getElementById('mp-online-line');
+            const waitEl = document.getElementById('mp-wait-line');
+            if (!sub || !onlineEl || !waitEl) return;
+            if (!mpGame || mpGame.finished) {
+                sub.style.display = 'none';
+                mpClearPeople(onlineEl);
+                mpClearPeople(waitEl);
+                return;
             }
+            sub.style.display = 'block';
             const ms = mpClockElapsedMs(mpGame.clock, mpGame.clock && mpGame.clock.fetchedAt);
-            if (ms !== null) parts.push('⏱ Year ' + currentYear + ' running ' + mpElapsedText(ms));
-            el.textContent = parts.join(' | ');
+            running.textContent = ms === null ? '' : 'Running ' + mpElapsedText(ms);
+            const ck = mpGame.clock ? mpTurnClock(mpGame.clock, mpGame.clock.fetchedAt) : null;
+            if (mpProcessingYear || mpGame.processing || !ck || ck.msLeft === null) ends.textContent = '';
+            else ends.textContent = ck.overdue ? 'Deadline passed' : 'Year ends in ' + mpElapsedText(ck.msLeft);
+            const sum = mpOnlineSummary(mpGame.id, mpGame.seats);
+            const online = sum ? sum.online.map(x => ({ name: (x.username || 'Player') + (x.is_me ? ' (you)' : ''), color: mpSeatColor(x.seat) })) : [];
+            onlineEl.title = sum ? sum.tip : '';
+            mpFillPeople(onlineEl, '🟢 Online:', online, 'nobody');
+            if (mpProcessingYear || mpGame.processing || mpGame.resigned) {
+                mpClearPeople(waitEl);
+            } else {
+                const mine = mpProfile ? mpProfile.username : null;
+                const wait = (mpGame.waiting || []).filter(n => n !== mine).map(n => {
+                    const st = (mpGame.seats || []).find(x => x.username === n);
+                    return { name: n, color: st ? mpSeatColor(st.seat) : '#ffd700' };
+                });
+                mpFillPeople(waitEl, '⏳ Waiting on:', wait, 'nobody');
+            }
             mpChatPaintDots();
         }
 
@@ -18013,6 +18151,8 @@ const DEFENDERS_PER_POP=100;
             mpSyncLateInviteButton();
             mpRenderBannerInfo();
             mpChatSyncUi();
+            document.getElementById('btn-save-game').style.display = mpGame ? 'none' : '';
+            document.getElementById('btn-load-game-dash').style.display = mpGame ? 'none' : '';
             const endBtn = document.getElementById('btn-end-turn');
             document.body.classList.toggle('mp-readonly', !!(mpGame && mpReadOnly));
             if (!mpGame) {
@@ -18023,30 +18163,24 @@ const DEFENDERS_PER_POP=100;
             }
             banner.style.display = 'flex';
             const text = document.getElementById('mp-banner-text');
-            const name = mpGame.name;
             if (mpPending) {
                 text.className = 'warn';
-                text.textContent = name + (mpPending.finish ? ': the final result has not been sent yet' : mpPending.yearState ? ': the new year has not been sent yet' : ': your orders have not been sent yet');
+                text.textContent = mpPending.finish ? 'The final result has not been sent yet' : mpPending.yearState ? 'The new year has not been sent yet' : 'Your orders have not been sent yet';
             } else if (mpGame.finished) {
                 text.className = '';
-                text.textContent = '🏆 ' + name + ': the game is over (view only)';
+                text.textContent = '🏆 The game is over (view only)';
             } else if (mpGame.resigned) {
                 text.className = 'wait';
-                text.textContent = '🏳 ' + name + ': you have resigned (view only)';
+                text.textContent = '🏳 You have resigned (view only)';
             } else if (mpProcessingYear || mpGame.processing) {
                 text.className = 'wait';
-                text.textContent = '⚙ ' + name + ': every order is in, the year is being played out';
+                text.textContent = '⚙ Every order is in, the year is being played out';
             } else if (mpGame.allIn && mpGame.clock && mpGame.clock.held) {
                 text.className = 'wait';
-                const ck = mpTurnClock(mpGame.clock, mpGame.clock.fetchedAt);
-                text.textContent = '✔ ' + name + ': every order is in; the year is played out at the daily deadline' + (ck.msLeft !== null ? ' (in ' + mpFormatLeft(ck.msLeft, false) + ')' : '') + '. You may still change your orders.';
-            } else if (mpGame.submitted) {
-                text.className = 'wait';
-                text.textContent = '✔ ' + name + ': orders for ' + currentYear + ' sent' + (mpGame.waiting && mpGame.waiting.length ? ', waiting for ' + mpGame.waiting.join(', ') : '') + ' (you may still change them)';
+                text.textContent = '✔ Every order is in; the year is played out at the daily deadline. You may still change your orders.';
             } else {
                 text.className = '';
-                const others = (mpGame.waiting || []).filter(n => !(mpProfile && n === mpProfile.username));
-                text.textContent = '🎮 ' + name + ': give your orders for ' + currentYear + (others.length ? ' (also waiting for ' + others.join(', ') + ')' : '');
+                text.textContent = '';
             }
             document.getElementById('mp-banner-retry').style.display = mpPending ? 'inline-block' : 'none';
             document.getElementById('mp-banner-report').style.display = lastTurnReport ? 'inline-block' : 'none';
@@ -18054,11 +18188,6 @@ const DEFENDERS_PER_POP=100;
             const clock = mpGame.clock ? mpTurnClock(mpGame.clock, mpGame.clock.fetchedAt) : { overdue: false };
             const canSkip = mpGame.submitted && !mpGame.allIn && !mpPending && !mpGame.finished && !mpGame.resigned && clock.overdue;
             document.getElementById('mp-banner-skip').style.display = canSkip ? 'inline-block' : 'none';
-            if (!mpGame.allIn && !mpPending && !mpGame.finished && !mpGame.resigned && !mpProcessingYear && !mpGame.processing && clock.msLeft !== null) {
-                text.textContent += clock.overdue
-                    ? ' | deadline passed' + (clock.playType === 'custom' ? '' : ', the year is played without the late players')
-                    : ' | ' + (clock.playType === 'blitz' ? '⏱ ' : '') + (mpGame.submitted ? 'late players are skipped in ' : 'orders due in ') + mpFormatLeft(clock.msLeft, clock.playType === 'blitz');
-            }
             document.getElementById('mp-banner').classList.toggle('mp-urgent', clock.playType === 'blitz' && !mpGame.submitted && clock.msLeft !== null && clock.msLeft < 60000 && !mpGame.finished);
             endBtn.disabled = !mpGame.myTurn || mpProcessingYear;
             endBtn.innerText = mpPending ? '⚠ Not Sent' : (mpGame.finished ? '🏆 Game Over' : (!mpGame.myTurn ? '⌛ Waiting' : (mpGame.submitted ? '⏳ Resend Orders' : '⏳ End Turn')));
@@ -18269,7 +18398,7 @@ const DEFENDERS_PER_POP=100;
             if (!mpPending || !mpGame || !mpClient()) return;
             mpSetBusy(true, ['mp-banner-retry']);
             const kind = mpPending.finish ? 'finish' : (mpPending.yearState ? 'year' : 'orders');
-            document.getElementById('mp-banner-text').textContent = mpGame.name + (kind === 'finish' ? ': sending the final result...' : kind === 'year' ? ': sending the new year...' : ': sending your orders...');
+            document.getElementById('mp-banner-text').textContent = (kind === 'finish' ? 'Sending the final result...' : kind === 'year' ? 'Sending the new year...' : 'Sending your orders...');
             try {
                 let res;
                 if (kind === 'finish') res = await sb.rpc('finish_game', { gid: mpGame.id, p_turn_number: mpPending.turn, p_year: mpPending.year, p_summary: mpPending.summary });
@@ -18334,7 +18463,7 @@ const DEFENDERS_PER_POP=100;
             const turn = mpGame.turnNumber;
             const myIdx = mpGame.myIndex;
             mpUpdateChrome();
-            document.getElementById('mp-banner-text').textContent = mpGame.name + ': every order is in, playing out the year...';
+            document.getElementById('mp-banner-text').textContent = 'Every order is in, playing out the year...';
             let claimed = false;
             try {
                 const res = await sb.rpc('get_year_orders', { gid: gid, p_turn_number: turn, p_force: !!force });
@@ -19160,6 +19289,7 @@ const DEFENDERS_PER_POP=100;
             e.tech = raceStartLevels(e.race);
             logToAllEmpires('A new empire, ' + e.name + ', has joined the galaxy.');
             empires.push(e);
+            assignEmpireColors(true);
             loadEmpire(empires.length - 1);
             fitStartingDesigns();
             const home = planets[idx];
@@ -19254,11 +19384,7 @@ const DEFENDERS_PER_POP=100;
             const n = mpChatUnread;
             const label = n > 99 ? '99+' : String(n);
             const tab = document.getElementById('log-tab-chat');
-            const btn = document.getElementById('mp-banner-chat');
             tab.textContent = '💬 Chat' + (n ? ' (' + label + ')' : '');
-            btn.textContent = '💬 Chat' + (n ? ' (' + label + ')' : '');
-            btn.style.color = n ? '#ffd700' : '#00ffff';
-            btn.style.fontWeight = n ? 'bold' : '';
             if (mpChatTab !== 'chat') tab.style.color = n ? '#ffd700' : '#888';
             document.title = (n && mpGame ? '(' + label + ') ' : '') + MP_BASE_TITLE;
         }
@@ -19292,6 +19418,8 @@ const DEFENDERS_PER_POP=100;
         }
 
         function mpChatSeatColor(seat) {
+            const emp = empires.find(x => x.mpSeat === seat);
+            if (emp) return empireColor(emp.id);
             return MP_SEAT_COLORS[((seat % MP_SEAT_COLORS.length) + MP_SEAT_COLORS.length) % MP_SEAT_COLORS.length];
         }
 
@@ -19418,20 +19546,12 @@ const DEFENDERS_PER_POP=100;
             }
         }
 
-        function mpChatOpen() {
-            if (!mpGame) return;
-            mpChatSetTab(mpChatTab === 'both' ? 'both' : 'chat');
-            document.getElementById('log-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
         function mpChatSyncUi() {
             const tabs = document.getElementById('log-tabs');
-            const btn = document.getElementById('mp-banner-chat');
             if (!tabs) return;
             if (!mpGame) {
                 if (mpChatTab !== 'events') mpChatSetTab('events');
                 tabs.style.display = 'none';
-                btn.style.display = 'none';
                 mpChatGid = null;
                 document.title = MP_BASE_TITLE;
                 return;
@@ -19452,7 +19572,6 @@ const DEFENDERS_PER_POP=100;
                 setTimeout(mpChatFetch, 0);
             }
             tabs.style.display = 'flex';
-            btn.style.display = 'inline-block';
             const closed = !!mpGame.finished;
             const chatInput = document.getElementById('chat-input');
             chatInput.disabled = closed;
@@ -19605,7 +19724,6 @@ const DEFENDERS_PER_POP=100;
         }, 4000);
 
         document.addEventListener('visibilitychange', mpChatMarkSeenIfViewing);
-        document.getElementById('mp-banner-chat').addEventListener('click', mpChatOpen);
         document.getElementById('chat-size').addEventListener('click', () => {
             mpChatBig = !mpChatBig;
             mpChatApplySize();
