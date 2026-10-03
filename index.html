@@ -2104,7 +2104,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.50.0 (Updated: October 03, 2026 07:40 AM)</div>
+            <div class="version-text">Version 0.52.0 (Updated: October 03, 2026 06:40 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -3287,7 +3287,7 @@
                 <p><b style="color:#da70d6;">Ship Design Files</b><br>The Ship Designer can save designs to your device and load them into another game. <b>Download This Design</b> saves the selected saved design and <b>Download All Designs</b> saves every active one, as a .json file holding each design's name, hull, parts slot by slot, mass and cost. <b>Upload Designs</b> reads such a file. Every design in it is checked against this game: the hull and every part must be unlocked by your current technology, allowed for your race's traits, and (for Mystery Trader items) owned, and the design must be complete (engines, matching engine types, parts in slots that take them). Designs that pass are added with a new name if the name is already taken. Designs you cannot build are refused, and a window lists each one with what is missing, for example the tech level needed and the level you have. A design is only added while you have fewer than 16 active designs.</p>
                 <p><b style="color:#da70d6;">Automation Files</b><br>Your standing orders can move between games. <b>Export Automation</b> (in Settings, or in the Autobuild window) saves a .json file with your Autobuild rules and switch, your custom zip orders, your battle plans, your research budget and next-field choice, and the Missing-Order Warning setting. <b>Import Automation</b> reads such a file and lets you tick which of these to replace in the current game; everything else stays as it is. Fleets that used a battle plan that is not in the imported list go back to Default.</p>
                 <p><b style="color:#da70d6;">Fleet Management and Naming Ships</b><br><b>Fleet, Manage Ships and Names</b> lists each ship in the selected fleet. Rename the fleet or any single ship, select ships and <b>Split</b> them into a new fleet, <b>Scrap</b> them (see Scrapping), or retrofit them at a Fleet Yard. Damaged ships show their damage percent. Fuel is shared by the whole fleet and is burned for the whole fleet mass.</p>
-                <p><b style="color:#da70d6;">Combat</b><br>Combat happens every year after all fleets of every empire have moved, wherever fleets of empires that are hostile to each other share a location or come within <b>5 light years</b> (an armed fleet that ends its move within 5 light years of an enemy fleet, or whose path for the year passed within 5 light years of where an enemy fleet ended up, or an armed fleet that stayed put while an enemy ended or passed within 5 light years of it; jump gates and wormholes leave no path), or a fleet sits at an enemy world with defenses or an armed starbase. It is fought on a 10 by 10 battle board for up to 16 rounds. Each fleet becomes tokens, one per ship design, holding all its ships of that design; shields of a token are one pooled stack. Every round has three parts: (1) every token picks a target from its battle plan, (2) tokens move in up to three phases, heaviest first with a random margin of 15 percent, and (3) weapons fire from the highest initiative to the lowest (hull initiative plus battle computers plus the weapon's own initiative; shorter ranges first on ties). A token moves 0.5 to 2.5 squares a round: (best warp - 4) / 4 minus mass / 280 per engine, plus a quarter square per Maneuvering Jet and half a square per Overthruster (War Monger races half a square more); an Energy Dampener anywhere in the battle slows every token by one square a round. <b>Beams</b> always hit and lose 10 percent of their power over their full range; damage goes to shields first, then armor, and a beam token that destroys its target spills the rest onto other tokens in that square (up to one token per ship firing). Gatling weapons hit every enemy token in range. Sappers only damage shields. Capacitors raise beam damage, and Beam Deflectors lower it. <b>Torpedoes</b> may miss: each one hits by its accuracy, raised by battle computers (they cut the miss chance) and lowered by the target's jammers, which cancel one to one. A hit puts half its damage on armor and half on shields; a miss still does an eighth of its damage to shields. A torpedo strike can kill at most one ship per hit. Capital missiles do double damage to a token whose shields are gone. Starbase weapons get +1 range. Cloaked fleets may stay unseen until they fire. Players who survive a battle against ships with better technology have up to a 50 percent chance of learning a level in one field where the enemy was ahead. Review any fight in <b>Management, Battle Reports</b> and press Watch Replay.</p>
+                <p><b style="color:#da70d6;">Combat</b><br>Combat happens every year after all fleets of every empire have moved, wherever fleets of empires that are hostile to each other share a location or come within <b>5 light years</b> (an armed fleet that ends its move within 5 light years of an enemy fleet, or whose path for the year passed within 5 light years of where an enemy fleet ended up, or an armed fleet that stayed put while an enemy ended or passed within 5 light years of it; jump gates and wormholes leave no path), or a fleet sits at an enemy world with defenses or an armed starbase. It is fought on a 10 by 10 battle board for up to 16 rounds. Each fleet becomes tokens, one per ship design, holding all its ships of that design; shields of a token are one pooled stack. Every round has three parts: (1) every token picks a target from its battle plan, (2) tokens move in up to three phases, heaviest first with a random margin of 15 percent, and (3) weapons fire from the highest initiative to the lowest (hull initiative plus battle computers plus the weapon's own initiative; shorter ranges first on ties). A token moves 0.5 to 2.5 squares a round: (best warp - 4) / 4 minus mass / 280 per engine, plus a quarter square per Maneuvering Jet and half a square per Overthruster (War Monger races half a square more); an Energy Dampener anywhere in the battle slows every token by one square a round. <b>Beams</b> always hit and lose 10 percent of their power over their full range; damage goes to shields first, then armor, and a beam token that destroys its target spills the rest onto other tokens in that square (up to one token per ship firing). Gatling weapons hit every enemy token in range. Sappers only damage shields. Capacitors raise beam damage, and Beam Deflectors lower it. <b>Torpedoes</b> may miss: each one hits by its accuracy, raised by battle computers (they cut the miss chance) and lowered by the target's jammers, which cancel one to one. A hit puts half its damage on armor and half on shields; a miss still does an eighth of its damage to shields. A torpedo strike can kill at most one ship per hit. Capital missiles do double damage to a token whose shields are gone. Starbase weapons get +1 range. Cloaked fleets may stay unseen until they fire. Players who survive a battle against ships with better technology have up to a 50 percent chance of learning a level in one field where the enemy was ahead. Review any fight in <b>Management, Battle Reports</b> and press Watch Replay. You are also told about battles you were not in when a scanner of yours covers the place where they happened (the scan range of a planet, a fleet with a scanner or a mineral packet; cloaking is ignored). Those battles are listed and can be replayed the same way, with a note that your scanners saw them.</p>
                 <p><b style="color:#da70d6;">Battle Plans</b><br>Open <b>Management, Battle Plans</b> (or pick Battle Plans... in a fleet's plan list) to edit your plans. A plan has a <b>Primary Target</b> and a <b>Secondary Target</b> (None/Disengage, Any, Starbase, Bombers/Freighters, Armed Ships, Unarmed Ships, Fuel Transports, Freighters), a <b>Tactic</b> (Disengage, Disengage if challenged, Minimize damage to self, Maximize net damage, Maximize damage ratio, Maximize damage), <b>Attack Who</b> (Enemies, Neutrals and Enemies, Everyone) and <b>Dump Cargo</b>. Each round a token targets the nearest enemy that matches its primary target, then its secondary target; with neither it disengages. Disengaging tokens run from the enemy and leave the battle after moving 7 squares. Every armed token that is not disengaging always moves toward its target until it is within the range of all of its weapons, so that every weapon can fire, whichever of Minimize damage, Maximize net damage, Maximize damage ratio or Maximize damage is chosen (Minimize damage only breaks ties between equally close squares in favor of squares that enemy weapons cover less), and Disengage if challenged fights until it is hit. Tokens fire at targets in range even while moving toward their primary target. Unarmed tokens always disengage. The built in plans are Default (Armed Ships, then Any, Maximize damage ratio), Kill Starbase, Max-Defense, Sniper and Chicken; you can copy, rename and delete plans (up to 14; Default stays). Each fleet picks its plan in the Fleets in Orbit panel. Starbases and planetary defenses always shoot armed ships first, then anything.</p>
                 <p><b style="color:#da70d6;">Battle Replay</b><br>Every battle report of the last eight battles has <b>Watch Replay</b>. The replay shows the 10 by 10 board: each square with tokens shows a ship or starbase symbol in your color or the enemy's, the number of tokens at top left and the number of ships at top right. The square of the token that is acting is framed in blue and a square being hit shows an explosion. The controls go to the start, one phase back, play or pause, one phase forward and to the end. The text tells who moved or fired, with what, how many torpedoes hit, and the damage to shields and armor. Click a square to select a token there (click again for the next token) and see its details.</p>
                 <p><b style="color:#da70d6;">Cloaking and Scanners</b><br>Cloaking is measured in cloak units per kT of ship. The cloak percent follows a curve: 100 units per kT give 50 percent, 300 give 75 percent, about 800 give 90 percent and 1,300 give the maximum of 98 percent. Stealth Cloak gives 70 units, Super-Stealth Cloak 140, Ultra-Stealth Cloak 540, and Transport Cloaking 300 but only on unarmed ships; Super-Stealth races also get 300 units on every ship. Cargo and uncloaked ships in the same fleet dilute the cloak, because the units are spread over the whole mass. A cloaked fleet is only seen inside the cloak-reduced range of a scanner: a 75 percent cloak means a scanner has to be within a quarter of its range, normal or penetrating. Tachyon Detectors in the scanning fleet cut enemy cloaking: each set of detectors multiplies it by 0.95 to the power of the square root of their number. Cloaks give no protection from minefields.</p>
@@ -3355,7 +3355,7 @@
                 <p><b style="color:#da70d6;">Turn Flow</b><br>Give your orders, then press <b>End Turn</b>. Orders are only plans: nothing happens until the year is played out. A year is played out once every empire has given its orders, and then every empire's orders are carried out <b>at the same time</b>, including those of the AI empires. The year runs in this order: (1) the AI empires add their orders; (2) colonists ordered to land with the Colonize button land, before anything moves; (3) ships and armed starbases sweep enemy minefields, then every fleet of every empire moves along its waypoints at the same time, burning fuel and risking minefields; (4) waypoint tasks run for fleets that arrived (load, unload, colonize), and colony ships that reached the same planet in the same year compete for it; (5) mines are laid, remote mining and terraforming ships work, fleets are repaired and refuelled; (6) the calendar moves on one year, mineral packets fly, battles are fought, bombs fall, troops land and detonated minefields explode; (7) every empire's planets build, mine and grow, random events roll and research advances; (8) minefields decay and victory conditions are checked. Then each empire gets its own Year Report.</p>
                 <p><b style="color:#da70d6;">Turns and Rounds</b><br>There are no separate turns per empire any more: there is one year, and every empire gives orders for it. In a single player game the year is played out as soon as you press End Turn. In a multiplayer game every player gives orders at the same time; you can change your orders and press End Turn again until the last player has sent theirs. Because everything happens at once, the order in which players press End Turn never matters: no player can grab a planet first just by ending their turn earlier.</p>
                 <p><b style="color:#da70d6;">Colonizing at the Same Time</b><br>When colony ships of two or more empires land on the same empty planet in the same year, the empire landing the most colonists takes it, and the others keep their colonists aboard and are told who won. If the largest colonies are equal, nobody gets the planet that year. The <b>Colonize</b> button in the Fleet context actions now gives an order instead of acting at once: the colonists land at the start of the next year, before any fleet moves. Press Colonize again on the same planet to cancel the order. A waypoint with the Colonize task works the same way when the fleet arrives.</p>
-                <p><b style="color:#da70d6;">Your Own View of the Galaxy</b><br>Each empire keeps its own record of what it has seen. The planets you have scanned, your survey dates, your fleets, your technology, your research, your budget, your starbase designs and your Galactic Event Log belong to your empire alone. In a game with more than one human, another player's scans never reveal anything to you, and their worlds show as rival worlds (red) once your own scanners find them.</p>
+                <p><b style="color:#da70d6;">Your Own View of the Galaxy</b><br>Each empire keeps its own record of what it has seen. The planets you have scanned, your survey dates, your fleets, your technology, your research, your budget, your starbase designs and your Galactic Event Log belong to your empire alone. In a game with more than one human, another player's scans never reveal anything to you, and their worlds show as rival worlds (red) once your own scanners find them. Your Galactic Event Log is private too: it lists only what happened to you, plus battles your scanners detected. Every empire hears about the Mystery Trader, a player joining late and a player resigning.</p>
                 <p><b style="color:#da70d6;">Random Events</b><br>Unless No Random Events is ticked, each year there is a small chance that something happens to one of your planets: a <b>mineral strike</b> raises the concentration of one mineral, a <b>population boom</b> adds colonists, a <b>plague</b> kills some of them, or a <b>salvage find</b> drops a cache of Ore on the planet. Events appear in the Galactic Event Log and the turn report.</p>
                 <p><b style="color:#da70d6;">Your Starting Fleet</b><br>You begin with a Long Range Scout in orbit of your homeworld: a Scout hull with a Quick Jump 5 engine, a Rhino Scanner (50 ly) and a fuel tank, 300 mg of fuel in all. Its job is to map the nearby stars. Your homeworld starts with a Basic Space Station that has a ship dock. Colony ships, freighters and warships are built there.</p>
                 <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Colored dots show ownership and habitability; the legend is in the lower left.</p>
@@ -3762,7 +3762,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.50.0';
+        const GAME_VERSION = '0.52.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -11170,9 +11170,34 @@ const DEFENDERS_PER_POP=100;
             });
         }
 
+        function addBattleRecord(e, res, html) {
+            if (!Array.isArray(e.battles)) e.battles = [];
+            e.battles.push({ year: currentYear, place: battlePlaceName(res), html: html, replay: e.kind === 'ai' ? null : res.replay });
+            if (e.battles.length > MAX_BATTLES_KEPT) e.battles.splice(0, e.battles.length - MAX_BATTLES_KEPT);
+            e.battles.forEach((b, n) => { if (n < e.battles.length - REPLAYS_KEPT) delete b.replay; });
+        }
+
+        function battleObserverIds(fought) {
+            const seen = fought.map(() => []);
+            if (!fought.length) return seen;
+            const home = activeEmpireIndex;
+            empires.forEach((e, i) => {
+                if (e.kind === 'ai' || !yearEmpireActive(e)) return;
+                if (activeEmpireIndex !== i) switchToEmpire(i);
+                const sources = getScannerSources().filter(sc => sc.ships);
+                fought.forEach((b, n) => {
+                    if (b.res.owners.indexOf(e.id) !== -1) return;
+                    if (sources.some(sc => Math.hypot(sc.x - b.res.x, sc.y - b.res.y) <= Math.max(sc.range, sc.pen || 0))) seen[n].push(e.id);
+                });
+            });
+            if (activeEmpireIndex !== home) switchToEmpire(home);
+            return seen;
+        }
+
         function processCombat() {
             storeActiveEmpire();
             const notes = [];
+            const fought = [];
             combatGroups().forEach(g => {
                 const res = runBattle(g, currentYear);
                 if (!res) return;
@@ -11181,16 +11206,24 @@ const DEFENDERS_PER_POP=100;
                 res.owners.forEach(o => {
                     logToOwner(o, line);
                     const e = empireById(o);
-                    if (e) {
-                        if (!Array.isArray(e.battles)) e.battles = [];
-                        e.battles.push({ year: currentYear, place: battlePlaceName(res), html: html, replay: e.kind === 'ai' ? null : res.replay });
-                        if (e.battles.length > MAX_BATTLES_KEPT) e.battles.splice(0, e.battles.length - MAX_BATTLES_KEPT);
-                        e.battles.forEach((b, n) => { if (n < e.battles.length - REPLAYS_KEPT) delete b.replay; });
-                    }
+                    if (e) addBattleRecord(e, res, html);
                 });
                 notes.push({ line: line, owners: res.owners.slice() });
+                fought.push({ res: res, html: html, line: line });
                 applyBattleResult(res);
                 battleTechGain(res).forEach(n => notes.push(n));
+            });
+            const seen = battleObserverIds(fought);
+            fought.forEach((b, n) => {
+                if (!seen[n].length) return;
+                const obsLine = 'Your scanners detected a battle. ' + b.line;
+                const obsHtml = '<div style="font-size:11px; color:#9fe; margin-bottom:4px;">Seen by your scanners. Your empire took no part in this battle.</div>' + b.html;
+                seen[n].forEach(id => {
+                    logToOwner(id, obsLine);
+                    const e = empireById(id);
+                    if (e) addBattleRecord(e, b.res, obsHtml);
+                });
+                notes.push({ line: obsLine, owners: seen[n].slice() });
             });
             ensureFleetSelection();
             return notes;
@@ -12392,6 +12425,18 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.52.0', d: 'Oct 3, 2026 6:40 AM', t: "Late Joins and Resignations Are Public", items: [
+                "When a player joins a game in progress, every empire's Event Log now says that a new empire has joined the galaxy.",
+                "When a player resigns, every empire's Event Log now tells what happened to that empire (an AI takes over, or the empire collapses and its planets become uninhabited).",
+                "AI alliances stay private to the two empires involved, and battles are still reported only to those who fought or whose scanners saw them.",
+                "Help: Your Own View of the Galaxy updated."
+            ] },
+            { v: '0.51.0', d: 'Oct 3, 2026 6:55 AM', t: "Private Event Logs, Battle Notices, Trader News", items: [
+                "Your Galactic Event Log now holds only your own news. Alliances formed between AI empires, a player resigning or being replaced, and a new empire joining no longer appear in everyone's log or in everyone's year report. AI alliances are told only to the two empires involved.",
+                "Battles you took no part in are now reported if one of your scanners (a planet, a fleet with a scanner, or a mineral packet) covers the place where it was fought. You get a line in your Event Log and the year report, and the battle appears in Management, Battle Reports with the Watch Replay button, marked as seen by your scanners.",
+                "The Mystery Trader is still announced to every empire when it appears, when it trades and when it leaves, and these lines now also appear in every empire's year report.",
+                "Help: Combat and Your Own View of the Galaxy updated."
+            ] },
             { v: '0.50.0', d: 'Oct 3, 2026 7:40 AM', t: "Event Log Fills the Panel on Desktop", items: [
                 "On a wide (desktop) screen the text of the Galactic Event Log now runs down to the bottom of its box on every tab (Events, Chat and Both). Before, it stopped after 120 to 300 pixels and left empty space below.",
                 "On desktop the Smaller / Bigger button is not shown, because the list always fills the box. Phones and narrow screens are unchanged.",
@@ -14788,7 +14833,14 @@ const DEFENDERS_PER_POP=100;
                 born: currentYear
             };
             mysteryTraders.push(t);
-            logToAllEmpires('A Mystery Trader, a light blue ship, has entered known space at ' + t.x + ', ' + t.y + ', flying at Warp ' + t.warp + ' (' + (t.warp * t.warp) + ' ly a year). It trades with any fleet carrying ' + TRADER_MIN_KT + ' kT of minerals that meets it at its exact location. Tap it on the map to see its path.');
+            announceTrader('A Mystery Trader, a light blue ship, has entered known space at ' + t.x + ', ' + t.y + ', flying at Warp ' + t.warp + ' (' + (t.warp * t.warp) + ' ly a year). It trades with any fleet carrying ' + TRADER_MIN_KT + ' kT of minerals that meets it at its exact location. Tap it on the map to see its path.');
+        }
+
+        const traderNews = [];
+
+        function announceTrader(msg) {
+            logToAllEmpires(msg);
+            traderNews.push(msg);
         }
 
         function moveMysteryTraders() {
@@ -14799,7 +14851,7 @@ const DEFENDERS_PER_POP=100;
             const keep = [];
             mysteryTraders.forEach(t => {
                 if (currentYear - t.born > TRADER_MAX_AGE) {
-                    logToAllEmpires('The Mystery Trader has left known space.');
+                    announceTrader('The Mystery Trader has left known space.');
                     return;
                 }
                 const near = [];
@@ -14820,7 +14872,7 @@ const DEFENDERS_PER_POP=100;
                 t.y = Math.round(t.y + Math.sin(t.ang) * s);
                 const lim = currentMapDimension + 30;
                 if (t.x < -30 || t.y < -30 || t.x > lim || t.y > lim) {
-                    logToAllEmpires('The Mystery Trader has left known space.');
+                    announceTrader('The Mystery Trader has left known space.');
                     return;
                 }
                 keep.push(t);
@@ -14879,7 +14931,7 @@ const DEFENDERS_PER_POP=100;
                 const reward = grantTraderReward(hit.e, t);
                 const line = hit.f.name + ' met the Mystery Trader at ' + t.x + ', ' + t.y + ' and it absorbed ' + absorbed.toLocaleString() + ' kT of minerals. ' + reward;
                 logToOwner(hit.e.id, line);
-                logToAllEmpires('The Mystery Trader traded with ' + hit.e.name + ' and left known space.');
+                announceTrader('The Mystery Trader traded with ' + hit.e.name + ' and left known space.');
                 out.push({ line: line, owners: [hit.e.id] });
             });
             mysteryTraders = keep;
@@ -14989,7 +15041,7 @@ const DEFENDERS_PER_POP=100;
             const eb = empireById(b.id);
             if (ea) { ea.relations = ea.relations || {}; ea.relations[b.id] = 'friend'; }
             if (eb) { eb.relations = eb.relations || {}; eb.relations[a.id] = 'friend'; }
-            notes.push(a.name + ' and ' + b.name + ' have formed an alliance.');
+            notes.push({ line: a.name + ' and ' + b.name + ' have formed an alliance.', owners: [a.id, b.id] });
             return notes;
         }
 
@@ -15549,8 +15601,10 @@ const DEFENDERS_PER_POP=100;
             empireTurnActive = true;
             try {
                 const aiNotes = aiOrdersPhase();
-                aiNotes.forEach(n => logToAllEmpires(n));
-                ctx.forEach(c => { c.round = c.round.concat(aiNotes); });
+                aiNotes.forEach(n => n.owners.forEach(o => logToOwner(o, n.line)));
+                ctx.forEach((c, i) => {
+                    aiNotes.forEach(n => { if (n.owners.indexOf(empires[i].id) !== -1) c.round.push(n.line); });
+                });
                 const startClaims = [];
                 eachYearEmpire(i => {
                     playerFleets.forEach(f => {
@@ -15592,6 +15646,7 @@ const DEFENDERS_PER_POP=100;
             roundNotes.push.apply(roundNotes, processInvasions());
             roundNotes.push.apply(roundNotes, detonateMinefields());
             roundNotes.push.apply(roundNotes, resolveTraderTrades());
+            traderNews.splice(0).forEach(l => roundNotes.push({ line: l, owners: empires.map(x => x.id) }));
             loadEmpire(activeEmpireIndex);
             empires.forEach((e, i) => {
                 roundNotes.forEach(x => { if (x.owners.indexOf(e.id) !== -1) ctx[i].round.push(x.line); });
