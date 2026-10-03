@@ -2079,7 +2079,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.33.0 (Updated: October 02, 2026 09:05 PM)</div>
+            <div class="version-text">Version 0.34.0 (Updated: October 02, 2026 09:45 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -2534,6 +2534,7 @@
                     <button class="tool-icon" id="btn-load-game-dash" style="color: #da70d6;">📂 Load File</button>
                     <button class="tool-icon" id="btn-warn-orders" style="color: #ffa500;">⚠ Missing-Order Warning: ON</button>
                     <button class="tool-icon" id="btn-year-email" style="color: #ffd700;">📧 Year Summary Emails: OFF</button>
+                    <button class="tool-icon" id="btn-invite-late" style="color: #32cd32; display: none;">✉ Invite to Game</button>
                     <button class="tool-icon" id="btn-transparency" style="color: #88e0ff;">🪟 Panel Transparency</button>
                     <button class="tool-icon" id="btn-auto-export" style="color: #00ffff;">📤 Export Automation</button>
                     <button class="tool-icon" id="btn-auto-import" style="color: #32cd32;">📥 Import Automation</button>
@@ -2903,6 +2904,45 @@
         </div>
     </div>
 
+    <div id="late-invite-modal" class="modal-overlay" style="z-index: 1100;">
+        <form class="modal-content" id="late-invite-form" style="max-width: 480px;">
+            <h2 class="screen-header" style="color: #da70d6;">✉ Invite to Game</h2>
+            <div style="font-size: 12px; color: #aaa; line-height: 1.5; margin-bottom: 12px;">
+                Invite someone into this game while it is running. They get an email with a link; after they sign in they create their empire and start on a random uninhabited planet.
+            </div>
+            <div class="form-group">
+                <label for="late-invite-who">Email address or username</label>
+                <input type="text" id="late-invite-who" maxlength="254" autocomplete="off" placeholder="friend@example.com or their username">
+            </div>
+            <div class="mp-status" id="late-invite-status"></div>
+            <div style="display: flex; gap: 10px; margin-top: 14px;">
+                <button type="button" class="nav-button" id="late-invite-close" style="flex: 1;">Close</button>
+                <button type="submit" class="nav-button btn-primary" id="late-invite-send" style="flex: 1;">Send Invite</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="late-join-modal" class="modal-overlay" style="z-index: 1100;">
+        <form class="modal-content" id="late-join-form" style="max-width: 520px;">
+            <h2 class="screen-header" style="color: #da70d6;" id="late-join-title">Join Game</h2>
+            <div style="font-size: 12px; color: #aaa; line-height: 1.5; margin-bottom: 12px;" id="late-join-intro"></div>
+            <div class="form-group">
+                <label for="late-join-empire">Your Empire Name</label>
+                <input type="text" id="late-join-empire" maxlength="32" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="late-join-race">Your Race</label>
+                <select id="late-join-race"></select>
+                <div class="mp-hint" id="late-join-race-hint"></div>
+            </div>
+            <div class="mp-status" id="late-join-status"></div>
+            <div style="display: flex; gap: 10px; margin-top: 14px;">
+                <button type="button" class="nav-button" id="late-join-cancel" style="flex: 1;">Cancel</button>
+                <button type="submit" class="nav-button btn-primary" id="late-join-submit" style="flex: 1;">Create Empire and Join</button>
+            </div>
+        </form>
+    </div>
+
     <div id="race-manager-modal" class="modal-overlay" style="z-index: 1100;">
         <div class="modal-content" style="max-width: 720px;">
             <h2 class="screen-header" style="color: #da70d6;">🧬 Custom Races</h2>
@@ -3233,6 +3273,7 @@
                 <p><b style="color:#da70d6;">Multiplayer Options</b><br>When creating a multiplayer game, Advanced Options starts with a Multiplayer Options section. (The game's name is on the New Multiplayer Game screen itself.) <b>Who Can Join</b> is Public (selected to start with: anyone can join) or Private: a password is then required, 4 to 64 characters, and players must type it to join. Players you invite by email or username will not need it. <b>Allow custom races</b> is off to start with, and then every empire, AI included, uses one of the six built-in races. Turn it on and choose one rule: <b>Anyone can bring their own custom race</b>, where each player may pick one of their own Race Wizard designs when they join (the join form has <b>Design or Manage Custom Races</b>, which opens the Race Wizard right there and brings you back to the form with the new race chosen), or <b>Only the game creator chooses races</b>, where you set the race of every Player Spot yourself on the Opponents screen (built-in, random, one of your custom races, or Player's choice to let them pick a built-in race). <b>Play Type</b> is Custom time limit (with a <b>Turn Time Limit</b> of 72 hours to start with; also 24 hours, 48 hours, 1 week or No limit), Turn-a-Day or Blitz (see Play Types). <b>When a Player Resigns</b> decides what happens to a resigning player's empire: <b>A new AI empire takes over</b> (selected to start with: a computer empire with a random name, race and intelligence takes over its planets, ships and starbases and plays on as one of the AI opponents), <b>The empire is removed</b> (its ships are scrapped and its planets left uninhabited, with colonists, mines, factories, defenses, starbases and building queues gone, so anyone can colonize them; the ore stays on the ground), or <b>The empire keeps its standing orders</b>. The game lobby shows the choice.</p>
                 <p><b style="color:#da70d6;">The Game Lobby</b><br>After you create a game, or when you open one from My Games, you see its lobby. The top box shows its status (for example Waiting for players: 1 of 3 player spots filled), the host, public or private, the galaxy settings, the custom race rule, the advanced options and the victory conditions. Below it every empire is listed by seat: players who have joined with their username, empire and race (yours is marked You, the creator is marked Host), AI opponents with their race and intelligence, and open spots shown as <b>Waiting for player...</b>. <b>Refresh</b> reloads the list. <b>Cancel Game</b>, shown only to the creator before the game starts, deletes the game for everyone. <b>Leave Game</b>, shown to players who joined before the game starts, gives your spot back so someone else can take it (the creator cancels instead). <b>Invite Player</b> sends someone an invitation (see Inviting Players). Once the game is running the lobby also shows the turn time limit, a Resigned badge on players who have left and a Playing now badge on the player whose turn it is, with <b>Resign</b>, <b>Skip Turn</b> (when the current turn is overdue) and, for finished games or after you resign, <b>Remove from My Games</b>. Back returns to the screen you came from.</p>
                 <p><b style="color:#da70d6;">Inviting Players</b><br>Any player in a game that is still waiting for players can press <b>Invite Player</b> in its lobby and type an <b>email address</b> or a <b>username</b>, then press Send Invite. The person gets an email with a <b>Join the Game</b> link straight to that game. The link works even for a private game without the password, so you do not have to share it. If they have no account yet, the link opens the sign in screen: they press Register, create an account, and land in the game ready to press Join This Game. Players invited by username (or by the email of their account) also see the invitation under <b>Invitations</b> at the top of their Multiplayer Lobby, with Open and Decline. Each invitation link can be used once. Inviting someone does not hold a spot for them: spots go to whoever joins first. A game can send up to 30 invitations, and the same person can be invited again after 10 minutes.</p>
+                <p><b style="color:#da70d6;">Inviting Players After the Game Has Started</b><br>The host (the player who created the game) can bring new players into a game that is already running. In the galaxy open <b>Settings</b> and press <b>✉ Invite to Game</b> (only the host sees it), type an <b>email address</b> or a <b>username</b> and press Send Invite. The person gets an email with a link; players with an account also see the invitation under Invitations in their Multiplayer Lobby. When they open it and sign in (or register first) they see a <b>Join</b> window where they choose their <b>empire name</b> and <b>race</b> (custom races only if the game allows them). Their empire is then added to the galaxy on a <b>random uninhabited planet</b>, preferably well away from the other empires, as a new homeworld with the usual starting population, mines, factories and starbase, plus a Long Range Scout and the starting technology of their race. The game keeps its current year, so the newcomer starts behind the others and the other players are told that a new empire has joined, without being told where. The new player gives orders like everyone else; until they send orders the year waits for them just as for any other player, subject to the game's time limit. A late invitation can be used once, the host can send up to 30 per game, and a game can hold at most 16 human players. The server scripts <b>11_late_invites.sql</b> and the updated notify function must be installed for this to work.</p>
                 <p><b style="color:#da70d6;">Examining Enemy Fleets</b><br>An enemy fleet that one of your scanners can see is drawn as a red triangle beside its position on the star map. Click the triangle to examine it. The window names the empire and says whether it is a friend, neutral or an enemy, gives the fleet's position and whether it is in orbit or deep space, and lists every ship design and hull with its count, plus the total ship count and mass. When one of your penetrating scanners reaches the fleet, or one of your fleets or planets is at the same spot, a close scan also shows armor, beam weapons, torpedo launchers, bombs, colony ships, scanner ships and cargo space. Cargo actually on board and where the fleet is heading cannot be seen. A fleet your scanners cannot see cannot be clicked, and cloaked ships may stay hidden even inside your range.</p>
                 <p><b style="color:#da70d6;">Game Emails</b><br>Multiplayer games send email to the address of each player's account: an <b>invitation</b> when someone invites you, <b>the game has begun</b> when every spot is filled, and, only if you turn it on, a <b>year summary</b> every time the galaxy moves on to a new year. Year summary emails are off for every account until you switch them on with <b>Settings, Year Summary Emails</b> in the galaxy or the <b>Year Summary Emails</b> button on the Multiplayer Lobby. You never get one for a game you are looking at: while the game is open and its tab is visible the game tells the server you are here, and no email is sent to you for a year that moves on at that time. Switch to another tab, close the game or leave to the lobby and the next year summary is emailed. The year summary lists your planets, population, fleets, Resources produced, items built, technology gained, battles, bombing and the reports of your fleets, so you can see how the year went before you open the game. If you did not send orders before the time limit ran out you also get an email saying the year was played out without you. A resignation is announced to every player and the end of the game (with final standings) to everyone.</p>
                 <p><b style="color:#da70d6;">Multiplayer Victory and Game Over</b><br>Victory Conditions are checked at the end of every year, after every empire's orders have been carried out. As soon as an empire (a player's or an AI's) meets them, the game ends for everyone. The player whose browser played out that year sends the result to the server, every player is emailed the final standings, and the saved galaxy is removed from the server. The result stays in My Games until you remove it.</p>
@@ -3687,7 +3728,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.33.0';
+        const GAME_VERSION = '0.34.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -12181,6 +12222,14 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.34.0', d: 'Oct 2, 2026 9:45 PM', t: "Invite Players Into a Running Game", items: [
+                "The host of a multiplayer game can now invite new players after the game has started. In the galaxy, Settings has a new Invite to Game button (only the host sees it). Type an email address or a username and the person gets an email with a link.",
+                "The invited player signs in, then sees a Join window to create their empire (name and race) first. Their empire is then placed on a random uninhabited planet as a new homeworld, with a Long Range Scout and starting technology, and they go straight into the game.",
+                "The other players are told that a new empire has joined, but not where. The new player counts as a player for the current year, so the year waits for their orders like any other player's (the game's time limit still applies).",
+                "This is a normal feature of every multiplayer game; nothing has to be chosen when creating a game.",
+                "Players invited by username also see the invitation in their Multiplayer Lobby. Help gained Inviting Players After the Game Has Started.",
+                "Needs the new 11_late_invites.sql run once in the Supabase SQL Editor and the updated notify Edge Function redeployed."
+            ] },
             { v: '0.33.0', d: 'Oct 2, 2026 9:05 PM', t: "Battles Within 5 Light Years", items: [
                 "Fleets no longer have to stop on exactly the same spot to fight. After all fleets have moved, an armed fleet that ends its move within 5 light years of an enemy fleet, or whose path for the year passed within 5 light years of where an enemy fleet ended up, starts a battle with it. An armed fleet that did not move also fights an enemy that ends or passes within 5 light years of it.",
                 "The battle is the same 10 by 10 grid fight of up to 16 rounds as an attack on a base, so ships can be damaged and destroyed on both sides. Battle plans decide who attacks whom, so friends and (with the right plan) neutrals are left alone.",
@@ -16803,6 +16852,8 @@ const DEFENDERS_PER_POP=100;
             if (b.dataset.act === 'open') {
                 mpInviteTokens[b.dataset.game] = b.dataset.token;
                 mpOpenGame(b.dataset.game, 'You were invited to this game. Press Join This Game to take a spot.', 'lobby');
+            } else if (b.dataset.act === 'late-open') {
+                mpTryLateInvite({ game: b.dataset.game, invite: b.dataset.token });
             } else if (b.dataset.act === 'decline') {
                 mpDeclineInvite(b.dataset.token);
             }
@@ -17242,6 +17293,7 @@ const DEFENDERS_PER_POP=100;
 
         function mpUpdateChrome() {
             const banner = document.getElementById('mp-banner');
+            mpSyncLateInviteButton();
             const endBtn = document.getElementById('btn-end-turn');
             document.body.classList.toggle('mp-readonly', !!(mpGame && mpReadOnly));
             if (!mpGame) {
@@ -17465,6 +17517,14 @@ const DEFENDERS_PER_POP=100;
                 const r = res.data || {};
                 if (!r.ok) throw { message: 'The saved galaxy could not be loaded (' + r.error + ').' };
                 const state = await unpackState(r.state);
+                if (!(state.empires || []).some(x => x.mpSeat === g.my_seat) && g.my_status !== 'resigned') {
+                    const meSeat = (data.seats || []).find(x => x.is_me);
+                    if (meSeat) {
+                        await mpPlaceLateEmpire(gid, meSeat);
+                        await mpEnterGalaxy(gid, opts);
+                        return;
+                    }
+                }
                 if (g.my_submitted) {
                     const mo = await sb.rpc('get_my_orders', { gid: gid });
                     if (!mo.error && mo.data && mo.data.ok && mo.data.orders) opts.myOrders = await unpackState(mo.data.orders);
@@ -18068,6 +18128,7 @@ const DEFENDERS_PER_POP=100;
             const link = mpLink;
             mpLink = null;
             if (link.invite) mpInviteTokens[link.game] = link.invite;
+            if (link.invite && await mpTryLateInvite(link)) return;
             await mpOpenGame(link.game, link.invite ? 'You were invited to this game. Press Join This Game to take a spot.' : null, 'lobby');
             const cur = mpCurrentGame && mpCurrentGame.game;
             if (cur && cur.id === link.game && cur.is_member && cur.status === 'active' && cur.my_status !== 'resigned') {
@@ -18094,7 +18155,12 @@ const DEFENDERS_PER_POP=100;
                 const res = await sb.rpc('list_my_invites');
                 if (res.error) throw res.error;
                 const list = Array.isArray(res.data) ? res.data : [];
-                box.innerHTML = list.length ? '<div class="wiz-group-title" style="margin-top: 0;">Invitations</div>' + list.map(inviteCardHtml).join('') : '';
+                let late = [];
+                try {
+                    const lr = await sb.rpc('list_my_late_invites');
+                    if (!lr.error && Array.isArray(lr.data)) late = lr.data;
+                } catch (e2) {}
+                box.innerHTML = list.length || late.length ? '<div class="wiz-group-title" style="margin-top: 0;">Invitations</div>' + list.map(inviteCardHtml).join('') + late.map(lateInviteCardHtml).join('') : '';
             } catch (err) {
                 box.innerHTML = '';
             }
@@ -18148,6 +18214,274 @@ const DEFENDERS_PER_POP=100;
                 mpSetBusy(false, ['mpi-send']);
             }
         }
+
+        const LATE_ERRORS = {
+            not_signed_in: 'You are signed out. Sign in again.',
+            not_found: 'This game no longer exists.',
+            not_host: 'Only the host of the game can invite players into a game that has started.',
+            not_active: 'This game is not in progress, so players cannot be invited into it.',
+            used: 'This invitation has already been used.',
+            bad_invite: 'This invitation has already been used or is no longer valid. Ask the host for a new one.',
+            full: 'This game has reached the limit of 16 human players.',
+            already_joined: 'You are already in this game.',
+            empire_name: 'Empire names are 1 to 32 characters.',
+            empire_name_taken: 'Another empire in this game already has that name. Choose a different one.',
+            custom_races_off: 'This game does not let players bring custom races. Pick a built-in race.',
+            race_def: 'Your custom race could not be read. Pick another race.',
+            race: 'Pick one of the races in the list.',
+            not_member: 'You are not a player in this game.',
+            not_pending: 'Your empire has already been placed in the galaxy.',
+            processing: 'The year is being played out right now. Try again in a moment.',
+            stale_turn: 'The galaxy moved on while your empire was being placed. Try again.',
+            state: 'The galaxy could not be saved.',
+            bad_target: 'Enter an email address (like friend@example.com) or a username.',
+            no_such_user: 'No player has that username. Check the spelling, or invite them by email instead.',
+            self: 'That is you!',
+            already_member: 'That player is already in this game.',
+            too_many_invites: 'This game has reached the limit of 30 late invitations.',
+            slow_down: 'You have sent a lot of invitations in the last hour. Try again a little later.',
+            already_invited: 'That player was invited in the last 10 minutes. Give them a moment to check their email.'
+        };
+        let mpLateToken = null;
+
+        function mpIsHost() {
+            return !!(mpGame && mpGame.mySeat === 0 && !mpGame.finished);
+        }
+
+        function mpSyncLateInviteButton() {
+            const b = document.getElementById('btn-invite-late');
+            if (b) b.style.display = mpIsHost() ? '' : 'none';
+        }
+
+        function mpOpenLateInvite() {
+            if (!mpIsHost()) return;
+            document.getElementById('late-invite-who').value = '';
+            mpSetStatus('late-invite-status', '');
+            document.getElementById('late-invite-modal').classList.add('active');
+            setTimeout(() => document.getElementById('late-invite-who').focus(), 0);
+        }
+
+        function mpCloseLateInvite() {
+            document.getElementById('late-invite-modal').classList.remove('active');
+        }
+
+        async function mpSendLateInvite(e) {
+            e.preventDefault();
+            if (mpBusy || !mpClient() || !mpIsHost()) return;
+            const who = document.getElementById('late-invite-who').value.trim();
+            if (!who) {
+                mpSetStatus('late-invite-status', LATE_ERRORS.bad_target, 'error');
+                return;
+            }
+            mpSetBusy(true, ['late-invite-send']);
+            mpSetStatus('late-invite-status', 'Sending...');
+            try {
+                const res = await sb.rpc('invite_late_player', { gid: mpGame.id, p_who: who });
+                if (res.error) throw res.error;
+                const r = res.data || {};
+                if (!r.ok) {
+                    mpSetStatus('late-invite-status', LATE_ERRORS[r.error] || ('Could not send the invitation (' + r.error + ').'), 'error');
+                    return;
+                }
+                mpNotify();
+                document.getElementById('late-invite-who').value = '';
+                mpSetStatus('late-invite-status', 'Invitation sent to ' + r.to + '. ' + (r.email ? 'They will get an email with a link to join.' : 'They will get an email and see the invitation in their Multiplayer Lobby.') + ' You can invite someone else.', 'ok');
+            } catch (err) {
+                mpSetStatus('late-invite-status', mpErrorText(err), 'error');
+            } finally {
+                mpSetBusy(false, ['late-invite-send']);
+            }
+        }
+
+        function lateInviteCardHtml(x) {
+            return `<div class="invite-card">
+                <div class="invite-card-text">📨 <b>${escapeHtml(x.inviter || 'A player')}</b> invited you to join <b>${escapeHtml(x.name)}</b>, a game already in progress
+                    <small>Year ${escapeHtml(String(x.year || ''))} | you create your empire and start on a random uninhabited planet</small></div>
+                <button type="button" class="nav-button btn-primary" data-act="late-open" data-game="${x.game_id}" data-token="${escapeHtml(x.token)}">Open</button>
+                <button type="button" class="nav-button" data-act="decline" data-token="${escapeHtml(x.token)}">Decline</button>
+            </div>`;
+        }
+
+        async function mpTryLateInvite(link) {
+            try {
+                const res = await sb.rpc('get_late_invite', { p_token: link.invite });
+                if (res.error) return false;
+                const r = res.data || {};
+                if (r.ok) {
+                    mpShowLobby();
+                    mpOpenLateJoin(link.invite, r);
+                    return true;
+                }
+                if (r.error === 'not_late') return false;
+                mpShowLobby();
+                if (r.error === 'already_member') {
+                    const gid = r.game_id || link.game;
+                    await mpOpenGame(gid, null, 'lobby');
+                    await mpEnterGalaxy(gid);
+                    return true;
+                }
+                gameAlert(LATE_ERRORS[r.error] || ('This invitation could not be opened (' + r.error + ').'), 'Invitation');
+                return true;
+            } catch (err) {
+                return false;
+            }
+        }
+
+        function mpOpenLateJoin(token, info) {
+            mpLateToken = token;
+            const allowCustom = info.race_rule === 'anyone';
+            document.getElementById('late-join-title').textContent = 'Join ' + (info.game_name || 'the game');
+            document.getElementById('late-join-intro').textContent = (info.inviter || 'The host') + ' invited you into ' + (info.game_name || 'a game') + ', which is already in progress (year ' + (info.year || '?') + '). Create your empire below. You start with a homeworld on a random uninhabited planet and a scout, with starting technology.';
+            let name = ((mpProfile && mpProfile.username) || 'Player') + ' Empire';
+            document.getElementById('late-join-empire').value = name.slice(0, 32);
+            document.getElementById('late-join-race').innerHTML = raceSelectOptions('humanoid', false, allowCustom);
+            document.getElementById('late-join-race-hint').textContent = allowCustom
+                ? 'You may bring one of your own custom races (listed under Custom Races).'
+                : 'This game uses the six built-in races.';
+            mpSetStatus('late-join-status', '');
+            document.getElementById('late-join-modal').classList.add('active');
+            setTimeout(() => document.getElementById('late-join-empire').focus(), 0);
+        }
+
+        function mpCloseLateJoin() {
+            document.getElementById('late-join-modal').classList.remove('active');
+        }
+
+        async function mpLateJoinSubmit(e) {
+            e.preventDefault();
+            if (mpBusy || !mpClient() || !mpLateToken) return;
+            const empire = document.getElementById('late-join-empire').value.trim();
+            if (!empire || empire.length > 32) {
+                mpSetStatus('late-join-status', LATE_ERRORS.empire_name, 'error');
+                return;
+            }
+            let race = document.getElementById('late-join-race').value;
+            if (race === 'random') race = pickRandom(RACE_KEYS);
+            let raceDef = null;
+            if (isCustomRaceId(race)) {
+                const lib = libraryRace(race);
+                if (!lib) {
+                    mpSetStatus('late-join-status', LATE_ERRORS.race_def, 'error');
+                    return;
+                }
+                raceDef = cloneRaceDef(lib);
+                race = raceDef.id;
+            }
+            mpSetBusy(true, ['late-join-submit', 'late-join-cancel']);
+            mpSetStatus('late-join-status', 'Joining...');
+            try {
+                const res = await sb.rpc('join_late_game', { p_invite: mpLateToken, p_empire_name: empire, p_race: race, p_race_def: raceDef });
+                if (res.error) throw res.error;
+                const r = res.data || {};
+                if (!r.ok) {
+                    mpSetStatus('late-join-status', LATE_ERRORS[r.error] || ('Could not join (' + r.error + ').'), 'error');
+                    return;
+                }
+                mpLateToken = null;
+                mpSetStatus('late-join-status', 'Placing your empire in the galaxy...');
+                const data = await mpFetchGame(r.game_id);
+                const me = (data.seats || []).find(x => x.is_me);
+                if (!me) throw { message: 'Your seat could not be found.' };
+                await mpPlaceLateEmpire(r.game_id, me);
+                mpCloseLateJoin();
+                await mpEnterGalaxy(r.game_id, { firstTurn: true });
+            } catch (err) {
+                mpSetStatus('late-join-status', mpErrorText(err) + (mpLateToken ? '' : ' You have joined the game; open it from My Games to finish placing your empire.'), 'error');
+            } finally {
+                mpSetBusy(false, ['late-join-submit', 'late-join-cancel']);
+            }
+        }
+
+        function mpPickLateHomePlanet() {
+            const owned = planets.filter(p => p.owner !== 'neutral');
+            const free = [];
+            planets.forEach((p, i) => {
+                if (p.owner !== 'neutral' || p.pop > 0 || p.home) return;
+                let d = Infinity;
+                owned.forEach(o => { d = Math.min(d, Math.hypot(o.x - p.x, o.y - p.y)); });
+                free.push({ i: i, d: d });
+            });
+            if (!free.length) return -1;
+            const need = currentMapDimension * 0.12;
+            const far = free.filter(f => f.d >= need);
+            const pool = far.length ? far : free.slice().sort((a, b) => b.d - a.d).slice(0, Math.max(1, Math.ceil(free.length / 4)));
+            return pool[Math.floor(Math.random() * pool.length)].i;
+        }
+
+        function mpAddLateEmpire(me) {
+            let race = me.race;
+            if (isCustomRaceId(race) && !gameRaces[race]) {
+                const d = cleanRaceDef(me.race_def);
+                if (d && d.id === race) registerGameRace(d);
+                else race = 'humanoid';
+            }
+            race = resolveRaceChoice(race, []);
+            const idx = mpPickLateHomePlanet();
+            if (idx < 0) throw { message: 'There is no uninhabited planet left for a new empire.' };
+            storeActiveEmpire();
+            const seatNo = empires.reduce((m, x) => Math.max(m, Number.isInteger(x.seat) ? x.seat : 0), 0) + 1;
+            const e = newEmpireRecord(seatNo, String(me.empire_name || 'New Empire').slice(0, 32), race);
+            e.userId = me.user_id || (mpProfile ? mpProfile.id : null);
+            e.mpSeat = me.seat;
+            const old = planets[idx];
+            const hw = makeHomeworld(homeworldName(e.name, planets.map(x => x.name)), { x: old.x, y: old.y }, e.id, race);
+            applyRaceHomeBonus(hw, race);
+            planets[idx] = hw;
+            e.explored = planets.map(x => x.owner === e.id);
+            e.revealed = planets.map(x => x.owner === 'neutral' || x.owner === e.id);
+            e.lastScan = planets.map(() => 0);
+            e.tech = raceStartLevels(e.race);
+            logToAllEmpires('A new empire, ' + e.name + ', has joined the galaxy.');
+            empires.push(e);
+            loadEmpire(empires.length - 1);
+            fitStartingDesigns();
+            const home = planets[idx];
+            if (raceHasPrt(playerRace, 'IT') && home.hasStarbase) home.gate = 'gate100_250';
+            createFleet(home.x, home.y, [{ type: 'Scout', count: 1 }]);
+            if (gameOptions.bbsPlay) {
+                createFleet(home.x, home.y, [{ type: 'Colony Ship', count: 1 }], { colonists: COLONY_SHIP_LOAD });
+                createFleet(home.x, home.y, [{ type: 'Small Freighter', count: 1 }]);
+            }
+            selectedFleetId = playerFleets[0].id;
+            selectedPlanetIndex = idx;
+            logEvent('You joined a game already in progress. Your homeworld ' + home.name + ' and a Long Range Scout wait for your orders.');
+            if (isCustomRaceId(playerRace)) logEvent('Custom Race: your people are the ' + raceDefOf(playerRace).plural + '.');
+            updateDiscovery(true);
+            storeActiveEmpire();
+        }
+
+        async function mpPlaceLateEmpire(gid, me) {
+            for (let attempt = 0; attempt < 4; attempt++) {
+                const sres = await sb.rpc('get_game_state', { gid: gid });
+                if (sres.error) throw sres.error;
+                const sr = sres.data || {};
+                if (!sr.ok) throw { message: 'The saved galaxy could not be loaded (' + sr.error + ').' };
+                const state = await unpackState(sr.state);
+                if ((state.empires || []).some(x => x.mpSeat === me.seat)) return true;
+                const meta = state.multiplayer || { gameId: gid, name: '', version: 1 };
+                restoreSaveState(state);
+                mpAddLateEmpire(me);
+                const out = buildSaveData();
+                out.multiplayer = meta;
+                const packed = await packState(out);
+                const pres = await sb.rpc('place_late_empire', { gid: gid, p_turn_number: sr.turn_number, p_state: packed });
+                if (pres.error) throw pres.error;
+                const pr = pres.data || {};
+                if (pr.ok) return true;
+                if (pr.error === 'stale_turn' || pr.error === 'processing') {
+                    await new Promise(resolve => setTimeout(resolve, 2500));
+                    continue;
+                }
+                throw { message: LATE_ERRORS[pr.error] || ('Your empire could not be placed (' + pr.error + ').') };
+            }
+            throw { message: 'The galaxy kept changing while your empire was being placed. Open the game from My Games to try again.' };
+        }
+
+        document.getElementById('btn-invite-late').addEventListener('click', mpOpenLateInvite);
+        document.getElementById('late-invite-form').addEventListener('submit', mpSendLateInvite);
+        document.getElementById('late-invite-close').addEventListener('click', mpCloseLateInvite);
+        document.getElementById('late-join-form').addEventListener('submit', mpLateJoinSubmit);
+        document.getElementById('late-join-cancel').addEventListener('click', mpCloseLateJoin);
 
         document.getElementById('btn-multiplayer').addEventListener('click', openMultiplayer);
         document.getElementById('mp-tab-signin').addEventListener('click', () => mpShowTab('signin'));
