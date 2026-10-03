@@ -2091,7 +2091,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.47.0 (Updated: October 03, 2026 06:50 AM)</div>
+            <div class="version-text">Version 0.49.0 (Updated: October 03, 2026 07:25 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -3275,7 +3275,7 @@
                 <p><b style="color:#da70d6;">Automation Files</b><br>Your standing orders can move between games. <b>Export Automation</b> (in Settings, or in the Autobuild window) saves a .json file with your Autobuild rules and switch, your custom zip orders, your battle plans, your research budget and next-field choice, and the Missing-Order Warning setting. <b>Import Automation</b> reads such a file and lets you tick which of these to replace in the current game; everything else stays as it is. Fleets that used a battle plan that is not in the imported list go back to Default.</p>
                 <p><b style="color:#da70d6;">Fleet Management and Naming Ships</b><br><b>Fleet, Manage Ships and Names</b> lists each ship in the selected fleet. Rename the fleet or any single ship, select ships and <b>Split</b> them into a new fleet, <b>Scrap</b> them (see Scrapping), or retrofit them at a Fleet Yard. Damaged ships show their damage percent. Fuel is shared by the whole fleet and is burned for the whole fleet mass.</p>
                 <p><b style="color:#da70d6;">Combat</b><br>Combat happens every year after all fleets of every empire have moved, wherever fleets of empires that are hostile to each other share a location or come within <b>5 light years</b> (an armed fleet that ends its move within 5 light years of an enemy fleet, or whose path for the year passed within 5 light years of where an enemy fleet ended up, or an armed fleet that stayed put while an enemy ended or passed within 5 light years of it; jump gates and wormholes leave no path), or a fleet sits at an enemy world with defenses or an armed starbase. It is fought on a 10 by 10 battle board for up to 16 rounds. Each fleet becomes tokens, one per ship design, holding all its ships of that design; shields of a token are one pooled stack. Every round has three parts: (1) every token picks a target from its battle plan, (2) tokens move in up to three phases, heaviest first with a random margin of 15 percent, and (3) weapons fire from the highest initiative to the lowest (hull initiative plus battle computers plus the weapon's own initiative; shorter ranges first on ties). A token moves 0.5 to 2.5 squares a round: (best warp - 4) / 4 minus mass / 280 per engine, plus a quarter square per Maneuvering Jet and half a square per Overthruster (War Monger races half a square more); an Energy Dampener anywhere in the battle slows every token by one square a round. <b>Beams</b> always hit and lose 10 percent of their power over their full range; damage goes to shields first, then armor, and a beam token that destroys its target spills the rest onto other tokens in that square (up to one token per ship firing). Gatling weapons hit every enemy token in range. Sappers only damage shields. Capacitors raise beam damage, and Beam Deflectors lower it. <b>Torpedoes</b> may miss: each one hits by its accuracy, raised by battle computers (they cut the miss chance) and lowered by the target's jammers, which cancel one to one. A hit puts half its damage on armor and half on shields; a miss still does an eighth of its damage to shields. A torpedo strike can kill at most one ship per hit. Capital missiles do double damage to a token whose shields are gone. Starbase weapons get +1 range. Cloaked fleets may stay unseen until they fire. Players who survive a battle against ships with better technology have up to a 50 percent chance of learning a level in one field where the enemy was ahead. Review any fight in <b>Management, Battle Reports</b> and press Watch Replay.</p>
-                <p><b style="color:#da70d6;">Battle Plans</b><br>Open <b>Management, Battle Plans</b> (or pick Battle Plans... in a fleet's plan list) to edit your plans. A plan has a <b>Primary Target</b> and a <b>Secondary Target</b> (None/Disengage, Any, Starbase, Bombers/Freighters, Armed Ships, Unarmed Ships, Fuel Transports, Freighters), a <b>Tactic</b> (Disengage, Disengage if challenged, Minimize damage to self, Maximize net damage, Maximize damage ratio, Maximize damage), <b>Attack Who</b> (Enemies, Neutrals and Enemies, Everyone) and <b>Dump Cargo</b>. Each round a token targets the nearest enemy that matches its primary target, then its secondary target; with neither it disengages. Disengaging tokens run from the enemy and leave the battle after moving 7 squares. Maximize damage closes to the range of all its weapons, Maximize damage ratio and Minimize damage keep to their longest range (Minimize also avoids squares that enemy weapons cover), and Disengage if challenged fights until it is hit. Tokens fire at targets in range even while moving toward their primary target. Unarmed tokens always disengage. The built in plans are Default (Armed Ships, then Any, Maximize damage ratio), Kill Starbase, Max-Defense, Sniper and Chicken; you can copy, rename and delete plans (up to 14; Default stays). Each fleet picks its plan in the Fleets in Orbit panel. Starbases and planetary defenses always shoot armed ships first, then anything.</p>
+                <p><b style="color:#da70d6;">Battle Plans</b><br>Open <b>Management, Battle Plans</b> (or pick Battle Plans... in a fleet's plan list) to edit your plans. A plan has a <b>Primary Target</b> and a <b>Secondary Target</b> (None/Disengage, Any, Starbase, Bombers/Freighters, Armed Ships, Unarmed Ships, Fuel Transports, Freighters), a <b>Tactic</b> (Disengage, Disengage if challenged, Minimize damage to self, Maximize net damage, Maximize damage ratio, Maximize damage), <b>Attack Who</b> (Enemies, Neutrals and Enemies, Everyone) and <b>Dump Cargo</b>. Each round a token targets the nearest enemy that matches its primary target, then its secondary target; with neither it disengages. Disengaging tokens run from the enemy and leave the battle after moving 7 squares. Every armed token that is not disengaging always moves toward its target until it is within the range of all of its weapons, so that every weapon can fire, whichever of Minimize damage, Maximize net damage, Maximize damage ratio or Maximize damage is chosen (Minimize damage only breaks ties between equally close squares in favor of squares that enemy weapons cover less), and Disengage if challenged fights until it is hit. Tokens fire at targets in range even while moving toward their primary target. Unarmed tokens always disengage. The built in plans are Default (Armed Ships, then Any, Maximize damage ratio), Kill Starbase, Max-Defense, Sniper and Chicken; you can copy, rename and delete plans (up to 14; Default stays). Each fleet picks its plan in the Fleets in Orbit panel. Starbases and planetary defenses always shoot armed ships first, then anything.</p>
                 <p><b style="color:#da70d6;">Battle Replay</b><br>Every battle report of the last eight battles has <b>Watch Replay</b>. The replay shows the 10 by 10 board: each square with tokens shows a ship or starbase symbol in your color or the enemy's, the number of tokens at top left and the number of ships at top right. The square of the token that is acting is framed in blue and a square being hit shows an explosion. The controls go to the start, one phase back, play or pause, one phase forward and to the end. The text tells who moved or fired, with what, how many torpedoes hit, and the damage to shields and armor. Click a square to select a token there (click again for the next token) and see its details.</p>
                 <p><b style="color:#da70d6;">Cloaking and Scanners</b><br>Cloaking is measured in cloak units per kT of ship. The cloak percent follows a curve: 100 units per kT give 50 percent, 300 give 75 percent, about 800 give 90 percent and 1,300 give the maximum of 98 percent. Stealth Cloak gives 70 units, Super-Stealth Cloak 140, Ultra-Stealth Cloak 540, and Transport Cloaking 300 but only on unarmed ships; Super-Stealth races also get 300 units on every ship. Cargo and uncloaked ships in the same fleet dilute the cloak, because the units are spread over the whole mass. A cloaked fleet is only seen inside the cloak-reduced range of a scanner: a 75 percent cloak means a scanner has to be within a quarter of its range, normal or penetrating. Tachyon Detectors in the scanning fleet cut enemy cloaking: each set of detectors multiplies it by 0.95 to the power of the square root of their number. Cloaks give no protection from minefields.</p>
                 <p><b style="color:#da70d6;">Minefields</b><br>Ships with mine layers lay mines while they sit still with Lay Mines on (fleet ops). Mines go into your field of that type the fleet is inside, or start a new field; a field's radius is the square root of its mines, up to 1,000,000 mines. There are three types. <b>Standard:</b> safe up to Warp 4; 0.3 percent chance per light year inside the field for each warp above that; a hit does 100 damage per engine to every ship (125 with ramscoops), at least 500 to the fleet (600). <b>Heavy:</b> safe up to Warp 6; 1 percent per light year per warp over; 500 damage per ship (600 with ramscoops), at least 2,000 (2,500). <b>Speed Trap:</b> safe up to Warp 5; 3 percent per light year per warp over; a hit stops the fleet where it is, with no damage. Shields absorb mine damage before armor; cloaks do not help. Space Demolition races may travel two warps faster than these limits through others' fields, Super-Stealth races one. A fleet hits at most one mine per field a year. Your own and your friends' fleets are never hit. <b>Sweeping:</b> before anything moves, every ship with beam weapons sweeps power x range squared mines a year (Gatling weapons count as range 4; range 0 weapons and sappers cannot sweep) from every neutral or enemy field it is in, and an armed starbase sweeps the fields over its planet. <b>Decay:</b> 1 percent a year plus 4 percent for each planet inside the field, at most 50 percent; Space Demolition fields lose only 1 percent per planet. <b>Detonation:</b> a Space Demolition race can tick Detonate on a Standard field in Management, Minefields: at the end of every year a quarter of its mines explode and every neutral or enemy fleet inside takes a Standard mine hit. <b>Seeing fields:</b> Management, Minefields lists every field you know with owner, type, center, mines, radius and decay; the map draws yours in blue, friends' in yellow, others in red. You see another field when its center is in your penetrating range, when your fleet is inside it, or when you have hit it before and its center is in normal range.</p>
@@ -3293,7 +3293,7 @@
                 <p><b style="color:#da70d6;">The Game Lobby</b><br>After you create a game, or when you open one from My Games, you see its lobby. The top box shows its status (for example Waiting for players: 1 of 3 player spots filled), the host, public or private, the galaxy settings, the custom race rule, the advanced options and the victory conditions. Below it every empire is listed by seat: players who have joined with their username, empire and race (yours is marked You, the creator is marked Host), AI opponents with their race and intelligence, and open spots shown as <b>Waiting for player...</b>. <b>Refresh</b> reloads the list. <b>Cancel Game</b>, shown only to the creator before the game starts, deletes the game for everyone. <b>Leave Game</b>, shown to players who joined before the game starts, gives your spot back so someone else can take it (the creator cancels instead). <b>Invite Player</b> sends someone an invitation (see Inviting Players). Once the game is running the lobby also shows the turn time limit, a Resigned badge on players who have left and a Playing now badge on the player whose turn it is, with <b>Resign</b>, <b>Skip Turn</b> (when the current turn is overdue) and, for finished games or after you resign, <b>Remove from My Games</b>. Back returns to the screen you came from.</p>
                 <p><b style="color:#da70d6;">Inviting Players</b><br>Any player in a game that is still waiting for players can press <b>Invite Player</b> in its lobby and type an <b>email address</b> or a <b>username</b>, then press Send Invite. The person gets an email with a <b>Join the Game</b> link straight to that game. The link works even for a private game without the password, so you do not have to share it. If they have no account yet, the link opens the sign in screen: they press Register, create an account, and land in the game ready to press Join This Game. Players invited by username (or by the email of their account) also see the invitation under <b>Invitations</b> at the top of their Multiplayer Lobby, with Open and Decline. Each invitation link can be used once. Inviting someone does not hold a spot for them: spots go to whoever joins first. A game can send up to 30 invitations, and the same person can be invited again after 10 minutes.</p>
                 <p><b style="color:#da70d6;">Inviting Players After the Game Has Started</b><br>The host (the player who created the game) can bring new players into a game that is already running. In the galaxy open <b>Settings</b> and press <b>✉ Invite to Game</b> (only the host sees it), type an <b>email address</b> or a <b>username</b> and press Send Invite. The person gets an email with a link; players with an account also see the invitation under Invitations in their Multiplayer Lobby. When they open it and sign in (or register first) they see a <b>Join</b> window where they choose their <b>empire name</b> and <b>race</b> (custom races only if the game allows them). Their empire is then added to the galaxy on a <b>random uninhabited planet</b>, preferably well away from the other empires, as a new homeworld with the usual starting population, mines, factories and starbase, plus a Long Range Scout and the starting technology of their race. The game keeps its current year, so the newcomer starts behind the others and the other players are told that a new empire has joined, without being told where. The new player gives orders like everyone else; until they send orders the year waits for them just as for any other player, subject to the game's time limit. A late invitation can be used once, the host can send up to 30 per game, and a game can hold at most 16 human players. The server scripts <b>11_late_invites.sql</b> and the updated notify function must be installed for this to work.</p>
-                <p><b style="color:#da70d6;">Examining Enemy Fleets</b><br>An enemy fleet that one of your scanners can see is drawn as a red triangle beside its position on the star map, labelled with the name its owner gave that fleet (no ship count; zoom in to see the labels). Click the triangle to examine it. A Fleet Summary box opens in the left column, in the place of the Planet Summary, and the Production Queue and Fleets in Orbit boxes are hidden with it (tap a planet to bring them back). You can tap one of your own fleets the same way: its Fleet Summary shows its position, ships, mass, warp, fuel, cargo and orders, with Waypoints and Plot buttons. It names the empire and says whether it is a friend, neutral or an enemy, gives the fleet's position and whether it is in orbit or deep space, and lists every ship design and hull with its count, plus the total ship count and mass. When one of your penetrating scanners reaches the fleet, or one of your fleets or planets is at the same spot, a close scan also shows armor, beam weapons, torpedo launchers, bombs, colony ships, scanner ships and cargo space. Cargo actually on board and where the fleet is heading cannot be seen. A fleet your scanners cannot see cannot be clicked, and cloaked ships may stay hidden even inside your range.</p>
+                <p><b style="color:#da70d6;">Examining Enemy Fleets</b><br>An enemy fleet that one of your scanners can see is drawn as a red triangle beside its position on the star map, labelled with the name its owner gave that fleet (no ship count; zoom in to see the labels). Click the triangle to examine it. A Fleet Summary box opens in the left column, in the place of the Planet Summary, and the Production Queue and Fleets in Orbit boxes are hidden with it (tap a planet to bring them back). At the bottom of an enemy fleet's summary, <b>Send a Fleet to This Fleet</b> lets you pick one of your fleets and a Warp speed and press Send Fleet: the fleet's route is replaced by one waypoint at the enemy fleet, and while your scanners can still see that fleet your fleet follows it each year (if you lose sight of it, your fleet heads for the last place it was seen). The line above the button tells you the distance, years and fuel for the trip, and a fuel warning offers a slower Warp if the trip is too far. You can tap one of your own fleets the same way: its Fleet Summary shows its position, ships, mass, warp, fuel, cargo and orders, with Waypoints and Plot buttons. It names the empire and says whether it is a friend, neutral or an enemy, gives the fleet's position and whether it is in orbit or deep space, and lists every ship design and hull with its count, plus the total ship count and mass. When one of your penetrating scanners reaches the fleet, or one of your fleets or planets is at the same spot, a close scan also shows armor, beam weapons, torpedo launchers, bombs, colony ships, scanner ships and cargo space. Cargo actually on board and where the fleet is heading cannot be seen. A fleet your scanners cannot see cannot be clicked, and cloaked ships may stay hidden even inside your range.</p>
                 <p><b style="color:#da70d6;">Game Emails</b><br>Multiplayer games send email to the address of each player's account: an <b>invitation</b> when someone invites you, <b>the game has begun</b> when every spot is filled, and, only if you turn it on, a <b>year summary</b> every time the galaxy moves on to a new year. Year summary emails are off for every account until you switch them on with <b>Settings, Year Summary Emails</b> in the galaxy or the <b>Year Summary Emails</b> button on the Multiplayer Lobby. You never get one for a game you are looking at: while the game is open and its tab is visible the game tells the server you are here, and no email is sent to you for a year that moves on at that time. Switch to another tab, close the game or leave to the lobby and the next year summary is emailed. The year summary lists your planets, population, fleets, Resources produced, items built, technology gained, battles, bombing and the reports of your fleets, so you can see how the year went before you open the game. If you did not send orders before the time limit ran out you also get an email saying the year was played out without you. A resignation is announced to every player and the end of the game (with final standings) to everyone.</p>
                 <p><b style="color:#da70d6;">Multiplayer Victory and Game Over</b><br>Victory Conditions are checked at the end of every year, after every empire's orders have been carried out. As soon as an empire (a player's or an AI's) meets them, the game ends for everyone. The player whose browser played out that year sends the result to the server, every player is emailed the final standings, and the saved galaxy is removed from the server. The result stays in My Games until you remove it.</p>
                 <p><b style="color:#da70d6;">Joining a Multiplayer Game</b><br>In the lobby press <b>Join Multiplayer Game</b> to see every game waiting for players, newest first: its name (a lock means it is private), the host, how many spots are open, the number of empires, the galaxy size and the custom race rule. Games you are already in say Joined. Pick a game to open its lobby and read its settings, then press <b>Join This Game</b>. Fill in the form: the <b>Game Password</b> if the game is private (ask the host for it), <b>Your Empire Name</b> (it starts as your username plus Empire, and must be different from every other empire in the game), and <b>Your Race</b>: Random or one of the six built-in races, plus your own Race Wizard designs when the host allows anyone to bring custom races. If the host chose the race for the spot you are taking, the form shows that race instead. Press <b>Join Game</b>. You take the first open spot, and the game appears in My Games. You can be in as many games as you like.</p>
@@ -3749,7 +3749,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.47.0';
+        const GAME_VERSION = '0.49.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -5431,10 +5431,12 @@ const DEFENDERS_PER_POP=100;
 
         let fleetSummaryActive = false;
         let fleetSummaryOwnId = null;
+        let fleetSummaryForeign = null;
 
         function showFleetSummary(title, html) {
             fleetSummaryActive = true;
             fleetSummaryOwnId = null;
+            fleetSummaryForeign = null;
             document.getElementById('fleet-summary-title').innerText = title;
             document.getElementById('fleet-summary-body').innerHTML = html;
             document.getElementById('summary-panel').style.display = 'none';
@@ -5457,10 +5459,93 @@ const DEFENDERS_PER_POP=100;
             fleetSummaryOwnId = f.id;
         }
 
+        function foreignSendState() {
+            const fv = fleetSummaryForeign;
+            if (!fv) return { t: null, f: null, e: null };
+            const e = empireById(fv.empire);
+            const t = e && (e.fleets || []).find(x => x.id === fv.fleet);
+            const sel = document.getElementById('fsx-fleet');
+            const f = sel ? getFleetById(parseInt(sel.value)) : null;
+            return { t: t || null, f: f, e: e };
+        }
+
+        function foreignSendHtml(t) {
+            const list = playerFleets.filter(f => fleetShipCount(f) > 0);
+            if (!list.length) return '<div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid #332244; font-size: 12px; color: #888;">You have no fleet to send.</div>';
+            const sel = getSelectedFleet();
+            const pick = (sel && list.find(f => f.id === sel.id)) || list[0];
+            const opts = list.map(f => '<option value="' + f.id + '"' + (f === pick ? ' selected' : '') + '>' + escapeHtml(f.name) + ' - ' + Math.round(Math.hypot(t.x - f.x, t.y - f.y)) + ' ly</option>').join('');
+            return '<div style="margin-top: 8px; padding-top: 6px; border-top: 1px solid #332244;">' +
+                '<div style="font-size: 11px; color: #00ffff; margin-bottom: 4px; font-weight: bold;">Send a Fleet to This Fleet</div>' +
+                '<div class="sfh-grid"><label for="fsx-fleet">Fleet</label><select id="fsx-fleet">' + opts + '</select>' +
+                '<label for="fsx-warp">Speed</label><select id="fsx-warp">' + sfhWarpOptions(pick) + '</select></div>' +
+                '<div id="fsx-info" style="font-size: 11px; color: #00ffff; margin: 4px 0;"></div>' +
+                '<button type="button" class="tool-icon" id="fsx-send" style="width: 100%; background: rgba(26, 42, 58, var(--pa)); border-color: #00ffff; color: #00ffff; text-align: center; padding: 6px;">🚀 Send Fleet</button>' +
+                '</div>';
+        }
+
+        function foreignSendInfo() {
+            const el = document.getElementById('fsx-info');
+            if (!el) return;
+            const st = foreignSendState();
+            if (!st.f || !st.t) {
+                el.innerText = 'No fleet.';
+                return;
+            }
+            const warp = parseInt(document.getElementById('fsx-warp').value) || 1;
+            const dist = Math.hypot(st.t.x - st.f.x, st.t.y - st.f.y);
+            const years = dist < 0.01 ? 0 : Math.ceil(dist / (warp * warp) - 1e-9);
+            const fuel = fleetFuelUse(st.f, warp, dist);
+            el.innerText = st.f.name + ': ' + Math.round(dist) + ' ly away. At Warp ' + warp + ': ' + years + ' yr, ' + fuel.toFixed(1) + ' mg fuel (' + Math.round(st.f.fuel) + ' on board). It follows the enemy fleet while your scanners can see it.';
+            document.getElementById('fsx-send').innerText = '🚀 Send ' + st.f.name;
+        }
+
+        document.getElementById('fleet-summary-body').addEventListener('change', (e) => {
+            if (e.target.id === 'fsx-fleet') {
+                const st = foreignSendState();
+                if (st.f) document.getElementById('fsx-warp').innerHTML = sfhWarpOptions(st.f);
+                foreignSendInfo();
+            } else if (e.target.id === 'fsx-warp') {
+                foreignSendInfo();
+            }
+        });
+
+        document.getElementById('fleet-summary-body').addEventListener('click', (e) => {
+            if (!e.target.closest('#fsx-send')) return;
+            if (mpReadOnly) {
+                mpReadOnlyNotice();
+                return;
+            }
+            const st = foreignSendState();
+            if (!st.f || !st.t || !st.e) {
+                gameAlert('That fleet is no longer there. Tap it on the star map again.');
+                return;
+            }
+            const f = st.f;
+            const t = st.t;
+            const warp = parseInt(document.getElementById('fsx-warp').value) || defaultWarpFor(f);
+            if (Math.hypot(t.x - f.x, t.y - f.y) < 0.5) {
+                gameAlert(f.name + ' is already at that location.');
+                return;
+            }
+            const wp = { x: t.x, y: t.y, planet: -1, warp: warp, task: 'none', foreignTarget: { empire: st.e.id, fleet: t.id } };
+            setRouteChecked(f, [wp], ok => {
+                if (!ok) return;
+                delete f.patrol;
+                delete f.guard;
+                f.lastWarp = warp;
+                selectedFleetId = f.id;
+                const route = planRoute(f);
+                logEvent(f.name + ' ordered to ' + (t.name || 'a fleet') + ' of ' + st.e.name + ' at Warp ' + warp + ': ' + route.totalYears + ' year(s), ' + route.totalFuel.toFixed(1) + ' mg fuel.');
+                updateDashboardPlanetView();
+            });
+        });
+
         function hideFleetSummary() {
             if (!fleetSummaryActive) return;
             fleetSummaryActive = false;
             fleetSummaryOwnId = null;
+            fleetSummaryForeign = null;
             document.getElementById('fleet-summary-panel').style.display = 'none';
             document.getElementById('summary-panel').style.display = '';
         }
@@ -10634,9 +10719,8 @@ const DEFENDERS_PER_POP=100;
                                 sc = alive().filter(o => o.owner !== t.owner && o.hasWeapons).reduce((m, o) => Math.min(m, Math.max(Math.abs(o.x - nx), Math.abs(o.y - ny))), 99) * 10 + (dx || dy ? 1 : 0);
                             } else if (t.target) {
                                 const d = Math.max(Math.abs(t.target.x - nx), Math.abs(t.target.y - ny));
-                                const want = t.tac === 'maxratio' || t.tac === 'minimize' ? maxRange(t) : minRange(t);
-                                sc = -Math.abs(d - want) * 10 - (d > maxRange(t) ? 50 : 0);
-                                sc -= threatAt(t, nx, ny) * (t.tac === 'minimize' ? 3 : (t.tac === 'maxdamage' ? 0 : 0.01));
+                                sc = -Math.max(0, d - minRange(t)) * 10 - (d > maxRange(t) ? 50 : 0) - (dx || dy ? 0.5 : 0);
+                                sc -= Math.min(9, threatAt(t, nx, ny) * (t.tac === 'minimize' ? 0.05 : 0.01));
                             } else continue;
                             if (sc > bestScore) {
                                 bestScore = sc;
@@ -12295,6 +12379,20 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.49.0', d: 'Oct 3, 2026 7:25 AM', t: "Send a Fleet to an Enemy Fleet", items: [
+                "The Fleet Summary of an enemy fleet now has a Send a Fleet to This Fleet section. Pick which of your fleets to send (each is listed with its distance), pick a Warp speed, and press Send Fleet.",
+                "The chosen fleet's route is replaced by one waypoint at the enemy fleet. While your scanners can see the enemy fleet, your fleet follows it each year; if you lose sight of it your fleet heads for the last place it was seen.",
+                "A line above the button shows the distance, travel years and fuel for the trip, and the usual fuel check offers a slower Warp if the fleet cannot reach it.",
+                "The order shows in the Event Log and in the fleet's Waypoints window as a waypoint at \"an enemy fleet\".",
+                "Help: Examining Enemy Fleets updated."
+            ] },
+            { v: '0.48.0', d: 'Oct 3, 2026 7:05 AM', t: "Armed Ships Close In", items: [
+                "In battle, every armed ship that is not trying to disengage now always moves toward its target (an enemy ship or a starbase) until it is within the range of all of its weapons, so every weapon it carries can fire.",
+                "Before this, Maximize damage ratio and Minimize damage to self made ships stop at their longest weapon range, which left shorter-range weapons out of reach, and Minimize damage also backed away from enemy fire. Those tactics now only decide tie-breaks; the ships still advance.",
+                "Plans that disengage (Disengage, Chicken, and Disengage if challenged once the ship is hit) still run away, and a ship with no target it is allowed to attack still disengages.",
+                "Ships that are already close enough stay put instead of drifting sideways.",
+                "Help: Battle Plans updated."
+            ] },
             { v: '0.47.0', d: 'Oct 3, 2026 6:50 AM', t: "Fleets Labelled by Name", items: [
                 "Enemy fleets on the star map are now labelled with the name their owner gave the fleet. The empire name and the number of ships are no longer drawn beside them.",
                 "Your own fleets were already labelled with their names; they still show the Warp they are flying at when they have orders.",
@@ -13559,7 +13657,9 @@ const DEFENDERS_PER_POP=100;
                 html += '<div style="margin-top:6px;color:#999;font-size:12px;">Too far for a close scan. A penetrating scanner in range, or one of your fleets or planets at the same spot, would show its weapons, armor and cargo space.</div>';
             }
             html += '</div>';
-            showFleetSummary('Enemy Fleet Summary', html);
+            showFleetSummary('Enemy Fleet Summary', html + foreignSendHtml(f));
+            fleetSummaryForeign = { empire: e.id, fleet: f.id };
+            foreignSendInfo();
         }
 
         function findFleetAt(clickX, clickY) {
