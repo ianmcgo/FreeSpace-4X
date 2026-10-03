@@ -2079,7 +2079,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.32.0 (Updated: October 02, 2026 08:20 PM)</div>
+            <div class="version-text">Version 0.33.0 (Updated: October 02, 2026 09:05 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -3215,7 +3215,7 @@
                 <p><b style="color:#da70d6;">Ship Design Files</b><br>The Ship Designer can save designs to your device and load them into another game. <b>Download This Design</b> saves the selected saved design and <b>Download All Designs</b> saves every active one, as a .json file holding each design's name, hull, parts slot by slot, mass and cost. <b>Upload Designs</b> reads such a file. Every design in it is checked against this game: the hull and every part must be unlocked by your current technology, allowed for your race's traits, and (for Mystery Trader items) owned, and the design must be complete (engines, matching engine types, parts in slots that take them). Designs that pass are added with a new name if the name is already taken. Designs you cannot build are refused, and a window lists each one with what is missing, for example the tech level needed and the level you have. A design is only added while you have fewer than 16 active designs.</p>
                 <p><b style="color:#da70d6;">Automation Files</b><br>Your standing orders can move between games. <b>Export Automation</b> (in Settings, or in the Autobuild window) saves a .json file with your Autobuild rules and switch, your custom zip orders, your battle plans, your research budget and next-field choice, and the Missing-Order Warning setting. <b>Import Automation</b> reads such a file and lets you tick which of these to replace in the current game; everything else stays as it is. Fleets that used a battle plan that is not in the imported list go back to Default.</p>
                 <p><b style="color:#da70d6;">Fleet Management and Naming Ships</b><br><b>Fleet, Manage Ships and Names</b> lists each ship in the selected fleet. Rename the fleet or any single ship, select ships and <b>Split</b> them into a new fleet, <b>Scrap</b> them (see Scrapping), or retrofit them at a Fleet Yard. Damaged ships show their damage percent. Fuel is shared by the whole fleet and is burned for the whole fleet mass.</p>
-                <p><b style="color:#da70d6;">Combat</b><br>Combat happens every year after all fleets of every empire have moved, wherever fleets of empires that are hostile to each other share a location, or a fleet sits at an enemy world with defenses or an armed starbase. It is fought on a 10 by 10 battle board for up to 16 rounds. Each fleet becomes tokens, one per ship design, holding all its ships of that design; shields of a token are one pooled stack. Every round has three parts: (1) every token picks a target from its battle plan, (2) tokens move in up to three phases, heaviest first with a random margin of 15 percent, and (3) weapons fire from the highest initiative to the lowest (hull initiative plus battle computers plus the weapon's own initiative; shorter ranges first on ties). A token moves 0.5 to 2.5 squares a round: (best warp - 4) / 4 minus mass / 280 per engine, plus a quarter square per Maneuvering Jet and half a square per Overthruster (War Monger races half a square more); an Energy Dampener anywhere in the battle slows every token by one square a round. <b>Beams</b> always hit and lose 10 percent of their power over their full range; damage goes to shields first, then armor, and a beam token that destroys its target spills the rest onto other tokens in that square (up to one token per ship firing). Gatling weapons hit every enemy token in range. Sappers only damage shields. Capacitors raise beam damage, and Beam Deflectors lower it. <b>Torpedoes</b> may miss: each one hits by its accuracy, raised by battle computers (they cut the miss chance) and lowered by the target's jammers, which cancel one to one. A hit puts half its damage on armor and half on shields; a miss still does an eighth of its damage to shields. A torpedo strike can kill at most one ship per hit. Capital missiles do double damage to a token whose shields are gone. Starbase weapons get +1 range. Cloaked fleets may stay unseen until they fire. Players who survive a battle against ships with better technology have up to a 50 percent chance of learning a level in one field where the enemy was ahead. Review any fight in <b>Management, Battle Reports</b> and press Watch Replay.</p>
+                <p><b style="color:#da70d6;">Combat</b><br>Combat happens every year after all fleets of every empire have moved, wherever fleets of empires that are hostile to each other share a location or come within <b>5 light years</b> (an armed fleet that ends its move within 5 light years of an enemy fleet, or whose path for the year passed within 5 light years of where an enemy fleet ended up, or an armed fleet that stayed put while an enemy ended or passed within 5 light years of it; jump gates and wormholes leave no path), or a fleet sits at an enemy world with defenses or an armed starbase. It is fought on a 10 by 10 battle board for up to 16 rounds. Each fleet becomes tokens, one per ship design, holding all its ships of that design; shields of a token are one pooled stack. Every round has three parts: (1) every token picks a target from its battle plan, (2) tokens move in up to three phases, heaviest first with a random margin of 15 percent, and (3) weapons fire from the highest initiative to the lowest (hull initiative plus battle computers plus the weapon's own initiative; shorter ranges first on ties). A token moves 0.5 to 2.5 squares a round: (best warp - 4) / 4 minus mass / 280 per engine, plus a quarter square per Maneuvering Jet and half a square per Overthruster (War Monger races half a square more); an Energy Dampener anywhere in the battle slows every token by one square a round. <b>Beams</b> always hit and lose 10 percent of their power over their full range; damage goes to shields first, then armor, and a beam token that destroys its target spills the rest onto other tokens in that square (up to one token per ship firing). Gatling weapons hit every enemy token in range. Sappers only damage shields. Capacitors raise beam damage, and Beam Deflectors lower it. <b>Torpedoes</b> may miss: each one hits by its accuracy, raised by battle computers (they cut the miss chance) and lowered by the target's jammers, which cancel one to one. A hit puts half its damage on armor and half on shields; a miss still does an eighth of its damage to shields. A torpedo strike can kill at most one ship per hit. Capital missiles do double damage to a token whose shields are gone. Starbase weapons get +1 range. Cloaked fleets may stay unseen until they fire. Players who survive a battle against ships with better technology have up to a 50 percent chance of learning a level in one field where the enemy was ahead. Review any fight in <b>Management, Battle Reports</b> and press Watch Replay.</p>
                 <p><b style="color:#da70d6;">Battle Plans</b><br>Open <b>Management, Battle Plans</b> (or pick Battle Plans... in a fleet's plan list) to edit your plans. A plan has a <b>Primary Target</b> and a <b>Secondary Target</b> (None/Disengage, Any, Starbase, Bombers/Freighters, Armed Ships, Unarmed Ships, Fuel Transports, Freighters), a <b>Tactic</b> (Disengage, Disengage if challenged, Minimize damage to self, Maximize net damage, Maximize damage ratio, Maximize damage), <b>Attack Who</b> (Enemies, Neutrals and Enemies, Everyone) and <b>Dump Cargo</b>. Each round a token targets the nearest enemy that matches its primary target, then its secondary target; with neither it disengages. Disengaging tokens run from the enemy and leave the battle after moving 7 squares. Maximize damage closes to the range of all its weapons, Maximize damage ratio and Minimize damage keep to their longest range (Minimize also avoids squares that enemy weapons cover), and Disengage if challenged fights until it is hit. Tokens fire at targets in range even while moving toward their primary target. Unarmed tokens always disengage. The built in plans are Default (Armed Ships, then Any, Maximize damage ratio), Kill Starbase, Max-Defense, Sniper and Chicken; you can copy, rename and delete plans (up to 14; Default stays). Each fleet picks its plan in the Fleets in Orbit panel. Starbases and planetary defenses always shoot armed ships first, then anything.</p>
                 <p><b style="color:#da70d6;">Battle Replay</b><br>Every battle report of the last eight battles has <b>Watch Replay</b>. The replay shows the 10 by 10 board: each square with tokens shows a ship or starbase symbol in your color or the enemy's, the number of tokens at top left and the number of ships at top right. The square of the token that is acting is framed in blue and a square being hit shows an explosion. The controls go to the start, one phase back, play or pause, one phase forward and to the end. The text tells who moved or fired, with what, how many torpedoes hit, and the damage to shields and armor. Click a square to select a token there (click again for the next token) and see its details.</p>
                 <p><b style="color:#da70d6;">Cloaking and Scanners</b><br>Cloaking is measured in cloak units per kT of ship. The cloak percent follows a curve: 100 units per kT give 50 percent, 300 give 75 percent, about 800 give 90 percent and 1,300 give the maximum of 98 percent. Stealth Cloak gives 70 units, Super-Stealth Cloak 140, Ultra-Stealth Cloak 540, and Transport Cloaking 300 but only on unarmed ships; Super-Stealth races also get 300 units on every ship. Cargo and uncloaked ships in the same fleet dilute the cloak, because the units are spread over the whole mass. A cloaked fleet is only seen inside the cloak-reduced range of a scanner: a 75 percent cloak means a scanner has to be within a quarter of its range, normal or penetrating. Tachyon Detectors in the scanning fleet cut enemy cloaking: each set of detectors multiplies it by 0.95 to the power of the square root of their number. Cloaks give no protection from minefields.</p>
@@ -3687,7 +3687,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.32.0';
+        const GAME_VERSION = '0.33.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -10862,19 +10862,91 @@ const DEFENDERS_PER_POP=100;
             return 'Battle at ' + battlePlaceName(res) + ' (' + res.rounds + ' rounds): ' + parts.join(', versus ') + '.';
         }
 
+        const PROXIMITY_COMBAT_LY = 5;
+
+        function pointSegmentDistance(px, py, ax, ay, bx, by) {
+            const dx = bx - ax;
+            const dy = by - ay;
+            const len2 = dx * dx + dy * dy;
+            if (len2 < 1e-9) return Math.hypot(px - ax, py - ay);
+            const t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / len2));
+            return Math.hypot(px - (ax + t * dx), py - (ay + t * dy));
+        }
+
+        function fleetIsArmed(e, f) {
+            return f.ships.some(x => x.count > 0 && infoFor(e, x.type).hasWeapons);
+        }
+
+        function fleetPathStart(f) {
+            if (f.prevYear === currentYear - 1 && typeof f.prevX === 'number' && typeof f.prevY === 'number') return { x: f.prevX, y: f.prevY };
+            return { x: f.x, y: f.y };
+        }
+
+        function proximityEngaged(a, b) {
+            if (a.e.id === b.e.id) return false;
+            const aAttacks = fleetIsArmed(a.e, a.f) && wantsToAttack(a.e.id, b.e.id, planFor(a.e, a.f).who);
+            const bAttacks = fleetIsArmed(b.e, b.f) && wantsToAttack(b.e.id, a.e.id, planFor(b.e, b.f).who);
+            if (!aAttacks && !bAttacks) return false;
+            const R = PROXIMITY_COMBAT_LY;
+            if (Math.hypot(a.f.x - b.f.x, a.f.y - b.f.y) <= R) return true;
+            const pa = fleetPathStart(a.f);
+            const pb = fleetPathStart(b.f);
+            if (pointSegmentDistance(b.f.x, b.f.y, pa.x, pa.y, a.f.x, a.f.y) <= R) return true;
+            return pointSegmentDistance(a.f.x, a.f.y, pb.x, pb.y, b.f.x, b.f.y) <= R;
+        }
+
         function combatGroups() {
-            const groups = [];
+            const items = [];
             empires.forEach(e => {
                 (e.fleets || []).forEach(f => {
                     if (fleetShipCount(f) <= 0) return;
-                    const pi = fleetOrbitIndex(f);
-                    let g = groups.find(x => (pi >= 0 ? x.planet === pi : (x.planet < 0 && Math.hypot(x.x - f.x, x.y - f.y) < 0.75)));
-                    if (!g) {
-                        g = { planet: pi, x: f.x, y: f.y, items: [] };
-                        groups.push(g);
-                    }
-                    g.items.push({ e: e, f: f });
+                    items.push({ e: e, f: f, pi: fleetOrbitIndex(f) });
                 });
+            });
+            const parent = items.map((_, i) => i);
+            const find = i => {
+                while (parent[i] !== i) {
+                    parent[i] = parent[parent[i]];
+                    i = parent[i];
+                }
+                return i;
+            };
+            const join = (i, j) => {
+                const a = find(i);
+                const b = find(j);
+                if (a !== b) parent[b] = a;
+            };
+            for (let i = 0; i < items.length; i++) {
+                for (let j = i + 1; j < items.length; j++) {
+                    const a = items[i];
+                    const b = items[j];
+                    const together = a.pi >= 0 ? a.pi === b.pi : (b.pi < 0 && Math.hypot(a.f.x - b.f.x, a.f.y - b.f.y) < 0.75);
+                    if (together || proximityEngaged(a, b)) join(i, j);
+                }
+            }
+            const comps = {};
+            items.forEach((it, i) => {
+                const r = find(i);
+                if (!comps[r]) comps[r] = [];
+                comps[r].push(it);
+            });
+            const groups = [];
+            Object.keys(comps).forEach(k => {
+                const list = comps[k];
+                const orbiting = list.filter(it => it.pi >= 0);
+                const withBase = orbiting.find(it => planets[it.pi].owner !== 'neutral' && planets[it.pi].hasStarbase);
+                const anchor = withBase || orbiting[0] || null;
+                const planet = anchor ? anchor.pi : -1;
+                let gx;
+                let gy;
+                if (anchor) {
+                    gx = planets[planet].x;
+                    gy = planets[planet].y;
+                } else {
+                    gx = list.reduce((n, it) => n + it.f.x, 0) / list.length;
+                    gy = list.reduce((n, it) => n + it.f.y, 0) / list.length;
+                }
+                groups.push({ planet: planet, x: gx, y: gy, items: list.map(it => ({ e: it.e, f: it.f })) });
             });
             return groups.filter(g => {
                 const owners = [];
@@ -12109,6 +12181,12 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.33.0', d: 'Oct 2, 2026 9:05 PM', t: "Battles Within 5 Light Years", items: [
+                "Fleets no longer have to stop on exactly the same spot to fight. After all fleets have moved, an armed fleet that ends its move within 5 light years of an enemy fleet, or whose path for the year passed within 5 light years of where an enemy fleet ended up, starts a battle with it. An armed fleet that did not move also fights an enemy that ends or passes within 5 light years of it.",
+                "The battle is the same 10 by 10 grid fight of up to 16 rounds as an attack on a base, so ships can be damaged and destroyed on both sides. Battle plans decide who attacks whom, so friends and (with the right plan) neutrals are left alone.",
+                "A battle near a world fights at that world, so its defenses and starbase take part. Battles anywhere else are reported as deep space at the middle of the fleets involved.",
+                "Help updated under Combat."
+            ] },
             { v: '0.32.0', d: 'Oct 2, 2026 8:20 PM', t: "Examine Enemy Fleets", items: [
                 "Enemy fleets that your scanners can see (the red triangles on the map) can now be clicked. A window shows the owner and whether they are a friend, neutral or enemy, the fleet's position, every ship design and hull with how many of each, the total ship count and the mass of the ships.",
                 "If the fleet is inside the range of a penetrating scanner of yours, or sits at the same spot as one of your fleets or planets, the window also shows its armor, beam weapons, torpedo launchers, bombs, colony ships, scanner ships and cargo space.",
@@ -14637,11 +14715,19 @@ const DEFENDERS_PER_POP=100;
         function fleetMovementPhase(notes) {
             const arrivals = [];
             playerFleets.slice().forEach(f => {
+                f.prevX = f.x;
+                f.prevY = f.y;
+                f.prevYear = currentYear;
                 runPatrol(f, notes);
                 resolveWaypointTargets(f);
                 if (!f.waypoints.length) return;
                 f.movedThisYear = true;
+                const jumped = f.waypoints[0].warp === GATE_WARP || !!f.waypoints[0].wormhole;
                 const res = moveFleetOneYear(f, notes);
+                if (jumped) {
+                    f.prevX = f.x;
+                    f.prevY = f.y;
+                }
                 if (res.arrived && getFleetById(f.id)) arrivals.push({ fleetId: f.id, waypoint: res.waypoint });
             });
             updateDiscovery(true);
