@@ -343,7 +343,8 @@
             box-sizing: border-box;
             position: fixed;
             background-color: rgba(18, 16, 25, var(--pa-top));
-            min-width: 230px;
+            width: max-content;
+            min-width: 0;
             box-shadow: 0px 4px 12px rgba(0,0,0,0.6);
             z-index: 10000;
             border: 1px solid #3d2c55;
@@ -2176,7 +2177,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.58.0 (Updated: October 03, 2026 03:21 PM)</div>
+            <div class="version-text">Version 0.59.0 (Updated: October 03, 2026 03:33 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -3416,7 +3417,7 @@
                 <p><b style="color:#da70d6;">Auto Items and Repeating Builds</b><br>In Structures you can queue <b>Auto Mines</b>, <b>Auto Factories</b> and <b>Auto Defenses</b>. An auto item is a standing order that stays in the queue. Each turn it builds one unit after another while the planet has room: Mines up to the number its colonists supply (at least 1), Factories up to the number its colonists can run, Defenses up to 10. When it reaches the limit it does not block the queue, the Resources move on to the next item, and it starts again by itself when more colonists arrive. A planet can have one auto item of each kind. Ordinary items have a quantity and are removed when finished.</p>
                 <p><b style="color:#da70d6;">Autobuild</b><br>Autobuild fills a planet's queue for you. It is an empire-wide ordered list of rules (Management, Autobuild, or the Rules button in the Production Queue panel). When a planet's queue runs empty the game reads the list from the top; the first rule whose condition is true and whose Ore is on hand adds an item to the queue, the planet builds it in the same turn, and the list is read again, so a planet can climb the whole ladder in one turn. Each rule has an item (Mine, Factory, Defense, Scout, Small Freighter, Destroyer or Colony Ship), a condition and an on or off switch. Conditions: <b>while below the planet limit</b> (Mines and Factories only: the number the planet's colonists supply or can run) and <b>until this many</b> (the planet has that many; for ships, the whole empire has that many built and queued, and the planet needs a ship dock; Colony Ships also need 7,500 colonists). Use the arrows to change priority. A rule is skipped when the planet cannot pay the Ore for one unit, so planets never queue things they cannot build. The default list is Mines, then Factories, then up to 5 Defenses, in that order. Under <b>Follow empire rules or Off</b> in the Production Queue panel, a single planet can switch Autobuild off, for example while you build a colony ship or starbase by hand. Items queued by Autobuild carry an Autobuild tag, and the turn report lists what it queued. Terraforming rules are not possible yet because the game has no terraforming. A new game starts with Autobuild on; saves from before version 0.9.0 load with it off.</p>
                 <p><b style="color:#da70d6;">Mines and Factories</b><br>The economy is a loop: colonists give Resources, factories add more Resources, Resources and Ore build mines, factories and ships, and mines dig the Ore. <b>Mines</b> dig Ironium, Boranium and Germanium every year; a richer concentration gives more, and digging slowly lowers it (see Ore and Mining). By default every mine works as long as the planet has colonists (turn on Mines need colonists under Advanced Options for 10 mines per 10,000 working colonists). <b>Factories</b> need workers: 10 per 10,000 working colonists for the standard economy, and any extra factories sit idle until the population grows. The queue panel and the Year Report say how many are idle. A custom race changes these numbers in the Race Wizard.</p>
-                <p><b style="color:#da70d6;">Pop-up Windows</b><br>Everything you open from the Planet, Fleet, Management and Settings menus, including Structures, Ship Construction, Manage Waypoints, Manage Ships and Names, Fleet Roster, Ship Designer, Autobuild, Battle Reports, Battle Plans, Minefields, Diplomacy, Reports, Scoreboard, Help and Updates, opens in the middle of the screen over the blank scrolling star field, the same way Research does. To close a window, click outside it, or use its Close or Back button; either one returns you to the main game view. Panel Transparency is the one exception that keeps the game visible behind it so you can watch your changes.</p>
+                <p><b style="color:#da70d6;">Pop-up Windows</b><br>Everything you open from the Planet, Fleet, Management and Settings menus, including Structures, Ship Construction, Manage Waypoints, Manage Ships and Names, Fleet Roster, Ship Designer, Autobuild, Battle Reports, Battle Plans, Minefields, Diplomacy, Reports, Scoreboard, Help and Updates, opens in the middle of the screen over the blank scrolling star field, the same way Research does. To close a window, click outside it, or use its Close or Back button; either one returns you to the main game view. Panel Transparency is the one exception that keeps the game visible behind it so you can watch your changes. The menus themselves open under their button and are only as wide as their longest line.</p>
                 <p><b style="color:#da70d6;">Ore Concentration Bars</b><br>The planet picture and the ore are both inside the Planet Summary box, with the population, status, habitability and starbase text to the right of the picture; ore is in the Ore On Hand &amp; Concentrations section under the population and habitability lines. That section also carries the Resources, Mines, Factories, Mass Driver and Defenses lines. It shows each ore on one line: its name, how many kilotons are on hand or in the ground, and a bar for the concentration. The bar fills to the concentration percentage. Green means 75% and up, an excellent mining world for that ore; yellow means 26% to 74%, a middling one; red means 0% to 25%, so mines there will produce little. A gray bar with a question mark means the world has not been surveyed yet.</p>
                 <p><b style="color:#da70d6;">Game Images</b><br>The Cabal Coffers Gaming logo on the title screen and the small Ironium, Boranium and Germanium icons beside ore names are loaded from the game's GitHub images folder instead of being built into the game file. They need an internet connection the first time they are shown, and your browser keeps them afterward. If an image cannot be reached the game keeps working and only that picture is missing.</p>
                 <p><b style="color:#da70d6;">Panel Transparency</b><br>Every panel, menu and window in the game is partly see-through, so the scrolling star field from the title screen shows behind it, including behind the star map. Open Settings, then Panel Transparency, and drag the slider: 0% gives solid panels and higher values let more of the stars show through (the highest setting is 95%). Menus and pop-up windows never go fully clear, so their text stays readable. The window sits in the middle of the screen and leaves the game visible behind it so you can watch the change as you drag. Reset puts it back to 30%. Your choice is saved in this browser and applies on every screen, including the setup screens.</p>
@@ -3837,7 +3838,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.58.0';
+        const GAME_VERSION = '0.59.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -9402,7 +9403,7 @@ const DEFENDERS_PER_POP=100;
             }
             box.innerHTML = items.length
                 ? items.map(i => `<button class="tool-icon" data-action="${i[0]}" style="color: ${i[2]};">${i[1]}</button>`).join('')
-                : '<div style="padding: 8px 11px; font-size: 11px; color: #888; max-width: 230px; line-height: 1.4; white-space: normal;">More actions appear here when you select a planet that has one of your fleets in orbit.</div>';
+                : '<div style="padding: 8px 11px; font-size: 11px; color: #888; width: 0; min-width: 100%; box-sizing: border-box; line-height: 1.4; white-space: normal;">More actions appear here when you select a planet that has one of your fleets in orbit.</div>';
         }
 
         function actionColonize() {
@@ -12984,6 +12985,10 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.59.0', d: 'Oct 3, 2026 3:33 PM', t: "Narrower Top Bar Menus", items: [
+                "The Planet, Fleet, Management and Settings menus are now only as wide as their longest line instead of a fixed wide box, so they cover less of the screen. The note in the Fleet menu about more actions wraps to the menu's width.",
+                "Help: Pop-up Windows updated."
+            ] },
             { v: '0.58.0', d: 'Oct 3, 2026 3:21 PM', t: "Continue Game Returns to Your Last Game", items: [
                 "Continue Game on the title screen now opens the game you played last in this browser. After a single player game it loads your browser save. After a multiplayer game, if you are still signed in, it goes straight into that multiplayer game.",
                 "If you are signed out, or the multiplayer game cannot be loaded, it falls back to your browser saved single player game.",
