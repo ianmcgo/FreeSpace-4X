@@ -647,7 +647,7 @@
         #galaxy-canvas:active {
             cursor: grabbing;
         }
-        #galaxy-canvas.plotting {
+        #galaxy-canvas.plotting, #galaxy-canvas.measuring {
             cursor: crosshair;
         }
 
@@ -2177,7 +2177,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.67.0 (Updated: October 03, 2026 09:13 PM)</div>
+            <div class="version-text">Version 0.76.0 (Updated: October 03, 2026 11:31 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -2622,6 +2622,7 @@
                     <button class="tool-icon" id="btn-mgmt-minefields" style="color: #ff8c00;">💣 Minefields</button>
                     <button class="tool-icon" id="btn-mgmt-diplomacy" style="color: #32cd32;">🤝 Diplomacy</button>
                     <button class="tool-icon" id="btn-mgmt-reports" style="color: #00ffff;">📑 Reports</button>
+                    <button class="tool-icon" id="btn-mgmt-measure" style="color: #ffd700;">📏 Measure Distance</button>
                     <button class="tool-icon" id="btn-mgmt-scoreboard" style="color: #da70d6;">📊 Scoreboard</button>
                 </div>
             </div>
@@ -2637,6 +2638,9 @@
                     <button class="tool-icon" id="btn-skip-turns" style="color: #ff9966; display: none;">⏭ Skip My Turns: OFF</button>
                     <button class="tool-icon" id="btn-transparency" style="color: #88e0ff;">🪟 Panel Transparency</button>
                     <button class="tool-icon" id="btn-planet-names" style="color: #ffcc66;">🔠 Planet Names on Map</button>
+                    <button class="tool-icon" id="btn-fleet-names" style="color: #ffcc66;">🔡 Fleet Names on Map</button>
+                    <button class="tool-icon" id="btn-toggle-rulers" style="color: #ffd700;">📏 Map Rulers: ON</button>
+                    <button class="tool-icon" id="btn-toggle-legend" style="color: #b0b0c0;">🗺 Map Legend: ON</button>
                     <button class="tool-icon" id="btn-auto-export" style="color: #00ffff;">📤 Export Automation</button>
                     <button class="tool-icon" id="btn-auto-import" style="color: #32cd32;">📥 Import Automation</button>
                     <button class="tool-icon" id="btn-help" style="color: #88bbff;">❓ Help</button>
@@ -3366,6 +3370,19 @@
         </div>
     </div>
 
+    <div id="fnames-modal" class="modal-overlay" style="z-index: 1900;">
+        <div class="modal-content">
+            <h2 class="screen-header" style="margin-top: 0;">Fleet Names on Map</h2>
+            <div style="font-size: 12px; color: #ccc; line-height: 1.5;">How large fleet names are drawn on the star map. Slide all the way left to hide them.</div>
+            <input type="range" id="fn-slider" min="0" max="24" step="1" value="10">
+            <div class="tr-row"><span>Hidden</span><span id="fn-value">10 px</span><span>Large</span></div>
+            <div style="display: flex; gap: 8px; margin-top: 12px;">
+                <button class="nav-button" id="btn-fn-reset">Reset (10 px)</button>
+                <button class="nav-button btn-primary" id="btn-fn-close">Close</button>
+            </div>
+        </div>
+    </div>
+
     <div id="game-dialog" class="modal-overlay" style="z-index: 3000;">
         <div class="modal-content" id="game-dialog-box" style="max-width: 480px;">
             <h2 class="screen-header" id="game-dialog-title">Notice</h2>
@@ -3383,7 +3400,7 @@
             <div style="text-align:left;">
                 <p><b style="color:#da70d6;">Absolute Beginner: Play in Two Minutes</b><br><b>The idea.</b> You lead a young empire that starts with one homeworld and a few ships. Other empires, run by the computer or by friends, are doing the same. You win by growing larger and stronger than they are, or by meeting the victory conditions chosen for the game. Each turn is one year.<br><br><b>Each year do three things.</b> First, <b>planets</b>: click your homeworld and give it something to build in the production queue, such as mines and factories at first, then scouts and colony ships. Second, <b>research</b>: pick a technology field to study so your ships and buildings improve over time. Third, <b>ships</b>: click a fleet, then click a star on the map to send it there. Scouts reveal the galaxy. A colony ship carries colonists to a good planet. Then press <b>End Turn</b> and the year plays out.<br><br><b>How to grow.</b> Look for planets with a high habitability percentage and send colonists there. New colonies grow by themselves and produce Resources and minerals. Use Resources to build and research, and mine minerals to pay for ships. Keep scouting, keep building, and keep a few warships near your homeworld because enemies will arrive eventually.<br><br><b>If something looks wrong,</b> the game warns you before you end a turn with idle planets or fleets, or send a ship somewhere it cannot reach. When you are ready for more, read the rest of Basic, then Advanced.</p>
                 <p><b style="color:#da70d6;">Goal</b><br>Grow your empire from a single homeworld: scan the galaxy, colonize habitable worlds, mine ore, build infrastructure and outscore your AI opponents. Check the Scoreboard under Management to see how you rank. If the game was created with Victory Conditions, the first empire to meet them wins (see Victory Conditions below).</p>
-                <p><b style="color:#da70d6;">Ship Designer</b><br>Open <b>Management, Ship Designer</b>. Pick a hull, then fill its slots with parts. Every hull has its own typed slots: <b>Engine</b>, <b>Weapon</b> (beams and torpedoes), <b>Bomb</b>, <b>Shield or Armor</b>, <b>Shield</b>, <b>Armor</b>, <b>Scanner</b>, <b>Electrical</b> (cloaks, battle computers, jammers, capacitors), <b>Mechanical</b> (cargo pods, fuel tanks, colonization module, jets), <b>Electrical or Mechanical</b>, <b>Scanner, Electrical or Mechanical</b>, <b>Scanner, Shield or Weapon</b>, <b>Mine Layer</b>, <b>Mining</b> (mining robots only) and <b>General Purpose</b> (anything). A part only fits a slot of a matching type. All engine slots must hold the same engine, and a design with some engine slots empty gets them filled with that engine. The panel shows cost (after miniaturization), mass, armor, shields, fuel, cargo, the engine's free and best warp and its fuel table, combat speed and initiative, scanner range, cloaking and weapons. Parts and hulls appear once your tech meets their requirements; some belong to one primary trait only (for example the Rogue hull and Pick Pocket Scanner for Super-Stealth races) and are listed with that note. You can keep 16 active designs; make old ones <b>Obsolete</b> to free room. Once ships of a design exist or are queued its hull and parts are locked (rename, obsolete or Save As New instead). Designs saved before version 0.14 had their parts moved into the new slot layouts automatically. The Equipment Catalog and Ship Hulls sections list every part and hull. Hull slot layouts are this game's own approximation where the original layouts are not known.</p>
+                <p><b style="color:#da70d6;">Ship Designer</b><br>Open <b>Management, Ship Designer</b>. Pick a hull, then fill its slots with parts. Every hull has its own typed slots: <b>Engine</b>, <b>Weapon</b> (beams and torpedoes), <b>Bomb</b>, <b>Shield or Armor</b>, <b>Shield</b>, <b>Armor</b>, <b>Scanner</b>, <b>Electrical</b> (cloaks, battle computers, jammers, capacitors), <b>Mechanical</b> (cargo pods, fuel tanks, colonization module, jets), <b>Electrical or Mechanical</b>, <b>Scanner, Electrical or Mechanical</b>, <b>Scanner, Shield or Weapon</b>, <b>Mine Layer</b>, <b>Mining</b> (mining robots only) and <b>General Purpose</b> (anything). A part only fits a slot of a matching type. All engine slots must hold the same engine, and a design with some engine slots empty gets them filled with that engine. The panel shows cost (after miniaturization), mass, armor, shields, fuel, cargo, the engine's free and best warp and its fuel table, combat speed and initiative, scanner range, cloaking and weapons. Parts and hulls appear once your tech meets their requirements; some belong to one primary trait only (for example the Rogue hull and Pick Pocket Scanner for Super-Stealth races) and are listed with that note. You can keep 16 active designs; make old ones <b>Obsolete</b> to free room. Once ships of a design exist or are queued its hull and parts are locked (rename, obsolete or Save As New instead). Designs saved before version 0.14 had their parts moved into the new slot layouts automatically. The Equipment Catalog and Ship Hulls sections list every part and hull. Hull slot layouts are this game's own approximation where the original layouts are not known. In the drop-down lists every scanner shows its mass plus its normal range and its penetrating range (or no penetrating range), so you can compare them before picking. Your starting Long Range Scout is a Scout hull with a Quick Jump 5 engine in the Engine slot, a Rhino Scanner (50 ly normal, no penetrating) in the Scanner slot and a Fuel Tank in the General Purpose slot.</p>
                 <p><b style="color:#da70d6;">Building Designs and Refitting</b><br>Every active design appears in a planet's build list at its real cost. <b>Retrofit:</b> a fleet in orbit of a planet with a starbase that has a <b>Fleet Yard</b> can be refitted to another design with the same hull; the cost is the new design minus a credit for the old parts. <b>Scrap:</b> a ship can be scrapped at any of your planets for half its minerals back. Both are in <b>Fleet, Manage Ships and Names</b>.</p>
                 <p><b style="color:#da70d6;">Ship Design Files</b><br>The Ship Designer can save designs to your device and load them into another game. <b>Download This Design</b> saves the selected saved design and <b>Download All Designs</b> saves every active one, as a .json file holding each design's name, hull, parts slot by slot, mass and cost. <b>Upload Designs</b> reads such a file. Every design in it is checked against this game: the hull and every part must be unlocked by your current technology, allowed for your race's traits, and (for Mystery Trader items) owned, and the design must be complete (engines, matching engine types, parts in slots that take them). Designs that pass are added with a new name if the name is already taken. Designs you cannot build are refused, and a window lists each one with what is missing, for example the tech level needed and the level you have. A design is only added while you have fewer than 16 active designs.</p>
                 <p><b style="color:#da70d6;">Automation Files</b><br>Your standing orders can move between games. <b>Export Automation</b> (in Settings, or in the Autobuild window) saves a .json file with your Autobuild rules and switch, your custom zip orders, your battle plans, your research budget and next-field choice, and the Missing-Order Warning setting. <b>Import Automation</b> reads such a file and lets you tick which of these to replace in the current game; everything else stays as it is. Fleets that used a battle plan that is not in the imported list go back to Default.</p>
@@ -3391,7 +3408,7 @@
                 <p><b style="color:#da70d6;">Combat</b><br>Combat happens every year after all fleets of every empire have moved, wherever fleets of empires that are at war with each other share a location or come within <b>5 light years</b> (an armed fleet that ends its move within 5 light years of an enemy fleet, or whose path for the year passed within 5 light years of where an enemy fleet ended up, or an armed fleet that stayed put while an enemy ended or passed within 5 light years of it; jump gates and wormholes leave no path), or a fleet sits at an enemy world with defenses or an armed starbase. It is fought on a 10 by 10 battle board for up to 16 rounds. Each fleet becomes tokens, one per ship design, holding all its ships of that design; shields of a token are one pooled stack. Every round has three parts: (1) every token picks a target from its battle plan, (2) tokens move in up to three phases, heaviest first with a random margin of 15 percent, and (3) weapons fire from the highest initiative to the lowest (hull initiative plus battle computers plus the weapon's own initiative; shorter ranges first on ties). A token moves 0.5 to 2.5 squares a round: (best warp - 4) / 4 minus mass / 280 per engine, plus a quarter square per Maneuvering Jet and half a square per Overthruster (War Monger races half a square more); an Energy Dampener anywhere in the battle slows every token by one square a round. <b>Beams</b> always hit and lose 10 percent of their power over their full range; damage goes to shields first, then armor, and a beam token that destroys its target spills the rest onto other tokens in that square (up to one token per ship firing). Gatling weapons hit every enemy token in range. Sappers only damage shields. Capacitors raise beam damage, and Beam Deflectors lower it. <b>Torpedoes</b> may miss: each one hits by its accuracy, raised by battle computers (they cut the miss chance) and lowered by the target's jammers, which cancel one to one. A hit puts half its damage on armor and half on shields; a miss still does an eighth of its damage to shields. A torpedo strike can kill at most one ship per hit. Capital missiles do double damage to a token whose shields are gone. Starbase weapons get +1 range. Cloaked fleets may stay unseen until they fire. Players who survive a battle against ships with better technology have up to a 50 percent chance of learning a level in one field where the enemy was ahead. Empires that are neutral or allied never fight, even when they share a location, pass close by or orbit the planets of the other empire (the Attack Who setting of a battle plan therefore only matters between empires at war). Review any fight in <b>Management, Battle Reports</b> and press Watch Replay. You are also told about battles you were not in when a scanner of yours covers the place where they happened (the scan range of a planet, a fleet with a scanner or a mineral packet; cloaking is ignored). Those battles are listed and can be replayed the same way, with a note that your scanners saw them.</p>
                 <p><b style="color:#da70d6;">Battle Plans</b><br>Open <b>Management, Battle Plans</b> (or pick Battle Plans... in a fleet's plan list) to edit your plans. A plan has a <b>Primary Target</b> and a <b>Secondary Target</b> (None/Disengage, Any, Starbase, Bombers/Freighters, Armed Ships, Unarmed Ships, Fuel Transports, Freighters), a <b>Tactic</b> (Disengage, Disengage if challenged, Minimize damage to self, Maximize net damage, Maximize damage ratio, Maximize damage), <b>Attack Who</b> (Enemies, Neutrals and Enemies, Everyone) and <b>Dump Cargo</b>. Each round a token targets the nearest enemy that matches its primary target, then its secondary target; with neither it disengages. Disengaging tokens run from the enemy and leave the battle after moving 7 squares. Every armed token that is not disengaging always moves toward its target until it is within the range of all of its weapons, so that every weapon can fire, whichever of Minimize damage, Maximize net damage, Maximize damage ratio or Maximize damage is chosen (Minimize damage only breaks ties between equally close squares in favor of squares that enemy weapons cover less), and Disengage if challenged fights until it is hit. Tokens fire at targets in range even while moving toward their primary target. Unarmed tokens always disengage. The built in plans are Default (Armed Ships, then Any, Maximize damage ratio), Kill Starbase, Max-Defense, Sniper and Chicken; you can copy, rename and delete plans (up to 14; Default stays). Each fleet picks its plan in the Fleets in Orbit panel. Starbases and planetary defenses always shoot armed ships first, then anything.</p>
                 <p><b style="color:#da70d6;">Battle Replay</b><br>Every battle report of the last eight battles has <b>Watch Replay</b>. The replay shows the 10 by 10 board: each square with tokens shows a ship or starbase symbol in your color or the enemy's, the number of tokens at top left and the number of ships at top right. The square of the token that is acting is framed in blue and a square being hit shows an explosion. The controls go to the start, one phase back, play or pause, one phase forward and to the end. The text tells who moved or fired, with what, how many torpedoes hit, and the damage to shields and armor. Click a square to select a token there (click again for the next token) and see its details.</p>
-                <p><b style="color:#da70d6;">Cloaking and Scanners</b><br>Cloaking is measured in cloak units per kT of ship. The cloak percent follows a curve: 100 units per kT give 50 percent, 300 give 75 percent, about 800 give 90 percent and 1,300 give the maximum of 98 percent. Stealth Cloak gives 70 units, Super-Stealth Cloak 140, Ultra-Stealth Cloak 540, and Transport Cloaking 300 but only on unarmed ships; Super-Stealth races also get 300 units on every ship. Cargo and uncloaked ships in the same fleet dilute the cloak, because the units are spread over the whole mass. A cloaked fleet is only seen inside the cloak-reduced range of a scanner: a 75 percent cloak means a scanner has to be within a quarter of its range, normal or penetrating. Tachyon Detectors in the scanning fleet cut enemy cloaking: each set of detectors multiplies it by 0.95 to the power of the square root of their number. Cloaks give no protection from minefields.</p>
+                <p><b style="color:#da70d6;">Cloaking and Scanners</b><br>Cloaking is measured in cloak units per kT of ship. The cloak percent follows a curve: 100 units per kT give 50 percent, 300 give 75 percent, about 800 give 90 percent and 1,300 give the maximum of 98 percent. Stealth Cloak gives 70 units, Super-Stealth Cloak 140, Ultra-Stealth Cloak 540, and Transport Cloaking 300 but only on unarmed ships; Super-Stealth races also get 300 units on every ship. Cargo and uncloaked ships in the same fleet dilute the cloak, because the units are spread over the whole mass. A cloaked fleet in deep space is only seen inside the cloak-reduced range of a normal scanner: a 75 percent cloak means the scanner has to be within a quarter of its range. A cloaked fleet in orbit of a planet is never seen by a normal scanner, because a cloak hides a fleet that is sitting at a world. A planet-penetrating scanner pierces the cloak completely: any fleet inside its penetrating range is seen, cloaked or not, in orbit or in space. Tachyon Detectors in the scanning fleet cut enemy cloaking against normal scanners in deep space: each set of detectors multiplies it by 0.95 to the power of the square root of their number. Cloaks give no protection from minefields.</p>
                 <p><b style="color:#da70d6;">Minefields</b><br>Ships with mine layers lay mines while they sit still with Lay Mines on (fleet ops). Mines go into your field of that type the fleet is inside, or start a new field; a field's radius is the square root of its mines, up to 1,000,000 mines. There are three types. <b>Standard:</b> safe up to Warp 4; 0.3 percent chance per light year inside the field for each warp above that; a hit does 100 damage per engine to every ship (125 with ramscoops), at least 500 to the fleet (600). <b>Heavy:</b> safe up to Warp 6; 1 percent per light year per warp over; 500 damage per ship (600 with ramscoops), at least 2,000 (2,500). <b>Speed Trap:</b> safe up to Warp 5; 3 percent per light year per warp over; a hit stops the fleet where it is, with no damage. Shields absorb mine damage before armor; cloaks do not help. Space Demolition races may travel two warps faster than these limits through others' fields, Super-Stealth races one. A fleet hits at most one mine per field a year. Your own and your friends' fleets are never hit. <b>Sweeping:</b> before anything moves, every ship with beam weapons sweeps power x range squared mines a year (Gatling weapons count as range 4; range 0 weapons and sappers cannot sweep) from every neutral or enemy field it is in, and an armed starbase sweeps the fields over its planet. <b>Decay:</b> 1 percent a year plus 4 percent for each planet inside the field, at most 50 percent; Space Demolition fields lose only 1 percent per planet. <b>Detonation:</b> a Space Demolition race can tick Detonate on a Standard field in Management, Minefields: at the end of every year a quarter of its mines explode and every neutral or enemy fleet inside takes a Standard mine hit. <b>Seeing fields:</b> Management, Minefields lists every field you know with owner, type, center, mines, radius and decay; the map draws yours in blue, friends' in yellow, others in red. You see another field when its center is in your penetrating range, when your fleet is inside it, or when you have hit it before and its center is in normal range.</p>
                 <p><b style="color:#da70d6;">Bombing and Invasion</b><br>Bombing and invasion happen after movement and combat each year, bombing first. <b>Bombing:</b> turn on Bomb in a fleet's ops while it orbits an enemy planet. A planet with a starbase in orbit cannot be bombed until the starbase is destroyed, and friends are never bombed. Each bomb kills a percentage of the colonists (the percentages of all bombs add up, with a minimum number killed per bomb) and destroys installations (factories first, then mines, then defenses). Planetary defense coverage cuts all of this; Smart Bombs only kill colonists and only half the coverage works against them. A planet bombed down to no colonists becomes uninhabited. <b>Invasion:</b> load colonists onto a fleet, fly to an enemy planet and choose Invade (or unload colonists there). A planet with a starbase cannot be invaded; the troops stay aboard. Defenses shoot down troops as they land: landed troops = troops x (1 - 0.75 x coverage). The landed troops then fight the colonists; War Mongers attack at 1.5 times strength and Inner Strength races defend at 1.5 times. If the attackers are stronger the planet is captured with the survivors and keeps its mines, factories and defenses; otherwise the troops die and kill as many defenders as their strength.</p>
                 <p><b style="color:#da70d6;">Planetary Defenses</b><br>Each planet can build up to 100 defenses (15 Resources and 5 kT of each ore). Their type comes from your Defense tech: SDI (0, 10 ability), Missile Battery (Defense 5, 20), Laser Battery (Defense 10, 24), Planetary Shield (Defense 16, 30) and Neutron Shield (Defense 23, 38); War Mongers cannot use the best types. Each defense needs 2,500 colonists to operate. Coverage = 1 - (1 - ability/1000) ^ operating defenses, shown in the planet summary. Coverage reduces bombing and shoots down invading troops. Defenses no longer fight in space battles; only a starbase defends a planet in combat.</p>
@@ -3426,7 +3443,7 @@
                 <p><b style="color:#da70d6;">Advantage Points</b><br>Every race is built from a pool of Advantage Points. A new race starts with 25 left. Strengths spend points and handicaps refund them, and a race can only be saved when 0 or more points are left. The counter at the top right updates as you choose, and the Point Ledger beside the wizard lists every cost and refund so you can see where the points went. On a narrow screen the ledger is hidden, but the counter stays. Points you do not spend (up to 50) can go into a starting bonus picked on the Identity tab: <b>Surface minerals</b> (+20 kT of each ore per point at your homeworld), <b>Mineral concentrations</b> (+1 concentration on each mineral per 2 points, up to 100), <b>Mines</b> or <b>Factories</b> (+1 per 2 points) or <b>Defenses</b> (+1 Defense per 5 points).</p>
                 <p><b style="color:#da70d6;">The Six Wizard Tabs</b><br>You can jump between tabs at any time, or use Back and Next. <b>1 Identity</b>: race name, plural name, an icon, an optional preset (loads the traits of one of the six built-in races as a starting point, keeping your name and icon) and the leftover points bonus. <b>2 Primary Trait</b>: exactly one of ten, such as Hyper-Expansion, Super-Stealth, War Monger, Jack of All Trades. The primary trait sets your empire's whole style. <b>3 Lesser Traits</b>: any mix of fourteen. Advantages (Improved Fuel Efficiency, Total Terraforming, Advanced Remote Mining, Improved Starbases, Generalized Research, Ultimate Recycling, Mineral Alchemy) cost points. Handicaps (No Ram Scoop Engines, Cheap Engines, Only Basic Remote Mining, No Advanced Scanners, Low Starting Population, Bleeding Edge Technology, Regenerating Shields) refund them. <b>4 Environment</b>: for Gravity, Temperature and Radiation pick an Ideal value and a Tolerance. The purple band shows the conditions your people can live in, in real units. A wide band means many planets suit you but costs points, a narrow band refunds points. Ticking Immune makes that factor irrelevant, at the highest price. The wizard tells you how many planets to expect to be habitable (for example 1 in 5), and the same odds apply in the galaxy. The growth rate slider runs from 1 to 20 percent a year, and faster growth costs points. <b>5 Economy</b>: seven numbers that say how much one colonist, factory and mine produces, what factories and mines cost and how many a population can run, plus a checkbox that makes factories use 1 kT less Germanium. Better numbers cost points, worse numbers refund them. <b>6 Research</b>: each of the six fields can cost 75 percent extra (refunds points), a standard amount, or 50 percent less (costs points). A checkbox lets every expensive field start at Tech 4, at a price.</p>
                 <p><b style="color:#da70d6;">What a Custom Race Does In This Game</b><br>Every trait is now <b>Active</b> except Alternate Reality, which is still recorded only (its race plays like a normal one). Your habitat ranges and immunities decide which planets are habitable; the growth rate is the most a colony can grow in a year on a perfect world; every number on the Economy tab is used for Resources, factories, mines and their build costs; the Research tab sets what each level costs. Primary traits: <b>Hyper-Expansion</b> doubles growth and halves every planet's capacity and cannot build stargates. <b>Super-Stealth</b> cloaks every ship, widens scanners by 30 percent, passes minefields one warp faster and adds the average research of the other empires to its own each year. <b>War Monger</b> starts with Weapons 5, pays 25 percent less for weapons, moves faster in battle and invades harder, but cannot lay mines and has only basic defenses. <b>Claim Adjuster</b> starts with Biotechnology 6 and terraforms every planet it owns for free each year as far as its tech allows. <b>Inner Strength</b> defends harder, repairs faster, pays 40 percent less for defenses and breeds colonists aboard freighters, but pays 25 percent more for weapons. <b>Space Demolition</b> has all the mine layers, slow-decaying fields that act as scanners and detonation. <b>Packet Physics</b> starts with Energy 4; its packets scan as they fly and may nudge the target planet toward its people's ideal. <b>Interstellar Traveler</b> starts with Propulsion and Construction 5 and a stargate at home, with cheaper, unlimited own gates that carry cargo. <b>Jack of All Trades</b> starts at Tech 3 in every field, holds 20 percent more colonists and has built-in scanners on small hulls. Lesser traits: <b>Improved Fuel Efficiency</b> 15 percent less fuel and Propulsion +1; <b>Total Terraforming</b> terraforming up to 30 percent and 30 percent cheaper; <b>Advanced Remote Mining</b> extra mining hulls; <b>Improved Starbases</b> 20 percent cheaper stations; <b>Generalized Research</b> spreads research; <b>Ultimate Recycling</b> better scrapping; <b>Mineral Alchemy</b> alchemy for 25 Resources; <b>No Ramscoop Engines</b>; <b>Cheap Engines</b> engines half price but a 10 percent chance each year of not engaging above Warp 6; <b>Only Basic Remote Mining</b> +10 percent capacity; <b>No Advanced Scanners</b> double normal ranges, no penetrating scanners; <b>Low Starting Population</b> 17,500 colonists at home; <b>Bleeding Edge Technology</b> changes miniaturization; <b>Regenerating Shields</b> stronger regenerating shields, weaker armor. <b>The six built-in races now have primary traits too:</b> Humanoids are Jack of All Trades, Robotoids Hyper-Expansion, Turindines Super-Stealth, Automitons Inner Strength, Rototills Claim Adjuster and Cybertrons War Monger. Every empire's starting designs are fitted to the tech it starts with: parts it cannot build yet are swapped for ones it can (a Scout without Electronics gets a Bat Scanner), and a design whose hull is out of reach starts obsolete until you research it.</p>
-                <p><b style="color:#da70d6;">Reports and Map Overlays</b><br>Management, <b>Reports</b> has two tables. <b>Planets</b>: every planet you own with colonists, how full it is, habitability, Resources a year, mines, factories, defenses, ore on hand, starbase and stargate, and what it is building. <b>Fleets</b>: every fleet with its location, ships, fuel, cargo, next waypoint, years to get there and task. Click a heading to sort (click again to reverse) and a row to select that planet or fleet. On the map, <b>Scanner Rings</b> (Fleet menu) draws the normal range of every scanner you own, planet or ship, as a faint cyan circle, and the planet-penetrating range as a dashed green circle; turn them off to clear the map. Range Rings show the selected fleet's travel range.</p>
+                <p><b style="color:#da70d6;">Reports and Map Overlays</b><br>Management, <b>Reports</b> has two tables. <b>Planets</b>: every planet you own with colonists, how full it is, habitability, Resources a year, mines, factories, defenses, ore on hand, starbase and stargate, and what it is building. <b>Fleets</b>: every fleet with its location, ships, fuel, cargo, next waypoint, years to get there and task. Click a heading to sort (click again to reverse) and a row to select that planet or fleet. On the map, <b>Scanner Rings</b> (Fleet menu) draws the normal range of every scanner you own, planet, starbase or ship, as a smaller solid olive shape and the planet-penetrating range as a larger solid maroon shape that reaches farther out. Where circles of one kind overlap they fuse into a single smooth solid shape with one outline, so a cluster of colonies shows as one merged region. Turn them off to clear the map. The legend lists both colors. Penetrating range is the longer reach, so maroon extends farther out than the olive inside it. Range Rings show the selected fleet's travel range.</p><p><b style="color:#da70d6;">Measuring Distance</b><br>Open <b>Management, Measure Distance</b> to turn the measuring tool on (the entry then reads Measuring: ON). Click a point on the star map, then click a second point: a dashed gold line joins them and a label shows the straight-line distance in light years. Clicking on a planet snaps to its center and the label then shows both planet names. A third click starts a new measurement. While measuring, clicks on the map do not select planets or fleets or plot courses, and turning on Plot Course Mode switches measuring off. Press Escape or choose Measure Distance again to turn it off and clear the line. The ruler along the bottom and right edges of the map counts light years from 0 at the lower left corner of the view, going right and going up, and can be hidden in Settings, Map Rulers (see The Star Map). To check a trip, the same distance in light years is what the fleet needs: a fleet at Warp 6 covers 36 ly a year.</p>
                 <p><b style="color:#da70d6;">AI Opponents</b><br>The AI Opponents screen lists every rival. Each starts with a pre-generated <b>Empire Name</b> that you can edit (clear it and a fresh name is generated), a race and an intelligence level. Both race and intelligence offer <b>Random</b>, resolved when the galaxy is created. Random picks from the six built-in races; to cast a custom race as a rival, choose it under Custom Races. You can have up to 15 opponents. AI empires play by exactly the same rules as you (see How the AI Empires Play); intelligence changes how they play, not hidden bonuses.</p>
                 <p><b style="color:#da70d6;">How the AI Empires Play</b><br>AI empires are full empires, like yours. Each year, before the year is played out, every AI gives its orders: it chooses research (favoring Propulsion, Construction and Weapons), designs its own ships from the parts it has unlocked (scouts, colony ships, warships and later bombers, replacing a design when better parts arrive), queues scouts, colony ships, warships and orbital stations with docks at grown colonies, and lets Autobuild handle mines, factories and defenses. Its scouts explore unknown stars and come home to refuel, its colony ships settle the best habitable planets they can reach, and its warships gather at home on patrol, then set out to explore and to attack known enemy planets, bombing them when they carry bombs. AI empires fight each other too, unless they are allies. They use the same fuel, research, growth and combat rules as you. Intelligence sets how much research they fund (10 to 30 percent), how soon and how often they build warships and go to war (Novice after about 70 years, Master after about 15), how big a fleet they wait for and how many colonies they aim for. AI empires appear on the map when your scanners see their fleets, and on the Scoreboard with their real planets, ships and technology. Saved games from earlier versions convert their AI rivals into full AI empires with no fleets, starting from their known planets and roughly their old tech level. In multiplayer, a resigned player's empire handed to the AI keeps its planets and fleets and plays on as an AI.</p>
                 <p><b style="color:#da70d6;">The Two Currencies: Resources and Ore</b><br>Nothing is built with one currency alone. <b style="color:#ffa040;">Resources</b> are your industrial labor and factory output. <b style="color:#da70d6;">Ore</b> is the physical matter: <span style="color:#4169e1;">Ironium</span>, <span style="color:#32cd32;">Boranium</span> and <span style="color:#ffd700;">Germanium</span>, dug out of planets by mines. Each has its own icon wherever ore is shown: <span class="ore-ico-iron"></span><span style="color:#4169e1;">Ironium</span> (blue crystal), <span class="ore-ico-bora"></span><span style="color:#32cd32;">Boranium</span> (green crystal) and <span class="ore-ico-germ"></span><span style="color:#ffd700;">Germanium</span> (gold crystal). A queue item that is too big to finish within the forecast shows its percent done and about how many more years it needs. Every hull, factory and ship needs a mix of both. Plenty of Ore but no factories means your queues stall for lack of Resources. Plenty of Resources but a mine running dry of Germanium means your queues stall for lack of Ore. Watch both.</p>
@@ -3438,7 +3455,7 @@
                 <p><b style="color:#da70d6;">What the Panels Show</b><br>The panels only show what you can act on. The Production Queue appears only for a planet your empire has colonized. The Fleets in Orbit panel appears only when one or more of your fleets are in orbit of the selected planet, and it lists just the fleets there. Selecting a planet where you have a fleet selects that fleet. When another fleet of yours is selected and you pick a planet it is not at, the planet panel offers Send Fleet Here.</p>
                 <p><b style="color:#da70d6;">The Planet Menu</b><br>Select one of your planets, then open the Planet menu. <b>Structures</b> appears only on a planet you have colonized. <b>Ship Construction</b> appears only on a planet whose starbase has a ship dock, so a raw colony cannot build ships until it has a space station. <b>Upgrade Space Station</b> appears on a planet orbited by a Space Station or Orbital Fort, and <b>Upgrade Starbase</b> appears on a planet orbited by a Heavy Starbase or Ultra Station. If a planet has none of these, for example a neutral or rival world, the Planet button is hidden entirely.</p>
                 <p><b style="color:#da70d6;">Structures</b><br>Structures queues planetary buildings: Mine (5 Resources), Factory (10 Resources, 4 Germanium), Defense (15 Resources and 5 kT each of Ironium, Boranium and Germanium; its type depends on your Defense tech, see Planetary Defenses) and <b>Mineral Alchemy</b> (100 Resources, or 25 with the Mineral Alchemy trait), which turns Resources into 1 kT each of Ironium, Boranium and Germanium on that planet. These are the standard costs; a custom race can make mines and factories cheaper or dearer, and the list always shows your own prices. On a planet with nothing in orbit it also offers <b>Space Station / Starbase</b>, which opens the Starbase Designer. Once a planet has an orbital installation, or one is already in its queue, that choice disappears: upgrade it from the Planet menu instead. The list also offers Auto Mines, Auto Factories and Auto Defenses (see Auto Items and Repeating Builds).</p>
-                <p><b style="color:#da70d6;">Space Stations and Starbases</b><br>An orbital installation is not a fixed building. It is an immobile ship hull anchored to a planet, and you design it yourself. A planet can have only one at a time: a Space Station and a Starbase never orbit the same world together. In the Starbase Designer pick a hull, then fill its slots with components, name the design and save it. Saved designs can be reused on any planet. Hulls: <b>Orbital Fort</b> (4 slots, no dock, cheap defense) and <b>Space Station</b> (6 slots, has a ship dock, available from the start) are the early, light hulls with a small mass budget, good for refueling, repairs and deterring scouts. <b>Heavy Starbase</b> (10 slots, dock, needs Construction 5) and <b>Ultra Station</b> (16 slots, dock, needs Construction 10) are the late-game fortress hulls with room for heavy armor, several shields and big weapons. Components: <b>Armor Plating</b>, <b>Beam Weapon</b>, <b>Shield Generator</b> (needs Energy 2) and <b>Capital Torpedo</b> (needs Weapons 3). Weapon attack grows 10 percent for each Weapons level above 1. The designer shows armor, shields, attack, slots used, ship dock and the full cost. An installation with a dock unlocks Ship Construction on that planet. Every installation, dock or not, refuels fleets in orbit. Armor, shields and weapons are recorded on the design, but combat is not in the game yet.</p>
+                <p><b style="color:#da70d6;">Space Stations and Starbases</b><br>An orbital installation is not a fixed building. It is an immobile ship hull anchored to a planet, and you design it yourself. A planet can have only one at a time: a Space Station and a Starbase never orbit the same world together. In the Starbase Designer pick a hull, then fill its slots with components, name the design and save it. Saved designs can be reused on any planet. Hulls: <b>Orbital Fort</b> (4 slots, no dock, cheap defense) and <b>Space Station</b> (6 slots, has a ship dock, available from the start) are the early, light hulls with a small mass budget, good for refueling, repairs and deterring scouts. <b>Heavy Starbase</b> (10 slots, dock, needs Construction 5) and <b>Ultra Station</b> (16 slots, dock, needs Construction 10) are the late-game fortress hulls with room for heavy armor, several shields and big weapons. Components: <b>Armor Plating</b>, <b>Beam Weapon</b>, <b>Shield Generator</b> (needs Energy 2), <b>Capital Torpedo</b> (needs Weapons 3) and four scanners that need Electronics: <b>Starbase Scanner</b> (normal 100 ly, Electronics 1), <b>Orbit Scanner</b> (penetrating 80 ly, Electronics 3), <b>Deep Starbase Scanner</b> (normal 250 ly, Electronics 5) and <b>Penetrating Array</b> (penetrating 180 ly, Electronics 7). A starbase has no scanner unless you mount one. Weapon attack grows 10 percent for each Weapons level above 1. The designer shows armor, shields, attack, slots used, ship dock and the full cost. An installation with a dock unlocks Ship Construction on that planet. Every installation, dock or not, refuels fleets in orbit. Armor, shields and weapons are recorded on the design, but combat is not in the game yet.</p>
                 <p><b style="color:#da70d6;">Upgrading a Space Station or Starbase</b><br>You cannot add a component to a built installation, and you cannot stack a second one. There is one orbital slot per planet, so an upgrade is a replacement: pick Upgrade Space Station or Upgrade Starbase from the Planet menu, design a better hull and queue it. The upgrade costs the new design minus half the value of the old installation. The old one keeps working and keeps its dock until the new one is finished, and then it is replaced. If the new design has no dock you will be warned, because the planet would lose Ship Construction. Only one order for an orbital installation can be in the queue on a planet at a time.</p>
                 <p><b style="color:#da70d6;">Ship Construction</b><br>On a planet with a docked installation, Ship Construction queues Scout (12 Resources, 4 Ironium, 2 Germanium), Colony Ship (18 Resources, 10 Ironium, 3 Germanium, and 5,000 colonists taken from the planet when it finishes, so the planet needs 7,500), Small Freighter (12 Resources, 10 Ironium, 3 Germanium) and Destroyer (25 Resources, 15 Ironium, 10 Boranium, 5 Germanium). A finished ship appears as a new fleet in orbit of the planet that built it, with a full fuel tank.</p>
                 <p><b style="color:#da70d6;">The Production Queue</b><br>Nothing is paid when you queue. The queue is one list, worked from the top. Each turn a planet spends its manufacturing Resources on the first item until that item is finished, and whatever is left rolls straight down to the next item in the same turn, so several cheap items can finish in a single turn. An item is finished once its full cost is paid in Resources and in Ore. Resources come from colonists and operating factories; Ore comes from the planet's own stockpile, which its mines fill. If a planet is short of an Ore, the item is paid only as far as the scarcest input allows and then waits, its progress frozen, while the Resources flow on to the next item, until mining catches up. The queue shows a percent complete only for items that take more than one turn.</p>
@@ -3454,7 +3471,7 @@
                 <p><b style="color:#da70d6;">Minimizing Panels on a Desktop</b><br>On a wide screen (900 pixels and up) the boxes beside the star map can be tucked away to give the rest more room. Press the <b>▲</b> in the top right corner of the Galactic Event Log, Fleets in Orbit, Production Queue, Fleet Summary or Planet Summary box. The box disappears and a button with its name appears in the top bar, to the left of End Turn. Press that button to bring the box back. When a whole column of boxes is minimized the star map and the remaining column grow wider; when only some are minimized the boxes still showing grow taller to use the space. The top bar, the bottom bar and the star map cannot be minimized. A tab only shows while its box would normally be on screen: minimize the Production Queue, then pick a planet that is not yours and the tab goes away just as the box does; pick one of your colonies again and the tab comes back, still minimized, ready to open. Your choices are remembered on this device. On a phone or tablet the ▲ does nothing and every box stays where it is.</p>
                 <p><b style="color:#da70d6;">Help and Updates Windows</b><br>Help is sorted into three levels: <b>Basic</b> (start with Absolute Beginner), <b>Advanced</b> and <b>Autistic level</b> (exact numbers and edge cases). Settings, Help and Settings, Updates open the same window with two tabs. Every topic is a collapsible section. The Contents list on the left jumps to a topic and opens it, Expand All and Collapse All open or close everything, and the search box filters the sections to those containing every word you type, opens them and highlights the matches. Clear the box (or press Escape) to see everything again. On a narrow screen the Contents button shows or hides the list. Updates lists every version, newest first, and a new entry is added to it with each release.</p>
 
-                <p><b style="color:#da70d6;">Research</b><br>Choose a field under Management, Research. Six fields each have levels 0 to 26 (every empire starts at 0, some primary traits higher: Jack of All Trades 3 in every field, Super-Stealth Electronics 5, War Monger Weapons 5 with Propulsion and Energy 1, Claim Adjuster Biotechnology 6 with Energy, Weapons and Propulsion 1, Space Demolition Propulsion and Biotechnology 2, Packet Physics Energy 4, Interstellar Traveler Propulsion and Construction 5; Improved Fuel Efficiency adds 1 Propulsion). Costs grow level by level in a Fibonacci-like series (50, 80, 130, 210, 340, 550, 890, 1,440 Resources and so on, slowing down after level 12), and every level also costs <b>10 Resources more for each level you already have in all six fields together</b>, so spreading research thin gets expensive. Slower Tech Advances doubles every cost. A custom race multiplies the cost by 1.75 in a field set to Costs 75% extra and by 0.5 in a field set to Costs 50% less; the screen always shows your real cost. <b>Next Field to Research</b> picks what to study after the current field gains a level: the same field, the lowest field, or a field you name. Any overflow carries into the new field. Research is paid from your research budget <b>plus every Resource that your planets' production queues did not use</b> that year. With the <b>Generalized Research</b> trait half of your research goes to the current field and 15% to each of the six fields (115% in total). Electronics widens your scanner range, Propulsion unlocks better engines, Construction bigger hulls, Energy shields, Weapons weapons. Each level you gain above an item's requirements also makes it cheaper to build (see Miniaturization).</p>
+                <p><b style="color:#da70d6;">Research</b><br>Choose a field under Management, Research. Six fields each have levels 0 to 26 (every empire starts at 0, and the six built-in races never start higher; custom races get their primary trait's start: Jack of All Trades 3 in every field, Super-Stealth Electronics 5, War Monger Weapons 5 with Propulsion and Energy 1, Claim Adjuster Biotechnology 6 with Energy, Weapons and Propulsion 1, Space Demolition Propulsion and Biotechnology 2, Packet Physics Energy 4, Interstellar Traveler Propulsion and Construction 5; Improved Fuel Efficiency adds 1 Propulsion). Costs grow level by level in a Fibonacci-like series (50, 80, 130, 210, 340, 550, 890, 1,440 Resources and so on, slowing down after level 12), and every level also costs <b>10 Resources more for each level you already have in all six fields together</b>, so spreading research thin gets expensive. Slower Tech Advances doubles every cost. A custom race multiplies the cost by 1.75 in a field set to Costs 75% extra and by 0.5 in a field set to Costs 50% less; the screen always shows your real cost. <b>Next Field to Research</b> picks what to study after the current field gains a level: the same field, the lowest field, or a field you name. Any overflow carries into the new field. Research is paid from your research budget <b>plus every Resource that your planets' production queues did not use</b> that year. With the <b>Generalized Research</b> trait half of your research goes to the current field and 15% to each of the six fields (115% in total). Electronics widens your scanner range, Propulsion unlocks better engines, Construction bigger hulls, Energy shields, Weapons weapons. Each level you gain above an item's requirements also makes it cheaper to build (see Miniaturization).</p>
                 <p><b style="color:#da70d6;">Miniaturization</b><br>Every ship hull, ship part, orbital hull and orbital component gets cheaper as your technology passes its requirements. For each level by which you exceed <b>all</b> of an item's requirements its cost drops 4%, up to 75% off. An item that needs Propulsion 3 and Energy 1 is 4% cheaper at Propulsion 4 and Energy 2, and 16% cheaper at Propulsion 7 and Energy 5. With the <b>Bleeding Edge Technology</b> trait an item costs double until you exceed all of its requirements by one level, and then drops 5% per level up to 80% off. Items with no requirements get cheaper with your lowest field. Planetary buildings (mines, factories, defenses) are not affected. The Ship Designer and the build lists show the current price.</p>
                 <p><b style="color:#da70d6;">Population and Growth</b><br>A planet with habitability 100% can hold <b>1,000,000</b> of your colonists; 50% holds 500,000. Any positive habitability below 5% counts as 5% for capacity. Hyper-Expansion races hold half as many, Jack of All Trades races 20% more and Only Basic Remote Mining races 10% more. Each year a colony grows by your race's growth rate times the planet's habitability (a 15% race on a 60% world grows up to 9% a year). Growth slows once a planet is 25% full and stops when it is full. Colonists above capacity work at half rate up to three times capacity, and colonists beyond that do no work at all. An overcrowded planet loses colonists: 4% a year for each full capacity above 100%, at most 12% a year at 400%. A planet with negative habitability loses a tenth of its habitability value in percent every year (habitability -9% kills 0.9% a year), and if the last colonist dies the planet becomes lifeless. The planet summary shows population, capacity, how full the planet is and the yearly growth or loss. Your homeworld starts with 25,000 colonists (17,500 with Low Starting Population).</p>
                 <p><b style="color:#da70d6;">Turn Flow</b><br>Give your orders, then press <b>End Turn</b>. Orders are only plans: nothing happens until the year is played out. A year is played out once every empire has given its orders, and then every empire's orders are carried out <b>at the same time</b>, including those of the AI empires. The year runs in this order: (1) the AI empires add their orders; (2) colonists ordered to land with the Colonize button land, before anything moves; (3) ships and armed starbases sweep enemy minefields, then every fleet of every empire moves along its waypoints at the same time, burning fuel and risking minefields; (4) waypoint tasks run for fleets that arrived (load, unload, colonize), and colony ships that reached the same planet in the same year compete for it; (5) mines are laid, remote mining and terraforming ships work, fleets are repaired and refuelled; (6) the calendar moves on one year, mineral packets fly, battles are fought, bombs fall, troops land and detonated minefields explode; (7) every empire's planets build, mine and grow, random events roll and research advances; (8) minefields decay and victory conditions are checked. Then each empire gets its own Year Report.</p>
@@ -3463,7 +3480,7 @@
                 <p><b style="color:#da70d6;">Your Own View of the Galaxy</b><br>Each empire keeps its own record of what it has seen. The planets you have scanned, your survey dates, your fleets, your technology, your research, your budget, your starbase designs and your Galactic Event Log belong to your empire alone. In a game with more than one human, another player's scans never reveal anything to you, and their worlds show as rival worlds (red) once your own scanners find them. Your Galactic Event Log is private too: it lists only what happened to you, plus battles your scanners detected. Every empire hears about the Mystery Trader, a player joining late and a player resigning.</p>
                 <p><b style="color:#da70d6;">Random Events</b><br>Unless No Random Events is ticked, each year there is a small chance that something happens to one of your planets: a <b>mineral strike</b> raises the concentration of one mineral, a <b>population boom</b> adds colonists, a <b>plague</b> kills some of them, or a <b>salvage find</b> drops a cache of Ore on the planet. Events appear in the Galactic Event Log and the turn report.</p>
                 <p><b style="color:#da70d6;">Your Starting Fleet</b><br>You begin with a Long Range Scout in orbit of your homeworld: a Scout hull with a Quick Jump 5 engine, a Rhino Scanner (50 ly) and a fuel tank, 300 mg of fuel in all. Its job is to map the nearby stars. Your homeworld starts with a Basic Space Station that has a ship dock. Colony ships, freighters and warships are built there.</p>
-                <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. You can zoom in 15 times closer than before (up to 60 times the full-galaxy scale), enough to fill the map with one star and its neighbors. Planets stop growing at a set size when you zoom in far, and planet names stay the same readable size at every zoom; change the size or hide them in Settings, Planet Names on Map. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Every empire in the game, AI empires included, is given its own random color when the game begins. An empire's planets, planet names, fleets and fleet names are drawn in its color, and the empire name at the bottom right uses yours. Planets nobody owns show habitability: blue is habitable, dark red hostile, grey not scanned yet; a gold center means a ship dock. Planets have no outline. The planet or fleet you selected last is marked by a slowly pulsing, glowing gold outline: a ring around the planet, or a glow around the fleet's arrow. Select a planet and the ring appears on it; click a fleet (on the map, in Fleets in Orbit, in the Fleet Summary or in the fleet drop-down) and the glow moves to that fleet. Only one of the two glows at a time, and the glow follows the map while you pan and zoom. The legend in the lower left lists your empire and every empire you have met, each in its color, and adds more columns when it gets long.</p>
+                <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. You can zoom in 15 times closer than before (up to 60 times the full-galaxy scale), enough to fill the map with one star and its neighbors. Planets stop growing at a set size when you zoom in far, and planet names stay the same readable size at every zoom; change the size or hide them in Settings, Planet Names on Map. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Every empire in the game, AI empires included, is given its own random color when the game begins. An empire's planets, planet names, fleets and fleet names are drawn in its color, and the empire name at the bottom right uses yours. Planets nobody owns show habitability: blue is habitable, dark red hostile, grey not scanned yet; a gold center means a ship dock. Planets have no outline. The planet or fleet you selected last is marked by a slowly pulsing, glowing gold outline: a ring around the planet, or a glow around the fleet's arrow. Select a planet and the ring appears on it; click a fleet (on the map, in Fleets in Orbit, in the Fleet Summary or in the fleet drop-down) and the glow moves to that fleet. Only one of the two glows at a time, and the glow follows the map while you pan and zoom. The legend in the lower left lists your empire and every empire you have met, each in its color, and adds more columns when it gets long. <b>Rulers:</b> a ruler runs along the bottom and the right edge of the star map and measures distance in light years from the corner of the visible map. The bottom ruler starts at 0 in the lower left and counts going right; the right ruler starts at 0 just above the bottom ruler and counts going up. Small ticks mark fifths of each numbered step. The numbered step changes as you zoom so the labels stay readable; zoomed in far enough it is 1 ly with ticks every 0.2 ly. The rulers always count from the edge you are looking at, so they are a distance scale and not map coordinates. <b>Map display settings:</b> in Settings, <b>Map Rulers</b> hides or shows both rulers, <b>Map Legend</b> hides or shows the legend in the lower left, and <b>Fleet Names on Map</b> opens a slider for the size of fleet names (0 hides them; they still only appear when you are zoomed in enough). Planet names have their own slider. Your choices are remembered on this device.</p>
                 <p><b style="color:#da70d6;">Playing on a Phone or Tablet</b><br>On a narrow screen the Star Map sits at the top of the dashboard and the planet, fleet and queue panels scroll underneath it. Drag with one finger to pan, pinch with two fingers to zoom around the point between your fingers, and tap a star or fleet to select it. A touch screen has no Shift key, so to plot a course turn on Fleet, Plot Course Mode (or the Plot button in the Fleets in Orbit panel) and tap stars or empty space on the map to add waypoints. The map resizes when you turn the device. The Race Wizard also fits a phone: its tabs scroll sideways and the Point Ledger is hidden, but the Advantage Points counter stays in view.</p>
                 <p><b style="color:#da70d6;">Fleets on the Map</b><br>Every group of ships is a fleet. Your fleets are arrowheads in your empire color with their name beside them. A fleet in orbit slowly circles its planet; several fleets share the orbit, evenly spaced. A fleet in deep space sits where it is. Pick a fleet in the Fleets in Orbit panel, in the Fleet Roster, or by clicking its arrow on the map. A fleet with orders shows a line to each waypoint, a numbered box at each stop with its travel time in years, and the current warp next to its name. A dashed orange leg means you do not have the fuel to finish that leg. When a fleet is selected, dashed rings show how far it moves in one year: green for its free speed, amber for the warp of its first waypoint. Toggle the rings with Fleet, Range Rings.</p>
                 <p><b style="color:#da70d6;">The Fleet Menu and Fleet Actions</b><br>The Fleet menu always offers Manage Waypoints, Plot Course Mode and Range Rings. Below them the menu adds actions that only make sense where you are. Select a planet that has one of your fleets in orbit and the matching actions appear: <b>Colonize Planet</b> on a neutral world when a fleet there has a Colony Ship, <b>Cargo and Transfer</b> on one of your planets when a fleet there can carry cargo, <b>Merge Fleets Here</b> and <b>Fleet Transfer</b> when two or more of your fleets share the orbit, and <b>Orbital Bombardment</b> and <b>Ground Invasion</b> at a rival homeworld. With no fleet in orbit of the selected planet, these actions are not shown.</p>
@@ -3482,7 +3499,7 @@
                 <p><b style="color:#da70d6;">Scrapping</b><br>Fleet, Manage Ships and Names can scrap ticked ships anywhere, and a fleet can also be scrapped with the Scrap Fleet waypoint task. At a planet with a starbase 80 percent of the minerals used to build the ships are left on the planet (90 percent with Ultimate Recycling), at a planet without a starbase 33 percent (45 percent), and in deep space nothing is recovered. Cargo of a fleet scrapped at a planet is unloaded there. A colony ship that founds a colony also leaves 75 percent of its minerals on the new world, and if it was the last ship of its fleet, the fleet's ore cargo too. A fleet in deep space can <b>Jettison Cargo</b> from the route window.</p>
                 <p><b style="color:#da70d6;">Cargo and Transfer</b><br>Fleet, Cargo and Transfer appears when your selected planet is one of yours and a fleet that can carry cargo is in orbit there. Enter a positive number to load from the planet onto the fleet and a negative number to unload. Ore is in kT. Colonists move in single colonists, at 100 colonists per kT of cargo, and a planet always keeps at least 1,000. A fleet can carry no more than the combined capacity of its ships: Colony Ship 50 kT, Small Freighter 70 kT. Scouts and Destroyers carry nothing.</p>
                 <p><b style="color:#da70d6;">Merging Fleets</b><br>Fleet, Merge Fleets Here joins every one of your fleets in the same orbit as the selected fleet into one, adding their ships, cargo and fuel and clearing the route. It only appears when at least two of your fleets are in orbit of the selected planet.</p>
-                <p><b style="color:#da70d6;">Scanning and Discovery</b><br>Star locations are always visible, but what is on them is not. There are two kinds of scanner. <b>Normal scanners</b> see fleets in deep space and show who owns a world and whether it has a starbase, but they cannot see into a planet: fleets in orbit of a planet are hidden from them (except at your own planets), and they do not tell you a planet's ore deposits or habitability. <b>Planet-penetrating scanners</b> see fleets in orbit and read a planet's ore, concentrations and habitability from a distance. A planet is surveyed (its details known) when one of your ships orbits it or it is inside your penetrating range. Every planet you own scans with the best planetary scanner your tech allows: Viewer 50 (no tech), Viewer 90 (Electronics 1), Scoper 150 (Electronics 3), Scoper 220 (Electronics 6), Scoper 280 (Electronics 8), and the penetrating Snooper 320X, 400X, 500X and 620X (penetrating range 160, 200, 250 and 310 ly) with Energy, Electronics and Biotechnology. Ship scanners with a penetrating range: Chameleon 45, Ferret 50, Dolphin 100, Robber Baron 120 and Elephant 200 ly. Several scanners on one ship combine: the range is the fourth root of the sum of each range to the fourth power, so two 100 ly scanners and one 60 ly scanner give 120 ly (the same for penetrating ranges). A fleet uses the ranges of its best ship. Jack of All Trades races get a built-in scanner on Scouts, Frigates and Destroyers (20 ly per Electronics level). Races with No Advanced Scanners double every normal range but get no penetrating scanners. Space Demolition races use their own minefields as normal scanners that see fleets inside the field but not fleets in orbit; against them a cloak is a straight chance not to be seen (a 90 percent cloak is seen 10 percent of the time). Out-of-range planets keep their last survey data, marked with the year it was taken.</p>
+                <p><b style="color:#da70d6;">Scanning and Discovery</b><br>Star locations are always visible, but what is on them is not. There are two kinds of scanner, and each has its own job. <b>Normal scanners</b> (drawn as the smaller solid olive shape) find worlds and watch space. The moment a normal scanner range sweeps over a world, or one of your ships orbits it, that world is discovered: its size, ore deposits and concentrations, habitability, owner and starbase become known and the survey year is stamped. A world that no normal scanner range has ever covered stays unknown. Normal scanners also show every uncloaked fleet in range, in deep space or in orbit. A cloaked fleet in deep space is only seen inside the cloak-reduced range, and a cloaked fleet in orbit is invisible to normal scanners (except from a fleet or planet at the same spot). <b>Planet-penetrating scanners</b> (drawn as the larger solid maroon shape that reaches farther out, with the olive inside it) do not find worlds. Their job is to strip cloaks: every fleet inside the penetrating range is seen at full range whatever its cloak, in orbit or in deep space, and a close scan shows its armor, weapons and cargo space. Where scanner ranges overlap, the map merges them into one smooth solid shape per kind instead of drawing every circle. <b>Where scanners come from.</b> Every planet you own scans with the best planetary scanner your tech allows. A new built-in race starts at Electronics 0, so its homeworld scans 50 ly: Viewer 50 (no tech: normal 50 ly), Scoper 150 (Electronics 3: normal 50, penetrating 150), Scoper 220 (Electronics 6: normal 90, penetrating 220), Scoper 280 (Electronics 8: normal 150, penetrating 280), and the Snooper 320X, 400X, 500X and 620X (normal range 160, 200, 250 and 310 ly, penetrating range 320, 400, 500 and 620 ly) with Energy, Electronics and Biotechnology. The planetary penetrating range is the large maroon circle on the map and the normal range is the smaller olive circle on top of it. <b>A Space Station or Starbase has no scanner of its own.</b> You must put scanner components in its slots in the Starbase Designer (Starbase Scanner, Deep Starbase Scanner, Orbit Scanner, Penetrating Array); a design without one adds no range, and the planet keeps only its planetary scanner. Starbase scanners combine with the planetary scanner on that world. Ship scanners with a penetrating range (normal / penetrating): Chameleon 45 / 160, Ferret 50 / 185, Dolphin 100 / 220, Robber Baron 120 / 220 and Elephant 200 / 300 ly. Penetrating range is always the longer one. Several scanners on one ship or world combine: the range is the fourth root of the sum of each range to the fourth power, so two 100 ly scanners and one 60 ly scanner give 120 ly (the same for penetrating ranges). A fleet uses the ranges of its best ship. Jack of All Trades races get a free built-in scanner on Scouts, Frigates and Destroyers (20 ly per Electronics level), used only when the design has no scanner part of its own; with a scanner part such as the Rhino the part's range is the ship's range, so the starting Long Range Scout always scans 50 ly. Races with No Advanced Scanners double every normal range but get no penetrating scanners. Space Demolition races use their own minefields as normal scanners that see fleets inside the field but not fleets in orbit; against them a cloak is a straight chance not to be seen (a 90 percent cloak is seen 10 percent of the time). Out-of-range worlds keep their last survey data, marked with the year it was taken.</p>
                 <p><b style="color:#da70d6;">Habitability</b><br>Each planet has gravity, temperature and radiation. The shaded band on each bar is the range your race tolerates and the marker is the planet. A planet with every value inside the band is habitable, and the closer to center the better. Any value outside the band makes the planet hostile. A factor your race is immune to counts as perfect everywhere, and its band fills the whole bar. Maximum population is habitability percent of 100,000, changed by your race's population traits (Hyper-Expansion halves it, Jack of All Trades adds 20 percent, Only Basic Remote Mining adds 10 percent).</p>
                 <p><b style="color:#da70d6;">Colonizing</b><br>Build a Colony Ship (the planet needs a ship dock and at least 7,500 colonists), fly it to a neutral planet and use the Colonize task on the waypoint, or Fleet, Colonize Planet once it is in orbit (an order carried out at the start of next year). The ship is used up, its colonists (up to 5,000) found the colony and 75 percent of its minerals are left on the planet. If colony ships of two empires land on the same planet in the same year, the larger colony wins. A colony can be founded on a hostile planet (you are warned first), but its colonists slowly die off. Unsurveyed planets cannot be colonized until your ship in orbit has surveyed them, which happens as it arrives. A new colony makes a few Resources a year: queue a factory or mine first, and give it a Space Station with a dock before it can build ships. See Population and Growth for how colonies grow.</p>
                 <p><b style="color:#da70d6;">Advanced Options</b><br>On the New Game screen, Advanced Options opens a box where you can add any of these to the game. <b>Beginner: Maximum Minerals</b> gives every homeworld 100 percent mineral concentrations and every other world at least 50 percent. <b>Slower Tech Advances</b> doubles the cost of every research level. <b>Accelerated BBS Play</b> speeds up the opening: you begin with an extra loaded Colony Ship and a Small Freighter at your homeworld, and AI empires start with 50 percent more banked Resources. <b>No Random Events</b> turns off random events. <b>AI Opponents can form alliances</b> lets rivals team up over time; allied rivals each earn 10 percent more. <b>Public Player Scores</b> (on by default) shows every empire's score on the Scoreboard; turn it off to hide rival scores. <b>Galaxy clumping</b> gathers stars into tight clusters with empty space between them; off spreads the stars out in long webs. Neighbor distances stay inside the Star Density range either way. <b>Mines need colonists (classic operating limit)</b> is off to start with, and then every mine works while its planet has any colonist; ticked, only a limited number of mines can operate per 10,000 colonists, like factories.</p>
@@ -3921,6 +3938,9 @@
         let panelFleetId = null;
         let nextFleetId = 1;
         let plotMode = false;
+        let measureMode = false;
+        let measureA = null;
+        let measureB = null;
         let showRangeRings = true;
         let showScanRings = true;
         let warnMissingOrders = true;
@@ -3930,7 +3950,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.67.0';
+        const GAME_VERSION = '0.76.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -3959,14 +3979,13 @@
         const WARP10_LOSS = 0.1;
         const PLANET_SCANNERS = [
             { name: 'Viewer 50', req: [0, 0, 0, 0, 0, 0], range: 50 },
-            { name: 'Viewer 90', req: [0, 0, 0, 0, 1, 0], range: 90 },
-            { name: 'Scoper 150', req: [0, 0, 0, 0, 3, 0], range: 150 },
-            { name: 'Scoper 220', req: [0, 0, 0, 0, 6, 0], range: 220 },
-            { name: 'Scoper 280', req: [0, 0, 0, 0, 8, 0], range: 280 },
-            { name: 'Snooper 320X', req: [3, 0, 0, 0, 10, 3], range: 320, pen: 160 },
-            { name: 'Snooper 400X', req: [4, 0, 0, 0, 13, 6], range: 400, pen: 200 },
-            { name: 'Snooper 500X', req: [5, 0, 0, 0, 16, 7], range: 500, pen: 250 },
-            { name: 'Snooper 620X', req: [7, 0, 0, 0, 23, 9], range: 620, pen: 310 }
+            { name: 'Scoper 150', req: [0, 0, 0, 0, 3, 0], range: 50, pen: 150 },
+            { name: 'Scoper 220', req: [0, 0, 0, 0, 6, 0], range: 90, pen: 220 },
+            { name: 'Scoper 280', req: [0, 0, 0, 0, 8, 0], range: 150, pen: 280 },
+            { name: 'Snooper 320X', req: [3, 0, 0, 0, 10, 3], range: 160, pen: 320 },
+            { name: 'Snooper 400X', req: [4, 0, 0, 0, 13, 6], range: 200, pen: 400 },
+            { name: 'Snooper 500X', req: [5, 0, 0, 0, 16, 7], range: 250, pen: 500 },
+            { name: 'Snooper 620X', req: [7, 0, 0, 0, 23, 9], range: 310, pen: 620 }
         ];
 
         const PARTS = {};
@@ -4085,20 +4104,20 @@
         definePartM('superlatanium', 'Superlatanium', 'armor', [0, 0, 0, 24, 0, 0], 30, [100, 25, 0, 0], { armor: 1500 });
 
         definePartM('batscanner', 'Bat Scanner', 'scanner', [0, 0, 0, 0, 0, 0], 2, [1, 1, 0, 1], { range: 0, ships: true, detect: 0 });
-        definePartM('deepspace', 'Rhino Scanner', 'scanner', [0, 0, 0, 0, 1, 0], 5, [3, 3, 0, 2], { range: 50, ships: true, detect: 0 });
+        definePartM('deepspace', 'Rhino Scanner', 'scanner', [0, 0, 0, 0, 0, 0], 5, [3, 3, 0, 2], { range: 50, ships: true, detect: 0 });
         definePartM('planetscanner', 'Mole Scanner', 'scanner', [0, 0, 0, 0, 4, 0], 2, [9, 2, 0, 2], { range: 100, ships: true, detect: 0 });
         definePartM('dnascanner', 'DNA Scanner', 'scanner', [0, 0, 3, 0, 0, 6], 2, [5, 1, 1, 1], { range: 125, ships: true, detect: 0 });
         definePartM('neutrino', 'Possum Scanner', 'scanner', [0, 0, 0, 0, 5, 0], 3, [18, 3, 0, 3], { range: 150, ships: true, detect: 0 });
         definePartM('pickpocket', 'Pick Pocket Scanner', 'scanner', [4, 0, 0, 0, 4, 4], 15, [35, 8, 10, 6], { range: 80, ships: true, detect: 0, robber: true, prt: 'SS' });
-        definePartM('chameleon', 'Chameleon Scanner', 'scanner', [3, 0, 0, 0, 6, 0], 6, [25, 4, 6, 4], { range: 160, ships: true, detect: 0, pen: 45, xCloak: 40, prt: 'SS' });
-        definePartM('ferret', 'Ferret Scanner', 'scanner', [3, 0, 0, 0, 7, 2], 2, [36, 2, 0, 8], { range: 185, ships: true, detect: 0, pen: 50 });
-        definePartM('dolphin', 'Dolphin Scanner', 'scanner', [5, 0, 0, 0, 10, 4], 4, [40, 5, 5, 10], { range: 220, ships: true, detect: 0, pen: 100 });
+        definePartM('chameleon', 'Chameleon Scanner', 'scanner', [3, 0, 0, 0, 6, 0], 6, [25, 4, 6, 4], { range: 45, ships: true, detect: 0, pen: 160, xCloak: 40, prt: 'SS' });
+        definePartM('ferret', 'Ferret Scanner', 'scanner', [3, 0, 0, 0, 7, 2], 2, [36, 2, 0, 8], { range: 50, ships: true, detect: 0, pen: 185 });
+        definePartM('dolphin', 'Dolphin Scanner', 'scanner', [5, 0, 0, 0, 10, 4], 4, [40, 5, 5, 10], { range: 100, ships: true, detect: 0, pen: 220 });
         definePartM('gazelle', 'Gazelle Scanner', 'scanner', [4, 0, 0, 0, 8, 0], 5, [24, 4, 0, 5], { range: 225, ships: true, detect: 0 });
         definePartM('rnascanner', 'RNA Scanner', 'scanner', [0, 0, 5, 0, 0, 10], 2, [20, 1, 1, 2], { range: 230, ships: true, detect: 0 });
         definePartM('cheetah', 'Cheetah Scanner', 'scanner', [5, 0, 0, 0, 11, 0], 4, [50, 3, 1, 13], { range: 275, ships: true, detect: 0 });
-        definePartM('elephantscanner', 'Elephant Scanner', 'scanner', [6, 0, 0, 0, 16, 7], 6, [70, 8, 5, 14], { range: 300, ships: true, detect: 0, pen: 200 });
+        definePartM('elephantscanner', 'Elephant Scanner', 'scanner', [6, 0, 0, 0, 16, 7], 6, [70, 8, 5, 14], { range: 200, ships: true, detect: 0, pen: 300 });
         definePartM('quantum', 'Eagle Eye Scanner', 'scanner', [6, 0, 0, 0, 14, 0], 3, [64, 3, 2, 21], { range: 335, ships: true, detect: 0 });
-        definePartM('robberbaron', 'Robber Baron Scanner', 'scanner', [10, 0, 0, 0, 15, 10], 20, [90, 10, 10, 10], { range: 220, ships: true, detect: 0, pen: 120, robber: true, prt: 'SS' });
+        definePartM('robberbaron', 'Robber Baron Scanner', 'scanner', [10, 0, 0, 0, 15, 10], 20, [90, 10, 10, 10], { range: 120, ships: true, detect: 0, pen: 220, robber: true, prt: 'SS' });
         definePartM('peerless', 'Peerless Scanner', 'scanner', [7, 0, 0, 0, 24, 0], 4, [90, 3, 2, 30], { range: 500, ships: true, detect: 0 });
 
         definePartM('transportcloak', 'Transport Cloaking', 'cloak', [0, 0, 0, 0, 0, 0], 1, [3, 2, 0, 2], { cloak: 300, unarmedOnly: true, prt: 'SS' });
@@ -4336,7 +4355,11 @@ const DEFENDERS_PER_POP=100;
             armor: { label: 'Armor Plating', field: 'construction', level: 1, cost: { res: 4, iron: 2, bora: 0, germ: 0 }, armor: 80 },
             beam: { label: 'Beam Weapon', field: 'weapons', level: 1, cost: { res: 7, iron: 1, bora: 3, germ: 0 }, beam: 30 },
             shield: { label: 'Shield Generator', field: 'energy', level: 2, cost: { res: 6, iron: 1, bora: 2, germ: 1 }, shield: 60 },
-            torpedo: { label: 'Capital Torpedo', field: 'weapons', level: 3, cost: { res: 10, iron: 3, bora: 5, germ: 0 }, torpedo: 55 }
+            torpedo: { label: 'Capital Torpedo', field: 'weapons', level: 3, cost: { res: 10, iron: 3, bora: 5, germ: 0 }, torpedo: 55 },
+            sbscan1: { label: 'Starbase Scanner (normal 100 ly)', field: 'electronics', level: 1, cost: { res: 5, iron: 1, bora: 0, germ: 2 }, scan: 100 },
+            sbscan2: { label: 'Deep Starbase Scanner (normal 250 ly)', field: 'electronics', level: 5, cost: { res: 12, iron: 2, bora: 1, germ: 5 }, scan: 250 },
+            sbpen1: { label: 'Orbit Scanner (penetrating 160 ly)', field: 'electronics', level: 3, cost: { res: 9, iron: 2, bora: 1, germ: 4 }, pen: 160 },
+            sbpen2: { label: 'Penetrating Array (penetrating 360 ly)', field: 'electronics', level: 7, cost: { res: 18, iron: 3, bora: 3, germ: 8 }, pen: 360 }
         };
         const TASK_LABELS = {
             none: 'No task',
@@ -4468,16 +4491,22 @@ const DEFENDERS_PER_POP=100;
         function designStats(d) {
             const h = HULLS[d.hull];
             const wm = 1 + (techWeapons - 1) * 0.1;
-            const st = { armor: h.armor, shield: 0, beam: 0, torpedo: 0, dock: h.dock, used: 0, slots: h.slots };
+            const st = { armor: h.armor, shield: 0, beam: 0, torpedo: 0, dock: h.dock, used: 0, slots: h.slots, scan: 0, pen: 0 };
+            let scan4 = 0;
+            let pen4 = 0;
             d.slots.forEach(s => {
                 const c = COMPONENTS[s];
                 if (!c) return;
                 st.used++;
+                if (c.scan) scan4 += Math.pow(c.scan, 4);
+                if (c.pen) pen4 += Math.pow(c.pen, 4);
                 if (c.armor) st.armor += c.armor;
                 if (c.shield) st.shield += c.shield;
                 if (c.beam) st.beam += Math.round(c.beam * wm);
                 if (c.torpedo) st.torpedo += Math.round(c.torpedo * wm);
             });
+            st.scan = Math.round(Math.pow(scan4, 0.25));
+            st.pen = Math.round(Math.pow(pen4, 0.25));
             return st;
         }
 
@@ -5341,6 +5370,7 @@ const DEFENDERS_PER_POP=100;
             TECH_KEYS.forEach(k => { out[k] = 1; });
             const d = raceDefOf(id);
             if (!d) return out;
+            if (!isCustomRaceId(id)) return out;
             const at = (k, v) => { out[k] = Math.max(out[k], v + 1); };
             if (d.prt === 'JOAT') TECH_KEYS.forEach(k => at(k, 3));
             if (d.prt === 'SS') at('electronics', 5);
@@ -7291,6 +7321,24 @@ const DEFENDERS_PER_POP=100;
             return Math.round(planetScannerFor().range * raceScannerMult(playerRace));
         }
 
+        function combineScan(a, b) {
+            return Math.round(Math.pow(Math.pow(a || 0, 4) + Math.pow(b || 0, 4), 0.25));
+        }
+
+        function starbaseScanFor(p) {
+            if (!p.hasStarbase || !p.starbase || !HULLS[p.starbase.hull]) return { range: 0, pen: 0 };
+            let scan4 = 0;
+            let pen4 = 0;
+            (p.starbase.slots || []).forEach(key => {
+                const c = COMPONENTS[key];
+                if (!c) return;
+                if (c.scan) scan4 += Math.pow(c.scan, 4);
+                if (c.pen) pen4 += Math.pow(c.pen, 4);
+            });
+            const nas = raceHasLrt(playerRace, 'NAS');
+            return { range: Math.round(Math.pow(scan4, 0.25)) * (nas ? 2 : 1), pen: nas ? 0 : Math.round(Math.pow(pen4, 0.25)) };
+        }
+
         function getScannerSources() {
             const sources = [];
             const planetRange = getScannerRange();
@@ -7302,7 +7350,9 @@ const DEFENDERS_PER_POP=100;
             });
             const planetPen = Math.round(planetScannerFor().pen * mult);
             planets.forEach(p => {
-                if (p.owner === myEmpireId) sources.push({ x: p.x, y: p.y, range: planetRange, pen: planetPen, ships: true, detect: 0 });
+                if (p.owner !== myEmpireId) return;
+                const sb = starbaseScanFor(p);
+                sources.push({ x: p.x, y: p.y, range: combineScan(planetRange, Math.round(sb.range * mult)), pen: combineScan(planetPen, Math.round(sb.pen * mult)), ships: true, detect: 0 });
             });
             ppPacketSources().forEach(x => sources.push(x));
             if (raceHasPrt(playerRace, 'SD')) {
@@ -7335,9 +7385,13 @@ const DEFENDERS_PER_POP=100;
                     const seen = sources.some(sc => {
                         const d = Math.hypot(sc.x - f.x, sc.y - f.y);
                         if (sc.mine) return !orbiting && d <= sc.range && detectionRoll(f) >= cloak / 100;
+                        if ((sc.pen || 0) > 0 && d <= sc.pen) return true;
+                        if (orbiting) {
+                            if (d <= 0.5) return true;
+                            if (cloak > 0) return false;
+                            return d <= sc.range;
+                        }
                         const eff = cloak * Math.pow(TACHYON_FACTOR, Math.sqrt(sc.detect || 0));
-                        if ((sc.pen || 0) > 0 && d <= sc.pen * (1 - eff / 100)) return true;
-                        if (orbiting && d > 0.5) return false;
                         return d <= sc.range * (1 - eff / 100);
                     });
                     if (seen) out.push({ f: f, e: e, cloak: cloak });
@@ -7389,17 +7443,13 @@ const DEFENDERS_PER_POP=100;
                     p.lastScan = yearNow();
                     return;
                 }
-                const normal = scanCovered(p, sources.filter(x => !x.mine));
-                if (penCovered(p, sources) || orbitedByFleet(p)) {
+                if (scanCovered(p, sources.filter(x => !x.mine)) || orbitedByFleet(p)) {
                     if (!p.explored) {
                         if (p.owner === 'neutral') newWorlds.push(p); else newRivals.push(p);
                     }
                     p.explored = true;
                     p.revealed = true;
                     p.lastScan = yearNow();
-                } else if (normal && !p.revealed) {
-                    p.revealed = true;
-                    if (p.owner !== 'neutral') newRivals.push(p);
                 }
             });
             const holes = discoverWormholes(sources);
@@ -8362,6 +8412,15 @@ const DEFENDERS_PER_POP=100;
         const PLANET_NAME_SIZE_DEFAULT = 10;
         const PLANET_NAME_SIZE_MAX = 24;
         let planetNameSize = PLANET_NAME_SIZE_DEFAULT;
+        let fleetNameSize = PLANET_NAME_SIZE_DEFAULT;
+        let showMapRulers = true;
+        let showMapLegend = true;
+        try {
+            const storedFleetSize = parseInt(localStorage.getItem('fs4x-fleet-name-size'), 10);
+            if (!isNaN(storedFleetSize)) fleetNameSize = Math.max(0, Math.min(PLANET_NAME_SIZE_MAX, storedFleetSize));
+            showMapRulers = localStorage.getItem('fs4x-map-rulers') !== 'off';
+            showMapLegend = localStorage.getItem('fs4x-map-legend') !== 'off';
+        } catch (err) { }
         try {
             const storedNameSize = parseInt(localStorage.getItem('fs4x-planet-name-size'), 10);
             if (!isNaN(storedNameSize)) planetNameSize = Math.max(0, Math.min(PLANET_NAME_SIZE_MAX, storedNameSize));
@@ -8941,9 +9000,10 @@ const DEFENDERS_PER_POP=100;
             'minefield-modal': 'btn-mf-close',
             'doc-modal': 'doc-close',
             'transparency-modal': 'btn-tr-close',
-            'names-modal': 'btn-pn-close'
+            'names-modal': 'btn-pn-close',
+            'fnames-modal': 'btn-fn-close'
         };
-        const POPUP_KEEP_DASHBOARD = ['transparency-modal', 'names-modal'];
+        const POPUP_KEEP_DASHBOARD = ['transparency-modal', 'names-modal', 'fnames-modal'];
         const POPUP_VIEW_CLOSE_BUTTONS = { 'view-research': 'btn-close-research', 'view-economy': 'btn-close-economy' };
 
         function syncPopupBackdrop() {
@@ -9288,6 +9348,7 @@ const DEFENDERS_PER_POP=100;
             const st = designStats(sbDraft);
             const cost = designCost(sbDraft);
             let html = `Armor <b>${st.armor}</b> | Shields <b>${st.shield}</b> | Beam attack <b>${st.beam}</b> | Torpedo attack <b>${st.torpedo}</b><br>` +
+                `Scanner: <b>${st.scan > 0 ? st.scan + ' ly normal' : 'none'}</b> | Penetrating: <b>${st.pen > 0 ? st.pen + ' ly' : 'none'}</b><br>` +
                 `Slots used ${st.used} of ${st.slots} | Ship dock: <b style="color:${st.dock ? '#32cd32' : '#ff8c00'};">${st.dock ? 'Yes, can build ships' : 'No'}</b><br>` +
                 `Design cost: ${costTextFor(cost)}`;
             if (sbMode === 'upgrade') {
@@ -9444,7 +9505,37 @@ const DEFENDERS_PER_POP=100;
             document.getElementById('starbase-modal').classList.remove('active');
         });
 
+        function syncMeasureUi() {
+            document.getElementById('btn-mgmt-measure').innerText = measureMode ? '📏 Measuring: ON' : '📏 Measure Distance';
+            mapCanvas.classList.toggle('measuring', measureMode);
+        }
+
+        function setMeasureMode(on) {
+            measureMode = on;
+            if (!on) {
+                measureA = null;
+                measureB = null;
+            }
+            if (on && plotMode) {
+                plotMode = false;
+                refreshPlotButtons();
+            }
+            syncMeasureUi();
+            drawGalaxyMap();
+        }
+
+        document.getElementById('btn-mgmt-measure').addEventListener('click', () => setMeasureMode(!measureMode));
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && measureMode && !dialogActive) setMeasureMode(false);
+        });
+
         function refreshPlotButtons() {
+            if (plotMode && measureMode) {
+                measureMode = false;
+                measureA = null;
+                measureB = null;
+                syncMeasureUi();
+            }
             document.getElementById('btn-toggle-plot').innerText = '📍 Plot Course Mode: ' + (plotMode ? 'ON' : 'OFF');
             document.getElementById('btn-plot-panel').innerText = '📍 Plot: ' + (plotMode ? 'ON' : 'OFF');
             const fsPlot = document.getElementById('fs-plot');
@@ -10081,7 +10172,6 @@ const DEFENDERS_PER_POP=100;
             const nas = raceHasLrt(raceId || playerRace, 'NAS');
             let best = PLANET_SCANNERS[0];
             PLANET_SCANNERS.forEach(sc => {
-                if (nas && sc.pen) return;
                 const req = manualReq(sc.req);
                 if (Object.keys(req).every(k => (lv[k] || 1) >= req[k])) best = sc;
             });
@@ -10229,7 +10319,7 @@ const DEFENDERS_PER_POP=100;
                     else info.layers.push({ type: 'standard', rate: c.xLay });
                 }
             });
-            if (raceHasPrt(playerRace, 'JOAT') && ['scout', 'frigate', 'destroyer'].indexOf(d.hull) !== -1) {
+            if (raceHasPrt(playerRace, 'JOAT') && scan4 === 0 && ['scout', 'frigate', 'destroyer'].indexOf(d.hull) !== -1) {
                 scan4 += Math.pow(20 * shownLevel(techElectronics), 4);
                 info.hasScanner = true;
                 info.scanShips = true;
@@ -10611,7 +10701,7 @@ const DEFENDERS_PER_POP=100;
                 html += '<optgroup label="' + CAT_NAMES[cat] + '">' + list.map(c => {
                     const ok = shipPartUnlocked(c.key);
                     return '<option value="' + c.key + '"' + (current === c.key ? ' selected' : '') + (ok || current === c.key ? '' : ' disabled') + '>' +
-                        escapeHtml(c.name) + ' (' + c.mass + ' kT' + (ok ? '' : (c.trader ? ', Mystery Trader reward only' : ', needs ' + partReqText(c))) + ')</option>';
+                        escapeHtml(c.name) + ' (' + c.mass + ' kT' + (cat === 'scanner' ? ', normal ' + c.range + ' ly' + (c.pen ? ', penetrating ' + c.pen + ' ly' : ', no penetrating') : '') + (ok ? '' : (c.trader ? ', Mystery Trader reward only' : ', needs ' + partReqText(c))) + ')</option>';
                 }).join('') + '</optgroup>';
             });
             return html;
@@ -10679,7 +10769,7 @@ const DEFENDERS_PER_POP=100;
             hullSel.disabled = inUse;
             document.getElementById('sd-lock').innerHTML = inUse
                 ? 'Ships of this design exist or are queued, so its hull and parts are locked. You can rename it, make it obsolete, or press Save As New to make a changed copy.'
-                : 'Pick a part for each slot. Slot types: Engine, Weapon, Shield/Armor, Mechanical, Electrical, General (anything except engines).';
+                : 'Pick a part for each slot. Slot types: Engine, Weapon, Shield/Armor, Mechanical, Electrical, General (anything except engines). Scanner entries show their normal and penetrating range.';
             const code = SHIP_HULLS[sdDraft.hull].slots;
             document.getElementById('sd-slots').innerHTML = code.split('').map((c, i) => {
                 const cur = sdDraft.slots[i] || '';
@@ -13118,6 +13208,60 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.76.0', d: 'Oct 3, 2026 11:31 PM', t: "Planet Scanners Have Both Ranges", items: [
+                "Fixed: a race that starts with Electronics 3 showed only one olive circle of 150 ly around its planets. The Scoper planet scanners are now penetrating scanners: Scoper 150 gives a maroon penetrating circle of 150 ly with an olive normal circle of 50 ly on top of it.",
+                "New planet scanner table: Viewer 50 (normal 50), Scoper 150 at Electronics 3 (normal 50, penetrating 150), Scoper 220 at Electronics 6 (normal 90, penetrating 220), Scoper 280 at Electronics 8 (normal 150, penetrating 280), then the Snoopers (normal 160 to 310, penetrating 320 to 620). The old Viewer 90 at Electronics 1 is gone, so normal range stays 50 ly until Electronics 3.",
+                "Races with No Advanced Scanners still have no penetrating range; they get the normal range of the same scanner doubled.",
+                "Fixed: since built-in races now start at Tech 0, the starting Long Range Scout had been given a Bat Scanner (about 0 ly) because the Rhino Scanner needed Electronics 1. The Rhino Scanner now needs no Electronics, so the starting scout scans 50 ly again.",
+                "Help: Scanning and Discovery updated."
+            ] },
+            { v: '0.75.0', d: 'Oct 3, 2026 11:02 PM', t: "Penetrating Range Is the Long One", items: [
+                "Correction: planet-penetrating scanners now reach farther than normal scanners, and normal scanners are the shorter range that finds worlds. On the map the smaller olive shape is normal range and the larger maroon shape is penetrating range, with the olive drawn inside the maroon. This undoes the color swap of 0.74.0 and matches your description.",
+                "Normal range surveys worlds (size, ore, habitability, owner, starbase). Penetrating range only watches fleets and strips cloaks; it never discovers worlds. That rule was already in place; the numbers behind it were the wrong way round.",
+                "To make that true, the five ship scanners that have both ranges swapped their numbers: Chameleon normal 45, penetrating 160; Ferret 50 and 185; Dolphin 100 and 220; Elephant 200 and 300; Robber Baron 120 and 220. Planet Snoopers now have normal 160, 200, 250 and 310 and penetrating 320, 400, 500 and 620 (named for their penetrating reach). The Orbit Scanner (starbase) is penetrating 160 ly and the Penetrating Array 360 ly.",
+                "Scanners with only one range, such as the Rhino (50 ly), the Viewers and Scopers and the other ship scanners, are normal-only and keep their numbers.",
+                "Help: Scanning and Discovery and Reports and Map Overlays updated."
+            ] },
+            { v: '0.74.0', d: 'Oct 3, 2026 10:41 PM', t: "Scanner Colors: Olive Inside Maroon", items: [
+                "The scanner shapes now look like the Stars! picture: the long-range normal scanner shape is drawn first as a large maroon area, and the smaller penetrating scanner shape is drawn on top of it in olive, so olive areas sit inside the maroon ones. Before, the large normal range was olive and the small penetrating range was maroon on top, so the olive extended out where you expected the maroon.",
+                "Both shapes are more solid than before. Planets and stars are drawn on top of them.",
+                "The legend now says Normal scanner range (outer, maroon) and Penetrating scanner range (inner, olive).",
+                "Help: Scanning and Discovery and Reports and Map Overlays updated."
+            ] },
+            { v: '0.73.0', d: 'Oct 3, 2026 10:25 PM', t: "Map Display Settings and Distance Rulers", items: [
+                "Settings has three new buttons: Map Rulers (ON or OFF) hides or shows the rulers on the bottom and right of the star map, Map Legend (ON or OFF) hides or shows the legend in the lower left, and Fleet Names on Map opens a slider that makes fleet names larger or smaller, or hides them at 0. Your choices are remembered on this device.",
+                "The rulers now measure distance, not position. The bottom ruler starts at 0 in the left corner and counts light years going right. The right ruler starts at 0 above the bottom ruler and counts light years going up. Zoom in far enough and the steps are 1 ly, with small ticks every 0.2 ly.",
+                "Help: The Star Map and Measuring Distance updated."
+            ] },
+            { v: '0.72.0', d: 'Oct 3, 2026 10:09 PM', t: "Built-in Races Start at Tech 0", items: [
+                "The six built-in races (Humanoids, Robotoids, Turindines, Automitons, Rototills, Cybertrons) now start with every tech field at 0. Humanoids no longer begin with Electronics 3 and a 150 ly planet scanner; their homeworld scans 50 ly (Viewer 50) like everyone else.",
+                "Custom races keep the starting tech of their primary trait (for example Jack of All Trades Tech 3, War Monger Weapons 5).",
+                "Games already in progress keep the tech they have. Only new games and late joiners are affected.",
+                "Help: Research and Scanning and Discovery updated."
+            ] },
+            { v: '0.71.0', d: 'Oct 3, 2026 10:02 PM', t: "Starting Scout Scans 50 ly", items: [
+                "The starting Long Range Scout now scans exactly 50 ly (its Rhino Scanner) for every race. Jack of All Trades races, including the Humanoids, used to add their built-in scanner on top and got 66 ly. The built-in scanner now only applies to a Scout, Frigate or Destroyer design that carries no scanner part.",
+                "The large ring around your homeworld at the start is the planet's own scanner (Scoper 150 at Electronics 3), not the scout's.",
+                "Help: Scanning and Discovery updated."
+            ] },
+            { v: '0.70.0', d: 'Oct 3, 2026 9:58 PM', t: "Measuring Tool and Map Rulers", items: [
+                "New Management, Measure Distance: click it, then click two points on the star map to draw a dashed line and read the distance in light years. Clicking a planet snaps to it and names both planets. A third click starts over. Escape or the same menu entry turns it off.",
+                "The star map now has a ruler along the bottom (X position) and the right side (Y position) in light years, with numbered steps that adapt to your zoom and finer ticks between them. The map legend moved up to make room.",
+                "Help: new entry Measuring Distance; The Star Map updated."
+            ] },
+            { v: '0.69.0', d: 'Oct 3, 2026 10:05 PM', t: "Scanner Colors and Designer Ranges", items: [
+                "Normal scanner range is now drawn as a solid olive shape, and penetrating range as a smaller solid maroon shape on top. Overlapping circles still fuse into one smooth shape. The map legend shows the new colors.",
+                "Ship Designer drop-down lists now show every scanner's normal range and penetrating range next to its mass, so scanners can be compared without picking each one.",
+                "Help: Ship Designer, Scanning and Discovery and Reports and Map Overlays updated."
+            ] },
+            { v: '0.68.0', d: 'Oct 3, 2026 9:37 PM', t: "Scanners Rebuilt to Follow Stars!", items: [
+                "Normal scanners now discover worlds: a world is surveyed (size, ore, habitability, owner, starbase) the moment a normal scanner range sweeps over it or a ship orbits it. Planet-penetrating scanners no longer find or survey worlds by themselves.",
+                "Normal scanners now see every uncloaked fleet in range, including fleets sitting in orbit. Cloaked fleets in deep space are seen only inside the cloak-reduced range, and cloaked fleets in orbit are hidden from normal scanners.",
+                "Planet-penetrating scanners pierce cloaks: any fleet inside the penetrating range is seen at full range, in orbit or in deep space, whatever its cloak.",
+                "Starbases and stations have no scanner of their own. The Starbase Designer gained four scanner components: Starbase Scanner (normal 100 ly), Orbit Scanner (penetrating 80 ly), Deep Starbase Scanner (normal 250 ly) and Penetrating Array (penetrating 180 ly). They combine with the planet's scanner by the fourth-root rule and show on the design's stats.",
+                "Scanner Rings are now maroon for normal range and olive for penetrating range, and overlapping circles of one kind fuse into one smooth solid shape with a single rounded outline. The map legend shows both colors.",
+                "Help: Scanning and Discovery, Cloaking and Scanners, Reports and Map Overlays and Space Stations and Starbases rewritten."
+            ] },
             { v: '0.67.0', d: 'Oct 3, 2026 9:13 PM', t: "Far Zoom and Planet Name Size", items: [
                 "The star map now zooms in 15 times closer than before (up to 60 times the full-galaxy scale; the old limit was 4 times). Scroll or pinch as before.",
                 "Planets stop growing once they reach a set size on screen, and clicking a planet uses a capped hit area, so zoomed-in stars stay easy to read and select.",
@@ -14756,7 +14900,23 @@ const DEFENDERS_PER_POP=100;
             drawGalaxyMap();
         });
 
+        function measureTap(clickX, clickY) {
+            const hit = findPlanetAt(clickX, clickY);
+            const pt = hit !== -1 ? { x: planets[hit].x, y: planets[hit].y, name: planets[hit].name } : screenToWorld(clickX, clickY);
+            if (!measureA || measureB) {
+                measureA = pt;
+                measureB = null;
+            } else {
+                measureB = pt;
+            }
+            drawGalaxyMap();
+        }
+
         function handleMapTap(clickX, clickY, shift) {
+            if (measureMode) {
+                measureTap(clickX, clickY);
+                return;
+            }
             const planetHit = findPlanetAt(clickX, clickY);
             if (plotMode || shift) {
                 const fh = findFleetAt(clickX, clickY);
@@ -15034,9 +15194,9 @@ const DEFENDERS_PER_POP=100;
                 ctx.fill();
                 ctx.stroke();
                 ctx.restore();
-                if (mapScale >= 0.6) {
+                if (fleetNameSize > 0 && mapScale >= 0.6) {
                     ctx.fillStyle = fc;
-                    ctx.font = '10px Segoe UI';
+                    ctx.font = fleetNameSize + 'px Segoe UI';
                     ctx.fillText(v.f.name || 'Fleet', sp.x + 16, sp.y - 6);
                 }
             });
@@ -15052,9 +15212,9 @@ const DEFENDERS_PER_POP=100;
                     angle = Math.atan2(t.y - origin.y, t.x - origin.x);
                 }
                 drawFleetIcon(mapCtx, pos.x, pos.y, angle, isSel && mapSelKind === 'fleet', myColor);
-                if (isSel || mapScale >= 0.7) {
+                if (fleetNameSize > 0 && (isSel || mapScale >= 0.7)) {
                     ctx.fillStyle = isSel ? '#ffffff' : myColor;
-                    ctx.font = '10px Segoe UI';
+                    ctx.font = fleetNameSize + 'px Segoe UI';
                     ctx.fillText(f.name + (f.waypoints.length ? ' (Warp ' + f.waypoints[0].warp + ')' : ''), pos.x + 10, pos.y + 4);
                 }
             });
@@ -15085,6 +15245,277 @@ const DEFENDERS_PER_POP=100;
             return !!p && p.revealed !== false;
         }
 
+        let scanFusionCache = { key: '', normal: null, pen: null };
+
+        function fuseCircles(circles) {
+            const path = new Path2D();
+            const list = circles.filter(c => c.r >= 1).filter((c, i, arr) => !arr.some((o, j) => j !== i && (o.r > c.r || (o.r === c.r && j < i)) && Math.hypot(o.x - c.x, o.y - c.y) + c.r <= o.r));
+            const parent = list.map((c, i) => i);
+            const find = i => { while (parent[i] !== i) { parent[i] = parent[parent[i]]; i = parent[i]; } return i; };
+            for (let i = 0; i < list.length; i++) {
+                for (let j = i + 1; j < list.length; j++) {
+                    const a = list[i];
+                    const b = list[j];
+                    if (Math.hypot(a.x - b.x, a.y - b.y) <= a.r + b.r + 0.25 * Math.min(a.r, b.r)) parent[find(i)] = find(j);
+                }
+            }
+            const groups = {};
+            list.forEach((c, i) => { (groups[find(i)] = groups[find(i)] || []).push(c); });
+            Object.keys(groups).forEach(key => {
+                const g = groups[key];
+                if (g.length === 1) {
+                    path.moveTo(g[0].x + g[0].r, g[0].y);
+                    path.arc(g[0].x, g[0].y, g[0].r, 0, Math.PI * 2);
+                    return;
+                }
+                const meanR = g.reduce((m, c) => m + c.r, 0) / g.length;
+                const k = 0.2 * meanR;
+                let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+                g.forEach(c => {
+                    x0 = Math.min(x0, c.x - c.r);
+                    y0 = Math.min(y0, c.y - c.r);
+                    x1 = Math.max(x1, c.x + c.r);
+                    y1 = Math.max(y1, c.y + c.r);
+                });
+                const span = Math.max(x1 - x0, y1 - y0);
+                const cell = span / 150;
+                const margin = k + 3 * cell;
+                x0 -= margin;
+                y0 -= margin;
+                const W = Math.ceil((x1 - x0 + margin) / cell) + 1;
+                const H = Math.ceil((y1 - y0 + margin) / cell) + 1;
+                const field = (px, py) => {
+                    let f = -Infinity;
+                    for (let n = 0; n < g.length; n++) {
+                        const v = g[n].r - Math.hypot(px - g[n].x, py - g[n].y);
+                        if (f === -Infinity) { f = v; continue; }
+                        const h = Math.max(k - Math.abs(f - v), 0) / k;
+                        f = Math.max(f, v) + h * h * k / 4;
+                    }
+                    return f;
+                };
+                const val = new Float32Array(W * H);
+                for (let j = 0; j < H; j++) {
+                    for (let i = 0; i < W; i++) val[j * W + i] = field(x0 + i * cell, y0 + j * cell);
+                }
+                const pts = {};
+                const edgePoint = (id, i, j, horiz) => {
+                    if (pts[id]) return;
+                    const v0 = val[j * W + i];
+                    const v1 = horiz ? val[j * W + i + 1] : val[(j + 1) * W + i];
+                    const t = v0 / (v0 - v1);
+                    pts[id] = horiz ? [x0 + (i + t) * cell, y0 + j * cell] : [x0 + i * cell, y0 + (j + t) * cell];
+                };
+                const adj = {};
+                const link = (a, b) => {
+                    (adj[a] = adj[a] || []).push(b);
+                    (adj[b] = adj[b] || []).push(a);
+                };
+                for (let j = 0; j < H - 1; j++) {
+                    for (let i = 0; i < W - 1; i++) {
+                        const a = val[j * W + i] > 0;
+                        const b = val[j * W + i + 1] > 0;
+                        const c = val[(j + 1) * W + i + 1] > 0;
+                        const d = val[(j + 1) * W + i] > 0;
+                        const idx = (a ? 1 : 0) | (b ? 2 : 0) | (c ? 4 : 0) | (d ? 8 : 0);
+                        if (idx === 0 || idx === 15) continue;
+                        const top = (j * W + i) * 2;
+                        const left = (j * W + i) * 2 + 1;
+                        const right = (j * W + i + 1) * 2 + 1;
+                        const bottom = ((j + 1) * W + i) * 2;
+                        edgePoint(top, i, j, true);
+                        edgePoint(left, i, j, false);
+                        edgePoint(right, i + 1, j, false);
+                        edgePoint(bottom, i, j + 1, true);
+                        const segs = {
+                            1: [[left, top]], 2: [[top, right]], 3: [[left, right]], 4: [[right, bottom]],
+                            6: [[top, bottom]], 7: [[left, bottom]], 8: [[left, bottom]], 9: [[top, bottom]],
+                            11: [[right, bottom]], 12: [[left, right]], 13: [[top, right]], 14: [[left, top]]
+                        };
+                        let list2 = segs[idx];
+                        if (idx === 5 || idx === 10) {
+                            const centerIn = (val[j * W + i] + val[j * W + i + 1] + val[(j + 1) * W + i + 1] + val[(j + 1) * W + i]) > 0;
+                            const split = (idx === 5) === centerIn;
+                            list2 = split ? [[top, right], [left, bottom]] : [[left, top], [right, bottom]];
+                        }
+                        list2.forEach(sg => link(sg[0], sg[1]));
+                    }
+                }
+                const seen = {};
+                Object.keys(adj).forEach(startKey => {
+                    const start = parseInt(startKey);
+                    if (seen[start] || adj[start].length !== 2) return;
+                    const loop = [];
+                    let prev = -1;
+                    let cur = start;
+                    let guard = 0;
+                    while (!seen[cur] && guard++ < 200000) {
+                        seen[cur] = true;
+                        loop.push(pts[cur]);
+                        const nb = adj[cur];
+                        const next = nb[0] !== prev && !seen[nb[0]] ? nb[0] : (nb[1] !== prev && !seen[nb[1]] ? nb[1] : -1);
+                        if (next < 0) break;
+                        prev = cur;
+                        cur = next;
+                    }
+                    if (loop.length < 3) return;
+                    path.moveTo(loop[0][0], loop[0][1]);
+                    for (let q = 1; q < loop.length; q++) path.lineTo(loop[q][0], loop[q][1]);
+                    path.closePath();
+                });
+            });
+            return path;
+        }
+
+        function drawScannerFusion(halfDim) {
+            const sources = getScannerSources().filter(src => !src.mine);
+            const sig = n => sources.map(src => Math.round(src.x) + ',' + Math.round(src.y) + ',' + Math.round(src[n] || 0)).sort().join(';');
+            const key = halfDim + '|' + sig('range') + '|' + sig('pen');
+            if (scanFusionCache.key !== key) {
+                const make = n => fuseCircles(sources.filter(src => (src[n] || 0) >= 1).map(src => ({ x: src.x - halfDim, y: src.y - halfDim, r: src[n] })));
+                scanFusionCache = { key: key, normal: make('range'), pen: make('pen') };
+            }
+            mapCtx.save();
+            mapCtx.lineJoin = 'round';
+            mapCtx.lineWidth = 1.6 / mapScale;
+            mapCtx.fillStyle = 'rgba(128, 20, 20, 0.85)';
+            mapCtx.strokeStyle = 'rgba(190, 56, 56, 1)';
+            mapCtx.fill(scanFusionCache.pen, 'evenodd');
+            mapCtx.stroke(scanFusionCache.pen);
+            mapCtx.fillStyle = 'rgba(110, 110, 20, 0.9)';
+            mapCtx.strokeStyle = 'rgba(160, 160, 40, 1)';
+            mapCtx.fill(scanFusionCache.normal, 'evenodd');
+            mapCtx.stroke(scanFusionCache.normal);
+            mapCtx.restore();
+        }
+
+        function rulerStep(pxPerLy, minPx) {
+            const raw = minPx / pxPerLy;
+            const pow = Math.pow(10, Math.floor(Math.log10(raw)));
+            const mults = [1, 2, 5, 10];
+            for (let i = 0; i < mults.length; i++) if (mults[i] * pow >= raw) return mults[i] * pow;
+            return 10 * pow;
+        }
+
+        function formatRulerValue(v, step) {
+            const decimals = step >= 1 ? 0 : Math.ceil(-Math.log10(step));
+            return v.toFixed(decimals);
+        }
+
+        function drawMapRulers() {
+            if (!showMapRulers) return;
+            const w = mapCanvas.width;
+            const h = mapCanvas.height;
+            const bandH = 20;
+            const bandW = 46;
+            const ctx = mapCtx;
+            ctx.save();
+            ctx.fillStyle = 'rgba(8, 10, 18, 0.9)';
+            ctx.fillRect(0, h - bandH, w, bandH);
+            ctx.fillRect(w - bandW, 0, bandW, h);
+            ctx.strokeStyle = 'rgba(218, 112, 214, 0.7)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, h - bandH + 0.5);
+            ctx.lineTo(w - bandW, h - bandH + 0.5);
+            ctx.moveTo(w - bandW + 0.5, 0);
+            ctx.lineTo(w - bandW + 0.5, h - bandH);
+            ctx.stroke();
+            const step = rulerStep(mapScale, 50);
+            const minor = step / 5;
+            const spanX = (w - bandW) / mapScale;
+            const spanY = (h - bandH) / mapScale;
+            ctx.font = '10px Segoe UI';
+            ctx.fillStyle = '#c8c8d8';
+            ctx.strokeStyle = '#9a9ab0';
+            ctx.beginPath();
+            for (let k = 0; k * minor <= spanX && k < 3000; k++) {
+                const sx = Math.round(k * minor * mapScale) + 0.5;
+                ctx.moveTo(sx, h - bandH);
+                ctx.lineTo(sx, h - bandH + (k % 5 === 0 ? 7 : 3));
+            }
+            ctx.stroke();
+            for (let k = 0; k * step <= spanX && k < 600; k++) {
+                const sx = k * step * mapScale;
+                if (k === 0) {
+                    ctx.textAlign = 'left';
+                    ctx.fillText('0', 3, h - 3);
+                    continue;
+                }
+                if (sx > w - bandW - 14) continue;
+                ctx.textAlign = 'center';
+                ctx.fillText(formatRulerValue(k * step, step), sx, h - 3);
+            }
+            ctx.beginPath();
+            for (let k = 0; k * minor <= spanY && k < 3000; k++) {
+                const sy = Math.round(h - bandH - k * minor * mapScale) + 0.5;
+                ctx.moveTo(w - bandW, sy);
+                ctx.lineTo(w - bandW + (k % 5 === 0 ? 7 : 3), sy);
+            }
+            ctx.stroke();
+            ctx.textAlign = 'left';
+            for (let k = 0; k * step <= spanY && k < 600; k++) {
+                const sy = h - bandH - k * step * mapScale;
+                if (k === 0) {
+                    ctx.fillText('0', w - bandW + 10, sy - 4);
+                    continue;
+                }
+                if (sy < 8) continue;
+                ctx.fillText(formatRulerValue(k * step, step), w - bandW + 10, sy + 3);
+            }
+            ctx.fillStyle = '#ffd700';
+            ctx.textAlign = 'center';
+            ctx.fillText('ly', w - bandW / 2, h - 6);
+            ctx.restore();
+        }
+
+        function drawMeasureLayer() {
+            if (!measureMode || !measureA) return;
+            const ctx = mapCtx;
+            const a = worldToScreen(measureA.x, measureA.y);
+            const marker = (p) => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 6, 0, Math.PI * 2);
+                ctx.moveTo(p.x - 10, p.y);
+                ctx.lineTo(p.x + 10, p.y);
+                ctx.moveTo(p.x, p.y - 10);
+                ctx.lineTo(p.x, p.y + 10);
+                ctx.stroke();
+            };
+            ctx.save();
+            ctx.lineWidth = 1.6;
+            ctx.strokeStyle = '#ffd700';
+            marker(a);
+            let text = 'Click the second point';
+            let mid = { x: a.x, y: a.y - 18 };
+            if (measureB) {
+                const b = worldToScreen(measureB.x, measureB.y);
+                ctx.setLineDash([7, 5]);
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                marker(b);
+                const dist = Math.hypot(measureB.x - measureA.x, measureB.y - measureA.y);
+                text = (measureA.name && measureB.name ? measureA.name + ' to ' + measureB.name + ': ' : '') + dist.toFixed(1) + ' ly';
+                mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 - 14 };
+            }
+            ctx.font = 'bold 12px Segoe UI';
+            const tw = ctx.measureText(text).width;
+            const lx = Math.max(4, Math.min(mid.x - tw / 2, mapCanvas.width - (showMapRulers ? 46 : 0) - tw - 14));
+            const ly = Math.max(16, Math.min(mid.y, mapCanvas.height - (showMapRulers ? 20 : 0) - 14));
+            ctx.fillStyle = 'rgba(10, 12, 24, 0.88)';
+            ctx.fillRect(lx - 5, ly - 13, tw + 10, 19);
+            ctx.strokeStyle = '#ffd700';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(lx - 5, ly - 13, tw + 10, 19);
+            ctx.fillStyle = '#ffd700';
+            ctx.textAlign = 'left';
+            ctx.fillText(text, lx, ly + 1);
+            ctx.restore();
+        }
+
         function drawGalaxyMap() {
             if (!mapCtx) return;
             mapCtx.clearRect(0, 0, mapCanvas.width, mapCanvas.height);
@@ -15101,25 +15532,7 @@ const DEFENDERS_PER_POP=100;
             const range = getScannerRange();
 
             mapCtx.lineWidth = 1 / mapScale;
-            if (showScanRings) {
-                getScannerSources().forEach(src => {
-                    if (src.mine) return;
-                    if (src.range > 0) {
-                        mapCtx.strokeStyle = 'rgba(0, 255, 255, 0.16)';
-                        mapCtx.beginPath();
-                        mapCtx.arc(src.x - halfDim, src.y - halfDim, src.range, 0, Math.PI * 2);
-                        mapCtx.stroke();
-                    }
-                    if (src.pen > 0) {
-                        mapCtx.strokeStyle = 'rgba(120, 255, 120, 0.22)';
-                        mapCtx.setLineDash([6 / mapScale, 6 / mapScale]);
-                        mapCtx.beginPath();
-                        mapCtx.arc(src.x - halfDim, src.y - halfDim, src.pen, 0, Math.PI * 2);
-                        mapCtx.stroke();
-                        mapCtx.setLineDash([]);
-                    }
-                });
-            }
+            if (showScanRings) drawScannerFusion(halfDim);
 
             planets.forEach((p, index) => {
                 if (p.revealed === false) return;
@@ -15153,22 +15566,24 @@ const DEFENDERS_PER_POP=100;
             drawTraderLayer();
             drawFleetLayer();
 
-            const legend = [[empireColor(myEmpireId), empireName + ' (you)']];
-            empires.forEach(e => {
+            const legend = showMapLegend ? [[empireColor(myEmpireId), empireName + ' (you)']] : [];
+            if (showMapLegend) empires.forEach(e => {
                 if (e.id === myEmpireId || e.mpGone) return;
                 const met = planets.some(p => p.owner === e.id && p.revealed !== false) || (lastForeignDrawn || []).some(v => v.e === e);
                 if (met) legend.push([empireColor(e.id), e.name]);
             });
-            legend.push(['#ffd700', 'Station or starbase with ship dock'], ['#4fc3f7', 'Habitable'], ['#8b3a3a', 'Hostile'], ['#888888', 'Unscanned']);
+            if (showMapLegend) legend.push(['#ffd700', 'Station or starbase with ship dock'], ['#4fc3f7', 'Habitable'], ['#8b3a3a', 'Hostile'], ['#888888', 'Unscanned']);
+            if (showMapLegend && showScanRings) legend.push(['#8c8c26', 'Normal scanner range (inner, olive)'], ['#be3838', 'Penetrating scanner range (outer, maroon)']);
             mapCtx.font = '11px Segoe UI';
-            const rowsFit = Math.max(4, Math.floor((mapCanvas.height - 12) / 15));
-            const rowsPerCol = Math.min(legend.length, rowsFit);
+            const legendBottom = showMapRulers ? 30 : 10;
+            const rowsFit = Math.max(4, Math.floor((mapCanvas.height - legendBottom - 2) / 15));
+            const rowsPerCol = Math.max(1, Math.min(legend.length, rowsFit));
             const colWidth = legend.reduce((m, item) => Math.max(m, mapCtx.measureText(item[1]).width), 0) + 34;
             legend.forEach((item, i) => {
                 const col = Math.floor(i / rowsPerCol);
                 const row = i % rowsPerCol;
                 const x = 14 + col * colWidth;
-                const y = mapCanvas.height - 10 - (rowsPerCol - 1 - row) * 15;
+                const y = mapCanvas.height - legendBottom - (rowsPerCol - 1 - row) * 15;
                 mapCtx.beginPath();
                 mapCtx.arc(x, y, 4, 0, Math.PI * 2);
                 mapCtx.fillStyle = item[0];
@@ -15176,6 +15591,8 @@ const DEFENDERS_PER_POP=100;
                 mapCtx.fillStyle = '#b0b0c0';
                 mapCtx.fillText(item[1], x + 10, y + 4);
             });
+            drawMeasureLayer();
+            drawMapRulers();
         }
 
         setTimeout(resizeMapCanvas, 100);
@@ -15549,8 +15966,8 @@ const DEFENDERS_PER_POP=100;
             const msgEl = document.getElementById('summary-unexplored-msg');
             if (!known) {
                 msgEl.style.display = 'block';
-                msgEl.innerText = `System unexplored. Nearest scanner is ${Math.round(scanDist)} ly away. Ore deposits and habitability are only known once one of your ships orbits this world or a planet-penetrating scanner covers it.`;
-            } else if (p.owner !== myEmpireId && !penCovered(p) && !orbitedByFleet(p)) {
+                msgEl.innerText = `System unexplored. Nearest scanner is ${Math.round(scanDist)} ly away. Ore deposits and habitability are only known once one of your ships orbits this world or a normal scanner range sweeps over it.`;
+            } else if (p.owner !== myEmpireId && !scanCovered(p, getScannerSources().filter(x => !x.mine)) && !orbitedByFleet(p)) {
                 msgEl.style.display = 'block';
                 msgEl.innerText = `Survey data from year ${p.lastScan || currentYear}. Out of scanner range; current values may differ.`;
             } else {
@@ -16761,6 +17178,54 @@ const DEFENDERS_PER_POP=100;
             savePlanetNameSize();
         });
         applyPlanetNameSize();
+
+        function applyFleetNameSize() {
+            fleetNameSize = Math.max(0, Math.min(PLANET_NAME_SIZE_MAX, Math.round(fleetNameSize)));
+            document.getElementById('fn-slider').value = fleetNameSize;
+            document.getElementById('fn-value').innerText = fleetNameSize === 0 ? 'Hidden' : fleetNameSize + ' px';
+            document.getElementById('btn-fleet-names').innerText = fleetNameSize === 0 ? '🔡 Fleet Names on Map: Hidden' : '🔡 Fleet Names on Map: ' + fleetNameSize + ' px';
+            if (dashboardActive()) drawGalaxyMap();
+        }
+
+        function saveFleetNameSize() {
+            try { localStorage.setItem('fs4x-fleet-name-size', String(fleetNameSize)); } catch (err) { }
+        }
+
+        document.getElementById('btn-fleet-names').addEventListener('click', () => {
+            document.getElementById('fnames-modal').classList.add('active');
+        });
+        document.getElementById('btn-fn-close').addEventListener('click', () => {
+            document.getElementById('fnames-modal').classList.remove('active');
+        });
+        document.getElementById('btn-fn-reset').addEventListener('click', () => {
+            fleetNameSize = PLANET_NAME_SIZE_DEFAULT;
+            applyFleetNameSize();
+            saveFleetNameSize();
+        });
+        document.getElementById('fn-slider').addEventListener('input', (e) => {
+            fleetNameSize = parseInt(e.target.value, 10);
+            applyFleetNameSize();
+            saveFleetNameSize();
+        });
+        applyFleetNameSize();
+
+        function applyMapToggles() {
+            document.getElementById('btn-toggle-rulers').innerText = '📏 Map Rulers: ' + (showMapRulers ? 'ON' : 'OFF');
+            document.getElementById('btn-toggle-legend').innerText = '🗺 Map Legend: ' + (showMapLegend ? 'ON' : 'OFF');
+            if (dashboardActive()) drawGalaxyMap();
+        }
+
+        document.getElementById('btn-toggle-rulers').addEventListener('click', () => {
+            showMapRulers = !showMapRulers;
+            try { localStorage.setItem('fs4x-map-rulers', showMapRulers ? 'on' : 'off'); } catch (err) { }
+            applyMapToggles();
+        });
+        document.getElementById('btn-toggle-legend').addEventListener('click', () => {
+            showMapLegend = !showMapLegend;
+            try { localStorage.setItem('fs4x-map-legend', showMapLegend ? 'on' : 'off'); } catch (err) { }
+            applyMapToggles();
+        });
+        applyMapToggles();
 
         function syncWarnOrdersButton() {
             document.getElementById('btn-warn-orders').innerText = '⚠ Missing-Order Warning: ' + (warnMissingOrders ? 'ON' : 'OFF');
