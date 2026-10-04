@@ -2177,7 +2177,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.59.0 (Updated: October 03, 2026 03:33 PM)</div>
+            <div class="version-text">Version 0.64.0 (Updated: October 03, 2026 07:30 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -2599,6 +2599,7 @@
                 <button class="tool-icon" id="btn-fleet-toggle" style="background-color: rgba(26, 42, 58, var(--pa)); border-color: #00ffff; color: #00ffff;">🚀 Fleet ▼</button>
                 <div class="dropdown-content">
                     <button class="tool-icon" id="btn-fleet-movement" style="color: #00ffff;">🗺️ Manage Waypoints</button>
+                    <button class="tool-icon" id="btn-fleet-task-here" style="color: #ffa500;">⚙ Do Task Here (No Move)</button>
                     <button class="tool-icon" id="btn-toggle-plot" style="color: #00ffff;">📍 Plot Course Mode: OFF</button>
                     <button class="tool-icon" id="btn-toggle-rings" style="color: #00ffff;">◎ Range Rings: ON</button>
                     <button class="tool-icon" id="btn-toggle-scan" style="color: #78ff78;">📡 Scanner Rings: ON</button>
@@ -2633,6 +2634,7 @@
                     <button class="tool-icon" id="btn-warn-orders" style="color: #ffa500;">⚠ Missing-Order Warning: ON</button>
                     <button class="tool-icon" id="btn-year-email" style="color: #ffd700;">📧 Year Summary Emails: OFF</button>
                     <button class="tool-icon" id="btn-invite-late" style="color: #32cd32; display: none;">✉ Invite to Game</button>
+                    <button class="tool-icon" id="btn-skip-turns" style="color: #ff9966; display: none;">⏭ Skip My Turns: OFF</button>
                     <button class="tool-icon" id="btn-transparency" style="color: #88e0ff;">🪟 Panel Transparency</button>
                     <button class="tool-icon" id="btn-auto-export" style="color: #00ffff;">📤 Export Automation</button>
                     <button class="tool-icon" id="btn-auto-import" style="color: #32cd32;">📥 Import Automation</button>
@@ -3242,6 +3244,17 @@
         </div>
     </div>
 
+    <div id="taskhere-modal" class="modal-overlay" style="z-index: 1150;">
+        <div class="modal-content" style="max-width: 560px;">
+            <h2 class="screen-header" style="color: #ffa500;">⚙ Do a Task Here</h2>
+            <div id="th-body"></div>
+            <div style="display: flex; gap: 10px; margin-top: 16px;">
+                <button class="nav-button btn-primary" id="btn-th-apply">Give Order</button>
+                <button class="nav-button" id="btn-th-close">Close</button>
+            </div>
+        </div>
+    </div>
+
     <div id="reports-modal" class="modal-overlay" style="z-index: 1150;">
         <div class="modal-content" style="max-width: 1000px;">
             <h2 class="screen-header" style="color: #00ffff;">📑 Reports</h2>
@@ -3389,6 +3402,7 @@
                 <p><b style="color:#da70d6;">Watching While Others Play</b><br>While the year is being played out, the galaxy is view only for a moment: a VIEW ONLY badge appears and the bar says the year is being played out. Otherwise you can always look around and give orders. A player who has resigned watches the game in view only mode. The game checks the server every few seconds and loads the new year by itself.</p>
                 <p><b style="color:#da70d6;">My Games</b><br>My Games in the lobby lists every multiplayer game you created or joined, games where it is your turn first, then running games by newest activity, then finished games. Each card shows its status, host, progress (players joined, the year and whose turn it is, or the result), the number of empires and the galaxy size. A lock means the game is private. Badges: <b>Your turn</b>, <b>Turn overdue</b> (the player whose turn it is has run past the turn time limit, so you can skip them) and <b>🏆 Victory</b>. Pick a game to open its lobby. Sign in on any device to see the same list.</p>
                 <p><b style="color:#da70d6;">Turn Time Limit and Skipping</b><br>Every multiplayer game has a deadline for each year, set by its Play Type (see Play Types). The bottom panel of the galaxy lists who you are waiting on, and under the year it shows <b>Year ends in 5h 12m</b>, the time left before the year is played out and late players are skipped; the game lobby shows who is still to send orders (each player carries a <b>Giving orders</b> or <b>Orders sent</b> badge) and the deadline. The countdown ticks every second, under an hour it shows minutes and seconds, and in a Blitz game the panel pulses in the last minute if your own orders are not in. Everyone gives orders at the same time and can press End Turn at any time, then keep changing orders and press End Turn again until the last player is in. When the last human sends orders, the AI empires add theirs and the whole year is played out at once. Once the deadline has passed, a player who has sent orders can play the year without the late players: in Turn-a-Day and Blitz games this happens automatically in the browser of the first such player who has the game open; in a Custom game press <b>Play the Year Without</b> (in the lobby or in the bar at the bottom). The late players' empires follow their standing orders for that year: building queues, research and fleet waypoints carry on. Outside Blitz games they are emailed that their orders were not sent in time.</p>
+                <p><b style="color:#da70d6;">Skip My Turns</b><br>In a multiplayer game the Settings menu has a <b>⏭ Skip My Turns: OFF</b> button. Press it and confirm to pass the <b>next 100 years</b> for you. The count is kept on the game server, so you can close the page, the tab or the whole browser and nobody is kept waiting for you. Each year the server sends <b>blank orders</b> for you as soon as the year opens: you give no new orders, and your production queues, research and fleet waypoints carry on as they already were. The button then reads <b>ON (99 more years)</b> and counts down by one every year; when it reaches zero it turns OFF by itself. If this year's orders are not sent yet when you press it, the orders you have given but not sent are discarded and blank orders are sent right away. You cannot turn it on after you have sent this year's orders: wait for the next year to open, then turn it on. Press the button again and confirm to cancel the rest at any time; blank orders already sent for the current year are taken back so you can give real orders. You can open the game and look around while skipping is ON, and you can change the current year's orders (press Resend Orders), but the next year is skipped again until the count runs out or you cancel. <b>Limit:</b> the server only holds the orders. A year is played out by the browser of a player who has the game open, so if every player in the game is away, the year waits until one of them opens it. Skipping is not available until the server script <b>15_auto_skip.sql</b> has been run once in the Supabase SQL Editor; until then the button works the old way, sending blank orders only while this page is open, remembered in this browser per game. The button is not shown in single player games, after you resign, or when the game is over.</p>
                 <p><b style="color:#da70d6;">Who Is Online and How Long the Year Has Run</b><br>The bottom panel of the galaxy lists <b>🟢 Online:</b> the players who have this game open right now, and <b>⏳ Waiting on:</b> the other players who have not sent orders yet. Under the year it shows <b>Running: 3h 12m 08s</b>, the time since the current year was generated (it ticks every second, and starts again when a new year is played out), and <b>Ends: 5h 12m 41s</b>, the time left before the year is played out. Both always include seconds. Every name is shown in that player's empire color. The lobby of a running game shows the running time and the online list, and every player in it carries a green <b>● Online</b> or grey <b>○ Offline</b> badge. A player counts as online while their browser tab shows the galaxy of that game; a player whose tab is hidden, closed or on another page counts as offline after up to about a minute, and the list refreshes every 20 seconds. Empires of players who resigned and AI empires are not listed. The online list needs <b>12_online.sql</b> to be run once in the Supabase SQL Editor; without it the year timer still works but the online list stays hidden.</p>
                 <p><b style="color:#da70d6;">Chat</b><br>In a multiplayer game the Galactic Event Log panel has three tabs: <b>Events</b> (your own log, as always), <b>💬 Chat</b> (messages from the players) and <b>Both</b> (events and chat together, ordered by game year, with the chat of a year shown after the events of that year, so you can see what was said around what happened). Type a message (up to 500 characters) and press Enter or Send on the Chat or Both tab; it goes to every player in the game. Each message shows the game year, your local time, a dot, and the sender's name in that player's empire color (the same color as their planets and fleets on the star map). A <b>green dot</b> means the player is online right now, a <b>grey dot</b> offline (see Who Is Online); no dot means that player's status is not known. Your own messages have a green bar on their left. While the Chat or Both tab is open new messages appear within a few seconds; while it is closed the game checks about every 20 seconds, and the number of messages you have not read yet is shown in brackets on the tab, which turns gold. Opening the Chat or Both tab marks everything as read (this is remembered in your browser, per game). On a phone or narrow screen the list is 300 pixels high; press <b>▾ Smaller</b> for 150 pixels or <b>▴ Bigger</b> to enlarge it again. On a wide (desktop) screen the Events, Chat and Both lists fill the panel down to its bottom edge and the Smaller / Bigger button is not shown. Chat is only open while the game is running, it is shared by all players (private messages are not possible yet), and the server keeps the last 200 messages of each game. Chat messages are not part of your saved game and are never written into your Events log; the Both tab only shows them next to it. Chat needs <b>13_chat.sql</b> to be run once in the Supabase SQL Editor; until then the Chat tab says that chat is not set up. <b>Host tools:</b> the host (seat 1, who created the game) sees a <b>🧹 Clear</b> button next to Send, which deletes the whole chat for every player after a confirmation, and can type commands in the chat box: <b>/clear</b>, <b>/mute name</b> (the player can still read the chat but cannot send messages) and <b>/unmute name</b>, using the player's username. Everyone sees a short orange notice when the chat is cleared, a player is muted or unmuted, or a player joins the running game late. When the game is over the chat is closed (you can still read it). While you have unread messages the number also shows in the browser tab title. The host tools and notices need <b>14_chat_host.sql</b> to be run once in the Supabase SQL Editor (after 13_chat.sql).</p>
                 <p><b style="color:#da70d6;">Play Types</b><br>The Multiplayer Options of a new game set its <b>Play Type</b>. <b>Custom time limit</b>: the Turn Time Limit (24 hours, 48 hours, 72 hours, 1 week or No limit) is how long players have for each year; after it any player who has sent orders may play the year without the others. <b>Turn-a-Day (play by email)</b>: the classic pace of one year a day. Pick a daily deadline in your local time (it is stored as the same moment for every player, wherever they live). The year is played out as soon as every player has sent orders, or at the deadline without the late players; tick <b>Only play out the year at the daily deadline</b> to always wait for the deadline, which gives everyone the full day for planning, messages and calculations. A year that starts within an hour of the deadline runs until the next day's deadline. Everyone gets a year summary by email. <b>Blitz (everyone online)</b>: every player is online at once and a year lasts 5, 10, 15, 20, 30 or 60 minutes; when the timer runs out the year is played out automatically without anyone who is late, the galaxy checks for news every 5 seconds, the Orders Sent message is skipped, and no emails are sent each year. The play type is shown in the lobby and as a tag in My Games.</p>
@@ -3406,6 +3420,7 @@
                 <p><b style="color:#da70d6;">Ore and Mining</b><br>Ironium, Boranium and Germanium each have a concentration from 1 to 100 percent. With the standard economy every 10 operating mines dig up to 10 kT a year of each mineral at 100 percent concentration, scaled down by the real concentration (a concentration of 50 gives half). Mining lowers concentration: a mineral loses one point of concentration for every 12,500 divided by its current concentration mine-years, so a rich deposit falls slowly at first and a poor one falls more slowly still. A concentration never drops below 1, and a homeworld never drops below 30. Remote mining ships wear deposits down the same way. Ore piles up on the planet where it is mined and can be moved by fleets (see Cargo).</p>
                 <p><b style="color:#da70d6;">The Budget: Research vs Manufacturing</b><br>Management, Economy splits your Resources between research and manufacturing (starts at 15 percent research). Research Resources flow into your active research field. Manufacturing Resources pay for the build queue on the planet that produced them. Manufacturing Resources that no queue item can use that year are not lost: they go to research. So a planet with an empty queue is simply a research planet.</p>
                 <p><b style="color:#da70d6;">The Planet Picture</b><br>The picture at the top left is the selected planet, turning slowly. Every planet is drawn from its own data. The share of ocean follows its habitability: a high habitability world is mostly blue water with green continents and swirling white clouds, a hostile world has dry dark basins instead of seas. Temperature adds ice caps and snowy peaks on cold worlds and a glowing, lava-streaked surface and a thick haze on hot ones. The color of the land comes from the ore under it: rich Ironium gives rusty red, rich Boranium gives blue-green, rich Germanium gives gold, and the richer the ore overall the deeper the tint. A planet you have not scanned is a gray, dim sphere with a question mark.</p>
+                <p><b style="color:#da70d6;">The Galactic Event Log</b><br>The log lists what happened to your empire, with the <b>newest line at the top</b> and the oldest at the bottom. A new line appears at the top as soon as it happens, and the box scrolls back to the top so you always see it. This applies to the Events tab. The Both tab (multiplayer) still reads from oldest to newest, so the chat reads like a conversation with the newest message at the bottom.</p>
                 <p><b style="color:#da70d6;">What the Panels Show</b><br>The panels only show what you can act on. The Production Queue appears only for a planet your empire has colonized. The Fleets in Orbit panel appears only when one or more of your fleets are in orbit of the selected planet, and it lists just the fleets there. Selecting a planet where you have a fleet selects that fleet. When another fleet of yours is selected and you pick a planet it is not at, the planet panel offers Send Fleet Here.</p>
                 <p><b style="color:#da70d6;">The Planet Menu</b><br>Select one of your planets, then open the Planet menu. <b>Structures</b> appears only on a planet you have colonized. <b>Ship Construction</b> appears only on a planet whose starbase has a ship dock, so a raw colony cannot build ships until it has a space station. <b>Upgrade Space Station</b> appears on a planet orbited by a Space Station or Orbital Fort, and <b>Upgrade Starbase</b> appears on a planet orbited by a Heavy Starbase or Ultra Station. If a planet has none of these, for example a neutral or rival world, the Planet button is hidden entirely.</p>
                 <p><b style="color:#da70d6;">Structures</b><br>Structures queues planetary buildings: Mine (5 Resources), Factory (10 Resources, 4 Germanium), Defense (15 Resources and 5 kT each of Ironium, Boranium and Germanium; its type depends on your Defense tech, see Planetary Defenses) and <b>Mineral Alchemy</b> (100 Resources, or 25 with the Mineral Alchemy trait), which turns Resources into 1 kT each of Ironium, Boranium and Germanium on that planet. These are the standard costs; a custom race can make mines and factories cheaper or dearer, and the list always shows your own prices. On a planet with nothing in orbit it also offers <b>Space Station / Starbase</b>, which opens the Starbase Designer. Once a planet has an orbital installation, or one is already in its queue, that choice disappears: upgrade it from the Planet menu instead. The list also offers Auto Mines, Auto Factories and Auto Defenses (see Auto Items and Repeating Builds).</p>
@@ -3433,7 +3448,7 @@
                 <p><b style="color:#da70d6;">Your Own View of the Galaxy</b><br>Each empire keeps its own record of what it has seen. The planets you have scanned, your survey dates, your fleets, your technology, your research, your budget, your starbase designs and your Galactic Event Log belong to your empire alone. In a game with more than one human, another player's scans never reveal anything to you, and their worlds show as rival worlds (red) once your own scanners find them. Your Galactic Event Log is private too: it lists only what happened to you, plus battles your scanners detected. Every empire hears about the Mystery Trader, a player joining late and a player resigning.</p>
                 <p><b style="color:#da70d6;">Random Events</b><br>Unless No Random Events is ticked, each year there is a small chance that something happens to one of your planets: a <b>mineral strike</b> raises the concentration of one mineral, a <b>population boom</b> adds colonists, a <b>plague</b> kills some of them, or a <b>salvage find</b> drops a cache of Ore on the planet. Events appear in the Galactic Event Log and the turn report.</p>
                 <p><b style="color:#da70d6;">Your Starting Fleet</b><br>You begin with a Long Range Scout in orbit of your homeworld: a Scout hull with a Quick Jump 5 engine, a Rhino Scanner (50 ly) and a fuel tank, 300 mg of fuel in all. Its job is to map the nearby stars. Your homeworld starts with a Basic Space Station that has a ship dock. Colony ships, freighters and warships are built there.</p>
-                <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Every empire in the game, AI empires included, is given its own random color when the game begins. An empire's planets, planet names, fleets and fleet names are drawn in its color, and the empire name at the bottom right uses yours. Planets nobody owns show habitability: blue is habitable, dark red hostile, grey not scanned yet; a gold center means a ship dock. The legend in the lower left lists your empire and every empire you have met, each in its color, and adds more columns when it gets long.</p>
+                <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Every empire in the game, AI empires included, is given its own random color when the game begins. An empire's planets, planet names, fleets and fleet names are drawn in its color, and the empire name at the bottom right uses yours. Planets nobody owns show habitability: blue is habitable, dark red hostile, grey not scanned yet; a gold center means a ship dock. Planets have no outline. The planet or fleet you selected last is marked by a slowly pulsing, glowing gold outline: a ring around the planet, or a glow around the fleet's arrow. Select a planet and the ring appears on it; click a fleet (on the map, in Fleets in Orbit, in the Fleet Summary or in the fleet drop-down) and the glow moves to that fleet. Only one of the two glows at a time, and the glow follows the map while you pan and zoom. The legend in the lower left lists your empire and every empire you have met, each in its color, and adds more columns when it gets long.</p>
                 <p><b style="color:#da70d6;">Playing on a Phone or Tablet</b><br>On a narrow screen the Star Map sits at the top of the dashboard and the planet, fleet and queue panels scroll underneath it. Drag with one finger to pan, pinch with two fingers to zoom around the point between your fingers, and tap a star or fleet to select it. A touch screen has no Shift key, so to plot a course turn on Fleet, Plot Course Mode (or the Plot button in the Fleets in Orbit panel) and tap stars or empty space on the map to add waypoints. The map resizes when you turn the device. The Race Wizard also fits a phone: its tabs scroll sideways and the Point Ledger is hidden, but the Advantage Points counter stays in view.</p>
                 <p><b style="color:#da70d6;">Fleets on the Map</b><br>Every group of ships is a fleet. Your fleets are arrowheads in your empire color with their name beside them. A fleet in orbit slowly circles its planet; several fleets share the orbit, evenly spaced. A fleet in deep space sits where it is. Pick a fleet in the Fleets in Orbit panel, in the Fleet Roster, or by clicking its arrow on the map. A fleet with orders shows a line to each waypoint, a numbered box at each stop with its travel time in years, and the current warp next to its name. A dashed orange leg means you do not have the fuel to finish that leg. When a fleet is selected, dashed rings show how far it moves in one year: green for its free speed, amber for the warp of its first waypoint. Toggle the rings with Fleet, Range Rings.</p>
                 <p><b style="color:#da70d6;">The Fleet Menu and Fleet Actions</b><br>The Fleet menu always offers Manage Waypoints, Plot Course Mode and Range Rings. Below them the menu adds actions that only make sense where you are. Select a planet that has one of your fleets in orbit and the matching actions appear: <b>Colonize Planet</b> on a neutral world when a fleet there has a Colony Ship, <b>Cargo and Transfer</b> on one of your planets when a fleet there can carry cargo, <b>Merge Fleets Here</b> and <b>Fleet Transfer</b> when two or more of your fleets share the orbit, and <b>Orbital Bombardment</b> and <b>Ground Invasion</b> at a rival homeworld. With no fleet in orbit of the selected planet, these actions are not shown.</p>
@@ -3442,6 +3457,7 @@
                 <p><b style="color:#da70d6;">Engines</b><br>Engines are ship parts chosen in the Ship Designer: Quick Jump 5, Long Hump 6, Daddy Long Legs 7, Alpha Drive 8, Trans-Galactic Drive, Interspace-10, Trans-Star 10, the ramscoops (Radiating Hydro-Ram Scoop, Sub-Galactic, Trans-Galactic Fuel, Super and Mizer Scoops, Galaxy Scoop) and the Fuel Mizer (Improved Fuel Efficiency races). Every engine can push a ship to Warp 10, but the fuel it burns grows quickly above its best speed. <b>Best warp</b> is the fastest speed below 120 percent fuel use (for ramscoops, the fastest free speed), and it is the default speed for new waypoints. Warp 10 is risky: unless every ship in the fleet uses an engine built for Warp 10 (Interspace-10 and Trans-Star 10), each ship has a 10 percent chance of being lost every year it travels at Warp 10. No Ramscoop Engines races cannot build ramscoops but get the Interspace-10.</p>
                 <p><b style="color:#da70d6;">Refueling</b><br>A fleet is refuelled to full every year while it orbits one of your planets whose Space Station or Starbase has a ship dock (the reference calls this a starbase with ship-building capability). Your homeworld has one. Empires you have declared Friend refuel at your docks too, and you at theirs. Orbital Forts and planets without a starbase do not refuel. Away from a dock, fuel only comes from fuel-making hulls and parts, from ramscoops, or from another fleet: see Fleet Transfer.</p>
                 <p><b style="color:#da70d6;">Fleet Transfer</b><br>When two or more of your fleets are at the same spot, in orbit or in deep space, <b>Fleet Transfer</b> (in the Fleet menu at a planet, or in the Waypoints window) moves fuel and cargo between them: pick the other fleet, then enter a positive number to move from the selected fleet to the other or a negative number for the other way. Fuel cannot go above the other fleet's tank. You can also give a waypoint that follows one of your fleets the <b>Transport</b> task: it then has a Fuel line as well as the four cargo lines, where load means take from the other fleet and unload means give to it, and Wait for % holds until the transfer is done. This is how tankers keep a deep-space task force going.</p>
+                <p><b style="color:#da70d6;">Do Task Here</b><br>Open the <b>Fleet</b> menu and press <b>⚙ Do Task Here (No Move)</b> to give the selected fleet a task at the spot where it is, without sending it anywhere. The window lists only the tasks that make sense where the fleet is: in orbit of a planet you can pick <b>Transport</b> (with a saved cargo order such as Load All Ore, Unload Everything or Load Colonists), <b>Colonize</b> (only if the fleet has a Colonization Module), <b>Load Ore</b> and <b>Unload Ore</b>; if another of your fleets is in the same spot you can also <b>Transport to a fleet here</b> (cargo between the two fleets) or <b>Merge with a fleet here</b>; anywhere, even in deep space, you can pick <b>Patrol</b> (with its range) or <b>Scrap Fleet</b> (it asks you to confirm; in deep space everything is lost). Under <b>Then</b> choose <b>Do it first, then carry on with its route</b>, which puts the task at the front of the route so the fleet does it next year and then sets off for its first waypoint, or <b>Replace its route with just this</b>, which clears the route (and any patrol or guard). The task is carried out when the year is played out, like any other order, and the fleet does not move, use fuel, or need a working engine, so a fleet that cannot fly can still do it. It appears in Manage Waypoints as a waypoint marked <b>(task here, no move)</b>, where you can change the task or its cargo orders, or remove it to cancel. <b>Send a Fleet Here</b> now does the same when you send a fleet to the planet it is already orbiting with a task chosen: it stays put and does the task. Tasks that ask for colonists give the usual colonist warning. In a multiplayer game the button does nothing while you are only looking at the galaxy (view only).</p>
                 <p><b style="color:#da70d6;">Send a Fleet Here</b><br>The planet summary has a <b>Send a Fleet Here</b> box under the planet's bars whenever you have a fleet. Choose any of your fleets (it starts on the selected one; the list shows how far each is), then <b>Go now</b> to replace its route with this planet, or <b>Add as next waypoint</b> to put the planet at the end of its route. Pick the speed and the task to carry out on arrival (Transport, Colonize, Patrol, Scrap and so on; Transport starts with Load All Ore, change it in the Waypoints window). The line above the button shows distance, years and fuel. The fuel check and the colonist warning apply.</p>
                 <p><b style="color:#da70d6;">Warnings Before You Commit</b><br><b>Missing Orders:</b> pressing End Turn first checks your empire. If any planet has nothing to build (empty queue and Autobuild off) or any fleet has no orders (no waypoints, patrol, colonize, invade or ops task), a window lists them and asks whether to end the turn anyway. Tick Mark these idle fleets as standing guard to stop warnings about fleets you want to stay put, or use Stand Guard and Stop Guard in the Waypoints window. Turn the whole check off or on with Settings, Missing-Order Warning. <b>Not Enough Fuel:</b> see Fuel. <b>Colonists at Risk:</b> ordering colonists onto a world that is hostile to your race (habitability 0% or less) or not yet surveyed, by colonizing, a Colonize or Transport unload task, unloading cargo or invading, asks first. Colonists on a hostile world cannot grow and die off year by year.</p>
                 <p><b style="color:#da70d6;">Waypoints and Tasks</b><br>Fleet, Manage Waypoints (or the Waypoints button) opens the route window. Add the selected star as a waypoint, or turn on Fleet, Plot Course Mode (the Plot button) and click stars or empty space on the map; you can also hold Shift and click the map. Clicking one of your other fleets in Plot Course Mode makes a waypoint that follows that fleet as it moves. Each waypoint has its own Warp and Task, and any waypoint can be removed. Tasks run when the fleet arrives: <b>Transport</b> (cargo orders, see Transport and Zip Orders), <b>Colonize</b>, <b>Load Ore</b> and <b>Unload Ore</b> (quick versions of Transport), <b>Merge with Fleet</b> (on a waypoint that follows one of your fleets: the fleet joins it on arrival), <b>Patrol</b> (see Patrol) and <b>Scrap Fleet</b> (see Scrapping). A finished waypoint is removed from the list unless <b>Repeat Orders</b> is ticked, in which case it is added again at the end, so a freighter can run a supply loop for ever. A fleet waiting for cargo (Wait for %) stays at its waypoint until the hold is filled.</p>
@@ -3465,7 +3481,7 @@
                 <p><b style="color:#da70d6;">Stargates</b><br>A stargate is built on a planet that has a starbase in orbit: pick it in the planet's Structures list (one gate at a time; a better gate replaces the old one). Each gate has a safe mass and a range: Stargate 100/250 (Propulsion 5, Construction 5), any/300 (Propulsion 6, Construction 10), 150/600 (Propulsion 11, Construction 7), 300/500 (Propulsion 9, Construction 13), 100/any (Propulsion 16, Construction 12), any/800 (Propulsion 12, Construction 18) and any/any (Propulsion 19, Construction 24). To use one, give a fleet orbiting a gate planet a waypoint at another planet with a stargate of yours or a Friend's, and set its speed to <b>Use Stargate</b> in the Waypoints window. The fleet arrives next year, whatever the distance, and burns no fuel. Every ship must be within the smaller mass limit of the two gates, and the distance within the range of the starting gate. Over the limits (up to five times) the speed shows Danger: the fleet arrives damaged and some ships may be destroyed; more than five times over shows Never. Fleets carrying cargo cannot use a gate (fuel is not cargo), except for Interstellar Traveler races, whose gates between their own planets also have no mass or range limit, cost 25% less and hurt ships half as much. Hyper-Expansion races cannot build stargates. A ship with the Jump Gate trader item can use Use Stargate from anywhere. The planet summary shows a planet's gate next to its starbase. (The gate list and tech levels follow the original game as best I remember them; costs and the damage for going over the limits are my estimates.)</p>
                 <p><b style="color:#da70d6;">Wormholes</b><br>Wormholes are rare openings in deep space, never close to a planet, that link two distant points. They are hard to see: a normal scanner finds one only within a quarter of its range (planet-penetrating scanners at their full penetrating range), and a fleet that passes over one finds it. Once found it stays on your map as a purple swirl; click it to see where it leads (Unknown until you have been through it or found the other end) and how stable it is, from Rock Solid (stays put for 30 years or more) to Very Unstable (moves within about 5 years). Each end also drifts a little every year and jumps somewhere new when its time runs out, which also makes its destination unknown again. To travel, plot a waypoint on the wormhole in plot mode; the waypoint follows the wormhole as it drifts. When the fleet reaches the opening it comes out at the other end in the same year, with no fuel used and no mass or cargo limit. Make sure the fleet has fuel to get home from wherever it ends up.</p>
                 <p><b style="color:#da70d6;">Numbers at a Glance</b><br>Exact constants used by the game, for planning and checking. <b>Population:</b> one population unit is 1,000,000 colonists in internal accounting. <b>Terraforming limits (normal):</b> the Gravity, Temperature and Radiation fields at level 1, 5, 10, 16 allow 3, 7, 11, 15 percent change, and those steps also need Biotechnology 1, 2, 3, 4. <b>Total Terraforming</b> (Claim Adjuster or the Total Terraforming trait): Biotechnology 0, 3, 6, 9, 13, 17, 22, 25 allow 3, 5, 7, 10, 15, 20, 25, 30 percent. <b>Claim Adjuster</b> terraforms up to 200 steps a year per planet at no cost. <b>Trait modifiers:</b> Weapon costs x0.75 for Weapons Master and x1.25 for Inner Strength; Inner Strength defenses cost x0.6; Cheap Engines cost x0.5 but may fail above warp 6 (10 percent chance a turn); Total Terraforming terraform cost x0.7; Inner Strength freighters grow colonists at half the planet growth rate; Packet Physics packets have a 50 percent chance to nudge the target planet 1 percent toward ideal on impact. <b>Stargate travel</b> uses warp 11. Mines, fuel and combat numbers are in their own entries.</p>
-                <p><b style="color:#da70d6;">Diplomacy</b><br>Every empire starts <b>Neutral</b> toward every other empire. Open Management, <b>Diplomacy</b> to see your status with each empire you have met and to give diplomatic orders. A relation is shared: both empires always have the same status. <b>Neutral:</b> you can <b>Ask for Alliance</b> or <b>Declare War</b>. <b>Allied:</b> you can <b>Break Alliance</b> (you both become neutral at once) or <b>Declare War</b> directly. <b>At War:</b> you can <b>Request Stand Down</b>; if the other empire accepts you both become neutral. Orders are carried out when the year is played out. A war declaration takes effect after that year, so the war is on from the following year. Fleets and starbases fight, bomb, invade and lay damaging minefields only against empires they are at war with. Neutral or allied ships that meet, pass close by, or orbit the planets and starbases of the other empire never fight, and troops cannot land on a planet of an empire you are not at war with. Allies refuel at your planets with docks, use your stargates and are safe from your minefields; your patrols only chase empires you are at war with. <b>AI answers:</b> an AI decides on an alliance by its intelligence: smarter AIs want a longer peace first, distrust much stronger neighbours and remember your past attacks, broken alliances and war declarations, and an AI that does not know you refuses. An AI weighs a stand down by who is winning. Smarter AIs also declare war more often when they believe they are stronger, judging you only from what they have seen of your worlds. <b>Requests to a player</b> (or from an AI to you) appear at the start of the next year in the year summary window, which you cannot close until you accept or reject each one.</p>
+                <p><b style="color:#da70d6;">Diplomacy</b><br>Every empire starts <b>Neutral</b> toward every other empire. Open Management, <b>Diplomacy</b> to see your status with each empire you have met and to give diplomatic orders. A relation is shared: both empires always have the same status. <b>Neutral:</b> you can <b>Ask for Alliance</b> or <b>Declare War</b>. <b>Allied:</b> you can <b>Break Alliance</b> (you both become neutral at once) or <b>Declare War</b> directly. <b>At War:</b> you can <b>Request Stand Down</b>; if the other empire accepts you both become neutral. Orders are carried out when the year is played out. A war declaration takes effect after that year, so the war is on from the following year. Fleets and starbases fight, bomb, invade and lay damaging minefields only against empires they are at war with. Neutral or allied ships that meet, pass close by, or orbit the planets and starbases of the other empire never fight, and troops cannot land on a planet of an empire you are not at war with. Allies refuel at your planets with docks, use your stargates and are safe from your minefields; your patrols only chase empires you are at war with. <b>AI answers:</b> an AI decides on an alliance by its intelligence: smarter AIs want a longer peace first, distrust much stronger neighbours and remember your past attacks, broken alliances and war declarations, and an AI that does not know you refuses. An AI weighs a stand down by who is winning. Smarter AIs also declare war more often when they believe they are stronger, judging you only from what they have seen of your worlds. <b>Requests to a player</b> (or from an AI to you) appear at the start of the next year in the year summary window, which you cannot close until you accept or reject each one. <b>While Skip My Turns is on</b>, every alliance or stand down request made to you is rejected automatically, so nothing waits for your answer: the sender is told you rejected it, and your own year summary says it was rejected by Skip My Turns. Requests already waiting when a skipped year is played out are rejected too.</p>
                 <p><b style="color:#da70d6;">The Mystery Trader</b><br>Now and then a light blue Mystery Trader enters known space and everyone is told. It flies at Warp 7 to 13 and is visible on the map whatever your scanners are doing. Tap it to see its heading in a Fleet Summary box, which takes the place of the Planet Summary until you tap a planet; dotted numbered ticks on the map show where it will be at the end of each coming year if it keeps its course. To trade, a single fleet carrying at least 5,000 kT of minerals (any mix of Ironium, Boranium and Germanium) must be at the exact spot the trader reaches at the end of a turn. In plot mode a tap near a tick snaps your waypoint to it exactly. The trader absorbs all the minerals in that fleet\'s hold (colonists are kept) and gives either 2 to 6 levels of tech spread over random fields, or one of 12 special items. Each trader trades once and then leaves, and what it carries is fixed when it appears. If you already own its item you get a different one you do not own, and if you own them all you get the tech instead; if everything is maxed it is unable to teach you anything new. The trader changes direction now and then, turns away from crowds of fleets, cannot be attacked, and lets any empire\'s fleet trade, so enemies can attack your freighters before you reach it. Item parts need no tech once you own them. See Mystery Trader Items for the list. Advanced Options, No Random Events, switches the Mystery Trader off.</p>
                 <p style="margin-bottom:0;color:#aaa;">Tip: your first turns are about turning Resources into more Resources. Autobuild queues mines and factories for you (check Management, Autobuild), or queue them yourself on the homeworld, and watch Germanium (factories need it), send the scout out at Warp 5 on free fuel to find colony targets, and use Ship Construction to queue a Colony Ship when you spot a green world. Once a colony is established, give it a Space Station so it can build for itself. Designing a race? Start from a preset, change one thing at a time and watch the Advantage Points counter and the Point Ledger.</p>
             </div>
@@ -3838,7 +3854,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.59.0';
+        const GAME_VERSION = '0.64.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -5597,6 +5613,7 @@ const DEFENDERS_PER_POP=100;
 
         function showOwnFleetSummary(f) {
             selectedFleetId = f.id;
+            mapSelKind = 'fleet';
             showFleetSummary('Fleet Summary', ownFleetSummaryHtml(f));
             fleetSummaryOwnId = f.id;
         }
@@ -5707,6 +5724,7 @@ const DEFENDERS_PER_POP=100;
 
         function selectPlanet(idx) {
             hideFleetSummary();
+            mapSelKind = 'planet';
             selectedPlanetIndex = idx;
             const here = fleetsAtSelectedPlanet();
             if (here.length && !here.some(f => f.id === selectedFleetId)) selectedFleetId = here[0].id;
@@ -6034,6 +6052,23 @@ const DEFENDERS_PER_POP=100;
         const DIP_IQ = { novice: 0.1, average: 0.3, good: 0.5, expert: 0.75, master: 1 };
         const DIP_AI_WAR_YEAR = 2410;
         const dipWarQueue = [];
+        let dipAutoSkipSeats = [];
+
+        function dipIsAutoSkipping(e) {
+            return !!e && e.kind !== 'ai' && Number.isInteger(e.mpSeat) && dipAutoSkipSeats.indexOf(e.mpSeat) !== -1;
+        }
+
+        function dipAutoRejectInbox(e) {
+            dipEnsure(e);
+            const items = dipInboxItems(e).slice();
+            items.forEach(x => {
+                e.dipReplies[x.from] = { kind: x.kind, answer: 'reject' };
+                const from = empireById(x.from);
+                logEvent('Skip My Turns automatically rejected the ' + dipRequestWord(x.kind) + ' request of ' + (from ? from.name : x.from) + '.');
+            });
+            e.dipInbox = [];
+            return items.length;
+        }
 
         function dipEnsure(e) {
             if (!e.relations) e.relations = {};
@@ -6135,6 +6170,15 @@ const DEFENDERS_PER_POP=100;
             };
             empires.forEach(e => dipEnsure(e));
             empires.forEach(e => {
+                if (!dipIsAutoSkipping(e)) return;
+                dipInboxItems(e).slice().forEach(x => {
+                    const from = empireById(x.from);
+                    e.dipReplies[x.from] = { kind: x.kind, answer: 'reject' };
+                    say('Skip My Turns automatically rejected the ' + dipRequestWord(x.kind) + ' request of ' + (from ? from.name : x.from) + '.', [e.id]);
+                });
+                e.dipInbox = [];
+            });
+            empires.forEach(e => {
                 Object.keys(e.dipReplies).forEach(fromId => {
                     const r = e.dipReplies[fromId];
                     const from = empireById(fromId);
@@ -6175,6 +6219,9 @@ const DEFENDERS_PER_POP=100;
                         } else {
                             say(to.name + ' rejected your ' + dipRequestWord(kind) + ' request.', [e.id]);
                         }
+                    } else if (dipIsAutoSkipping(to)) {
+                        say('Skip My Turns automatically rejected the ' + dipRequestWord(kind) + ' request of ' + e.name + '.', [to.id]);
+                        say(to.name + ' rejected your ' + dipRequestWord(kind) + ' request.', [e.id]);
                     } else {
                         if (!to.dipInbox.some(x => x.from === e.id && x.kind === kind)) to.dipInbox.push({ from: e.id, kind: kind, year: currentYear });
                         say('Your ' + dipRequestWord(kind) + ' request was sent to ' + to.name + '. They will answer at the start of next year.', [e.id]);
@@ -6253,7 +6300,7 @@ const DEFENDERS_PER_POP=100;
                         if (o.id < ai.id || !dipAiDecide(o, ai, 'standdown')) return;
                         setMutualRelation(ai.id, o.id, 'neutral');
                         say(ai.name + ' and ' + o.name + ' have stood down and are now neutral.', [ai.id, o.id]);
-                    } else if (!dipEnsure(o).dipInbox.some(x => x.from === ai.id && x.kind === 'standdown')) {
+                    } else if (!dipIsAutoSkipping(o) && !dipEnsure(o).dipInbox.some(x => x.from === ai.id && x.kind === 'standdown')) {
                         o.dipInbox.push({ from: ai.id, kind: 'standdown', year: currentYear });
                     }
                 });
@@ -7237,8 +7284,8 @@ const DEFENDERS_PER_POP=100;
             const box = document.getElementById('event-log-box');
             const row = document.createElement('div');
             row.textContent = line;
-            box.appendChild(row);
-            box.scrollTop = box.scrollHeight;
+            box.insertBefore(row, box.firstChild);
+            box.scrollTop = 0;
         }
 
         function logEvent(msg) {
@@ -9781,6 +9828,7 @@ const DEFENDERS_PER_POP=100;
             const f = getFleetById(id);
             if (!f) return;
             selectedFleetId = f.id;
+            mapSelKind = 'fleet';
             const idx = fleetOrbitIndex(f);
             if (idx >= 0) selectedPlanetIndex = idx;
             centerMapOn(f.x, f.y);
@@ -12473,6 +12521,7 @@ const DEFENDERS_PER_POP=100;
                 const f = getFleetById(parseInt(r.dataset.f));
                 if (f) {
                     selectedFleetId = f.id;
+                    mapSelKind = 'fleet';
                     const oi = fleetOrbitIndex(f);
                     if (oi >= 0) selectedPlanetIndex = oi;
                 }
@@ -12985,6 +13034,38 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.64.0', d: 'Oct 3, 2026 7:30 PM', t: "No Skipping After Orders Are Sent", items: [
+                "Skip My Turns can no longer be turned on in a year after you have sent your orders. Pressing it then shows a notice, and the server refuses it too. Wait for the next year to open, then turn it on.",
+                "Because of this, an alliance or stand down request that arrives in the year you turn skipping on is always rejected at once.",
+                "This needs the updated set_auto_skip function from the Supabase SQL Editor (see the chat message for 0.64.0). Without it the button still blocks you on the screen, but the server would not.",
+                "Help: Skip My Turns updated."
+            ] },
+            { v: '0.63.0', d: 'Oct 3, 2026 7:26 PM', t: "Skip My Turns Rejects Diplomacy Requests", items: [
+                "While Skip My Turns is on, any alliance or stand down request made to you, by a player or an AI, is rejected automatically when the year is played out. The sender is told you rejected it, and your own year summary lists what was rejected.",
+                "Requests that were already waiting in your inbox when a skipped year is played out are rejected as well, so you will not return to a pop-up full of old requests.",
+                "Help: Diplomacy updated."
+            ] },
+            { v: '0.62.0', d: 'Oct 3, 2026 7:20 PM', t: "Skip My Turns Now Runs on the Server", items: [
+                "Skip My Turns now queues 100 years on the Supabase server instead of depending on an open browser. Press the button, confirm, and the server sends blank orders for you every year until the 100 are used up. You can close the page, the tab or the browser.",
+                "The button shows how many skipped years are still queued, for example Skip My Turns: ON (99 more years). Press it again to cancel the rest; blank orders already sent for the current year are taken back so you can give real orders.",
+                "Needs the new script 15_auto_skip.sql to be run once in the Supabase SQL Editor. Until it is, the button keeps working the old way, only while the page is open.",
+                "A year is still played out by the browser of a player who has the game open, so if every player is away the game waits until someone opens it.",
+                "Help: Skip My Turns rewritten."
+            ] },
+            { v: '0.61.0', d: 'Oct 3, 2026 4:45 PM', t: "Do Task Here, Without Moving", items: [
+                "New Fleet menu button, Do Task Here (No Move). Pick a task for the selected fleet at the spot where it is: Transport with a cargo order, Colonize, Load Ore, Unload Ore, Transport to a fleet here, Merge with a fleet here, Patrol or Scrap Fleet. Only the tasks that fit the location are listed.",
+                "Choose whether the task comes first with the route carried on after it, or replaces the route. The fleet does not move, spend fuel or need a working engine; the task runs when the year is played out.",
+                "The order shows in Manage Waypoints as a waypoint marked (task here, no move), so you can change its cargo orders or remove it.",
+                "Send a Fleet Here with a task, to the planet the fleet is already orbiting, now also stays put and does the task.",
+                "Help: new entry Do Task Here; Send a Fleet Here mentions it."
+            ] },
+            { v: '0.60.0', d: 'Oct 3, 2026 4:10 PM', t: "Skip My Turns, Selection Glow, Newest Events First", items: [
+                "New Settings button in multiplayer games: Skip My Turns. While it is ON, blank orders are sent for you every year as soon as the year opens, until you press the button again to turn it OFF. Your queues, research and fleet waypoints carry on as they were.",
+                "The planet or fleet you selected now has a slowly pulsing, glowing gold outline on the star map. A fleet no longer turns white when selected.",
+                "The white outline around planets on the star map is gone.",
+                "The Events tab of the Galactic Event Log now shows the newest line at the top and the oldest at the bottom.",
+                "Help: new entries Skip My Turns and The Galactic Event Log; The Star Map updated."
+            ] },
             { v: '0.59.0', d: 'Oct 3, 2026 3:33 PM', t: "Narrower Top Bar Menus", items: [
                 "The Planet, Fleet, Management and Settings menus are now only as wide as their longest line instead of a fixed wide box, so they cover less of the screen. The note in the Fleet menu about more actions wraps to the menu's width.",
                 "Help: Pop-up Windows updated."
@@ -13465,7 +13546,7 @@ const DEFENDERS_PER_POP=100;
             return d.textContent.toLowerCase();
         }
 
-        const HELP_LEVELS = { basic: ["Absolute Beginner: Play in Two Minutes", "Goal", "Tips for Your First Turns", "Turn Flow", "Turns and Rounds", "The Star Map", "Playing on a Phone or Tablet", "Panel Transparency", "Minimizing Panels on a Desktop", "Your Starting Fleet", "The Planet Picture", "What the Panels Show", "The Planet Menu", "Resources", "Ore and Mining", "Structures", "Ship Construction", "The Production Queue", "Habitability", "Colonizing", "Colonizing and Cargo", "Population and Growth", "Research", "Fleets on the Map", "The Fleet Menu and Fleet Actions", "Waypoints and Tasks", "Warp Speed and Travel Time", "Fuel", "Scanning and Discovery", "Continue Game", "Saving", "The New Game Screen", "Management", "Help and Updates Windows", "Update Notice and What's New", "Victory Conditions", "AI Opponents", "Multiplayer and Your Account", "Forgot Your Password", "The Multiplayer Lobby", "Joining a Multiplayer Game", "When the Game Begins", "Taking Your Turn", "My Games", "Warnings Before You Commit", "Send a Fleet Here", "Cargo and Transfer"], autistic: ["Numbers at a Glance", "Cloaking and Scanners", "What a Custom Race Does In This Game", "How the AI Empires Play", "The Two Currencies: Resources and Ore", "Resources Belong to Planets", "Your Own View of the Galaxy", "Miniaturization", "Engines", "Terraforming", "Ship Repair", "Planetary Defenses", "Bombing and Invasion", "Minefields", "The Budget: Research vs Manufacturing", "Advantage Points", "Mass Drivers and Mineral Packets", "Stargates", "Wormholes", "Equipment Catalog", "Ship Hulls", "Mystery Trader Items"] };
+        const HELP_LEVELS = { basic: ["Absolute Beginner: Play in Two Minutes", "Goal", "Tips for Your First Turns", "Turn Flow", "Turns and Rounds", "The Star Map", "Playing on a Phone or Tablet", "Panel Transparency", "Minimizing Panels on a Desktop", "Your Starting Fleet", "The Planet Picture", "What the Panels Show", "The Planet Menu", "Resources", "Ore and Mining", "Structures", "Ship Construction", "The Production Queue", "Habitability", "Colonizing", "Colonizing and Cargo", "Population and Growth", "Research", "Fleets on the Map", "The Fleet Menu and Fleet Actions", "Waypoints and Tasks", "Warp Speed and Travel Time", "Fuel", "Scanning and Discovery", "Continue Game", "Saving", "The New Game Screen", "Management", "Help and Updates Windows", "Update Notice and What's New", "Victory Conditions", "AI Opponents", "Multiplayer and Your Account", "Forgot Your Password", "The Multiplayer Lobby", "Joining a Multiplayer Game", "When the Game Begins", "Taking Your Turn", "My Games", "Warnings Before You Commit", "Send a Fleet Here", "Do Task Here", "Cargo and Transfer"], autistic: ["Numbers at a Glance", "Cloaking and Scanners", "What a Custom Race Does In This Game", "How the AI Empires Play", "The Two Currencies: Resources and Ore", "Resources Belong to Planets", "Your Own View of the Galaxy", "Miniaturization", "Engines", "Terraforming", "Ship Repair", "Planetary Defenses", "Bombing and Invasion", "Minefields", "The Budget: Research vs Manufacturing", "Advantage Points", "Mass Drivers and Mineral Packets", "Stargates", "Wormholes", "Equipment Catalog", "Ship Hulls", "Mystery Trader Items"] };
         const HELP_LEVEL_NAMES = ['Basic', 'Advanced', 'Autistic level'];
 
         function helpLevelOf(title) {
@@ -13710,7 +13791,7 @@ const DEFENDERS_PER_POP=100;
                         PATROL_RANGES.map(r => `<option value="${r}" ${r === (w.patrolRange || 50) ? 'selected' : ''}>${r} ly</option>`).join('') + '</select> once the fleet reaches this waypoint and has no other orders.</div>';
                 }
                 html += `<div class="wp-row ${leg.short ? 'short' : ''}" data-i="${i}">
-                    <b>Waypoint ${i + 1}: ${escapeHtml(wpName(w))}</b> - ${Math.round(leg.dist)} ly, ${leg.gate ? 'stargate jump, 1 yr, no fuel' : leg.years + ' yr, ' + leg.fuel.toFixed(1) + ' mg of fuel'}${leg.short ? ' <span style="color:#ff8c00;">(not enough fuel to finish this leg)</span>' : ''}
+                    <b>Waypoint ${i + 1}: ${escapeHtml(wpName(w))}${w.here ? ' (task here, no move)' : ''}</b> - ${Math.round(leg.dist)} ly, ${leg.gate ? 'stargate jump, 1 yr, no fuel' : leg.years + ' yr, ' + leg.fuel.toFixed(1) + ' mg of fuel'}${leg.short ? ' <span style="color:#ff8c00;">(not enough fuel to finish this leg)</span>' : ''}
                     <div class="wp-controls">
                         <select class="wp-warp" data-i="${i}">${warpOptions}</select>
                         <select class="wp-task" data-i="${i}">${taskOptions}</select>
@@ -13937,6 +14018,11 @@ const DEFENDERS_PER_POP=100;
                 return;
             }
             const wp = { x: p.x, y: p.y, planet: selectedPlanetIndex, warp: warp, task: task };
+            if ((mode === 'go' || !f.waypoints.length) && task !== 'none' && Math.hypot(p.x - f.x, p.y - f.y) < 0.5) {
+                wp.x = f.x;
+                wp.y = f.y;
+                wp.here = true;
+            }
             if (task === 'transport') wp.cargo = cleanCargoOrders(ZIP_BUILTIN[0].cargo);
             if (task === 'patrol') wp.patrolRange = 50;
             const wps = mode === 'add' ? f.waypoints.concat([wp]) : [wp];
@@ -13956,6 +14042,151 @@ const DEFENDERS_PER_POP=100;
             else finish();
         });
 
+        const thState = { fleetId: null, task: '', target: null, zip: 0, range: 50, mode: 'first' };
+
+        function thTaskList(f) {
+            const atPlanet = fleetOrbitIndex(f) >= 0;
+            const others = fleetsHere(f);
+            const list = [];
+            if (atPlanet) {
+                list.push(['transport', 'Transport (cargo orders)']);
+                if (fleetHasPart(f, 'colonizer')) list.push(['colonize', 'Colonize']);
+                list.push(['load', 'Load Ore'], ['unload', 'Unload Ore']);
+            }
+            if (others.length) list.push(['fleettransport', 'Transport to a fleet here (cargo and fuel)'], ['merge', 'Merge with a fleet here']);
+            list.push(['patrol', 'Patrol'], ['scrap', 'Scrap Fleet']);
+            return list;
+        }
+
+        function renderTaskHere() {
+            const f = getFleetById(thState.fleetId);
+            const body = document.getElementById('th-body');
+            if (!f) {
+                body.innerHTML = 'No fleet selected.';
+                return;
+            }
+            const list = thTaskList(f);
+            if (!list.some(x => x[0] === thState.task)) thState.task = list[0][0];
+            const others = fleetsHere(f);
+            if (!others.some(o => o.id === thState.target)) thState.target = others.length ? others[0].id : null;
+            const t = thState.task;
+            let html = `<div style="font-size: 12px; line-height: 1.6; margin-bottom: 10px;"><b>${escapeHtml(f.name)}</b> - ${escapeHtml(fleetLocationText(f))}. The fleet stays exactly where it is; the task is carried out when the year is played out.</div>`;
+            html += '<div class="sfh-grid">';
+            html += '<label for="th-task">Task</label><select id="th-task">' + list.map(x => `<option value="${x[0]}" ${x[0] === t ? 'selected' : ''}>${escapeHtml(x[1])}</option>`).join('') + '</select>';
+            if (t === 'merge' || t === 'fleettransport') {
+                html += '<label for="th-target">With fleet</label><select id="th-target">' + others.map(o => `<option value="${o.id}" ${o.id === thState.target ? 'selected' : ''}>${escapeHtml(o.name)}</option>`).join('') + '</select>';
+            }
+            if (t === 'transport' || t === 'fleettransport') {
+                html += '<label for="th-zip">Cargo order</label><select id="th-zip">' + allZipOrders().map((z, n) => `<option value="${n}" ${n === thState.zip ? 'selected' : ''}>${escapeHtml(z.name)}${n < ZIP_BUILTIN.length ? '' : ' (custom)'}</option>`).join('') + '</select>';
+            }
+            if (t === 'patrol') {
+                html += '<label for="th-range">Intercept within</label><select id="th-range">' + PATROL_RANGES.map(r => `<option value="${r}" ${r === thState.range ? 'selected' : ''}>${r} ly</option>`).join('') + '</select>';
+            }
+            html += `<label for="th-mode">Then</label><select id="th-mode"><option value="first" ${thState.mode === 'first' ? 'selected' : ''}>Do it first, then carry on with its route</option><option value="only" ${thState.mode === 'only' ? 'selected' : ''}>Replace its route with just this</option></select>`;
+            html += '</div>';
+            let note = '';
+            if (t === 'transport') note = 'Loads and unloads at this planet by the chosen cargo order. You can fine tune the order afterwards in Manage Waypoints.';
+            else if (t === 'fleettransport') note = 'Moves cargo and fuel between this fleet and the fleet chosen, by the chosen cargo order (fuel is left alone; change it in Manage Waypoints).';
+            else if (t === 'colonize') note = 'Lands colonists on this planet. The colonist warning and the larger-colony rule apply.';
+            else if (t === 'load') note = 'Loads as much Ore as the fleet can carry from this planet (only your own planets).';
+            else if (t === 'unload') note = 'Unloads all Ore onto this planet (only your own planets).';
+            else if (t === 'merge') note = 'Merges this fleet into the chosen fleet.';
+            else if (t === 'patrol') note = 'The fleet begins to patrol from this spot once it has no other orders.';
+            else if (t === 'scrap') note = fleetOrbitIndex(f) >= 0 ? 'Scraps the whole fleet and returns part of its minerals and its cargo to this planet.' : 'Scraps the whole fleet in deep space. Everything is lost.';
+            html += `<div style="font-size: 11px; color: #9fe; margin-top: 8px; line-height: 1.5;">${escapeHtml(note)}</div>`;
+            body.innerHTML = html;
+        }
+
+        function openTaskHere() {
+            const f = getSelectedFleet();
+            if (!f) {
+                gameAlert('You have no fleet selected. Select a fleet first.');
+                return;
+            }
+            if (mpReadOnly) {
+                mpReadOnlyNotice();
+                return;
+            }
+            thState.fleetId = f.id;
+            renderTaskHere();
+            document.getElementById('taskhere-modal').classList.add('active');
+        }
+
+        function applyTaskHere() {
+            if (mpReadOnly) {
+                mpReadOnlyNotice();
+                return;
+            }
+            const f = getFleetById(thState.fleetId);
+            if (!f) return;
+            const t = thState.task;
+            const idx = fleetOrbitIndex(f);
+            const wp = { x: f.x, y: f.y, planet: idx, warp: Math.max(1, Math.min(10, f.lastWarp || defaultWarpFor(f))), task: t, here: true };
+            if (t === 'fleettransport') {
+                if (!thState.target) {
+                    gameAlert('There is no other fleet here to transport to.');
+                    return;
+                }
+                wp.task = 'transport';
+                wp.fleetTarget = thState.target;
+                wp.cargo = cleanCargoOrders((allZipOrders()[thState.zip] || ZIP_BUILTIN[0]).cargo);
+                wp.fuelOrder = cleanFuelOrder(null);
+            } else if (t === 'merge') {
+                if (!thState.target) {
+                    gameAlert('There is no other fleet here to merge with.');
+                    return;
+                }
+                wp.fleetTarget = thState.target;
+            } else if (t === 'transport') {
+                wp.cargo = cleanCargoOrders((allZipOrders()[thState.zip] || ZIP_BUILTIN[0]).cargo);
+            } else if (t === 'patrol') {
+                wp.patrolRange = thState.range;
+            } else if (t === 'colonize') {
+                const r = colonizeCheck(f, planets[idx]);
+                if (!r.ok) {
+                    gameAlert(f.name + ' ' + r.msg);
+                    return;
+                }
+            }
+            const only = thState.mode === 'only';
+            if (!only && f.waypoints.length >= MAX_WAYPOINTS) {
+                gameAlert('A fleet can have at most ' + MAX_WAYPOINTS + ' waypoints.');
+                return;
+            }
+            const wps = only ? [wp] : [wp].concat(f.waypoints);
+            const label = t === 'fleettransport' ? 'Transport to a fleet' : TASK_LABELS[t];
+            const finish = () => setRouteChecked(f, wps, ok => {
+                if (!ok) return;
+                if (only) {
+                    delete f.patrol;
+                    delete f.guard;
+                }
+                logEvent(`${f.name} ordered to ${label} at ${idx >= 0 ? planets[idx].name : 'its position'} without moving.`);
+                document.getElementById('taskhere-modal').classList.remove('active');
+                if (document.getElementById('waypoint-modal').classList.contains('active')) renderWaypointModal();
+                updateDashboardPlanetView();
+            });
+            const go = () => {
+                if (waypointSendsColonists(f, wp)) confirmColonists(planets[idx], finish);
+                else finish();
+            };
+            if (t === 'scrap') gameConfirm('Scrap ' + f.name + ' when the year is played out? This cannot be undone once the year runs.', go, 'Scrap Fleet', 'Scrap');
+            else go();
+        }
+
+        document.getElementById('btn-fleet-task-here').addEventListener('click', openTaskHere);
+        document.getElementById('btn-th-apply').addEventListener('click', applyTaskHere);
+        document.getElementById('btn-th-close').addEventListener('click', () => document.getElementById('taskhere-modal').classList.remove('active'));
+        document.getElementById('th-body').addEventListener('change', e => {
+            const id = e.target.id;
+            if (id === 'th-task') thState.task = e.target.value;
+            else if (id === 'th-target') thState.target = parseInt(e.target.value);
+            else if (id === 'th-zip') thState.zip = parseInt(e.target.value) || 0;
+            else if (id === 'th-range') thState.range = parseInt(e.target.value) || 50;
+            else if (id === 'th-mode') thState.mode = e.target.value;
+            renderTaskHere();
+        });
+
         document.getElementById('xfer-body').addEventListener('change', e => {
             if (e.target.id === 'xfer-other') {
                 xferIds.b = parseInt(e.target.value);
@@ -13967,6 +14198,7 @@ const DEFENDERS_PER_POP=100;
 
         document.getElementById('fleet-select').addEventListener('change', (e) => {
             selectedFleetId = parseInt(e.target.value);
+            mapSelKind = 'fleet';
             updateDashboardPlanetView();
         });
 
@@ -14572,11 +14804,19 @@ const DEFENDERS_PER_POP=100;
             ctx.lineTo(-3, 0);
             ctx.lineTo(-5, 5);
             ctx.closePath();
-            ctx.fillStyle = selected ? '#ffffff' : color;
+            ctx.fillStyle = color;
             ctx.fill();
             ctx.lineWidth = 1.2;
-            ctx.strokeStyle = selected ? '#ffff00' : shadeColor(color, -0.5);
+            ctx.strokeStyle = shadeColor(color, -0.5);
             ctx.stroke();
+            if (selected) {
+                const k = selectionPulse();
+                ctx.shadowColor = 'rgba(255, 226, 122, 1)';
+                ctx.shadowBlur = 6 + 12 * k;
+                ctx.strokeStyle = 'rgba(255, 226, 122, ' + (0.5 + 0.5 * k).toFixed(3) + ')';
+                ctx.lineWidth = 1.4 + 1.2 * k;
+                ctx.stroke();
+            }
             ctx.restore();
         }
 
@@ -14710,13 +14950,38 @@ const DEFENDERS_PER_POP=100;
                     const origin = worldToScreen(f.x, f.y);
                     angle = Math.atan2(t.y - origin.y, t.x - origin.x);
                 }
-                drawFleetIcon(mapCtx, pos.x, pos.y, angle, isSel, myColor);
+                drawFleetIcon(mapCtx, pos.x, pos.y, angle, isSel && mapSelKind === 'fleet', myColor);
                 if (isSel || mapScale >= 0.7) {
                     ctx.fillStyle = isSel ? '#ffffff' : myColor;
                     ctx.font = '10px Segoe UI';
                     ctx.fillText(f.name + (f.waypoints.length ? ' (Warp ' + f.waypoints[0].warp + ')' : ''), pos.x + 10, pos.y + 4);
                 }
             });
+        }
+
+        let mapSelKind = 'planet';
+
+        function selectionPulse() {
+            return 0.5 + 0.5 * Math.sin(Date.now() * 0.0026);
+        }
+
+        function drawSelectionGlowCircle(ctx, x, y, r, scale) {
+            const k = selectionPulse();
+            ctx.save();
+            ctx.shadowColor = 'rgba(255, 226, 122, 1)';
+            ctx.shadowBlur = 6 + 12 * k;
+            ctx.strokeStyle = 'rgba(255, 226, 122, ' + (0.5 + 0.5 * k).toFixed(3) + ')';
+            ctx.lineWidth = (1.4 + 1.2 * k) / scale;
+            ctx.beginPath();
+            ctx.arc(x, y, r + (2.5 + 2 * k) / scale, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function selectionGlowActive() {
+            if (mapSelKind === 'fleet') return !!getSelectedFleet();
+            const p = planets[selectedPlanetIndex];
+            return !!p && p.revealed !== false;
         }
 
         function drawGalaxyMap() {
@@ -14765,9 +15030,7 @@ const DEFENDERS_PER_POP=100;
 
                 mapCtx.fillStyle = pColor;
                 mapCtx.fill();
-                mapCtx.lineWidth = index === selectedPlanetIndex ? 2 : 1;
-                mapCtx.strokeStyle = index === selectedPlanetIndex ? '#ffff00' : '#ffffff';
-                mapCtx.stroke();
+                if (index === selectedPlanetIndex && mapSelKind === 'planet') drawSelectionGlowCircle(mapCtx, p.x - halfDim, p.y - halfDim, dotRadius, mapScale);
 
                 if (planetHasDock(p)) {
                     mapCtx.beginPath();
@@ -15678,6 +15941,12 @@ const DEFENDERS_PER_POP=100;
                 runPatrol(f, notes);
                 resolveWaypointTargets(f);
                 if (!f.waypoints.length) return;
+                const w0 = f.waypoints[0];
+                if (w0.here && w0.warp !== GATE_WARP && !w0.wormhole && Math.hypot(w0.x - f.x, w0.y - f.y) < 0.5) {
+                    f.waypoints.shift();
+                    arrivals.push({ fleetId: f.id, waypoint: w0 });
+                    return;
+                }
                 f.movedThisYear = true;
                 const jumped = f.waypoints[0].warp === GATE_WARP || !!f.waypoints[0].wormhole;
                 const res = moveFleetOneYear(f, notes);
@@ -18298,10 +18567,22 @@ const DEFENDERS_PER_POP=100;
             held: 'Every order is in, but this Turn-a-Day game only plays out the year at its daily deadline.',
             no_state: 'The saved galaxy is missing on the server.'
         };
+        const AUTO_SKIP_ERRORS = {
+            not_signed_in: 'You are signed out. Sign in again.',
+            not_found: 'This game no longer exists.',
+            not_member: 'You are not a player in this game.',
+            not_active: 'This game is not in progress.',
+            resigned: 'You have resigned from this game.',
+            processing: 'The year is being played out right now. Try again in a moment.',
+            orders_sent: 'You have already sent your orders for this year, so Skip My Turns cannot be turned on now. Wait for the next year to open, then turn it on.'
+        };
+        const SKIP_SENT_NOTICE = 'You have already sent your orders for this year, so Skip My Turns cannot be turned on now. Wait for the next year to open, then turn it on.';
+        const MP_SKIP_YEARS = 100;
+        let mpAutoSkipMissing = false;
         const MP_POLL_MS = 15000;
         const MP_POLL_BLITZ_MS = 5000;
         const MP_AUTO_RETRY_MS = 20000;
-        const MP_BLOCK_CLICK = '.q-act, .ab-act, #btn-confirm-build, #btn-sb-confirm, #btn-sb-save, #btn-sb-delete, #btn-cargo-apply, #btn-sd-import, #btn-auto-import, #btn-ab-import, #btn-xfer-apply, #btn-wp-guard, #btn-wp-unguard, #btn-wp-add-star, #btn-wp-clear, .wp-remove, .wp-zip-save, #btn-wp-stop-patrol, #btn-wp-jettison, #q-route-apply, #btn-bp-copy, #btn-bp-rename, #btn-bp-delete, #btn-save-economy, #btn-merge-fleets, #fleet-context-actions [data-action], #btn-move-fleet-to-system, #btn-sd-save, #btn-sd-saveas, #btn-sd-delete, #btn-sd-obsolete, #btn-fm-split, #btn-fm-scrap, .fm-refit';
+        const MP_BLOCK_CLICK = '.q-act, .ab-act, #btn-confirm-build, #btn-sb-confirm, #btn-sb-save, #btn-sb-delete, #btn-cargo-apply, #btn-sd-import, #btn-auto-import, #btn-ab-import, #btn-xfer-apply, #btn-wp-guard, #btn-wp-unguard, #btn-th-apply, #btn-fleet-task-here, #btn-wp-add-star, #btn-wp-clear, .wp-remove, .wp-zip-save, #btn-wp-stop-patrol, #btn-wp-jettison, #q-route-apply, #btn-bp-copy, #btn-bp-rename, #btn-bp-delete, #btn-save-economy, #btn-merge-fleets, #fleet-context-actions [data-action], #btn-move-fleet-to-system, #btn-sd-save, #btn-sd-saveas, #btn-sd-delete, #btn-sd-obsolete, #btn-fm-split, #btn-fm-scrap, .fm-refit';
         const MP_BLOCK_CHANGE = '#fleet-plan, .bp-field, .wp-warp, .wp-task, .wp-cargo-a, .wp-cargo-n, .wp-zip, .wp-patrol, #wp-repeat, #q-route, #wp-fleet-name, .fm-name, #fm-fleet-name, #research-focus, #research-next, #q-planet-auto, #autobuild-modal [data-ab], #ab-enabled';
         let mpGame = null;
         let mpReadOnly = false;
@@ -18376,6 +18657,7 @@ const DEFENDERS_PER_POP=100;
         function mpUpdateChrome() {
             const banner = document.getElementById('mp-banner');
             mpSyncLateInviteButton();
+            mpSyncSkipButton();
             mpRenderBannerInfo();
             mpChatSyncUi();
             document.getElementById('btn-game-lobby').style.display = mpGame ? '' : 'none';
@@ -18548,6 +18830,7 @@ const DEFENDERS_PER_POP=100;
                 allIn: !!g.all_in,
                 processing: !!g.processing,
                 resigned: iResigned,
+                skipLeft: 0,
                 clock: mpClockFrom(g),
                 meta: state.multiplayer || { gameId: g.id, name: g.name, version: 1 }
             };
@@ -18568,7 +18851,7 @@ const DEFENDERS_PER_POP=100;
             mpPresence(true);
             mpRefreshOnline(g.id).then(() => mpRenderBannerInfo());
             if (opts.newYear || !opts.silent) mpMaybeShowReport(g.id, g.my_seat);
-            if (canOrder && !mpGame.submitted && !opts.silent) {
+            if (canOrder && !mpGame.submitted && !opts.silent && !mpSkipActive()) {
                 gameDialog({
                     title: opts.firstTurn ? 'The Galaxy Is Ready' : 'Orders for ' + currentYear,
                     message: (opts.firstTurn ? 'The galaxy of ' + g.name + ' has been built.' : 'Give your orders for the year ' + currentYear + ' in ' + g.name + '.') + '\n\nEvery player gives orders at the same time. Press End Turn when you are done. When every player has sent orders, the AI empires add theirs and the whole year is played out at once. You can change your orders and press End Turn again until the last player is in.',
@@ -18576,7 +18859,9 @@ const DEFENDERS_PER_POP=100;
                     hideCancel: true
                 });
             }
+            if (canOrder && !mpGame.submitted && mpSkipActive()) setTimeout(mpSkipSubmit, 0);
             if (mpGame.allIn && mpGame.submitted && !mpGame.processing && !(mpGame.clock && mpGame.clock.held)) setTimeout(() => mpProcessYear(false), 0);
+            mpLoadAutoSkip(g.id);
         }
 
         async function mpEnterGalaxy(gid, opts) {
@@ -18604,7 +18889,7 @@ const DEFENDERS_PER_POP=100;
                 }
                 if (g.my_submitted) {
                     const mo = await sb.rpc('get_my_orders', { gid: gid });
-                    if (!mo.error && mo.data && mo.data.ok && mo.data.orders) opts.myOrders = await unpackState(mo.data.orders);
+                    if (!mo.error && mo.data && mo.data.ok && mo.data.orders && String(mo.data.orders).indexOf('skip:auto') !== 0) opts.myOrders = await unpackState(mo.data.orders);
                 }
                 mpApplyState(state, data, r.turn_number, opts);
             } catch (err) {
@@ -18626,6 +18911,7 @@ const DEFENDERS_PER_POP=100;
             if (!mpPending || !mpGame || !mpClient()) return;
             mpSetBusy(true, ['mp-banner-retry']);
             const kind = mpPending.finish ? 'finish' : (mpPending.yearState ? 'year' : 'orders');
+            const autoSkip = !!mpPending.auto;
             document.getElementById('mp-banner-text').textContent = (kind === 'finish' ? 'Sending the final result...' : kind === 'year' ? 'Sending the new year...' : 'Sending your orders...');
             try {
                 let res;
@@ -18669,7 +18955,7 @@ const DEFENDERS_PER_POP=100;
                 mpUpdateChrome();
                 if (r.all_in) {
                     await mpProcessYear(false);
-                } else if (mpGame.clock && mpGame.clock.play_type === 'blitz') {
+                } else if (autoSkip || (mpGame.clock && mpGame.clock.play_type === 'blitz')) {
                     mpStartPolling();
                 } else {
                     gameAlert('Your orders for ' + currentYear + ' have been sent. Still waiting for: ' + (mpGame.waiting.join(', ') || 'nobody') + '.\n\nYou can keep looking around, and you may change your orders and press End Turn again until the last player is in. Everyone is emailed a summary when the year has been played out.', 'Orders Sent');
@@ -18717,7 +19003,9 @@ const DEFENDERS_PER_POP=100;
                 mpMarkResigned(data.seats);
                 const rule = (data.game.settings && data.game.settings.resignRule) || 'standing';
                 mpApplyResignRules(rule);
+                dipAutoSkipSeats = (r.orders || []).filter(o => o && typeof o.orders === 'string' && o.orders.indexOf('skip:auto') === 0).map(o => o.seat);
                 const result = processYear();
+                dipAutoSkipSeats = [];
                 const summaries = {};
                 empires.forEach(e => { if (Number.isInteger(e.mpSeat)) summaries[String(e.mpSeat)] = e.summaryText || ''; });
                 const meIdx = empires.findIndex(e => e.mpSeat === mpGame.mySeat);
@@ -18741,6 +19029,7 @@ const DEFENDERS_PER_POP=100;
                 gameAlert(mpErrorText(err) + '\n\nThe year was not played out. It will be tried again automatically.', 'Multiplayer');
                 mpStartPolling();
             } finally {
+                dipAutoSkipSeats = [];
                 mpProcessingYear = false;
                 mpUpdateChrome();
             }
@@ -19332,6 +19621,135 @@ const DEFENDERS_PER_POP=100;
             return !!(mpGame && mpGame.mySeat === 0 && !mpGame.finished);
         }
 
+        function mpSkipKey(gid) {
+            return 'fs4x-skip-' + gid;
+        }
+
+        function mpLocalSkip() {
+            if (!mpGame) return false;
+            try { return localStorage.getItem(mpSkipKey(mpGame.id)) === 'on'; } catch (err) { return false; }
+        }
+
+        function mpSkipActive() {
+            if (!mpGame) return false;
+            if (mpAutoSkipMissing) return mpLocalSkip();
+            return (mpGame.skipLeft || 0) > 0;
+        }
+
+        function mpSkipSet(on) {
+            if (!mpGame) return;
+            try {
+                if (on) localStorage.setItem(mpSkipKey(mpGame.id), 'on');
+                else localStorage.removeItem(mpSkipKey(mpGame.id));
+            } catch (err) { }
+        }
+
+        function mpSyncSkipButton() {
+            const b = document.getElementById('btn-skip-turns');
+            if (!b) return;
+            const show = !!(mpGame && !mpGame.finished && !mpGame.resigned);
+            b.style.display = show ? '' : 'none';
+            const on = mpSkipActive();
+            let label = on ? 'ON' : 'OFF';
+            if (on && !mpAutoSkipMissing) label = 'ON (' + mpGame.skipLeft + ' more year' + (mpGame.skipLeft === 1 ? '' : 's') + ')';
+            b.innerText = '⏭ Skip My Turns: ' + label;
+            b.style.color = on ? '#ffcc33' : '#ff9966';
+        }
+
+        async function mpLoadAutoSkip(gid) {
+            if (!mpGame || mpGame.id !== gid || mpAutoSkipMissing || !mpClient()) return;
+            try {
+                const res = await sb.rpc('get_auto_skip', { gid: gid });
+                if (res.error) {
+                    if (res.error.code === 'PGRST202' || /get_auto_skip/.test(res.error.message || '')) {
+                        mpAutoSkipMissing = true;
+                        mpSyncSkipButton();
+                        if (mpSkipActive()) setTimeout(mpSkipSubmit, 0);
+                    }
+                    return;
+                }
+                const r = res.data || {};
+                if (!r.ok || !mpGame || mpGame.id !== gid) return;
+                mpGame.skipLeft = r.remaining || 0;
+                mpSyncSkipButton();
+            } catch (err) { }
+        }
+
+        async function mpSkipSubmit() {
+            if (!mpGame || !mpAutoSkipMissing || !mpLocalSkip() || !mpGame.myTurn || mpGame.submitted || mpBusy || mpPending || mpProcessingYear || mpGame.finished || mpGame.resigned) return;
+            if (dipAutoRejectInbox(empires[activeEmpireIndex])) {
+                const box = document.getElementById('dip-inbox');
+                if (box) box.outerHTML = dipInboxHtml();
+                dipSyncReportClose();
+            }
+            const orders = mpBuildOrders();
+            mpPending = { orders: await packState(orders), turn: mpGame.turnNumber, auto: true };
+            mpUpdateChrome();
+            await mpUploadPending();
+        }
+
+        async function mpSetAutoSkip(n) {
+            if (!mpGame || !mpClient() || mpBusy) return;
+            const gid = mpGame.id;
+            const needReload = n > 0 ? (mpGame.myTurn && !mpGame.submitted) : mpGame.submitted;
+            try {
+                const res = await sb.rpc('set_auto_skip', { gid: gid, p_count: n });
+                if (res.error) throw res.error;
+                const r = res.data || {};
+                if (!r.ok) throw { message: AUTO_SKIP_ERRORS[r.error] || ('This could not be changed (' + r.error + ').') };
+                if (!mpGame || mpGame.id !== gid) return;
+                mpGame.skipLeft = r.remaining || 0;
+                mpSyncSkipButton();
+                if (needReload) await mpEnterGalaxy(gid, { silent: true, keepView: true });
+            } catch (err) {
+                if (err && (err.code === 'PGRST202' || /set_auto_skip/.test(err.message || ''))) {
+                    mpAutoSkipMissing = true;
+                    mpSyncSkipButton();
+                    gameAlert('The server script 15_auto_skip.sql has not been run in the Supabase SQL Editor yet, so Skip My Turns works only while this page is open. Press the button again to use it that way.', 'Skip My Turns');
+                    return;
+                }
+                gameAlert(mpErrorText(err), 'Skip My Turns');
+            }
+        }
+
+        function mpToggleLocalSkip() {
+            const gid = mpGame.id;
+            if (mpLocalSkip()) {
+                mpSkipSet(false);
+                mpSyncSkipButton();
+                gameAlert('Skip My Turns is off. From now on your orders are sent only when you press End Turn.' + (mpGame.submitted ? ' The blank orders already sent for this year stay sent until you change them and press Resend Orders.' : ''), 'Skip My Turns');
+                return;
+            }
+            if (mpGame.submitted) {
+                gameAlert(SKIP_SENT_NOTICE, 'Skip My Turns');
+                return;
+            }
+            const pendingYear = mpGame.myTurn && !mpGame.submitted;
+            gameConfirm('Skip My Turns sends blank orders for you every year while this page is open, with no new orders from you: your production queues, research and fleet waypoints carry on as they are. It stays on until you press this button again.' + (pendingYear ? '\n\nOrders you have given this year but not sent will be discarded, and blank orders are sent now.' : ''), () => {
+                mpSkipSet(true);
+                mpSyncSkipButton();
+                if (pendingYear) mpEnterGalaxy(gid, { silent: true, keepView: true });
+            }, 'Skip My Turns', 'Skip My Turns');
+        }
+
+        function mpToggleSkipTurns() {
+            if (!mpGame) return;
+            if (mpAutoSkipMissing) {
+                mpToggleLocalSkip();
+                return;
+            }
+            if (mpSkipActive()) {
+                gameConfirm('Stop skipping? The ' + mpGame.skipLeft + ' more year' + (mpGame.skipLeft === 1 ? '' : 's') + ' still queued will be cancelled. Blank orders already sent for this year are taken back so you can give real orders.', () => mpSetAutoSkip(0), 'Skip My Turns', 'Stop Skipping');
+                return;
+            }
+            if (mpGame.submitted) {
+                gameAlert(SKIP_SENT_NOTICE, 'Skip My Turns');
+                return;
+            }
+            const pendingYear = mpGame.myTurn && !mpGame.submitted;
+            gameConfirm('Skip My Turns passes the next ' + MP_SKIP_YEARS + ' years for you. The server sends blank orders for you each year, so you can close this page and the other players are never kept waiting: your production queues, research and fleet waypoints carry on as they are. The count goes down by one each year, and you can stop it with this button at any time.' + (pendingYear ? '\n\nOrders you have given this year but not sent will be discarded, and blank orders are sent now.' : '') + '\n\nA year is still played out by the browser of a player who has the game open. If every other player is also away, the game waits until someone opens it.', () => mpSetAutoSkip(MP_SKIP_YEARS), 'Skip My Turns', 'Skip ' + MP_SKIP_YEARS + ' Years');
+        }
+
         function mpSyncLateInviteButton() {
             const b = document.getElementById('btn-invite-late');
             if (b) b.style.display = mpIsHost() ? '' : 'none';
@@ -19563,6 +19981,7 @@ const DEFENDERS_PER_POP=100;
         }
 
         document.getElementById('btn-invite-late').addEventListener('click', mpOpenLateInvite);
+        document.getElementById('btn-skip-turns').addEventListener('click', mpToggleSkipTurns);
         document.getElementById('late-invite-form').addEventListener('submit', mpSendLateInvite);
         document.getElementById('late-invite-close').addEventListener('click', mpCloseLateInvite);
         document.getElementById('late-join-form').addEventListener('submit', mpLateJoinSubmit);
@@ -20023,7 +20442,7 @@ const DEFENDERS_PER_POP=100;
                     lastPicDraw = ts;
                     drawPlanetPicture(ts);
                 }
-                if (!isDragging && ts - lastMapAnim > 70 && playerFleets.length && playerFleets.some(f => fleetOrbitIndex(f) >= 0)) {
+                if (!isDragging && ts - lastMapAnim > 60 && (selectionGlowActive() || (playerFleets.length && playerFleets.some(f => fleetOrbitIndex(f) >= 0)))) {
                     lastMapAnim = ts;
                     drawGalaxyMap();
                 }
