@@ -2177,7 +2177,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.65.0 (Updated: October 03, 2026 07:36 PM)</div>
+            <div class="version-text">Version 0.66.0 (Updated: October 03, 2026 09:03 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -3407,7 +3407,7 @@
                 <p><b style="color:#da70d6;">Chat</b><br>In a multiplayer game the Galactic Event Log panel has three tabs: <b>Events</b> (your own log, as always), <b>💬 Chat</b> (messages from the players) and <b>Both</b> (events and chat together, ordered by game year with the newest year at the top, and inside a year the chat shown above the events of that year, so you can see what was said around what happened). Type a message (up to 500 characters) and press Enter or Send on the Chat or Both tab; it goes to every player in the game. Like the Events tab, the Chat and Both lists show the <b>newest line at the top</b>, and new messages appear there. Each message shows the game year, your local time, a dot, and the sender's name in that player's empire color (the same color as their planets and fleets on the star map). A <b>green dot</b> means the player is online right now, a <b>grey dot</b> offline (see Who Is Online); no dot means that player's status is not known. Your own messages have a green bar on their left. While the Chat or Both tab is open new messages appear within a few seconds; while it is closed the game checks about every 20 seconds, and the number of messages you have not read yet is shown in brackets on the tab, which turns gold. Opening the Chat or Both tab marks everything as read (this is remembered in your browser, per game). On a phone or narrow screen the list is 300 pixels high; press <b>▾ Smaller</b> for 150 pixels or <b>▴ Bigger</b> to enlarge it again. On a wide (desktop) screen the Events, Chat and Both lists fill the panel down to its bottom edge and the Smaller / Bigger button is not shown. Chat is only open while the game is running, it is shared by all players (private messages are not possible yet), and the server keeps the last 200 messages of each game. Chat messages are not part of your saved game and are never written into your Events log; the Both tab only shows them next to it. Chat needs <b>13_chat.sql</b> to be run once in the Supabase SQL Editor; until then the Chat tab says that chat is not set up. <b>Host tools:</b> the host (seat 1, who created the game) sees a <b>🧹 Clear</b> button next to Send, which deletes the whole chat for every player after a confirmation, and can type commands in the chat box: <b>/clear</b>, <b>/mute name</b> (the player can still read the chat but cannot send messages) and <b>/unmute name</b>, using the player's username. Everyone sees a short orange notice when the chat is cleared, a player is muted or unmuted, or a player joins the running game late. When the game is over the chat is closed (you can still read it). While you have unread messages the number also shows in the browser tab title. The host tools and notices need <b>14_chat_host.sql</b> to be run once in the Supabase SQL Editor (after 13_chat.sql).</p>
                 <p><b style="color:#da70d6;">Play Types</b><br>The Multiplayer Options of a new game set its <b>Play Type</b>. <b>Custom time limit</b>: the Turn Time Limit (24 hours, 48 hours, 72 hours, 1 week or No limit) is how long players have for each year; after it any player who has sent orders may play the year without the others. <b>Turn-a-Day (play by email)</b>: the classic pace of one year a day. Pick a daily deadline in your local time (it is stored as the same moment for every player, wherever they live). The year is played out as soon as every player has sent orders, or at the deadline without the late players; tick <b>Only play out the year at the daily deadline</b> to always wait for the deadline, which gives everyone the full day for planning, messages and calculations. A year that starts within an hour of the deadline runs until the next day's deadline. Everyone gets a year summary by email. <b>Blitz (everyone online)</b>: every player is online at once and a year lasts 5, 10, 15, 20, 30 or 60 minutes; when the timer runs out the year is played out automatically without anyone who is late, the galaxy checks for news every 5 seconds, the Orders Sent message is skipped, and no emails are sent each year. The play type is shown in the lobby and as a tag in My Games.</p>
                 <p><b style="color:#da70d6;">Resigning</b><br>In a game that is in progress, <b>🏳 Resign</b> in the game lobby lets you leave for good (it cannot be undone); the confirmation tells you what will happen to your empire. What happens depends on the game's When a Player Resigns option (see Multiplayer Options). <b>A new AI empire takes over:</b> your planets, ships and starbases go to a new computer empire with a random name, race and intelligence, which plays on and can win like any AI opponent. <b>The empire is removed:</b> your ships are scrapped and your planets become uninhabited. Both changes are made in the galaxy of the next player whose turn comes up, and everyone's event log records them. <b>The empire keeps its standing orders:</b> it stays in the galaxy, keeps its planets and fleets and follows its standing orders every round, but it cannot win. In every case you can no longer give orders. The other players are emailed and the turn order passes over you from then on: whoever plays before you runs your empire's turn on standing orders as part of their End Turn, and their turn report says so. If it was your turn, the turn passes on at once. You can still open the galaxy to watch, or press Remove from My Games to hide it. If every player resigns, the game ends without a winner, everyone is emailed and the saved galaxy is deleted. If only one player is left, they keep playing against the AI empires and the resigned empires; their turn comes straight back after each End Turn. Before a game starts, use Leave Game (or Cancel Game if you created it) instead.</p>
-                <p><b style="color:#da70d6;">The New Game Screen</b><br>Empire Name and Choose Race sit on one row. Universe Size, Star Density and Player Position share the next row. Choose Race offers <b>Random Race</b>, which picks one of the six built-in races for you when you press Create Galaxy (the log tells you which), and lists your saved custom races under their own <b>Custom Races</b> heading. Player Position sets how far apart the homeworlds start. Four buttons sit below, two to a row: <b>Custom Race</b> opens your race list and the Race Wizard (see Custom Races below), <b>AI Opponents</b> opens the rival setup and shows how many rivals you have in brackets, and <b>Advanced Options</b> and <b>Victory Conditions</b> each show how many choices are ticked. Back and Create Galaxy sit on the bottom row.</p>
+                <p><b style="color:#da70d6;">The New Game Screen</b><br>Empire Name and Choose Race sit on one row. Universe Size, Star Density and Player Position share the next row. <b>Star Density</b> sets how far apart neighboring stars are: Packed 5 to 10 ly, Dense 10 to 16 ly, Normal 15 to 25 ly, Sparse 30 to 50 ly. The summary line under the row shows the range. At Sparse, early engines and small fuel tanks cannot reach the next star, so plan on fuel transports, ramscoops or better drives. Choose Race offers <b>Random Race</b>, which picks one of the six built-in races for you when you press Create Galaxy (the log tells you which), and lists your saved custom races under their own <b>Custom Races</b> heading. Player Position sets how far apart the homeworlds start. Four buttons sit below, two to a row: <b>Custom Race</b> opens your race list and the Race Wizard (see Custom Races below), <b>AI Opponents</b> opens the rival setup and shows how many rivals you have in brackets, and <b>Advanced Options</b> and <b>Victory Conditions</b> each show how many choices are ticked. Back and Create Galaxy sit on the bottom row.</p>
                 <p><b style="color:#da70d6;">Custom Races and the Race Wizard</b><br>On the New Game screen, <b>Custom Race</b> opens your list of saved races. <b>Create New Race</b> starts the Race Wizard. Each saved race also has <b>Play As</b> (makes it your race for the next game), <b>Edit</b>, <b>Copy</b> and <b>Delete</b>. Saved races appear under Custom Races in Choose Race and in every AI opponent's race menu, so you can cast your creations as your rivals too. Races are kept in this browser, and every saved game carries a copy of the custom races it uses, so a game file opened on another machine brings its races with it and adds any you do not have yet to your list. <b>Export All</b> and <b>Import</b> move your whole list as a JSON file. You can keep up to 24 custom races.</p>
                 <p><b style="color:#da70d6;">Advantage Points</b><br>Every race is built from a pool of Advantage Points. A new race starts with 25 left. Strengths spend points and handicaps refund them, and a race can only be saved when 0 or more points are left. The counter at the top right updates as you choose, and the Point Ledger beside the wizard lists every cost and refund so you can see where the points went. On a narrow screen the ledger is hidden, but the counter stays. Points you do not spend (up to 50) can go into a starting bonus picked on the Identity tab: <b>Surface minerals</b> (+20 kT of each ore per point at your homeworld), <b>Mineral concentrations</b> (+1 concentration on each mineral per 2 points, up to 100), <b>Mines</b> or <b>Factories</b> (+1 per 2 points) or <b>Defenses</b> (+1 Defense per 5 points).</p>
                 <p><b style="color:#da70d6;">The Six Wizard Tabs</b><br>You can jump between tabs at any time, or use Back and Next. <b>1 Identity</b>: race name, plural name, an icon, an optional preset (loads the traits of one of the six built-in races as a starting point, keeping your name and icon) and the leftover points bonus. <b>2 Primary Trait</b>: exactly one of ten, such as Hyper-Expansion, Super-Stealth, War Monger, Jack of All Trades. The primary trait sets your empire's whole style. <b>3 Lesser Traits</b>: any mix of fourteen. Advantages (Improved Fuel Efficiency, Total Terraforming, Advanced Remote Mining, Improved Starbases, Generalized Research, Ultimate Recycling, Mineral Alchemy) cost points. Handicaps (No Ram Scoop Engines, Cheap Engines, Only Basic Remote Mining, No Advanced Scanners, Low Starting Population, Bleeding Edge Technology, Regenerating Shields) refund them. <b>4 Environment</b>: for Gravity, Temperature and Radiation pick an Ideal value and a Tolerance. The purple band shows the conditions your people can live in, in real units. A wide band means many planets suit you but costs points, a narrow band refunds points. Ticking Immune makes that factor irrelevant, at the highest price. The wizard tells you how many planets to expect to be habitable (for example 1 in 5), and the same odds apply in the galaxy. The growth rate slider runs from 1 to 20 percent a year, and faster growth costs points. <b>5 Economy</b>: seven numbers that say how much one colonist, factory and mine produces, what factories and mines cost and how many a population can run, plus a checkbox that makes factories use 1 kT less Germanium. Better numbers cost points, worse numbers refund them. <b>6 Research</b>: each of the six fields can cost 75 percent extra (refunds points), a standard amount, or 50 percent less (costs points). A checkbox lets every expensive field start at Tech 4, at a price.</p>
@@ -3470,7 +3470,7 @@
                 <p><b style="color:#da70d6;">Scanning and Discovery</b><br>Star locations are always visible, but what is on them is not. There are two kinds of scanner. <b>Normal scanners</b> see fleets in deep space and show who owns a world and whether it has a starbase, but they cannot see into a planet: fleets in orbit of a planet are hidden from them (except at your own planets), and they do not tell you a planet's ore deposits or habitability. <b>Planet-penetrating scanners</b> see fleets in orbit and read a planet's ore, concentrations and habitability from a distance. A planet is surveyed (its details known) when one of your ships orbits it or it is inside your penetrating range. Every planet you own scans with the best planetary scanner your tech allows: Viewer 50 (no tech), Viewer 90 (Electronics 1), Scoper 150 (Electronics 3), Scoper 220 (Electronics 6), Scoper 280 (Electronics 8), and the penetrating Snooper 320X, 400X, 500X and 620X (penetrating range 160, 200, 250 and 310 ly) with Energy, Electronics and Biotechnology. Ship scanners with a penetrating range: Chameleon 45, Ferret 50, Dolphin 100, Robber Baron 120 and Elephant 200 ly. Several scanners on one ship combine: the range is the fourth root of the sum of each range to the fourth power, so two 100 ly scanners and one 60 ly scanner give 120 ly (the same for penetrating ranges). A fleet uses the ranges of its best ship. Jack of All Trades races get a built-in scanner on Scouts, Frigates and Destroyers (20 ly per Electronics level). Races with No Advanced Scanners double every normal range but get no penetrating scanners. Space Demolition races use their own minefields as normal scanners that see fleets inside the field but not fleets in orbit; against them a cloak is a straight chance not to be seen (a 90 percent cloak is seen 10 percent of the time). Out-of-range planets keep their last survey data, marked with the year it was taken.</p>
                 <p><b style="color:#da70d6;">Habitability</b><br>Each planet has gravity, temperature and radiation. The shaded band on each bar is the range your race tolerates and the marker is the planet. A planet with every value inside the band is habitable, and the closer to center the better. Any value outside the band makes the planet hostile. A factor your race is immune to counts as perfect everywhere, and its band fills the whole bar. Maximum population is habitability percent of 100,000, changed by your race's population traits (Hyper-Expansion halves it, Jack of All Trades adds 20 percent, Only Basic Remote Mining adds 10 percent).</p>
                 <p><b style="color:#da70d6;">Colonizing</b><br>Build a Colony Ship (the planet needs a ship dock and at least 7,500 colonists), fly it to a neutral planet and use the Colonize task on the waypoint, or Fleet, Colonize Planet once it is in orbit (an order carried out at the start of next year). The ship is used up, its colonists (up to 5,000) found the colony and 75 percent of its minerals are left on the planet. If colony ships of two empires land on the same planet in the same year, the larger colony wins. A colony can be founded on a hostile planet (you are warned first), but its colonists slowly die off. Unsurveyed planets cannot be colonized until your ship in orbit has surveyed them, which happens as it arrives. A new colony makes a few Resources a year: queue a factory or mine first, and give it a Space Station with a dock before it can build ships. See Population and Growth for how colonies grow.</p>
-                <p><b style="color:#da70d6;">Advanced Options</b><br>On the New Game screen, Advanced Options opens a box where you can add any of these to the game. <b>Beginner: Maximum Minerals</b> gives every homeworld 100 percent mineral concentrations and every other world at least 50 percent. <b>Slower Tech Advances</b> doubles the cost of every research level. <b>Accelerated BBS Play</b> speeds up the opening: you begin with an extra loaded Colony Ship and a Small Freighter at your homeworld, and AI empires start with 50 percent more banked Resources. <b>No Random Events</b> turns off random events. <b>AI Opponents can form alliances</b> lets rivals team up over time; allied rivals each earn 10 percent more. <b>Public Player Scores</b> (on by default) shows every empire's score on the Scoreboard; turn it off to hide rival scores. <b>Galaxy clumping</b> gathers stars into tight clusters with empty space between them; off gives a looser, more even spread. <b>Mines need colonists (classic operating limit)</b> is off to start with, and then every mine works while its planet has any colonist; ticked, only a limited number of mines can operate per 10,000 colonists, like factories.</p>
+                <p><b style="color:#da70d6;">Advanced Options</b><br>On the New Game screen, Advanced Options opens a box where you can add any of these to the game. <b>Beginner: Maximum Minerals</b> gives every homeworld 100 percent mineral concentrations and every other world at least 50 percent. <b>Slower Tech Advances</b> doubles the cost of every research level. <b>Accelerated BBS Play</b> speeds up the opening: you begin with an extra loaded Colony Ship and a Small Freighter at your homeworld, and AI empires start with 50 percent more banked Resources. <b>No Random Events</b> turns off random events. <b>AI Opponents can form alliances</b> lets rivals team up over time; allied rivals each earn 10 percent more. <b>Public Player Scores</b> (on by default) shows every empire's score on the Scoreboard; turn it off to hide rival scores. <b>Galaxy clumping</b> gathers stars into tight clusters with empty space between them; off spreads the stars out in long webs. Neighbor distances stay inside the Star Density range either way. <b>Mines need colonists (classic operating limit)</b> is off to start with, and then every mine works while its planet has any colonist; ticked, only a limited number of mines can operate per 10,000 colonists, like factories.</p>
                 <p><b style="color:#da70d6;">Victory Conditions</b><br>On the New Game screen, Victory Conditions opens a box where you can tick any of these. <b>Own a share of all planets</b> is ticked to start with at 60 percent; set it anywhere from 10 to 100 percent of every planet in the galaxy. <b>Attain a tech level</b>: a level from 1 to 26 in a number of fields from 1 to 6. <b>Exceed a score</b>: from 1,000 to 1,000,000. <b>Exceed second place score by a percentage</b>: your score must be at least that much higher than the runner-up (starts at 100 percent, meaning double the second best score; choose 1 to 1,000). <b>Own capital ships</b>: from 2 to 1,000 (capital ships cannot be built yet, so this cannot be met until ship design arrives). <b>Highest score after a number of years</b>: from 10 to 1,000,000 years. At the bottom, pick how many of the ticked conditions a winner must meet (1 up to the number ticked), and how many years must pass before a winner can be declared (10 to 1,000,000). Every empire is judged the same way at the end of each turn, and if several qualify the highest score wins. The Scoreboard lists the active conditions. In a single player game you can keep playing after a winner is declared. In a multiplayer game the game ends (see Multiplayer Victory and Game Over).</p>
                 <p><b style="color:#da70d6;">Management</b><br>Economy shows your Resources, the research and manufacturing split, operating factories and mines, and Ore mined and stockpiled. Research lets you pick the field and shows progress and your engine. <b>Fleet Roster</b> lists every fleet with its position, fuel, cargo and route. Each fleet has a <b>Select and Center</b> button: it closes the roster, selects that fleet, selects the planet it is orbiting and moves the star map to it (a fleet in deep space is selected and centered on its position). Scoreboard ranks every empire by planets, ships, tech, Resources per year and Ore. <b>Autobuild</b> opens your empire's Autobuild rules (see Autobuild).</p>
                 <p><b style="color:#da70d6;">Continue Game</b><br>The <b>Continue Game</b> button on the title screen (or the C key) takes you back to the game you played last in this browser. If the last game was a single player game it loads your browser save (the one made with Save File). If the last game was a multiplayer game and this browser is still signed in to your account, it goes straight into that multiplayer game without opening the lobby. If you are signed out, or the game cannot be loaded, it falls back to your browser saved single player game, or tells you there is none.</p>
@@ -3629,7 +3629,7 @@
             const total = getGalaxyPlanetCount(sizeKey, densityKey);
             const empireCount = (setupMode === 'mp' ? mpSlots.length : rivalConfigs.length) + 1;
             document.getElementById('setup-galaxy-summary').innerText =
-                `Galaxy: ${dim} x ${dim} ly | ${total} planets total | ${empireCount} empires (${Math.max(0, total - empireCount)} unclaimed worlds)`;
+                `Galaxy: ${dim} x ${dim} ly | ${total} planets total | ${empireCount} empires (${Math.max(0, total - empireCount)} unclaimed worlds) | neighbor stars ${(starSpacingRanges[densityKey] || starSpacingRanges.normal).lo} to ${(starSpacingRanges[densityKey] || starSpacingRanges.normal).hi} ly apart`;
         }
 
         function gaussian() {
@@ -3640,61 +3640,120 @@
             return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
         }
 
-        function generateStarPositions(totalCount, dimension, reserved, clump) {
+        const starSpacingRanges = {
+            packed: { lo: 5, hi: 10 },
+            dense: { lo: 10, hi: 16 },
+            normal: { lo: 15, hi: 25 },
+            sparse: { lo: 30, hi: 50 }
+        };
+
+        function generateStarPositions(totalCount, dimension, reserved, clump, densityKey) {
+            const range = starSpacingRanges[densityKey] || starSpacingRanges.normal;
+            const lo = range.lo + 0.8;
+            const hi = range.hi - 0.8;
             const margin = 20;
-            const span = dimension - margin * 2;
-            const area = span * span;
-            let minSpacing = Math.sqrt(area / totalCount) * 0.3;
-            const clusterCount = Math.max(3, Math.round(Math.sqrt(totalCount) / 3));
-            const sigma = span * (clump ? 0.045 : 0.08);
-            const centers = [];
-            for (let i = 0; i < clusterCount; i++) {
-                centers.push({ x: margin + Math.random() * span, y: margin + Math.random() * span, weight: 0.5 + Math.random() });
-            }
-            const totalWeight = centers.reduce((sum, c) => sum + c.weight, 0);
-            const pickCenter = () => {
-                let r = Math.random() * totalWeight;
-                for (const c of centers) {
-                    r -= c.weight;
-                    if (r <= 0) return c;
-                }
-                return centers[centers.length - 1];
-            };
-            const clusterShare = clump ? 0.92 : 0.35;
-            const positions = [];
             const needed = totalCount - reserved.length;
-            let failures = 0;
+            const cell = hi * 2.5;
+            const cols = Math.ceil(dimension / cell) + 1;
+            const grid = new Map();
+            const all = [];
+            const lo2 = lo * lo;
+            const crowdRadius2 = cell * cell;
+            const addPoint = (x, y) => {
+                const p = { x: x, y: y };
+                all.push(p);
+                const key = Math.floor(x / cell) * cols + Math.floor(y / cell);
+                if (!grid.has(key)) grid.set(key, []);
+                grid.get(key).push(p);
+                return p;
+            };
+            const near = (x, y, r2, stopAtOne) => {
+                const cx = Math.floor(x / cell);
+                const cy = Math.floor(y / cell);
+                let n = 0;
+                for (let gx = cx - 1; gx <= cx + 1; gx++) {
+                    for (let gy = cy - 1; gy <= cy + 1; gy++) {
+                        const list = grid.get(gx * cols + gy);
+                        if (!list) continue;
+                        for (let i = 0; i < list.length; i++) {
+                            const dx = list[i].x - x;
+                            const dy = list[i].y - y;
+                            if (dx * dx + dy * dy < r2) {
+                                n++;
+                                if (stopAtOne) return n;
+                            }
+                        }
+                    }
+                }
+                return n;
+            };
+            const tooClose = (x, y) => near(x, y, lo2, true) > 0;
+            const inside = (x, y) => x >= margin && x <= dimension - margin && y >= margin && y <= dimension - margin;
+            reserved.forEach(r => addPoint(r.x, r.y));
+            const positions = [];
+            if (clump) {
+                const seedCount = Math.max(3, Math.round(Math.sqrt(totalCount) / 3));
+                let guard = 0;
+                while (positions.length < Math.min(seedCount, needed) && guard < 2000) {
+                    guard++;
+                    const sx = Math.round(margin + Math.random() * (dimension - margin * 2));
+                    const sy = Math.round(margin + Math.random() * (dimension - margin * 2));
+                    if (tooClose(sx, sy)) continue;
+                    positions.push({ x: sx, y: sy });
+                    addPoint(sx, sy);
+                }
+            } else if (!all.length) {
+                addPoint(dimension / 2, dimension / 2);
+            }
+            const seedParents = all.slice();
+            let seedTurn = 0;
+            const pickParent = () => {
+                if (clump && seedTurn < seedParents.length * 2) return seedParents[seedTurn++ % seedParents.length];
+                if (clump) return all[Math.floor(Math.random() * all.length)];
+                let best = null;
+                let bestScore = Infinity;
+                for (let k = 0; k < 6; k++) {
+                    const p = all[Math.floor(Math.random() * all.length)];
+                    const score = near(p.x, p.y, crowdRadius2, false);
+                    if (score < bestScore) {
+                        bestScore = score;
+                        best = p;
+                    }
+                }
+                return best;
+            };
+            let stalled = 0;
             while (positions.length < needed) {
-                let sx;
-                let sy;
-                if (failures < 150 && Math.random() < clusterShare) {
-                    const c = pickCenter();
-                    const spread = sigma * (0.6 + c.weight * 0.6);
-                    sx = c.x + gaussian() * spread;
-                    sy = c.y + gaussian() * spread;
-                } else {
-                    sx = margin + Math.random() * span;
-                    sy = margin + Math.random() * span;
-                }
-                let ok = sx >= margin && sx <= dimension - margin && sy >= margin && sy <= dimension - margin;
-                if (ok) {
-                    for (let i = 0; i < reserved.length; i++) {
-                        if (Math.hypot(reserved[i].x - sx, reserved[i].y - sy) < minSpacing) { ok = false; break; }
+                const parent = pickParent();
+                let pick = null;
+                let pickScore = clump ? -Infinity : Infinity;
+                for (let t = 0; t < 14; t++) {
+                    const ang = Math.random() * Math.PI * 2;
+                    const dist = lo + (hi - lo) * Math.pow(Math.random(), clump ? 1.5 : 1);
+                    const cx = parent.x + Math.cos(ang) * dist;
+                    const cy = parent.y + Math.sin(ang) * dist;
+                    if (!inside(cx, cy) || tooClose(cx, cy)) continue;
+                    const score = near(cx, cy, crowdRadius2, false);
+                    if (clump ? score > pickScore : score < pickScore) {
+                        pickScore = score;
+                        pick = { x: cx, y: cy };
                     }
                 }
-                if (ok) {
-                    for (let i = 0; i < positions.length; i++) {
-                        if (Math.hypot(positions[i].x - sx, positions[i].y - sy) < minSpacing) { ok = false; break; }
-                    }
-                }
-                if (ok) {
-                    positions.push({ x: Math.round(sx), y: Math.round(sy) });
-                    failures = 0;
+                if (pick) {
+                    const spot = { x: Math.round(pick.x), y: Math.round(pick.y) };
+                    positions.push(spot);
+                    addPoint(spot.x, spot.y);
+                    stalled = 0;
                 } else {
-                    failures++;
-                    if (failures > 400) {
-                        minSpacing *= 0.92;
-                        failures = 0;
+                    stalled++;
+                    if (stalled > 3000) {
+                        const fx = Math.round(margin + Math.random() * (dimension - margin * 2));
+                        const fy = Math.round(margin + Math.random() * (dimension - margin * 2));
+                        if (!tooClose(fx, fy)) {
+                            positions.push({ x: fx, y: fy });
+                            addPoint(fx, fy);
+                            stalled = 0;
+                        }
                     }
                 }
             }
@@ -3854,7 +3913,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.65.0';
+        const GAME_VERSION = '0.66.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -13034,6 +13093,12 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.66.0', d: 'Oct 3, 2026 9:03 PM', t: "Star Spacing Matches Stars!", items: [
+                "New galaxies now place neighboring stars at the classic distances: Packed 5 to 10 ly, Dense 10 to 16 ly, Normal 15 to 25 ly and Sparse 30 to 50 ly. Before, stars were spread across the whole map and sat far apart.",
+                "Stars now grow outward from every homeworld in chains and webs, so each empire starts with neighbors in range. Galaxy clumping still makes tighter clusters.",
+                "The galaxy summary on the New Game screen shows the spacing range.",
+                "Help: The New Game Screen and Advanced Options updated."
+            ] },
             { v: '0.65.0', d: 'Oct 3, 2026 7:36 PM', t: "Chat and Both Tabs Newest First", items: [
                 "The Chat tab and the Both tab of the Galactic Event Log now show the newest line at the top and the oldest at the bottom, like the Events tab. New messages appear at the top.",
                 "The Both tab sorts by year with the newest year first; inside a year, chat comes before the events of that year, and later lines come before earlier ones.",
@@ -14324,7 +14389,7 @@ const DEFENDERS_PER_POP=100;
             planets.forEach(p => applyRaceHomeBonus(p, raceOfOwner(p.owner)));
 
             let nameIdx = 0;
-            const neutralPositions = generateStarPositions(totalPlanetCount, mapDimension, homePositions, gameOptions.clumping);
+            const neutralPositions = generateStarPositions(totalPlanetCount, mapDimension, homePositions, gameOptions.clumping, cfg.densityKey);
             for (let i = 0; i < neutralPositions.length; i++) {
                 const sName = STAR_NAMES[nameIdx % STAR_NAMES.length] + (nameIdx >= STAR_NAMES.length ? `-${Math.floor(nameIdx / STAR_NAMES.length) + 1}` : '');
                 nameIdx++;
