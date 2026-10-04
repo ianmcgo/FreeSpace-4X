@@ -2177,7 +2177,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.66.0 (Updated: October 03, 2026 09:03 PM)</div>
+            <div class="version-text">Version 0.67.0 (Updated: October 03, 2026 09:13 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -2636,6 +2636,7 @@
                     <button class="tool-icon" id="btn-invite-late" style="color: #32cd32; display: none;">✉ Invite to Game</button>
                     <button class="tool-icon" id="btn-skip-turns" style="color: #ff9966; display: none;">⏭ Skip My Turns: OFF</button>
                     <button class="tool-icon" id="btn-transparency" style="color: #88e0ff;">🪟 Panel Transparency</button>
+                    <button class="tool-icon" id="btn-planet-names" style="color: #ffcc66;">🔠 Planet Names on Map</button>
                     <button class="tool-icon" id="btn-auto-export" style="color: #00ffff;">📤 Export Automation</button>
                     <button class="tool-icon" id="btn-auto-import" style="color: #32cd32;">📥 Import Automation</button>
                     <button class="tool-icon" id="btn-help" style="color: #88bbff;">❓ Help</button>
@@ -3352,6 +3353,19 @@
         </div>
     </div>
 
+    <div id="names-modal" class="modal-overlay" style="z-index: 1900;">
+        <div class="modal-content">
+            <h2 class="screen-header" style="margin-top: 0;">Planet Names on Map</h2>
+            <div style="font-size: 12px; color: #ccc; line-height: 1.5;">How large planet names are drawn on the star map. Slide all the way left to hide them.</div>
+            <input type="range" id="pn-slider" min="0" max="24" step="1" value="10">
+            <div class="tr-row"><span>Hidden</span><span id="pn-value">10 px</span><span>Large</span></div>
+            <div style="display: flex; gap: 8px; margin-top: 12px;">
+                <button class="nav-button" id="btn-pn-reset">Reset (10 px)</button>
+                <button class="nav-button btn-primary" id="btn-pn-close">Close</button>
+            </div>
+        </div>
+    </div>
+
     <div id="game-dialog" class="modal-overlay" style="z-index: 3000;">
         <div class="modal-content" id="game-dialog-box" style="max-width: 480px;">
             <h2 class="screen-header" id="game-dialog-title">Notice</h2>
@@ -3435,6 +3449,7 @@
                 <p><b style="color:#da70d6;">Pop-up Windows</b><br>Everything you open from the Planet, Fleet, Management and Settings menus, including Structures, Ship Construction, Manage Waypoints, Manage Ships and Names, Fleet Roster, Ship Designer, Autobuild, Battle Reports, Battle Plans, Minefields, Diplomacy, Reports, Scoreboard, Help and Updates, opens in the middle of the screen over the blank scrolling star field, the same way Research does. To close a window, click outside it, or use its Close or Back button; either one returns you to the main game view. Panel Transparency is the one exception that keeps the game visible behind it so you can watch your changes. The menus themselves open under their button and are only as wide as their longest line.</p>
                 <p><b style="color:#da70d6;">Ore Concentration Bars</b><br>The planet picture and the ore are both inside the Planet Summary box, with the population, status, habitability and starbase text to the right of the picture; ore is in the Ore On Hand &amp; Concentrations section under the population and habitability lines. That section also carries the Resources, Mines, Factories, Mass Driver and Defenses lines. It shows each ore on one line: its name, how many kilotons are on hand or in the ground, and a bar for the concentration. The bar fills to the concentration percentage. Green means 75% and up, an excellent mining world for that ore; yellow means 26% to 74%, a middling one; red means 0% to 25%, so mines there will produce little. A gray bar with a question mark means the world has not been surveyed yet.</p>
                 <p><b style="color:#da70d6;">Game Images</b><br>The Cabal Coffers Gaming logo on the title screen and the small Ironium, Boranium and Germanium icons beside ore names are loaded from the game's GitHub images folder instead of being built into the game file. They need an internet connection the first time they are shown, and your browser keeps them afterward. If an image cannot be reached the game keeps working and only that picture is missing.</p>
+                <p><b style="color:#da70d6;">Planet Names on Map</b><br>Open Settings, then Planet Names on Map, to change how large planet names are drawn on the star map. The slider runs from Hidden (all the way left, no names at all, not even for your own or the selected planet) to 24 px, and starts at 10 px. Names keep the same size on screen however far you zoom, so zoom in for more room around each name. At low zoom, names of planets nobody owns still hide to cut clutter; your planets and the selected planet keep theirs. Fleet and wormhole labels are not affected. Reset returns to 10 px. Your choice is saved in this browser.</p>
                 <p><b style="color:#da70d6;">Panel Transparency</b><br>Every panel, menu and window in the game is partly see-through, so the scrolling star field from the title screen shows behind it, including behind the star map. Open Settings, then Panel Transparency, and drag the slider: 0% gives solid panels and higher values let more of the stars show through (the highest setting is 95%). Menus and pop-up windows never go fully clear, so their text stays readable. The window sits in the middle of the screen and leaves the game visible behind it so you can watch the change as you drag. Reset puts it back to 30%. Your choice is saved in this browser and applies on every screen, including the setup screens.</p>
                 <p><b style="color:#da70d6;">Minimizing Panels on a Desktop</b><br>On a wide screen (900 pixels and up) the boxes beside the star map can be tucked away to give the rest more room. Press the <b>▲</b> in the top right corner of the Galactic Event Log, Fleets in Orbit, Production Queue, Fleet Summary or Planet Summary box. The box disappears and a button with its name appears in the top bar, to the left of End Turn. Press that button to bring the box back. When a whole column of boxes is minimized the star map and the remaining column grow wider; when only some are minimized the boxes still showing grow taller to use the space. The top bar, the bottom bar and the star map cannot be minimized. A tab only shows while its box would normally be on screen: minimize the Production Queue, then pick a planet that is not yours and the tab goes away just as the box does; pick one of your colonies again and the tab comes back, still minimized, ready to open. Your choices are remembered on this device. On a phone or tablet the ▲ does nothing and every box stays where it is.</p>
                 <p><b style="color:#da70d6;">Help and Updates Windows</b><br>Help is sorted into three levels: <b>Basic</b> (start with Absolute Beginner), <b>Advanced</b> and <b>Autistic level</b> (exact numbers and edge cases). Settings, Help and Settings, Updates open the same window with two tabs. Every topic is a collapsible section. The Contents list on the left jumps to a topic and opens it, Expand All and Collapse All open or close everything, and the search box filters the sections to those containing every word you type, opens them and highlights the matches. Clear the box (or press Escape) to see everything again. On a narrow screen the Contents button shows or hides the list. Updates lists every version, newest first, and a new entry is added to it with each release.</p>
@@ -3448,7 +3463,7 @@
                 <p><b style="color:#da70d6;">Your Own View of the Galaxy</b><br>Each empire keeps its own record of what it has seen. The planets you have scanned, your survey dates, your fleets, your technology, your research, your budget, your starbase designs and your Galactic Event Log belong to your empire alone. In a game with more than one human, another player's scans never reveal anything to you, and their worlds show as rival worlds (red) once your own scanners find them. Your Galactic Event Log is private too: it lists only what happened to you, plus battles your scanners detected. Every empire hears about the Mystery Trader, a player joining late and a player resigning.</p>
                 <p><b style="color:#da70d6;">Random Events</b><br>Unless No Random Events is ticked, each year there is a small chance that something happens to one of your planets: a <b>mineral strike</b> raises the concentration of one mineral, a <b>population boom</b> adds colonists, a <b>plague</b> kills some of them, or a <b>salvage find</b> drops a cache of Ore on the planet. Events appear in the Galactic Event Log and the turn report.</p>
                 <p><b style="color:#da70d6;">Your Starting Fleet</b><br>You begin with a Long Range Scout in orbit of your homeworld: a Scout hull with a Quick Jump 5 engine, a Rhino Scanner (50 ly) and a fuel tank, 300 mg of fuel in all. Its job is to map the nearby stars. Your homeworld starts with a Basic Space Station that has a ship dock. Colony ships, freighters and warships are built there.</p>
-                <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Every empire in the game, AI empires included, is given its own random color when the game begins. An empire's planets, planet names, fleets and fleet names are drawn in its color, and the empire name at the bottom right uses yours. Planets nobody owns show habitability: blue is habitable, dark red hostile, grey not scanned yet; a gold center means a ship dock. Planets have no outline. The planet or fleet you selected last is marked by a slowly pulsing, glowing gold outline: a ring around the planet, or a glow around the fleet's arrow. Select a planet and the ring appears on it; click a fleet (on the map, in Fleets in Orbit, in the Fleet Summary or in the fleet drop-down) and the glow moves to that fleet. Only one of the two glows at a time, and the glow follows the map while you pan and zoom. The legend in the lower left lists your empire and every empire you have met, each in its color, and adds more columns when it gets long.</p>
+                <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. You can zoom in 15 times closer than before (up to 60 times the full-galaxy scale), enough to fill the map with one star and its neighbors. Planets stop growing at a set size when you zoom in far, and planet names stay the same readable size at every zoom; change the size or hide them in Settings, Planet Names on Map. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Every empire in the game, AI empires included, is given its own random color when the game begins. An empire's planets, planet names, fleets and fleet names are drawn in its color, and the empire name at the bottom right uses yours. Planets nobody owns show habitability: blue is habitable, dark red hostile, grey not scanned yet; a gold center means a ship dock. Planets have no outline. The planet or fleet you selected last is marked by a slowly pulsing, glowing gold outline: a ring around the planet, or a glow around the fleet's arrow. Select a planet and the ring appears on it; click a fleet (on the map, in Fleets in Orbit, in the Fleet Summary or in the fleet drop-down) and the glow moves to that fleet. Only one of the two glows at a time, and the glow follows the map while you pan and zoom. The legend in the lower left lists your empire and every empire you have met, each in its color, and adds more columns when it gets long.</p>
                 <p><b style="color:#da70d6;">Playing on a Phone or Tablet</b><br>On a narrow screen the Star Map sits at the top of the dashboard and the planet, fleet and queue panels scroll underneath it. Drag with one finger to pan, pinch with two fingers to zoom around the point between your fingers, and tap a star or fleet to select it. A touch screen has no Shift key, so to plot a course turn on Fleet, Plot Course Mode (or the Plot button in the Fleets in Orbit panel) and tap stars or empty space on the map to add waypoints. The map resizes when you turn the device. The Race Wizard also fits a phone: its tabs scroll sideways and the Point Ledger is hidden, but the Advantage Points counter stays in view.</p>
                 <p><b style="color:#da70d6;">Fleets on the Map</b><br>Every group of ships is a fleet. Your fleets are arrowheads in your empire color with their name beside them. A fleet in orbit slowly circles its planet; several fleets share the orbit, evenly spaced. A fleet in deep space sits where it is. Pick a fleet in the Fleets in Orbit panel, in the Fleet Roster, or by clicking its arrow on the map. A fleet with orders shows a line to each waypoint, a numbered box at each stop with its travel time in years, and the current warp next to its name. A dashed orange leg means you do not have the fuel to finish that leg. When a fleet is selected, dashed rings show how far it moves in one year: green for its free speed, amber for the warp of its first waypoint. Toggle the rings with Fleet, Range Rings.</p>
                 <p><b style="color:#da70d6;">The Fleet Menu and Fleet Actions</b><br>The Fleet menu always offers Manage Waypoints, Plot Course Mode and Range Rings. Below them the menu adds actions that only make sense where you are. Select a planet that has one of your fleets in orbit and the matching actions appear: <b>Colonize Planet</b> on a neutral world when a fleet there has a Colony Ship, <b>Cargo and Transfer</b> on one of your planets when a fleet there can carry cargo, <b>Merge Fleets Here</b> and <b>Fleet Transfer</b> when two or more of your fleets share the orbit, and <b>Orbital Bombardment</b> and <b>Ground Invasion</b> at a rival homeworld. With no fleet in orbit of the selected planet, these actions are not shown.</p>
@@ -3792,10 +3807,12 @@
             return homes;
         }
 
+        const MAP_MAX_SCALE = 60;
+
         function fitMapToGalaxy() {
             if (!mapCanvas.width || !mapCanvas.height) return;
             const fit = Math.min(mapCanvas.width, mapCanvas.height) / (currentMapDimension + 40);
-            mapScale = Math.max(0.1, Math.min(4.0, fit));
+            mapScale = Math.max(0.1, Math.min(MAP_MAX_SCALE, fit));
             mapOffsetX = 0;
             mapOffsetY = 0;
         }
@@ -3913,7 +3930,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.66.0';
+        const GAME_VERSION = '0.67.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -8342,6 +8359,13 @@ const DEFENDERS_PER_POP=100;
         }
 
         let panelAlpha = 0.7;
+        const PLANET_NAME_SIZE_DEFAULT = 10;
+        const PLANET_NAME_SIZE_MAX = 24;
+        let planetNameSize = PLANET_NAME_SIZE_DEFAULT;
+        try {
+            const storedNameSize = parseInt(localStorage.getItem('fs4x-planet-name-size'), 10);
+            if (!isNaN(storedNameSize)) planetNameSize = Math.max(0, Math.min(PLANET_NAME_SIZE_MAX, storedNameSize));
+        } catch (err) { }
 
         const starCanvas = document.getElementById('starfield');
         const starCtx = starCanvas.getContext('2d');
@@ -8916,9 +8940,10 @@ const DEFENDERS_PER_POP=100;
             'diplomacy-modal': 'btn-dip-close',
             'minefield-modal': 'btn-mf-close',
             'doc-modal': 'doc-close',
-            'transparency-modal': 'btn-tr-close'
+            'transparency-modal': 'btn-tr-close',
+            'names-modal': 'btn-pn-close'
         };
-        const POPUP_KEEP_DASHBOARD = ['transparency-modal'];
+        const POPUP_KEEP_DASHBOARD = ['transparency-modal', 'names-modal'];
         const POPUP_VIEW_CLOSE_BUTTONS = { 'view-research': 'btn-close-research', 'view-economy': 'btn-close-economy' };
 
         function syncPopupBackdrop() {
@@ -13093,6 +13118,12 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.67.0', d: 'Oct 3, 2026 9:13 PM', t: "Far Zoom and Planet Name Size", items: [
+                "The star map now zooms in 15 times closer than before (up to 60 times the full-galaxy scale; the old limit was 4 times). Scroll or pinch as before.",
+                "Planets stop growing once they reach a set size on screen, and clicking a planet uses a capped hit area, so zoomed-in stars stay easy to read and select.",
+                "New Settings, Planet Names on Map: a slider from Hidden to 24 px (default 10 px) sets the size of planet names, or hides them. Names now stay the same size at every zoom. Your choice is saved in this browser.",
+                "Help: The Star Map updated, Planet Names on Map added."
+            ] },
             { v: '0.66.0', d: 'Oct 3, 2026 9:03 PM', t: "Star Spacing Matches Stars!", items: [
                 "New galaxies now place neighboring stars at the classic distances: Packed 5 to 10 ly, Dense 10 to 16 ly, Normal 15 to 25 ly and Sparse 30 to 50 ly. Before, stars were spread across the whole map and sat far apart.",
                 "Stars now grow outward from every homeworld in chains and webs, so each empire starts with neighbors in range. Galaxy clumping still makes tighter clusters.",
@@ -13616,7 +13647,7 @@ const DEFENDERS_PER_POP=100;
             return d.textContent.toLowerCase();
         }
 
-        const HELP_LEVELS = { basic: ["Absolute Beginner: Play in Two Minutes", "Goal", "Tips for Your First Turns", "Turn Flow", "Turns and Rounds", "The Star Map", "Playing on a Phone or Tablet", "Panel Transparency", "Minimizing Panels on a Desktop", "Your Starting Fleet", "The Planet Picture", "What the Panels Show", "The Planet Menu", "Resources", "Ore and Mining", "Structures", "Ship Construction", "The Production Queue", "Habitability", "Colonizing", "Colonizing and Cargo", "Population and Growth", "Research", "Fleets on the Map", "The Fleet Menu and Fleet Actions", "Waypoints and Tasks", "Warp Speed and Travel Time", "Fuel", "Scanning and Discovery", "Continue Game", "Saving", "The New Game Screen", "Management", "Help and Updates Windows", "Update Notice and What's New", "Victory Conditions", "AI Opponents", "Multiplayer and Your Account", "Forgot Your Password", "The Multiplayer Lobby", "Joining a Multiplayer Game", "When the Game Begins", "Taking Your Turn", "My Games", "Warnings Before You Commit", "Send a Fleet Here", "Do Task Here", "Cargo and Transfer"], autistic: ["Numbers at a Glance", "Cloaking and Scanners", "What a Custom Race Does In This Game", "How the AI Empires Play", "The Two Currencies: Resources and Ore", "Resources Belong to Planets", "Your Own View of the Galaxy", "Miniaturization", "Engines", "Terraforming", "Ship Repair", "Planetary Defenses", "Bombing and Invasion", "Minefields", "The Budget: Research vs Manufacturing", "Advantage Points", "Mass Drivers and Mineral Packets", "Stargates", "Wormholes", "Equipment Catalog", "Ship Hulls", "Mystery Trader Items"] };
+        const HELP_LEVELS = { basic: ["Absolute Beginner: Play in Two Minutes", "Goal", "Tips for Your First Turns", "Turn Flow", "Turns and Rounds", "The Star Map", "Playing on a Phone or Tablet", "Panel Transparency", "Planet Names on Map", "Minimizing Panels on a Desktop", "Your Starting Fleet", "The Planet Picture", "What the Panels Show", "The Planet Menu", "Resources", "Ore and Mining", "Structures", "Ship Construction", "The Production Queue", "Habitability", "Colonizing", "Colonizing and Cargo", "Population and Growth", "Research", "Fleets on the Map", "The Fleet Menu and Fleet Actions", "Waypoints and Tasks", "Warp Speed and Travel Time", "Fuel", "Scanning and Discovery", "Continue Game", "Saving", "The New Game Screen", "Management", "Help and Updates Windows", "Update Notice and What's New", "Victory Conditions", "AI Opponents", "Multiplayer and Your Account", "Forgot Your Password", "The Multiplayer Lobby", "Joining a Multiplayer Game", "When the Game Begins", "Taking Your Turn", "My Games", "Warnings Before You Commit", "Send a Fleet Here", "Do Task Here", "Cargo and Transfer"], autistic: ["Numbers at a Glance", "Cloaking and Scanners", "What a Custom Race Does In This Game", "How the AI Empires Play", "The Two Currencies: Resources and Ore", "Resources Belong to Planets", "Your Own View of the Galaxy", "Miniaturization", "Engines", "Terraforming", "Ship Repair", "Planetary Defenses", "Bombing and Invasion", "Minefields", "The Budget: Research vs Manufacturing", "Advantage Points", "Mass Drivers and Mineral Packets", "Stargates", "Wormholes", "Equipment Catalog", "Ship Hulls", "Mystery Trader Items"] };
         const HELP_LEVEL_NAMES = ['Basic', 'Advanced', 'Autistic level'];
 
         function helpLevelOf(title) {
@@ -14555,7 +14586,7 @@ const DEFENDERS_PER_POP=100;
                 if (p.revealed === false) return;
                 const s = worldToScreen(p.x, p.y);
                 const dst = Math.hypot(clickX - s.x, clickY - s.y);
-                const hitRadius = Math.max(15, 12 * mapScale);
+                const hitRadius = Math.max(15, Math.min(48, 12 * mapScale));
                 if (dst <= hitRadius && dst < minDst) {
                     minDst = dst;
                     clickedIndex = index;
@@ -14763,7 +14794,7 @@ const DEFENDERS_PER_POP=100;
 
         function zoomMapAt(mx, my, factor) {
             const anchor = screenToWorld(mx, my);
-            mapScale = Math.max(0.1, Math.min(4.0, mapScale * factor));
+            mapScale = Math.max(0.1, Math.min(MAP_MAX_SCALE, mapScale * factor));
             const half = currentMapDimension / 2;
             mapOffsetX = mx - mapCanvas.width / 2 - (anchor.x - half) * mapScale;
             mapOffsetY = my - mapCanvas.height / 2 - (anchor.y - half) * mapScale;
@@ -15065,7 +15096,7 @@ const DEFENDERS_PER_POP=100;
             mapCtx.scale(mapScale, mapScale);
 
             const halfDim = currentMapDimension / 2;
-            const dotRadius = Math.max(4, Math.min(10, 5 / mapScale));
+            const dotRadius = Math.min(Math.max(4, Math.min(10, 5 / mapScale)), 16 / mapScale);
             const showLabels = mapScale >= 0.5;
             const range = getScannerRange();
 
@@ -15109,10 +15140,10 @@ const DEFENDERS_PER_POP=100;
                     mapCtx.fill();
                 }
 
-                if (showLabels || index === selectedPlanetIndex || p.owner !== 'neutral') {
+                if (planetNameSize > 0 && (showLabels || index === selectedPlanetIndex || p.owner !== 'neutral')) {
                     mapCtx.fillStyle = p.owner !== 'neutral' ? pColor : '#d0d0e0';
-                    mapCtx.font = '10px Segoe UI';
-                    mapCtx.fillText(p.name, p.x - halfDim + dotRadius + 4, p.y - halfDim + 3);
+                    mapCtx.font = (planetNameSize / mapScale) + 'px Segoe UI';
+                    mapCtx.fillText(p.name, p.x - halfDim + dotRadius + 5 / mapScale, p.y - halfDim + planetNameSize * 0.3 / mapScale);
                 }
             });
 
@@ -16700,6 +16731,36 @@ const DEFENDERS_PER_POP=100;
             savePanelTransparency();
         });
         applyPanelTransparency();
+
+        function applyPlanetNameSize() {
+            planetNameSize = Math.max(0, Math.min(PLANET_NAME_SIZE_MAX, Math.round(planetNameSize)));
+            document.getElementById('pn-slider').value = planetNameSize;
+            document.getElementById('pn-value').innerText = planetNameSize === 0 ? 'Hidden' : planetNameSize + ' px';
+            document.getElementById('btn-planet-names').innerText = planetNameSize === 0 ? '🔠 Planet Names on Map: Hidden' : '🔠 Planet Names on Map: ' + planetNameSize + ' px';
+            if (dashboardActive()) drawGalaxyMap();
+        }
+
+        function savePlanetNameSize() {
+            try { localStorage.setItem('fs4x-planet-name-size', String(planetNameSize)); } catch (err) { }
+        }
+
+        document.getElementById('btn-planet-names').addEventListener('click', () => {
+            document.getElementById('names-modal').classList.add('active');
+        });
+        document.getElementById('btn-pn-close').addEventListener('click', () => {
+            document.getElementById('names-modal').classList.remove('active');
+        });
+        document.getElementById('btn-pn-reset').addEventListener('click', () => {
+            planetNameSize = PLANET_NAME_SIZE_DEFAULT;
+            applyPlanetNameSize();
+            savePlanetNameSize();
+        });
+        document.getElementById('pn-slider').addEventListener('input', (e) => {
+            planetNameSize = parseInt(e.target.value, 10);
+            applyPlanetNameSize();
+            savePlanetNameSize();
+        });
+        applyPlanetNameSize();
 
         function syncWarnOrdersButton() {
             document.getElementById('btn-warn-orders').innerText = '⚠ Missing-Order Warning: ' + (warnMissingOrders ? 'ON' : 'OFF');
