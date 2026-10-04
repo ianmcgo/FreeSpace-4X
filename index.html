@@ -2109,6 +2109,57 @@
         }
             .sd-layout { display: grid; grid-template-columns: 210px 1fr; gap: 12px; }
         @media (max-width: 760px) { .sd-layout { grid-template-columns: 1fr; } }
+        .tb-bar { display: flex; gap: 6px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+        .tb-bar select { flex: 1 1 0; min-width: 120px; }
+        .tb-nowrap { flex-wrap: nowrap; }
+        .tb-nowrap select { min-width: 0; }
+        .tb-bar input[type="text"] { flex: 2 1 160px; min-width: 0; }
+        .tb-bar .nav-button { margin: 0; padding: 6px 12px; width: auto; }
+        .tb-layout { display: grid; grid-template-columns: 270px 1fr; gap: 12px; }
+        #tb-list { max-height: max(240px, calc(88vh - 300px)); overflow-y: auto; border: 1px solid #332244; background: rgba(8, 8, 12, var(--pa)); border-radius: 4px; }
+        .tb-group { padding: 4px 8px; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #ffd700; background: rgba(42, 27, 61, var(--pa)); position: sticky; top: 0; z-index: 1; }
+        .tb-item { display: flex; align-items: center; gap: 8px; padding: 4px 8px; cursor: pointer; border-bottom: 1px solid #1d1a28; font-size: 13px; color: #ddd; }
+        .tb-item:hover { background: rgba(80, 50, 120, 0.35); }
+        .tb-item.sel { background: rgba(138, 43, 226, 0.4); color: #fff; }
+        .tb-item svg { flex: 0 0 auto; width: 30px; height: 30px; }
+        .tb-item .tb-nm { flex: 1; min-width: 0; }
+        .tb-item .tb-lv { font-size: 10px; color: #8a8a9a; }
+        .tb-dot { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; }
+        .tb-dot.ok { background: #32cd32; }
+        .tb-dot.no { background: #6a3a3a; }
+        #tb-detail { background: rgba(26, 26, 34, var(--pa)); border: 1px solid #332244; border-radius: 4px; padding: 12px; max-height: max(240px, calc(88vh - 300px)); overflow-y: auto; }
+        .tb-title { text-align: center; font-size: 20px; font-weight: bold; color: #fff; margin-bottom: 2px; }
+        .tb-sub { text-align: center; font-size: 12px; color: #aaa; margin-bottom: 10px; }
+        .tb-top { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+        .tb-icon svg { width: 110px; height: 110px; display: block; border-radius: 6px; }
+        .tb-costs { flex: 1 1 200px; font-size: 14px; }
+        .tb-costs div { display: flex; gap: 10px; padding: 1px 0; }
+        .tb-costs b { min-width: 100px; }
+        .tb-costs span.base { color: #8a8a9a; font-size: 11px; }
+        .tb-mid { display: flex; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
+        .tb-req { flex: 0 0 150px; font-size: 13px; }
+        .tb-req div { padding: 1px 0; }
+        .tb-stats { flex: 1 1 260px; }
+        .tb-stats table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .tb-stats td { padding: 3px 6px; border-bottom: 1px solid #2a2438; vertical-align: top; }
+        .tb-stats td:first-child { color: #9fb4ff; white-space: nowrap; width: 1%; }
+        .tb-chart { margin-top: 12px; background: rgba(8, 8, 12, var(--pa)); border: 1px solid #332244; border-radius: 4px; padding: 6px; }
+        .tb-chart svg { width: 100%; max-width: 520px; height: auto; display: block; margin: 0 auto; }
+        .tb-notes { margin-top: 12px; padding: 8px 10px; background: rgba(8, 8, 12, var(--pa)); border: 1px solid #332244; border-radius: 4px; font-size: 13px; line-height: 1.55; color: #ddd; }
+        .tb-notes div { margin-bottom: 4px; }
+        .tb-notes div:last-child { margin-bottom: 0; }
+        .tb-warn { color: #ff9966; }
+        .tb-foot { display: flex; gap: 10px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+        .tb-foot label { font-size: 13px; display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+        .tb-foot .tb-count { margin-left: auto; font-size: 12px; color: #8a8a9a; }
+        .tb-empty { padding: 20px; text-align: center; color: #8a8a9a; font-size: 13px; }
+        @media (max-width: 760px) {
+            .tb-layout { grid-template-columns: 1fr; }
+            #tb-list { max-height: 26vh; }
+            #tb-detail { max-height: none; }
+            .tb-icon svg { width: 84px; height: 84px; }
+            .tb-bar input[type="text"], #tb-sort { flex: 1 1 100%; }
+        }
         #sd-list { max-height: 40vh; overflow-y: auto; border: 1px solid #332244; background: rgba(8, 8, 12, var(--pa)); border-radius: 4px; }
         .sd-item { padding: 7px 9px; border-bottom: 1px solid #221a33; cursor: pointer; font-size: 13px; color: #ddd; }
         .sd-item small { color: #8a8a9a; }
@@ -2213,7 +2264,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.77.0 (Updated: October 04, 2026 5:56 AM)</div>
+            <div class="version-text">Version 0.80.0 (Updated: October 04, 2026 7:41 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -2653,6 +2704,7 @@
                     <button class="tool-icon" id="btn-mgmt-autobuild" style="color: #32cd32;">🤖 Autobuild</button>
                     <button class="tool-icon" id="btn-mgmt-roster" style="color: #00ffff;">📋 Fleet Roster</button>
                     <button class="tool-icon" id="btn-mgmt-shipdesign" style="color: #ffd700;">🛠 Ship Designer</button>
+                    <button class="tool-icon" id="btn-mgmt-techbrowser" style="color: #00ffff;">📖 Technology Browser</button>
                     <button class="tool-icon" id="btn-mgmt-battles" style="color: #ff6b6b;">⚔ Battle Reports</button>
                     <button class="tool-icon" id="btn-mgmt-plans" style="color: #ff9966;">🎯 Battle Plans</button>
                     <button class="tool-icon" id="btn-mgmt-minefields" style="color: #ff8c00;">💣 Minefields</button>
@@ -3041,6 +3093,13 @@
                     </select>
                     <div class="mp-hint" id="mpo-resign-hint"></div>
                 </div>
+                <div class="opt-row">
+                    <input type="checkbox" id="mpo-late">
+                    <div style="flex: 1;">
+                        <label for="mpo-late">Allow inviting players after the game starts</label>
+                        <div class="opt-desc">Off (the default): nobody can be added once the galaxy is built. On: the host gets an Invite to Game button in Settings and can bring new players into the running game.</div>
+                    </div>
+                </div>
                 <div class="mp-status" id="mpo-status" style="margin: 0 0 6px 0;"></div>
                 <div class="wiz-group-title" style="margin-top: 14px;">Game Options</div>
             </div>
@@ -3308,6 +3367,36 @@
         </div>
     </div>
 
+    <div id="techbrowser-modal" class="modal-overlay" style="z-index: 1100;">
+        <div class="modal-content" style="max-width: 1060px;">
+            <h2 class="screen-header" style="color: #00ffff;">📖 Technology Browser</h2>
+            <div class="tb-bar tb-nowrap">
+                <button type="button" class="nav-button" id="tb-prev">&larr; Prev</button>
+                <select id="tb-cat" aria-label="Technology category"></select>
+                <button type="button" class="nav-button" id="tb-next">Next &rarr;</button>
+            </div>
+            <div class="tb-bar">
+                <input type="text" id="tb-search" placeholder="Search by name, stat, tech or trait" autocomplete="off" maxlength="60">
+                <select id="tb-sort" aria-label="Sort order">
+                    <option value="group">Sort: category, then tech</option>
+                    <option value="tech">Sort: tech level</option>
+                    <option value="name">Sort: name</option>
+                    <option value="cost">Sort: Resources cost</option>
+                    <option value="mass">Sort: mass</option>
+                </select>
+            </div>
+            <div class="tb-layout">
+                <div id="tb-list"></div>
+                <div id="tb-detail"></div>
+            </div>
+            <div class="tb-foot">
+                <label><input type="checkbox" id="tb-avail"> Show Only Available Technology</label>
+                <span class="tb-count" id="tb-count"></span>
+                <button type="button" class="nav-button" id="btn-tb-close" style="margin: 0; width: auto; padding: 6px 22px;">Close</button>
+            </div>
+        </div>
+    </div>
+
     <div id="reports-modal" class="modal-overlay" style="z-index: 1150;">
         <div class="modal-content" style="max-width: 1000px;">
             <h2 class="screen-header" style="color: #00ffff;">📑 Reports</h2>
@@ -3448,7 +3537,8 @@
             <div style="text-align:left;">
                 <p><b style="color:#da70d6;">Absolute Beginner: Play in Two Minutes</b><br><b>The idea.</b> You lead a young empire that starts with one homeworld and a few ships. Other empires, run by the computer or by friends, are doing the same. You win by growing larger and stronger than they are, or by meeting the victory conditions chosen for the game. Each turn is one year.<br><br><b>Each year do three things.</b> First, <b>planets</b>: click your homeworld and give it something to build in the production queue, such as mines and factories at first, then scouts and colony ships. Second, <b>research</b>: pick a technology field to study so your ships and buildings improve over time. Third, <b>ships</b>: click a fleet, then click a star on the map to send it there. Scouts reveal the galaxy. A colony ship carries colonists to a good planet. Then press <b>End Turn</b> and the year plays out.<br><br><b>How to grow.</b> Look for planets with a high habitability percentage and send colonists there. New colonies grow by themselves and produce Resources and minerals. Use Resources to build and research, and mine minerals to pay for ships. Keep scouting, keep building, and keep a few warships near your homeworld because enemies will arrive eventually.<br><br><b>If something looks wrong,</b> the game warns you before you end a turn with idle planets or fleets, or send a ship somewhere it cannot reach. When you are ready for more, read the rest of Basic, then Advanced.</p>
                 <p><b style="color:#da70d6;">Goal</b><br>Grow your empire from a single homeworld: scan the galaxy, colonize habitable worlds, mine ore, build infrastructure and outscore your AI opponents. Check the Scoreboard under Management to see how you rank. If the game was created with Victory Conditions, the first empire to meet them wins (see Victory Conditions below).</p>
-                <p><b style="color:#da70d6;">Ship Designer</b><br>Open <b>Management, Ship Designer</b>. It works like the Stars! designer: choose a hull, click a slot on the hull, then click a part from the list on the right. The list shows only parts you can build now; tick <b>Also list parts I cannot use yet</b> to see the rest with the tech they need. The hull drop-down likewise lists only hulls you have the Construction tech for. <b>Slots and stacks:</b> a hull is made of slots, and a slot can hold a stack of the same part. A slot marked <b>x4</b> holds up to 4 of one part (stack sizes are 1, 2, 4 and 8), and the <b>Qty</b> box sets how many. Putting a part into an empty slot fills the whole stack; swapping the part keeps your quantity. <b>Engines:</b> engines work the same way but a stacked engine slot always holds the full number, all the same engine, so a big hull's engine slot is one slot that still needs several engines. Slot types: <b>Engine</b>, <b>Weapon</b> (beams and torpedoes), <b>Bomb</b>, <b>Shield or Armor</b>, <b>Shield</b>, <b>Armor</b>, <b>Scanner</b>, <b>Electrical</b> (cloaks, battle computers, jammers, capacitors), <b>Mechanical</b> (cargo pods, fuel tanks, colonization module, jets), <b>Electrical or Mechanical</b>, <b>Scanner, Electrical or Mechanical</b>, <b>Scanner, Shield or Weapon</b>, <b>Mine Layer</b>, <b>Mining</b> (mining robots only) and <b>General Purpose</b> (anything). Clear empties a slot. The panel under the slots shows cost (after miniaturization), mass, armor, shields, fuel, cargo, the engine's free and best warp and its fuel table, combat speed and initiative, scanner range, cloaking and weapons. Some parts belong to one primary trait only (for example the Rogue hull and Pick Pocket Scanner for Super-Stealth races). <b>Saved designs:</b> the list on the left holds your designs; obsolete ones are hidden until you tick <b>Show obsolete designs</b>. You can keep 16 active designs; make old ones <b>Obsolete</b> to free room. A design with ships built or queued cannot be changed: the moment you change a hull or part on it, the designer makes a copy named with Mk2 and your changes go into that copy, which you keep with Save. Designs the game gave you whose hull you cannot build yet (the Destroyer, for example) are hidden as obsolete and come back by themselves when your Construction reaches the hull. Designs saved before version 0.77 that mixed different parts inside one run of weapon or armor slots are tidied into stacks when you open them and save them. Your starting hulls at Tech 0 are the Small Freighter, Scout, Colony Ship and Mini Mine Layer (Mini-Colony Ship for Hyper-Expansion races). The Equipment Catalog and Ship Hulls sections list every part and hull. Hull slot layouts are this game's own approximation where the original layouts are not known. Every scanner in the part list shows its normal range and its penetrating range (or none), so you can compare them before picking. Your starting Long Range Scout is a Scout hull with a Quick Jump 5 engine in the Engine slot, a Rhino Scanner (50 ly normal, no penetrating) in the Scanner slot and a Fuel Tank in the General Purpose slot.</p>
+                <p><b style="color:#da70d6;">Technology Browser</b><br>Open <b>Management, Technology Browser</b> to look up every item in the game with a picture, its cost, mass, tech requirements and stats. Use the <b>Prev</b> and <b>Next</b> buttons or the arrow keys to step through the list, or pick a category from the drop-down: Engines, Beam Weapons, Torpedoes and Missiles, Bombs, Shields, Armor, Ship Scanners, Cloaking Devices, Electrical, Mechanical, Mine Layers, Ship Hulls, Space Station and Starbase Hulls, Starbase Components, Planetary Scanners, Stargates, Mass Drivers, Planet Installations and Mystery Trader Items (or All Technology for everything at once). The <b>search box</b> finds items by name, category, stat, tech requirement or race trait (type several words and every word must match, for example <b>jammer torpedo</b> or <b>Propulsion 6</b>); press Escape to clear it. <b>Sort</b> by category then tech level, tech level, name, Resources cost or mass. Tick <b>Show Only Available Technology</b> to hide everything you cannot build yet. Each row has a dot: green means you can use it now, red means you cannot. <b>Reading an item:</b> the picture is drawn by the game from the item's type and stats (ship hull pictures show the hull's slots as colored squares, and the small dots under a large picture show how advanced the tech is). Beside it are the cost in Ironium, Boranium, Germanium and Resources and the mass in kT. The cost shown is what you pay now, after miniaturization; when it is lower than the base cost the base is shown in grey beside it. <b>Tech Req</b> lists the levels needed (a level you have not reached shows under Not available with how far you are from it), and the table lists the item's stats: damage, range, initiative, accuracy, shields, armor, scanner ranges, cargo and fuel capacity, slots and the like. Engines also get a <b>Fuel Usage vs. Warp Speed</b> chart: the blue number on the bottom is the engine's free warp, and a dotted column marks Warp 10 when the engine is not safe there. Notes at the bottom tell you about race limits, special behavior and why an item is not available to you. Tech levels here are the levels you see on the Research screen (Tech 0 is where you start). Mystery Trader items show as not available until a trader gives you the item. Costs for space stations and starbases do not include a race's starbase cost adjustment. Ship hull slot layouts are this game's own approximation where the original layouts are not known.</p>
+                <p><b style="color:#da70d6;">Ship Designer</b><br>Open <b>Management, Ship Designer</b>. It works like the Stars! designer: choose a hull, click a slot on the hull, then click a part from the list on the right. The list shows only parts you can build now; tick <b>Also list parts I cannot use yet</b> to see the rest with the tech they need. The hull drop-down likewise lists only hulls you have the Construction tech for. <b>Slots and stacks:</b> a hull is made of slots, and a slot can hold a stack of the same part. A slot marked <b>x4</b> holds up to 4 of one part (stack sizes are 1, 2, 4 and 8), and the <b>Qty</b> box sets how many. Putting a part into an empty slot fills the whole stack; swapping the part keeps your quantity. <b>Engines:</b> engines work the same way but a stacked engine slot always holds the full number, all the same engine, so a big hull's engine slot is one slot that still needs several engines. Slot types: <b>Engine</b>, <b>Weapon</b> (beams and torpedoes), <b>Bomb</b>, <b>Shield or Armor</b>, <b>Shield</b>, <b>Armor</b>, <b>Scanner</b>, <b>Electrical</b> (cloaks, battle computers, jammers, capacitors), <b>Mechanical</b> (cargo pods, fuel tanks, colonization module, jets), <b>Electrical or Mechanical</b>, <b>Scanner, Electrical or Mechanical</b>, <b>Scanner, Shield or Weapon</b>, <b>Mine Layer</b>, <b>Mining</b> (mining robots only) and <b>General Purpose</b> (anything). Clear empties a slot. The panel under the slots shows cost (after miniaturization), mass, armor, shields, fuel, cargo, the engine's free and best warp and its fuel table, combat speed and initiative, scanner range, cloaking and weapons. Some parts belong to one primary trait only (for example the Rogue hull and Pick Pocket Scanner for Super-Stealth races). <b>Saved designs:</b> the list on the left holds your designs; obsolete ones are hidden until you tick <b>Show obsolete designs</b>. You can keep 16 active designs; make old ones <b>Obsolete</b> to free room. A design with ships built or queued cannot be changed: the moment you change a hull or part on it, the designer makes a copy named with Mk2 and your changes go into that copy, which you keep with Save. Designs the game gave you whose hull you cannot build yet (the Destroyer, for example) are hidden as obsolete and come back by themselves when your Construction reaches the hull. Designs saved before version 0.77 that mixed different parts inside one run of weapon or armor slots are tidied into stacks when you open them and save them. Your starting hulls at Tech 0 are the Small Freighter, Scout, Colony Ship and Mini Mine Layer (Mini-Colony Ship for Hyper-Expansion races). The Technology Browser (Management menu) shows every part and hull with pictures; the Equipment Catalog and Ship Hulls sections in Help list them as text. Hull slot layouts are this game's own approximation where the original layouts are not known. Every scanner in the part list shows its normal range and its penetrating range (or none), so you can compare them before picking. Your starting Long Range Scout is a Scout hull with a Quick Jump 5 engine in the Engine slot, a Rhino Scanner (50 ly normal, no penetrating) in the Scanner slot and a Fuel Tank in the General Purpose slot.</p>
                 <p><b style="color:#da70d6;">Building Designs and Refitting</b><br>Every active design appears in a planet's build list at its real cost. <b>Retrofit:</b> a fleet in orbit of a planet with a starbase that has a <b>Fleet Yard</b> can be refitted to another design with the same hull; the cost is the new design minus a credit for the old parts. <b>Scrap:</b> a ship can be scrapped at any of your planets for half its minerals back. Both are in <b>Fleet, Manage Ships and Names</b>.</p>
                 <p><b style="color:#da70d6;">Ship Design Files</b><br>The Ship Designer can save designs to your device and load them into another game. <b>Download This Design</b> saves the selected saved design and <b>Download All Designs</b> saves every active one, as a .json file holding each design's name, hull, parts slot by slot, mass and cost. <b>Upload Designs</b> reads such a file. Every design in it is checked against this game: the hull and every part must be unlocked by your current technology, allowed for your race's traits, and (for Mystery Trader items) owned, and the design must be complete (engines, matching engine types, parts in slots that take them). Designs that pass are added with a new name if the name is already taken. Designs you cannot build are refused, and a window lists each one with what is missing, for example the tech level needed and the level you have. A design is only added while you have fewer than 16 active designs.</p>
                 <p><b style="color:#da70d6;">Automation Files</b><br>Your standing orders can move between games. <b>Export Automation</b> (in Settings, or in the Autobuild window) saves a .json file with your Autobuild rules and switch, your custom zip orders, your battle plans, your research budget and next-field choice, and the Missing-Order Warning setting. <b>Import Automation</b> reads such a file and lets you tick which of these to replace in the current game; everything else stays as it is. Fleets that used a battle plan that is not in the imported list go back to Default.</p>
@@ -3468,10 +3558,10 @@
                 <p><b style="color:#da70d6;">The Multiplayer Lobby</b><br>The lobby shows the username you are signed in as. <b>Change Username</b> lets you pick a new one at any time; names are unique, so if someone already has the name you want (in any mix of upper and lower case) you are asked to choose another. <b>Sign Out</b> forgets your sign-in on this browser. The lobby also has <b>Create Multiplayer Game</b>, <b>Join Multiplayer Game</b> and <b>My Games</b>.</p>
                 <p><b style="color:#da70d6;">Creating a Multiplayer Game</b><br>In the lobby press <b>Create Multiplayer Game</b>. You get the New Game screen titled New Multiplayer Game. At the top, <b>Multiplayer Game Name</b> is what other players see in the list of games (it starts as Multiplayer Game). Your Empire Name and Choose Race are your own empire; universe size, star density, player position, Victory Conditions and Advanced Options work exactly as in single player and apply to everyone. The <b>Opponents</b> button (it replaces AI Opponents) shows how many player spots and AI opponents the game has. When everything is set, press <b>Create Multiplayer Game</b>. Back returns to the lobby without creating anything. You can have up to 10 games waiting for players at once.</p>
                 <p><b style="color:#da70d6;">Opponents: Player Spots and AI</b><br>On the Opponents screen, <b>Add Player Spot</b> adds a seat for another person and <b>Add AI Opponent</b> adds a computer empire with its own name, race and intelligence. A multiplayer game needs at least one Player Spot. Up to 15 opponents fit in a game, so 16 empires in all. Remove takes a spot or AI out. Turn order is decided when the game begins (see When the Game Begins).</p>
-                <p><b style="color:#da70d6;">Multiplayer Options</b><br>When creating a multiplayer game, Advanced Options starts with a Multiplayer Options section. (The game's name is on the New Multiplayer Game screen itself.) <b>Who Can Join</b> is Public (selected to start with: anyone can join) or Private: a password is then required, 4 to 64 characters, and players must type it to join. Players you invite by email or username will not need it. <b>Allow custom races</b> is off to start with, and then every empire, AI included, uses one of the six built-in races. Turn it on and choose one rule: <b>Anyone can bring their own custom race</b>, where each player may pick one of their own Race Wizard designs when they join (the join form has <b>Design or Manage Custom Races</b>, which opens the Race Wizard right there and brings you back to the form with the new race chosen), or <b>Only the game creator chooses races</b>, where you set the race of every Player Spot yourself on the Opponents screen (built-in, random, one of your custom races, or Player's choice to let them pick a built-in race). <b>Play Type</b> is Custom time limit (with a <b>Turn Time Limit</b> of 72 hours to start with; also 24 hours, 48 hours, 1 week or No limit), Turn-a-Day or Blitz (see Play Types). <b>When a Player Resigns</b> decides what happens to a resigning player's empire: <b>A new AI empire takes over</b> (selected to start with: a computer empire with a random name, race and intelligence takes over its planets, ships and starbases and plays on as one of the AI opponents), <b>The empire is removed</b> (its ships are scrapped and its planets left uninhabited, with colonists, mines, factories, defenses, starbases and building queues gone, so anyone can colonize them; the ore stays on the ground), or <b>The empire keeps its standing orders</b>. The game lobby shows the choice.</p>
+                <p><b style="color:#da70d6;">Multiplayer Options</b><br>When creating a multiplayer game, Advanced Options starts with a Multiplayer Options section. (The game's name is on the New Multiplayer Game screen itself.) <b>Who Can Join</b> is Public (selected to start with: anyone can join) or Private: a password is then required, 4 to 64 characters, and players must type it to join. Players you invite by email or username will not need it. <b>Allow custom races</b> is off to start with, and then every empire, AI included, uses one of the six built-in races. Turn it on and choose one rule: <b>Anyone can bring their own custom race</b>, where each player may pick one of their own Race Wizard designs when they join (the join form has <b>Design or Manage Custom Races</b>, which opens the Race Wizard right there and brings you back to the form with the new race chosen), or <b>Only the game creator chooses races</b>, where you set the race of every Player Spot yourself on the Opponents screen (built-in, random, one of your custom races, or Player's choice to let them pick a built-in race). <b>Play Type</b> is Custom time limit (with a <b>Turn Time Limit</b> of 72 hours to start with; also 24 hours, 48 hours, 1 week or No limit), Turn-a-Day or Blitz (see Play Types). <b>Allow inviting players after the game starts</b> is off to start with; tick it if you want the host to be able to bring new players into a running game (see Inviting Players After the Game Has Started). <b>When a Player Resigns</b> decides what happens to a resigning player's empire: <b>A new AI empire takes over</b> (selected to start with: a computer empire with a random name, race and intelligence takes over its planets, ships and starbases and plays on as one of the AI opponents), <b>The empire is removed</b> (its ships are scrapped and its planets left uninhabited, with colonists, mines, factories, defenses, starbases and building queues gone, so anyone can colonize them; the ore stays on the ground), or <b>The empire keeps its standing orders</b>. The game lobby shows the choice.</p>
                 <p><b style="color:#da70d6;">The Game Lobby</b><br>After you create a game, or when you open one from My Games, you see its lobby. The top box shows its status (for example Waiting for players: 1 of 3 player spots filled), the host, public or private, the galaxy settings, the custom race rule, the advanced options and the victory conditions. Below it every empire is listed by seat: players who have joined with their username, empire and race (yours is marked You, the creator is marked Host), AI opponents with their race and intelligence, and open spots shown as <b>Waiting for player...</b>. <b>Refresh</b> reloads the list. <b>Cancel Game</b>, shown only to the creator before the game starts, deletes the game for everyone. <b>Leave Game</b>, shown to players who joined before the game starts, gives your spot back so someone else can take it (the creator cancels instead). <b>Invite Player</b> sends someone an invitation (see Inviting Players). Once the game is running the lobby also shows the turn time limit, a Resigned badge on players who have left and a Playing now badge on the player whose turn it is, with <b>Resign</b>, <b>Skip Turn</b> (when the current turn is overdue) and, for finished games or after you resign, <b>Remove from My Games</b>. Back returns to the screen you came from.</p>
                 <p><b style="color:#da70d6;">Inviting Players</b><br>Any player in a game that is still waiting for players can press <b>Invite Player</b> in its lobby and type an <b>email address</b> or a <b>username</b>, then press Send Invite. The person gets an email with a <b>Join the Game</b> link straight to that game. The link works even for a private game without the password, so you do not have to share it. If they have no account yet, the link opens the sign in screen: they press Register, create an account, and land in the game ready to press Join This Game. Players invited by username (or by the email of their account) also see the invitation under <b>Invitations</b> at the top of their Multiplayer Lobby, with Open and Decline. Each invitation link can be used once. Inviting someone does not hold a spot for them: spots go to whoever joins first. A game can send up to 30 invitations, and the same person can be invited again after 10 minutes.</p>
-                <p><b style="color:#da70d6;">Inviting Players After the Game Has Started</b><br>The host (the player who created the game) can bring new players into a game that is already running. In the galaxy open <b>Settings</b> and press <b>✉ Invite to Game</b> (only the host sees it), type an <b>email address</b> or a <b>username</b> and press Send Invite. The person gets an email with a link; players with an account also see the invitation under Invitations in their Multiplayer Lobby. When they open it and sign in (or register first) they see a <b>Join</b> window where they choose their <b>empire name</b> and <b>race</b> (custom races only if the game allows them). Their empire is then added to the galaxy on a <b>random uninhabited planet</b>, preferably well away from the other empires, as a new homeworld with the usual starting population, mines, factories and starbase, plus a Long Range Scout and the starting technology of their race. The game keeps its current year, so the newcomer starts behind the others and the other players are told that a new empire has joined, without being told where. The new player gives orders like everyone else; until they send orders the year waits for them just as for any other player, subject to the game's time limit. A late invitation can be used once, the host can send up to 30 per game, and a game can hold at most 16 human players. The server scripts <b>11_late_invites.sql</b> and the updated notify function must be installed for this to work.</p>
+                <p><b style="color:#da70d6;">Inviting Players After the Game Has Started</b><br>This only works in a game whose creator ticked <b>Allow inviting players after the game starts</b> in Multiplayer Options; it is off to start with, and games made before version 0.79.0 keep it on. The host (the player who created the game) can then bring new players into a game that is already running. In the galaxy open <b>Settings</b> and press <b>✉ Invite to Game</b> (only the host sees it), type an <b>email address</b> or a <b>username</b> and press Send Invite. The person gets an email with a link; players with an account also see the invitation under Invitations in their Multiplayer Lobby. When they open it and sign in (or register first) they see a <b>Join</b> window where they choose their <b>empire name</b> and <b>race</b> (custom races only if the game allows them). Their empire is then added to the galaxy on a <b>random uninhabited planet</b>, at least 15 percent of the galaxy's width away from every other empire when such a planet exists (otherwise on one of the most distant free planets), as a new homeworld with the usual starting population, mines, factories and starbase, plus a Long Range Scout and the starting technology of their race. The game keeps its current year, so the newcomer starts behind the others and the other players are told that a new empire has joined, without being told where. The new player gives orders like everyone else; until they send orders the year waits for them just as for any other player, subject to the game's time limit. A late invitation can be used once, the host can send up to 30 per game, and a game can hold at most 16 human players. The server scripts <b>11_late_invites.sql</b> and the updated notify function must be installed for this to work.</p>
                 <p><b style="color:#da70d6;">Examining Enemy Fleets</b><br>An enemy fleet that one of your scanners can see is drawn as a triangle in its owner's empire color beside its position on the star map, labelled with the name its owner gave that fleet (no ship count; zoom in to see the labels). Click the triangle to examine it. A Fleet Summary box opens in the left column, in the place of the Planet Summary, and the Production Queue and Fleets in Orbit boxes are hidden with it (tap a planet to bring them back). At the bottom of an enemy fleet's summary, <b>Send a Fleet to This Fleet</b> lets you pick one of your fleets and a Warp speed and press Send Fleet: the fleet's route is replaced by one waypoint at the enemy fleet, and while your scanners can still see that fleet your fleet follows it each year (if you lose sight of it, your fleet heads for the last place it was seen). The line above the button tells you the distance, years and fuel for the trip, and a fuel warning offers a slower Warp if the trip is too far. You can tap one of your own fleets the same way: its Fleet Summary shows its position, ships, mass, warp, fuel, cargo and orders, with Waypoints and Plot buttons. It names the empire and says whether it is a friend, neutral or an enemy, gives the fleet's position and whether it is in orbit or deep space, and lists every ship design and hull with its count, plus the total ship count and mass. When one of your penetrating scanners reaches the fleet, or one of your fleets or planets is at the same spot, a close scan also shows armor, beam weapons, torpedo launchers, bombs, colony ships, scanner ships and cargo space. Cargo actually on board and where the fleet is heading cannot be seen. A fleet your scanners cannot see cannot be clicked, and cloaked ships may stay hidden even inside your range.</p>
                 <p><b style="color:#da70d6;">Game Emails</b><br>Multiplayer games send email to the address of each player's account: an <b>invitation</b> when someone invites you, <b>the game has begun</b> when every spot is filled, and, only if you turn it on, a <b>year summary</b> every time the galaxy moves on to a new year. Year summary emails are off for every account until you switch them on with <b>Settings, Year Summary Emails</b> in the galaxy or the <b>Year Summary Emails</b> button on the Multiplayer Lobby. You never get one for a game you are looking at: while the game is open and its tab is visible the game tells the server you are here, and no email is sent to you for a year that moves on at that time. Switch to another tab, close the game or leave to the lobby and the next year summary is emailed. The year summary lists your planets, population, fleets, Resources produced, items built, technology gained, battles, bombing and the reports of your fleets, so you can see how the year went before you open the game. If you did not send orders before the time limit ran out you also get an email saying the year was played out without you. A resignation is announced to every player and the end of the game (with final standings) to everyone.</p>
                 <p><b style="color:#da70d6;">Multiplayer Victory and Game Over</b><br>Victory Conditions are checked at the end of every year, after every empire's orders have been carried out. As soon as an empire (a player's or an AI's) meets them, the game ends for everyone. The player whose browser played out that year sends the result to the server, every player is emailed the final standings, and the saved galaxy is removed from the server. The result stays in My Games until you remove it.</p>
@@ -3486,7 +3576,7 @@
                 <p><b style="color:#da70d6;">Chat</b><br>In a multiplayer game the Galactic Event Log panel has three tabs: <b>Events</b> (your own log, as always), <b>💬 Chat</b> (messages from the players) and <b>Both</b> (events and chat together, ordered by game year with the newest year at the top, and inside a year the chat shown above the events of that year, so you can see what was said around what happened). Type a message (up to 500 characters) and press Enter or Send on the Chat or Both tab; it goes to every player in the game. Like the Events tab, the Chat and Both lists show the <b>newest line at the top</b>, and new messages appear there. Each message shows the game year, your local time, a dot, and the sender's name in that player's empire color (the same color as their planets and fleets on the star map). A <b>green dot</b> means the player is online right now, a <b>grey dot</b> offline (see Who Is Online); no dot means that player's status is not known. Your own messages have a green bar on their left. While the Chat or Both tab is open new messages appear within a few seconds; while it is closed the game checks about every 20 seconds, and the number of messages you have not read yet is shown in brackets on the tab, which turns gold. Opening the Chat or Both tab marks everything as read (this is remembered in your browser, per game). On a phone or narrow screen the list is 300 pixels high; press <b>▾ Smaller</b> for 150 pixels or <b>▴ Bigger</b> to enlarge it again. On a wide (desktop) screen the Events, Chat and Both lists fill the panel down to its bottom edge and the Smaller / Bigger button is not shown. Chat is only open while the game is running, it is shared by all players (private messages are not possible yet), and the server keeps the last 200 messages of each game. Chat messages are not part of your saved game and are never written into your Events log; the Both tab only shows them next to it. Chat needs <b>13_chat.sql</b> to be run once in the Supabase SQL Editor; until then the Chat tab says that chat is not set up. <b>Host tools:</b> the host (seat 1, who created the game) sees a <b>🧹 Clear</b> button next to Send, which deletes the whole chat for every player after a confirmation, and can type commands in the chat box: <b>/clear</b>, <b>/mute name</b> (the player can still read the chat but cannot send messages) and <b>/unmute name</b>, using the player's username. Everyone sees a short orange notice when the chat is cleared, a player is muted or unmuted, or a player joins the running game late. When the game is over the chat is closed (you can still read it). While you have unread messages the number also shows in the browser tab title. The host tools and notices need <b>14_chat_host.sql</b> to be run once in the Supabase SQL Editor (after 13_chat.sql).</p>
                 <p><b style="color:#da70d6;">Play Types</b><br>The Multiplayer Options of a new game set its <b>Play Type</b>. <b>Custom time limit</b>: the Turn Time Limit (24 hours, 48 hours, 72 hours, 1 week or No limit) is how long players have for each year; after it any player who has sent orders may play the year without the others. <b>Turn-a-Day (play by email)</b>: the classic pace of one year a day. Pick a daily deadline in your local time (it is stored as the same moment for every player, wherever they live). The year is played out as soon as every player has sent orders, or at the deadline without the late players; tick <b>Only play out the year at the daily deadline</b> to always wait for the deadline, which gives everyone the full day for planning, messages and calculations. A year that starts within an hour of the deadline runs until the next day's deadline. Everyone gets a year summary by email. <b>Blitz (everyone online)</b>: every player is online at once and a year lasts 5, 10, 15, 20, 30 or 60 minutes; when the timer runs out the year is played out automatically without anyone who is late, the galaxy checks for news every 5 seconds, the Orders Sent message is skipped, and no emails are sent each year. The play type is shown in the lobby and as a tag in My Games.</p>
                 <p><b style="color:#da70d6;">Resigning</b><br>In a game that is in progress, <b>🏳 Resign</b> in the game lobby lets you leave for good (it cannot be undone); the confirmation tells you what will happen to your empire. What happens depends on the game's When a Player Resigns option (see Multiplayer Options). <b>A new AI empire takes over:</b> your planets, ships and starbases go to a new computer empire with a random name, race and intelligence, which plays on and can win like any AI opponent. <b>The empire is removed:</b> your ships are scrapped and your planets become uninhabited. Both changes are made in the galaxy of the next player whose turn comes up, and everyone's event log records them. <b>The empire keeps its standing orders:</b> it stays in the galaxy, keeps its planets and fleets and follows its standing orders every round, but it cannot win. In every case you can no longer give orders. The other players are emailed and the turn order passes over you from then on: whoever plays before you runs your empire's turn on standing orders as part of their End Turn, and their turn report says so. If it was your turn, the turn passes on at once. You can still open the galaxy to watch, or press Remove from My Games to hide it. If every player resigns, the game ends without a winner, everyone is emailed and the saved galaxy is deleted. If only one player is left, they keep playing against the AI empires and the resigned empires; their turn comes straight back after each End Turn. Before a game starts, use Leave Game (or Cancel Game if you created it) instead.</p>
-                <p><b style="color:#da70d6;">The New Game Screen</b><br>Empire Name and Choose Race sit on one row. Universe Size, Star Density and Player Position share the next row. <b>Star Density</b> sets how far apart neighboring stars are: Packed 5 to 10 ly, Dense 10 to 16 ly, Normal 15 to 25 ly, Sparse 30 to 50 ly. The summary line under the row shows the range. At Sparse, early engines and small fuel tanks cannot reach the next star, so plan on fuel transports, ramscoops or better drives. Choose Race offers <b>Random Race</b>, which picks one of the six built-in races for you when you press Create Galaxy (the log tells you which), and lists your saved custom races under their own <b>Custom Races</b> heading. Player Position sets how far apart the homeworlds start. Four buttons sit below, two to a row: <b>Custom Race</b> opens your race list and the Race Wizard (see Custom Races below), <b>AI Opponents</b> opens the rival setup and shows how many rivals you have in brackets, and <b>Advanced Options</b> and <b>Victory Conditions</b> each show how many choices are ticked. Back and Create Galaxy sit on the bottom row.</p>
+                <p><b style="color:#da70d6;">The New Game Screen</b><br>Empire Name and Choose Race sit on one row. Universe Size, Star Density and Player Position share the next row. <b>Star Density</b> sets how far apart neighboring stars are: Packed 5 to 10 ly, Dense 10 to 16 ly, Normal 15 to 25 ly, Sparse 30 to 50 ly. The summary line under the row shows the range. At Sparse, early engines and small fuel tanks cannot reach the next star, so plan on fuel transports, ramscoops or better drives. Choose Race offers <b>Random Race</b>, which picks one of the six built-in races for you when you press Create Galaxy (the log tells you which), and lists your saved custom races under their own <b>Custom Races</b> heading. Player Position sets how far apart the homeworlds start. Whatever you pick, no two empires, human or AI, ever start close together: the game keeps every pair of homeworlds at least 15 percent of the galaxy's width apart (less only when so many empires are in a small galaxy that they could not all fit), and a closer Player Position just moves them nearer to that minimum. Four buttons sit below, two to a row: <b>Custom Race</b> opens your race list and the Race Wizard (see Custom Races below), <b>AI Opponents</b> opens the rival setup and shows how many rivals you have in brackets, and <b>Advanced Options</b> and <b>Victory Conditions</b> each show how many choices are ticked. Back and Create Galaxy sit on the bottom row.</p>
                 <p><b style="color:#da70d6;">Custom Races and the Race Wizard</b><br>On the New Game screen, <b>Custom Race</b> opens your list of saved races. <b>Create New Race</b> starts the Race Wizard. Each saved race also has <b>Play As</b> (makes it your race for the next game), <b>Edit</b>, <b>Copy</b> and <b>Delete</b>. Saved races appear under Custom Races in Choose Race and in every AI opponent's race menu, so you can cast your creations as your rivals too. Races are kept in this browser, and every saved game carries a copy of the custom races it uses, so a game file opened on another machine brings its races with it and adds any you do not have yet to your list. <b>Export All</b> and <b>Import</b> move your whole list as a JSON file. You can keep up to 24 custom races.</p>
                 <p><b style="color:#da70d6;">Advantage Points</b><br>Every race is built from a pool of Advantage Points. A new race starts with 25 left. Strengths spend points and handicaps refund them, and a race can only be saved when 0 or more points are left. The counter at the top right updates as you choose, and the Point Ledger beside the wizard lists every cost and refund so you can see where the points went. On a narrow screen the ledger is hidden, but the counter stays. Points you do not spend (up to 50) can go into a starting bonus picked on the Identity tab: <b>Surface minerals</b> (+20 kT of each ore per point at your homeworld), <b>Mineral concentrations</b> (+1 concentration on each mineral per 2 points, up to 100), <b>Mines</b> or <b>Factories</b> (+1 per 2 points) or <b>Defenses</b> (+1 Defense per 5 points).</p>
                 <p><b style="color:#da70d6;">The Six Wizard Tabs</b><br>You can jump between tabs at any time, or use Back and Next. <b>1 Identity</b>: race name, plural name, an icon, an optional preset (loads the traits of one of the six built-in races as a starting point, keeping your name and icon) and the leftover points bonus. <b>2 Primary Trait</b>: exactly one of ten, such as Hyper-Expansion, Super-Stealth, War Monger, Jack of All Trades. The primary trait sets your empire's whole style. <b>3 Lesser Traits</b>: any mix of fourteen. Advantages (Improved Fuel Efficiency, Total Terraforming, Advanced Remote Mining, Improved Starbases, Generalized Research, Ultimate Recycling, Mineral Alchemy) cost points. Handicaps (No Ram Scoop Engines, Cheap Engines, Only Basic Remote Mining, No Advanced Scanners, Low Starting Population, Bleeding Edge Technology, Regenerating Shields) refund them. <b>4 Environment</b>: for Gravity, Temperature and Radiation pick an Ideal value and a Tolerance. The purple band shows the conditions your people can live in, in real units. A wide band means many planets suit you but costs points, a narrow band refunds points. Ticking Immune makes that factor irrelevant, at the highest price. The wizard tells you how many planets to expect to be habitable (for example 1 in 5), and the same odds apply in the galaxy. The growth rate slider runs from 1 to 20 percent a year, and faster growth costs points. <b>5 Economy</b>: seven numbers that say how much one colonist, factory and mine produces, what factories and mines cost and how many a population can run, plus a checkbox that makes factories use 1 kT less Germanium. Better numbers cost points, worse numbers refund them. <b>6 Research</b>: each of the six fields can cost 75 percent extra (refunds points), a standard amount, or 50 percent less (costs points). A checkbox lets every expensive field start at Tech 4, at a price.</p>
@@ -3528,7 +3618,7 @@
                 <p><b style="color:#da70d6;">Your Own View of the Galaxy</b><br>Each empire keeps its own record of what it has seen. The planets you have scanned, your survey dates, your fleets, your technology, your research, your budget, your starbase designs and your Galactic Event Log belong to your empire alone. In a game with more than one human, another player's scans never reveal anything to you, and their worlds show as rival worlds (red) once your own scanners find them. Your Galactic Event Log is private too: it lists only what happened to you, plus battles your scanners detected. Every empire hears about the Mystery Trader, a player joining late and a player resigning.</p>
                 <p><b style="color:#da70d6;">Random Events</b><br>Unless No Random Events is ticked, each year there is a small chance that something happens to one of your planets: a <b>mineral strike</b> raises the concentration of one mineral, a <b>population boom</b> adds colonists, a <b>plague</b> kills some of them, or a <b>salvage find</b> drops a cache of Ore on the planet. Events appear in the Galactic Event Log and the turn report.</p>
                 <p><b style="color:#da70d6;">Your Starting Fleet</b><br>You begin with a Long Range Scout in orbit of your homeworld: a Scout hull with a Quick Jump 5 engine, a Rhino Scanner (50 ly) and a fuel tank, 300 mg of fuel in all. Its job is to map the nearby stars. Your homeworld starts with a Basic Space Station that has a ship dock. Colony ships, freighters and warships are built there.</p>
-                <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. You can zoom in 15 times closer than before (up to 60 times the full-galaxy scale), enough to fill the map with one star and its neighbors. Planets stop growing at a set size when you zoom in far, and planet names stay the same readable size at every zoom; change the size or hide them in Settings, Planet Names on Map. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Every empire in the game, AI empires included, is given its own random color when the game begins. An empire's planets, planet names, fleets and fleet names are drawn in its color, and the empire name at the bottom right uses yours. Planets nobody owns show habitability: blue is habitable, dark red hostile, grey not scanned yet; a gold center means a ship dock. Planets have no outline. The planet or fleet you selected last is marked by a slowly pulsing, glowing gold outline: a ring around the planet, or a glow around the fleet's arrow. Select a planet and the ring appears on it; click a fleet (on the map, in Fleets in Orbit, in the Fleet Summary or in the fleet drop-down) and the glow moves to that fleet. Only one of the two glows at a time, and the glow follows the map while you pan and zoom. The legend in the lower left lists your empire and every empire you have met, each in its color, and adds more columns when it gets long. <b>Rulers:</b> a ruler runs along the bottom and the right edge of the star map and measures distance in light years from the corner of the visible map. The bottom ruler starts at 0 in the lower left and counts going right; the right ruler starts at 0 just above the bottom ruler and counts going up. Small ticks mark fifths of each numbered step. The numbered step changes as you zoom so the labels stay readable; zoomed in far enough it is 1 ly with ticks every 0.2 ly. The rulers always count from the edge you are looking at, so they are a distance scale and not map coordinates. <b>Map display settings:</b> in Settings, <b>Map Rulers</b> hides or shows both rulers, <b>Map Legend</b> hides or shows the legend in the lower left, and <b>Fleet Names on Map</b> opens a slider for the size of fleet names (0 hides them; they still only appear when you are zoomed in enough). Planet names have their own slider. Your choices are remembered on this device.</p>
+                <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. You can zoom in 15 times closer than before (up to 60 times the full-galaxy scale), enough to fill the map with one star and its neighbors. Planets stop growing at a set size when you zoom in far, and planet names stay the same readable size at every zoom; change the size or hide them in Settings, Planet Names on Map. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Every empire in the game, AI empires included, is given its own random color when the game begins. An empire's planets, planet names, fleets and fleet names are drawn in its color, and the empire name at the bottom right uses yours. Planets nobody owns show habitability: blue is habitable, dark red hostile, grey not scanned yet; a gold center means a ship dock. Planets have no outline. The planet or fleet you selected last is marked by a slowly pulsing, glowing gold outline: a ring around the planet, or a glow around the fleet's arrow. Select a planet and the ring appears on it; click a fleet (on the map, in Fleets in Orbit, in the Fleet Summary or in the fleet drop-down) and the glow moves to that fleet. Only one of the two glows at a time, and the glow follows the map while you pan and zoom. The legend in the lower left lists your empire and every empire you have met, each in its color, and adds more columns when it gets long. <b>Rulers:</b> a ruler runs along the bottom and the right edge of the star map and measures distance in light years from the corner of the visible map. The bottom ruler starts at 0 in the lower left and counts going right; the right ruler starts at 0 just above the bottom ruler and counts going up. Small ticks mark fifths of each numbered step. The numbered step changes as you zoom so the labels stay readable; zoomed in far enough it is 1 ly with ticks every 0.2 ly. The rulers always count from the edge you are looking at, so they are a distance scale and not map coordinates. <b>Map display settings:</b> in Settings, <b>Map Rulers</b> hides or shows both rulers, <b>Map Legend</b> hides or shows the legend in the lower left (on a phone-sized screen, under 900 pixels wide, both start OFF until you turn them on, and the game remembers your choice), and <b>Fleet Names on Map</b> opens a slider for the size of fleet names (0 hides them; they still only appear when you are zoomed in enough). Planet names have their own slider. Your choices are remembered on this device.</p>
                 <p><b style="color:#da70d6;">Playing on a Phone or Tablet</b><br>On a narrow screen the Star Map sits at the top of the dashboard and the planet, fleet and queue panels scroll underneath it. Drag with one finger to pan, pinch with two fingers to zoom around the point between your fingers, and tap a star or fleet to select it. A touch screen has no Shift key, so to plot a course turn on Fleet, Plot Course Mode (or the Plot button in the Fleets in Orbit panel) and tap stars or empty space on the map to add waypoints. The map resizes when you turn the device. The Race Wizard also fits a phone: its tabs scroll sideways and the Point Ledger is hidden, but the Advantage Points counter stays in view.</p>
                 <p><b style="color:#da70d6;">Fleets on the Map</b><br>Every group of ships is a fleet. Your fleets are arrowheads in your empire color with their name beside them. A fleet in orbit slowly circles its planet; several fleets share the orbit, evenly spaced. A fleet in deep space sits where it is. Pick a fleet in the Fleets in Orbit panel, in the Fleet Roster, or by clicking its arrow on the map. A fleet with orders shows a line to each waypoint, a numbered box at each stop with its travel time in years, and the current warp next to its name. A dashed orange leg means you do not have the fuel to finish that leg. When a fleet is selected, dashed rings show how far it moves in one year: green for its free speed, amber for the warp of its first waypoint. Toggle the rings with Fleet, Range Rings.</p>
                 <p><b style="color:#da70d6;">The Fleet Menu and Fleet Actions</b><br>The Fleet menu always offers Manage Waypoints, Plot Course Mode and Range Rings. Below them the menu adds actions that only make sense where you are. Select a planet that has one of your fleets in orbit and the matching actions appear: <b>Colonize Planet</b> on a neutral world when a fleet there has a Colony Ship, <b>Cargo and Transfer</b> on one of your planets when a fleet there can carry cargo, <b>Merge Fleets Here</b> and <b>Fleet Transfer</b> when two or more of your fleets share the orbit, and <b>Orbital Bombardment</b> and <b>Ground Invasion</b> at a rival homeworld. With no fleet in orbit of the selected planet, these actions are not shown.</p>
@@ -3840,36 +3930,74 @@
             return positions;
         }
 
+        function homeworldMinSeparation(empireCount, dimension, targetSep) {
+            const margin = dimension * 0.08;
+            const span = dimension - margin * 2;
+            const packCap = 0.8 * Math.sqrt((span * span) / (Math.max(2, empireCount) * 0.866));
+            return Math.min(packCap, Math.max(targetSep * 0.75, dimension * 0.15));
+        }
+
         function generateHomeworldPositions(empireCount, dimension, positionKey) {
             const margin = dimension * 0.08;
             const span = dimension - margin * 2;
             const factor = playerSpacingFactors[positionKey] || playerSpacingFactors.moderate;
             const targetSep = Math.min(dimension * 0.6, dimension * factor * Math.sqrt(2 / Math.max(2, empireCount)) * 1.6);
-            const homes = [];
-            for (let n = 0; n < empireCount; n++) {
-                let best = null;
-                let bestScore = Infinity;
-                for (let t = 0; t < 400; t++) {
-                    const cx = margin + Math.random() * span;
-                    const cy = margin + Math.random() * span;
-                    let score;
-                    if (homes.length === 0) {
-                        score = Math.random();
-                    } else {
-                        let nearest = Infinity;
-                        for (let i = 0; i < homes.length; i++) {
-                            nearest = Math.min(nearest, Math.hypot(homes[i].x - cx, homes[i].y - cy));
+            const minSep = homeworldMinSeparation(empireCount, dimension, targetSep);
+            const build = () => {
+                const homes = [];
+                for (let n = 0; n < empireCount; n++) {
+                    let best = null;
+                    let bestScore = Infinity;
+                    let fallback = null;
+                    let fallbackNearest = -1;
+                    for (let t = 0; t < 900; t++) {
+                        const cx = margin + Math.random() * span;
+                        const cy = margin + Math.random() * span;
+                        let score;
+                        if (homes.length === 0) {
+                            score = Math.random();
+                        } else {
+                            let nearest = Infinity;
+                            for (let i = 0; i < homes.length; i++) {
+                                nearest = Math.min(nearest, Math.hypot(homes[i].x - cx, homes[i].y - cy));
+                            }
+                            if (nearest > fallbackNearest) {
+                                fallbackNearest = nearest;
+                                fallback = { x: Math.round(cx), y: Math.round(cy) };
+                            }
+                            if (nearest < minSep) continue;
+                            score = Math.abs(nearest - targetSep);
                         }
-                        score = Math.abs(nearest - targetSep);
+                        if (score < bestScore) {
+                            bestScore = score;
+                            best = { x: Math.round(cx), y: Math.round(cy) };
+                        }
                     }
-                    if (score < bestScore) {
-                        bestScore = score;
-                        best = { x: Math.round(cx), y: Math.round(cy) };
+                    homes.push(best || fallback);
+                }
+                return homes;
+            };
+            const closestPair = (homes) => {
+                let m = Infinity;
+                for (let i = 0; i < homes.length; i++) {
+                    for (let j = i + 1; j < homes.length; j++) {
+                        m = Math.min(m, Math.hypot(homes[i].x - homes[j].x, homes[i].y - homes[j].y));
                     }
                 }
-                homes.push(best);
+                return m;
+            };
+            let result = null;
+            let resultGap = -1;
+            for (let attempt = 0; attempt < 40; attempt++) {
+                const homes = build();
+                const gap = closestPair(homes);
+                if (gap > resultGap) {
+                    resultGap = gap;
+                    result = homes;
+                }
+                if (gap >= minSep) break;
             }
-            return homes;
+            return result;
         }
 
         const MAP_MAX_SCALE = 60;
@@ -3998,7 +4126,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.77.0';
+        const GAME_VERSION = '0.80.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -8479,8 +8607,11 @@ const DEFENDERS_PER_POP=100;
         try {
             const storedFleetSize = parseInt(localStorage.getItem('fs4x-fleet-name-size'), 10);
             if (!isNaN(storedFleetSize)) fleetNameSize = Math.max(0, Math.min(PLANET_NAME_SIZE_MAX, storedFleetSize));
-            showMapRulers = localStorage.getItem('fs4x-map-rulers') !== 'off';
-            showMapLegend = localStorage.getItem('fs4x-map-legend') !== 'off';
+            const phoneView = window.matchMedia('(max-width: 899px)').matches;
+            const storedRulers = localStorage.getItem('fs4x-map-rulers');
+            const storedLegend = localStorage.getItem('fs4x-map-legend');
+            showMapRulers = storedRulers === null ? !phoneView : storedRulers !== 'off';
+            showMapLegend = storedLegend === null ? !phoneView : storedLegend !== 'off';
         } catch (err) { }
         try {
             const storedNameSize = parseInt(localStorage.getItem('fs4x-planet-name-size'), 10);
@@ -11333,6 +11464,662 @@ const DEFENDERS_PER_POP=100;
         }
 
         document.getElementById('btn-mgmt-shipdesign').addEventListener('click', openShipDesigner);
+
+        const TB_CATS = [
+            { key: 'all', label: 'All Technology', desc: 'Everything in the game. Pick a category to narrow the list, or type in the search box.' },
+            { key: 'engine', label: 'Engines', desc: 'Engines move ships. Each engine burns no fuel up to its free warp and follows a fuel use curve above it. A hull with several engine slots must carry the same engine in all of them.' },
+            { key: 'beam', label: 'Beam Weapons', desc: 'Beam weapons fire in battle at targets inside their range. Damage is per hit and initiative sets who fires first. Beams with a range sweep enemy mines.' },
+            { key: 'torpedo', label: 'Torpedoes and Missiles', desc: 'Torpedoes and missiles reach farther than most beams but can miss: accuracy is the chance to hit. Battle computers raise accuracy and jammers lower the enemy\'s.' },
+            { key: 'bomb', label: 'Bombs', desc: 'Bombs are dropped on enemy planets to kill colonists and destroy installations.' },
+            { key: 'shield', label: 'Shields', desc: 'Shields add protection to every ship that carries them in battle.' },
+            { key: 'armor', label: 'Armor', desc: 'Armor adds hit points to a ship. Lighter armor leaves more mass for cargo and fuel.' },
+            { key: 'scanner', label: 'Ship Scanners', desc: 'Ship scanners survey worlds and see fleets inside their normal range. Penetrating range sees fleets through cloaks, but never surveys worlds.' },
+            { key: 'cloak', label: 'Cloaking Devices', desc: 'Cloaks hide ships from enemy scanners. Cloaking percent grows with the cloak units each kT of ship carries.' },
+            { key: 'elec', label: 'Electrical', desc: 'Battle computers, jammers, capacitors, tachyon detectors and other electronics.' },
+            { key: 'mech', label: 'Mechanical', desc: 'Cargo pods, fuel tanks, colonization modules, mining robots, terraformers, jets and other mechanical parts.' },
+            { key: 'mine', label: 'Mine Layers', desc: 'Mine dispensers and speed traps lay minefields. Standard and heavy fields damage ships that cross them above their safe warp; speed traps halt them.' },
+            { key: 'hull', label: 'Ship Hulls', desc: 'A hull sets a ship\'s mass, armor, fuel tank, cargo hold and the slots its parts go in.' },
+            { key: 'sbhull', label: 'Space Station and Starbase Hulls', desc: 'Stations and starbases orbit planets. With a ship dock they build ships; they also scan and fight.' },
+            { key: 'sbcomp', label: 'Starbase Components', desc: 'Parts that fill the slots of space station and starbase hulls.' },
+            { key: 'planetscan', label: 'Planetary Scanners', desc: 'Every planet has a free scanner that improves by itself as your Electronics rises.' },
+            { key: 'gate', label: 'Stargates', desc: 'A stargate on a planet with a starbase moves fleets to another stargate inside its mass and range limits.' },
+            { key: 'massdriver', label: 'Mass Drivers', desc: 'A mass driver on a planet fires mineral packets to other worlds and catches packets that arrive.' },
+            { key: 'structure', label: 'Planet Installations', desc: 'Buildings and actions queued on a planet.' },
+            { key: 'trader', label: 'Mystery Trader Items', desc: 'These can only be built after a Mystery Trader gives you the item.' }
+        ];
+        const TB_COLORS = { engine: '#ff8c42', beam: '#ff5555', torpedo: '#ffb347', bomb: '#ff6b9d', shield: '#4da6ff', armor: '#aab4c0', scanner: '#78ff78', cloak: '#b388ff', elec: '#ffe14d', mech: '#d2b27a', mine: '#ff8c00', hull: '#da70d6', sbhull: '#00e5ff', sbcomp: '#7fdbca', planetscan: '#78ff78', gate: '#c77dff', massdriver: '#ffd700', structure: '#cfd8dc', trader: '#ffd700' };
+        const TB_SLOT_COLORS = { E: '#ff8c42', W: '#ff5555', B: '#ff6b9d', S: '#4da6ff', H: '#4da6ff', A: '#aab4c0', C: '#78ff78', X: '#ffe14d', M: '#d2b27a', Q: '#e6d28a', Y: '#b8e08a', P: '#ff9a7a', L: '#ff8c00', R: '#c9a66b', G: '#ffffff' };
+        const TB_SHORT = { energy: 'Ener', weapons: 'Weap', propulsion: 'Prop', construction: 'Cons', electronics: 'Elec', biotechnology: 'Bio' };
+        const TB_STATE = { cat: 'all', q: '', sort: 'group', only: false, sel: '' };
+        let tbItems = [];
+        let tbShown = [];
+
+        function tbShade(hex, amt) {
+            const n = parseInt(hex.slice(1), 16);
+            const ch = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map(v => Math.max(0, Math.min(255, Math.round(amt < 0 ? v * (1 + amt) : v + (255 - v) * amt))));
+            return '#' + ch.map(v => v.toString(16).padStart(2, '0')).join('');
+        }
+
+        function tbReqRows(req) {
+            return TECH_KEYS.filter(k => req && req[k] > 1).map(k => ({ k: k, need: shownLevel(req[k]) }));
+        }
+
+        function tbReqText(req) {
+            const r = tbReqRows(req).map(x => TECH_NAMES[x.k].split(' ')[0] + ' ' + x.need);
+            return r.length ? r.join(', ') : 'No tech needed';
+        }
+
+        function tbMissing(req, lv) {
+            return tbReqRows(req).filter(x => (lv[x.k] || 1) < req[x.k]).map(x => TECH_NAMES[x.k].split(' ')[0] + ' ' + x.need + ' (you have ' + shownLevel(lv[x.k]) + ')');
+        }
+
+        function tbTier(req) {
+            const rows = tbReqRows(req);
+            return Math.min(1, Math.max(0, rows.reduce((m, x) => Math.max(m, x.need), 0)) / 26);
+        }
+
+        function tbRaceBlock(p) {
+            if (p.cat === 'mine' && raceHasPrt(playerRace, 'WM')) return 'War Monger races cannot lay mines.';
+            if (p.smart && raceHasPrt(playerRace, 'IS')) return 'Inner-Strength races cannot use smart bombs.';
+            const t = partRaceText(p);
+            return t ? 'Your race cannot use it: ' + t + '.' : 'Your race cannot use it.';
+        }
+
+        function tbItem(o) {
+            return Object.assign({ stats: [], notes: [], req: {}, cost: null, base: null, mass: null, avail: true, why: [], spec: {}, extra: '' }, o);
+        }
+
+        function tbPartStats(p) {
+            const s = [];
+            const add = (l, v) => s.push([l, String(v)]);
+            if (p.cat === 'engine') {
+                add('Free warp', 'Warp ' + p.free + ' (no fuel used up to here)');
+                add('Best warp', 'Warp ' + p.best);
+                add('Warp 10', p.warp10Safe ? 'Safe' : 'Risks losing ships');
+                if (p.thrust) add('Thrust', p.thrust);
+            }
+            if (p.cat === 'beam') {
+                add('Damage', p.power);
+                add('Range', p.range);
+                add('Initiative', p.init);
+            }
+            if (p.cat === 'torpedo') {
+                add('Damage', p.power);
+                add('Range', p.range);
+                add('Accuracy', p.acc + '%');
+                add('Initiative', p.init);
+            }
+            if (p.cat === 'bomb') {
+                add('Colonists killed', p.pop + '% (at least ' + p.popMin + ')');
+                add('Installations destroyed', p.inst);
+            }
+            if (p.cat === 'shield') add('Shields', p.shield);
+            if (p.cat === 'armor') add('Armor', p.armor);
+            if (p.cat === 'scanner') {
+                add('Normal range', p.range + ' ly');
+                add('Penetrating range', p.pen ? p.pen + ' ly' : 'None');
+            }
+            if (p.cat === 'cloak') {
+                add('Cloak units', p.cloak + ' per kT');
+                add('Cloaking on its own', Math.round(cloakFromUnits(p.cloak)) + '%');
+            }
+            if (p.minelayer) {
+                const m = MINE_TYPES[p.minelayer];
+                add('Mine type', m.label);
+                add('Mines laid', p.rate + ' a year');
+                add('Safe warp', m.safeWarp);
+                add('Damage', m.halts ? 'None, halts the fleet' : m.damage);
+            }
+            if (p.comp) add('Torpedo accuracy', '+' + p.comp + '%');
+            if (p.xInit && p.cat === 'elec') add('Initiative', '+' + p.xInit);
+            if (p.capacitor) add('Beam damage', '+' + p.capacitor + '%');
+            if (p.dampener) add('Dampening', p.dampener);
+            if (p.tachyon) add('Detects cloaked ships', 'Yes');
+            if (p.fuelGen) add('Makes fuel', p.fuelGen + ' mg a year');
+            if (p.fuel) add('Fuel capacity', '+' + p.fuel + ' mg');
+            if (p.cargo) add('Cargo', '+' + p.cargo + ' kT');
+            if (p.move) add('Battle movement', '+' + p.move);
+            if (p.deflect) add('Beam damage taken', '-' + Math.round(p.deflect * 100) + '%');
+            if (p.mining) add('Remote mining', p.mining + ' kT a year');
+            if (p.terraform) add('Terraforming', p.terraform);
+            if (p.colonizer) add('Founds colonies', 'Yes');
+            if (p.orbital) add('Builds a Space Station', 'Yes');
+            if (p.jumpgate) add('Acts as a stargate', 'Yes');
+            if (p.robber) add('Sees enemy cargo', 'Yes');
+            if (p.unarmedOnly) add('Fits', 'Unarmed ships only');
+            if (p.xArmor) add('Also armor', p.xArmor);
+            if (p.xShield) add('Also shields', p.xShield);
+            if (p.xCloak) add('Also cloaking', p.xCloak + ' units per kT (' + Math.round(cloakFromUnits(p.xCloak)) + '%)');
+            if (p.jam) add('Torpedo jamming', p.jam + '%');
+            if (p.xScan) add('Also scans', p.xScan + ' ly');
+            if (p.xBomb) add('Also bombs', p.xBomb.pop + '% of colonists (at least ' + p.xBomb.popMin + '), ' + p.xBomb.inst + ' installations');
+            if (p.xLay) add('Also lays', p.xLay + ' Standard mines a year');
+            return s;
+        }
+
+        function tbPartNotes(p) {
+            const n = [];
+            if (p.gatling) n.push('Hits every enemy ship in range at once.');
+            if (p.sapper) n.push('Damages shields only, never armor.');
+            if (p.capital) n.push('Capital ship missile.');
+            if (p.smart) n.push('Smart bomb: kills colonists but ignores installations.');
+            if (p.retro) n.push('Undoes terraforming.');
+            if (p.scoop) n.push('Ramscoop engine. Races with the No Ramscoop Engines trait cannot use it.');
+            if (p.radiates) n.push('Radiating: in Stars! this engine kills some of your colonists if the midpoint of your race\'s Radiation band is below 85 mR. This game does not apply that effect yet.');
+            if (p.cat === 'beam' && !p.sapper && p.range > 0) n.push('Sweeps ' + (p.power * Math.pow(p.gatling ? GATLING_SWEEP_RANGE : p.range, 2)) + ' enemy mines a year.');
+            if (p.cat === 'engine' && p.warp10Safe) n.push('Safe at Warp 10; other engines can lose ships there.');
+            const t = partRaceText(p);
+            if (t) n.push('Race requirement: ' + t + '.');
+            return n;
+        }
+
+        function tbPartItem(k, lv) {
+            const p = PARTS[k];
+            const g = p.trader ? 'trader' : p.cat;
+            const miss = tbMissing(p.req, lv);
+            const why = [];
+            let avail;
+            if (p.trader) {
+                avail = activeOwnsTraderItem(k);
+                if (!avail) why.push('Only a Mystery Trader can give you this item.');
+            } else {
+                const ok = raceAllowsPart(p);
+                if (!ok) why.push(tbRaceBlock(p));
+                if (miss.length) why.push('Needs ' + miss.join(', ') + '.');
+                avail = ok && !miss.length;
+            }
+            const notes = tbPartNotes(p);
+            if (p.trader) notes.unshift('Only available from a Mystery Trader. Its normal job: ' + (CAT_NAMES[p.cat] || p.cat) + '.');
+            return tbItem({
+                id: 'part:' + k, name: p.name, group: g, req: p.req, cost: miniCost(p.cost, p.req), base: p.cost, mass: p.mass,
+                stats: tbPartStats(p), notes: notes, avail: avail, why: why, spec: { g: p.cat, f: p, t: tbTier(p.req) },
+                chart: p.cat === 'engine' ? p : null, extra: (p.cat === 'engine' ? 'engine free warp ' + p.free : '')
+            });
+        }
+
+        function tbSlotText(code) {
+            const groups = [];
+            code.split('').forEach(c => {
+                const g = groups.find(x => x.c === c);
+                if (g) g.n++;
+                else groups.push({ c: c, n: 1 });
+            });
+            return groups.map(g => g.n + ' ' + SLOT_NAMES[g.c]).join(', ');
+        }
+
+        function tbHullItem(k, lv) {
+            const h = SHIP_HULLS[k];
+            const req = h.level > 1 ? { construction: h.level } : {};
+            const why = [];
+            const miss = tbMissing(req, lv);
+            let avail;
+            if (h.trader) {
+                avail = activeOwnsTraderItem(k);
+                if (!avail) why.push('Only a Mystery Trader can give you this hull.');
+            } else {
+                const ok = raceAllowsPart(h);
+                if (!ok) why.push(tbRaceBlock(h));
+                if (miss.length) why.push('Needs ' + miss.join(', ') + '.');
+                avail = ok && !miss.length;
+            }
+            const stats = [['Hull mass', h.mass + ' kT'], ['Armor', h.armor], ['Fuel capacity', h.fuel + ' mg'], ['Cargo', h.cargo + ' kT'], ['Initiative', h.init || 0], ['Slots', h.slots.length], ['Slot layout', tbSlotText(h.slots)]];
+            if (h.fuelGen) stats.push(['Makes fuel', h.fuelGen + ' mg a year']);
+            if (h.repairBonus) stats.push(['Repair bonus', Math.round(h.repairBonus * 100) + '%']);
+            const notes = [];
+            const t = partRaceText(h);
+            if (t) notes.push('Race requirement: ' + t + '.');
+            if (h.trader) notes.unshift('Only available from a Mystery Trader.');
+            notes.push('Engine slots must all hold the same engine. Slot layouts are this game\'s own approximation where the original layouts are not known.');
+            return tbItem({
+                id: 'hull:' + k, name: h.label, group: h.trader ? 'trader' : 'hull', req: req, cost: miniCost(h.cost, { construction: h.level }), base: h.cost, mass: h.mass,
+                stats: stats, notes: notes, avail: avail, why: why, spec: { g: 'hull', f: h, t: tbTier(req), key: k }, extra: tbSlotText(h.slots)
+            });
+        }
+
+        function tbStationItem(k, lv) {
+            const h = HULLS[k];
+            const req = h.level > 1 ? { construction: h.level } : {};
+            const miss = tbMissing(req, lv);
+            return tbItem({
+                id: 'sbhull:' + k, name: h.label, group: 'sbhull', req: req, cost: miniCost(h.cost, { construction: h.level }), base: h.cost,
+                stats: [['Type', KIND_NAMES[h.kind]], ['Slots', h.slots], ['Armor', h.armor], ['Ship dock', h.dock ? 'Yes, builds ships' : 'No dock']],
+                notes: ['Cost shown is before any race starbase cost adjustment.'], avail: !miss.length, why: miss.length ? ['Needs ' + miss.join(', ') + '.'] : [],
+                spec: { g: 'sbhull', f: h, t: tbTier(req), key: k }
+            });
+        }
+
+        function tbCompItem(k, lv) {
+            const c = COMPONENTS[k];
+            const req = c.level > 1 ? { [c.field]: c.level } : {};
+            const miss = tbMissing(req, lv);
+            const stats = [];
+            if (c.armor) stats.push(['Armor', '+' + c.armor]);
+            if (c.beam) stats.push(['Beam power', c.beam]);
+            if (c.shield) stats.push(['Shields', '+' + c.shield]);
+            if (c.torpedo) stats.push(['Torpedo power', c.torpedo]);
+            if (c.scan) stats.push(['Normal range', c.scan + ' ly']);
+            if (c.pen) stats.push(['Penetrating range', c.pen + ' ly']);
+            const g = c.armor ? 'armor' : c.beam ? 'beam' : c.shield ? 'shield' : c.torpedo ? 'torpedo' : 'scanner';
+            return tbItem({
+                id: 'sbcomp:' + k, name: c.label, group: 'sbcomp', req: req, cost: miniCost(c.cost, { [c.field]: c.level }), base: c.cost,
+                stats: stats, notes: ['Goes in a slot of a space station or starbase hull.'], avail: !miss.length, why: miss.length ? ['Needs ' + miss.join(', ') + '.'] : [],
+                spec: { g: g, f: { range: c.scan || c.pen || 0, pen: c.pen, cloak: 0 }, t: tbTier(req) }
+            });
+        }
+
+        function tbPlanetScanItems(lv) {
+            return PLANET_SCANNERS.map((sc, i) => {
+                const req = manualReq(sc.req);
+                const miss = tbMissing(req, lv);
+                return tbItem({
+                    id: 'planetscan:' + i, name: sc.name, group: 'planetscan', req: req,
+                    stats: [['Normal range', sc.range + ' ly'], ['Penetrating range', sc.pen ? sc.pen + ' ly' : 'None']],
+                    notes: ['Built into every planet for free. Your planets use the best scanner your tech allows.', 'No Advanced Scanners races get double the normal range and no penetrating range from the same tier.'],
+                    avail: !miss.length, why: miss.length ? ['Needs ' + miss.join(', ') + '.'] : [], spec: { g: 'planetscan', f: sc, t: tbTier(req) }
+                });
+            });
+        }
+
+        function tbGateItems(lv) {
+            return Object.keys(STARGATES).map(k => {
+                const g = STARGATES[k];
+                const req = manualReq(g.req);
+                const miss = tbMissing(req, lv);
+                const he = raceHasPrt(playerRace, 'HE');
+                const why = [];
+                if (he) why.push('Hyper-Expansion races cannot build stargates.');
+                if (miss.length) why.push('Needs ' + miss.join(', ') + '.');
+                return tbItem({
+                    id: 'gate:' + k, name: g.label, group: 'gate', req: req, cost: stargateCost(k), base: g.cost,
+                    stats: [['Largest ship mass', gateText(g.mass) + (g.mass === Infinity ? '' : ' kT')], ['Longest jump', gateText(g.range) + (g.range === Infinity ? '' : ' ly')]],
+                    notes: ['Built on a planet that has a starbase.', 'Interstellar Traveler races pay ' + Math.round((1 - IT_GATE_DISCOUNT) * 100) + '% less.'],
+                    avail: !he && !miss.length, why: why, spec: { g: 'gate', f: g, t: tbTier(req) }
+                });
+            });
+        }
+
+        function tbDriverItems(lv) {
+            const out = [];
+            for (let l = 1; l <= MD_MAX; l++) {
+                const req = { propulsion: mdTechReq(l) };
+                const miss = tbMissing(req, lv);
+                out.push(tbItem({
+                    id: 'massdriver:' + l, name: 'Mass Driver ' + l, group: 'massdriver', req: req, cost: massDriverCost(l), base: massDriverCost(l),
+                    stats: [['Packet speed', 'Warp ' + mdWarp(l) + ' (' + mdWarp(l) * mdWarp(l) + ' ly a year)'], ['Packet size', 'Up to ' + mdCapacity(l) + ' kT'], ['Catches packets up to', 'Warp ' + mdWarp(l)]],
+                    notes: ['Fires one packet a year. Only one driver upgrade can be queued at a time.'],
+                    avail: !miss.length, why: miss.length ? ['Needs ' + miss.join(', ') + '.'] : [], spec: { g: 'massdriver', f: { n: l }, t: tbTier(req) }
+                }));
+            }
+            return out;
+        }
+
+        function tbStructureItems(lv) {
+            const mk = (id, name, cost, notes, req, glyph) => {
+                const miss = tbMissing(req, lv);
+                return tbItem({ id: 'structure:' + id, name: name, group: 'structure', req: req, cost: cost, base: cost, notes: notes, avail: !miss.length, why: miss.length ? ['Needs ' + miss.join(', ') + '.'] : [], spec: { g: 'structure', f: { glyph: glyph }, t: tbTier(req) } });
+            };
+            const out = [
+                mk('mine', 'Mine', buildCostFor('mine'), ['Digs minerals from the planet each year. See Help, Structures and Ore and Mining.'], {}, 'mine'),
+                mk('factory', 'Factory', buildCostFor('factory'), ['Produces Resources each year. See Help, Structures.'], {}, 'factory'),
+                mk('defense', 'Defense', buildCostFor('defense'), ['Defends the planet against attack. See Help, Structures.'], {}, 'defense'),
+                mk('alchemy', 'Mineral Alchemy', buildCostFor('alchemy'), ['Turns Resources into minerals. Races with the Mineral Alchemy trait pay ' + ALCHEMY_COST_MA + ' instead of ' + ALCHEMY_COST + '.'], {}, 'alchemy'),
+                mk('terraform', 'Terraform Step', buildCostFor('terraform'), ['One step of terraforming, queued on the planet.'], { biotechnology: TERRAFORM_QUEUE_BIO }, 'terraform')
+            ];
+            const g = TRADER_GENESIS;
+            const miss = tbMissing(g.req, lv);
+            out.push(tbItem({
+                id: 'structure:genesis', name: g.name, group: 'trader', req: g.req, cost: g.cost, base: g.cost, notes: ['Only available from a Mystery Trader.', g.text],
+                avail: activeOwnsTraderItem('genesis'), why: activeOwnsTraderItem('genesis') ? [] : ['Only a Mystery Trader can give you this item.'], spec: { g: 'structure', f: { glyph: 'genesis' }, t: tbTier(g.req) }
+            }));
+            return out;
+        }
+
+        function tbCollect() {
+            const lv = getTechLevels();
+            const items = [];
+            Object.keys(PARTS).forEach(k => items.push(tbPartItem(k, lv)));
+            Object.keys(SHIP_HULLS).forEach(k => items.push(tbHullItem(k, lv)));
+            Object.keys(HULLS).forEach(k => items.push(tbStationItem(k, lv)));
+            Object.keys(COMPONENTS).forEach(k => items.push(tbCompItem(k, lv)));
+            return items.concat(tbPlanetScanItems(lv), tbGateItems(lv), tbDriverItems(lv), tbStructureItems(lv));
+        }
+
+        function tbMaxReq(it) {
+            return tbReqRows(it.req).reduce((m, x) => Math.max(m, x.need), 0);
+        }
+
+        function tbGroupIndex(it) {
+            return TB_CATS.findIndex(c => c.key === it.group);
+        }
+
+        function tbHaystack(it) {
+            const cat = TB_CATS.find(c => c.key === it.group);
+            return (it.name + ' ' + (cat ? cat.label : '') + ' ' + tbReqText(it.req) + ' ' + it.stats.map(s => s[0] + ' ' + s[1]).join(' ') + ' ' + it.notes.join(' ') + ' ' + it.extra).toLowerCase();
+        }
+
+        function tbFilter() {
+            const words = TB_STATE.q.toLowerCase().split(/\s+/).filter(Boolean);
+            let list = tbItems.filter(it => (TB_STATE.cat === 'all' || it.group === TB_STATE.cat) && (!TB_STATE.only || it.avail));
+            if (words.length) list = list.filter(it => { const h = tbHaystack(it); return words.every(w => h.indexOf(w) !== -1); });
+            const byTech = (a, b) => tbMaxReq(a) - tbMaxReq(b) || a.name.localeCompare(b.name);
+            const sorters = {
+                group: (a, b) => tbGroupIndex(a) - tbGroupIndex(b) || byTech(a, b),
+                tech: byTech,
+                name: (a, b) => a.name.localeCompare(b.name),
+                cost: (a, b) => ((a.cost ? a.cost.res : 0) - (b.cost ? b.cost.res : 0)) || byTech(a, b),
+                mass: (a, b) => ((a.mass || 0) - (b.mass || 0)) || byTech(a, b)
+            };
+            return list.sort(sorters[TB_STATE.sort] || sorters.group);
+        }
+
+        function tbGlyph(sp, c) {
+            const d = tbShade(c, -0.5);
+            const l = tbShade(c, 0.4);
+            const f = sp.f || {};
+            const t = sp.t || 0;
+            const n = Math.max(1, Math.round(1 + t * 3));
+            let o = '';
+            switch (sp.g) {
+                case 'engine': {
+                    if (f.scoop) {
+                        o += `<path d="M8 10 L36 24 L36 40 L8 54 Z" fill="${d}" stroke="${c}" stroke-width="2.5"/><path d="M36 26 L52 26 L52 38 L36 38 Z" fill="${c}"/>`;
+                        for (let i = 0; i < 3; i++) o += `<circle cx="${15 + i * 5}" cy="${26 + i * 6}" r="1.8" fill="${l}"/>`;
+                        o += `<path d="M52 32 L${56 + n * 2} 32" stroke="#ffd27a" stroke-width="4" stroke-linecap="round"/>`;
+                    } else {
+                        o += `<path d="M8 22 L28 18 L28 46 L8 42 Z" fill="${d}" stroke="${c}" stroke-width="2"/><path d="M28 16 L46 10 L46 54 L28 48 Z" fill="${c}"/>`;
+                        o += `<path d="M46 20 Q${52 + n * 3} 32 46 44 Z" fill="#ffb347"/><path d="M46 26 Q${50 + n * 2} 32 46 38 Z" fill="#fff2b0"/>`;
+                    }
+                    if (f.radiates) o += `<circle cx="16" cy="32" r="7" fill="#ffe14d" stroke="#222" stroke-width="1.5"/><path d="M16 32 L16 25 A7 7 0 0 1 22 28.5 Z M16 32 L22 35.5 A7 7 0 0 1 10 35.5 Z M16 32 L10 35.5 A7 7 0 0 1 10 28.5 Z" fill="#222"/>`;
+                    break;
+                }
+                case 'beam': {
+                    o += `<rect x="6" y="24" width="18" height="16" rx="3" fill="${d}" stroke="${c}" stroke-width="2"/>`;
+                    if (f.sapper) o += `<polyline points="24,32 32,22 38,42 46,24 52,40 58,32" fill="none" stroke="${l}" stroke-width="3" stroke-linejoin="round"/>`;
+                    else if (f.gatling) for (let i = -1; i <= 1; i++) o += `<rect x="24" y="${30 + i * 7}" width="30" height="4" fill="${c}"/><rect x="54" y="${29 + i * 7}" width="4" height="6" fill="${l}"/>`;
+                    else for (let i = 0; i < n; i++) o += `<line x1="24" y1="${32 + (i - (n - 1) / 2) * 8}" x2="58" y2="${32 + (i - (n - 1) / 2) * 12}" stroke="${c}" stroke-width="${2 + t * 3}" stroke-linecap="round"/><line x1="24" y1="${32 + (i - (n - 1) / 2) * 8}" x2="58" y2="${32 + (i - (n - 1) / 2) * 12}" stroke="#fff" stroke-width="1" opacity=".8"/>`;
+                    break;
+                }
+                case 'torpedo': {
+                    const big = f.capital ? 1 : 0;
+                    o += `<path d="M10 ${24 - big * 3} L38 ${24 - big * 3} L54 32 L38 ${40 + big * 3} L10 ${40 + big * 3} Z" fill="${c}" stroke="${d}" stroke-width="2"/>`;
+                    o += `<path d="M10 24 L2 14 L18 24 Z M10 40 L2 50 L18 40 Z" fill="${l}"/><rect x="24" y="${24 - big * 3}" width="4" height="${16 + big * 6}" fill="${d}"/>`;
+                    if (big) o += `<rect x="31" y="21" width="3" height="22" fill="${d}"/>`;
+                    o += `<path d="M10 28 L${4 - n} 32 L10 36 Z" fill="#ffd27a"/>`;
+                    break;
+                }
+                case 'bomb': {
+                    o += `<circle cx="32" cy="38" r="17" fill="${d}" stroke="${c}" stroke-width="3"/><circle cx="26" cy="32" r="4" fill="${l}" opacity=".6"/>`;
+                    o += `<path d="M38 22 Q44 12 50 14" fill="none" stroke="${l}" stroke-width="3"/><circle cx="51" cy="13" r="4" fill="#ffd27a"/>`;
+                    if (f.smart || f.retro) o += `<path d="M32 30 L35 37 L42 37 L36 42 L38 49 L32 45 L26 49 L28 42 L22 37 L29 37 Z" fill="${l}"/>`;
+                    else for (let i = 0; i < n; i++) o += `<rect x="${24 + i * 4}" y="44" width="2.5" height="8" fill="${c}"/>`;
+                    break;
+                }
+                case 'shield': {
+                    o += `<path d="M32 6 L54 14 V34 C54 46 44 54 32 59 C20 54 10 46 10 34 V14 Z" fill="${d}" stroke="${c}" stroke-width="3"/>`;
+                    for (let i = 0; i < n; i++) o += `<path d="M${18 + i * 2} 22 Q32 ${12 + i * 5} ${46 - i * 2} 22" fill="none" stroke="${l}" stroke-width="2.5" opacity="${1 - i * 0.2}"/>`;
+                    o += `<path d="M32 28 V50" stroke="${c}" stroke-width="2.5"/>`;
+                    break;
+                }
+                case 'armor': {
+                    for (let i = 0; i < n; i++) {
+                        const y = 46 - i * 11;
+                        o += `<rect x="${8 + i * 2}" y="${y - 8}" width="${48 - i * 4}" height="10" rx="2" fill="${i % 2 ? c : d}" stroke="${l}" stroke-width="1.5"/>`;
+                        o += `<circle cx="${14 + i * 2}" cy="${y - 3}" r="1.6" fill="${l}"/><circle cx="${50 - i * 2}" cy="${y - 3}" r="1.6" fill="${l}"/>`;
+                    }
+                    break;
+                }
+                case 'scanner': case 'planetscan': {
+                    const rng = f.range || 0;
+                    const arcs = Math.max(1, Math.min(4, Math.ceil(rng / 100)));
+                    o += `<path d="M10 46 A22 22 0 0 1 36 16 L28 32 Z" fill="${d}" stroke="${c}" stroke-width="2.5"/><line x1="23" y1="31" x2="23" y2="54" stroke="${c}" stroke-width="3"/><line x1="14" y1="54" x2="32" y2="54" stroke="${c}" stroke-width="3"/>`;
+                    for (let i = 1; i <= arcs; i++) o += `<path d="M${34 + i * 5} ${32 - i * 6} A${i * 8} ${i * 8} 0 0 1 ${34 + i * 5} ${32 + i * 6}" fill="none" stroke="${i > arcs - (f.pen ? 1 : 0) ? '#ff6b6b' : l}" stroke-width="2.5"/>`;
+                    if (sp.g === 'planetscan') o += `<circle cx="46" cy="50" r="7" fill="${l}" opacity=".5"/>`;
+                    break;
+                }
+                case 'cloak': {
+                    o += `<path d="M10 40 L32 12 L54 40 L44 36 L32 48 L20 36 Z" fill="${c}" opacity=".25" stroke="${c}" stroke-width="2.5" stroke-dasharray="4 3"/>`;
+                    o += `<path d="M20 40 L32 24 L44 40 L32 46 Z" fill="${d}" opacity="${0.9 - t * 0.5}"/>`;
+                    o += `<circle cx="32" cy="32" r="${5 + n * 2}" fill="none" stroke="${l}" stroke-width="1.5" stroke-dasharray="2 3"/>`;
+                    break;
+                }
+                case 'elec': {
+                    o += `<rect x="16" y="16" width="32" height="32" rx="3" fill="${d}" stroke="${c}" stroke-width="2.5"/>`;
+                    for (let i = 0; i < 5; i++) o += `<line x1="${21 + i * 6}" y1="8" x2="${21 + i * 6}" y2="16" stroke="${l}" stroke-width="2"/><line x1="${21 + i * 6}" y1="48" x2="${21 + i * 6}" y2="56" stroke="${l}" stroke-width="2"/><line x1="8" y1="${21 + i * 6}" x2="16" y2="${21 + i * 6}" stroke="${l}" stroke-width="2"/><line x1="48" y1="${21 + i * 6}" x2="56" y2="${21 + i * 6}" stroke="${l}" stroke-width="2"/>`;
+                    if (f.jam || f.dampener) o += `<path d="M22 32 Q27 22 32 32 T42 32" fill="none" stroke="${c}" stroke-width="2.5"/>`;
+                    else if (f.capacitor) o += `<path d="M34 20 L26 34 L32 34 L28 44 L38 30 L32 30 Z" fill="${c}"/>`;
+                    else if (f.tachyon) o += `<circle cx="32" cy="32" r="8" fill="none" stroke="${c}" stroke-width="2.5"/><circle cx="32" cy="32" r="2.5" fill="${l}"/>`;
+                    else o += `<rect x="24" y="24" width="16" height="16" fill="${c}"/><rect x="29" y="29" width="6" height="6" fill="${d}"/>`;
+                    break;
+                }
+                case 'mech': {
+                    if (f.cargo && !f.xArmor) o += `<rect x="10" y="18" width="44" height="30" rx="3" fill="${d}" stroke="${c}" stroke-width="2.5"/><line x1="10" y1="33" x2="54" y2="33" stroke="${c}" stroke-width="2"/><line x1="32" y1="18" x2="32" y2="48" stroke="${c}" stroke-width="2"/>`;
+                    else if (f.fuel) o += `<rect x="14" y="14" width="36" height="38" rx="12" fill="${d}" stroke="${c}" stroke-width="2.5"/><path d="M32 24 Q40 34 32 44 Q24 34 32 24 Z" fill="${l}"/>`;
+                    else if (f.mining) o += `<path d="M10 20 L40 20 L52 32 L40 44 L10 44 Z" fill="${d}" stroke="${c}" stroke-width="2.5"/><path d="M52 32 L62 32" stroke="${l}" stroke-width="4"/><circle cx="24" cy="32" r="6" fill="none" stroke="${l}" stroke-width="2.5"/>`;
+                    else if (f.terraform) o += `<circle cx="32" cy="32" r="18" fill="${d}" stroke="${c}" stroke-width="2.5"/><path d="M14 32 H50 M32 14 Q42 32 32 50 M32 14 Q22 32 32 50" fill="none" stroke="${l}" stroke-width="2"/>`;
+                    else if (f.colonizer) o += `<path d="M10 46 A22 22 0 0 1 54 46 Z" fill="${d}" stroke="${c}" stroke-width="2.5"/><rect x="28" y="22" width="8" height="24" fill="${l}"/><circle cx="32" cy="18" r="4" fill="${c}"/>`;
+                    else if (f.jumpgate) o += `<ellipse cx="32" cy="32" rx="18" ry="24" fill="none" stroke="${c}" stroke-width="5"/><ellipse cx="32" cy="32" rx="9" ry="14" fill="${l}" opacity=".5"/>`;
+                    else if (f.move) o += `<rect x="14" y="22" width="20" height="20" rx="3" fill="${d}" stroke="${c}" stroke-width="2.5"/><path d="M34 26 L54 18 M34 32 L58 32 M34 38 L54 46" stroke="${l}" stroke-width="3" stroke-linecap="round"/>`;
+                    else if (f.deflect) o += `<path d="M10 16 L32 32 L10 48" fill="none" stroke="${c}" stroke-width="5" stroke-linejoin="round"/><path d="M54 20 L36 32 L54 44" fill="none" stroke="${l}" stroke-width="3"/>`;
+                    else o += `<circle cx="32" cy="32" r="14" fill="${d}" stroke="${c}" stroke-width="3"/><circle cx="32" cy="32" r="5" fill="${l}"/>` + [0, 1, 2, 3, 4, 5, 6, 7].map(i => `<rect x="30" y="8" width="4" height="8" fill="${c}" transform="rotate(${i * 45} 32 32)"/>`).join('');
+                    break;
+                }
+                case 'mine': {
+                    const big = f.minelayer === 'heavy';
+                    if (f.minelayer === 'speed') o += `<circle cx="32" cy="32" r="18" fill="none" stroke="${c}" stroke-width="3" stroke-dasharray="6 4"/><circle cx="32" cy="32" r="9" fill="${d}" stroke="${l}" stroke-width="2"/><path d="M32 26 V38 M26 32 H38" stroke="${l}" stroke-width="2"/>`;
+                    else {
+                        o += `<circle cx="32" cy="32" r="${big ? 17 : 13}" fill="${d}" stroke="${c}" stroke-width="3"/>`;
+                        for (let i = 0; i < 8; i++) o += `<rect x="30.5" y="${big ? 6 : 10}" width="3" height="${big ? 9 : 7}" fill="${l}" transform="rotate(${i * 45} 32 32)"/>`;
+                        o += `<circle cx="32" cy="32" r="4" fill="${c}"/>`;
+                    }
+                    break;
+                }
+                case 'hull': {
+                    const key = sp.key || '';
+                    const code = f.slots || 'E';
+                    let body;
+                    if (/freighter/.test(key)) body = '<path d="M6 18 H48 L58 32 L48 46 H6 Z"/>';
+                    else if (/colony/.test(key)) body = '<path d="M8 32 A24 18 0 0 1 56 32 A24 18 0 0 1 8 32 Z"/>';
+                    else if (key === 'scout' || key === 'frigate') body = '<path d="M6 22 L50 22 L60 32 L50 42 L6 42 Z"/>';
+                    else if (/bomb|b17|b52/.test(key)) body = '<path d="M4 32 L30 8 L36 8 L36 20 L60 32 L36 44 L36 56 L30 56 Z"/>';
+                    else if (/mine|miner/.test(key)) body = '<path d="M6 16 H44 L60 24 V40 L44 48 H6 Z"/>';
+                    else body = '<path d="M4 32 L16 12 H44 L60 32 L44 52 H16 Z"/>';
+                    o += `<g fill="${d}" stroke="${c}" stroke-width="2.5" stroke-linejoin="round">${body}</g>`;
+                    const cols = Math.ceil(Math.sqrt(code.length * 1.7));
+                    const rows = Math.ceil(code.length / cols);
+                    const cell = Math.min(7, 30 / cols, 20 / rows);
+                    const x0 = 32 - cols * cell / 2;
+                    const y0 = 32 - rows * cell / 2;
+                    code.split('').forEach((ch, i) => {
+                        o += `<rect x="${(x0 + (i % cols) * cell + 0.4).toFixed(1)}" y="${(y0 + Math.floor(i / cols) * cell + 0.4).toFixed(1)}" width="${(cell - 0.8).toFixed(1)}" height="${(cell - 0.8).toFixed(1)}" fill="${TB_SLOT_COLORS[ch] || '#fff'}"/>`;
+                    });
+                    break;
+                }
+                case 'sbhull': {
+                    const slots = f.slots || 4;
+                    if (sp.key === 'fort') o += `<rect x="14" y="14" width="36" height="36" fill="${d}" stroke="${c}" stroke-width="3"/>` + [[8, 8], [48, 8], [8, 48], [48, 48]].map(p => `<rect x="${p[0]}" y="${p[1]}" width="8" height="8" fill="${c}"/>`).join('') + `<circle cx="32" cy="32" r="8" fill="${l}"/>`;
+                    else {
+                        const big = f.kind === 'starbase';
+                        o += `<circle cx="32" cy="32" r="${big ? 22 : 18}" fill="${d}" stroke="${c}" stroke-width="3"/><circle cx="32" cy="32" r="${big ? 9 : 7}" fill="${c}"/>`;
+                        for (let i = 0; i < slots; i++) o += `<circle cx="${(32 + Math.cos(i / slots * 6.2832) * (big ? 22 : 18)).toFixed(1)}" cy="${(32 + Math.sin(i / slots * 6.2832) * (big ? 22 : 18)).toFixed(1)}" r="2.4" fill="${l}"/>`;
+                        if (f.dock) o += `<rect x="28" y="2" width="8" height="8" fill="${l}"/>`;
+                        if (f.level >= 10) o += `<circle cx="32" cy="32" r="29" fill="none" stroke="${c}" stroke-width="1.5" stroke-dasharray="3 3"/>`;
+                    }
+                    break;
+                }
+                case 'gate': {
+                    o += `<ellipse cx="32" cy="32" rx="22" ry="22" fill="none" stroke="${c}" stroke-width="5"/><ellipse cx="32" cy="32" rx="14" ry="14" fill="${d}"/>`;
+                    o += `<path d="M32 18 A14 14 0 0 1 46 32 A9 9 0 0 1 32 41 A5 5 0 0 1 32 31" fill="none" stroke="${l}" stroke-width="2.5"/>`;
+                    break;
+                }
+                case 'massdriver': {
+                    o += `<path d="M6 46 L58 22 M6 54 L58 30" stroke="${c}" stroke-width="3"/>`;
+                    for (let i = 0; i < 6; i++) o += `<line x1="${12 + i * 9}" y1="${50 - i * 4.2}" x2="${12 + i * 9}" y2="${42 - i * 4.2}" stroke="${d}" stroke-width="2" opacity="${i < (f.n || 1) ? 1 : 0.3}"/>`;
+                    o += `<circle cx="${14 + (f.n || 1) * 7}" cy="${36 - (f.n || 1) * 3}" r="6" fill="${l}" stroke="${d}" stroke-width="2"/>`;
+                    break;
+                }
+                case 'structure': {
+                    const g = f.glyph;
+                    if (g === 'mine') o += `<path d="M10 54 L34 30 M34 30 L20 24 M34 30 L40 44" stroke="${c}" stroke-width="4" stroke-linecap="round"/><path d="M14 22 Q34 6 54 26" fill="none" stroke="${l}" stroke-width="4" stroke-linecap="round"/>`;
+                    else if (g === 'factory') o += `<rect x="10" y="30" width="44" height="22" fill="${d}" stroke="${c}" stroke-width="2.5"/><rect x="16" y="14" width="7" height="16" fill="${c}"/><rect x="30" y="20" width="7" height="10" fill="${c}"/><circle cx="20" cy="9" r="4" fill="${l}" opacity=".6"/>`;
+                    else if (g === 'defense') o += `<rect x="12" y="38" width="40" height="14" rx="3" fill="${d}" stroke="${c}" stroke-width="2.5"/><circle cx="32" cy="36" r="10" fill="${c}"/><rect x="32" y="30" width="24" height="5" fill="${l}"/>`;
+                    else if (g === 'alchemy') o += `<path d="M26 8 H38 V26 L52 50 Q54 56 48 56 H16 Q10 56 12 50 L26 26 Z" fill="${d}" stroke="${c}" stroke-width="2.5"/><path d="M20 44 H44" stroke="${l}" stroke-width="5"/>`;
+                    else if (g === 'terraform') o += `<circle cx="32" cy="32" r="18" fill="${d}" stroke="${c}" stroke-width="2.5"/><path d="M14 32 H50 M32 14 Q42 32 32 50 M32 14 Q22 32 32 50" fill="none" stroke="${l}" stroke-width="2"/><path d="M48 12 L56 12 L56 20" fill="none" stroke="${c}" stroke-width="3"/>`;
+                    else o += `<path d="M32 4 L38 26 L60 32 L38 38 L32 60 L26 38 L4 32 L26 26 Z" fill="${c}" stroke="${l}" stroke-width="2"/><circle cx="32" cy="32" r="6" fill="#fff"/>`;
+                    break;
+                }
+                default:
+                    o += `<circle cx="32" cy="32" r="16" fill="${d}" stroke="${c}" stroke-width="3"/>`;
+            }
+            return o;
+        }
+
+        function tbIcon(it, px) {
+            const c = TB_COLORS[it.group] || '#ffffff';
+            const sp = it.spec || {};
+            const tier = Math.round((sp.t || 0) * 5);
+            let pips = '';
+            for (let i = 0; i < 5; i++) pips += `<circle cx="${22 + i * 5}" cy="60" r="1.5" fill="${i < tier ? '#ffd700' : '#3a3450'}"/>`;
+            return `<svg viewBox="0 0 64 64" width="${px}" height="${px}" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="62" height="62" rx="8" fill="${tbShade(c, -0.82)}" stroke="${tbShade(c, -0.35)}" stroke-width="1.5"/>${tbGlyph(sp, c)}${px > 40 ? pips : ''}</svg>`;
+        }
+
+        function tbEngineChart(p) {
+            const W = 480, H = 250, L = 52, R = 14, T = 26, B = 34;
+            const w = W - L - R, h = H - T - B;
+            const lo = Math.log2(12.5), hi = Math.log2(1600);
+            const yOf = v => v <= 0 ? T + h : T + h - Math.max(0, Math.min(1, (Math.log2(Math.max(v, 12.5)) - lo) / (hi - lo))) * h;
+            const xOf = i => L + i / 10 * w;
+            let o = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="tb-hatch" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.1" fill="#8a7a30"/></pattern></defs>`;
+            o += `<text x="${W / 2}" y="16" text-anchor="middle" fill="#ddd" font-size="13" font-weight="bold">Fuel Usage vs. Warp Speed</text>`;
+            [[25, '#ddd'], [50, '#ddd'], [100, '#ddd'], [200, '#ff8a8a'], [400, '#ff8a8a'], [800, '#ff8a8a']].forEach(g => {
+                o += `<line x1="${L}" y1="${yOf(g[0])}" x2="${L + w}" y2="${yOf(g[0])}" stroke="${g[0] === 100 ? '#777' : '#2e2840'}" stroke-width="1"/><text x="${L - 6}" y="${yOf(g[0]) + 4}" text-anchor="end" fill="${g[1]}" font-size="11" font-weight="bold">${g[0]}%</text>`;
+            });
+            if (!p.warp10Safe) o += `<rect x="${xOf(9.5)}" y="${T}" width="${L + w - xOf(9.5)}" height="${h}" fill="url(#tb-hatch)" opacity=".8"/>`;
+            for (let i = 0; i <= 10; i++) o += `<line x1="${xOf(i)}" y1="${T + h}" x2="${xOf(i)}" y2="${T + h + 5}" stroke="#aaa"/><text x="${xOf(i)}" y="${T + h + 18}" text-anchor="middle" fill="${i === p.free ? '#6ea8ff' : '#ddd'}" font-size="12" font-weight="bold">${i}</text>`;
+            o += `<text x="${L - 6}" y="${T + h + 18}" text-anchor="end" fill="#ddd" font-size="11" font-weight="bold">Warp</text>`;
+            const pts = [`${xOf(0)},${yOf(0)}`].concat(p.eff.map((v, i) => `${xOf(i + 1)},${yOf(v)}`));
+            o += `<polyline points="${pts.join(' ')}" fill="none" stroke="#7aa2ff" stroke-width="2.5" stroke-linejoin="round"/>`;
+            o += `<line x1="${L}" y1="${T}" x2="${L}" y2="${T + h}" stroke="#aaa"/><line x1="${L}" y1="${T + h}" x2="${L + w}" y2="${T + h}" stroke="#aaa"/>`;
+            return o + '</svg>';
+        }
+
+        function tbDetailHtml(it) {
+            const cat = TB_CATS.find(c => c.key === it.group);
+            const ore = (k, label, color) => it.cost && it.cost[k] > 0 ? `<div><b style="color:${color};">${label}</b><span>${it.cost[k]} kT</span>${it.base && it.base[k] !== it.cost[k] ? `<span class="base">base ${it.base[k]}</span>` : ''}</div>` : '';
+            let h = `<div class="tb-title">${escapeHtml(it.name)}</div><div class="tb-sub">${escapeHtml(cat ? cat.label : '')}</div>`;
+            h += `<div class="tb-top"><div class="tb-icon">${tbIcon(it, 110)}</div><div class="tb-costs">`;
+            if (it.cost) {
+                h += ore('iron', 'Ironium', '#6ea8ff') + ore('bora', 'Boranium', '#5cd65c') + ore('germ', 'Germanium', '#ffe14d');
+                h += `<div><b>Resources</b><span>${it.cost.res}</span>${it.base && it.base.res !== it.cost.res ? `<span class="base">base ${it.base.res}</span>` : ''}</div>`;
+            } else h += '<div><b>Cost</b><span>None, built in</span></div>';
+            if (it.mass !== null) h += `<div><b>Mass</b><span>${it.mass} kT</span></div>`;
+            h += '</div></div>';
+            const rows = tbReqRows(it.req);
+            h += '<div class="tb-mid"><div class="tb-req"><div style="font-weight:bold;color:#fff;">Tech Req:</div>';
+            h += rows.length ? rows.map(x => `<div style="padding-left:10px;">${TB_SHORT[x.k]}: <b>${x.need}</b></div>`).join('') : '<div style="padding-left:10px;">None</div>';
+            h += `<div style="margin-top:8px;font-weight:bold;color:${it.avail ? '#32cd32' : '#ff6b6b'};">${it.avail ? 'Available' : 'Not available'}</div></div>`;
+            h += '<div class="tb-stats"><table>' + it.stats.map(s => `<tr><td>${escapeHtml(s[0])}</td><td>${escapeHtml(s[1])}</td></tr>`).join('') + '</table></div></div>';
+            if (it.chart) h += `<div class="tb-chart">${tbEngineChart(it.chart)}<div style="font-size:11px;color:#aaa;padding:2px 6px;">Fuel use per warp (percent): ${it.chart.eff.map((v, n) => 'W' + (n + 1) + ' ' + v).join(', ')}. The blue number is the free warp.${it.chart.warp10Safe ? '' : ' The dotted column is Warp 10, where ships can be lost.'}</div></div>`;
+            h += '<div class="tb-notes">';
+            if (!it.avail) it.why.forEach(w => { h += `<div class="tb-warn">${escapeHtml(w)}</div>`; });
+            it.notes.forEach(n => { h += `<div>${escapeHtml(n)}</div>`; });
+            if (cat && cat.desc) h += `<div style="color:#8a8a9a;">${escapeHtml(cat.desc)}</div>`;
+            return h + '</div>';
+        }
+
+        function tbRender(scrollSel) {
+            tbShown = tbFilter();
+            if (!tbShown.some(x => x.id === TB_STATE.sel)) TB_STATE.sel = tbShown.length ? tbShown[0].id : '';
+            const list = document.getElementById('tb-list');
+            let h = '';
+            let last = '';
+            tbShown.forEach(it => {
+                if (TB_STATE.sort === 'group' && TB_STATE.cat === 'all' && it.group !== last) {
+                    last = it.group;
+                    const c = TB_CATS.find(x => x.key === it.group);
+                    h += `<div class="tb-group">${escapeHtml(c ? c.label : it.group)}</div>`;
+                }
+                const mr = tbMaxReq(it);
+                h += `<div class="tb-item${it.id === TB_STATE.sel ? ' sel' : ''}" data-id="${escapeHtml(it.id)}">${tbIcon(it, 30)}<span class="tb-nm">${escapeHtml(it.name)}<br><span class="tb-lv">${mr ? 'Tech ' + mr : 'Tech 0'}</span></span><span class="tb-dot ${it.avail ? 'ok' : 'no'}" title="${it.avail ? 'Available now' : 'Not available yet'}"></span></div>`;
+            });
+            list.innerHTML = h || '<div class="tb-empty">Nothing matches. Clear the search or untick Show Only Available Technology.</div>';
+            const cur = tbShown.find(x => x.id === TB_STATE.sel);
+            document.getElementById('tb-detail').innerHTML = cur ? tbDetailHtml(cur) : '<div class="tb-empty">No technology to show.</div>';
+            document.getElementById('tb-count').textContent = 'Showing ' + tbShown.length + ' of ' + tbItems.length;
+            if (scrollSel) {
+                const el = list.querySelector('.tb-item.sel');
+                if (el) el.scrollIntoView({ block: 'nearest' });
+            }
+        }
+
+        function tbStep(dir) {
+            if (!tbShown.length) return;
+            const i = tbShown.findIndex(x => x.id === TB_STATE.sel);
+            TB_STATE.sel = tbShown[(i + dir + tbShown.length) % tbShown.length].id;
+            tbRender(true);
+            document.getElementById('tb-detail').scrollTop = 0;
+        }
+
+        function openTechBrowser() {
+            tbItems = tbCollect();
+            const sel = document.getElementById('tb-cat');
+            if (!sel.options.length) sel.innerHTML = TB_CATS.map(c => `<option value="${c.key}">${escapeHtml(c.label)}</option>`).join('');
+            sel.value = TB_STATE.cat;
+            document.getElementById('tb-search').value = TB_STATE.q;
+            document.getElementById('tb-sort').value = TB_STATE.sort;
+            document.getElementById('tb-avail').checked = TB_STATE.only;
+            tbRender(true);
+            document.getElementById('techbrowser-modal').classList.add('active');
+        }
+
+        function closeTechBrowser() {
+            document.getElementById('techbrowser-modal').classList.remove('active');
+        }
+
+        document.getElementById('btn-mgmt-techbrowser').addEventListener('click', openTechBrowser);
+        document.getElementById('btn-tb-close').addEventListener('click', closeTechBrowser);
+        document.getElementById('tb-prev').addEventListener('click', () => tbStep(-1));
+        document.getElementById('tb-next').addEventListener('click', () => tbStep(1));
+        document.getElementById('tb-cat').addEventListener('change', (e) => {
+            TB_STATE.cat = e.target.value;
+            TB_STATE.sel = '';
+            tbRender(true);
+        });
+        document.getElementById('tb-search').addEventListener('input', (e) => {
+            TB_STATE.q = e.target.value;
+            tbRender(false);
+        });
+        document.getElementById('tb-sort').addEventListener('change', (e) => {
+            TB_STATE.sort = e.target.value;
+            tbRender(true);
+        });
+        document.getElementById('tb-avail').addEventListener('change', (e) => {
+            TB_STATE.only = e.target.checked;
+            tbRender(true);
+        });
+        document.getElementById('tb-list').addEventListener('click', (e) => {
+            const row = e.target.closest('.tb-item');
+            if (!row) return;
+            TB_STATE.sel = row.dataset.id;
+            tbRender(false);
+            document.getElementById('tb-detail').scrollTop = 0;
+            if (window.matchMedia('(max-width: 760px)').matches) document.getElementById('tb-detail').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        });
+        window.addEventListener('keydown', (e) => {
+            if (dialogActive || !document.getElementById('techbrowser-modal').classList.contains('active')) return;
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                const input = document.getElementById('tb-search');
+                if (input.value) {
+                    input.value = '';
+                    TB_STATE.q = '';
+                    tbRender(true);
+                } else closeTechBrowser();
+            } else if ((e.key === 'ArrowRight' || e.key === 'ArrowLeft') && document.activeElement && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'SELECT') {
+                e.preventDefault();
+                tbStep(e.key === 'ArrowRight' ? 1 : -1);
+            }
+        });
+
         document.getElementById('btn-sd-close').addEventListener('click', () => {
             document.getElementById('shipdesign-modal').classList.remove('active');
         });
@@ -13447,6 +14234,25 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.80.0', d: 'Oct 4, 2026 7:41 AM', t: "Technology Browser", items: [
+                "New Management, Technology Browser lists every technology in the game with a picture, cost, mass, tech requirements and stats: engines, beams, torpedoes, bombs, shields, armor, scanners, cloaks, electrical and mechanical parts, mine layers, ship hulls, station and starbase hulls and components, planetary scanners, stargates, mass drivers, planet installations and Mystery Trader items.",
+                "Pick a category from the drop-down and step through it with Prev and Next (or the arrow keys), search by name, stat, tech requirement or race trait, sort by category, tech level, name, cost or mass, and tick Show Only Available Technology to hide what you cannot build yet.",
+                "Costs are shown after your miniaturization with the base cost beside them. Engines show a Fuel Usage vs. Warp Speed chart with the free warp marked. Ship hull pictures show the hull's slots as colored squares.",
+                "Each item says whether you can use it now and, if not, which tech or race trait is missing.",
+                "Help: new entry Technology Browser; Ship Designer updated."
+            ] },
+            { v: '0.79.0', d: 'Oct 4, 2026 7:24 AM', t: "Homeworlds Never Start Close, Late Invites Off by Default", items: [
+                "Every empire, human and AI, now starts at least 15 percent of the galaxy's width away from every other empire. Before, a game could place several homeworlds right next to each other. If a galaxy is small and has very many empires, the gap is the largest that fits.",
+                "Player Position still sets how far apart empires start; the minimum gap is a floor under it.",
+                "Players invited into a running game are placed at least 15 percent of the galaxy's width from every other empire when a free planet that far away exists, and otherwise on one of the most distant free planets.",
+                "New multiplayer option in Advanced Options: Allow inviting players after the game starts. It is off by default, so the host's Invite to Game button only appears when it is ticked. Games made before this version keep inviting on. The lobby shows the setting.",
+                "Help: The New Game Screen, Multiplayer Options and Inviting Players After the Game Has Started updated."
+            ] },
+            { v: '0.78.0', d: 'Oct 4, 2026 6:20 AM', t: "Map Legend and Rulers Off by Default on Phones", items: [
+                "On a narrow screen (under 900 pixels wide, the mobile view) the map legend and the light-year rulers now start switched off. Turn them on in Settings and the game remembers your choice.",
+                "Desktop and wide screens still start with both on. If you have already picked On or Off in Settings, that choice is kept.",
+                "Help: Settings updated."
+            ] },
             { v: '0.77.0', d: 'Oct 4, 2026 5:56 AM', t: "Ship Designer Rebuilt Like Stars!", items: [
                 "The Ship Designer was rebuilt. Click a slot on the hull, then click a part from the list beside it. The old drop-down boxes are gone.",
                 "Fixed: the drop-downs did nothing for your starting ships because a design with ships in service was locked. Changing a locked design now makes a copy (name plus Mk2) that you can edit and save, and the original is left alone.",
@@ -18344,7 +19150,7 @@ const DEFENDERS_PER_POP=100;
         let mpCurrentGame = null;
 
         function defaultMpOptions() {
-            return { name: MP_DEFAULT_GAME_NAME, isPrivate: false, password: '', customRaces: false, raceRule: 'anyone', turnLimit: 72, resignRule: 'ai', playType: 'custom', dailyTime: '20:00', holdDaily: false, blitzMinutes: 15 };
+            return { name: MP_DEFAULT_GAME_NAME, isPrivate: false, password: '', customRaces: false, raceRule: 'anyone', turnLimit: 72, resignRule: 'ai', playType: 'custom', dailyTime: '20:00', holdDaily: false, blitzMinutes: 15, allowLateInvites: false };
         }
 
         function mpCreatorAssigns() {
@@ -18558,6 +19364,7 @@ const DEFENDERS_PER_POP=100;
             document.getElementById('mpo-hold').checked = !!mo.holdDaily;
             document.getElementById('mpo-blitz').value = String(mo.blitzMinutes || 15);
             document.getElementById('mpo-resign').value = RESIGN_RULES[mo.resignRule] ? mo.resignRule : 'ai';
+            document.getElementById('mpo-late').checked = !!mo.allowLateInvites;
             mpSetStatus('mpo-status', '');
             refreshMpOptionsForm();
         }
@@ -18574,7 +19381,8 @@ const DEFENDERS_PER_POP=100;
                 dailyTime: document.getElementById('mpo-daily-time').value || '20:00',
                 holdDaily: document.getElementById('mpo-hold').checked,
                 blitzMinutes: parseInt(document.getElementById('mpo-blitz').value, 10) || 15,
-                resignRule: RESIGN_RULES[document.getElementById('mpo-resign').value] ? document.getElementById('mpo-resign').value : 'ai'
+                resignRule: RESIGN_RULES[document.getElementById('mpo-resign').value] ? document.getElementById('mpo-resign').value : 'ai',
+                allowLateInvites: document.getElementById('mpo-late').checked
             };
         }
 
@@ -18637,7 +19445,8 @@ const DEFENDERS_PER_POP=100;
                 dailyTime: mpOptions.dailyTime || '20:00',
                 holdDaily: !!mpOptions.holdDaily,
                 blitzMinutes: mpOptions.blitzMinutes || 15,
-                resignRule: mpOptions.resignRule || 'ai'
+                resignRule: mpOptions.resignRule || 'ai',
+                allowLateInvites: !!mpOptions.allowLateInvites
             };
             mpSetBusy(true, ['btn-launch-game']);
             mpSetStatus('setup-status', 'Creating your game...');
@@ -18883,6 +19692,7 @@ const DEFENDERS_PER_POP=100;
                 `<div>Galaxy: <b>${escapeHtml(selectOptionText('sp-map-size', st.sizeKey || 'medium'))}</b>, ${escapeHtml(selectOptionText('sp-density', st.densityKey || 'normal'))} density (${total} planets), ${escapeHtml(selectOptionText('sp-player-position', st.positionKey || 'moderate'))}</div>` +
                 `<div>Custom races: <b>${escapeHtml(ruleText)}</b></div>` +
                 `<div>Advanced options: ${opts.length ? escapeHtml(opts.join(', ')) : 'none'}</div>` +
+                `<div>Inviting players after the start: <b>${st.allowLateInvites === false ? 'Off' : 'On'}</b></div>` +
                 `<div>Play type: <b>${escapeHtml(playTypeText(st, clock.limit))}</b>${clock.text ? ' | ' + escapeHtml(clock.text) : ''}</div>` +
                 (g.status === 'active' ? `<div>Year ${escapeHtml(String(g.year))} has been running for <b id="mpg-elapsed" style="color: #9fe8b0;"></b></div><div id="mpg-online"></div>` : '') +
                 `<div>When a player resigns: <b>${escapeHtml((RESIGN_RULES[st.resignRule] || RESIGN_RULES.standing).label)}</b></div>` +
@@ -19676,6 +20486,7 @@ const DEFENDERS_PER_POP=100;
                 resigned: iResigned,
                 skipLeft: 0,
                 clock: mpClockFrom(g),
+                lateInvites: !(g.settings && g.settings.allowLateInvites === false),
                 meta: state.multiplayer || { gameId: g.id, name: g.name, version: 1 }
             };
             mpReadOnly = !canOrder;
@@ -20596,11 +21407,11 @@ const DEFENDERS_PER_POP=100;
 
         function mpSyncLateInviteButton() {
             const b = document.getElementById('btn-invite-late');
-            if (b) b.style.display = mpIsHost() ? '' : 'none';
+            if (b) b.style.display = mpIsHost() && mpGame.lateInvites ? '' : 'none';
         }
 
         function mpOpenLateInvite() {
-            if (!mpIsHost()) return;
+            if (!mpIsHost() || !mpGame.lateInvites) return;
             document.getElementById('late-invite-who').value = '';
             mpSetStatus('late-invite-status', '');
             document.getElementById('late-invite-modal').classList.add('active');
@@ -20613,7 +21424,7 @@ const DEFENDERS_PER_POP=100;
 
         async function mpSendLateInvite(e) {
             e.preventDefault();
-            if (mpBusy || !mpClient() || !mpIsHost()) return;
+            if (mpBusy || !mpClient() || !mpIsHost() || !mpGame.lateInvites) return;
             const who = document.getElementById('late-invite-who').value.trim();
             if (!who) {
                 mpSetStatus('late-invite-status', LATE_ERRORS.bad_target, 'error');
@@ -20748,9 +21559,9 @@ const DEFENDERS_PER_POP=100;
                 free.push({ i: i, d: d });
             });
             if (!free.length) return -1;
-            const need = currentMapDimension * 0.12;
+            const need = currentMapDimension * 0.15;
             const far = free.filter(f => f.d >= need);
-            const pool = far.length ? far : free.slice().sort((a, b) => b.d - a.d).slice(0, Math.max(1, Math.ceil(free.length / 4)));
+            const pool = far.length ? far : free.slice().sort((a, b) => b.d - a.d).slice(0, Math.max(1, Math.ceil(free.length / 10)));
             return pool[Math.floor(Math.random() * pool.length)].i;
         }
 
