@@ -2107,16 +2107,52 @@
             #doc-contents-btn { display: inline-block; }
             .doc-box { height: 92vh; }
         }
-            .sd-layout { display: grid; grid-template-columns: 220px 1fr; gap: 12px; }
-        @media (max-width: 700px) { .sd-layout { grid-template-columns: 1fr; } }
-        #sd-list { max-height: 52vh; overflow-y: auto; border: 1px solid #332244; background: rgba(8, 8, 12, var(--pa)); border-radius: 4px; }
+            .sd-layout { display: grid; grid-template-columns: 210px 1fr; gap: 12px; }
+        @media (max-width: 760px) { .sd-layout { grid-template-columns: 1fr; } }
+        #sd-list { max-height: 40vh; overflow-y: auto; border: 1px solid #332244; background: rgba(8, 8, 12, var(--pa)); border-radius: 4px; }
         .sd-item { padding: 7px 9px; border-bottom: 1px solid #221a33; cursor: pointer; font-size: 13px; color: #ddd; }
         .sd-item small { color: #8a8a9a; }
         .sd-item.sel { background: rgba(42, 26, 58, var(--pa)); border-left: 3px solid #da70d6; }
         .sd-item.obsolete { opacity: 0.55; }
         .sd-badge { background: rgba(85, 85, 51, var(--pa)); color: #ffd700; font-size: 10px; padding: 1px 5px; border-radius: 3px; }
-        #sd-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; margin: 8px 0; }
-        .sd-part { font-size: 11px; color: #9ab; min-height: 14px; margin-top: 2px; }
+        .sd-check { font-size: 12px; color: #aab; margin: 4px 0; }
+        #shipdesign-modal .sd-check label { cursor: pointer; font-size: 12px; font-weight: normal; margin: 0; display: inline; color: #aab; }
+        .sd-top { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        @media (max-width: 560px) { .sd-top { grid-template-columns: 1fr; } }
+        #sd-hullinfo { font-size: 12px; color: #9ab; margin: 2px 0 6px; line-height: 1.5; }
+        .sd-edit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; align-items: start; }
+        @media (max-width: 900px) { .sd-edit { grid-template-columns: 1fr; } }
+        #sd-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; margin: 6px 0; }
+        .sd-slotbox { border: 1px solid #443366; background: rgba(14, 12, 22, var(--pa)); border-radius: 4px; padding: 6px 8px; cursor: pointer; min-height: 64px; }
+        .sd-slotbox:hover { border-color: #8a6ad0; }
+        .sd-slotbox.active { border-color: #ffd700; box-shadow: 0 0 6px rgba(255, 215, 0, 0.5); }
+        .sd-slotbox.filled { background: rgba(26, 20, 44, var(--pa)); }
+        .sd-slotbox.t-E { border-left: 4px solid #ff8c00; }
+        .sd-slotbox.t-W { border-left: 4px solid #ff4d4d; }
+        .sd-slotbox.t-B { border-left: 4px solid #ff4d4d; }
+        .sd-slotbox.t-S, .sd-slotbox.t-H, .sd-slotbox.t-A { border-left: 4px solid #4da6ff; }
+        .sd-slotbox.t-C { border-left: 4px solid #32cd32; }
+        .sd-slotbox.t-X, .sd-slotbox.t-Q { border-left: 4px solid #da70d6; }
+        .sd-slotbox.t-M, .sd-slotbox.t-R { border-left: 4px solid #c0a060; }
+        .sd-slotbox.t-Y, .sd-slotbox.t-P, .sd-slotbox.t-G, .sd-slotbox.t-L { border-left: 4px solid #aaaaaa; }
+        .sd-slothead { font-size: 11px; color: #aab; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sd-cap { color: #ffd700; font-weight: bold; }
+        .sd-slotpart { font-size: 12px; color: #eef; margin-top: 3px; }
+        .sd-slotpart.sd-empty { color: #667; font-style: italic; }
+        .sd-slotctl { display: flex; gap: 6px; align-items: center; margin-top: 4px; font-size: 11px; color: #aab; }
+        .sd-slotctl select { font-size: 11px; padding: 1px 3px; width: auto; min-width: 0; }
+        .sd-clear { font-size: 10px; padding: 1px 6px; background: rgba(40, 20, 20, var(--pa)); border: 1px solid #663333; color: #e99; border-radius: 3px; cursor: pointer; margin-left: auto; }
+        #sd-picker { max-height: 46vh; overflow-y: auto; border: 1px solid #332244; background: rgba(8, 8, 12, var(--pa)); border-radius: 4px; }
+        .sd-pick-head { padding: 6px 8px; font-size: 12px; color: #ffd700; border-bottom: 1px solid #332244; position: sticky; top: 0; background: rgba(20, 14, 32, 1); z-index: 1; }
+        .sd-pick-note { padding: 5px 8px; font-size: 11px; color: #9ab; }
+        .sd-pick-cat { padding: 3px 8px; font-size: 11px; color: #da70d6; background: rgba(34, 22, 52, var(--pa)); text-transform: uppercase; letter-spacing: 1px; }
+        .sd-pick-row { padding: 5px 8px; border-bottom: 1px solid #1c1530; cursor: pointer; font-size: 12px; color: #dde; }
+        .sd-pick-row:hover { background: rgba(50, 36, 80, var(--pa)); }
+        .sd-pick-row.sel { background: rgba(42, 26, 58, var(--pa)); border-left: 3px solid #ffd700; }
+        .sd-pick-row.locked { opacity: 0.45; cursor: not-allowed; }
+        .sd-pick-empty { color: #e99; }
+        .sd-pick-mass { color: #8a8a9a; font-size: 11px; }
+        .sd-pick-sub { font-size: 10.5px; color: #8fa0b0; margin-top: 1px; }
         #sd-stats, #sd-issues, #sd-lock, #sd-summary { font-size: 12px; line-height: 1.5; color: #ccd; }
         #sd-stats { background: rgba(8, 8, 12, var(--pa)); border: 1px solid #332244; border-radius: 4px; padding: 8px; margin: 8px 0; }
         #sd-issues { color: #ff8080; }
@@ -2177,7 +2213,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.76.0 (Updated: October 03, 2026 11:31 PM)</div>
+            <div class="version-text">Version 0.77.0 (Updated: October 04, 2026 5:56 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -3173,11 +3209,12 @@
     </div>
 
     <div id="shipdesign-modal" class="modal-overlay" style="z-index: 1100;">
-        <div class="modal-content" style="max-width: 900px;">
+        <div class="modal-content" style="max-width: 1120px;">
             <h2 class="screen-header" style="color: #ffd700;">🛠 Ship Designer</h2>
             <div id="sd-summary"></div>
             <div class="sd-layout">
                 <div>
+                    <div id="sd-obs-wrap" class="sd-check"><label><input type="checkbox" id="sd-show-obs"> <span id="sd-obs-label">Show obsolete designs</span></label></div>
                     <div id="sd-list"></div>
                     <button class="tool-icon" id="btn-sd-new" style="width: 100%; margin-top: 6px;">+ New Design</button>
                     <button class="tool-icon" id="btn-sd-copy" style="width: 100%; margin-top: 4px;">Copy Selected</button>
@@ -3187,12 +3224,23 @@
                     <input type="file" id="sd-import-input" accept=".json,application/json" style="display: none;">
                 </div>
                 <div>
-                    <div class="form-group"><label for="sd-name">Design Name:</label><input type="text" id="sd-name" maxlength="32"></div>
-                    <div class="form-group"><label for="sd-hull">Hull:</label><select id="sd-hull"></select></div>
+                    <div class="sd-top">
+                        <div class="form-group"><label for="sd-name">Design Name:</label><input type="text" id="sd-name" maxlength="32"></div>
+                        <div class="form-group"><label for="sd-hull">Hull:</label><select id="sd-hull"></select></div>
+                    </div>
+                    <div id="sd-hullinfo"></div>
                     <div id="sd-lock"></div>
-                    <div id="sd-slots"></div>
+                    <div class="sd-edit">
+                        <div>
+                            <div id="sd-slots"></div>
+                            <div id="sd-issues"></div>
+                        </div>
+                        <div>
+                            <div id="sd-picker"></div>
+                            <div class="sd-check"><label><input type="checkbox" id="sd-show-locked"> Also list parts I cannot use yet</label></div>
+                        </div>
+                    </div>
                     <div id="sd-stats"></div>
-                    <div id="sd-issues"></div>
                     <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px;">
                         <button class="nav-button btn-primary" id="btn-sd-save" style="flex: 1;">Save</button>
                         <button class="nav-button" id="btn-sd-saveas" style="flex: 1;">Save As New</button>
@@ -3400,7 +3448,7 @@
             <div style="text-align:left;">
                 <p><b style="color:#da70d6;">Absolute Beginner: Play in Two Minutes</b><br><b>The idea.</b> You lead a young empire that starts with one homeworld and a few ships. Other empires, run by the computer or by friends, are doing the same. You win by growing larger and stronger than they are, or by meeting the victory conditions chosen for the game. Each turn is one year.<br><br><b>Each year do three things.</b> First, <b>planets</b>: click your homeworld and give it something to build in the production queue, such as mines and factories at first, then scouts and colony ships. Second, <b>research</b>: pick a technology field to study so your ships and buildings improve over time. Third, <b>ships</b>: click a fleet, then click a star on the map to send it there. Scouts reveal the galaxy. A colony ship carries colonists to a good planet. Then press <b>End Turn</b> and the year plays out.<br><br><b>How to grow.</b> Look for planets with a high habitability percentage and send colonists there. New colonies grow by themselves and produce Resources and minerals. Use Resources to build and research, and mine minerals to pay for ships. Keep scouting, keep building, and keep a few warships near your homeworld because enemies will arrive eventually.<br><br><b>If something looks wrong,</b> the game warns you before you end a turn with idle planets or fleets, or send a ship somewhere it cannot reach. When you are ready for more, read the rest of Basic, then Advanced.</p>
                 <p><b style="color:#da70d6;">Goal</b><br>Grow your empire from a single homeworld: scan the galaxy, colonize habitable worlds, mine ore, build infrastructure and outscore your AI opponents. Check the Scoreboard under Management to see how you rank. If the game was created with Victory Conditions, the first empire to meet them wins (see Victory Conditions below).</p>
-                <p><b style="color:#da70d6;">Ship Designer</b><br>Open <b>Management, Ship Designer</b>. Pick a hull, then fill its slots with parts. Every hull has its own typed slots: <b>Engine</b>, <b>Weapon</b> (beams and torpedoes), <b>Bomb</b>, <b>Shield or Armor</b>, <b>Shield</b>, <b>Armor</b>, <b>Scanner</b>, <b>Electrical</b> (cloaks, battle computers, jammers, capacitors), <b>Mechanical</b> (cargo pods, fuel tanks, colonization module, jets), <b>Electrical or Mechanical</b>, <b>Scanner, Electrical or Mechanical</b>, <b>Scanner, Shield or Weapon</b>, <b>Mine Layer</b>, <b>Mining</b> (mining robots only) and <b>General Purpose</b> (anything). A part only fits a slot of a matching type. All engine slots must hold the same engine, and a design with some engine slots empty gets them filled with that engine. The panel shows cost (after miniaturization), mass, armor, shields, fuel, cargo, the engine's free and best warp and its fuel table, combat speed and initiative, scanner range, cloaking and weapons. Parts and hulls appear once your tech meets their requirements; some belong to one primary trait only (for example the Rogue hull and Pick Pocket Scanner for Super-Stealth races) and are listed with that note. You can keep 16 active designs; make old ones <b>Obsolete</b> to free room. Once ships of a design exist or are queued its hull and parts are locked (rename, obsolete or Save As New instead). Designs saved before version 0.14 had their parts moved into the new slot layouts automatically. The Equipment Catalog and Ship Hulls sections list every part and hull. Hull slot layouts are this game's own approximation where the original layouts are not known. In the drop-down lists every scanner shows its mass plus its normal range and its penetrating range (or no penetrating range), so you can compare them before picking. Your starting Long Range Scout is a Scout hull with a Quick Jump 5 engine in the Engine slot, a Rhino Scanner (50 ly normal, no penetrating) in the Scanner slot and a Fuel Tank in the General Purpose slot.</p>
+                <p><b style="color:#da70d6;">Ship Designer</b><br>Open <b>Management, Ship Designer</b>. It works like the Stars! designer: choose a hull, click a slot on the hull, then click a part from the list on the right. The list shows only parts you can build now; tick <b>Also list parts I cannot use yet</b> to see the rest with the tech they need. The hull drop-down likewise lists only hulls you have the Construction tech for. <b>Slots and stacks:</b> a hull is made of slots, and a slot can hold a stack of the same part. A slot marked <b>x4</b> holds up to 4 of one part (stack sizes are 1, 2, 4 and 8), and the <b>Qty</b> box sets how many. Putting a part into an empty slot fills the whole stack; swapping the part keeps your quantity. <b>Engines:</b> engines work the same way but a stacked engine slot always holds the full number, all the same engine, so a big hull's engine slot is one slot that still needs several engines. Slot types: <b>Engine</b>, <b>Weapon</b> (beams and torpedoes), <b>Bomb</b>, <b>Shield or Armor</b>, <b>Shield</b>, <b>Armor</b>, <b>Scanner</b>, <b>Electrical</b> (cloaks, battle computers, jammers, capacitors), <b>Mechanical</b> (cargo pods, fuel tanks, colonization module, jets), <b>Electrical or Mechanical</b>, <b>Scanner, Electrical or Mechanical</b>, <b>Scanner, Shield or Weapon</b>, <b>Mine Layer</b>, <b>Mining</b> (mining robots only) and <b>General Purpose</b> (anything). Clear empties a slot. The panel under the slots shows cost (after miniaturization), mass, armor, shields, fuel, cargo, the engine's free and best warp and its fuel table, combat speed and initiative, scanner range, cloaking and weapons. Some parts belong to one primary trait only (for example the Rogue hull and Pick Pocket Scanner for Super-Stealth races). <b>Saved designs:</b> the list on the left holds your designs; obsolete ones are hidden until you tick <b>Show obsolete designs</b>. You can keep 16 active designs; make old ones <b>Obsolete</b> to free room. A design with ships built or queued cannot be changed: the moment you change a hull or part on it, the designer makes a copy named with Mk2 and your changes go into that copy, which you keep with Save. Designs the game gave you whose hull you cannot build yet (the Destroyer, for example) are hidden as obsolete and come back by themselves when your Construction reaches the hull. Designs saved before version 0.77 that mixed different parts inside one run of weapon or armor slots are tidied into stacks when you open them and save them. Your starting hulls at Tech 0 are the Small Freighter, Scout, Colony Ship and Mini Mine Layer (Mini-Colony Ship for Hyper-Expansion races). The Equipment Catalog and Ship Hulls sections list every part and hull. Hull slot layouts are this game's own approximation where the original layouts are not known. Every scanner in the part list shows its normal range and its penetrating range (or none), so you can compare them before picking. Your starting Long Range Scout is a Scout hull with a Quick Jump 5 engine in the Engine slot, a Rhino Scanner (50 ly normal, no penetrating) in the Scanner slot and a Fuel Tank in the General Purpose slot.</p>
                 <p><b style="color:#da70d6;">Building Designs and Refitting</b><br>Every active design appears in a planet's build list at its real cost. <b>Retrofit:</b> a fleet in orbit of a planet with a starbase that has a <b>Fleet Yard</b> can be refitted to another design with the same hull; the cost is the new design minus a credit for the old parts. <b>Scrap:</b> a ship can be scrapped at any of your planets for half its minerals back. Both are in <b>Fleet, Manage Ships and Names</b>.</p>
                 <p><b style="color:#da70d6;">Ship Design Files</b><br>The Ship Designer can save designs to your device and load them into another game. <b>Download This Design</b> saves the selected saved design and <b>Download All Designs</b> saves every active one, as a .json file holding each design's name, hull, parts slot by slot, mass and cost. <b>Upload Designs</b> reads such a file. Every design in it is checked against this game: the hull and every part must be unlocked by your current technology, allowed for your race's traits, and (for Mystery Trader items) owned, and the design must be complete (engines, matching engine types, parts in slots that take them). Designs that pass are added with a new name if the name is already taken. Designs you cannot build are refused, and a window lists each one with what is missing, for example the tech level needed and the level you have. A design is only added while you have fewer than 16 active designs.</p>
                 <p><b style="color:#da70d6;">Automation Files</b><br>Your standing orders can move between games. <b>Export Automation</b> (in Settings, or in the Autobuild window) saves a .json file with your Autobuild rules and switch, your custom zip orders, your battle plans, your research budget and next-field choice, and the Missing-Order Warning setting. <b>Import Automation</b> reads such a file and lets you tick which of these to replace in the current game; everything else stays as it is. Fleets that used a battle plan that is not in the imported list go back to Default.</p>
@@ -3442,7 +3490,7 @@
                 <p><b style="color:#da70d6;">Custom Races and the Race Wizard</b><br>On the New Game screen, <b>Custom Race</b> opens your list of saved races. <b>Create New Race</b> starts the Race Wizard. Each saved race also has <b>Play As</b> (makes it your race for the next game), <b>Edit</b>, <b>Copy</b> and <b>Delete</b>. Saved races appear under Custom Races in Choose Race and in every AI opponent's race menu, so you can cast your creations as your rivals too. Races are kept in this browser, and every saved game carries a copy of the custom races it uses, so a game file opened on another machine brings its races with it and adds any you do not have yet to your list. <b>Export All</b> and <b>Import</b> move your whole list as a JSON file. You can keep up to 24 custom races.</p>
                 <p><b style="color:#da70d6;">Advantage Points</b><br>Every race is built from a pool of Advantage Points. A new race starts with 25 left. Strengths spend points and handicaps refund them, and a race can only be saved when 0 or more points are left. The counter at the top right updates as you choose, and the Point Ledger beside the wizard lists every cost and refund so you can see where the points went. On a narrow screen the ledger is hidden, but the counter stays. Points you do not spend (up to 50) can go into a starting bonus picked on the Identity tab: <b>Surface minerals</b> (+20 kT of each ore per point at your homeworld), <b>Mineral concentrations</b> (+1 concentration on each mineral per 2 points, up to 100), <b>Mines</b> or <b>Factories</b> (+1 per 2 points) or <b>Defenses</b> (+1 Defense per 5 points).</p>
                 <p><b style="color:#da70d6;">The Six Wizard Tabs</b><br>You can jump between tabs at any time, or use Back and Next. <b>1 Identity</b>: race name, plural name, an icon, an optional preset (loads the traits of one of the six built-in races as a starting point, keeping your name and icon) and the leftover points bonus. <b>2 Primary Trait</b>: exactly one of ten, such as Hyper-Expansion, Super-Stealth, War Monger, Jack of All Trades. The primary trait sets your empire's whole style. <b>3 Lesser Traits</b>: any mix of fourteen. Advantages (Improved Fuel Efficiency, Total Terraforming, Advanced Remote Mining, Improved Starbases, Generalized Research, Ultimate Recycling, Mineral Alchemy) cost points. Handicaps (No Ram Scoop Engines, Cheap Engines, Only Basic Remote Mining, No Advanced Scanners, Low Starting Population, Bleeding Edge Technology, Regenerating Shields) refund them. <b>4 Environment</b>: for Gravity, Temperature and Radiation pick an Ideal value and a Tolerance. The purple band shows the conditions your people can live in, in real units. A wide band means many planets suit you but costs points, a narrow band refunds points. Ticking Immune makes that factor irrelevant, at the highest price. The wizard tells you how many planets to expect to be habitable (for example 1 in 5), and the same odds apply in the galaxy. The growth rate slider runs from 1 to 20 percent a year, and faster growth costs points. <b>5 Economy</b>: seven numbers that say how much one colonist, factory and mine produces, what factories and mines cost and how many a population can run, plus a checkbox that makes factories use 1 kT less Germanium. Better numbers cost points, worse numbers refund them. <b>6 Research</b>: each of the six fields can cost 75 percent extra (refunds points), a standard amount, or 50 percent less (costs points). A checkbox lets every expensive field start at Tech 4, at a price.</p>
-                <p><b style="color:#da70d6;">What a Custom Race Does In This Game</b><br>Every trait is now <b>Active</b> except Alternate Reality, which is still recorded only (its race plays like a normal one). Your habitat ranges and immunities decide which planets are habitable; the growth rate is the most a colony can grow in a year on a perfect world; every number on the Economy tab is used for Resources, factories, mines and their build costs; the Research tab sets what each level costs. Primary traits: <b>Hyper-Expansion</b> doubles growth and halves every planet's capacity and cannot build stargates. <b>Super-Stealth</b> cloaks every ship, widens scanners by 30 percent, passes minefields one warp faster and adds the average research of the other empires to its own each year. <b>War Monger</b> starts with Weapons 5, pays 25 percent less for weapons, moves faster in battle and invades harder, but cannot lay mines and has only basic defenses. <b>Claim Adjuster</b> starts with Biotechnology 6 and terraforms every planet it owns for free each year as far as its tech allows. <b>Inner Strength</b> defends harder, repairs faster, pays 40 percent less for defenses and breeds colonists aboard freighters, but pays 25 percent more for weapons. <b>Space Demolition</b> has all the mine layers, slow-decaying fields that act as scanners and detonation. <b>Packet Physics</b> starts with Energy 4; its packets scan as they fly and may nudge the target planet toward its people's ideal. <b>Interstellar Traveler</b> starts with Propulsion and Construction 5 and a stargate at home, with cheaper, unlimited own gates that carry cargo. <b>Jack of All Trades</b> starts at Tech 3 in every field, holds 20 percent more colonists and has built-in scanners on small hulls. Lesser traits: <b>Improved Fuel Efficiency</b> 15 percent less fuel and Propulsion +1; <b>Total Terraforming</b> terraforming up to 30 percent and 30 percent cheaper; <b>Advanced Remote Mining</b> extra mining hulls; <b>Improved Starbases</b> 20 percent cheaper stations; <b>Generalized Research</b> spreads research; <b>Ultimate Recycling</b> better scrapping; <b>Mineral Alchemy</b> alchemy for 25 Resources; <b>No Ramscoop Engines</b>; <b>Cheap Engines</b> engines half price but a 10 percent chance each year of not engaging above Warp 6; <b>Only Basic Remote Mining</b> +10 percent capacity; <b>No Advanced Scanners</b> double normal ranges, no penetrating scanners; <b>Low Starting Population</b> 17,500 colonists at home; <b>Bleeding Edge Technology</b> changes miniaturization; <b>Regenerating Shields</b> stronger regenerating shields, weaker armor. <b>The six built-in races now have primary traits too:</b> Humanoids are Jack of All Trades, Robotoids Hyper-Expansion, Turindines Super-Stealth, Automitons Inner Strength, Rototills Claim Adjuster and Cybertrons War Monger. Every empire's starting designs are fitted to the tech it starts with: parts it cannot build yet are swapped for ones it can (a Scout without Electronics gets a Bat Scanner), and a design whose hull is out of reach starts obsolete until you research it.</p>
+                <p><b style="color:#da70d6;">What a Custom Race Does In This Game</b><br>Every trait is now <b>Active</b> except Alternate Reality, which is still recorded only (its race plays like a normal one). Your habitat ranges and immunities decide which planets are habitable; the growth rate is the most a colony can grow in a year on a perfect world; every number on the Economy tab is used for Resources, factories, mines and their build costs; the Research tab sets what each level costs. Primary traits: <b>Hyper-Expansion</b> doubles growth and halves every planet's capacity and cannot build stargates. <b>Super-Stealth</b> cloaks every ship, widens scanners by 30 percent, passes minefields one warp faster and adds the average research of the other empires to its own each year. <b>War Monger</b> starts with Weapons 5, pays 25 percent less for weapons, moves faster in battle and invades harder, but cannot lay mines and has only basic defenses. <b>Claim Adjuster</b> starts with Biotechnology 6 and terraforms every planet it owns for free each year as far as its tech allows. <b>Inner Strength</b> defends harder, repairs faster, pays 40 percent less for defenses and breeds colonists aboard freighters, but pays 25 percent more for weapons. <b>Space Demolition</b> has the extra mine layers (heavy dispensers, speed traps and the bigger standard dispensers), slow-decaying fields that act as scanners and detonation. <b>Packet Physics</b> starts with Energy 4; its packets scan as they fly and may nudge the target planet toward its people's ideal. <b>Interstellar Traveler</b> starts with Propulsion and Construction 5 and a stargate at home, with cheaper, unlimited own gates that carry cargo. <b>Jack of All Trades</b> starts at Tech 3 in every field, holds 20 percent more colonists and has built-in scanners on small hulls. Lesser traits: <b>Improved Fuel Efficiency</b> 15 percent less fuel and Propulsion +1; <b>Total Terraforming</b> terraforming up to 30 percent and 30 percent cheaper; <b>Advanced Remote Mining</b> extra mining hulls; <b>Improved Starbases</b> 20 percent cheaper stations; <b>Generalized Research</b> spreads research; <b>Ultimate Recycling</b> better scrapping; <b>Mineral Alchemy</b> alchemy for 25 Resources; <b>No Ramscoop Engines</b>; <b>Cheap Engines</b> engines half price but a 10 percent chance each year of not engaging above Warp 6; <b>Only Basic Remote Mining</b> +10 percent capacity; <b>No Advanced Scanners</b> double normal ranges, no penetrating scanners; <b>Low Starting Population</b> 17,500 colonists at home; <b>Bleeding Edge Technology</b> changes miniaturization; <b>Regenerating Shields</b> stronger regenerating shields, weaker armor. <b>The six built-in races now have primary traits too:</b> Humanoids are Jack of All Trades, Robotoids Hyper-Expansion, Turindines Super-Stealth, Automitons Inner Strength, Rototills Claim Adjuster and Cybertrons War Monger. Every empire's starting designs are fitted to the tech it starts with: parts it cannot build yet are swapped for ones it can (a Scout without Electronics gets a Bat Scanner), and a design whose hull is out of reach starts obsolete until you research it.</p>
                 <p><b style="color:#da70d6;">Reports and Map Overlays</b><br>Management, <b>Reports</b> has two tables. <b>Planets</b>: every planet you own with colonists, how full it is, habitability, Resources a year, mines, factories, defenses, ore on hand, starbase and stargate, and what it is building. <b>Fleets</b>: every fleet with its location, ships, fuel, cargo, next waypoint, years to get there and task. Click a heading to sort (click again to reverse) and a row to select that planet or fleet. On the map, <b>Scanner Rings</b> (Fleet menu) draws the normal range of every scanner you own, planet, starbase or ship, as a smaller solid olive shape and the planet-penetrating range as a larger solid maroon shape that reaches farther out. Where circles of one kind overlap they fuse into a single smooth solid shape with one outline, so a cluster of colonies shows as one merged region. Turn them off to clear the map. The legend lists both colors. Penetrating range is the longer reach, so maroon extends farther out than the olive inside it. Range Rings show the selected fleet's travel range.</p><p><b style="color:#da70d6;">Measuring Distance</b><br>Open <b>Management, Measure Distance</b> to turn the measuring tool on (the entry then reads Measuring: ON). Click a point on the star map, then click a second point: a dashed gold line joins them and a label shows the straight-line distance in light years. Clicking on a planet snaps to its center and the label then shows both planet names. A third click starts a new measurement. While measuring, clicks on the map do not select planets or fleets or plot courses, and turning on Plot Course Mode switches measuring off. Press Escape or choose Measure Distance again to turn it off and clear the line. The ruler along the bottom and right edges of the map counts light years from 0 at the lower left corner of the view, going right and going up, and can be hidden in Settings, Map Rulers (see The Star Map). To check a trip, the same distance in light years is what the fleet needs: a fleet at Warp 6 covers 36 ly a year.</p>
                 <p><b style="color:#da70d6;">AI Opponents</b><br>The AI Opponents screen lists every rival. Each starts with a pre-generated <b>Empire Name</b> that you can edit (clear it and a fresh name is generated), a race and an intelligence level. Both race and intelligence offer <b>Random</b>, resolved when the galaxy is created. Random picks from the six built-in races; to cast a custom race as a rival, choose it under Custom Races. You can have up to 15 opponents. AI empires play by exactly the same rules as you (see How the AI Empires Play); intelligence changes how they play, not hidden bonuses.</p>
                 <p><b style="color:#da70d6;">How the AI Empires Play</b><br>AI empires are full empires, like yours. Each year, before the year is played out, every AI gives its orders: it chooses research (favoring Propulsion, Construction and Weapons), designs its own ships from the parts it has unlocked (scouts, colony ships, warships and later bombers, replacing a design when better parts arrive), queues scouts, colony ships, warships and orbital stations with docks at grown colonies, and lets Autobuild handle mines, factories and defenses. Its scouts explore unknown stars and come home to refuel, its colony ships settle the best habitable planets they can reach, and its warships gather at home on patrol, then set out to explore and to attack known enemy planets, bombing them when they carry bombs. AI empires fight each other too, unless they are allies. They use the same fuel, research, growth and combat rules as you. Intelligence sets how much research they fund (10 to 30 percent), how soon and how often they build warships and go to war (Novice after about 70 years, Master after about 15), how big a fleet they wait for and how many colonies they aim for. AI empires appear on the map when your scanners see their fleets, and on the Scoreboard with their real planets, ships and technology. Saved games from earlier versions convert their AI rivals into full AI empires with no fleets, starting from their known planets and roughly their old tech level. In multiplayer, a resigned player's empire handed to the AI keeps its planets and fleets and plays on as an AI.</p>
@@ -3950,7 +3998,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.76.0';
+        const GAME_VERSION = '0.77.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -4153,7 +4201,7 @@
         definePartM('terraform3', 'Terraformer 3', 'mech', [0, 0, 0, 2, 0, 2], 10, [20, 0, 0, 14], { terraform: 3 });
         definePartM('terraform7', 'Terraformer 7', 'mech', [0, 0, 0, 5, 0, 7], 14, [32, 0, 0, 22], { terraform: 7 });
         definePartM('terraform15', 'Terraformer 15', 'mech', [0, 0, 0, 11, 0, 14], 20, [50, 0, 0, 36], { terraform: 15 });
-        definePartM('minestd', 'Mine Dispenser 40', 'mine', [0, 0, 0, 0, 0, 0], 25, [45, 2, 10, 8], { minelayer: 'standard', rate: 40, prt: 'SD' });
+        definePartM('minestd', 'Mine Dispenser 40', 'mine', [0, 0, 0, 0, 0, 0], 25, [45, 2, 10, 8], { minelayer: 'standard', rate: 40 });
         definePartM('minestd50', 'Mine Dispenser 50', 'mine', [2, 0, 0, 0, 0, 4], 30, [55, 2, 12, 10], { minelayer: 'standard', rate: 50 });
         definePartM('minestd80', 'Mine Dispenser 80', 'mine', [3, 0, 0, 0, 0, 7], 30, [65, 2, 14, 10], { minelayer: 'standard', rate: 80, prt: 'SD' });
         definePartM('minequantum', 'Mine Dispenser 130', 'mine', [6, 0, 0, 0, 0, 12], 30, [80, 2, 18, 10], { minelayer: 'standard', rate: 130, prt: 'SD' });
@@ -4206,7 +4254,7 @@
             ultraminer: { label: 'Ultra-Miner', level: 15, mass: 100, armor: 1500, fuel: 1300, cargo: 0, init: 0, cost: { res: 130, iron: 30, bora: 0, germ: 6 }, slots: 'EEESSSRRRRRRRRRRRRRRRRYY', lrt: 'ARM' },
             fueltransport: { label: 'Fuel Transport', level: 5, mass: 12, armor: 5, fuel: 750, cargo: 0, init: 0, cost: { res: 50, iron: 10, bora: 0, germ: 5 }, slots: 'ES', prt: 'IS', fuelGen: 200, repairBonus: 0.05 },
             superfuel: { label: 'Super-Fuel Xport', level: 8, mass: 111, armor: 12, fuel: 2250, cargo: 0, init: 0, cost: { res: 70, iron: 20, bora: 0, germ: 8 }, slots: 'EESSY', prt: 'IS', fuelGen: 200, repairBonus: 0.1 },
-            minelayer: { label: 'Mini Mine Layer', level: 1, mass: 10, armor: 60, fuel: 400, cargo: 0, init: 0, cost: { res: 20, iron: 8, bora: 2, germ: 5 }, slots: 'ELLY', prt: 'SD' },
+            minelayer: { label: 'Mini Mine Layer', level: 1, mass: 10, armor: 60, fuel: 400, cargo: 0, init: 0, cost: { res: 20, iron: 8, bora: 2, germ: 5 }, slots: 'ELLY' },
             supermine: { label: 'Super Mine Layer', level: 16, mass: 30, armor: 1200, fuel: 2200, cargo: 0, init: 0, cost: { res: 30, iron: 20, bora: 3, germ: 9 }, slots: 'EEELLLLLLLLSSSSYY', prt: 'SD' },
             nubian: { label: 'Nubian', level: 27, mass: 100, armor: 5000, fuel: 5000, cargo: 0, init: 2, cost: { res: 150, iron: 75, bora: 12, germ: 12 }, slots: 'EEEGGGGGGGGGGGGGGGGGGGGGGGG' },
             metamorph: { label: 'Meta Morph', level: 11, mass: 85, armor: 500, fuel: 700, cargo: 300, init: 2, cost: { res: 120, iron: 50, bora: 12, germ: 12 }, slots: 'EEEGGGGGGGG', prt: 'HE' },
@@ -5219,7 +5267,12 @@ const DEFENDERS_PER_POP=100;
         function fitDesignToTech(d) {
             if (!shipHullUnlocked(d.hull)) {
                 d.obsolete = true;
+                d.auto = true;
                 return 'hull';
+            }
+            if (d.auto) {
+                d.obsolete = false;
+                d.auto = false;
             }
             const code = SHIP_HULLS[d.hull].slots;
             let changed = false;
@@ -8176,6 +8229,14 @@ const DEFENDERS_PER_POP=100;
                         if (!c.trader && c.req[field] === level && partUnlockedAt(c, lv)) messages.push('New ship part available: ' + c.name + '.');
                     });
                     if (field === 'construction') {
+                        shipDesigns.forEach(sd => {
+                            if (sd.auto && shipHullUnlocked(sd.hull)) {
+                                sd.obsolete = false;
+                                sd.auto = false;
+                                INFO_CACHE.delete(sd);
+                                messages.push('Design ready to build: ' + sd.name + '.');
+                            }
+                        });
                         Object.keys(SHIP_HULLS).forEach(k => {
                             if (!SHIP_HULLS[k].trader && SHIP_HULLS[k].level === level) messages.push('New ship hull available: ' + SHIP_HULLS[k].label + '.');
                         });
@@ -10441,7 +10502,7 @@ const DEFENDERS_PER_POP=100;
                 const eng = slots.find((x, n) => x && code[n] === 'E');
                 if (eng) for (let n = 0; n < code.length; n++) if (code[n] === 'E' && !slots[n]) slots[n] = eng;
                 seen[raw.id] = true;
-                out.push({ id: raw.id, name: String(raw.name || raw.id).slice(0, 28), hull: raw.hull, slots: slots, obsolete: !!raw.obsolete });
+                out.push({ id: raw.id, name: String(raw.name || raw.id).slice(0, 28), hull: raw.hull, slots: slots, obsolete: !!raw.obsolete, auto: !!raw.auto });
             });
             return out.length ? out : defaultShipDesigns();
         }
@@ -10668,15 +10729,119 @@ const DEFENDERS_PER_POP=100;
         }
 
         let sdDraft = null;
+        let sdActive = 0;
+        let sdShowObsolete = false;
+        let sdShowLocked = false;
+        let sdNotice = '';
+        let sdLastActive = -1;
 
-        function sdBlankDraft() {
-            return { id: null, name: 'New Design', hull: 'scout', slots: SHIP_HULLS.scout.slots.split('').map(() => ''), obsolete: false };
+        function sdFirstHull() {
+            const k = Object.keys(SHIP_HULLS).find(x => shipHullUnlocked(x));
+            return k || 'scout';
         }
 
-        function sdFit(d) {
-            const code = SHIP_HULLS[d.hull].slots;
-            const old = d.slots || [];
-            d.slots = code.split('').map((c, i) => (old[i] && slotAccepts(c, PARTS[old[i]]) ? old[i] : ''));
+        function sdGroups(hullKey) {
+            const code = SHIP_HULLS[hullKey].slots;
+            const out = [];
+            let i = 0;
+            while (i < code.length) {
+                let j = i;
+                while (j < code.length && code[j] === code[i]) j++;
+                let n = j - i;
+                if (code[i] === 'E') {
+                    out.push({ code: 'E', start: i, cap: n });
+                } else {
+                    let s = i;
+                    while (n > 0) {
+                        const c = n >= 8 ? 8 : n >= 4 ? 4 : n >= 2 ? 2 : 1;
+                        out.push({ code: code[i], start: s, cap: c });
+                        s += c;
+                        n -= c;
+                    }
+                }
+                i = j;
+            }
+            return out;
+        }
+
+        function sdDefaultActive(hullKey) {
+            const gs = sdGroups(hullKey);
+            const i = gs.findIndex(g => g.code !== 'E');
+            return i >= 0 ? i : 0;
+        }
+
+        function sdBlankDraft() {
+            const hull = sdFirstHull();
+            sdActive = sdDefaultActive(hull);
+            return { id: null, name: 'New Design', hull: hull, slots: SHIP_HULLS[hull].slots.split('').map(() => ''), obsolete: false };
+        }
+
+        function sdGroupState(d, g) {
+            let key = '';
+            let n = 0;
+            let mixed = false;
+            for (let i = g.start; i < g.start + g.cap; i++) {
+                const k = d.slots[i];
+                if (!k || !PARTS[k]) continue;
+                if (!key) key = k;
+                if (k === key) n++;
+                else mixed = true;
+            }
+            return { key: key, qty: n, mixed: mixed };
+        }
+
+        function sdWrite(d, g, key, qty) {
+            for (let i = 0; i < g.cap; i++) d.slots[g.start + i] = key && i < qty ? key : '';
+        }
+
+        function sdNormalize(d) {
+            const next = { slots: SHIP_HULLS[d.hull].slots.split('').map(() => '') };
+            sdGroups(d.hull).forEach(g => {
+                const st = sdGroupState(d, g);
+                if (!st.key || !slotAccepts(g.code, PARTS[st.key])) return;
+                sdWrite(next, g, st.key, g.code === 'E' ? g.cap : st.qty);
+            });
+            d.slots = next.slots;
+        }
+
+        function sdEnsureEditable() {
+            if (sdDraft.id === null || !designInUse(sdDraft.id)) return;
+            sdDraft.id = null;
+            sdDraft.name = (sdDraft.name + ' Mk2').slice(0, 28);
+            sdDraft.obsolete = false;
+            sdNormalize(sdDraft);
+            sdNotice = 'Ships of the original design exist or are queued, so it cannot be changed. Your changes are going into a new design called ' + sdDraft.name + '. Press Save to keep it.';
+        }
+
+        function sdSetPart(gi, key) {
+            const g = sdGroups(sdDraft.hull)[gi];
+            if (!g) return;
+            sdEnsureEditable();
+            const st = sdGroupState(sdDraft, g);
+            let qty = g.cap;
+            if (g.code !== 'E' && st.key && st.qty) qty = Math.min(g.cap, st.qty);
+            sdWrite(sdDraft, g, key, key ? qty : 0);
+        }
+
+        function sdSetQty(gi, qty) {
+            const g = sdGroups(sdDraft.hull)[gi];
+            if (!g) return;
+            sdEnsureEditable();
+            const st = sdGroupState(sdDraft, g);
+            if (!st.key) return;
+            sdWrite(sdDraft, g, st.key, Math.max(1, Math.min(g.cap, qty)));
+        }
+
+        function sdChangeHull(hull) {
+            if (!SHIP_HULLS[hull] || hull === sdDraft.hull) return;
+            sdEnsureEditable();
+            const eg = sdGroups(sdDraft.hull).find(g => g.code === 'E');
+            const eng = eg ? sdGroupState(sdDraft, eg).key : '';
+            sdDraft.hull = hull;
+            sdDraft.slots = SHIP_HULLS[hull].slots.split('').map(() => '');
+            const ng = sdGroups(hull).find(g => g.code === 'E');
+            if (ng && eng) sdWrite(sdDraft, ng, eng, ng.cap);
+            sdActive = sdDefaultActive(hull);
         }
 
         function sdNewId() {
@@ -10692,25 +10857,41 @@ const DEFENDERS_PER_POP=100;
             return Object.keys(PARTS).map(k => PARTS[k]).filter(c => c.cat === cat).sort((a, b) => levelOf(a) - levelOf(b) || a.name.localeCompare(b.name));
         }
 
-        function sdSlotOptions(code, current) {
-            let html = '<option value="">Empty</option>';
+        function sdPickerHtml(g, st) {
+            let html = '<div class="sd-pick-head">Parts for the <b>' + escapeHtml(SLOT_NAMES[g.code]) + '</b> slot' + (g.cap > 1 ? ' (holds up to ' + g.cap + ')' : '') + '</div>';
+            if (g.code === 'E') html += '<div class="sd-pick-note">Every engine slot takes the same engine, so the whole slot fills with the engine you pick.</div>';
+            html += '<div class="sd-pick-row sd-pick-empty" data-key="">Empty this slot</div>';
+            let hidden = 0;
             CAT_ORDER.forEach(cat => {
-                if (SLOT_ACCEPTS[code].indexOf(cat) === -1) return;
-                const list = sdPartsFor(cat);
-                if (!list.length) return;
-                html += '<optgroup label="' + CAT_NAMES[cat] + '">' + list.map(c => {
+                if (SLOT_ACCEPTS[g.code].indexOf(cat) === -1) return;
+                const rows = [];
+                sdPartsFor(cat).forEach(c => {
+                    if (!slotAccepts(g.code, c)) return;
                     const ok = shipPartUnlocked(c.key);
-                    return '<option value="' + c.key + '"' + (current === c.key ? ' selected' : '') + (ok || current === c.key ? '' : ' disabled') + '>' +
-                        escapeHtml(c.name) + ' (' + c.mass + ' kT' + (cat === 'scanner' ? ', normal ' + c.range + ' ly' + (c.pen ? ', penetrating ' + c.pen + ' ly' : ', no penetrating') : '') + (ok ? '' : (c.trader ? ', Mystery Trader reward only' : ', needs ' + partReqText(c))) + ')</option>';
-                }).join('') + '</optgroup>';
+                    if (!ok && !sdShowLocked && st.key !== c.key) {
+                        hidden++;
+                        return;
+                    }
+                    rows.push('<div class="sd-pick-row' + (st.key === c.key ? ' sel' : '') + (ok ? '' : ' locked') + '" data-key="' + c.key + '"><b>' + escapeHtml(c.name) + '</b> <span class="sd-pick-mass">' + c.mass + ' kT</span>' +
+                        '<div class="sd-pick-sub">' + escapeHtml(partSummary(c)) + (ok ? '' : ' | ' + (c.trader ? 'Mystery Trader reward only' : 'needs ' + escapeHtml(partReqText(c)))) + '</div></div>');
+                });
+                if (rows.length) html += '<div class="sd-pick-cat">' + CAT_NAMES[cat] + '</div>' + rows.join('');
             });
+            if (hidden) html += '<div class="sd-pick-note">' + hidden + ' more part' + (hidden === 1 ? '' : 's') + ' for this slot need more research. Tick the box below to list them.</div>';
             return html;
+        }
+
+        function sdSlotCounts(d) {
+            const gs = sdGroups(d.hull);
+            let used = 0;
+            gs.forEach(g => { if (sdGroupState(d, g).key) used++; });
+            return { used: used, total: gs.length };
         }
 
         function sdStatsHtml(d) {
             const i = computeDesignInfo(d);
             const rows = [];
-            rows.push('Mass <b>' + i.mass + ' kT</b>' + (i.cargo ? ' (<b>' + (i.mass + i.cargo) + '</b> with a full hold)' : '') + ' | Slots used <b>' + i.slotsUsed + '</b> of ' + i.slotsTotal);
+            rows.push('Mass <b>' + i.mass + ' kT</b>' + (i.cargo ? ' (<b>' + (i.mass + i.cargo) + '</b> with a full hold)' : '') + ' | Slots used <b>' + sdSlotCounts(d).used + '</b> of ' + sdSlotCounts(d).total);
             if (i.engineCount) {
                 rows.push('Engines <b>' + i.engineCount + ' x ' + escapeHtml(i.engine.name) + '</b> | Free up to Warp <b>' + i.freeWarp + '</b> | Best Warp <b>' + i.bestWarp + '</b> | ' + (i.warp10Safe ? 'Safe at Warp 10' : 'Warp 10 risks losing ships') + '<br><span style="font-size:11px;color:#aaa;">Fuel use per warp (percent): ' + i.engine.eff.map((v, n) => 'W' + (n + 1) + ' ' + v).join(', ') + '</span>');
             } else {
@@ -10742,41 +10923,74 @@ const DEFENDERS_PER_POP=100;
         function sdSelectDesign(id) {
             const d = shipDesigns.find(x => x.id === id);
             sdDraft = d ? copyShipDesign(d) : sdBlankDraft();
+            if (d && !designInUse(d.id)) sdNormalize(sdDraft);
+            sdActive = sdDefaultActive(sdDraft.hull);
+            sdNotice = '';
         }
 
         function renderShipDesigner() {
             if (!sdDraft || (sdDraft.id !== null && !shipDesigns.some(d => d.id === sdDraft.id))) {
-                sdDraft = shipDesigns.length ? copyShipDesign(shipDesigns[0]) : sdBlankDraft();
+                const first = activeShipDesigns()[0] || shipDesigns[0];
+                if (first) sdSelectDesign(first.id);
+                else sdDraft = sdBlankDraft();
             }
             const active = activeShipDesigns().length;
-            document.getElementById('sd-summary').innerHTML = 'Active designs: <b>' + active + '</b> of ' + MAX_SHIP_DESIGNS + '. Obsolete designs cannot be built, but their ships keep serving. ' +
-                'Your tech: Construction ' + techConstruction + ', Energy ' + techEnergy + ', Weapons ' + techWeapons + ', Propulsion ' + techPropulsion + ', Electronics ' + techElectronics + ', Biotechnology ' + techBiotechnology + '.';
-            document.getElementById('sd-list').innerHTML = shipDesigns.map(d => {
+            const obsCount = shipDesigns.length - active;
+            document.getElementById('sd-summary').innerHTML = 'Active designs: <b>' + active + '</b> of ' + MAX_SHIP_DESIGNS + '. Your tech: Construction ' + shownLevel(techConstruction) + ', Energy ' + shownLevel(techEnergy) + ', Weapons ' + shownLevel(techWeapons) + ', Propulsion ' + shownLevel(techPropulsion) + ', Electronics ' + shownLevel(techElectronics) + ', Biotechnology ' + shownLevel(techBiotechnology) + '.';
+            const obsBox = document.getElementById('sd-show-obs');
+            obsBox.checked = sdShowObsolete;
+            document.getElementById('sd-obs-label').innerText = 'Show obsolete designs (' + obsCount + ')';
+            document.getElementById('sd-obs-wrap').style.display = obsCount ? 'block' : 'none';
+            document.getElementById('sd-show-locked').checked = sdShowLocked;
+            const listed = shipDesigns.filter(d => sdShowObsolete || !d.obsolete || d.id === sdDraft.id);
+            document.getElementById('sd-list').innerHTML = listed.map(d => {
                 const n = designShipCount(d.id);
                 const q = designQueuedCount(d.id);
-                const sel = sdDraft.id === d.id ? ' selected' : '';
+                const sel = sdDraft.id === d.id ? ' sel' : '';
                 return '<div class="sd-item' + sel + (d.obsolete ? ' obsolete' : '') + '" data-id="' + escapeHtml(d.id) + '"><b>' + escapeHtml(d.name) + '</b>' +
                     (d.obsolete ? ' <span class="sd-badge">Obsolete</span>' : '') + '<br><small>' + SHIP_HULLS[d.hull].label + ' | ' + n + ' in service' + (q ? ', ' + q + ' queued' : '') + '</small></div>';
-            }).join('') || '<div class="sd-item">No designs.</div>';
-            const inUse = sdDraft.id !== null && designInUse(sdDraft.id);
+            }).join('') + (sdDraft.id === null ? '<div class="sd-item sel"><b>' + escapeHtml(sdDraft.name) + '</b> <span class="sd-badge">Not saved</span><br><small>' + SHIP_HULLS[sdDraft.hull].label + '</small></div>' : '') || '<div class="sd-item">No designs.</div>';
             document.getElementById('sd-name').value = sdDraft.name;
             const hullSel = document.getElementById('sd-hull');
-            hullSel.innerHTML = Object.keys(SHIP_HULLS).map(k => {
-                const h = SHIP_HULLS[k];
-                const ok = shipHullUnlocked(k);
-                return '<option value="' + k + '"' + (k === sdDraft.hull ? ' selected' : '') + (ok || k === sdDraft.hull ? '' : ' disabled') + '>' + h.label + ' - ' + h.slots.length + ' slots, mass ' + h.mass + ', armor ' + h.armor + ', fuel ' + h.fuel + ', cargo ' + h.cargo + (ok ? '' : (h.trader ? ' (Mystery Trader reward only)' : ' (needs Construction ' + h.level + ')')) + '</option>';
+            hullSel.innerHTML = Object.keys(SHIP_HULLS).filter(k => shipHullUnlocked(k) || k === sdDraft.hull).map(k => {
+                return '<option value="' + k + '"' + (k === sdDraft.hull ? ' selected' : '') + '>' + SHIP_HULLS[k].label + (shipHullUnlocked(k) ? '' : ' (not available now)') + '</option>';
             }).join('');
-            hullSel.disabled = inUse;
-            document.getElementById('sd-lock').innerHTML = inUse
-                ? 'Ships of this design exist or are queued, so its hull and parts are locked. You can rename it, make it obsolete, or press Save As New to make a changed copy.'
-                : 'Pick a part for each slot. Slot types: Engine, Weapon, Shield/Armor, Mechanical, Electrical, General (anything except engines). Scanner entries show their normal and penetrating range.';
-            const code = SHIP_HULLS[sdDraft.hull].slots;
-            document.getElementById('sd-slots').innerHTML = code.split('').map((c, i) => {
-                const cur = sdDraft.slots[i] || '';
-                const part = cur ? PARTS[cur] : null;
-                return '<div><label>Slot ' + (i + 1) + ': ' + SLOT_NAMES[c] + '</label><select class="sd-slot" data-i="' + i + '"' + (inUse ? ' disabled' : '') + '>' + sdSlotOptions(c, cur) + '</select>' +
-                    '<div class="sd-part">' + (part ? escapeHtml(partSummary(part)) : '&nbsp;') + '</div></div>';
+            hullSel.disabled = false;
+            const gs = sdGroups(sdDraft.hull);
+            if (sdActive >= gs.length) sdActive = sdDefaultActive(sdDraft.hull);
+            const h = SHIP_HULLS[sdDraft.hull];
+            document.getElementById('sd-hullinfo').innerHTML = 'Hull: mass <b>' + h.mass + ' kT</b> | armor <b>' + h.armor + '</b> | fuel <b>' + h.fuel + ' mg</b> | cargo <b>' + h.cargo + ' kT</b> | initiative <b>' + h.init + '</b><br>Slots: ' +
+                gs.map(g => escapeHtml(SLOT_NAMES[g.code]) + (g.cap > 1 ? ' x' + g.cap : '')).join(', ');
+            const inUse = sdDraft.id !== null && designInUse(sdDraft.id);
+            document.getElementById('sd-lock').innerHTML = sdNotice ? escapeHtml(sdNotice) : (inUse
+                ? 'Ships of this design exist or are queued. You can look at it, rename it or make it obsolete. Change any part and the changes go into a new copy.'
+                : 'Click a slot, then click a part in the list on the right. Stacked slots hold several of the same part; set how many with the number box.');
+            const pickerEl = document.getElementById('sd-picker');
+            const keepScroll = sdLastActive === sdActive ? pickerEl.scrollTop : 0;
+            document.getElementById('sd-slots').innerHTML = gs.map((g, gi) => {
+                const st = sdGroupState(sdDraft, g);
+                const part = st.key ? PARTS[st.key] : null;
+                const q = g.code === 'E' ? g.cap : st.qty;
+                let html = '<div class="sd-slotbox t-' + g.code + (gi === sdActive ? ' active' : '') + (part ? ' filled' : '') + '" data-g="' + gi + '">' +
+                    '<div class="sd-slothead">' + escapeHtml(SLOT_NAMES[g.code]) + (g.cap > 1 ? '<span class="sd-cap"> x' + g.cap + '</span>' : '') + '</div>';
+                if (part) {
+                    html += '<div class="sd-slotpart"><b>' + (q > 1 ? q + ' x ' : '') + escapeHtml(part.name) + '</b>' + (st.mixed ? ' (mixed, save to tidy)' : '') + '</div>';
+                    html += '<div class="sd-slotctl">';
+                    if (g.code !== 'E' && g.cap > 1) {
+                        html += '<label>Qty <select class="sd-qty" data-g="' + gi + '">';
+                        for (let n = 1; n <= g.cap; n++) html += '<option value="' + n + '"' + (n === q ? ' selected' : '') + '>' + n + '</option>';
+                        html += '</select></label>';
+                    }
+                    html += '<button type="button" class="sd-clear" title="Empty this slot">Clear</button></div>';
+                } else {
+                    html += '<div class="sd-slotpart sd-empty">Empty</div>';
+                }
+                return html + '</div>';
             }).join('');
+            const curState = sdGroupState(sdDraft, gs[sdActive]);
+            pickerEl.innerHTML = sdPickerHtml(gs[sdActive], curState);
+            pickerEl.scrollTop = keepScroll;
+            sdLastActive = sdActive;
             document.getElementById('sd-stats').innerHTML = sdStatsHtml(sdDraft);
             const issues = shipDesignIssues(sdDraft).concat(shipDesignLockedParts(sdDraft).map(n => n + ' is not unlocked yet.'));
             document.getElementById('sd-issues').innerHTML = issues.map(t => '<div>' + escapeHtml(t) + '</div>').join('');
@@ -10836,6 +11050,7 @@ const DEFENDERS_PER_POP=100;
             const d = { id: sdNewId(), name: sdDraft.name, hull: sdDraft.hull, slots: sdDraft.slots.slice(), obsolete: false };
             shipDesigns.push(d);
             sdDraft = copyShipDesign(d);
+            sdNotice = '';
             syncShipBuildCosts();
             renderShipDesigner();
             gameAlert('Design "' + d.name + '" created. Ships of it can be built at any planet with a Fleet Yard (a Space Station or Starbase with a dock).');
@@ -11112,6 +11327,7 @@ const DEFENDERS_PER_POP=100;
         }
 
         function openShipDesigner() {
+            sdNotice = '';
             renderShipDesigner();
             document.getElementById('shipdesign-modal').classList.add('active');
         }
@@ -11122,6 +11338,7 @@ const DEFENDERS_PER_POP=100;
         });
         document.getElementById('btn-sd-new').addEventListener('click', () => {
             sdDraft = sdBlankDraft();
+            sdNotice = '';
             renderShipDesigner();
         });
         document.getElementById('btn-sd-save').addEventListener('click', () => sdSave(false));
@@ -11133,6 +11350,8 @@ const DEFENDERS_PER_POP=100;
             sdDraft.id = null;
             sdDraft.name = (d.name + ' Mk2').slice(0, 28);
             sdDraft.obsolete = false;
+            sdNormalize(sdDraft);
+            sdNotice = '';
             renderShipDesigner();
         });
         document.getElementById('btn-sd-obsolete').addEventListener('click', sdToggleObsolete);
@@ -11163,13 +11382,33 @@ const DEFENDERS_PER_POP=100;
         document.getElementById('shipdesign-modal').addEventListener('change', (e) => {
             const t = e.target;
             if (t.id === 'sd-hull') {
-                sdDraft.hull = t.value;
-                sdFit(sdDraft);
+                sdChangeHull(t.value);
                 renderShipDesigner();
-            } else if (t.classList.contains('sd-slot')) {
-                sdDraft.slots[parseInt(t.dataset.i)] = t.value;
+            } else if (t.classList.contains('sd-qty')) {
+                sdSetQty(parseInt(t.dataset.g), parseInt(t.value));
+                renderShipDesigner();
+            } else if (t.id === 'sd-show-obs') {
+                sdShowObsolete = t.checked;
+                renderShipDesigner();
+            } else if (t.id === 'sd-show-locked') {
+                sdShowLocked = t.checked;
                 renderShipDesigner();
             }
+        });
+        document.getElementById('sd-slots').addEventListener('click', (e) => {
+            if (e.target.closest('select') || e.target.closest('label')) return;
+            const box = e.target.closest('.sd-slotbox');
+            if (!box) return;
+            const gi = parseInt(box.dataset.g);
+            if (e.target.closest('.sd-clear')) sdSetPart(gi, '');
+            sdActive = gi;
+            renderShipDesigner();
+        });
+        document.getElementById('sd-picker').addEventListener('click', (e) => {
+            const row = e.target.closest('.sd-pick-row');
+            if (!row || row.classList.contains('locked')) return;
+            sdSetPart(sdActive, row.dataset.key);
+            renderShipDesigner();
         });
 
         let minefields = [];
@@ -13208,6 +13447,15 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.77.0', d: 'Oct 4, 2026 5:56 AM', t: "Ship Designer Rebuilt Like Stars!", items: [
+                "The Ship Designer was rebuilt. Click a slot on the hull, then click a part from the list beside it. The old drop-down boxes are gone.",
+                "Fixed: the drop-downs did nothing for your starting ships because a design with ships in service was locked. Changing a locked design now makes a copy (name plus Mk2) that you can edit and save, and the original is left alone.",
+                "Slots now stack like Stars!. A big hull has fewer slots that each hold a stack of the same part (1, 2, 4 or 8) with a Qty box. A stacked engine slot is one slot but always holds all of its engines, all the same type.",
+                "The part list and the hull list now show only what you can build with your tech. A checkbox lists the parts you cannot use yet, with the tech each needs.",
+                "Obsolete designs are hidden by default, with a Show obsolete designs checkbox. The starting Destroyer no longer shows as obsolete at Tech 0; it stays hidden until Construction reaches its hull and then comes back by itself with a message.",
+                "Mini Mine Layer hull and Mine Dispenser 40 are now available to every race at the start (War Monger still cannot lay mines), as in Stars!. Heavy dispensers, speed traps and the bigger dispensers stay Space Demolition only.",
+                "Help: Ship Designer rewritten, Space Demolition line updated."
+            ] },
             { v: '0.76.0', d: 'Oct 3, 2026 11:31 PM', t: "Planet Scanners Have Both Ranges", items: [
                 "Fixed: a race that starts with Electronics 3 showed only one olive circle of 150 ly around its planets. The Scoper planet scanners are now penetrating scanners: Scoper 150 gives a maroon penetrating circle of 150 ly with an olive normal circle of 50 ly on top of it.",
                 "New planet scanner table: Viewer 50 (normal 50), Scoper 150 at Electronics 3 (normal 50, penetrating 150), Scoper 220 at Electronics 6 (normal 90, penetrating 220), Scoper 280 at Electronics 8 (normal 150, penetrating 280), then the Snoopers (normal 160 to 310, penetrating 320 to 620). The old Viewer 90 at Electronics 1 is gone, so normal range stays 50 ly until Electronics 3.",
