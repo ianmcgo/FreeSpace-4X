@@ -817,6 +817,23 @@
             font-size: 12px;
         }
 
+        .sbl-wrap { margin: 6px auto 10px; container-type: inline-size; width: 100%; }
+        .sbl-grid { display: grid; gap: 2px; width: 100%; }
+        .sbl-cell { border: 1px solid #000; border-radius: 3px; padding: 2px 1px; text-align: center; color: #101010; font-size: max(7px, 1.5cqw); line-height: 1.15; display: flex; flex-direction: column; justify-content: space-between; align-items: center; overflow: hidden; box-sizing: border-box; min-width: 0; min-height: 0; }
+        .sbl-cell[data-slot] { cursor: pointer; }
+        .sbl-cell[data-slot]:hover { filter: brightness(1.12); }
+        .sbl-cell.sel { outline: 3px solid #ffd700; outline-offset: -2px; z-index: 2; }
+        .sbl-cell.dock { background: #f2f2f2; justify-content: center; font-weight: bold; }
+        .sbl-cat { font-weight: bold; }
+        .sbl-part { font-weight: bold; color: #4a0066; }
+        .sbl-empty { opacity: 0.5; }
+        .sbl-ft { opacity: 0.85; }
+        .sb-editor { background: rgba(18, 16, 25, var(--pa)); border: 1px solid #332244; padding: 8px 10px; border-radius: 4px; margin-bottom: 12px; }
+        .sb-ed-title { font-size: 12px; font-weight: bold; color: #da70d6; margin-bottom: 6px; }
+        .sb-ed-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .sb-ed-row select { flex: 1 1 200px; padding: 5px; font-size: 12px; }
+        .sbl-section { margin-top: 6px; width: 100%; box-sizing: border-box; }
+
         .sb-stats {
             background: rgba(18, 16, 25, var(--pa));
             border: 1px solid #332244;
@@ -2149,6 +2166,9 @@
         .tb-notes div { margin-bottom: 4px; }
         .tb-notes div:last-child { margin-bottom: 0; }
         .tb-warn { color: #ff9966; }
+        .tb-head { position: sticky; top: -12px; z-index: 20; display: flex; flex-wrap: nowrap; align-items: center; justify-content: space-between; gap: 10px; margin: -22px -22px 10px; padding: 22px 22px 10px; background: #13111a; border-bottom: 1px solid #b515b5; }
+        .tb-head h2 { min-width: 0; font-size: 20px; }
+        .tb-head button { flex: 0 0 auto; white-space: nowrap; border-color: #b515b5; color: #fff; font-weight: bold; }
         .tb-foot { display: flex; gap: 10px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
         .tb-foot label { font-size: 13px; display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
         .tb-foot .tb-count { margin-left: auto; font-size: 12px; color: #8a8a9a; }
@@ -2264,7 +2284,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.80.0 (Updated: October 04, 2026 7:41 AM)</div>
+            <div class="version-text">Version 0.87.0 (Updated: October 04, 2026 2:47 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -2676,8 +2696,7 @@
                 <div class="dropdown-content">
                     <button class="tool-icon" id="btn-build-item" style="color: #da70d6;">🏗️ Structures</button>
                     <button class="tool-icon" id="btn-ship-construction" style="color: #00ffaa; display: none;">🚀 Ship Construction</button>
-                    <button class="tool-icon" id="btn-upgrade-station" style="color: #ffd700; display: none;">⬆ Upgrade Space Station</button>
-                    <button class="tool-icon" id="btn-upgrade-starbase" style="color: #ffd700; display: none;">⬆ Upgrade Starbase</button>
+                    <button class="tool-icon" id="btn-upgrade-station" style="color: #ffd700; display: none;">🛰 Space Station</button>
                     <button class="tool-icon" id="btn-fire-packet" style="color: #00ccff; display: none;">☄ Fire Mineral Packet</button>
                 </div>
             </div>
@@ -2704,6 +2723,7 @@
                     <button class="tool-icon" id="btn-mgmt-autobuild" style="color: #32cd32;">🤖 Autobuild</button>
                     <button class="tool-icon" id="btn-mgmt-roster" style="color: #00ffff;">📋 Fleet Roster</button>
                     <button class="tool-icon" id="btn-mgmt-shipdesign" style="color: #ffd700;">🛠 Ship Designer</button>
+                    <button class="tool-icon" id="btn-mgmt-sbdesign" style="color: #ffd700;">🛰 Space Station Design</button>
                     <button class="tool-icon" id="btn-mgmt-techbrowser" style="color: #00ffff;">📖 Technology Browser</button>
                     <button class="tool-icon" id="btn-mgmt-battles" style="color: #ff6b6b;">⚔ Battle Reports</button>
                     <button class="tool-icon" id="btn-mgmt-plans" style="color: #ff9966;">🎯 Battle Plans</button>
@@ -2951,6 +2971,41 @@
         </div>
     </div>
 
+    <div id="station-modal" class="modal-overlay" style="z-index: 1100;">
+        <div class="modal-content" style="max-width: 720px;">
+            <h2 class="screen-header" id="st-title">Space Station</h2>
+            <div id="st-context" style="font-size: 12px; color: #ccc; line-height: 1.6; margin-bottom: 12px;"></div>
+            <div id="st-map"></div>
+            <div id="st-stats" class="sb-stats"></div>
+            <div class="form-group">
+                <label for="st-load-select">Load a Design (queues the hull change and part upgrades needed to match a saved design):</label>
+                <div style="display: flex; gap: 8px;">
+                    <select id="st-load-select" style="flex: 1;"></select>
+                    <button class="nav-button" id="btn-st-load" style="width: auto; padding: 5px 16px;">Load</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="st-hull-select">Change Hull (keeps the parts that fit, salvages the rest):</label>
+                <div style="display: flex; gap: 8px;">
+                    <select id="st-hull-select" style="flex: 1;"></select>
+                    <button class="nav-button" id="btn-st-hull" style="width: auto; padding: 5px 16px;">Change</button>
+                </div>
+            </div>
+            <div style="display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
+                <button class="nav-button" id="btn-st-strip" style="flex: 1; min-width: 120px; color: #ffb347;">Salvage All Upgrades</button>
+                <button class="nav-button" id="btn-st-salvage" style="flex: 1; min-width: 120px; color: #ff6b6b;">Salvage Station</button>
+            </div>
+            <div style="display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
+                <button class="nav-button" id="btn-st-reset" style="flex: 1; min-width: 120px;">Undo Changes</button>
+                <button class="nav-button" id="btn-st-designer" style="flex: 1; min-width: 120px;">Open Space Station Design</button>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button class="nav-button btn-primary" id="btn-st-queue">Queue Upgrades</button>
+                <button class="nav-button" id="btn-st-close">Close</button>
+            </div>
+        </div>
+    </div>
+
     <div id="starbase-modal" class="modal-overlay" style="z-index: 1100;">
         <div class="modal-content" style="max-width: 720px;">
             <h2 class="screen-header" id="sb-title">Starbase Designer</h2>
@@ -2969,12 +3024,18 @@
                 <label for="sb-hull">Hull:</label>
                 <select id="sb-hull"></select>
             </div>
-            <div id="sb-slots" class="sb-slot-grid"></div>
+            <div id="sb-slots"></div>
             <div id="sb-stats" class="sb-stats"></div>
             <div style="display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
                 <button class="nav-button" id="btn-sb-new" style="flex: 1; min-width: 120px;">New Design</button>
                 <button class="nav-button" id="btn-sb-save" style="flex: 1; min-width: 120px;">Save Design</button>
                 <button class="nav-button" id="btn-sb-delete" style="flex: 1; min-width: 120px;">Delete Design</button>
+            </div>
+            <div style="display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
+                <button class="nav-button" id="btn-sb-export" style="flex: 1; min-width: 120px; color: #00ffff;">⬇ Download This Design</button>
+                <button class="nav-button" id="btn-sb-export-all" style="flex: 1; min-width: 120px; color: #00ffff;">⬇ Download All Designs</button>
+                <button class="nav-button" id="btn-sb-import" style="flex: 1; min-width: 120px; color: #32cd32;">⬆ Upload Designs</button>
+                <input type="file" id="sb-import-input" accept=".json,application/json" style="display: none;">
             </div>
             <div style="display: flex; gap: 10px;">
                 <button class="nav-button btn-primary" id="btn-sb-confirm">Queue Starbase</button>
@@ -3369,7 +3430,10 @@
 
     <div id="techbrowser-modal" class="modal-overlay" style="z-index: 1100;">
         <div class="modal-content" style="max-width: 1060px;">
-            <h2 class="screen-header" style="color: #00ffff;">📖 Technology Browser</h2>
+            <div class="tb-head">
+                <h2 class="screen-header" style="color: #00ffff; margin: 0;">📖 Technology Browser</h2>
+                <button type="button" class="nav-button" id="btn-tb-close-top" aria-label="Close Technology Browser" style="margin: 0; width: auto; padding: 6px 16px;">&times; Close</button>
+            </div>
             <div class="tb-bar tb-nowrap">
                 <button type="button" class="nav-button" id="tb-prev">&larr; Prev</button>
                 <select id="tb-cat" aria-label="Technology category"></select>
@@ -3537,7 +3601,7 @@
             <div style="text-align:left;">
                 <p><b style="color:#da70d6;">Absolute Beginner: Play in Two Minutes</b><br><b>The idea.</b> You lead a young empire that starts with one homeworld and a few ships. Other empires, run by the computer or by friends, are doing the same. You win by growing larger and stronger than they are, or by meeting the victory conditions chosen for the game. Each turn is one year.<br><br><b>Each year do three things.</b> First, <b>planets</b>: click your homeworld and give it something to build in the production queue, such as mines and factories at first, then scouts and colony ships. Second, <b>research</b>: pick a technology field to study so your ships and buildings improve over time. Third, <b>ships</b>: click a fleet, then click a star on the map to send it there. Scouts reveal the galaxy. A colony ship carries colonists to a good planet. Then press <b>End Turn</b> and the year plays out.<br><br><b>How to grow.</b> Look for planets with a high habitability percentage and send colonists there. New colonies grow by themselves and produce Resources and minerals. Use Resources to build and research, and mine minerals to pay for ships. Keep scouting, keep building, and keep a few warships near your homeworld because enemies will arrive eventually.<br><br><b>If something looks wrong,</b> the game warns you before you end a turn with idle planets or fleets, or send a ship somewhere it cannot reach. When you are ready for more, read the rest of Basic, then Advanced.</p>
                 <p><b style="color:#da70d6;">Goal</b><br>Grow your empire from a single homeworld: scan the galaxy, colonize habitable worlds, mine ore, build infrastructure and outscore your AI opponents. Check the Scoreboard under Management to see how you rank. If the game was created with Victory Conditions, the first empire to meet them wins (see Victory Conditions below).</p>
-                <p><b style="color:#da70d6;">Technology Browser</b><br>Open <b>Management, Technology Browser</b> to look up every item in the game with a picture, its cost, mass, tech requirements and stats. Use the <b>Prev</b> and <b>Next</b> buttons or the arrow keys to step through the list, or pick a category from the drop-down: Engines, Beam Weapons, Torpedoes and Missiles, Bombs, Shields, Armor, Ship Scanners, Cloaking Devices, Electrical, Mechanical, Mine Layers, Ship Hulls, Space Station and Starbase Hulls, Starbase Components, Planetary Scanners, Stargates, Mass Drivers, Planet Installations and Mystery Trader Items (or All Technology for everything at once). The <b>search box</b> finds items by name, category, stat, tech requirement or race trait (type several words and every word must match, for example <b>jammer torpedo</b> or <b>Propulsion 6</b>); press Escape to clear it. <b>Sort</b> by category then tech level, tech level, name, Resources cost or mass. Tick <b>Show Only Available Technology</b> to hide everything you cannot build yet. Each row has a dot: green means you can use it now, red means you cannot. <b>Reading an item:</b> the picture is drawn by the game from the item's type and stats (ship hull pictures show the hull's slots as colored squares, and the small dots under a large picture show how advanced the tech is). Beside it are the cost in Ironium, Boranium, Germanium and Resources and the mass in kT. The cost shown is what you pay now, after miniaturization; when it is lower than the base cost the base is shown in grey beside it. <b>Tech Req</b> lists the levels needed (a level you have not reached shows under Not available with how far you are from it), and the table lists the item's stats: damage, range, initiative, accuracy, shields, armor, scanner ranges, cargo and fuel capacity, slots and the like. Engines also get a <b>Fuel Usage vs. Warp Speed</b> chart: the blue number on the bottom is the engine's free warp, and a dotted column marks Warp 10 when the engine is not safe there. Notes at the bottom tell you about race limits, special behavior and why an item is not available to you. Tech levels here are the levels you see on the Research screen (Tech 0 is where you start). Mystery Trader items show as not available until a trader gives you the item. Costs for space stations and starbases do not include a race's starbase cost adjustment. Ship hull slot layouts are this game's own approximation where the original layouts are not known.</p>
+                <p><b style="color:#da70d6;">Technology Browser</b><br>Open <b>Management, Technology Browser</b> to look up every item in the game with a picture, its cost, mass, tech requirements and stats. A <b>Close</b> button sits in the top bar of the window and stays in view while you scroll; there is another at the bottom, and Escape closes it too (the first Escape clears the search box). Use the <b>Prev</b> and <b>Next</b> buttons or the arrow keys to step through the list, or pick a category from the drop-down: Engines, Beam Weapons, Torpedoes and Missiles, Bombs, Shields, Armor, Ship Scanners, Cloaking Devices, Electrical, Mechanical, Mine Layers, Ship Hulls, Space Station and Starbase Hulls, Starbase Components, Planetary Scanners, Stargates, Mass Drivers, Planet Installations and Mystery Trader Items (or All Technology for everything at once). The <b>search box</b> finds items by name, category, stat, tech requirement or race trait (type several words and every word must match, for example <b>jammer torpedo</b> or <b>Propulsion 6</b>); press Escape to clear it. <b>Sort</b> by category then tech level, tech level, name, Resources cost or mass. Tick <b>Show Only Available Technology</b> to hide everything you cannot build yet. Each row has a dot: green means you can use it now, red means you cannot. <b>Reading an item:</b> the picture is drawn by the game from the item's type and stats (ship hull pictures show the hull's slots as colored squares, space station and starbase pictures show the hull's slot map with each slot colored by type, and the small dots under a large picture show how advanced the tech is). Beside it are the cost in Ironium, Boranium, Germanium and Resources and the mass in kT. The cost shown is what you pay now, after miniaturization; when it is lower than the base cost the base is shown in grey beside it. <b>Tech Req</b> lists the levels needed (a level you have not reached shows under Not available with how far you are from it), and the table lists the item's stats: damage, range, initiative, accuracy, shields, armor, scanner ranges, cargo and fuel capacity, slots and the like. Engines also get a <b>Fuel Usage vs. Warp Speed</b> chart: the blue number on the bottom is the engine's free warp, and a dotted column marks Warp 10 when the engine is not safe there. Notes at the bottom tell you about race limits, special behavior and why an item is not available to you. Tech levels here are the levels you see on the Research screen (Tech 0 is where you start). Mystery Trader items show as not available until a trader gives you the item. Costs for space stations and starbases do not include a race's starbase cost adjustment. Ship hull slot layouts are this game's own approximation where the original layouts are not known. The five space station and starbase hulls (Orbital Fort, Space Dock, Space Station, Ultra Station and Death Star) use the slot maps supplied for this game, and their pages draw the whole map with each slot's type, its limit and its slot number.</p>
                 <p><b style="color:#da70d6;">Ship Designer</b><br>Open <b>Management, Ship Designer</b>. It works like the Stars! designer: choose a hull, click a slot on the hull, then click a part from the list on the right. The list shows only parts you can build now; tick <b>Also list parts I cannot use yet</b> to see the rest with the tech they need. The hull drop-down likewise lists only hulls you have the Construction tech for. <b>Slots and stacks:</b> a hull is made of slots, and a slot can hold a stack of the same part. A slot marked <b>x4</b> holds up to 4 of one part (stack sizes are 1, 2, 4 and 8), and the <b>Qty</b> box sets how many. Putting a part into an empty slot fills the whole stack; swapping the part keeps your quantity. <b>Engines:</b> engines work the same way but a stacked engine slot always holds the full number, all the same engine, so a big hull's engine slot is one slot that still needs several engines. Slot types: <b>Engine</b>, <b>Weapon</b> (beams and torpedoes), <b>Bomb</b>, <b>Shield or Armor</b>, <b>Shield</b>, <b>Armor</b>, <b>Scanner</b>, <b>Electrical</b> (cloaks, battle computers, jammers, capacitors), <b>Mechanical</b> (cargo pods, fuel tanks, colonization module, jets), <b>Electrical or Mechanical</b>, <b>Scanner, Electrical or Mechanical</b>, <b>Scanner, Shield or Weapon</b>, <b>Mine Layer</b>, <b>Mining</b> (mining robots only) and <b>General Purpose</b> (anything). Clear empties a slot. The panel under the slots shows cost (after miniaturization), mass, armor, shields, fuel, cargo, the engine's free and best warp and its fuel table, combat speed and initiative, scanner range, cloaking and weapons. Some parts belong to one primary trait only (for example the Rogue hull and Pick Pocket Scanner for Super-Stealth races). <b>Saved designs:</b> the list on the left holds your designs; obsolete ones are hidden until you tick <b>Show obsolete designs</b>. You can keep 16 active designs; make old ones <b>Obsolete</b> to free room. A design with ships built or queued cannot be changed: the moment you change a hull or part on it, the designer makes a copy named with Mk2 and your changes go into that copy, which you keep with Save. Designs the game gave you whose hull you cannot build yet (the Destroyer, for example) are hidden as obsolete and come back by themselves when your Construction reaches the hull. Designs saved before version 0.77 that mixed different parts inside one run of weapon or armor slots are tidied into stacks when you open them and save them. Your starting hulls at Tech 0 are the Small Freighter, Scout, Colony Ship and Mini Mine Layer (Mini-Colony Ship for Hyper-Expansion races). The Technology Browser (Management menu) shows every part and hull with pictures; the Equipment Catalog and Ship Hulls sections in Help list them as text. Hull slot layouts are this game's own approximation where the original layouts are not known. Every scanner in the part list shows its normal range and its penetrating range (or none), so you can compare them before picking. Your starting Long Range Scout is a Scout hull with a Quick Jump 5 engine in the Engine slot, a Rhino Scanner (50 ly normal, no penetrating) in the Scanner slot and a Fuel Tank in the General Purpose slot.</p>
                 <p><b style="color:#da70d6;">Building Designs and Refitting</b><br>Every active design appears in a planet's build list at its real cost. <b>Retrofit:</b> a fleet in orbit of a planet with a starbase that has a <b>Fleet Yard</b> can be refitted to another design with the same hull; the cost is the new design minus a credit for the old parts. <b>Scrap:</b> a ship can be scrapped at any of your planets for half its minerals back. Both are in <b>Fleet, Manage Ships and Names</b>.</p>
                 <p><b style="color:#da70d6;">Ship Design Files</b><br>The Ship Designer can save designs to your device and load them into another game. <b>Download This Design</b> saves the selected saved design and <b>Download All Designs</b> saves every active one, as a .json file holding each design's name, hull, parts slot by slot, mass and cost. <b>Upload Designs</b> reads such a file. Every design in it is checked against this game: the hull and every part must be unlocked by your current technology, allowed for your race's traits, and (for Mystery Trader items) owned, and the design must be complete (engines, matching engine types, parts in slots that take them). Designs that pass are added with a new name if the name is already taken. Designs you cannot build are refused, and a window lists each one with what is missing, for example the tech level needed and the level you have. A design is only added while you have fewer than 16 active designs.</p>
@@ -3591,10 +3655,10 @@
                 <p><b style="color:#da70d6;">The Planet Picture</b><br>The picture at the top left is the selected planet, turning slowly. Every planet is drawn from its own data. The share of ocean follows its habitability: a high habitability world is mostly blue water with green continents and swirling white clouds, a hostile world has dry dark basins instead of seas. Temperature adds ice caps and snowy peaks on cold worlds and a glowing, lava-streaked surface and a thick haze on hot ones. The color of the land comes from the ore under it: rich Ironium gives rusty red, rich Boranium gives blue-green, rich Germanium gives gold, and the richer the ore overall the deeper the tint. A planet you have not scanned is a gray, dim sphere with a question mark.</p>
                 <p><b style="color:#da70d6;">The Galactic Event Log</b><br>The log lists what happened to your empire, with the <b>newest line at the top</b> and the oldest at the bottom. A new line appears at the top as soon as it happens, and the box scrolls back to the top so you always see it. This applies to the Events tab and, in multiplayer, to the Chat and Both tabs too: new chat messages appear at the top of the list.</p>
                 <p><b style="color:#da70d6;">What the Panels Show</b><br>The panels only show what you can act on. The Production Queue appears only for a planet your empire has colonized. The Fleets in Orbit panel appears only when one or more of your fleets are in orbit of the selected planet, and it lists just the fleets there. Selecting a planet where you have a fleet selects that fleet. When another fleet of yours is selected and you pick a planet it is not at, the planet panel offers Send Fleet Here.</p>
-                <p><b style="color:#da70d6;">The Planet Menu</b><br>Select one of your planets, then open the Planet menu. <b>Structures</b> appears only on a planet you have colonized. <b>Ship Construction</b> appears only on a planet whose starbase has a ship dock, so a raw colony cannot build ships until it has a space station. <b>Upgrade Space Station</b> appears on a planet orbited by a Space Station or Orbital Fort, and <b>Upgrade Starbase</b> appears on a planet orbited by a Heavy Starbase or Ultra Station. If a planet has none of these, for example a neutral or rival world, the Planet button is hidden entirely.</p>
+                <p><b style="color:#da70d6;">The Planet Menu</b><br>Select one of your planets, then open the Planet menu. <b>Structures</b> appears only on a planet you have colonized. <b>Ship Construction</b> appears only on a planet whose starbase has a ship dock, so a raw colony cannot build ships until it has a space station. <b>Space Station</b> appears on any planet of yours that has an orbital installation (Orbital Fort, Space Dock, Space Station, Ultra Station or Death Star). If a planet has none of these, for example a neutral or rival world, the Planet button is hidden entirely.</p>
                 <p><b style="color:#da70d6;">Structures</b><br>Structures queues planetary buildings: Mine (5 Resources), Factory (10 Resources, 4 Germanium), Defense (15 Resources and 5 kT each of Ironium, Boranium and Germanium; its type depends on your Defense tech, see Planetary Defenses) and <b>Mineral Alchemy</b> (100 Resources, or 25 with the Mineral Alchemy trait), which turns Resources into 1 kT each of Ironium, Boranium and Germanium on that planet. These are the standard costs; a custom race can make mines and factories cheaper or dearer, and the list always shows your own prices. On a planet with nothing in orbit it also offers <b>Space Station / Starbase</b>, which opens the Starbase Designer. Once a planet has an orbital installation, or one is already in its queue, that choice disappears: upgrade it from the Planet menu instead. The list also offers Auto Mines, Auto Factories and Auto Defenses (see Auto Items and Repeating Builds).</p>
-                <p><b style="color:#da70d6;">Space Stations and Starbases</b><br>An orbital installation is not a fixed building. It is an immobile ship hull anchored to a planet, and you design it yourself. A planet can have only one at a time: a Space Station and a Starbase never orbit the same world together. In the Starbase Designer pick a hull, then fill its slots with components, name the design and save it. Saved designs can be reused on any planet. Hulls: <b>Orbital Fort</b> (4 slots, no dock, cheap defense) and <b>Space Station</b> (6 slots, has a ship dock, available from the start) are the early, light hulls with a small mass budget, good for refueling, repairs and deterring scouts. <b>Heavy Starbase</b> (10 slots, dock, needs Construction 5) and <b>Ultra Station</b> (16 slots, dock, needs Construction 10) are the late-game fortress hulls with room for heavy armor, several shields and big weapons. Components: <b>Armor Plating</b>, <b>Beam Weapon</b>, <b>Shield Generator</b> (needs Energy 2), <b>Capital Torpedo</b> (needs Weapons 3) and four scanners that need Electronics: <b>Starbase Scanner</b> (normal 100 ly, Electronics 1), <b>Orbit Scanner</b> (penetrating 80 ly, Electronics 3), <b>Deep Starbase Scanner</b> (normal 250 ly, Electronics 5) and <b>Penetrating Array</b> (penetrating 180 ly, Electronics 7). A starbase has no scanner unless you mount one. Weapon attack grows 10 percent for each Weapons level above 1. The designer shows armor, shields, attack, slots used, ship dock and the full cost. An installation with a dock unlocks Ship Construction on that planet. Every installation, dock or not, refuels fleets in orbit. Armor, shields and weapons are recorded on the design, but combat is not in the game yet.</p>
-                <p><b style="color:#da70d6;">Upgrading a Space Station or Starbase</b><br>You cannot add a component to a built installation, and you cannot stack a second one. There is one orbital slot per planet, so an upgrade is a replacement: pick Upgrade Space Station or Upgrade Starbase from the Planet menu, design a better hull and queue it. The upgrade costs the new design minus half the value of the old installation. The old one keeps working and keeps its dock until the new one is finished, and then it is replaced. If the new design has no dock you will be warned, because the planet would lose Ship Construction. Only one order for an orbital installation can be in the queue on a planet at a time.</p>
+                <p><b style="color:#da70d6;">Space Stations and Starbases</b><br>An orbital installation is not a fixed building. It is an immobile ship hull anchored to a planet, and you design it yourself. A planet can have only one at a time: a Space Station and a Starbase never orbit the same world together. In the Starbase Designer pick a hull, then fill its slots with components, name the design and save it. Saved designs can be reused on any planet. Hulls: every hull is a map of typed slots, and each slot holds one kind of part in any quantity up to the limit printed on it (a slot marked Up to 16 holds 1 to 16 of the same part). Slot types are <b>Weapon</b> (beams and torpedoes), <b>Shield</b>, <b>Shield or Armor</b>, <b>Electrical</b> and <b>Orbital or Electrical</b> (both take the starbase scanners; there are no orbital parts such as stargates for these slots yet). <b>Orbital Fort</b> (5 slots, no dock, cheap defense: 2 Weapon slots of up to 12, 2 Shield or Armor slots of up to 12 and 1 Orbital or Electrical slot of 1) and <b>Space Station</b> (12 slots, a dock that builds ships of any size, available from the start: 4 Weapon slots of up to 16, 2 Shield of up to 16, 2 Shield or Armor of up to 16, 2 Electrical of up to 3 and 2 Orbital or Electrical of 1) are the early hulls. <b>Space Dock</b> (8 slots, needs Construction 4) has a 200 kT dock, so it only builds ships up to 200 kT and heavier designs are greyed out in Ship Construction; it has 3 Weapon slots of up to 16, 1 Shield or Armor and 1 Shield of up to 24, 2 Electrical of up to 2 and 1 Orbital or Electrical of 1. <b>Ultra Station</b> (16 slots, unlimited dock, needs Construction 9) and the <b>Death Star</b> (16 slots, unlimited dock, needs Construction 13, the strongest hull: Weapon slots of up to 32, Electrical slots of up to 4) are the late-game fortress hulls. The Technology Browser draws the full slot map of each hull with every slot's type, limit and number. <b>Space Station Design</b> in the Management menu opens the same designer without a planet, so you can build templates ahead of time; use Download This Design, Download All Designs and Upload Designs to move station designs to and from JSON files (a design that needs tech you lack is refused with the reason, and you can keep up to 32). Components: <b>Armor Plating</b>, <b>Beam Weapon</b>, <b>Shield Generator</b> (needs Energy 2), <b>Capital Torpedo</b> (needs Weapons 3) and four scanners that need Electronics: <b>Starbase Scanner</b> (normal 100 ly, Electronics 1), <b>Orbit Scanner</b> (penetrating 80 ly, Electronics 3), <b>Deep Starbase Scanner</b> (normal 250 ly, Electronics 5) and <b>Penetrating Array</b> (penetrating 180 ly, Electronics 7). A starbase has no scanner unless you mount one. Weapon attack grows 10 percent for each Weapons level above 1. In the designer, click a slot on the hull map, pick its part from the list of parts that fit that slot type, and set the quantity (the first pick fills the slot to its limit; use Qty, Fill or Clear to change it). Changing the hull carries your parts over to the new hull's slots where they fit. The designer shows armor, shields, attack, slots used, parts fitted, ship dock and the full cost. Designs saved before version 0.81.0 are converted automatically: Heavy Starbase designs become Space Docks and parts are placed into the first slots that accept them. An installation with a dock unlocks Ship Construction on that planet. Every installation, dock or not, refuels fleets in orbit. Armor, shields and weapons are recorded on the design, but combat is not in the game yet.</p>
+                <p><b style="color:#da70d6;">Upgrading a Space Station or Starbase</b><br>Pick <b>Space Station</b> from the Planet menu. The window shows the installed hull's slot map. Click a slot and add a part to an empty slot, or raise the quantity of the part already there (up to the limit printed on the slot). Built parts cannot be removed yet. The upgrade costs only the parts you add (at least 10 Resources) and builds as one order; the station keeps working and keeps its dock until the order finishes. The window shows armor, shields, weapons and scanner range before and after. <b>Load a Design</b> picks one of your saved Space Station Designs and works out what the station needs to match it. Designs that need tech you do not have are greyed out and refused. If the design uses another hull, one order <b>Change hull</b> is queued (the new hull minus half the old hull; parts the design also uses move over for free). If any parts differ, a second order <b>Upgrade to</b> the design is queued: you pay only for the parts that are new, and parts that are replaced, lowered or not used are salvaged when it finishes (half their minerals come back). When there are two orders the upgrade waits until the hull change is finished. A confirm window lists every order with its cost and refund before anything is queued, and warns you if the new design has no ship dock, because the planet would lose Ship Construction. A design that already matches the station queues nothing. Space Station Design uploads work the same way: a file with a design you lack the tech for is refused with the reason. <b>Open Space Station Design</b> opens the template designer. <b>Change Hull</b> picks another hull you can build: it costs the new hull minus half the old hull, parts that fit move for free and parts that do not fit are salvaged when the new hull is finished (half their minerals come back). <b>Salvage All Upgrades</b> removes every part right away, keeps the bare hull and its dock, and deposits half of the parts' Ironium, Boranium and Germanium on the planet. <b>Salvage Station</b> removes the whole station right away and deposits half of its minerals on the planet; if it is your only station with a ship dock a warning tells you that you would have no way to build ships or refuel fleets. A planet without a station can build a new one from Structures. Only one order for an orbital installation can be in the queue on a planet at a time, and the Space Station window does not open while one is queued.</p>
                 <p><b style="color:#da70d6;">Ship Construction</b><br>On a planet with a docked installation, Ship Construction queues Scout (12 Resources, 4 Ironium, 2 Germanium), Colony Ship (18 Resources, 10 Ironium, 3 Germanium, and 5,000 colonists taken from the planet when it finishes, so the planet needs 7,500), Small Freighter (12 Resources, 10 Ironium, 3 Germanium) and Destroyer (25 Resources, 15 Ironium, 10 Boranium, 5 Germanium). A finished ship appears as a new fleet in orbit of the planet that built it, with a full fuel tank.</p>
                 <p><b style="color:#da70d6;">The Production Queue</b><br>Nothing is paid when you queue. The queue is one list, worked from the top. Each turn a planet spends its manufacturing Resources on the first item until that item is finished, and whatever is left rolls straight down to the next item in the same turn, so several cheap items can finish in a single turn. An item is finished once its full cost is paid in Resources and in Ore. Resources come from colonists and operating factories; Ore comes from the planet's own stockpile, which its mines fill. If a planet is short of an Ore, the item is paid only as far as the scarcest input allows and then waits, its progress frozen, while the Resources flow on to the next item, until mining catches up. The queue shows a percent complete only for items that take more than one turn.</p>
                 <p><b style="color:#da70d6;">Queue Controls and Estimates</b><br>Every item in the Production Queue panel has a grip you can drag to reorder the queue, plus buttons: <b>&#9650;</b> and <b>&#9660;</b> move it up or down (these work on phones, where dragging is awkward), <b>&minus;</b> and <b>+</b> change the quantity, and <b>&#10005;</b> removes it (you are asked first if it has already been part paid, since that progress is lost). <b>Clear</b> empties the whole queue. Under each item the game estimates when it will be done by playing the queue forward turn by turn with the planet's current colonists, factories and mines, so the estimate updates the moment you reorder. It does not include items Autobuild may add later. The line above the queue shows manufacturing Resources a year, how many mines and factories are operating, and whether Autobuild is on.</p>
@@ -4126,7 +4190,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.80.0';
+        const GAME_VERSION = '0.87.0';
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -4520,23 +4584,164 @@ const DEFENDERS_PER_POP=100;
         }
         const STRUCTURE_KEYS = ['mine', 'factory', 'defense', 'alchemy'];
         const SHIP_KEYS = ['scout', 'colony', 'freighter', 'destroyer'];
-        const HULLS = {
-            fort: { label: 'Orbital Fort', kind: 'station', level: 1, slots: 4, dock: false, armor: 120, cost: { res: 25, iron: 10, bora: 4, germ: 8 } },
-            station: { label: 'Space Station', kind: 'station', level: 1, slots: 6, dock: true, armor: 250, cost: { res: 40, iron: 14, bora: 4, germ: 15 } },
-            heavy: { label: 'Heavy Starbase', kind: 'starbase', level: 5, slots: 10, dock: true, armor: 600, cost: { res: 90, iron: 35, bora: 16, germ: 40 } },
-            ultra: { label: 'Ultra Station', kind: 'starbase', level: 10, slots: 16, dock: true, armor: 1600, cost: { res: 160, iron: 60, bora: 30, germ: 70 } }
+        const SB_CATS = {
+            weapon: { label: 'Weapon', accepts: ['beam', 'torpedo'], color: '#ff5555', bg: '#c98a8a' },
+            shield: { label: 'Shield', accepts: ['shield'], color: '#4da6ff', bg: '#8aaed1' },
+            shieldarmor: { label: 'Shield or Armor', accepts: ['shield', 'armor'], color: '#8fa3c7', bg: '#a9b6cc' },
+            electrical: { label: 'Electrical', accepts: ['sbscan1', 'sbscan2', 'sbpen1', 'sbpen2'], color: '#ffe14d', bg: '#cfc58a' },
+            orbital: { label: 'Orbital or Electrical', accepts: ['sbscan1', 'sbscan2', 'sbpen1', 'sbpen2'], color: '#5fe0c8', bg: '#8ecfc2' }
         };
+
+        function sbLayout(rows) {
+            return rows.map(r => ({ n: r[0], cat: r[1], max: r[2], x: r[3], y: r[4] })).sort((a, b) => a.n - b.n);
+        }
+
+        const HULLS = {
+            fort: {
+                label: 'Orbital Fort', kind: 'station', level: 1, dock: false, armor: 120, cost: { res: 25, iron: 10, bora: 4, germ: 8 }, dockCell: null,
+                layout: sbLayout([[1, 'orbital', 1, 2, 2], [2, 'weapon', 12, 2, 0], [3, 'shieldarmor', 12, 4, 2], [4, 'weapon', 12, 2, 4], [5, 'shieldarmor', 12, 0, 2]])
+            },
+            dock: {
+                label: 'Space Dock', kind: 'station', level: 5, dock: true, dockMax: 200, armor: 500, cost: { res: 55, iron: 20, bora: 8, germ: 22 }, dockCell: { x: 3, y: 3 },
+                layout: sbLayout([[1, 'orbital', 1, 1, 1], [2, 'weapon', 16, 3, 0], [3, 'shieldarmor', 24, 0, 3], [4, 'weapon', 16, 6, 3], [5, 'shield', 24, 3, 6], [6, 'electrical', 2, 5, 1], [7, 'electrical', 2, 5, 5], [8, 'weapon', 16, 1, 5]])
+            },
+            station: {
+                label: 'Space Station', kind: 'station', level: 1, dock: true, armor: 250, cost: { res: 40, iron: 14, bora: 4, germ: 15 }, dockCell: { x: 4, y: 4 },
+                layout: sbLayout([[1, 'orbital', 1, 2, 4], [2, 'weapon', 16, 5, 0], [3, 'shield', 16, 3, 0], [4, 'weapon', 16, 8, 5], [5, 'shieldarmor', 16, 0, 5], [6, 'shield', 16, 5, 8], [7, 'electrical', 3, 4, 6], [8, 'weapon', 16, 3, 8], [9, 'electrical', 3, 4, 2], [10, 'weapon', 16, 0, 3], [11, 'orbital', 1, 6, 4], [12, 'shieldarmor', 16, 8, 3]])
+            },
+            ultra: {
+                label: 'Ultra Station', kind: 'starbase', level: 10, dock: true, armor: 1600, cost: { res: 160, iron: 60, bora: 30, germ: 70 }, dockCell: { x: 4, y: 4 },
+                layout: sbLayout([[1, 'orbital', 1, 4, 2], [2, 'weapon', 16, 0, 5], [3, 'electrical', 3, 2, 4], [4, 'weapon', 16, 8, 5], [5, 'shield', 20, 2, 6], [6, 'shield', 20, 6, 2], [7, 'electrical', 3, 6, 4], [8, 'weapon', 16, 3, 0], [9, 'electrical', 3, 3, 8], [10, 'weapon', 16, 8, 3], [11, 'orbital', 1, 4, 6], [12, 'shieldarmor', 20, 6, 6], [13, 'weapon', 16, 0, 3], [14, 'shieldarmor', 20, 2, 2], [15, 'electrical', 3, 5, 0], [16, 'weapon', 16, 5, 8]])
+            },
+            deathstar: {
+                label: 'Death Star', kind: 'starbase', level: 14, dock: true, armor: 3200, cost: { res: 320, iron: 120, bora: 60, germ: 140 }, dockCell: { x: 4, y: 4 },
+                layout: sbLayout([[1, 'orbital', 1, 4, 1], [2, 'weapon', 32, 0, 6], [3, 'electrical', 4, 1, 4], [4, 'electrical', 4, 8, 6], [5, 'shield', 20, 2, 6], [6, 'shield', 20, 6, 2], [7, 'electrical', 4, 7, 4], [8, 'weapon', 32, 2, 0], [9, 'electrical', 4, 2, 8], [10, 'weapon', 32, 8, 2], [11, 'orbital', 1, 4, 7], [12, 'shieldarmor', 20, 6, 6], [13, 'electrical', 4, 0, 2], [14, 'shieldarmor', 20, 2, 2], [15, 'electrical', 4, 6, 0], [16, 'weapon', 32, 6, 8]])
+            }
+        };
+        Object.keys(HULLS).forEach(k => { HULLS[k].slots = HULLS[k].layout.length; });
         const KIND_NAMES = { station: 'Space Station', starbase: 'Starbase' };
         const COMPONENTS = {
-            armor: { label: 'Armor Plating', field: 'construction', level: 1, cost: { res: 4, iron: 2, bora: 0, germ: 0 }, armor: 80 },
-            beam: { label: 'Beam Weapon', field: 'weapons', level: 1, cost: { res: 7, iron: 1, bora: 3, germ: 0 }, beam: 30 },
-            shield: { label: 'Shield Generator', field: 'energy', level: 2, cost: { res: 6, iron: 1, bora: 2, germ: 1 }, shield: 60 },
-            torpedo: { label: 'Capital Torpedo', field: 'weapons', level: 3, cost: { res: 10, iron: 3, bora: 5, germ: 0 }, torpedo: 55 },
-            sbscan1: { label: 'Starbase Scanner (normal 100 ly)', field: 'electronics', level: 1, cost: { res: 5, iron: 1, bora: 0, germ: 2 }, scan: 100 },
-            sbscan2: { label: 'Deep Starbase Scanner (normal 250 ly)', field: 'electronics', level: 5, cost: { res: 12, iron: 2, bora: 1, germ: 5 }, scan: 250 },
-            sbpen1: { label: 'Orbit Scanner (penetrating 160 ly)', field: 'electronics', level: 3, cost: { res: 9, iron: 2, bora: 1, germ: 4 }, pen: 160 },
-            sbpen2: { label: 'Penetrating Array (penetrating 360 ly)', field: 'electronics', level: 7, cost: { res: 18, iron: 3, bora: 3, germ: 8 }, pen: 360 }
+            armor: { short: 'Armor', label: 'Armor Plating', field: 'construction', level: 1, cost: { res: 4, iron: 2, bora: 0, germ: 0 }, armor: 80 },
+            beam: { short: 'Beam', label: 'Beam Weapon', field: 'weapons', level: 1, cost: { res: 7, iron: 1, bora: 3, germ: 0 }, beam: 30 },
+            shield: { short: 'Shield', label: 'Shield Generator', field: 'energy', level: 2, cost: { res: 6, iron: 1, bora: 2, germ: 1 }, shield: 60 },
+            torpedo: { short: 'Torpedo', label: 'Capital Torpedo', field: 'weapons', level: 3, cost: { res: 10, iron: 3, bora: 5, germ: 0 }, torpedo: 55 },
+            sbscan1: { short: 'Scanner', label: 'Starbase Scanner (normal 100 ly)', field: 'electronics', level: 1, cost: { res: 5, iron: 1, bora: 0, germ: 2 }, scan: 100 },
+            sbscan2: { short: 'Deep Scan', label: 'Deep Starbase Scanner (normal 250 ly)', field: 'electronics', level: 5, cost: { res: 12, iron: 2, bora: 1, germ: 5 }, scan: 250 },
+            sbpen1: { short: 'Orbit Scan', label: 'Orbit Scanner (penetrating 160 ly)', field: 'electronics', level: 3, cost: { res: 9, iron: 2, bora: 1, germ: 4 }, pen: 160 },
+            sbpen2: { short: 'Pen Array', label: 'Penetrating Array (penetrating 360 ly)', field: 'electronics', level: 7, cost: { res: 18, iron: 3, bora: 3, germ: 8 }, pen: 360 }
         };
+        function sbSlotAccepts(cat, key) {
+            return SB_CATS[cat].accepts.indexOf(key) !== -1;
+        }
+
+        function sbParts(d) {
+            const out = [];
+            ((d && d.slots) || []).forEach(s => {
+                if (s && typeof s === 'object' && COMPONENTS[s.p] && s.n > 0) out.push([s.p, s.n]);
+            });
+            return out;
+        }
+
+        function sbPlace(hullKey, parts) {
+            const layout = HULLS[hullKey].layout;
+            const slots = layout.map(() => '');
+            parts.forEach(pr => {
+                let left = pr[1];
+                layout.forEach((sl, i) => {
+                    if (left <= 0 || !sbSlotAccepts(sl.cat, pr[0])) return;
+                    const cur = slots[i];
+                    if (cur && cur.p !== pr[0]) return;
+                    const have = cur ? cur.n : 0;
+                    const add = Math.min(left, sl.max - have);
+                    if (add <= 0) return;
+                    slots[i] = { p: pr[0], n: have + add };
+                    left -= add;
+                });
+            });
+            return slots;
+        }
+
+        function sbCleanDesign(d) {
+            if (!d || typeof d !== 'object') return null;
+            const hull = HULLS[d.hull] ? d.hull : (d.hull === 'heavy' ? 'dock' : null);
+            if (!hull) return null;
+            const layout = HULLS[hull].layout;
+            const src = Array.isArray(d.slots) ? d.slots : [];
+            const modern = hull === d.hull && src.length === layout.length && src.every(s => !s || typeof s === 'object');
+            let slots;
+            if (modern) {
+                slots = src.map((s, i) => {
+                    if (!s || !COMPONENTS[s.p] || !sbSlotAccepts(layout[i].cat, s.p)) return '';
+                    const n = Math.max(1, Math.min(layout[i].max, Math.floor(Number(s.n)) || 1));
+                    return { p: s.p, n: n };
+                });
+            } else {
+                const parts = [];
+                src.forEach(s => {
+                    const key = typeof s === 'string' ? s : (s && s.p);
+                    const n = typeof s === 'string' ? 1 : Math.max(1, Math.floor(Number(s && s.n)) || 1);
+                    if (!key || !COMPONENTS[key]) return;
+                    const f = parts.find(x => x[0] === key);
+                    if (f) f[1] += n;
+                    else parts.push([key, n]);
+                });
+                slots = sbPlace(hull, parts);
+            }
+            const out = Object.assign({}, d, { hull: hull, slots: slots });
+            if ('dock' in d) out.dock = HULLS[hull].dock;
+            return out;
+        }
+
+        function sbCleanList(list) {
+            const out = (Array.isArray(list) ? list : []).map(sbCleanDesign).filter(Boolean);
+            return out.length ? out : defaultDesigns();
+        }
+
+        function sbCopySlots(slots) {
+            return (slots || []).map(s => s ? { p: s.p, n: s.n } : '');
+        }
+
+        function sbDockText(h) {
+            if (!h.dock) return 'No dock';
+            return h.dockMax ? 'Yes, builds ships up to ' + h.dockMax + ' kT' : 'Yes, builds ships of any size';
+        }
+
+        function sbSlotSummary(h) {
+            const groups = [];
+            h.layout.forEach(s => {
+                const g = groups.find(x => x.cat === s.cat && x.max === s.max);
+                if (g) g.n++;
+                else groups.push({ cat: s.cat, max: s.max, n: 1 });
+            });
+            return groups.map(g => g.n + ' ' + SB_CATS[g.cat].label + ' (up to ' + g.max + ' each)').join(', ');
+        }
+
+        function planetDockLimit(p) {
+            const h = p && p.starbase ? HULLS[p.starbase.hull] : null;
+            return h && h.dockMax ? h.dockMax : Infinity;
+        }
+
+        function sbLayoutHtml(hullKey, opts) {
+            const unit = opts && opts.unit ? opts.unit : 56;
+            const h = HULLS[hullKey];
+            const slots = opts && opts.slots;
+            const sel = opts ? opts.sel : -1;
+            let W = 2;
+            let H = 2;
+            h.layout.forEach(s => { W = Math.max(W, s.x + 2); H = Math.max(H, s.y + 2); });
+            if (h.dockCell) { W = Math.max(W, h.dockCell.x + 2); H = Math.max(H, h.dockCell.y + 2); }
+            let o = `<div class="sbl-wrap" style="max-width:${W * unit}px;"><div class="sbl-grid" style="grid-template-columns:repeat(${W},1fr);grid-template-rows:repeat(${H},1fr);aspect-ratio:${W} / ${H};">`;
+            h.layout.forEach((s, i) => {
+                const cat = SB_CATS[s.cat];
+                const cur = slots ? slots[i] : null;
+                let mid = '';
+                if (slots) mid = cur ? `<div class="sbl-part">${escapeHtml(COMPONENTS[cur.p].short)} x${cur.n}</div>` : '<div class="sbl-empty">Empty</div>';
+                o += `<div class="sbl-cell${i === sel ? ' sel' : ''}${cur ? ' full' : ''}"${slots ? ` data-slot="${i}"` : ''} style="grid-column:${s.x + 1} / span 2;grid-row:${s.y + 1} / span 2;background:${cat.bg};"><div class="sbl-cat">${cat.label}</div>${mid}<div class="sbl-ft">Up to ${s.max}<br>Slot ${s.n}</div></div>`;
+            });
+            if (h.dockCell) o += `<div class="sbl-cell dock" style="grid-column:${h.dockCell.x + 1} / span 2;grid-row:${h.dockCell.y + 1} / span 2;"><div>${h.dockMax ? h.dockMax + 'kt Space Dock' : 'Unlimited Space Dock'}</div></div>`;
+            return o + '</div></div>';
+        }
+
         const TASK_LABELS = {
             none: 'No task',
             transport: 'Transport',
@@ -4637,8 +4842,8 @@ const DEFENDERS_PER_POP=100;
 
         function defaultDesigns() {
             return [
-                { id: 1, name: 'Basic Space Station', hull: 'station', slots: ['armor', 'armor', 'beam', 'beam', '', ''] },
-                { id: 2, name: 'Orbital Fort', hull: 'fort', slots: ['armor', 'armor', 'beam', 'beam'] }
+                { id: 1, name: 'Basic Space Station', hull: 'station', slots: sbPlace('station', [['armor', 2], ['beam', 2]]) },
+                { id: 2, name: 'Orbital Fort', hull: 'fort', slots: sbPlace('fort', [['armor', 2], ['beam', 2]]) }
             ];
         }
 
@@ -4654,10 +4859,10 @@ const DEFENDERS_PER_POP=100;
         function designCost(d) {
             const h = HULLS[d.hull];
             const c = miniCost(h.cost, { construction: h.level });
-            d.slots.forEach(s => {
-                if (!s || !COMPONENTS[s]) return;
-                const cc = miniCost(COMPONENTS[s].cost, { [COMPONENTS[s].field]: COMPONENTS[s].level });
-                COST_KEYS.forEach(k => { c[k] += cc[k]; });
+            sbParts(d).forEach(pr => {
+                const comp = COMPONENTS[pr[0]];
+                const cc = miniCost(comp.cost, { [comp.field]: comp.level });
+                COST_KEYS.forEach(k => { c[k] += cc[k] * pr[1]; });
             });
             const m = raceStarbaseCostMult(playerRace);
             if (m !== 1) COST_KEYS.forEach(k => { c[k] = Math.round(c[k] * m); });
@@ -4667,19 +4872,20 @@ const DEFENDERS_PER_POP=100;
         function designStats(d) {
             const h = HULLS[d.hull];
             const wm = 1 + (techWeapons - 1) * 0.1;
-            const st = { armor: h.armor, shield: 0, beam: 0, torpedo: 0, dock: h.dock, used: 0, slots: h.slots, scan: 0, pen: 0 };
+            const st = { armor: h.armor, shield: 0, beam: 0, torpedo: 0, dock: h.dock, used: 0, parts: 0, slots: h.slots, scan: 0, pen: 0 };
             let scan4 = 0;
             let pen4 = 0;
-            d.slots.forEach(s => {
-                const c = COMPONENTS[s];
-                if (!c) return;
+            sbParts(d).forEach(pr => {
+                const c = COMPONENTS[pr[0]];
+                const q = pr[1];
                 st.used++;
-                if (c.scan) scan4 += Math.pow(c.scan, 4);
-                if (c.pen) pen4 += Math.pow(c.pen, 4);
-                if (c.armor) st.armor += c.armor;
-                if (c.shield) st.shield += c.shield;
-                if (c.beam) st.beam += Math.round(c.beam * wm);
-                if (c.torpedo) st.torpedo += Math.round(c.torpedo * wm);
+                st.parts += q;
+                if (c.scan) scan4 += Math.pow(c.scan, 4) * q;
+                if (c.pen) pen4 += Math.pow(c.pen, 4) * q;
+                if (c.armor) st.armor += c.armor * q;
+                if (c.shield) st.shield += c.shield * q;
+                if (c.beam) st.beam += Math.round(c.beam * wm) * q;
+                if (c.torpedo) st.torpedo += Math.round(c.torpedo * wm) * q;
             });
             st.scan = Math.round(Math.pow(scan4, 0.25));
             st.pen = Math.round(Math.pow(pen4, 0.25));
@@ -4687,7 +4893,9 @@ const DEFENDERS_PER_POP=100;
         }
 
         function makeStarbase(design) {
-            return { name: design.name, hull: design.hull, slots: design.slots.slice(), dock: HULLS[design.hull].dock };
+            const c = sbCleanDesign(design);
+            if (!c) return defaultStarbase();
+            return { name: c.name, hull: c.hull, slots: sbCopySlots(c.slots), dock: HULLS[c.hull].dock };
         }
 
         function defaultStarbase() {
@@ -4895,7 +5103,7 @@ const DEFENDERS_PER_POP=100;
             battlePlans = cleanBattlePlans(e.battlePlans);
             budgetResearch = e.budgetResearch !== undefined ? e.budgetResearch : DEFAULT_BUDGET_RESEARCH;
             autobuild = e.autobuild ? e.autobuild : defaultAutobuild(false);
-            starbaseDesigns = e.designs && e.designs.length ? e.designs : defaultDesigns();
+            starbaseDesigns = sbCleanList(e.designs);
             nextDesignId = e.nextDesignId || (starbaseDesigns.reduce((m, d) => Math.max(m, d.id), 0) + 1);
             shipDesigns = e.shipDesigns && e.shipDesigns.length ? e.shipDesigns : defaultShipDesigns();
             nextShipDesignNo = e.nextShipDesignNo || 1;
@@ -4974,7 +5182,7 @@ const DEFENDERS_PER_POP=100;
             e.researchNext = src.researchNext === 'lowest' || TECH_KEYS.indexOf(src.researchNext) !== -1 ? src.researchNext : 'same';
             e.budgetResearch = src.budgetResearch !== undefined ? clampInt(src.budgetResearch, 0, 100, DEFAULT_BUDGET_RESEARCH) : DEFAULT_BUDGET_RESEARCH;
             e.autobuild = cleanAutobuild(src.autobuild);
-            const designs = Array.isArray(src.designs) ? src.designs.filter(d => d && HULLS[d.hull]) : [];
+            const designs = Array.isArray(src.designs) ? src.designs.map(sbCleanDesign).filter(Boolean) : [];
             e.designs = designs.length ? designs : defaultDesigns();
             e.traderItems = Array.isArray(src.traderItems) ? src.traderItems.filter(k => TRADER_ITEMS.indexOf(k) !== -1) : [];
             e.nextDesignId = src.nextDesignId || (e.designs.reduce((m, d) => Math.max(m, d.id), 0) + 1);
@@ -7510,11 +7718,10 @@ const DEFENDERS_PER_POP=100;
             if (!p.hasStarbase || !p.starbase || !HULLS[p.starbase.hull]) return { range: 0, pen: 0 };
             let scan4 = 0;
             let pen4 = 0;
-            (p.starbase.slots || []).forEach(key => {
-                const c = COMPONENTS[key];
-                if (!c) return;
-                if (c.scan) scan4 += Math.pow(c.scan, 4);
-                if (c.pen) pen4 += Math.pow(c.pen, 4);
+            sbParts(p.starbase).forEach(pr => {
+                const c = COMPONENTS[pr[0]];
+                if (c.scan) scan4 += Math.pow(c.scan, 4) * pr[1];
+                if (c.pen) pen4 += Math.pow(c.pen, 4) * pr[1];
             });
             const nas = raceHasLrt(playerRace, 'NAS');
             return { range: Math.round(Math.pow(scan4, 0.25)) * (nas ? 2 : 1), pen: nas ? 0 : Math.round(Math.pow(pen4, 0.25)) };
@@ -7711,7 +7918,10 @@ const DEFENDERS_PER_POP=100;
                 if (!p.mined) p.mined = emptyStore();
                 if (!p.productionQueue) p.productionQueue = [];
                 if (p.defenses === undefined) p.defenses = 0;
-                if (p.hasStarbase && (!p.starbase || !HULLS[p.starbase.hull])) p.starbase = defaultStarbase();
+                if (p.hasStarbase) {
+                    const sbc = p.starbase ? sbCleanDesign(p.starbase) : null;
+                    p.starbase = sbc ? Object.assign(sbc, { dock: HULLS[sbc.hull].dock }) : defaultStarbase();
+                }
                 if (!p.hasStarbase) p.starbase = null;
             });
         }
@@ -7928,18 +8138,22 @@ const DEFENDERS_PER_POP=100;
             if (item.type === 'mine') sh.mines++;
             else if (item.type === 'factory') sh.factories++;
             else if (item.type === 'defense') sh.defenses++;
-            else if (item.type === 'starbase') sh.hasStarbase = true;
+            else if (item.type === 'starbase') {
+                sh.hasStarbase = true;
+                if (item.design) sh.sbHull = item.design.hull;
+            }
             item.paid = null;
         }
 
         function simulateQueue(p) {
             const sh = {
                 name: p.name, owner: p.owner, pop: p.pop, mines: p.mines, factories: p.factories,
-                defenses: p.defenses || 0, hasStarbase: p.hasStarbase, iron: p.iron, bora: p.bora, germ: p.germ,
+                defenses: p.defenses || 0, hasStarbase: p.hasStarbase, sbHull: p.starbase ? p.starbase.hull : null, iron: p.iron, bora: p.bora, germ: p.germ,
                 ironConc: p.ironConc, boraConc: p.boraConc, germConc: p.germConc
             };
             const items = p.productionQueue.map(it => ({
                 type: it.type, quantity: it.quantity, auto: !!it.auto, cost: it.cost, upgrade: it.upgrade,
+                design: it.design ? { hull: it.design.hull } : null, needsHull: it.needsHull || null,
                 paid: it.paid ? Object.assign({}, it.paid) : null
             }));
             const out = items.map(it => ({ first: 0, done: 0, atLimit: it.auto && autoRoom(sh, it.type) <= 0 }));
@@ -7966,6 +8180,7 @@ const DEFENDERS_PER_POP=100;
                             it.quantity = 0;
                             break;
                         }
+                        if (it.type === 'starbase' && it.needsHull && sh.sbHull !== it.needsHull) break;
                         if (attemptBuildUnit(sh, it, budget, stats)) {
                             simComplete(sh, it);
                             it.quantity--;
@@ -8281,6 +8496,10 @@ const DEFENDERS_PER_POP=100;
             } else if (item.type === 'starbase') {
                 p.hasStarbase = true;
                 p.starbase = item.design && HULLS[item.design.hull] ? makeStarbase(item.design) : defaultStarbase();
+                if (item.refund) {
+                    ORE_KEYS.forEach(k => { p[k] += item.refund[k] || 0; });
+                    logEvent('Replaced parts and parts that did not fit were salvaged on ' + p.name + '.');
+                }
                 logEvent((item.upgrade ? 'Orbital installation upgraded on ' : 'Orbital installation completed on ') + p.name + ': ' + starbaseLabel(p) + '.');
             }
             item.paid = null;
@@ -8306,6 +8525,17 @@ const DEFENDERS_PER_POP=100;
                     if (p.hasStarbase && item.type === 'starbase' && !item.upgrade) {
                         item.quantity = 0;
                         break;
+                    }
+                    if (item.type === 'starbase' && item.needsHull) {
+                        if (p.starbase && p.starbase.hull === item.needsHull) {
+                            item.needsHull = null;
+                        } else if (p.productionQueue.some(x => x !== item && x.type === 'starbase' && x.design && x.design.hull === item.needsHull)) {
+                            break;
+                        } else {
+                            item.quantity = 0;
+                            logEvent('A station upgrade on ' + p.name + ' was cancelled because the hull change it needed is no longer queued.');
+                            break;
+                        }
                     }
                     if (item.type === 'terraform' && !terraformStepFor(p, playerRace)) {
                         item.quantity = 0;
@@ -8562,9 +8792,11 @@ const DEFENDERS_PER_POP=100;
             const previous = select.value;
             let options;
             if (ships) {
+                const dockLimit = planetDockLimit(p);
                 options = activeShipDesigns().map(d => {
                     const i = designInfo(d);
-                    return `<option value="ship:${escapeHtml(d.id)}">${escapeHtml(d.name)} (${i.hullLabel}) - ${costTextFor(i.cost)}</option>`;
+                    const big = i.mass > dockLimit;
+                    return `<option value="ship:${escapeHtml(d.id)}" ${big ? 'disabled' : ''}>${escapeHtml(d.name)} (${i.hullLabel}) - ${costTextFor(i.cost)}${big ? ' - too big for this dock (' + i.mass + ' kT, limit ' + dockLimit + ' kT)' : ''}</option>`;
                 }).join('') || '<option value="">No active ship designs. Use the Ship Designer.</option>';
             } else {
                 options = STRUCTURE_KEYS.map(k => `<option value="${k}">${BUILD_COSTS[k].label} - ${costText(k)}</option>`).join('');
@@ -9179,6 +9411,7 @@ const DEFENDERS_PER_POP=100;
         const POPUP_CLOSE_BUTTONS = {
             'build-modal': 'btn-close-build',
             'starbase-modal': 'btn-sb-close',
+            'station-modal': 'btn-st-close',
             'waypoint-modal': 'btn-close-waypoints',
             'packet-modal': 'btn-close-packet',
             'scoreboard-modal': 'btn-close-scoreboard',
@@ -9400,8 +9633,7 @@ const DEFENDERS_PER_POP=100;
 
         document.getElementById('btn-build-item').addEventListener('click', () => openBuildModal('structures'));
         document.getElementById('btn-ship-construction').addEventListener('click', () => openBuildModal('ships'));
-        document.getElementById('btn-upgrade-station').addEventListener('click', () => openStarbaseDesigner('upgrade'));
-        document.getElementById('btn-upgrade-starbase').addEventListener('click', () => openStarbaseDesigner('upgrade'));
+        document.getElementById('btn-upgrade-station').addEventListener('click', openStationManager);
 
         document.getElementById('btn-close-build').addEventListener('click', () => {
             document.getElementById('build-modal').classList.remove('active');
@@ -9427,6 +9659,10 @@ const DEFENDERS_PER_POP=100;
                     return false;
                 }
                 const si = designInfo(sd);
+                if (si.mass > planetDockLimit(p)) {
+                    gameAlert(`${sd.name} weighs ${si.mass} kT, but the ${HULLS[p.starbase.hull].label} dock only builds ships up to ${planetDockLimit(p)} kT. Upgrade to a Space Station or a bigger hull first.`);
+                    return false;
+                }
                 addToQueue(selectedPlanetIndex, 'ship', qty, { design: sd.id, cost: { res: si.cost.res, iron: si.cost.iron, bora: si.cost.bora, germ: si.cost.germ }, label: sd.name });
                 return true;
             }
@@ -9497,18 +9733,30 @@ const DEFENDERS_PER_POP=100;
         let sbMode = 'new';
         let sbDraft = null;
 
+        let sbSel = 0;
+
         function blankDraft() {
-            return { id: null, name: 'New Starbase', hull: 'station', slots: ['', '', '', '', '', ''] };
+            return { id: null, name: 'New Starbase', hull: 'station', slots: HULLS.station.layout.map(() => '') };
         }
 
         function copyDraft(d) {
-            return { id: d.id, name: d.name, hull: d.hull, slots: d.slots.slice() };
+            return { id: d.id, name: d.name, hull: d.hull, slots: sbCopySlots(d.slots) };
         }
 
         function fitDraftSlots(d) {
-            const n = HULLS[d.hull].slots;
-            while (d.slots.length < n) d.slots.push('');
-            d.slots.length = n;
+            const c = sbCleanDesign(d);
+            if (c) {
+                d.hull = c.hull;
+                d.slots = c.slots;
+            }
+        }
+
+        function openStarbaseTemplates() {
+            sbMode = 'template';
+            if (!sbDraft || !HULLS[sbDraft.hull]) sbDraft = copyDraft(starbaseDesigns[0] || blankDraft());
+            sbSel = 0;
+            renderStarbaseDesigner();
+            document.getElementById('starbase-modal').classList.add('active');
         }
 
         function openStarbaseDesigner(mode) {
@@ -9531,6 +9779,7 @@ const DEFENDERS_PER_POP=100;
             }
             sbMode = mode;
             sbDraft = copyDraft(starbaseDesigns[0] || blankDraft());
+            sbSel = 0;
             renderStarbaseDesigner();
             document.getElementById('starbase-modal').classList.add('active');
         }
@@ -9541,23 +9790,44 @@ const DEFENDERS_PER_POP=100;
             const cost = designCost(sbDraft);
             let html = `Armor <b>${st.armor}</b> | Shields <b>${st.shield}</b> | Beam attack <b>${st.beam}</b> | Torpedo attack <b>${st.torpedo}</b><br>` +
                 `Scanner: <b>${st.scan > 0 ? st.scan + ' ly normal' : 'none'}</b> | Penetrating: <b>${st.pen > 0 ? st.pen + ' ly' : 'none'}</b><br>` +
-                `Slots used ${st.used} of ${st.slots} | Ship dock: <b style="color:${st.dock ? '#32cd32' : '#ff8c00'};">${st.dock ? 'Yes, can build ships' : 'No'}</b><br>` +
+                `Slots used ${st.used} of ${st.slots} | Parts fitted ${st.parts} | Ship dock: <b style="color:${st.dock ? '#32cd32' : '#ff8c00'};">${escapeHtml(sbDockText(HULLS[sbDraft.hull]))}</b><br>` +
                 `Design cost: ${costTextFor(cost)}`;
-            if (sbMode === 'upgrade') {
+            if (sbMode === 'upgrade' && p) {
                 html += `<br>Upgrade cost after credit for the current ${installationName(p)}: <b style="color:#ffd700;">${costTextFor(upgradeCost(p, sbDraft))}</b>`;
             }
             document.getElementById('sb-stats').innerHTML = html;
         }
 
+        function sbEditorHtml() {
+            const sl = HULLS[sbDraft.hull].layout[sbSel];
+            const cur = sbDraft.slots[sbSel];
+            const cat = SB_CATS[sl.cat];
+            const opts = cat.accepts.map(k => {
+                const c = COMPONENTS[k];
+                const ok = componentUnlocked(k);
+                const isCur = !!cur && cur.p === k;
+                return `<option value="${k}" ${isCur ? 'selected' : ''} ${ok || isCur ? '' : 'disabled'}>${escapeHtml(c.label)}${ok ? '' : ' (needs ' + TECH_NAMES[c.field] + ' ' + shownLevel(c.level) + ')'}</option>`;
+            }).join('');
+            let q = '';
+            if (cur) for (let i = 1; i <= sl.max; i++) q += `<option value="${i}" ${i === cur.n ? 'selected' : ''}>${i}</option>`;
+            const extra = cur ? `<label for="sb-qty" style="margin:0;">Qty</label><select id="sb-qty" style="flex:0 0 76px;">${q}</select><button class="nav-button" id="btn-sb-fill" style="width:auto;padding:5px 12px;">Fill</button><button class="nav-button" id="btn-sb-clear" style="width:auto;padding:5px 12px;">Clear</button>` : '';
+            return `<div class="sb-editor"><div class="sb-ed-title">Slot ${sl.n}: ${cat.label}, holds up to ${sl.max}</div><div class="sb-ed-row"><select id="sb-part"><option value="">Empty</option>${opts}</select>${extra}</div></div>`;
+        }
+
         function renderStarbaseDesigner() {
             const p = planets[selectedPlanetIndex];
+            const tmpl = sbMode === 'template';
             const up = sbMode === 'upgrade';
             const kindName = up ? installationName(p) : 'Space Station / Starbase';
-            document.getElementById('sb-title').innerText = up ? 'Upgrade ' + kindName + ': ' + p.name : 'Orbital Designer: New Installation at ' + p.name;
-            document.getElementById('sb-context').innerHTML = `Construction ${techConstruction}, Energy ${techEnergy}, Weapons ${techWeapons}. ` +
-                (up
-                    ? `Current installation: <b>${escapeHtml(starbaseLabel(p))}</b>. A planet holds only one, so the new design replaces it. The upgrade costs the new design minus half the value of the old one, and the old ${kindName} keeps working until the new one is finished.`
-                    : 'An orbital installation is a custom hull with components in its slots. Space Station and Orbital Fort hulls are light and cheap; Heavy Starbase and Ultra Station hulls carry far more. Only hulls with a ship dock can build ships.');
+            document.getElementById('sb-title').innerText = tmpl ? 'Space Station Design' : up ? 'Upgrade ' + kindName + ': ' + p.name : 'Orbital Designer: New Installation at ' + p.name;
+            document.getElementById('btn-sb-confirm').style.display = tmpl ? 'none' : '';
+            document.getElementById('sb-context').innerHTML = `Construction ${shownLevel(techConstruction)}, Energy ${shownLevel(techEnergy)}, Weapons ${shownLevel(techWeapons)}. ` +
+                (tmpl
+                    ? 'Build space station templates here. Save a design, download it as a file, or upload designs made earlier. Saved designs can be used on any planet. '
+                    : up
+                    ? `Current installation: <b>${escapeHtml(starbaseLabel(p))}</b>. A planet holds only one, so the new design replaces it. The upgrade costs the new design minus half the value of the old one, and the old ${kindName} keeps working until the new one is finished. `
+                    : 'An orbital installation is a hull with typed slots. ') +
+                'Click a slot on the hull map, then choose its part and how many it holds (up to the limit shown on the slot). Only hulls with a ship dock can build ships.';
             document.getElementById('sb-design-select').innerHTML = starbaseDesigns.map(d =>
                 `<option value="${d.id}" ${d.id === sbDraft.id ? 'selected' : ''}>${escapeHtml(d.name)} (${HULLS[d.hull].label})</option>`
             ).join('') + `<option value="draft" ${sbDraft.id === null ? 'selected' : ''}>-- New unsaved design --</option>`;
@@ -9565,18 +9835,12 @@ const DEFENDERS_PER_POP=100;
             document.getElementById('sb-hull').innerHTML = Object.keys(HULLS).map(k => {
                 const h = HULLS[k];
                 const ok = hullUnlocked(k);
-                return `<option value="${k}" ${k === sbDraft.hull ? 'selected' : ''} ${ok ? '' : 'disabled'}>${h.label} - ${h.slots} slots, ${h.dock ? 'ship dock' : 'no dock'}${ok ? '' : ' (needs Construction ' + h.level + ')'}</option>`;
+                const dockText = h.dock ? (h.dockMax ? h.dockMax + ' kT ship dock' : 'unlimited ship dock') : 'no dock';
+                return `<option value="${k}" ${k === sbDraft.hull ? 'selected' : ''} ${ok || k === sbDraft.hull ? '' : 'disabled'}>${h.label} - ${h.slots} slots, ${dockText}${ok ? '' : ' (needs Construction ' + shownLevel(h.level) + ')'}</option>`;
             }).join('');
-            let slots = '';
-            sbDraft.slots.forEach((s, i) => {
-                const opts = Object.keys(COMPONENTS).map(k => {
-                    const c = COMPONENTS[k];
-                    const ok = componentUnlocked(k);
-                    return `<option value="${k}" ${s === k ? 'selected' : ''} ${ok || s === k ? '' : 'disabled'}>${c.label}${ok ? '' : ' (needs ' + TECH_NAMES[c.field] + ' ' + c.level + ')'}</option>`;
-                }).join('');
-                slots += `<div><label>Slot ${i + 1}</label><select class="sb-slot" data-i="${i}"><option value="">Empty</option>${opts}</select></div>`;
-            });
-            document.getElementById('sb-slots').innerHTML = slots;
+            const count = HULLS[sbDraft.hull].layout.length;
+            if (sbSel < 0 || sbSel >= count) sbSel = 0;
+            document.getElementById('sb-slots').innerHTML = sbLayoutHtml(sbDraft.hull, { slots: sbDraft.slots, sel: sbSel }) + sbEditorHtml();
             document.getElementById('btn-sb-confirm').innerText = up ? 'Queue ' + kindName + ' Upgrade' : 'Queue Installation';
             renderSbStats();
         }
@@ -9589,12 +9853,12 @@ const DEFENDERS_PER_POP=100;
             }
             sbDraft.name = name;
             if (!hullUnlocked(sbDraft.hull)) {
-                gameAlert(`${HULLS[sbDraft.hull].label} needs Construction ${HULLS[sbDraft.hull].level}.`);
+                gameAlert(`${HULLS[sbDraft.hull].label} needs Construction ${shownLevel(HULLS[sbDraft.hull].level)}.`);
                 return false;
             }
-            for (const s of sbDraft.slots) {
-                if (s && !componentUnlocked(s)) {
-                    gameAlert(`${COMPONENTS[s].label} is not unlocked yet. It needs ${TECH_NAMES[COMPONENTS[s].field]} ${COMPONENTS[s].level}.`);
+            for (const pr of sbParts(sbDraft)) {
+                if (!componentUnlocked(pr[0])) {
+                    gameAlert(`${COMPONENTS[pr[0]].label} is not unlocked yet. It needs ${TECH_NAMES[COMPONENTS[pr[0]].field]} ${shownLevel(COMPONENTS[pr[0]].level)}.`);
                     return false;
                 }
             }
@@ -9619,7 +9883,7 @@ const DEFENDERS_PER_POP=100;
             saveDraft();
             const up = sbMode === 'upgrade';
             const cost = up ? upgradeCost(p, sbDraft) : designCost(sbDraft);
-            const design = { name: sbDraft.name, hull: sbDraft.hull, slots: sbDraft.slots.slice() };
+            const design = { name: sbDraft.name, hull: sbDraft.hull, slots: sbCopySlots(sbDraft.slots) };
             const go = () => {
                 p.productionQueue.push({
                     type: 'starbase',
@@ -9651,14 +9915,42 @@ const DEFENDERS_PER_POP=100;
                     const d = starbaseDesigns.find(x => x.id === parseInt(t.value));
                     sbDraft = d ? copyDraft(d) : blankDraft();
                 }
+                sbSel = 0;
                 renderStarbaseDesigner();
             } else if (t.id === 'sb-hull') {
+                const keep = sbParts(sbDraft);
                 sbDraft.hull = t.value;
-                fitDraftSlots(sbDraft);
+                sbDraft.slots = sbPlace(t.value, keep);
+                sbSel = 0;
                 renderStarbaseDesigner();
-            } else if (t.classList.contains('sb-slot')) {
-                sbDraft.slots[parseInt(t.dataset.i)] = t.value;
-                renderSbStats();
+            } else if (t.id === 'sb-part') {
+                const sl = HULLS[sbDraft.hull].layout[sbSel];
+                const cur = sbDraft.slots[sbSel];
+                sbDraft.slots[sbSel] = t.value ? { p: t.value, n: cur ? Math.min(cur.n, sl.max) : sl.max } : '';
+                renderStarbaseDesigner();
+            } else if (t.id === 'sb-qty') {
+                const cur = sbDraft.slots[sbSel];
+                if (cur) cur.n = parseInt(t.value) || 1;
+                renderStarbaseDesigner();
+            }
+        });
+
+        document.getElementById('starbase-modal').addEventListener('click', (e) => {
+            const cell = e.target.closest('.sbl-cell[data-slot]');
+            if (cell) {
+                sbSel = parseInt(cell.dataset.slot);
+                renderStarbaseDesigner();
+                return;
+            }
+            const b = e.target.closest('button');
+            if (!b) return;
+            if (b.id === 'btn-sb-fill') {
+                const cur = sbDraft.slots[sbSel];
+                if (cur) cur.n = HULLS[sbDraft.hull].layout[sbSel].max;
+                renderStarbaseDesigner();
+            } else if (b.id === 'btn-sb-clear') {
+                sbDraft.slots[sbSel] = '';
+                renderStarbaseDesigner();
             }
         });
 
@@ -9668,6 +9960,7 @@ const DEFENDERS_PER_POP=100;
 
         document.getElementById('btn-sb-new').addEventListener('click', () => {
             sbDraft = blankDraft();
+            sbSel = 0;
             renderStarbaseDesigner();
         });
 
@@ -9689,12 +9982,541 @@ const DEFENDERS_PER_POP=100;
             }
             starbaseDesigns = starbaseDesigns.filter(d => d.id !== sbDraft.id);
             sbDraft = copyDraft(starbaseDesigns[0]);
+            sbSel = 0;
             renderStarbaseDesigner();
         });
 
         document.getElementById('btn-sb-confirm').addEventListener('click', confirmStarbaseDesign);
         document.getElementById('btn-sb-close').addEventListener('click', () => {
             document.getElementById('starbase-modal').classList.remove('active');
+        });
+
+        const SB_DESIGN_FILE_KIND = 'stationDesigns';
+        const MAX_STATION_DESIGNS = 32;
+
+        function sbDesignFileEntry(d) {
+            const c = sbCleanDesign(d);
+            return {
+                name: c.name,
+                hull: c.hull,
+                hullLabel: HULLS[c.hull].label,
+                slots: c.slots.map(s => s ? { p: s.p, n: s.n } : null),
+                parts: sbParts(c).map(pr => COMPONENTS[pr[0]].label + ' x' + pr[1]),
+                cost: designCost(c)
+            };
+        }
+
+        function sbExportDesigns(list, fileName) {
+            if (!list.length) {
+                gameAlert('There is no design to download.');
+                return;
+            }
+            downloadJsonFile(fileName, { game: 'freespace4x', kind: SB_DESIGN_FILE_KIND, version: GAME_VERSION, exported: new Date().toISOString(), designs: list.map(sbDesignFileEntry) });
+        }
+
+        function sbUniqueName(name) {
+            const base = String(name || 'Imported').trim().slice(0, 24) || 'Imported';
+            let n = base;
+            let i = 2;
+            while (starbaseDesigns.some(d => d.name === n)) n = (base + ' (' + i++ + ')').slice(0, 28);
+            return n;
+        }
+
+        function sbDesignBlockers(c) {
+            const out = [];
+            if (!hullUnlocked(c.hull)) out.push(HULLS[c.hull].label + ' needs Construction ' + shownLevel(HULLS[c.hull].level));
+            sbParts(c).forEach(pr => {
+                if (!componentUnlocked(pr[0])) out.push(COMPONENTS[pr[0]].label + ' needs ' + TECH_NAMES[COMPONENTS[pr[0]].field] + ' ' + shownLevel(COMPONENTS[pr[0]].level));
+            });
+            return out;
+        }
+
+        function sbImportDesignsData(data) {
+            const list = data && (data.kind === SB_DESIGN_FILE_KIND || Array.isArray(data.designs)) ? data.designs : (Array.isArray(data) ? data : null);
+            if (!Array.isArray(list) || !list.length) {
+                gameAlert('That file has no space station designs in it. Use a file made with Download Design in the Space Station Design window.');
+                return;
+            }
+            const added = [];
+            const refused = [];
+            let full = 0;
+            list.slice(0, 64).forEach(raw => {
+                if (!raw || typeof raw !== 'object') return;
+                const c = sbCleanDesign(raw);
+                const name = String(raw.name || 'Unnamed').slice(0, 28);
+                if (!c) {
+                    refused.push({ name: name, why: ['uses a hull this game does not know'] });
+                    return;
+                }
+                const why = sbDesignBlockers(c);
+                if (why.length) {
+                    refused.push({ name: name, why: why });
+                    return;
+                }
+                if (starbaseDesigns.length >= MAX_STATION_DESIGNS) {
+                    full++;
+                    return;
+                }
+                const d = { id: nextDesignId++, name: sbUniqueName(name), hull: c.hull, slots: sbCopySlots(c.slots) };
+                starbaseDesigns.push(d);
+                added.push(d.name);
+            });
+            if (added.length) {
+                sbDraft = copyDraft(starbaseDesigns[starbaseDesigns.length - 1]);
+                sbSel = 0;
+                renderStarbaseDesigner();
+            }
+            let html = '';
+            if (added.length) html += '<b style="color:#32cd32;">Added ' + added.length + ':</b> ' + added.map(escapeHtml).join(', ') + '<br>';
+            if (full) html += '<b style="color:#ffd700;">' + full + ' not added:</b> you already have ' + MAX_STATION_DESIGNS + ' saved designs. Delete some and upload again.<br>';
+            if (refused.length) html += '<b style="color:#ff6666;">' + refused.length + ' refused, because you do not have the technology to build ' + (refused.length === 1 ? 'it' : 'them') + ':</b><ul style="margin:6px 0 0 18px;">' + refused.map(r => '<li><b>' + escapeHtml(r.name) + '</b>: ' + r.why.slice(0, 6).map(escapeHtml).join('; ') + '</li>').join('') + '</ul>';
+            gameDialog({ title: refused.length && !added.length ? 'Cannot Build These Designs' : 'Design Upload', html: '<div style="line-height:1.6;font-size:13px;">' + html + '</div>', hideCancel: true });
+        }
+
+        document.getElementById('btn-mgmt-sbdesign').addEventListener('click', openStarbaseTemplates);
+        document.getElementById('btn-sb-export').addEventListener('click', () => {
+            const d = starbaseDesigns.find(x => x.id === sbDraft.id);
+            if (!d) {
+                gameAlert('Save the design first, then download it.');
+                return;
+            }
+            sbExportDesigns([d], 'freespace4x_station_' + safeFileName(d.name) + '.json');
+        });
+        document.getElementById('btn-sb-export-all').addEventListener('click', () => sbExportDesigns(starbaseDesigns, 'freespace4x_stations_' + safeFileName(ownerDisplayName(myEmpireId)) + '.json'));
+        document.getElementById('btn-sb-import').addEventListener('click', () => document.getElementById('sb-import-input').click());
+        document.getElementById('sb-import-input').addEventListener('change', e => readJsonFile(e.target, sbImportDesignsData));
+
+        let stDraft = null;
+        let stSel = 0;
+
+        function stPlanet() {
+            return planets[selectedPlanetIndex];
+        }
+
+        function stDeltaCost(base, draft) {
+            const c = { res: 0, iron: 0, bora: 0, germ: 0 };
+            draft.slots.forEach((s, i) => {
+                if (!s) return;
+                const was = base.slots[i] && base.slots[i].p === s.p ? base.slots[i].n : 0;
+                const add = s.n - was;
+                if (add <= 0) return;
+                const comp = COMPONENTS[s.p];
+                const cc = miniCost(comp.cost, { [comp.field]: comp.level });
+                COST_KEYS.forEach(k => { c[k] += cc[k] * add; });
+            });
+            const m = raceStarbaseCostMult(playerRace);
+            if (m !== 1) COST_KEYS.forEach(k => { c[k] = Math.round(c[k] * m); });
+            return c;
+        }
+
+        function stChanged() {
+            const p = stPlanet();
+            return stDraft.slots.some((s, i) => {
+                const b = p.starbase.slots[i];
+                return (s ? s.p + ':' + s.n : '') !== (b ? b.p + ':' + b.n : '');
+            });
+        }
+
+        function stEditorHtml() {
+            const p = stPlanet();
+            const sl = HULLS[stDraft.hull].layout[stSel];
+            const cat = SB_CATS[sl.cat];
+            const inst = p.starbase.slots[stSel];
+            const cur = stDraft.slots[stSel];
+            const opts = cat.accepts.map(k => {
+                const c = COMPONENTS[k];
+                const ok = componentUnlocked(k);
+                const isCur = !!cur && cur.p === k;
+                return `<option value="${k}" ${isCur ? 'selected' : ''} ${(ok && !inst) || isCur ? '' : 'disabled'}>${escapeHtml(c.label)}${ok ? '' : ' (needs ' + TECH_NAMES[c.field] + ' ' + shownLevel(c.level) + ')'}</option>`;
+            }).join('');
+            let q = '';
+            if (cur) for (let i = inst ? inst.n : 1; i <= sl.max; i++) q += `<option value="${i}" ${i === cur.n ? 'selected' : ''}>${i}</option>`;
+            const extra = cur ? `<label for="st-qty" style="margin:0;">Qty</label><select id="st-qty" style="flex:0 0 76px;">${q}</select><button class="nav-button" id="btn-st-fill" style="width:auto;padding:5px 12px;">Fill</button>${inst ? '' : '<button class="nav-button" id="btn-st-clear" style="width:auto;padding:5px 12px;">Clear</button>'}` : '';
+            const note = inst ? `Built: ${COMPONENTS[inst.p].label} x${inst.n}. You can add more of the same part up to ${sl.max}.` : 'Empty slot. Pick a part to add it.';
+            return `<div class="sb-editor"><div class="sb-ed-title">Slot ${sl.n}: ${cat.label}, holds up to ${sl.max}</div><div class="sb-ed-row"><select id="st-part" ${inst ? 'disabled' : ''}><option value="">Empty</option>${opts}</select>${extra}</div><div style="font-size:11px;color:#aaa;margin-top:6px;">${escapeHtml(note)}</div></div>`;
+        }
+
+        function renderStationManager() {
+            const p = stPlanet();
+            const h = HULLS[stDraft.hull];
+            document.getElementById('st-title').innerText = 'Space Station: ' + p.name;
+            document.getElementById('st-context').innerHTML = `<b>${escapeHtml(p.starbase.name)}</b> (${h.label}). Click a slot to add parts to it. Parts already built cannot be removed here, only added to, and the station keeps working while the upgrade is built. Only one order for a station can be in the queue at a time. Below the map you can also load a design, change the hull, salvage every upgrade or salvage the whole station.`;
+            if (stSel < 0 || stSel >= h.layout.length) stSel = 0;
+            document.getElementById('st-map').innerHTML = sbLayoutHtml(stDraft.hull, { slots: stDraft.slots, sel: stSel }) + stEditorHtml();
+            const now = designStats(p.starbase);
+            const nxt = designStats(stDraft);
+            const cost = stDeltaCost(p.starbase, stDraft);
+            const same = !stChanged();
+            const diff = (a, b) => b === a ? `<b>${b}</b>` : `<b>${a}</b> to <b style="color:#32cd32;">${b}</b>`;
+            document.getElementById('st-stats').innerHTML = `Armor ${diff(now.armor, nxt.armor)} | Shields ${diff(now.shield, nxt.shield)} | Beam attack ${diff(now.beam, nxt.beam)} | Torpedo attack ${diff(now.torpedo, nxt.torpedo)}<br>` +
+                `Scanner: ${diff(now.scan, nxt.scan)} ly normal | Penetrating: ${diff(now.pen, nxt.pen)} ly<br>` +
+                `Ship dock: <b>${escapeHtml(sbDockText(h))}</b><br>` +
+                (same ? 'No changes yet.' : `Upgrade cost: <b style="color:#ffd700;">${costTextFor(cost)}</b>`);
+            document.getElementById('btn-st-queue').disabled = same;
+            document.getElementById('st-load-select').innerHTML = starbaseDesigns.map(d => {
+                const cd = sbCleanDesign(d);
+                const lack = cd ? sbDesignBlockers(cd) : ['unknown hull'];
+                return `<option value="${d.id}" ${lack.length ? 'disabled' : ''}>${escapeHtml(d.name)} (${HULLS[d.hull] ? HULLS[d.hull].label : 'unknown hull'})${lack.length ? ' - needs more tech' : ''}</option>`;
+            }).join('');
+            const hs = document.getElementById('st-hull-select');
+            const prevHull = hs.value;
+            hs.innerHTML = Object.keys(HULLS).filter(k => k !== p.starbase.hull).map(k => `<option value="${k}" ${hullUnlocked(k) ? '' : 'disabled'}>${HULLS[k].label} - ${HULLS[k].slots} slots, ${HULLS[k].dock ? (HULLS[k].dockMax ? HULLS[k].dockMax + ' kT dock' : 'unlimited dock') : 'no dock'}${hullUnlocked(k) ? '' : ' (needs Construction ' + shownLevel(HULLS[k].level) + ')'}</option>`).join('');
+            if (prevHull && Array.prototype.some.call(hs.options, o => o.value === prevHull)) hs.value = prevHull;
+        }
+
+        function stOtherDock(p) {
+            return planets.some(q => q !== p && planetHasDock(q));
+        }
+
+        function stSalvageOf(cost) {
+            const r = { res: 0, iron: 0, bora: 0, germ: 0 };
+            ORE_KEYS.forEach(k => { r[k] = Math.floor((cost[k] || 0) * UPGRADE_CREDIT); });
+            return r;
+        }
+
+        function stRefundText(r) {
+            const t = ORE_KEYS.filter(k => r[k] > 0).map(k => r[k] + ' ' + ORE_NAMES[k]);
+            return t.length ? t.join(', ') : 'no minerals';
+        }
+
+        function stDockWarning(p, keepsDock) {
+            if (!planetHasDock(p) || keepsDock) return '';
+            if (!stOtherDock(p)) return ' <b style="color:#ff6b6b;">Warning: this is your only space station with a ship dock. Without it you will have no way to build ships or refuel your fleets.</b>';
+            return ` ${p.name} will lose Ship Construction and refueling at its dock.`;
+        }
+
+        function stQueuedShips(p) {
+            return (p.productionQueue || []).some(i => i.type === 'ship' || SHIP_KEYS.indexOf(i.type) !== -1 || i.type === 'colony');
+        }
+
+        function stSalvageStation() {
+            const p = stPlanet();
+            const refund = stSalvageOf(designCost(p.starbase));
+            let msg = `Salvage ${p.starbase.name} (${HULLS[p.starbase.hull].label}) at ${p.name}? The station is removed at once and ${stRefundText(refund)} are deposited on the planet.` + stDockWarning(p, false);
+            if (stQueuedShips(p)) msg += ' Ships in this planet\'s build queue cannot be built until it has a dock again.';
+            if (p.gate) msg += ' The stargate stops working without a station.';
+            gameDialog({ title: 'Salvage Station?', html: '<div style="line-height:1.6;font-size:13px;">' + msg + '</div>', okLabel: 'Salvage', onOk: () => {
+                ORE_KEYS.forEach(k => { p[k] += refund[k]; });
+                const name = p.starbase.name;
+                p.hasStarbase = false;
+                p.starbase = null;
+                logEvent(name + ' was salvaged at ' + p.name + ' for ' + stRefundText(refund) + '.');
+                document.getElementById('station-modal').classList.remove('active');
+                updateDashboardPlanetView();
+            } });
+        }
+
+        function stSalvageUpgrades() {
+            const p = stPlanet();
+            const empty = { hull: p.starbase.hull, slots: HULLS[p.starbase.hull].layout.map(() => '') };
+            const full = designCost(p.starbase);
+            const bare = designCost(empty);
+            const parts = {};
+            COST_KEYS.forEach(k => { parts[k] = Math.max(0, full[k] - bare[k]); });
+            if (!sbParts(p.starbase).length) {
+                gameAlert('This station has no upgrades to salvage.');
+                return;
+            }
+            const refund = stSalvageOf(parts);
+            gameConfirm(`Salvage every part on ${p.starbase.name}? The bare ${HULLS[p.starbase.hull].label} hull stays (and keeps its dock), all parts are removed at once, and ${stRefundText(refund)} are deposited on ${p.name}.`, () => {
+                ORE_KEYS.forEach(k => { p[k] += refund[k]; });
+                p.starbase.slots = empty.slots;
+                logEvent('All upgrades on ' + p.starbase.name + ' were salvaged at ' + p.name + ' for ' + stRefundText(refund) + '.');
+                document.getElementById('station-modal').classList.remove('active');
+                updateDashboardPlanetView();
+            }, 'Salvage All Upgrades?', 'Salvage');
+        }
+
+        function stHullCost(oldKey, newKey) {
+            const nh = HULLS[newKey];
+            const oh = HULLS[oldKey];
+            const nc = miniCost(nh.cost, { construction: nh.level });
+            const oc = miniCost(oh.cost, { construction: oh.level });
+            const c = {};
+            COST_KEYS.forEach(k => { c[k] = Math.max(0, nc[k] - Math.floor(oc[k] * UPGRADE_CREDIT)); });
+            const m = raceStarbaseCostMult(playerRace);
+            if (m !== 1) COST_KEYS.forEach(k => { c[k] = Math.round(c[k] * m); });
+            c.res = Math.max(c.res, 10);
+            return c;
+        }
+
+        function stChangeHull() {
+            const p = stPlanet();
+            const key = document.getElementById('st-hull-select').value;
+            if (!HULLS[key] || key === p.starbase.hull) return;
+            if (!hullUnlocked(key)) {
+                gameAlert(`${HULLS[key].label} needs Construction ${shownLevel(HULLS[key].level)}.`);
+                return;
+            }
+            const have = sbParts(p.starbase);
+            const slots = sbPlace(key, have);
+            const kept = {};
+            sbParts({ slots: slots }).forEach(pr => { kept[pr[0]] = (kept[pr[0]] || 0) + pr[1]; });
+            const lost = [];
+            const lostCost = { res: 0, iron: 0, bora: 0, germ: 0 };
+            const total = {};
+            have.forEach(pr => { total[pr[0]] = (total[pr[0]] || 0) + pr[1]; });
+            Object.keys(total).forEach(k => {
+                const gone = total[k] - (kept[k] || 0);
+                if (gone <= 0) return;
+                const comp = COMPONENTS[k];
+                const cc = miniCost(comp.cost, { [comp.field]: comp.level });
+                COST_KEYS.forEach(c => { lostCost[c] += cc[c] * gone; });
+                lost.push(comp.label + ' x' + gone);
+            });
+            const m = raceStarbaseCostMult(playerRace);
+            if (m !== 1) COST_KEYS.forEach(c => { lostCost[c] = Math.round(lostCost[c] * m); });
+            const refund = stSalvageOf(lostCost);
+            const cost = stHullCost(p.starbase.hull, key);
+            const keepsDock = HULLS[key].dock;
+            let msg = `Change ${p.starbase.name} from ${HULLS[p.starbase.hull].label} to ${HULLS[key].label}? Cost: ${costTextFor(cost)} (the new hull minus half the old hull). Parts that fit are moved for free. `;
+            msg += lost.length ? `These parts do not fit and are salvaged when the new hull is finished: ${lost.join(', ')}, returning ${stRefundText(refund)}. ` : 'Every part fits. ';
+            msg += 'The old station keeps working until the new one is finished.' + stDockWarning(p, keepsDock);
+            const design = { name: p.starbase.name, hull: key, slots: slots };
+            gameDialog({ title: 'Change Hull?', html: '<div style="line-height:1.6;font-size:13px;">' + msg + '</div>', okLabel: 'Queue It', onOk: () => {
+                stQueue(design, cost, 'Change hull to ' + HULLS[key].label, `Queued a hull change to ${HULLS[key].label} on ${p.name}.`);
+                const it = p.productionQueue[p.productionQueue.length - 1];
+                if (lost.length) it.refund = refund;
+            } });
+        }
+
+        function openStationManager() {
+            const p = stPlanet();
+            if (p.owner !== myEmpireId || !p.hasStarbase || !p.starbase || !HULLS[p.starbase.hull]) {
+                gameAlert('This planet has no space station you can manage.');
+                return;
+            }
+            if (hasStarbaseOrder(p)) {
+                gameAlert(`An order for an orbital installation is already in the build queue on ${p.name}.`);
+                return;
+            }
+            stDraft = { hull: p.starbase.hull, slots: sbCopySlots(p.starbase.slots) };
+            stSel = 0;
+            renderStationManager();
+            document.getElementById('station-modal').classList.add('active');
+        }
+
+        function stQueue(design, cost, label, done) {
+            const p = stPlanet();
+            p.productionQueue.push({ type: 'starbase', quantity: 1, paid: null, cost: cost, label: label, design: design, upgrade: true });
+            document.getElementById('station-modal').classList.remove('active');
+            updateDashboardPlanetView();
+            gameAlert(done + ' Cost: ' + costTextFor(cost) + '.');
+        }
+
+        function stQueueUpgrades() {
+            const p = stPlanet();
+            if (!stChanged()) return;
+            for (const pr of sbParts(stDraft)) {
+                if (!componentUnlocked(pr[0])) {
+                    gameAlert(`${COMPONENTS[pr[0]].label} is not unlocked yet. It needs ${TECH_NAMES[COMPONENTS[pr[0]].field]} ${shownLevel(COMPONENTS[pr[0]].level)}.`);
+                    return;
+                }
+            }
+            const cost = stDeltaCost(p.starbase, stDraft);
+            cost.res = Math.max(cost.res, 10);
+            const design = { name: p.starbase.name, hull: stDraft.hull, slots: sbCopySlots(stDraft.slots) };
+            stQueue(design, cost, 'Upgrade ' + design.name, `Queued upgrades to ${design.name} on ${p.name}.`);
+        }
+
+        function stTotals(slots) {
+            const t = {};
+            sbParts({ slots: slots }).forEach(pr => { t[pr[0]] = (t[pr[0]] || 0) + pr[1]; });
+            return t;
+        }
+
+        function stPartsCost(totals) {
+            const c = { res: 0, iron: 0, bora: 0, germ: 0 };
+            Object.keys(totals).forEach(k => {
+                if (!(totals[k] > 0)) return;
+                const comp = COMPONENTS[k];
+                const cc = miniCost(comp.cost, { [comp.field]: comp.level });
+                COST_KEYS.forEach(x => { c[x] += cc[x] * totals[k]; });
+            });
+            const m = raceStarbaseCostMult(playerRace);
+            if (m !== 1) COST_KEYS.forEach(x => { c[x] = Math.round(c[x] * m); });
+            return c;
+        }
+
+        function stPartsText(totals) {
+            const t = Object.keys(totals).filter(k => totals[k] > 0).map(k => COMPONENTS[k].label + ' x' + totals[k]);
+            return t.length ? t.join(', ') : 'nothing';
+        }
+
+        function stSlotDiff(baseSlots, targetSlots) {
+            const add = {};
+            const gone = {};
+            targetSlots.forEach((t, i) => {
+                const b = baseSlots[i];
+                const bp = b ? b.p : '';
+                const bn = b ? b.n : 0;
+                const tp = t ? t.p : '';
+                const tn = t ? t.n : 0;
+                if (bp === tp) {
+                    if (tn > bn) add[tp] = (add[tp] || 0) + tn - bn;
+                    if (bn > tn) gone[bp] = (gone[bp] || 0) + bn - tn;
+                } else {
+                    if (tp) add[tp] = (add[tp] || 0) + tn;
+                    if (bp) gone[bp] = (gone[bp] || 0) + bn;
+                }
+            });
+            return { add: add, gone: gone };
+        }
+
+        function stHasAny(totals) {
+            return Object.keys(totals).some(k => totals[k] > 0);
+        }
+
+        function stHasMinerals(r) {
+            return ORE_KEYS.some(k => r[k] > 0);
+        }
+
+        function stLoadPlan(p, c) {
+            const cur = p.starbase;
+            const steps = [];
+            let base = cur.slots;
+            if (c.hull !== cur.hull) {
+                const keep = HULLS[c.hull].layout.map(() => '');
+                const spare = stTotals(cur.slots);
+                c.slots.forEach((t, i) => {
+                    if (!t) return;
+                    const take = Math.min(t.n, spare[t.p] || 0);
+                    if (take <= 0) return;
+                    keep[i] = { p: t.p, n: take };
+                    spare[t.p] -= take;
+                });
+                steps.push({
+                    kind: 'hull',
+                    design: { name: cur.name, hull: c.hull, slots: keep },
+                    cost: stHullCost(cur.hull, c.hull),
+                    refund: stSalvageOf(stPartsCost(spare)),
+                    dropped: spare,
+                    added: {},
+                    label: 'Change hull to ' + HULLS[c.hull].label
+                });
+                base = keep;
+            }
+            const diff = stSlotDiff(base, c.slots);
+            if (stHasAny(diff.add) || stHasAny(diff.gone)) {
+                const cost = stPartsCost(diff.add);
+                cost.res = Math.max(cost.res, 10);
+                steps.push({
+                    kind: 'parts',
+                    design: { name: c.name, hull: c.hull, slots: sbCopySlots(c.slots) },
+                    cost: cost,
+                    refund: stSalvageOf(stPartsCost(diff.gone)),
+                    dropped: diff.gone,
+                    added: diff.add,
+                    label: 'Upgrade to ' + c.name,
+                    needsHull: steps.length ? c.hull : null
+                });
+            } else if (steps.length) {
+                steps[0].design.name = c.name;
+                steps[0].label = 'Change hull to ' + HULLS[c.hull].label + ' (' + c.name + ')';
+            }
+            return steps;
+        }
+
+        function stStepText(st, cur) {
+            let t;
+            if (st.kind === 'hull') {
+                t = `<b>Change hull</b> from ${HULLS[cur.hull].label} to ${HULLS[st.design.hull].label}: ${costTextFor(st.cost)} (the new hull minus half the old hull). Parts that already match the design move for free.`;
+                if (stHasAny(st.dropped)) t += ` Parts the design does not use are salvaged when it finishes: ${stPartsText(st.dropped)}, returning ${stRefundText(st.refund)}.`;
+            } else {
+                t = `<b>Upgrade parts</b> to match ${escapeHtml(st.design.name)}: ${costTextFor(st.cost)}.`;
+                if (stHasAny(st.added)) t += ` Adds ${stPartsText(st.added)}.`;
+                if (stHasAny(st.dropped)) t += ` Replaced or removed parts are salvaged when it finishes: ${stPartsText(st.dropped)}, returning ${stRefundText(st.refund)}.`;
+                if (st.needsHull) t += ' It starts after the hull change is finished.';
+            }
+            return t;
+        }
+
+        function stQueueSteps(p, steps) {
+            steps.forEach(st => {
+                const item = { type: 'starbase', quantity: 1, paid: null, cost: st.cost, label: st.label, design: st.design, upgrade: true };
+                if (stHasMinerals(st.refund)) item.refund = st.refund;
+                if (st.needsHull) item.needsHull = st.needsHull;
+                p.productionQueue.push(item);
+            });
+            document.getElementById('station-modal').classList.remove('active');
+            updateDashboardPlanetView();
+            const total = { res: 0, iron: 0, bora: 0, germ: 0 };
+            steps.forEach(st => COST_KEYS.forEach(k => { total[k] += st.cost[k]; }));
+            gameAlert(`Queued ${steps.length === 1 ? '1 order' : steps.length + ' orders'} on ${p.name}: ${steps.map(st => st.label).join(', then ')}. Total cost: ${costTextFor(total)}.`);
+        }
+
+        function stLoadDesign() {
+            const p = stPlanet();
+            const d = starbaseDesigns.find(x => x.id === parseInt(document.getElementById('st-load-select').value));
+            if (!d) return;
+            const c = sbCleanDesign(d);
+            if (!c) {
+                gameAlert('That design uses a hull this game does not know.');
+                return;
+            }
+            const why = sbDesignBlockers(c);
+            if (why.length) {
+                gameAlert('You cannot build ' + d.name + ' yet: ' + why.join('; ') + '.');
+                return;
+            }
+            const steps = stLoadPlan(p, c);
+            if (!steps.length) {
+                gameAlert(p.starbase.name + ' already matches ' + d.name + '. There is nothing to queue.');
+                return;
+            }
+            const total = { res: 0, iron: 0, bora: 0, germ: 0 };
+            steps.forEach(st => COST_KEYS.forEach(k => { total[k] += st.cost[k]; }));
+            const warn = stDockWarning(p, HULLS[c.hull].dock);
+            const list = '<ol style="margin:6px 0 6px 18px;">' + steps.map(st => '<li>' + stStepText(st, p.starbase) + '</li>').join('') + '</ol>';
+            const msg = `Load ${escapeHtml(c.name)} (${HULLS[c.hull].label}) onto ${escapeHtml(p.starbase.name)}? This queues ${steps.length === 1 ? 'one order' : steps.length + ' orders'} on ${escapeHtml(p.name)}:${list}Total cost: <b style="color:#ffd700;">${costTextFor(total)}</b>. The old station keeps working until each order is finished.${warn}`;
+            gameDialog({ title: 'Load Design?', html: '<div style="line-height:1.6;font-size:13px;">' + msg + '</div>', okLabel: 'Queue It', onOk: () => stQueueSteps(p, steps) });
+        }
+
+        document.getElementById('station-modal').addEventListener('change', (e) => {
+            const t = e.target;
+            const sl = HULLS[stDraft.hull].layout[stSel];
+            if (t.id === 'st-part') {
+                stDraft.slots[stSel] = t.value ? { p: t.value, n: sl.max } : '';
+                renderStationManager();
+            } else if (t.id === 'st-qty') {
+                const cur = stDraft.slots[stSel];
+                if (cur) cur.n = parseInt(t.value) || cur.n;
+                renderStationManager();
+            }
+        });
+
+        document.getElementById('station-modal').addEventListener('click', (e) => {
+            const cell = e.target.closest('.sbl-cell[data-slot]');
+            if (cell) {
+                stSel = parseInt(cell.dataset.slot);
+                renderStationManager();
+                return;
+            }
+            const b = e.target.closest('button');
+            if (!b) return;
+            if (b.id === 'btn-st-fill') {
+                const cur = stDraft.slots[stSel];
+                if (cur) cur.n = HULLS[stDraft.hull].layout[stSel].max;
+                renderStationManager();
+            } else if (b.id === 'btn-st-clear') {
+                stDraft.slots[stSel] = '';
+                renderStationManager();
+            }
+        });
+
+        document.getElementById('btn-st-reset').addEventListener('click', () => {
+            stDraft.slots = sbCopySlots(stPlanet().starbase.slots);
+            renderStationManager();
+        });
+        document.getElementById('btn-st-queue').addEventListener('click', stQueueUpgrades);
+        document.getElementById('btn-st-load').addEventListener('click', stLoadDesign);
+        document.getElementById('btn-st-hull').addEventListener('click', stChangeHull);
+        document.getElementById('btn-st-strip').addEventListener('click', stSalvageUpgrades);
+        document.getElementById('btn-st-salvage').addEventListener('click', stSalvageStation);
+        document.getElementById('btn-st-close').addEventListener('click', () => document.getElementById('station-modal').classList.remove('active'));
+        document.getElementById('btn-st-designer').addEventListener('click', () => {
+            document.getElementById('station-modal').classList.remove('active');
+            openStarbaseTemplates();
         });
 
         function syncMeasureUi() {
@@ -11479,7 +12301,7 @@ const DEFENDERS_PER_POP=100;
             { key: 'mech', label: 'Mechanical', desc: 'Cargo pods, fuel tanks, colonization modules, mining robots, terraformers, jets and other mechanical parts.' },
             { key: 'mine', label: 'Mine Layers', desc: 'Mine dispensers and speed traps lay minefields. Standard and heavy fields damage ships that cross them above their safe warp; speed traps halt them.' },
             { key: 'hull', label: 'Ship Hulls', desc: 'A hull sets a ship\'s mass, armor, fuel tank, cargo hold and the slots its parts go in.' },
-            { key: 'sbhull', label: 'Space Station and Starbase Hulls', desc: 'Stations and starbases orbit planets. With a ship dock they build ships; they also scan and fight.' },
+            { key: 'sbhull', label: 'Space Station and Starbase Hulls', desc: 'Stations and starbases orbit planets. With a ship dock they build ships; they also scan and fight. Each hull is a map of typed slots (Weapon, Shield, Shield or Armor, Electrical, Orbital or Electrical), and each slot holds up to a set number of one part.' },
             { key: 'sbcomp', label: 'Starbase Components', desc: 'Parts that fill the slots of space station and starbase hulls.' },
             { key: 'planetscan', label: 'Planetary Scanners', desc: 'Every planet has a free scanner that improves by itself as your Electronics rises.' },
             { key: 'gate', label: 'Stargates', desc: 'A stargate on a planet with a starbase moves fleets to another stargate inside its mass and range limits.' },
@@ -11680,11 +12502,13 @@ const DEFENDERS_PER_POP=100;
             const h = HULLS[k];
             const req = h.level > 1 ? { construction: h.level } : {};
             const miss = tbMissing(req, lv);
+            const notes = ['Cost shown is before any race starbase cost adjustment.', 'The picture shows every slot on the hull: its type, how many parts it holds at most, and its slot number. The same map is used in the Starbase Designer.'];
+            if (h.dockMax) notes.push('The dock only builds ships up to ' + h.dockMax + ' kT.');
             return tbItem({
                 id: 'sbhull:' + k, name: h.label, group: 'sbhull', req: req, cost: miniCost(h.cost, { construction: h.level }), base: h.cost,
-                stats: [['Type', KIND_NAMES[h.kind]], ['Slots', h.slots], ['Armor', h.armor], ['Ship dock', h.dock ? 'Yes, builds ships' : 'No dock']],
-                notes: ['Cost shown is before any race starbase cost adjustment.'], avail: !miss.length, why: miss.length ? ['Needs ' + miss.join(', ') + '.'] : [],
-                spec: { g: 'sbhull', f: h, t: tbTier(req), key: k }
+                stats: [['Type', KIND_NAMES[h.kind]], ['Slots', h.slots], ['Armor', h.armor], ['Ship dock', sbDockText(h)], ['Slot layout', sbSlotSummary(h)]],
+                notes: notes, avail: !miss.length, why: miss.length ? ['Needs ' + miss.join(', ') + '.'] : [],
+                spec: { g: 'sbhull', f: h, t: tbTier(req), key: k }, extra: sbSlotSummary(h), layoutHull: k
             });
         }
 
@@ -11702,7 +12526,7 @@ const DEFENDERS_PER_POP=100;
             const g = c.armor ? 'armor' : c.beam ? 'beam' : c.shield ? 'shield' : c.torpedo ? 'torpedo' : 'scanner';
             return tbItem({
                 id: 'sbcomp:' + k, name: c.label, group: 'sbcomp', req: req, cost: miniCost(c.cost, { [c.field]: c.level }), base: c.cost,
-                stats: stats, notes: ['Goes in a slot of a space station or starbase hull.'], avail: !miss.length, why: miss.length ? ['Needs ' + miss.join(', ') + '.'] : [],
+                stats: stats.concat([['Fits slots', Object.keys(SB_CATS).filter(ck => sbSlotAccepts(ck, k)).map(ck => SB_CATS[ck].label).join(', ')]]), notes: ['Goes in a slot of a space station or starbase hull. A slot holds one kind of part, up to the limit shown on the slot.'], avail: !miss.length, why: miss.length ? ['Needs ' + miss.join(', ') + '.'] : [],
                 spec: { g: g, f: { range: c.scan || c.pen || 0, pen: c.pen, cloak: 0 }, t: tbTier(req) }
             });
         }
@@ -11935,15 +12759,18 @@ const DEFENDERS_PER_POP=100;
                     break;
                 }
                 case 'sbhull': {
-                    const slots = f.slots || 4;
-                    if (sp.key === 'fort') o += `<rect x="14" y="14" width="36" height="36" fill="${d}" stroke="${c}" stroke-width="3"/>` + [[8, 8], [48, 8], [8, 48], [48, 48]].map(p => `<rect x="${p[0]}" y="${p[1]}" width="8" height="8" fill="${c}"/>`).join('') + `<circle cx="32" cy="32" r="8" fill="${l}"/>`;
-                    else {
-                        const big = f.kind === 'starbase';
-                        o += `<circle cx="32" cy="32" r="${big ? 22 : 18}" fill="${d}" stroke="${c}" stroke-width="3"/><circle cx="32" cy="32" r="${big ? 9 : 7}" fill="${c}"/>`;
-                        for (let i = 0; i < slots; i++) o += `<circle cx="${(32 + Math.cos(i / slots * 6.2832) * (big ? 22 : 18)).toFixed(1)}" cy="${(32 + Math.sin(i / slots * 6.2832) * (big ? 22 : 18)).toFixed(1)}" r="2.4" fill="${l}"/>`;
-                        if (f.dock) o += `<rect x="28" y="2" width="8" height="8" fill="${l}"/>`;
-                        if (f.level >= 10) o += `<circle cx="32" cy="32" r="29" fill="none" stroke="${c}" stroke-width="1.5" stroke-dasharray="3 3"/>`;
-                    }
+                    const lay = f.layout || [];
+                    let W = 2;
+                    let H = 2;
+                    lay.forEach(s => { W = Math.max(W, s.x + 2); H = Math.max(H, s.y + 2); });
+                    if (f.dockCell) { W = Math.max(W, f.dockCell.x + 2); H = Math.max(H, f.dockCell.y + 2); }
+                    const u = Math.min(54 / W, 50 / H);
+                    const ox = 32 - W * u / 2;
+                    const oy = 30 - H * u / 2;
+                    lay.forEach(s => {
+                        o += `<rect x="${(ox + s.x * u + 0.3).toFixed(1)}" y="${(oy + s.y * u + 0.3).toFixed(1)}" width="${(2 * u - 0.6).toFixed(1)}" height="${(2 * u - 0.6).toFixed(1)}" fill="${SB_CATS[s.cat].color}" stroke="${d}" stroke-width="0.6"/>`;
+                    });
+                    if (f.dockCell) o += `<rect x="${(ox + f.dockCell.x * u + 0.3).toFixed(1)}" y="${(oy + f.dockCell.y * u + 0.3).toFixed(1)}" width="${(2 * u - 0.6).toFixed(1)}" height="${(2 * u - 0.6).toFixed(1)}" fill="#f4f4f4" stroke="${d}" stroke-width="0.6"/>`;
                     break;
                 }
                 case 'gate': {
@@ -12018,6 +12845,7 @@ const DEFENDERS_PER_POP=100;
             h += rows.length ? rows.map(x => `<div style="padding-left:10px;">${TB_SHORT[x.k]}: <b>${x.need}</b></div>`).join('') : '<div style="padding-left:10px;">None</div>';
             h += `<div style="margin-top:8px;font-weight:bold;color:${it.avail ? '#32cd32' : '#ff6b6b'};">${it.avail ? 'Available' : 'Not available'}</div></div>`;
             h += '<div class="tb-stats"><table>' + it.stats.map(s => `<tr><td>${escapeHtml(s[0])}</td><td>${escapeHtml(s[1])}</td></tr>`).join('') + '</table></div></div>';
+            if (it.layoutHull) h += `<div class="sbl-section"><div style="font-weight:bold;color:#fff;margin:8px 0 2px;">Slot layout</div>${sbLayoutHtml(it.layoutHull, { unit: 42 })}</div>`;
             if (it.chart) h += `<div class="tb-chart">${tbEngineChart(it.chart)}<div style="font-size:11px;color:#aaa;padding:2px 6px;">Fuel use per warp (percent): ${it.chart.eff.map((v, n) => 'W' + (n + 1) + ' ' + v).join(', ')}. The blue number is the free warp.${it.chart.warp10Safe ? '' : ' The dotted column is Warp 10, where ships can be lost.'}</div></div>`;
             h += '<div class="tb-notes">';
             if (!it.avail) it.why.forEach(w => { h += `<div class="tb-warn">${escapeHtml(w)}</div>`; });
@@ -12077,6 +12905,7 @@ const DEFENDERS_PER_POP=100;
 
         document.getElementById('btn-mgmt-techbrowser').addEventListener('click', openTechBrowser);
         document.getElementById('btn-tb-close').addEventListener('click', closeTechBrowser);
+        document.getElementById('btn-tb-close-top').addEventListener('click', closeTechBrowser);
         document.getElementById('tb-prev').addEventListener('click', () => tbStep(-1));
         document.getElementById('tb-next').addEventListener('click', () => tbStep(1));
         document.getElementById('tb-cat').addEventListener('change', (e) => {
@@ -12255,13 +13084,13 @@ const DEFENDERS_PER_POP=100;
             const h = HULLS[p.starbase.hull];
             const wm = 1 + (ownerWeaponsLevel(p.owner) - 1) * 0.1;
             const info = { armor: h.armor, shield: 0, weapons: [] };
-            (p.starbase.slots || []).forEach(key => {
-                const c = COMPONENTS[key];
-                if (!c) return;
-                if (c.armor) info.armor += c.armor;
-                if (c.shield) info.shield += c.shield;
-                if (c.beam) info.weapons.push({ kind: 'beam', name: 'Starbase Beam', power: Math.round(c.beam * wm), range: 3, init: 8, perShip: 1 });
-                if (c.torpedo) info.weapons.push({ kind: 'torp', name: 'Capital Torpedo', power: Math.round(c.torpedo * wm), range: 4, acc: 70, init: 1, perShip: 1 });
+            sbParts(p.starbase).forEach(pr => {
+                const c = COMPONENTS[pr[0]];
+                const q = pr[1];
+                if (c.armor) info.armor += c.armor * q;
+                if (c.shield) info.shield += c.shield * q;
+                if (c.beam) info.weapons.push({ kind: 'beam', name: 'Starbase Beam', power: Math.round(c.beam * wm), range: 3, init: 8, perShip: q });
+                if (c.torpedo) info.weapons.push({ kind: 'torp', name: 'Capital Torpedo', power: Math.round(c.torpedo * wm), range: 4, acc: 70, init: 1, perShip: q });
             });
             return info;
         }
@@ -14234,6 +15063,54 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.87.0', d: 'Oct 4, 2026 2:47 PM', t: "Technology Browser Title Bar Fixed", items: [
+                "The Technology Browser's Close button in the title bar now stays fully in view while you scroll. Before, the title bar shared a style with the picture and cost row of each item, which could push the button partly out of sight and give the item page the same stuck-to-the-top look.",
+                "The item page (picture, costs and mass) is back to its normal layout.",
+                "Help: Technology Browser updated."
+            ] },
+            { v: '0.86.0', d: 'Oct 4, 2026 2:49 PM', t: "Close Button at the Top of the Technology Browser", items: [
+                "The Technology Browser now has a Close button in its top bar that stays in view while you scroll, so you no longer have to scroll to the bottom to leave. The Close button at the bottom is still there, and Escape still works.",
+                "Help: Technology Browser updated."
+            ] },
+            { v: '0.85.0', d: 'Oct 4, 2026 2:38 PM', t: "Load a Design Queues the Hull Change and Upgrades", items: [
+                "Load a Design in the Space Station window no longer queues one big replacement. It compares the saved design with the station and queues what is needed: a Change hull order when the hull is different, and an Upgrade order for the parts that differ.",
+                "Parts the design also uses move to the new hull for free. You pay only for new parts, and parts that are replaced, lowered or unused are salvaged when the order finishes, returning half their minerals.",
+                "When there are two orders, the upgrade waits until the hull change is done, even if minerals arrive for it first. A window lists each order with its cost and refund before you queue it, with the same only-dock warning as Change Hull.",
+                "Designs you lack the tech for are greyed out in the Load a Design list. Space Station Design uploads were already refused for missing tech and still are.",
+                "A design that already matches the station queues nothing.",
+                "Help: Upgrading a Space Station or Starbase updated."
+            ] },
+            { v: '0.84.0', d: 'Oct 4, 2026 2:28 PM', t: "Salvage and Change Hull for Space Stations (Phase 3 of 3)", items: [
+                "The Space Station window on a planet gained Salvage Station, Salvage All Upgrades and Change Hull.",
+                "Salvage Station removes the station at once and deposits half of its Ironium, Boranium and Germanium on the planet. If it is your only station with a ship dock, a warning says you would have no way to build ships or refuel fleets. The window also warns about queued ships and a stargate that stops working.",
+                "Salvage All Upgrades removes every part at once, keeps the bare hull and its dock, and deposits half of the parts' minerals on the planet.",
+                "Change Hull queues a switch to another unlocked hull. It costs the new hull minus half the old hull, parts that fit are moved for free, and parts that do not fit are salvaged when the new hull finishes, returning half their minerals. You get the same only-dock warning if the new hull has no dock.",
+                "Space station management is now complete: design templates in Management, and upgrades, Load a Design, salvage and hull change from the Space Station button on a planet.",
+                "Help: Upgrading a Space Station or Starbase updated."
+            ] },
+            { v: '0.83.0', d: 'Oct 4, 2026 2:26 PM', t: "Space Station Button on Planets (Phase 2 of 3)", items: [
+                "The Upgrade Space Station and Upgrade Starbase buttons are now one button called Space Station, shown in the Planet menu of any planet of yours that has a station or starbase.",
+                "It opens the station's slot map. Click a slot to add a part or more of a part already built there, up to the slot's limit. Parts already built cannot be removed yet. The window shows armor, shields, weapons and scanner range before and after, and the upgrade costs only the parts you add.",
+                "Load a Design replaces the station with any saved Space Station Design for its cost minus half the value of the old station, and warns you if the new hull has no ship dock. Open Space Station Design jumps to the template designer.",
+                "Upgrades are queued as one order. The station keeps working until the order is finished, and only one station order can be in the queue on a planet.",
+                "Coming next: salvage the station or all its upgrades, and change the station hull.",
+                "Help: The Planet Menu, Space Stations and Starbases and Upgrading a Space Station or Starbase updated."
+            ] },
+            { v: '0.82.0', d: 'Oct 4, 2026 2:24 PM', t: "Space Station Design in the Management Menu (Phase 1 of 3)", items: [
+                "New Management, Space Station Design opens the station designer without needing a planet. Build space station templates: pick a hull, fill its slots, name it and save it. Saved designs can be used on any planet.",
+                "Download This Design and Download All Designs save station designs to a JSON file, and Upload Designs reads them back, the same way ship designs work. Designs that need technology you do not have yet are refused with the reason. Up to 32 designs can be kept.",
+                "Coming next: a Space Station button on planets that have a station (queue upgrades, load a design), then salvaging a station or its upgrades and changing the station hull.",
+                "Help: Space Stations and Starbases updated."
+            ] },
+            { v: '0.81.0', d: 'Oct 4, 2026 8:59 AM', t: "Space Station and Starbase Hull Layouts", items: [
+                "The five orbital hulls now follow the supplied slot maps: Orbital Fort (5 slots, no dock), Space Dock (8 slots, 200 kT dock), Space Station (12 slots), Ultra Station (16 slots) and Death Star (16 slots, the strongest). The Heavy Starbase hull is gone; old Heavy Starbase designs and installed bases become Space Docks.",
+                "Every slot has a type (Weapon, Shield, Shield or Armor, Electrical, Orbital or Electrical) and a limit on how many parts it holds, such as Up to 32. A slot holds one kind of part in any quantity up to its limit, and cost, armor, shields, weapons and scanners all scale with the quantity.",
+                "The Starbase Designer (Planet menu, Upgrade Space Station or Upgrade Starbase, and new installations) now shows the hull as a map. Click a slot, then choose its part and quantity, or use Fill and Clear. Changing hull carries your parts over where they fit. Existing designs and saved games are converted automatically.",
+                "A Space Dock can only build ships up to 200 kT. Heavier designs are greyed out in Ship Construction with a note, and the AI skips them there.",
+                "The Technology Browser draws the full slot map for every space station and starbase hull (type, limit and slot number on each slot), with a small map as the list picture, and each starbase component says which slot types it fits.",
+                "Designer messages now show tech levels the same way the Research screen does (the number you see, not the internal one).",
+                "Help: Space Stations and Starbases, Technology Browser and The Planet Menu updated."
+            ] },
             { v: '0.80.0', d: 'Oct 4, 2026 7:41 AM', t: "Technology Browser", items: [
                 "New Management, Technology Browser lists every technology in the game with a picture, cost, mass, tech requirements and stats: engines, beams, torpedoes, bombs, shields, armor, scanners, cloaks, electrical and mechanical parts, mine layers, ship hulls, station and starbase hulls and components, planetary scanners, stargates, mass drivers, planet installations and Mystery Trader items.",
                 "Pick a category from the drop-down and step through it with Prev and Next (or the arrow keys), search by name, stat, tech requirement or race trait, sort by category, tech level, name, cost or mass, and tick Show Only Available Technology to hide what you cannot build yet.",
@@ -16946,12 +17823,11 @@ const DEFENDERS_PER_POP=100;
             const showPacket = owned && (p.md || 0) > 0;
             document.getElementById('btn-fire-packet').style.display = showPacket ? 'block' : 'none';
             const kind = owned ? installationKind(p) : null;
-            const showUpStation = kind === 'station';
-            const showUpStarbase = kind === 'starbase';
+            const showUpStation = !!kind;
+            const showUpStarbase = false;
             document.getElementById('btn-build-item').style.display = showStructures ? 'block' : 'none';
             document.getElementById('btn-ship-construction').style.display = showShips ? 'block' : 'none';
             document.getElementById('btn-upgrade-station').style.display = showUpStation ? 'block' : 'none';
-            document.getElementById('btn-upgrade-starbase').style.display = showUpStarbase ? 'block' : 'none';
             const dd = document.getElementById('manufacturing-dropdown');
             const any = showStructures || showShips || showUpStation || showUpStarbase || showPacket;
             dd.style.display = any ? 'inline-block' : 'none';
@@ -17875,6 +18751,7 @@ const DEFENDERS_PER_POP=100;
         function aiQueueShip(pi, design, qty) {
             if (!design) return;
             const si = designInfo(design);
+            if (si.mass > planetDockLimit(planets[pi])) return;
             addToQueue(pi, 'ship', qty || 1, { design: design.id, cost: { res: si.cost.res, iron: si.cost.iron, bora: si.cost.bora, germ: si.cost.germ }, label: design.name });
         }
 
@@ -20236,7 +21113,7 @@ const DEFENDERS_PER_POP=100;
         const MP_POLL_MS = 15000;
         const MP_POLL_BLITZ_MS = 5000;
         const MP_AUTO_RETRY_MS = 20000;
-        const MP_BLOCK_CLICK = '.q-act, .ab-act, #btn-confirm-build, #btn-sb-confirm, #btn-sb-save, #btn-sb-delete, #btn-cargo-apply, #btn-sd-import, #btn-auto-import, #btn-ab-import, #btn-xfer-apply, #btn-wp-guard, #btn-wp-unguard, #btn-th-apply, #btn-fleet-task-here, #btn-wp-add-star, #btn-wp-clear, .wp-remove, .wp-zip-save, #btn-wp-stop-patrol, #btn-wp-jettison, #q-route-apply, #btn-bp-copy, #btn-bp-rename, #btn-bp-delete, #btn-save-economy, #btn-merge-fleets, #fleet-context-actions [data-action], #btn-move-fleet-to-system, #btn-sd-save, #btn-sd-saveas, #btn-sd-delete, #btn-sd-obsolete, #btn-fm-split, #btn-fm-scrap, .fm-refit';
+        const MP_BLOCK_CLICK = '.q-act, .ab-act, #btn-confirm-build, #btn-sb-confirm, #btn-sb-save, #btn-sb-delete, #btn-cargo-apply, #btn-sd-import, #btn-sb-import, #btn-st-queue, #btn-st-load, #btn-st-hull, #btn-st-strip, #btn-st-salvage, #btn-auto-import, #btn-ab-import, #btn-xfer-apply, #btn-wp-guard, #btn-wp-unguard, #btn-th-apply, #btn-fleet-task-here, #btn-wp-add-star, #btn-wp-clear, .wp-remove, .wp-zip-save, #btn-wp-stop-patrol, #btn-wp-jettison, #q-route-apply, #btn-bp-copy, #btn-bp-rename, #btn-bp-delete, #btn-save-economy, #btn-merge-fleets, #fleet-context-actions [data-action], #btn-move-fleet-to-system, #btn-sd-save, #btn-sd-saveas, #btn-sd-delete, #btn-sd-obsolete, #btn-fm-split, #btn-fm-scrap, .fm-refit';
         const MP_BLOCK_CHANGE = '#fleet-plan, .bp-field, .wp-warp, .wp-task, .wp-cargo-a, .wp-cargo-n, .wp-zip, .wp-patrol, #wp-repeat, #q-route, #wp-fleet-name, .fm-name, #fm-fleet-name, #research-focus, #research-next, #q-planet-auto, #autobuild-modal [data-ab], #ab-enabled';
         let mpGame = null;
         let mpReadOnly = false;
