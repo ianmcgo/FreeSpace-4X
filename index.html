@@ -534,8 +534,8 @@
         .ore-ico-germ::before, .text-germ::before { background-image: url(https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Germanium.png); }
         html { --pa: 0.7; --pa-top: 0.82; }
         select option, select optgroup { background-color: #121019; color: #d0d0e0; }
-        #transparency-modal { background: transparent; justify-content: center; align-items: center; }
-        #transparency-modal .modal-content { max-width: 340px; margin: 0; padding: 16px; }
+        #ui-modal { background: transparent; justify-content: center; align-items: center; }
+        #ui-modal .modal-content { max-width: 380px; margin: 0; padding: 16px; }
         body.dd-popup #view-dashboard { visibility: hidden; }
         body.dd-popup .modal-overlay.dd-modal.active { background: transparent; }
         .modal-overlay.dd-modal { justify-content: center; align-items: center; }
@@ -2249,6 +2249,8 @@
         .fm-name { flex: 1 1 140px; min-width: 120px; }
         .fm-note, .fm-target { font-size: 12px; color: #9ab; }
         .fm-refit-row { display: flex; gap: 6px; align-items: center; margin-top: 6px; flex-wrap: wrap; }
+        #toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 4600; max-width: 90vw; background: rgba(13, 58, 29, 0.96); border: 1px solid #3dff7a; color: #dfffe8; padding: 9px 16px; border-radius: 6px; font-size: 13px; box-shadow: 0 0 14px rgba(61, 255, 122, 0.35); opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+        #toast.show { opacity: 1; }
         #update-banner { display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 4000; background: rgba(13, 58, 29, var(--pa)); border-bottom: 2px solid #3dff7a; color: #dfffe8; padding: 8px 12px; font-size: 14px; text-align: center; }
         #update-banner.active { display: block; }
         #update-banner button { margin-left: 8px; }
@@ -2293,13 +2295,14 @@
         <div class="title-button-row">
             <button id="btn-new-game" class="classic-btn"><u>N</u>ew Game</button>
             <button id="btn-open-game" class="classic-btn"><u>O</u>pen Game</button>
-            <button id="btn-continue-game" class="classic-btn"><u>C</u>ontinue Game</button>
+            <button id="btn-continue-game" class="classic-btn" style="display: none;"><u>C</u>ontinue Game</button>
+            <button id="btn-continue-mp" class="classic-btn" style="display: none;">Continue Multiplayer Game</button>
             <button id="btn-multiplayer" class="classic-btn"><u>M</u>ultiplayer</button>
         </div>
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.93.0 (Updated: October 04, 2026 9:10 PM)</div>
+            <div class="version-text">Version 0.96.0 (Updated: October 05, 2026 1:03 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -2759,11 +2762,7 @@
                     <button class="tool-icon" id="btn-year-email" style="color: #ffd700;">📧 Year Summary Emails: OFF</button>
                     <button class="tool-icon" id="btn-invite-late" style="color: #32cd32; display: none;">✉ Invite to Game</button>
                     <button class="tool-icon" id="btn-skip-turns" style="color: #ff9966; display: none;">⏭ Skip My Turns: OFF</button>
-                    <button class="tool-icon" id="btn-transparency" style="color: #88e0ff;">🪟 Panel Transparency</button>
-                    <button class="tool-icon" id="btn-planet-names" style="color: #ffcc66;">🔠 Planet Names on Map</button>
-                    <button class="tool-icon" id="btn-fleet-names" style="color: #ffcc66;">🔡 Fleet Names on Map</button>
-                    <button class="tool-icon" id="btn-toggle-rulers" style="color: #ffd700;">📏 Map Rulers: ON</button>
-                    <button class="tool-icon" id="btn-toggle-legend" style="color: #b0b0c0;">🗺 Map Legend: ON</button>
+                    <button class="tool-icon" id="btn-ui" style="color: #88e0ff;">🎛 UI</button>
                     <button class="tool-icon" id="btn-auto-export" style="color: #00ffff;">📤 Export Automation</button>
                     <button class="tool-icon" id="btn-auto-import" style="color: #32cd32;">📥 Import Automation</button>
                     <button class="tool-icon" id="btn-help" style="color: #88bbff;">❓ Help</button>
@@ -3532,6 +3531,8 @@
         </div>
     </div>
 
+    <div id="toast"></div>
+
     <div id="update-banner">A new version of FreeSpace 4x is available (<span id="update-banner-ver"></span>). <button class="tool-icon" id="btn-update-reload">Reload Now</button><button class="tool-icon" id="btn-update-dismiss">Later</button></div>
 
     <div id="doc-modal" class="modal-overlay" style="z-index: 2500;">
@@ -3560,42 +3561,30 @@
         </div>
     </div>
 
-    <div id="transparency-modal" class="modal-overlay" style="z-index: 1900;">
+    <div id="ui-modal" class="modal-overlay" style="z-index: 1900;">
         <div class="modal-content">
-            <h2 class="screen-header" style="margin-top: 0;">Panel Transparency</h2>
+            <h2 class="screen-header" style="margin-top: 0;">UI</h2>
+            <div class="wiz-group-title" style="margin-top: 0;">Panel Transparency</div>
             <div style="font-size: 12px; color: #ccc; line-height: 1.5;">How much of the scrolling star field shows through panels, menus and windows. 0% is solid.</div>
             <input type="range" id="tr-slider" min="0" max="95" step="1" value="30">
             <div class="tr-row"><span>Solid</span><span id="tr-value">30%</span><span>Clear</span></div>
-            <div style="display: flex; gap: 8px; margin-top: 12px;">
-                <button class="nav-button" id="btn-tr-reset">Reset (30%)</button>
-                <button class="nav-button btn-primary" id="btn-tr-close">Close</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="names-modal" class="modal-overlay" style="z-index: 1900;">
-        <div class="modal-content">
-            <h2 class="screen-header" style="margin-top: 0;">Planet Names on Map</h2>
-            <div style="font-size: 12px; color: #ccc; line-height: 1.5;">How large planet names are drawn on the star map. Slide all the way left to hide them.</div>
+            <button class="nav-button" id="btn-tr-reset" style="margin-top: 8px;">Reset (30%)</button>
+            <div class="wiz-group-title">Planet Names on Map</div>
+            <div style="font-size: 12px; color: #ccc; line-height: 1.5;">Size of planet names on the star map. Slide all the way left to hide them.</div>
             <input type="range" id="pn-slider" min="0" max="24" step="1" value="10">
             <div class="tr-row"><span>Hidden</span><span id="pn-value">10 px</span><span>Large</span></div>
-            <div style="display: flex; gap: 8px; margin-top: 12px;">
-                <button class="nav-button" id="btn-pn-reset">Reset (10 px)</button>
-                <button class="nav-button btn-primary" id="btn-pn-close">Close</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="fnames-modal" class="modal-overlay" style="z-index: 1900;">
-        <div class="modal-content">
-            <h2 class="screen-header" style="margin-top: 0;">Fleet Names on Map</h2>
-            <div style="font-size: 12px; color: #ccc; line-height: 1.5;">How large fleet names are drawn on the star map. Slide all the way left to hide them.</div>
+            <button class="nav-button" id="btn-pn-reset" style="margin-top: 8px;">Reset (10 px)</button>
+            <div class="wiz-group-title">Fleet Names on Map</div>
+            <div style="font-size: 12px; color: #ccc; line-height: 1.5;">Size of fleet names on the star map. Slide all the way left to hide them.</div>
             <input type="range" id="fn-slider" min="0" max="24" step="1" value="10">
             <div class="tr-row"><span>Hidden</span><span id="fn-value">10 px</span><span>Large</span></div>
-            <div style="display: flex; gap: 8px; margin-top: 12px;">
-                <button class="nav-button" id="btn-fn-reset">Reset (10 px)</button>
-                <button class="nav-button btn-primary" id="btn-fn-close">Close</button>
+            <button class="nav-button" id="btn-fn-reset" style="margin-top: 8px;">Reset (10 px)</button>
+            <div class="wiz-group-title">Map Rulers and Legend</div>
+            <div style="display: flex; gap: 8px;">
+                <button class="nav-button" id="btn-toggle-rulers">📏 Map Rulers: ON</button>
+                <button class="nav-button" id="btn-toggle-legend">🗺 Map Legend: ON</button>
             </div>
+            <button class="nav-button btn-primary" id="btn-ui-close" style="margin-top: 14px;">Close</button>
         </div>
     </div>
 
@@ -3660,7 +3649,7 @@
                 <p><b style="color:#da70d6;">Advantage Points</b><br>Every race is built from a pool of Advantage Points. A new race starts with 25 left. Strengths spend points and handicaps refund them, and a race can only be saved when 0 or more points are left. The counter at the top right updates as you choose, and the Point Ledger beside the wizard lists every cost and refund so you can see where the points went. On a narrow screen the ledger is hidden, but the counter stays. Points you do not spend (up to 50) can go into a starting bonus picked on the Identity tab: <b>Surface minerals</b> (+20 kT of each ore per point at your homeworld), <b>Mineral concentrations</b> (+1 concentration on each mineral per 2 points, up to 100), <b>Mines</b> or <b>Factories</b> (+1 per 2 points) or <b>Defenses</b> (+1 Defense per 5 points).</p>
                 <p><b style="color:#da70d6;">The Six Wizard Tabs</b><br>You can jump between tabs at any time, or use Back and Next. <b>1 Identity</b>: race name, plural name, an icon, an optional preset (loads the traits of one of the six built-in races as a starting point, keeping your name and icon) and the leftover points bonus. <b>2 Primary Trait</b>: exactly one of ten, such as Hyper-Expansion, Super-Stealth, War Monger, Jack of All Trades. The primary trait sets your empire's whole style. <b>3 Lesser Traits</b>: any mix of fourteen. Advantages (Improved Fuel Efficiency, Total Terraforming, Advanced Remote Mining, Improved Starbases, Generalized Research, Ultimate Recycling, Mineral Alchemy) cost points. Handicaps (No Ram Scoop Engines, Cheap Engines, Only Basic Remote Mining, No Advanced Scanners, Low Starting Population, Bleeding Edge Technology, Regenerating Shields) refund them. <b>4 Environment</b>: for Gravity, Temperature and Radiation pick an Ideal value and a Tolerance. The purple band shows the conditions your people can live in, in real units. A wide band means many planets suit you but costs points, a narrow band refunds points. Ticking Immune makes that factor irrelevant, at the highest price. The wizard tells you how many planets to expect to be habitable (for example 1 in 5), and the same odds apply in the galaxy. The growth rate slider runs from 1 to 20 percent a year, and faster growth costs points. <b>5 Economy</b>: seven numbers that say how much one colonist, factory and mine produces, what factories and mines cost and how many a population can run, plus a checkbox that makes factories use 1 kT less Germanium. Better numbers cost points, worse numbers refund them. <b>6 Research</b>: each of the six fields can cost 75 percent extra (refunds points), a standard amount, or 50 percent less (costs points). A checkbox lets every expensive field start at Tech 4, at a price.</p>
                 <p><b style="color:#da70d6;">What a Custom Race Does In This Game</b><br>Every trait is now <b>Active</b> except Alternate Reality, which is still recorded only (its race plays like a normal one). Your habitat ranges and immunities decide which planets are habitable; the growth rate is the most a colony can grow in a year on a perfect world; every number on the Economy tab is used for Resources, factories, mines and their build costs; the Research tab sets what each level costs. Primary traits: <b>Hyper-Expansion</b> doubles growth and halves every planet's capacity and cannot build stargates. <b>Super-Stealth</b> cloaks every ship, widens scanners by 30 percent, passes minefields one warp faster and adds the average research of the other empires to its own each year. <b>War Monger</b> starts with Weapons 5, pays 25 percent less for weapons, moves faster in battle and invades harder, but cannot lay mines and has only basic defenses. <b>Claim Adjuster</b> starts with Biotechnology 6 and terraforms every planet it owns for free each year as far as its tech allows. <b>Inner Strength</b> defends harder, repairs faster, pays 40 percent less for defenses and breeds colonists aboard freighters, but pays 25 percent more for weapons. <b>Space Demolition</b> has the extra mine layers (heavy dispensers, speed traps and the bigger standard dispensers), slow-decaying fields that act as scanners and detonation. <b>Packet Physics</b> starts with Energy 4; its packets scan as they fly and may nudge the target planet toward its people's ideal. <b>Interstellar Traveler</b> starts with Propulsion and Construction 5 and a stargate at home, with cheaper, unlimited own gates that carry cargo. <b>Jack of All Trades</b> starts at Tech 3 in every field, holds 20 percent more colonists and has built-in scanners on small hulls. Lesser traits: <b>Improved Fuel Efficiency</b> 15 percent less fuel and Propulsion +1; <b>Total Terraforming</b> terraforming up to 30 percent and 30 percent cheaper; <b>Advanced Remote Mining</b> extra mining hulls; <b>Improved Starbases</b> 20 percent cheaper stations; <b>Generalized Research</b> spreads research; <b>Ultimate Recycling</b> better scrapping; <b>Mineral Alchemy</b> alchemy for 25 Resources; <b>No Ramscoop Engines</b>; <b>Cheap Engines</b> engines half price but a 10 percent chance each year of not engaging above Warp 6; <b>Only Basic Remote Mining</b> +10 percent capacity; <b>No Advanced Scanners</b> double normal ranges, no penetrating scanners; <b>Low Starting Population</b> 17,500 colonists at home; <b>Bleeding Edge Technology</b> changes miniaturization; <b>Regenerating Shields</b> stronger regenerating shields, weaker armor. <b>The six built-in races now have primary traits too:</b> Humanoids are Jack of All Trades, Robotoids Hyper-Expansion, Turindines Super-Stealth, Automitons Inner Strength, Rototills Claim Adjuster and Cybertrons War Monger. Every empire's starting designs are fitted to the tech it starts with: parts it cannot build yet are swapped for ones it can (a Scout without Electronics gets a Bat Scanner), and a design whose hull is out of reach starts obsolete until you research it.</p>
-                <p><b style="color:#da70d6;">Reports and Map Overlays</b><br>Management, <b>Reports</b> has two tables. <b>Planets</b>: every planet you own with colonists, how full it is, habitability, Resources a year, mines, factories, defenses, ore on hand, starbase and stargate, and what it is building. <b>Fleets</b>: every fleet with its location, ships, fuel, cargo, next waypoint, years to get there and task. Click a heading to sort (click again to reverse) and a row to select that planet or fleet. On the map, <b>Scanner Rings</b> (Fleet menu) draws the normal range of every scanner you own, planet, starbase or ship, as a smaller solid olive shape and the planet-penetrating range as a larger solid maroon shape that reaches farther out. Where circles of one kind overlap they fuse into a single smooth solid shape with one outline, so a cluster of colonies shows as one merged region. Turn them off to clear the map. The legend lists both colors. Penetrating range is the longer reach, so maroon extends farther out than the olive inside it. Range Rings show the selected fleet's travel range.</p><p><b style="color:#da70d6;">Measuring Distance</b><br>Open <b>Management, Measure Distance</b> to turn the measuring tool on (the entry then reads Measuring: ON). Click a point on the star map, then click a second point: a dashed gold line joins them and a label shows the straight-line distance in light years. Clicking on a planet snaps to its center and the label then shows both planet names. A third click starts a new measurement. While measuring, clicks on the map do not select planets or fleets or plot courses, and turning on Plot Course Mode switches measuring off. Press Escape or choose Measure Distance again to turn it off and clear the line. The ruler along the bottom and right edges of the map counts light years from 0 at the lower left corner of the view, going right and going up, and can be hidden in Settings, Map Rulers (see The Star Map). To check a trip, the same distance in light years is what the fleet needs: a fleet at Warp 6 covers 36 ly a year.</p>
+                <p><b style="color:#da70d6;">Reports and Map Overlays</b><br>Management, <b>Reports</b> has two tables. <b>Planets</b>: every planet you own with colonists, how full it is, habitability, Resources a year, mines, factories, defenses, ore on hand, starbase and stargate, and what it is building. <b>Fleets</b>: every fleet with its location, ships, fuel, cargo, next waypoint, years to get there and task. Click a heading to sort (click again to reverse) and a row to select that planet or fleet. On the map, <b>Scanner Rings</b> (Fleet menu) draws the normal range of every scanner you own, planet, starbase or ship, as a larger solid maroon shape and the penetrating range as a smaller solid olive shape inside it. Where circles of one kind overlap they fuse into a single smooth solid shape with one outline, so a cluster of colonies shows as one merged region. Turn them off to clear the map. The legend lists both colors. Normal range is the longer reach and only sees fleets in deep space; penetrating range is shorter but surveys worlds and sees fleets in orbit. Range Rings show the selected fleet's travel range.</p><p><b style="color:#da70d6;">Measuring Distance</b><br>Open <b>Management, Measure Distance</b> to turn the measuring tool on (the entry then reads Measuring: ON). Click a point on the star map, then click a second point: a dashed gold line joins them and a label shows the straight-line distance in light years. Clicking on a planet snaps to its center and the label then shows both planet names. A third click starts a new measurement. While measuring, clicks on the map do not select planets or fleets or plot courses, and turning on Plot Course Mode switches measuring off. Press Escape or choose Measure Distance again to turn it off and clear the line. The ruler along the bottom and right edges of the map counts light years from 0 at the lower left corner of the view, going right and going up, and can be hidden in Settings, UI, Map Rulers (see The Star Map). To check a trip, the same distance in light years is what the fleet needs: a fleet at Warp 6 covers 36 ly a year.</p>
                 <p><b style="color:#da70d6;">AI Opponents</b><br>The AI Opponents screen lists every rival. Each starts with a pre-generated <b>Empire Name</b> that you can edit (clear it and a fresh name is generated), a race and an intelligence level. Both race and intelligence offer <b>Random</b>, resolved when the galaxy is created. Random picks from the six built-in races; to cast a custom race as a rival, choose it under Custom Races. You can have up to 15 opponents. AI empires play by exactly the same rules as you (see How the AI Empires Play); intelligence changes how they play, not hidden bonuses.</p>
                 <p><b style="color:#da70d6;">How the AI Empires Play</b><br>AI empires are full empires, like yours. Each year, before the year is played out, every AI gives its orders: it chooses research (favoring Propulsion, Construction and Weapons), designs its own ships from the parts it has unlocked (scouts, colony ships, warships and later bombers, replacing a design when better parts arrive), queues scouts, colony ships, warships and orbital stations with docks at grown colonies, and lets Autobuild handle mines, factories and defenses. Its scouts explore unknown stars and come home to refuel, its colony ships settle the best habitable planets they can reach, and its warships gather at home on patrol, then set out to explore and to attack known enemy planets, bombing them when they carry bombs. AI empires fight each other too, unless they are allies. They use the same fuel, research, growth and combat rules as you. Intelligence sets how much research they fund (10 to 30 percent), how soon and how often they build warships and go to war (Novice after about 70 years, Master after about 15), how big a fleet they wait for and how many colonies they aim for. AI empires appear on the map when your scanners see their fleets, and on the Scoreboard with their real planets, ships and technology. Saved games from earlier versions convert their AI rivals into full AI empires with no fleets, starting from their known planets and roughly their old tech level. In multiplayer, a resigned player's empire handed to the AI keeps its planets and fleets and plays on as an AI.</p>
                 <p><b style="color:#da70d6;">The Two Currencies: Resources and Ore</b><br>Nothing is built with one currency alone. <b style="color:#ffa040;">Resources</b> are your industrial labor and factory output. <b style="color:#da70d6;">Ore</b> is the physical matter: <span style="color:#4169e1;">Ironium</span>, <span style="color:#32cd32;">Boranium</span> and <span style="color:#ffd700;">Germanium</span>, dug out of planets by mines. Each has its own icon wherever ore is shown: <span class="ore-ico-iron"></span><span style="color:#4169e1;">Ironium</span> (blue crystal), <span class="ore-ico-bora"></span><span style="color:#32cd32;">Boranium</span> (green crystal) and <span class="ore-ico-germ"></span><span style="color:#ffd700;">Germanium</span> (gold crystal). A queue item that is too big to finish within the forecast shows its percent done and about how many more years it needs. Every hull, factory and ship needs a mix of both. Plenty of Ore but no factories means your queues stall for lack of Resources. Plenty of Resources but a mine running dry of Germanium means your queues stall for lack of Ore. Watch both.</p>
@@ -3680,11 +3669,11 @@
                 <p><b style="color:#da70d6;">Auto Items and Repeating Builds</b><br>In Structures you can queue <b>Auto Mines</b>, <b>Auto Factories</b> and <b>Auto Defenses</b>. An auto item is a standing order that stays in the queue. Each turn it builds one unit after another while the planet has room: Mines up to the number its colonists supply (at least 1), Factories up to the number its colonists can run, Defenses up to 10. When it reaches the limit it does not block the queue, the Resources move on to the next item, and it starts again by itself when more colonists arrive. A planet can have one auto item of each kind. Ordinary items have a quantity and are removed when finished.</p>
                 <p><b style="color:#da70d6;">Autobuild</b><br>Autobuild fills a planet's queue for you. It is an empire-wide ordered list of rules (Management, Autobuild, or the Rules button in the Production Queue panel). When a planet's queue runs empty the game reads the list from the top; the first rule whose condition is true and whose Ore is on hand adds an item to the queue, the planet builds it in the same turn, and the list is read again, so a planet can climb the whole ladder in one turn. Each rule has an item (Mine, Factory, Defense, Scout, Small Freighter, Destroyer or Colony Ship), a condition and an on or off switch. Conditions: <b>while below the planet limit</b> (Mines and Factories only: the number the planet's colonists supply or can run) and <b>until this many</b> (the planet has that many; for ships, the whole empire has that many built and queued, and the planet needs a ship dock; Colony Ships also need 7,500 colonists). Use the arrows to change priority. A rule is skipped when the planet cannot pay the Ore for one unit, so planets never queue things they cannot build. The default list is Mines, then Factories, then up to 5 Defenses, in that order. Under <b>Follow empire rules or Off</b> in the Production Queue panel, a single planet can switch Autobuild off, for example while you build a colony ship or starbase by hand. Items queued by Autobuild carry an Autobuild tag, and the turn report lists what it queued. Terraforming rules are not possible yet because the game has no terraforming. A new game starts with Autobuild on; saves from before version 0.9.0 load with it off.</p>
                 <p><b style="color:#da70d6;">Mines and Factories</b><br>The economy is a loop: colonists give Resources, factories add more Resources, Resources and Ore build mines, factories and ships, and mines dig the Ore. <b>Mines</b> dig Ironium, Boranium and Germanium every year; a richer concentration gives more, and digging slowly lowers it (see Ore and Mining). By default every mine works as long as the planet has colonists (turn on Mines need colonists under Advanced Options for 10 mines per 10,000 working colonists). <b>Factories</b> need workers: 10 per 10,000 working colonists for the standard economy, and any extra factories sit idle until the population grows. The queue panel and the Year Report say how many are idle. A custom race changes these numbers in the Race Wizard.</p>
-                <p><b style="color:#da70d6;">Pop-up Windows</b><br>Everything you open from the Planet, Fleet, Management and Settings menus, including Structures, Ship Construction, Manage Waypoints, Manage Ships and Names, Fleet Roster, Ship Designer, Autobuild, Battle Reports, Battle Plans, Minefields, Diplomacy, Reports, Scoreboard, Help and Updates, opens in the middle of the screen over the blank scrolling star field, the same way Research does. To close a window, click outside it, or use its Close or Back button; either one returns you to the main game view. Panel Transparency is the one exception that keeps the game visible behind it so you can watch your changes. The menus themselves open under their button and are only as wide as their longest line.</p>
+                <p><b style="color:#da70d6;">Pop-up Windows</b><br>Everything you open from the Planet, Fleet, Management and Settings menus, including Structures, Ship Construction, Manage Waypoints, Manage Ships and Names, Fleet Roster, Ship Designer, Autobuild, Battle Reports, Battle Plans, Minefields, Diplomacy, Reports, Scoreboard, Help and Updates, opens in the middle of the screen over the blank scrolling star field, the same way Research does. To close a window, click outside it, or use its Close or Back button; either one returns you to the main game view. The UI window is the one exception that keeps the game visible behind it so you can watch your changes. The menus themselves open under their button and are only as wide as their longest line.</p>
                 <p><b style="color:#da70d6;">Ore Concentration Bars</b><br>The planet picture and the ore are both inside the Planet Summary box, with the population, status, habitability and starbase text to the right of the picture; ore is in the Ore On Hand &amp; Concentrations section under the population and habitability lines. That section also carries the Resources, Mines, Factories, Mass Driver and Defenses lines. It shows each ore on one line: its name, how many kilotons are on hand or in the ground, and a bar for the concentration. The bar fills to the concentration percentage. Green means 75% and up, an excellent mining world for that ore; yellow means 26% to 74%, a middling one; red means 0% to 25%, so mines there will produce little. A gray bar with a question mark means the world has not been surveyed yet.</p>
                 <p><b style="color:#da70d6;">Game Images</b><br>The Cabal Coffers Gaming logo on the title screen and the small Ironium, Boranium and Germanium icons beside ore names are loaded from the game's GitHub images folder instead of being built into the game file. They need an internet connection the first time they are shown, and your browser keeps them afterward. If an image cannot be reached the game keeps working and only that picture is missing.</p>
-                <p><b style="color:#da70d6;">Planet Names on Map</b><br>Open Settings, then Planet Names on Map, to change how large planet names are drawn on the star map. The slider runs from Hidden (all the way left, no names at all, not even for your own or the selected planet) to 24 px, and starts at 10 px. Names keep the same size on screen however far you zoom, so zoom in for more room around each name. At low zoom, names of planets nobody owns still hide to cut clutter; your planets and the selected planet keep theirs. Fleet and wormhole labels are not affected. Reset returns to 10 px. Your choice is saved in this browser.</p>
-                <p><b style="color:#da70d6;">Panel Transparency</b><br>Every panel, menu and window in the game is partly see-through, so the scrolling star field from the title screen shows behind it, including behind the star map. Open Settings, then Panel Transparency, and drag the slider: 0% gives solid panels and higher values let more of the stars show through (the highest setting is 95%). Menus and pop-up windows never go fully clear, so their text stays readable. The window sits in the middle of the screen and leaves the game visible behind it so you can watch the change as you drag. Reset puts it back to 30%. Your choice is saved in this browser and applies on every screen, including the setup screens.</p>
+                <p><b style="color:#da70d6;">Planet Names on Map</b><br>Open Settings, then UI, and use the Planet Names on Map slider to change how large planet names are drawn on the star map. The slider runs from Hidden (all the way left, no names at all, not even for your own or the selected planet) to 24 px, and starts at 10 px. Names keep the same size on screen however far you zoom, so zoom in for more room around each name. At low zoom, names of planets nobody owns still hide to cut clutter; your planets and the selected planet keep theirs. Fleet and wormhole labels are not affected. Reset returns to 10 px. Your choice is saved in this browser.</p>
+                <p><b style="color:#da70d6;">Panel Transparency</b><br>Every panel, menu and window in the game is partly see-through, so the scrolling star field from the title screen shows behind it, including behind the star map. Open Settings, then UI, and drag the Panel Transparency slider: 0% gives solid panels and higher values let more of the stars show through (the highest setting is 95%). Menus and pop-up windows never go fully clear, so their text stays readable. The window sits in the middle of the screen and leaves the game visible behind it so you can watch the change as you drag. Reset puts it back to 30%. Your choice is saved in this browser and applies on every screen, including the setup screens.</p>
                 <p><b style="color:#da70d6;">Minimizing Panels on a Desktop</b><br>On a wide screen (900 pixels and up) the boxes beside the star map can be tucked away to give the rest more room. Press the <b>▲</b> in the top right corner of the Galactic Event Log, Fleets in Orbit, Production Queue, Fleet Summary or Planet Summary box. The box disappears and a button with its name appears in the top bar, to the left of End Turn. Press that button to bring the box back. When a whole column of boxes is minimized the star map and the remaining column grow wider; when only some are minimized the boxes still showing grow taller to use the space. The top bar, the bottom bar and the star map cannot be minimized. A tab only shows while its box would normally be on screen: minimize the Production Queue, then pick a planet that is not yours and the tab goes away just as the box does; pick one of your colonies again and the tab comes back, still minimized, ready to open. Your choices are remembered on this device. On a phone or tablet the ▲ does nothing and every box stays where it is.</p>
                 <p><b style="color:#da70d6;">Help and Updates Windows</b><br>Help is sorted into three levels: <b>Basic</b> (start with Absolute Beginner), <b>Advanced</b> and <b>Autistic level</b> (exact numbers and edge cases). Settings, Help and Settings, Updates open the same window with two tabs. Every topic is a collapsible section. The Contents list on the left jumps to a topic and opens it, Expand All and Collapse All open or close everything, and the search box filters the sections to those containing every word you type, opens them and highlights the matches. Clear the box (or press Escape) to see everything again. On a narrow screen the Contents button shows or hides the list. Updates lists every version, newest first, and a new entry is added to it with each release.</p>
 
@@ -3697,7 +3686,7 @@
                 <p><b style="color:#da70d6;">Your Own View of the Galaxy</b><br>Each empire keeps its own record of what it has seen. The planets you have scanned, your survey dates, your fleets, your technology, your research, your budget, your starbase designs and your Galactic Event Log belong to your empire alone. In a game with more than one human, another player's scans never reveal anything to you, and their worlds show as rival worlds (red) once your own scanners find them. Your Galactic Event Log is private too: it lists only what happened to you, plus battles your scanners detected. Every empire hears about the Mystery Trader, a player joining late and a player resigning.</p>
                 <p><b style="color:#da70d6;">Random Events</b><br>Unless No Random Events is ticked, each year there is a small chance that something happens to one of your planets: a <b>mineral strike</b> raises the concentration of one mineral, a <b>population boom</b> adds colonists, a <b>plague</b> kills some of them, or a <b>salvage find</b> drops a cache of Ore on the planet. Events appear in the Galactic Event Log and the turn report.</p>
                 <p><b style="color:#da70d6;">Your Starting Fleet</b><br>You begin with a Long Range Scout in orbit of your homeworld: a Scout hull with a Quick Jump 5 engine, a Rhino Scanner (50 ly) and a fuel tank, 300 mg of fuel in all. Its job is to map the nearby stars. Your homeworld starts with a Basic Space Station that has a ship dock. Colony ships, freighters and warships are built there.</p>
-                <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. You can zoom in 15 times closer than before (up to 60 times the full-galaxy scale), enough to fill the map with one star and its neighbors. Planets stop growing at a set size when you zoom in far, and planet names stay the same readable size at every zoom; change the size or hide them in Settings, Planet Names on Map. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Every empire in the game, AI empires included, is given its own random color when the game begins. An empire's planets, planet names, fleets and fleet names are drawn in its color, and the empire name at the bottom right uses yours. Planets nobody owns show habitability: blue is habitable, dark red hostile, grey not scanned yet; a gold center means a ship dock. Planets have no outline. The planet or fleet you selected last is marked by a slowly pulsing, glowing gold outline: a ring around the planet, or a glow around the fleet's arrow. Select a planet and the ring appears on it; click a fleet (on the map, in Fleets in Orbit, in the Fleet Summary or in the fleet drop-down) and the glow moves to that fleet. Only one of the two glows at a time, and the glow follows the map while you pan and zoom. The legend in the lower left lists your empire and every empire you have met, each in its color, and adds more columns when it gets long. <b>Rulers:</b> a ruler runs along the bottom and the right edge of the star map and measures distance in light years from the corner of the visible map. The bottom ruler starts at 0 in the lower left and counts going right; the right ruler starts at 0 just above the bottom ruler and counts going up. Small ticks mark fifths of each numbered step. The numbered step changes as you zoom so the labels stay readable; zoomed in far enough it is 1 ly with ticks every 0.2 ly. The rulers always count from the edge you are looking at, so they are a distance scale and not map coordinates. <b>Map display settings:</b> in Settings, <b>Map Rulers</b> hides or shows both rulers, <b>Map Legend</b> hides or shows the legend in the lower left (on a phone-sized screen, under 900 pixels wide, both start OFF until you turn them on, and the game remembers your choice), and <b>Fleet Names on Map</b> opens a slider for the size of fleet names (0 hides them; they still only appear when you are zoomed in enough). Planet names have their own slider. Your choices are remembered on this device.</p>
+                <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. You can zoom in 15 times closer than before (up to 60 times the full-galaxy scale), enough to fill the map with one star and its neighbors. Planets stop growing at a set size when you zoom in far, and planet names stay the same readable size at every zoom; change the size or hide them in Settings, UI. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Every empire in the game, AI empires included, is given its own random color when the game begins. An empire's planets, planet names, fleets and fleet names are drawn in its color, and the empire name at the bottom right uses yours. Planets nobody owns show habitability: blue is habitable, dark red hostile, grey not scanned yet; a gold center means a ship dock. Planets have no outline. The planet or fleet you selected last is marked by a slowly pulsing, glowing gold outline: a ring around the planet, or a glow around the fleet's arrow. Select a planet and the ring appears on it; click a fleet (on the map, in Fleets in Orbit, in the Fleet Summary or in the fleet drop-down) and the glow moves to that fleet. Only one of the two glows at a time, and the glow follows the map while you pan and zoom. The legend in the lower left lists your empire and every empire you have met, each in its color, and adds more columns when it gets long. <b>Rulers:</b> a ruler runs along the bottom and the right edge of the star map and measures distance in light years from the corner of the visible map. The bottom ruler starts at 0 in the lower left and counts going right; the right ruler starts at 0 just above the bottom ruler and counts going up. Small ticks mark fifths of each numbered step. The numbered step changes as you zoom so the labels stay readable; zoomed in far enough it is 1 ly with ticks every 0.2 ly. The rulers always count from the edge you are looking at, so they are a distance scale and not map coordinates. <b>Map display settings:</b> in Settings, <b>UI</b>, the <b>Map Rulers</b> button hides or shows both rulers, <b>Map Legend</b> hides or shows the legend in the lower left (on a phone-sized screen, under 900 pixels wide, both start OFF until you turn them on, and the game remembers your choice), and the <b>Fleet Names on Map</b> slider sets the size of fleet names (0 hides them; they still only appear when you are zoomed in enough). Planet names have their own slider. Your choices are remembered on this device.</p>
                 <p><b style="color:#da70d6;">Playing on a Phone or Tablet</b><br>On a narrow screen the Star Map sits at the top of the dashboard and the planet, fleet and queue panels scroll underneath it. Drag with one finger to pan, pinch with two fingers to zoom around the point between your fingers, and tap a star or fleet to select it. A touch screen has no Shift key, so to plot a course turn on Fleet, Plot Course Mode (or the Plot button in the Fleets in Orbit panel) and tap stars or empty space on the map to add waypoints. The map resizes when you turn the device. The Race Wizard also fits a phone: its tabs scroll sideways and the Point Ledger is hidden, but the Advantage Points counter stays in view.</p>
                 <p><b style="color:#da70d6;">Fleets on the Map</b><br>Every group of ships is a fleet. Your fleets are arrowheads in your empire color with their name beside them. A fleet in orbit slowly circles its planet; several fleets share the orbit, evenly spaced. A fleet in deep space sits where it is. Pick a fleet in the Fleets in Orbit panel, in the Fleet Roster, or by clicking its arrow on the map. A fleet with orders shows a line to each waypoint, a numbered box at each stop with its travel time in years, and the current warp next to its name. A dashed orange leg means you do not have the fuel to finish that leg. When a fleet is selected, dashed rings show how far it moves in one year: green for its free speed, amber for the warp of its first waypoint. Toggle the rings with Fleet, Range Rings.</p>
                 <p><b style="color:#da70d6;">The Fleet Menu and Fleet Actions</b><br>The Fleet menu always offers Manage Waypoints, Plot Course Mode and Range Rings. Below them the menu adds actions that only make sense where you are. Select a planet that has one of your fleets in orbit and the matching actions appear: <b>Colonize Planet</b> on a neutral world when a fleet there has a Colony Ship, <b>Cargo and Transfer</b> on one of your planets when a fleet there can carry cargo, <b>Merge Fleets Here</b> and <b>Fleet Transfer</b> when two or more of your fleets share the orbit, and <b>Orbital Bombardment</b> and <b>Ground Invasion</b> at a rival homeworld. With no fleet in orbit of the selected planet, these actions are not shown.</p>
@@ -3716,14 +3705,14 @@
                 <p><b style="color:#da70d6;">Scrapping</b><br>Fleet, Manage Ships and Names can scrap ticked ships anywhere, and a fleet can also be scrapped with the Scrap Fleet waypoint task. At a planet with a starbase 80 percent of the minerals used to build the ships are left on the planet (90 percent with Ultimate Recycling), at a planet without a starbase 33 percent (45 percent), and in deep space nothing is recovered. Cargo of a fleet scrapped at a planet is unloaded there. A colony ship that founds a colony also leaves 75 percent of its minerals on the new world, and if it was the last ship of its fleet, the fleet's ore cargo too. A fleet in deep space can <b>Jettison Cargo</b> from the route window.</p>
                 <p><b style="color:#da70d6;">Cargo and Transfer</b><br>Fleet, Cargo and Transfer appears when your selected planet is one of yours and a fleet that can carry cargo is in orbit there. Enter a positive number to load from the planet onto the fleet and a negative number to unload. Ore is in kT. Colonists move in single colonists, at 100 colonists per kT of cargo, and a planet always keeps at least 1,000. A fleet can carry no more than the combined capacity of its ships: Colony Ship 50 kT, Small Freighter 70 kT. Scouts and Destroyers carry nothing.</p>
                 <p><b style="color:#da70d6;">Merging Fleets</b><br>Fleet, Merge Fleets Here joins every one of your fleets in the same orbit as the selected fleet into one, adding their ships, cargo and fuel and clearing the route. It only appears when at least two of your fleets are in orbit of the selected planet.</p>
-                <p><b style="color:#da70d6;">Scanning and Discovery</b><br>Star locations are always visible, but what is on them is not. There are two kinds of scanner, and each has its own job. <b>Normal scanners</b> (drawn as the smaller solid olive shape) find worlds and watch space. The moment a normal scanner range sweeps over a world, or one of your ships orbits it, that world is discovered: its size, ore deposits and concentrations, habitability, owner and starbase become known and the survey year is stamped. A world that no normal scanner range has ever covered stays unknown. Normal scanners also show every uncloaked fleet in range, in deep space or in orbit. A cloaked fleet in deep space is only seen inside the cloak-reduced range, and a cloaked fleet in orbit is invisible to normal scanners (except from a fleet or planet at the same spot). <b>Planet-penetrating scanners</b> (drawn as the larger solid maroon shape that reaches farther out, with the olive inside it) do not find worlds. Their job is to strip cloaks: every fleet inside the penetrating range is seen at full range whatever its cloak, in orbit or in deep space, and a close scan shows its armor, weapons and cargo space. Where scanner ranges overlap, the map merges them into one smooth solid shape per kind instead of drawing every circle. <b>Where scanners come from.</b> Every planet you own scans with the best planetary scanner your tech allows. A new built-in race starts at Electronics 0, so its homeworld scans 50 ly: Viewer 50 (no tech: normal 50 ly), Scoper 150 (Electronics 3: normal 50, penetrating 150), Scoper 220 (Electronics 6: normal 90, penetrating 220), Scoper 280 (Electronics 8: normal 150, penetrating 280), and the Snooper 320X, 400X, 500X and 620X (normal range 160, 200, 250 and 310 ly, penetrating range 320, 400, 500 and 620 ly) with Energy, Electronics and Biotechnology. The planetary penetrating range is the large maroon circle on the map and the normal range is the smaller olive circle on top of it. <b>A Space Station or Starbase has no scanner of its own.</b> You must put scanner components in its slots in the Starbase Designer (Starbase Scanner, Deep Starbase Scanner, Orbit Scanner, Penetrating Array); a design without one adds no range, and the planet keeps only its planetary scanner. Starbase scanners combine with the planetary scanner on that world. Ship scanners with a penetrating range (normal / penetrating): Chameleon 45 / 160, Ferret 50 / 185, Dolphin 100 / 220, Robber Baron 120 / 220 and Elephant 200 / 300 ly. Penetrating range is always the longer one. Several scanners on one ship or world combine: the range is the fourth root of the sum of each range to the fourth power, so two 100 ly scanners and one 60 ly scanner give 120 ly (the same for penetrating ranges). A fleet uses the ranges of its best ship. Jack of All Trades races get a free built-in scanner on Scouts, Frigates and Destroyers (20 ly per Electronics level), used only when the design has no scanner part of its own; with a scanner part such as the Rhino the part's range is the ship's range, so the starting Long Range Scout always scans 50 ly. Races with No Advanced Scanners double every normal range but get no penetrating scanners. Space Demolition races use their own minefields as normal scanners that see fleets inside the field but not fleets in orbit; against them a cloak is a straight chance not to be seen (a 90 percent cloak is seen 10 percent of the time). Out-of-range worlds keep their last survey data, marked with the year it was taken.</p>
+                <p><b style="color:#da70d6;">Scanning and Discovery</b><br>Star locations are always visible, but what is on them is not. There are two kinds of scanner. <b>Normal scanners</b> (the larger solid maroon shape on the map) have the longer range and watch deep space: they show fleets traveling between stars, but they cannot see worlds or fleets sitting in orbit, and a cloaked fleet in deep space is only seen inside the cloak-reduced range. <b>Penetrating scanners</b> (the smaller solid olive shape inside the maroon one) have the shorter range but reach through a planet atmosphere. Every world inside it is surveyed (size, ore deposits and concentrations, habitability, owner and starbase, with the survey year stamped), and every fleet inside it is seen at full range whatever its cloak, in orbit or in deep space; a close scan then shows armor, weapons and cargo space. A world that no penetrating range has covered stays unknown unless one of your ships orbits it. You start with normal scanners only, so at first you see fleets but not worlds: send ships to orbit stars, and research Electronics to reach penetrating scanners. Where scanner ranges overlap, the map merges them into one smooth solid shape per kind. <b>Where scanners come from.</b> Every planet you own scans with the best planetary scanner your tech allows. A new built-in race starts at Electronics 0, so its homeworld has Viewer 50 (normal 50 ly, no penetrating), then Scoper 150 (Electronics 3: normal 150, penetrating 50), Scoper 220 (Electronics 6: 220 and 90), Scoper 280 (Electronics 8: 280 and 150), and the Snooper 320X, 400X, 500X and 620X (normal 320, 400, 500 and 620 ly, penetrating 160, 200, 250 and 310 ly) with Energy, Electronics and Biotechnology. <b>A Space Station or Starbase has no scanner of its own.</b> You must put scanner components in its slots in the Starbase Designer (Starbase Scanner, Deep Starbase Scanner, Orbit Scanner, Penetrating Array); a design without one adds no range, and the planet keeps only its planetary scanner. Starbase scanners combine with the planetary scanner on that world. Ship scanners with a penetrating range (normal and penetrating): Chameleon 160 and 45, Ferret 185 and 50, Dolphin 220 and 100, Robber Baron 220 and 120, Elephant 300 and 200 ly. Penetrating range is always the shorter one. Scanners with one range only, such as the Rhino (50 ly), are normal scanners and see fleets but never survey worlds. Several scanners on one ship or world combine: the range is the fourth root of the sum of each range to the fourth power, so two 100 ly scanners and one 60 ly scanner give 120 ly (the same for penetrating ranges). A fleet uses the ranges of its best ship. Jack of All Trades races get a free built-in scanner on Scouts, Frigates and Destroyers (20 ly per Electronics level), used only when the design has no scanner part of its own; with a scanner part such as the Rhino the part range is the ship range, so the starting Long Range Scout always scans 50 ly. Races with No Advanced Scanners double every normal range but get no penetrating scanners, so they only learn about worlds by orbiting them. Space Demolition races use their own minefields as normal scanners that see fleets inside the field but not fleets in orbit; against them a cloak is a straight chance not to be seen (a 90 percent cloak is seen 10 percent of the time). Out-of-range worlds keep their last survey data, marked with the year it was taken.</p>
                 <p><b style="color:#da70d6;">Habitability</b><br>Each planet has gravity, temperature and radiation. The shaded band on each bar is the range your race tolerates and the marker is the planet. A planet with every value inside the band is habitable, and the closer to center the better. Any value outside the band makes the planet hostile. A factor your race is immune to counts as perfect everywhere, and its band fills the whole bar. Maximum population is habitability percent of 100,000, changed by your race's population traits (Hyper-Expansion halves it, Jack of All Trades adds 20 percent, Only Basic Remote Mining adds 10 percent).</p>
                 <p><b style="color:#da70d6;">Colonizing</b><br>Build a Colony Ship (the planet needs a ship dock and at least 7,500 colonists), fly it to a neutral planet and use the Colonize task on the waypoint, or Fleet, Colonize Planet once it is in orbit (an order carried out at the start of next year). The ship is used up, its colonists (up to 5,000) found the colony and 75 percent of its minerals are left on the planet. If colony ships of two empires land on the same planet in the same year, the larger colony wins. A colony can be founded on a hostile planet (you are warned first), but its colonists slowly die off. Unsurveyed planets cannot be colonized until your ship in orbit has surveyed them, which happens as it arrives. A new colony makes a few Resources a year: queue a factory or mine first, and give it a Space Station with a dock before it can build ships. See Population and Growth for how colonies grow.</p>
                 <p><b style="color:#da70d6;">Advanced Options</b><br>On the New Game screen, Advanced Options opens a box where you can add any of these to the game. <b>Beginner: Maximum Minerals</b> gives every homeworld 100 percent mineral concentrations and every other world at least 50 percent. <b>Slower Tech Advances</b> doubles the cost of every research level. <b>Accelerated BBS Play</b> speeds up the opening: you begin with an extra loaded Colony Ship and a Small Freighter at your homeworld, and AI empires start with 50 percent more banked Resources. <b>No Random Events</b> turns off random events. <b>AI Opponents can form alliances</b> lets rivals team up over time; allied rivals each earn 10 percent more. <b>Public Player Scores</b> (on by default) shows every empire's score on the Scoreboard; turn it off to hide rival scores. <b>Galaxy clumping</b> gathers stars into tight clusters with empty space between them; off spreads the stars out in long webs. Neighbor distances stay inside the Star Density range either way. <b>Mines need colonists (classic operating limit)</b> is off to start with, and then every mine works while its planet has any colonist; ticked, only a limited number of mines can operate per 10,000 colonists, like factories.</p>
                 <p><b style="color:#da70d6;">Victory Conditions</b><br>On the New Game screen, Victory Conditions opens a box where you can tick any of these. <b>Own a share of all planets</b> is ticked to start with at 60 percent; set it anywhere from 10 to 100 percent of every planet in the galaxy. <b>Attain a tech level</b>: a level from 1 to 26 in a number of fields from 1 to 6. <b>Exceed a score</b>: from 1,000 to 1,000,000. <b>Exceed second place score by a percentage</b>: your score must be at least that much higher than the runner-up (starts at 100 percent, meaning double the second best score; choose 1 to 1,000). <b>Own capital ships</b>: from 2 to 1,000 (a capital ship is an armed ship built on a Cruiser, Battle Cruiser, Battleship or Dreadnought hull; it is the hull that decides, not the armor or weapons fitted). <b>Highest score after a number of years</b>: from 10 to 1,000,000 years. At the bottom, pick how many of the ticked conditions a winner must meet (1 up to the number ticked), and how many years must pass before a winner can be declared (10 to 1,000,000). Every empire is judged the same way at the end of each turn, and if several qualify the highest score wins. The Scoreboard lists the active conditions. In a single player game you can keep playing after a winner is declared. In a multiplayer game the game ends (see Multiplayer Victory and Game Over).</p>
                 <p><b style="color:#da70d6;">Management</b><br>Economy shows your Resources, the research and manufacturing split, operating factories and mines, and Ore mined and stockpiled. Research lets you pick the field and shows progress and your engine. <b>Fleet Roster</b> lists every fleet with its position, fuel, cargo and route. Each fleet has a <b>Select and Center</b> button: it closes the roster, selects that fleet, selects the planet it is orbiting and moves the star map to it (a fleet in deep space is selected and centered on its position). Scoreboard ranks every empire by planets, ships, tech, Resources per year and Ore. <b>Autobuild</b> opens your empire's Autobuild rules (see Autobuild).</p>
-                <p><b style="color:#da70d6;">Continue Game</b><br>The <b>Continue Game</b> button on the title screen (or the C key) takes you back to the game you played last in this browser. If the last game was a single player game it loads your browser save (the one made with Save File). If the last game was a multiplayer game and this browser is still signed in to your account, it goes straight into that multiplayer game without opening the lobby. If you are signed out, or the game cannot be loaded, it falls back to your browser saved single player game, or tells you there is none.</p>
-                <p><b style="color:#da70d6;">Saving</b><br>Save File stores the game in this browser, including every fleet, its waypoints and fuel, tech levels, research progress, your budget, your starbase designs, every planet's orbital installation, your Advanced Options and Victory Conditions, and a copy of every custom race in play (yours and your rivals'). Continue Game on the title screen loads that save. Since version 0.8.0 the save also keeps your Galactic Event Log (the last 300 entries) and your latest turn report, and it uses a new format that can hold several human empires; older saves are converted automatically the first time you load them. Load File and Open Game import a saved JSON file, and any custom races inside it that are not already in your list are added to it. Your list of custom races is saved in this browser the moment you save a race in the wizard, separately from any game. Saves from before version 0.7.62 load with Public Player Scores on, every other option off and no victory conditions; saves from before 0.7.61 have every existing starbase converted into a Basic Space Station with a dock; saves from before 0.7.60 have their single fleet converted into the fleet system; saves from before 0.7.59 are also converted to the new economy. Since version 0.9.0 the save also keeps your Autobuild rules, each planet's Autobuild switch, auto items in queues, mineral packets in flight, Mystery Traders and the items you own; saves from before 0.9.0 load with Autobuild switched off (the default rules are there, tick Autobuild is on to use them). Abandon Game returns to the title screen and discards unsaved progress. In a multiplayer game Save File and Load File are not offered, because the server keeps the game; <b>Game Lobby</b> in the Settings menu takes you back to the game's lobby.</p>
+                <p><b style="color:#da70d6;">Continue Game</b><br>The title screen shows <b>Continue Game</b> (or press C) only when this browser holds a saved single player game, and it loads that save. A single player game is saved in this browser automatically when it starts, when you load one, and every time you press End Turn; a green note at the bottom of the screen confirms each save. Save File still saves by hand. If you have signed in and played a multiplayer game on this device, <b>Continue Multiplayer Game</b> also appears and takes you straight back into that game (it asks you to sign in first if you have signed out). In a multiplayer game a green note tells you every time your orders were sent to the server after you press End Turn.</p>
+                <p><b style="color:#da70d6;">Saving</b><br>Save File stores the game in this browser, including every fleet, its waypoints and fuel, tech levels, research progress, your budget, your starbase designs, every planet's orbital installation, your Advanced Options and Victory Conditions, and a copy of every custom race in play (yours and your rivals'). Continue Game on the title screen loads that save, and single player games are also saved there automatically at the start and after every End Turn. Since version 0.8.0 the save also keeps your Galactic Event Log (the last 300 entries) and your latest turn report, and it uses a new format that can hold several human empires; older saves are converted automatically the first time you load them. Load File and Open Game import a saved JSON file, and any custom races inside it that are not already in your list are added to it. Your list of custom races is saved in this browser the moment you save a race in the wizard, separately from any game. Saves from before version 0.7.62 load with Public Player Scores on, every other option off and no victory conditions; saves from before 0.7.61 have every existing starbase converted into a Basic Space Station with a dock; saves from before 0.7.60 have their single fleet converted into the fleet system; saves from before 0.7.59 are also converted to the new economy. Since version 0.9.0 the save also keeps your Autobuild rules, each planet's Autobuild switch, auto items in queues, mineral packets in flight, Mystery Traders and the items you own; saves from before 0.9.0 load with Autobuild switched off (the default rules are there, tick Autobuild is on to use them). Abandon Game returns to the title screen and discards unsaved progress. In a multiplayer game Save File and Load File are not offered, because the server keeps the game; <b>Game Lobby</b> in the Settings menu takes you back to the game's lobby.</p>
                 <p><b style="color:#da70d6;">Resources Belong to Planets</b><br>Every planet makes its own Resources from its colonists and its operating factories, and every planet spends them only on its own production queue. There is no empire-wide bank or shared pool: Resources a planet does not spend this turn are lost, and one planet can never pay for another planet\'s buildings. Research is the one shared pool: the research share of every planet is added together and put into the field you chose. Minerals are also kept per planet. To move minerals or colonists between planets use freighters, or fire mineral packets.</p>
                 <p><b style="color:#da70d6;">Colonizing and Cargo</b><br>A ship with a Colonization Module and colonists in its hold can found a colony on an uninhabited world you have surveyed. On a world with 0% or lower habitability for your race the colonists die off, and you are warned first. The colonists come from the planet that built the colony ship, and a planet keeps a minimum population when it loads them. Ships carry four cargo types: colonists, Ironium, Boranium and Germanium. Use Cargo and Transfer in orbit of your own planets (or load and unload tasks on waypoints) to move them. Every kT of cargo adds to the ship\'s mass, which lowers its top warp and increases the fuel it burns, so check fuel before you load a heavy freighter.</p>
                 <p><b style="color:#da70d6;">Mass Drivers and Mineral Packets</b><br>No planet starts with a Mass Driver. Queue one under Structures once your Propulsion is high enough: level 1 needs Propulsion 3, level 2 needs 5, and so on up to level 6 at Propulsion 13. Each level also acts as a packet accelerator: a level N driver fires one packet a year of up to 250 x N kT at Warp 3 + 2 x N, and catches packets up to that same warp. Open the Planet menu and choose Fire Mineral Packet, pick any known planet and the minerals to load; they leave the planet immediately and fly toward the target at warp squared light years a year. A world of yours with a driver of enough speed catches the packet and the minerals go straight into its stockpile. A slower driver catches only part of it, and a world with no driver cannot catch it at all. What is not caught hits the planet as a weapon, killing colonists and destroying mines, factories and defenses, and that works against enemy planets too. A packet that hits an uninhabited world is simply lost. You can see your own packets and any packet flying at one of your planets.</p>
@@ -3792,6 +3781,17 @@
 
         function gameConfirm(message, onOk, title, okLabel) {
             gameDialog({ message: String(message), title: title || 'Confirm', okLabel: okLabel || 'OK', onOk: onOk });
+        }
+
+        let toastTimer = null;
+
+        function showToast(msg) {
+            const el = document.getElementById('toast');
+            if (!el) return;
+            el.textContent = msg;
+            el.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => el.classList.remove('show'), 4500);
         }
 
         function escapeHtml(s) {
@@ -4205,7 +4205,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.93.0';
+        const GAME_VERSION = '0.96.0';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -4238,13 +4238,13 @@
         const WARP10_LOSS = 0.1;
         const PLANET_SCANNERS = [
             { name: 'Viewer 50', req: [0, 0, 0, 0, 0, 0], range: 50 },
-            { name: 'Scoper 150', req: [0, 0, 0, 0, 3, 0], range: 50, pen: 150 },
-            { name: 'Scoper 220', req: [0, 0, 0, 0, 6, 0], range: 90, pen: 220 },
-            { name: 'Scoper 280', req: [0, 0, 0, 0, 8, 0], range: 150, pen: 280 },
-            { name: 'Snooper 320X', req: [3, 0, 0, 0, 10, 3], range: 160, pen: 320 },
-            { name: 'Snooper 400X', req: [4, 0, 0, 0, 13, 6], range: 200, pen: 400 },
-            { name: 'Snooper 500X', req: [5, 0, 0, 0, 16, 7], range: 250, pen: 500 },
-            { name: 'Snooper 620X', req: [7, 0, 0, 0, 23, 9], range: 310, pen: 620 }
+            { name: 'Scoper 150', req: [0, 0, 0, 0, 3, 0], range: 150, pen: 50 },
+            { name: 'Scoper 220', req: [0, 0, 0, 0, 6, 0], range: 220, pen: 90 },
+            { name: 'Scoper 280', req: [0, 0, 0, 0, 8, 0], range: 280, pen: 150 },
+            { name: 'Snooper 320X', req: [3, 0, 0, 0, 10, 3], range: 320, pen: 160 },
+            { name: 'Snooper 400X', req: [4, 0, 0, 0, 13, 6], range: 400, pen: 200 },
+            { name: 'Snooper 500X', req: [5, 0, 0, 0, 16, 7], range: 500, pen: 250 },
+            { name: 'Snooper 620X', req: [7, 0, 0, 0, 23, 9], range: 620, pen: 310 }
         ];
 
         const PARTS = {};
@@ -4368,15 +4368,15 @@
         definePartM('dnascanner', 'DNA Scanner', 'scanner', [0, 0, 3, 0, 0, 6], 2, [5, 1, 1, 1], { range: 125, ships: true, detect: 0 });
         definePartM('neutrino', 'Possum Scanner', 'scanner', [0, 0, 0, 0, 5, 0], 3, [18, 3, 0, 3], { range: 150, ships: true, detect: 0 });
         definePartM('pickpocket', 'Pick Pocket Scanner', 'scanner', [4, 0, 0, 0, 4, 4], 15, [35, 8, 10, 6], { range: 80, ships: true, detect: 0, robber: true, prt: 'SS' });
-        definePartM('chameleon', 'Chameleon Scanner', 'scanner', [3, 0, 0, 0, 6, 0], 6, [25, 4, 6, 4], { range: 45, ships: true, detect: 0, pen: 160, xCloak: 40, prt: 'SS' });
-        definePartM('ferret', 'Ferret Scanner', 'scanner', [3, 0, 0, 0, 7, 2], 2, [36, 2, 0, 8], { range: 50, ships: true, detect: 0, pen: 185 });
-        definePartM('dolphin', 'Dolphin Scanner', 'scanner', [5, 0, 0, 0, 10, 4], 4, [40, 5, 5, 10], { range: 100, ships: true, detect: 0, pen: 220 });
+        definePartM('chameleon', 'Chameleon Scanner', 'scanner', [3, 0, 0, 0, 6, 0], 6, [25, 4, 6, 4], { range: 160, ships: true, detect: 0, pen: 45, xCloak: 40, prt: 'SS' });
+        definePartM('ferret', 'Ferret Scanner', 'scanner', [3, 0, 0, 0, 7, 2], 2, [36, 2, 0, 8], { range: 185, ships: true, detect: 0, pen: 50 });
+        definePartM('dolphin', 'Dolphin Scanner', 'scanner', [5, 0, 0, 0, 10, 4], 4, [40, 5, 5, 10], { range: 220, ships: true, detect: 0, pen: 100 });
         definePartM('gazelle', 'Gazelle Scanner', 'scanner', [4, 0, 0, 0, 8, 0], 5, [24, 4, 0, 5], { range: 225, ships: true, detect: 0 });
         definePartM('rnascanner', 'RNA Scanner', 'scanner', [0, 0, 5, 0, 0, 10], 2, [20, 1, 1, 2], { range: 230, ships: true, detect: 0 });
         definePartM('cheetah', 'Cheetah Scanner', 'scanner', [5, 0, 0, 0, 11, 0], 4, [50, 3, 1, 13], { range: 275, ships: true, detect: 0 });
-        definePartM('elephantscanner', 'Elephant Scanner', 'scanner', [6, 0, 0, 0, 16, 7], 6, [70, 8, 5, 14], { range: 200, ships: true, detect: 0, pen: 300 });
+        definePartM('elephantscanner', 'Elephant Scanner', 'scanner', [6, 0, 0, 0, 16, 7], 6, [70, 8, 5, 14], { range: 300, ships: true, detect: 0, pen: 200 });
         definePartM('quantum', 'Eagle Eye Scanner', 'scanner', [6, 0, 0, 0, 14, 0], 3, [64, 3, 2, 21], { range: 335, ships: true, detect: 0 });
-        definePartM('robberbaron', 'Robber Baron Scanner', 'scanner', [10, 0, 0, 0, 15, 10], 20, [90, 10, 10, 10], { range: 120, ships: true, detect: 0, pen: 220, robber: true, prt: 'SS' });
+        definePartM('robberbaron', 'Robber Baron Scanner', 'scanner', [10, 0, 0, 0, 15, 10], 20, [90, 10, 10, 10], { range: 220, ships: true, detect: 0, pen: 120, robber: true, prt: 'SS' });
         definePartM('peerless', 'Peerless Scanner', 'scanner', [7, 0, 0, 0, 24, 0], 4, [90, 3, 2, 30], { range: 500, ships: true, detect: 0 });
 
         definePartM('transportcloak', 'Transport Cloaking', 'cloak', [0, 0, 0, 0, 0, 0], 1, [3, 2, 0, 2], { cloak: 300, unarmedOnly: true, prt: 'SS' });
@@ -4776,8 +4776,8 @@ const DEFENDERS_PER_POP=100;
             torpedo: { short: 'Torpedo', label: 'Capital Torpedo', field: 'weapons', level: 3, cost: { res: 10, iron: 3, bora: 5, germ: 0 }, torpedo: 55 },
             sbscan1: { short: 'Scanner', label: 'Starbase Scanner (normal 100 ly)', field: 'electronics', level: 1, cost: { res: 5, iron: 1, bora: 0, germ: 2 }, scan: 100 },
             sbscan2: { short: 'Deep Scan', label: 'Deep Starbase Scanner (normal 250 ly)', field: 'electronics', level: 5, cost: { res: 12, iron: 2, bora: 1, germ: 5 }, scan: 250 },
-            sbpen1: { short: 'Orbit Scan', label: 'Orbit Scanner (penetrating 160 ly)', field: 'electronics', level: 3, cost: { res: 9, iron: 2, bora: 1, germ: 4 }, pen: 160 },
-            sbpen2: { short: 'Pen Array', label: 'Penetrating Array (penetrating 360 ly)', field: 'electronics', level: 7, cost: { res: 18, iron: 3, bora: 3, germ: 8 }, pen: 360 }
+            sbpen1: { short: 'Orbit Scan', label: 'Orbit Scanner (penetrating 80 ly)', field: 'electronics', level: 3, cost: { res: 9, iron: 2, bora: 1, germ: 4 }, pen: 80 },
+            sbpen2: { short: 'Pen Array', label: 'Penetrating Array (penetrating 180 ly)', field: 'electronics', level: 7, cost: { res: 18, iron: 3, bora: 3, germ: 8 }, pen: 180 }
         };
         function sbSlotAccepts(cat, key) {
             return SB_CATS[cat].accepts.indexOf(key) !== -1;
@@ -7923,11 +7923,7 @@ const DEFENDERS_PER_POP=100;
                         const d = Math.hypot(sc.x - f.x, sc.y - f.y);
                         if (sc.mine) return !orbiting && d <= sc.range && detectionRoll(f) >= cloak / 100;
                         if ((sc.pen || 0) > 0 && d <= sc.pen) return true;
-                        if (orbiting) {
-                            if (d <= 0.5) return true;
-                            if (cloak > 0) return false;
-                            return d <= sc.range;
-                        }
+                        if (orbiting) return d <= 0.5;
                         const eff = cloak * Math.pow(TACHYON_FACTOR, Math.sqrt(sc.detect || 0));
                         return d <= sc.range * (1 - eff / 100);
                     });
@@ -7980,7 +7976,7 @@ const DEFENDERS_PER_POP=100;
                     p.lastScan = yearNow();
                     return;
                 }
-                if (scanCovered(p, sources.filter(x => !x.mine)) || orbitedByFleet(p)) {
+                if (penCovered(p, sources.filter(x => !x.mine)) || orbitedByFleet(p)) {
                     if (!p.explored) {
                         if (p.owner === 'neutral') newWorlds.push(p); else newRivals.push(p);
                     }
@@ -8172,16 +8168,47 @@ const DEFENDERS_PER_POP=100;
             storeActiveEmpire();
         }
 
-        const LAST_PLAYED_KEY = 'freespace4x_last_played';
+        const LAST_MP_KEY = 'freespace4x_last_mp';
+        const SINGLE_SAVE_KEY = 'freespace4x_save';
+        const AUTH_STORAGE_KEY = 'freespace4x_auth';
 
         function noteLastPlayed() {
+            if (!mpGame) return;
+            try { localStorage.setItem(LAST_MP_KEY, mpGame.id); } catch (e) {}
+        }
+
+        function hasSingleSave() {
+            try { return !!localStorage.getItem(SINGLE_SAVE_KEY); } catch (e) { return false; }
+        }
+
+        function refreshContinueButtons() {
+            const single = document.getElementById('btn-continue-game');
+            const mp = document.getElementById('btn-continue-mp');
+            if (!single || !mp) return;
+            let gid = null;
+            let signed = false;
             try {
-                localStorage.setItem(LAST_PLAYED_KEY, JSON.stringify(mpGame ? { kind: 'mp', gameId: mpGame.id } : { kind: 'single' }));
+                gid = localStorage.getItem(LAST_MP_KEY);
+                signed = !!localStorage.getItem(AUTH_STORAGE_KEY);
             } catch (e) {}
+            single.style.display = hasSingleSave() ? '' : 'none';
+            mp.style.display = gid && signed ? '' : 'none';
+        }
+
+        function autosaveSingle() {
+            if (mpGame) return false;
+            try {
+                localStorage.setItem(SINGLE_SAVE_KEY, JSON.stringify(buildSaveData()));
+            } catch (e) {
+                return false;
+            }
+            refreshContinueButtons();
+            return true;
         }
 
         function showActiveEmpireDashboard() {
             noteLastPlayed();
+            autosaveSingle();
             refreshRaceSelects();
             renderEventLog();
             refreshPlotButtons();
@@ -9083,6 +9110,7 @@ const DEFENDERS_PER_POP=100;
         function showView(viewId) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
+            if (viewId === 'view-title') refreshContinueButtons();
             if (viewId === 'view-race-setup') {
                 updateGalaxySetupSummary();
                 updateSetupButtonLabels();
@@ -9102,50 +9130,63 @@ const DEFENDERS_PER_POP=100;
             document.getElementById('import-file-input').click();
         }
 
-        async function goContinueGame() {
-            let last = null;
-            try { last = JSON.parse(localStorage.getItem(LAST_PLAYED_KEY) || 'null'); } catch (e) {}
-            if (last && last.kind === 'mp' && last.gameId && !mpBusy && mpClient()) {
-                let signedIn = false;
-                mpSetBusy(true, ['btn-continue-game', 'btn-multiplayer']);
-                try {
-                    const res = await sb.auth.getSession();
-                    mpSession = res.data ? res.data.session : null;
-                    if (mpSession) {
-                        await mpLoadProfile();
-                        signedIn = true;
-                    }
-                } catch (err) {
-                    signedIn = false;
-                } finally {
-                    mpSetBusy(false, ['btn-continue-game', 'btn-multiplayer']);
-                }
-                if (signedIn) {
-                    await mpEnterGalaxy(last.gameId);
-                    return;
-                }
+        function goContinueGame() {
+            const saved = hasSingleSave() ? localStorage.getItem(SINGLE_SAVE_KEY) : null;
+            if (!saved) {
+                refreshContinueButtons();
+                gameAlert('No saved single player game was found in this browser.');
+                return;
             }
-            loadSavedSinglePlayer();
+            try {
+                applySaveData(JSON.parse(saved));
+                showToast('Saved game loaded.');
+            } catch (e) {
+                gameAlert('The saved game could not be read. Start a New Game or open a save file.');
+            }
         }
 
-        function loadSavedSinglePlayer() {
-            const saved = localStorage.getItem('freespace4x_save');
-            if (saved) {
-                try {
-                    applySaveData(JSON.parse(saved));
-                    gameAlert('Game loaded successfully from LocalStorage!');
-                } catch(e) {
-                    gameAlert('Failed to parse save data.');
-                }
-            } else {
-                gameAlert('No saved game found in this browser, and no signed-in multiplayer game to return to. Please start a New Game.');
+        async function goContinueMp() {
+            let gid = null;
+            try { gid = localStorage.getItem(LAST_MP_KEY); } catch (e) {}
+            if (!gid) {
+                refreshContinueButtons();
+                return;
             }
+            if (mpBusy) return;
+            if (!mpClient()) {
+                gameAlert('Multiplayer needs an internet connection. The online library could not be loaded.', 'Multiplayer Unavailable');
+                return;
+            }
+            let signedIn = false;
+            let failure = null;
+            mpSetBusy(true, ['btn-continue-mp', 'btn-multiplayer']);
+            try {
+                const res = await sb.auth.getSession();
+                mpSession = res.data ? res.data.session : null;
+                if (mpSession) {
+                    await mpLoadProfile();
+                    signedIn = true;
+                }
+            } catch (err) {
+                failure = err;
+            } finally {
+                mpSetBusy(false, ['btn-continue-mp', 'btn-multiplayer']);
+            }
+            if (!signedIn) {
+                mpLink = { game: gid, invite: null };
+                mpShowAuth('signin');
+                if (failure) mpSetStatus('mp-signin-status', mpErrorText(failure), 'error');
+                else mpSetStatus('mp-signin-status', 'Sign in to go back to your multiplayer game.', 'ok');
+                return;
+            }
+            await mpEnterGalaxy(gid);
         }
 
         document.getElementById('btn-new-game').addEventListener('click', goNewGame);
         document.querySelectorAll('.btn-back-title').forEach(btn => btn.addEventListener('click', () => showView('view-title')));
         document.getElementById('btn-open-game').addEventListener('click', goOpenGame);
         document.getElementById('btn-continue-game').addEventListener('click', goContinueGame);
+        document.getElementById('btn-continue-mp').addEventListener('click', goContinueMp);
 
         window.addEventListener('keydown', (e) => {
             if (dialogActive || e.ctrlKey || e.altKey || e.metaKey) return;
@@ -9153,7 +9194,10 @@ const DEFENDERS_PER_POP=100;
             const k = e.key.toLowerCase();
             if (k === 'n') goNewGame();
             else if (k === 'o') goOpenGame();
-            else if (k === 'c') goContinueGame();
+            else if (k === 'c') {
+                if (hasSingleSave()) goContinueGame();
+                else if (document.getElementById('btn-continue-mp').style.display !== 'none') goContinueMp();
+            }
             else if (k === 'm') openMultiplayer();
         });
 
@@ -9573,11 +9617,9 @@ const DEFENDERS_PER_POP=100;
             'diplomacy-modal': 'btn-dip-close',
             'minefield-modal': 'btn-mf-close',
             'doc-modal': 'doc-close',
-            'transparency-modal': 'btn-tr-close',
-            'names-modal': 'btn-pn-close',
-            'fnames-modal': 'btn-fn-close'
+            'ui-modal': 'btn-ui-close'
         };
-        const POPUP_KEEP_DASHBOARD = ['transparency-modal', 'names-modal', 'fnames-modal'];
+        const POPUP_KEEP_DASHBOARD = ['ui-modal'];
         const POPUP_VIEW_CLOSE_BUTTONS = { 'view-research': 'btn-close-research', 'view-economy': 'btn-close-economy' };
 
         function syncPopupBackdrop() {
@@ -12470,7 +12512,7 @@ const DEFENDERS_PER_POP=100;
             { key: 'bomb', label: 'Bombs', desc: 'Bombs are dropped on enemy planets to kill colonists and destroy installations.' },
             { key: 'shield', label: 'Shields', desc: 'Shields add protection to every ship that carries them in battle.' },
             { key: 'armor', label: 'Armor', desc: 'Armor adds hit points to a ship. Lighter armor leaves more mass for cargo and fuel.' },
-            { key: 'scanner', label: 'Ship Scanners', desc: 'Ship scanners survey worlds and see fleets inside their normal range. Penetrating range sees fleets through cloaks, but never surveys worlds.' },
+            { key: 'scanner', label: 'Ship Scanners', desc: 'Normal range is the longer one and only sees fleets in deep space. Penetrating range is shorter, but reaches through atmospheres: it surveys worlds and sees fleets in orbit, cloaked or not.' },
             { key: 'cloak', label: 'Cloaking Devices', desc: 'Cloaks hide ships from enemy scanners. Cloaking percent grows with the cloak units each kT of ship carries.' },
             { key: 'elec', label: 'Electrical', desc: 'Battle computers, jammers, capacitors, tachyon detectors and other electronics.' },
             { key: 'mech', label: 'Mechanical', desc: 'Cargo pods, fuel tanks, colonization modules, mining robots, terraformers, jets and other mechanical parts.' },
@@ -15233,6 +15275,26 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.96.0', d: 'Oct 5, 2026 1:03 PM', t: "Single Player Autosave and Separate Continue Buttons", items: [
+                "Single player games are now saved in this browser automatically when the game starts and every time you press End Turn. A green note at the bottom of the screen says the game was saved. Before, only Save File made a save, so Continue Game found nothing.",
+                "Continue Game on the title screen only shows when a saved single player game exists in this browser, and it loads that game.",
+                "New Continue Multiplayer Game button on the title screen. It shows after you have signed in and played a multiplayer game on this device, and takes you straight back into that game. If you are signed out it asks you to sign in first and then opens the game.",
+                "In multiplayer, a green note now appears every time your orders have been sent to the server after you press End Turn, including Blitz games and when your orders were the last one in.",
+                "Help: Continue Game and Saving updated."
+            ] },
+            { v: '0.95.0', d: 'Oct 5, 2026 1:15 PM', t: "One UI Button in Settings", items: [
+                "Panel Transparency, Planet Names on Map, Fleet Names on Map, Map Rulers and Map Legend are now together in one window opened by a single Settings button called UI. The five separate Settings buttons are gone.",
+                "The UI window has the three sliders (each with its Reset button) and the Map Rulers and Map Legend ON/OFF buttons. Like Panel Transparency before it, it leaves the game visible behind it so you can watch the map change as you drag. Your choices are remembered on this device as before.",
+                "Help: Panel Transparency, Planet Names on Map, The Star Map, Measuring Distance and Pop-up Windows updated."
+            ] },
+            { v: '0.94.0', d: 'Oct 5, 2026 12:42 PM', t: "Scanners Swapped: Normal Sees Fleets, Penetrating Sees Worlds", items: [
+                "Normal scanners are the longer range, drawn as the larger solid maroon shape. They only see fleets in deep space, and cannot see worlds or fleets in orbit.",
+                "Penetrating scanners are the shorter range, drawn as the smaller solid olive shape inside the maroon one. They reach through atmospheres: every world inside them is surveyed (ore, habitability, owner, starbase) and every fleet inside them, in orbit or deep space, is seen through its cloak.",
+                "You now start with normal scanners only (Viewer 50 and the Rhino Scanner), so at first you see fleets but not worlds until a ship orbits them. Research Electronics for penetrating scanners: Scoper 150 gives penetrating 50, and the Snoopers reach 160 to 310.",
+                "Scanner numbers swapped so penetrating is the shorter one: planets Scoper 150 (150 and 50), Scoper 220 (220 and 90), Scoper 280 (280 and 150), Snooper 320X to 620X (normal 320 to 620, penetrating 160 to 310); ships Chameleon 160 and 45, Ferret 185 and 50, Dolphin 220 and 100, Robber Baron 220 and 120, Elephant 300 and 200; starbase Orbit Scanner 80 ly and Penetrating Array 180 ly.",
+                "Races with No Advanced Scanners have no penetrating range, so they only learn about worlds by orbiting them.",
+                "Help: Scanning and Discovery and Reports and Map Overlays updated; the map legend and Technology Browser text match."
+            ] },
             { v: '0.93.0', d: 'Oct 4, 2026 9:10 PM', t: "Stargate Costs Match the Stars! Table", items: [
                 "The game has the seven stargates from your table: 100/250, any/300, 150/600, 300/500, 100/any, any/800 and any/any, each with the safe ship mass, jump range and Propulsion and Construction needs shown there. Those already matched.",
                 "Costs were wrong and now match: 400, 500, 1,000, 1,200, 1,400, 1,400 and 1,600 Resources, each with 100 Ironium, 40 Boranium and 40 Germanium (before the discount for technology above the requirement; Interstellar Traveler races still pay 25 percent less).",
@@ -17519,12 +17581,12 @@ const DEFENDERS_PER_POP=100;
             mapCtx.lineWidth = 1.6 / mapScale;
             mapCtx.fillStyle = 'rgba(128, 20, 20, 0.85)';
             mapCtx.strokeStyle = 'rgba(190, 56, 56, 1)';
-            mapCtx.fill(scanFusionCache.pen, 'evenodd');
-            mapCtx.stroke(scanFusionCache.pen);
-            mapCtx.fillStyle = 'rgba(110, 110, 20, 0.9)';
-            mapCtx.strokeStyle = 'rgba(160, 160, 40, 1)';
             mapCtx.fill(scanFusionCache.normal, 'evenodd');
             mapCtx.stroke(scanFusionCache.normal);
+            mapCtx.fillStyle = 'rgba(110, 110, 20, 0.9)';
+            mapCtx.strokeStyle = 'rgba(160, 160, 40, 1)';
+            mapCtx.fill(scanFusionCache.pen, 'evenodd');
+            mapCtx.stroke(scanFusionCache.pen);
             mapCtx.restore();
         }
 
@@ -17712,7 +17774,7 @@ const DEFENDERS_PER_POP=100;
                 if (met) legend.push([empireColor(e.id), e.name]);
             });
             if (showMapLegend) legend.push(['#ffd700', 'Station or starbase with ship dock'], ['#4fc3f7', 'Habitable'], ['#8b3a3a', 'Hostile'], ['#888888', 'Unscanned']);
-            if (showMapLegend && showScanRings) legend.push(['#8c8c26', 'Normal scanner range (inner, olive)'], ['#be3838', 'Penetrating scanner range (outer, maroon)']);
+            if (showMapLegend && showScanRings) legend.push(['#be3838', 'Normal scanner range (outer, maroon)'], ['#8c8c26', 'Penetrating scanner range (inner, olive)']);
             mapCtx.font = '11px Segoe UI';
             const legendBottom = showMapRulers ? 30 : 10;
             const rowsFit = Math.max(4, Math.floor((mapCanvas.height - legendBottom - 2) / 15));
@@ -18104,8 +18166,8 @@ const DEFENDERS_PER_POP=100;
             const msgEl = document.getElementById('summary-unexplored-msg');
             if (!known) {
                 msgEl.style.display = 'block';
-                msgEl.innerText = `System unexplored. Nearest scanner is ${Math.round(scanDist)} ly away. Ore deposits and habitability are only known once one of your ships orbits this world or a normal scanner range sweeps over it.`;
-            } else if (p.owner !== myEmpireId && !scanCovered(p, getScannerSources().filter(x => !x.mine)) && !orbitedByFleet(p)) {
+                msgEl.innerText = `System unexplored. Nearest scanner is ${Math.round(scanDist)} ly away. Ore deposits and habitability are only known once one of your ships orbits this world or a penetrating scanner range reaches it.`;
+            } else if (p.owner !== myEmpireId && !penCovered(p, getScannerSources().filter(x => !x.mine)) && !orbitedByFleet(p)) {
                 msgEl.style.display = 'block';
                 msgEl.innerText = `Survey data from year ${p.lastScan || currentYear}. Out of scanner range; current values may differ.`;
             } else {
@@ -19251,6 +19313,7 @@ const DEFENDERS_PER_POP=100;
             if (document.getElementById('waypoint-modal').classList.contains('active')) renderWaypointModal();
             updateDashboardPlanetView();
             if (result.winner) declareVictory(result.winner);
+            if (autosaveSingle()) showToast('Game saved on this device (year ' + currentYear + ').');
         }
 
         const PANEL_TRANSPARENCY_DEFAULT = 30;
@@ -19276,11 +19339,11 @@ const DEFENDERS_PER_POP=100;
             try { localStorage.setItem('fs4x-panel-transparency', String(panelTransparency)); } catch (err) { }
         }
 
-        document.getElementById('btn-transparency').addEventListener('click', () => {
-            document.getElementById('transparency-modal').classList.add('active');
+        document.getElementById('btn-ui').addEventListener('click', () => {
+            document.getElementById('ui-modal').classList.add('active');
         });
-        document.getElementById('btn-tr-close').addEventListener('click', () => {
-            document.getElementById('transparency-modal').classList.remove('active');
+        document.getElementById('btn-ui-close').addEventListener('click', () => {
+            document.getElementById('ui-modal').classList.remove('active');
         });
         document.getElementById('btn-tr-reset').addEventListener('click', () => {
             panelTransparency = PANEL_TRANSPARENCY_DEFAULT;
@@ -19298,7 +19361,6 @@ const DEFENDERS_PER_POP=100;
             planetNameSize = Math.max(0, Math.min(PLANET_NAME_SIZE_MAX, Math.round(planetNameSize)));
             document.getElementById('pn-slider').value = planetNameSize;
             document.getElementById('pn-value').innerText = planetNameSize === 0 ? 'Hidden' : planetNameSize + ' px';
-            document.getElementById('btn-planet-names').innerText = planetNameSize === 0 ? '🔠 Planet Names on Map: Hidden' : '🔠 Planet Names on Map: ' + planetNameSize + ' px';
             if (dashboardActive()) drawGalaxyMap();
         }
 
@@ -19306,12 +19368,6 @@ const DEFENDERS_PER_POP=100;
             try { localStorage.setItem('fs4x-planet-name-size', String(planetNameSize)); } catch (err) { }
         }
 
-        document.getElementById('btn-planet-names').addEventListener('click', () => {
-            document.getElementById('names-modal').classList.add('active');
-        });
-        document.getElementById('btn-pn-close').addEventListener('click', () => {
-            document.getElementById('names-modal').classList.remove('active');
-        });
         document.getElementById('btn-pn-reset').addEventListener('click', () => {
             planetNameSize = PLANET_NAME_SIZE_DEFAULT;
             applyPlanetNameSize();
@@ -19328,7 +19384,6 @@ const DEFENDERS_PER_POP=100;
             fleetNameSize = Math.max(0, Math.min(PLANET_NAME_SIZE_MAX, Math.round(fleetNameSize)));
             document.getElementById('fn-slider').value = fleetNameSize;
             document.getElementById('fn-value').innerText = fleetNameSize === 0 ? 'Hidden' : fleetNameSize + ' px';
-            document.getElementById('btn-fleet-names').innerText = fleetNameSize === 0 ? '🔡 Fleet Names on Map: Hidden' : '🔡 Fleet Names on Map: ' + fleetNameSize + ' px';
             if (dashboardActive()) drawGalaxyMap();
         }
 
@@ -19336,12 +19391,6 @@ const DEFENDERS_PER_POP=100;
             try { localStorage.setItem('fs4x-fleet-name-size', String(fleetNameSize)); } catch (err) { }
         }
 
-        document.getElementById('btn-fleet-names').addEventListener('click', () => {
-            document.getElementById('fnames-modal').classList.add('active');
-        });
-        document.getElementById('btn-fn-close').addEventListener('click', () => {
-            document.getElementById('fnames-modal').classList.remove('active');
-        });
         document.getElementById('btn-fn-reset').addEventListener('click', () => {
             fleetNameSize = PLANET_NAME_SIZE_DEFAULT;
             applyFleetNameSize();
@@ -21695,6 +21744,7 @@ const DEFENDERS_PER_POP=100;
                     return;
                 }
                 mpPending = null;
+                showToast(autoSkip ? 'Skip My Turns: blank orders for ' + currentYear + ' sent to the server.' : 'Orders for ' + currentYear + ' sent to the server.');
                 mpGame.submitted = true;
                 mpGame.waiting = r.waiting || [];
                 mpGame.allIn = !!r.all_in;
@@ -23174,6 +23224,7 @@ const DEFENDERS_PER_POP=100;
         refreshRaceSelects();
 
         updateSetupButtonLabels();
+        refreshContinueButtons();
 
         let lastFrame = 0;
         let lastPicDraw = 0;
