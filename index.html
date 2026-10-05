@@ -828,6 +828,21 @@
         .sbl-part { font-weight: bold; color: #4a0066; }
         .sbl-empty { opacity: 0.5; }
         .sbl-ft { opacity: 0.85; }
+        .sdm-wrap { margin: 6px auto 8px; container-type: inline-size; width: 100%; }
+        .sdm-grid { display: grid; gap: 2px; width: 100%; }
+        .sdm-cell { border: 1px solid #000; border-radius: 3px; padding: 2px 1px; text-align: center; color: #101010; font-size: max(7px, 1.5cqw); line-height: 1.15; display: flex; flex-direction: column; justify-content: space-between; align-items: center; overflow: hidden; box-sizing: border-box; min-width: 0; min-height: 0; cursor: pointer; }
+        .sdm-cell:hover { filter: brightness(1.12); }
+        .sdm-cell.active { outline: 3px solid #ffd700; outline-offset: -2px; z-index: 2; }
+        .sdm-cell.still { cursor: default; }
+        .sdm-cell.still:hover { filter: none; }
+        .sdm-cell.sdm-cargo { background: #f2f2f2; justify-content: center; font-weight: bold; cursor: default; }
+        .sdm-cell.sdm-cargo:hover { filter: none; }
+        .sdm-type { font-weight: bold; }
+        .sdm-part { font-weight: bold; color: #4a0066; }
+        .sdm-empty { opacity: 0.5; }
+        .sdm-ft { opacity: 0.85; }
+        .sd-slotedit { border: 1px solid #443366; border-radius: 4px; padding: 6px 8px; margin: 4px 0; font-size: 0.85rem; }
+        .sd-slotedit select { width: auto; padding: 2px 4px; }
         .sb-editor { background: rgba(18, 16, 25, var(--pa)); border: 1px solid #332244; padding: 8px 10px; border-radius: 4px; margin-bottom: 12px; }
         .sb-ed-title { font-size: 12px; font-weight: bold; color: #da70d6; margin-bottom: 6px; }
         .sb-ed-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
@@ -2193,19 +2208,19 @@
         #sd-hullinfo { font-size: 12px; color: #9ab; margin: 2px 0 6px; line-height: 1.5; }
         .sd-edit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; align-items: start; }
         @media (max-width: 900px) { .sd-edit { grid-template-columns: 1fr; } }
-        #sd-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; margin: 6px 0; }
+        #sd-slots { margin: 6px 0; }
         .sd-slotbox { border: 1px solid #443366; background: rgba(14, 12, 22, var(--pa)); border-radius: 4px; padding: 6px 8px; cursor: pointer; min-height: 64px; }
         .sd-slotbox:hover { border-color: #8a6ad0; }
         .sd-slotbox.active { border-color: #ffd700; box-shadow: 0 0 6px rgba(255, 215, 0, 0.5); }
         .sd-slotbox.filled { background: rgba(26, 20, 44, var(--pa)); }
         .sd-slotbox.t-E { border-left: 4px solid #ff8c00; }
-        .sd-slotbox.t-W { border-left: 4px solid #ff4d4d; }
+        .sd-slotbox.t-W, .sd-slotbox.t-V { border-left: 4px solid #ff4d4d; }
         .sd-slotbox.t-B { border-left: 4px solid #ff4d4d; }
         .sd-slotbox.t-S, .sd-slotbox.t-H, .sd-slotbox.t-A { border-left: 4px solid #4da6ff; }
         .sd-slotbox.t-C { border-left: 4px solid #32cd32; }
         .sd-slotbox.t-X, .sd-slotbox.t-Q { border-left: 4px solid #da70d6; }
         .sd-slotbox.t-M, .sd-slotbox.t-R { border-left: 4px solid #c0a060; }
-        .sd-slotbox.t-Y, .sd-slotbox.t-P, .sd-slotbox.t-G, .sd-slotbox.t-L { border-left: 4px solid #aaaaaa; }
+        .sd-slotbox.t-Y, .sd-slotbox.t-D, .sd-slotbox.t-N, .sd-slotbox.t-Z, .sd-slotbox.t-G, .sd-slotbox.t-L { border-left: 4px solid #aaaaaa; }
         .sd-slothead { font-size: 11px; color: #aab; text-transform: uppercase; letter-spacing: 0.5px; }
         .sd-cap { color: #ffd700; font-weight: bold; }
         .sd-slotpart { font-size: 12px; color: #eef; margin-top: 3px; }
@@ -2284,7 +2299,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.87.0 (Updated: October 04, 2026 2:47 PM)</div>
+            <div class="version-text">Version 0.93.0 (Updated: October 04, 2026 9:10 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
     </div>
@@ -3601,10 +3616,10 @@
             <div style="text-align:left;">
                 <p><b style="color:#da70d6;">Absolute Beginner: Play in Two Minutes</b><br><b>The idea.</b> You lead a young empire that starts with one homeworld and a few ships. Other empires, run by the computer or by friends, are doing the same. You win by growing larger and stronger than they are, or by meeting the victory conditions chosen for the game. Each turn is one year.<br><br><b>Each year do three things.</b> First, <b>planets</b>: click your homeworld and give it something to build in the production queue, such as mines and factories at first, then scouts and colony ships. Second, <b>research</b>: pick a technology field to study so your ships and buildings improve over time. Third, <b>ships</b>: click a fleet, then click a star on the map to send it there. Scouts reveal the galaxy. A colony ship carries colonists to a good planet. Then press <b>End Turn</b> and the year plays out.<br><br><b>How to grow.</b> Look for planets with a high habitability percentage and send colonists there. New colonies grow by themselves and produce Resources and minerals. Use Resources to build and research, and mine minerals to pay for ships. Keep scouting, keep building, and keep a few warships near your homeworld because enemies will arrive eventually.<br><br><b>If something looks wrong,</b> the game warns you before you end a turn with idle planets or fleets, or send a ship somewhere it cannot reach. When you are ready for more, read the rest of Basic, then Advanced.</p>
                 <p><b style="color:#da70d6;">Goal</b><br>Grow your empire from a single homeworld: scan the galaxy, colonize habitable worlds, mine ore, build infrastructure and outscore your AI opponents. Check the Scoreboard under Management to see how you rank. If the game was created with Victory Conditions, the first empire to meet them wins (see Victory Conditions below).</p>
-                <p><b style="color:#da70d6;">Technology Browser</b><br>Open <b>Management, Technology Browser</b> to look up every item in the game with a picture, its cost, mass, tech requirements and stats. A <b>Close</b> button sits in the top bar of the window and stays in view while you scroll; there is another at the bottom, and Escape closes it too (the first Escape clears the search box). Use the <b>Prev</b> and <b>Next</b> buttons or the arrow keys to step through the list, or pick a category from the drop-down: Engines, Beam Weapons, Torpedoes and Missiles, Bombs, Shields, Armor, Ship Scanners, Cloaking Devices, Electrical, Mechanical, Mine Layers, Ship Hulls, Space Station and Starbase Hulls, Starbase Components, Planetary Scanners, Stargates, Mass Drivers, Planet Installations and Mystery Trader Items (or All Technology for everything at once). The <b>search box</b> finds items by name, category, stat, tech requirement or race trait (type several words and every word must match, for example <b>jammer torpedo</b> or <b>Propulsion 6</b>); press Escape to clear it. <b>Sort</b> by category then tech level, tech level, name, Resources cost or mass. Tick <b>Show Only Available Technology</b> to hide everything you cannot build yet. Each row has a dot: green means you can use it now, red means you cannot. <b>Reading an item:</b> the picture is drawn by the game from the item's type and stats (ship hull pictures show the hull's slots as colored squares, space station and starbase pictures show the hull's slot map with each slot colored by type, and the small dots under a large picture show how advanced the tech is). Beside it are the cost in Ironium, Boranium, Germanium and Resources and the mass in kT. The cost shown is what you pay now, after miniaturization; when it is lower than the base cost the base is shown in grey beside it. <b>Tech Req</b> lists the levels needed (a level you have not reached shows under Not available with how far you are from it), and the table lists the item's stats: damage, range, initiative, accuracy, shields, armor, scanner ranges, cargo and fuel capacity, slots and the like. Engines also get a <b>Fuel Usage vs. Warp Speed</b> chart: the blue number on the bottom is the engine's free warp, and a dotted column marks Warp 10 when the engine is not safe there. Notes at the bottom tell you about race limits, special behavior and why an item is not available to you. Tech levels here are the levels you see on the Research screen (Tech 0 is where you start). Mystery Trader items show as not available until a trader gives you the item. Costs for space stations and starbases do not include a race's starbase cost adjustment. Ship hull slot layouts are this game's own approximation where the original layouts are not known. The five space station and starbase hulls (Orbital Fort, Space Dock, Space Station, Ultra Station and Death Star) use the slot maps supplied for this game, and their pages draw the whole map with each slot's type, its limit and its slot number.</p>
-                <p><b style="color:#da70d6;">Ship Designer</b><br>Open <b>Management, Ship Designer</b>. It works like the Stars! designer: choose a hull, click a slot on the hull, then click a part from the list on the right. The list shows only parts you can build now; tick <b>Also list parts I cannot use yet</b> to see the rest with the tech they need. The hull drop-down likewise lists only hulls you have the Construction tech for. <b>Slots and stacks:</b> a hull is made of slots, and a slot can hold a stack of the same part. A slot marked <b>x4</b> holds up to 4 of one part (stack sizes are 1, 2, 4 and 8), and the <b>Qty</b> box sets how many. Putting a part into an empty slot fills the whole stack; swapping the part keeps your quantity. <b>Engines:</b> engines work the same way but a stacked engine slot always holds the full number, all the same engine, so a big hull's engine slot is one slot that still needs several engines. Slot types: <b>Engine</b>, <b>Weapon</b> (beams and torpedoes), <b>Bomb</b>, <b>Shield or Armor</b>, <b>Shield</b>, <b>Armor</b>, <b>Scanner</b>, <b>Electrical</b> (cloaks, battle computers, jammers, capacitors), <b>Mechanical</b> (cargo pods, fuel tanks, colonization module, jets), <b>Electrical or Mechanical</b>, <b>Scanner, Electrical or Mechanical</b>, <b>Scanner, Shield or Weapon</b>, <b>Mine Layer</b>, <b>Mining</b> (mining robots only) and <b>General Purpose</b> (anything). Clear empties a slot. The panel under the slots shows cost (after miniaturization), mass, armor, shields, fuel, cargo, the engine's free and best warp and its fuel table, combat speed and initiative, scanner range, cloaking and weapons. Some parts belong to one primary trait only (for example the Rogue hull and Pick Pocket Scanner for Super-Stealth races). <b>Saved designs:</b> the list on the left holds your designs; obsolete ones are hidden until you tick <b>Show obsolete designs</b>. You can keep 16 active designs; make old ones <b>Obsolete</b> to free room. A design with ships built or queued cannot be changed: the moment you change a hull or part on it, the designer makes a copy named with Mk2 and your changes go into that copy, which you keep with Save. Designs the game gave you whose hull you cannot build yet (the Destroyer, for example) are hidden as obsolete and come back by themselves when your Construction reaches the hull. Designs saved before version 0.77 that mixed different parts inside one run of weapon or armor slots are tidied into stacks when you open them and save them. Your starting hulls at Tech 0 are the Small Freighter, Scout, Colony Ship and Mini Mine Layer (Mini-Colony Ship for Hyper-Expansion races). The Technology Browser (Management menu) shows every part and hull with pictures; the Equipment Catalog and Ship Hulls sections in Help list them as text. Hull slot layouts are this game's own approximation where the original layouts are not known. Every scanner in the part list shows its normal range and its penetrating range (or none), so you can compare them before picking. Your starting Long Range Scout is a Scout hull with a Quick Jump 5 engine in the Engine slot, a Rhino Scanner (50 ly normal, no penetrating) in the Scanner slot and a Fuel Tank in the General Purpose slot.</p>
+                <p><b style="color:#da70d6;">Technology Browser</b><br>Open <b>Management, Technology Browser</b> to look up every item in the game (a ship hull page also draws the full hull layout with slot numbers, types, limits and cargo, and a part page lists the slot types it fits, including Shield, Electrical or Mechanical, Mine Layer, Electrical or Mechanical, Weapon or Shield, and Armor, Scanner, Electrical or Mechanical) with a picture, its cost, mass, tech requirements and stats. A <b>Close</b> button sits in the top bar of the window and stays in view while you scroll; there is another at the bottom, and Escape closes it too (the first Escape clears the search box). Use the <b>Prev</b> and <b>Next</b> buttons or the arrow keys to step through the list, or pick a category from the drop-down: Engines, Beam Weapons, Torpedoes and Missiles, Bombs, Shields, Armor, Ship Scanners, Cloaking Devices, Electrical, Mechanical, Mine Layers, Ship Hulls, Space Station and Starbase Hulls, Starbase Components, Planetary Scanners, Stargates, Mass Drivers, Planet Installations and Mystery Trader Items (or All Technology for everything at once). The <b>search box</b> finds items by name, category, stat, tech requirement or race trait (type several words and every word must match, for example <b>jammer torpedo</b> or <b>Propulsion 6</b>); press Escape to clear it. <b>Sort</b> by category then tech level, tech level, name, Resources cost or mass. Tick <b>Show Only Available Technology</b> to hide everything you cannot build yet. Each row has a dot: green means you can use it now, red means you cannot. <b>Reading an item:</b> the picture is drawn by the game from the item's type and stats (ship hull pictures show the hull's slot map from the Stars! pictures with each slot colored by type and the cargo block in white, space station and starbase pictures show the hull's slot map with each slot colored by type, and the small dots under a large picture show how advanced the tech is). Beside it are the cost in Ironium, Boranium, Germanium and Resources and the mass in kT. The cost shown is what you pay now, after miniaturization; when it is lower than the base cost the base is shown in grey beside it. <b>Tech Req</b> lists the levels needed (a level you have not reached shows under Not available with how far you are from it), and the table lists the item's stats: damage, range, initiative, accuracy, shields, armor, scanner ranges, cargo and fuel capacity, slots and the like. Engines also get a <b>Fuel Usage vs. Warp Speed</b> chart: the blue number on the bottom is the engine's free warp, and a dotted column marks Warp 10 when the engine is not safe there. Notes at the bottom tell you about race limits, special behavior and why an item is not available to you. Tech levels here are the levels you see on the Research screen (Tech 0 is where you start). Mystery Trader items show as not available until a trader gives you the item. Costs for space stations and starbases do not include a race's starbase cost adjustment. Ship hull slot layouts are this game's own approximation where the original layouts are not known. The five space station and starbase hulls (Orbital Fort, Space Dock, Space Station, Ultra Station and Death Star) use the slot maps supplied for this game, and their pages draw the whole map with each slot's type, its limit and its slot number. The Cruiser, Battle Cruiser, Battleship and Dreadnought pages carry a Class line because those four hulls are the capital ship hulls.</p>
+                <p><b style="color:#da70d6;">Ship Designer</b><br>Open <b>Management, Ship Designer</b>. It works like the Stars! designer: choose a hull, click a slot on the hull, then click a part from the list on the right. The list shows only parts you can build now; tick <b>Also list parts I cannot use yet</b> to see the rest with the tech they need. The hull drop-down likewise lists only hulls you have the Construction tech for. <b>Slots and stacks:</b> every hull has the numbered slots of the Stars! hull pictures (Slot 1, Slot 2 and so on), each with the type of part it takes. A slot marked <b>Up to 4</b> holds up to 4 of one part, and the <b>Qty</b> box sets how many. The hull is drawn as in the Stars! pictures: each slot sits where it does on the picture, colored by its type, and shows its slot number, its type, <b>Needs N</b> or <b>Up to N</b> and the part fitted in it; a white block marks the cargo space in kT. Click a slot on the picture to select it (gold outline); the bar under the picture sets Qty or clears the slot. Under the hull name the designer also lists every slot with its limit. Putting a part into an empty slot fills the whole stack; swapping the part keeps your quantity. <b>Engines:</b> engines work the same way but an engine slot marked <b>Needs 4</b> always holds exactly 4, all the same engine, so a big hull's engine slot is one slot that still needs several engines. Slot types: <b>Engine</b>, <b>Weapon</b> (beams and torpedoes), <b>Bomb</b>, <b>Shield or Armor</b>, <b>Shield</b>, <b>Armor</b>, <b>Scanner</b>, <b>Electrical</b> (cloaks, battle computers, jammers, capacitors), <b>Mechanical</b> (cargo pods, fuel tanks, colonization module, jets), <b>Electrical or Mechanical</b>, <b>Scanner, Electrical or Mechanical</b>, <b>Shield, Electrical or Mechanical</b>, <b>Mine Layer, Electrical or Mechanical</b>, <b>Armor, Scanner, Electrical or Mechanical</b>, <b>Weapon or Shield</b>, <b>Mine Layer</b>, <b>Robot Miner</b> (mining robots only) and <b>General Purpose</b> (anything). Clear empties a slot. The panel under the slots shows cost (after miniaturization), mass, armor, shields, fuel, cargo, the engine's free and best warp and its fuel table, combat speed and initiative, scanner range, cloaking and weapons. Some parts belong to one primary trait only (for example the Rogue hull and Pick Pocket Scanner for Super-Stealth races). <b>Saved designs:</b> the list on the left holds your designs; obsolete ones are hidden until you tick <b>Show obsolete designs</b>. You can keep 16 active designs; make old ones <b>Obsolete</b> to free room. A design with ships built or queued cannot be changed: the moment you change a hull or part on it, the designer makes a copy named with Mk2 and your changes go into that copy, which you keep with Save. Designs the game gave you whose hull you cannot build yet (the Destroyer, for example) are hidden as obsolete and come back by themselves when your Construction reaches the hull. Designs saved before version 0.88 are moved into the new slots when the game loads them: each engine goes in the engine slot and every other part goes into the first slot that takes it, and a part that no longer fits is dropped. Design files made before 0.88 are converted the same way when uploaded. Ships of a changed design keep their design, so a hull that now has fewer slots of a type than before (for example the Maxi Miner and Ultra Miner) can lose parts. Your starting hulls at Tech 0 are the Small Freighter, Scout, Colony Ship and Mini Mine Layer (Mini Colony Ship for Hyper-Expansion races). The Technology Browser (Management menu) shows every part and hull with pictures; the Equipment Catalog and Ship Hulls sections in Help list them as text. Slot numbers, types and limits of every hull follow the Stars! hull pictures; hull mass, armor, fuel, cost and tech level are still this game's own numbers. Every scanner in the part list shows its normal range and its penetrating range (or none), so you can compare them before picking. Your starting Long Range Scout is a Scout hull with a Quick Jump 5 engine in the Engine slot, a Rhino Scanner (50 ly normal, no penetrating) in the Scanner slot and a Fuel Tank in the General Purpose slot.</p>
                 <p><b style="color:#da70d6;">Building Designs and Refitting</b><br>Every active design appears in a planet's build list at its real cost. <b>Retrofit:</b> a fleet in orbit of a planet with a starbase that has a <b>Fleet Yard</b> can be refitted to another design with the same hull; the cost is the new design minus a credit for the old parts. <b>Scrap:</b> a ship can be scrapped at any of your planets for half its minerals back. Both are in <b>Fleet, Manage Ships and Names</b>.</p>
-                <p><b style="color:#da70d6;">Ship Design Files</b><br>The Ship Designer can save designs to your device and load them into another game. <b>Download This Design</b> saves the selected saved design and <b>Download All Designs</b> saves every active one, as a .json file holding each design's name, hull, parts slot by slot, mass and cost. <b>Upload Designs</b> reads such a file. Every design in it is checked against this game: the hull and every part must be unlocked by your current technology, allowed for your race's traits, and (for Mystery Trader items) owned, and the design must be complete (engines, matching engine types, parts in slots that take them). Designs that pass are added with a new name if the name is already taken. Designs you cannot build are refused, and a window lists each one with what is missing, for example the tech level needed and the level you have. A design is only added while you have fewer than 16 active designs.</p>
+                <p><b style="color:#da70d6;">Ship Design Files</b><br>The Ship Designer can save designs to your device and load them into another game. <b>Download This Design</b> saves the selected saved design and <b>Download All Designs</b> saves every active one, as a .json file holding each design's name, hull, parts slot by slot, mass and cost. <b>Upload Designs</b> reads such a file. Every design in it is checked against this game: the hull and every part must be unlocked by your current technology, allowed for your race's traits, and (for Mystery Trader items) owned, and the design must be complete (engines, matching engine types, parts in slots that take them). Designs that pass are added with a new name if the name is already taken. Designs you cannot build are refused, and a window lists each one with what is missing, for example the tech level needed and the level you have. A design is only added while you have fewer than 16 active designs. A file is tidied as it is read, the same way an old save is: an engine slot is filled with the engine, a slot that holds two different parts is split so every slot keeps one kind of part, and a file with two engine types keeps the first one.</p>
                 <p><b style="color:#da70d6;">Automation Files</b><br>Your standing orders can move between games. <b>Export Automation</b> (in Settings, or in the Autobuild window) saves a .json file with your Autobuild rules and switch, your custom zip orders, your battle plans, your research budget and next-field choice, and the Missing-Order Warning setting. <b>Import Automation</b> reads such a file and lets you tick which of these to replace in the current game; everything else stays as it is. Fleets that used a battle plan that is not in the imported list go back to Default.</p>
                 <p><b style="color:#da70d6;">Fleet Management and Naming Ships</b><br><b>Fleet, Manage Ships and Names</b> lists each ship in the selected fleet. Rename the fleet or any single ship, select ships and <b>Split</b> them into a new fleet, <b>Scrap</b> them (see Scrapping), or retrofit them at a Fleet Yard. Damaged ships show their damage percent. Fuel is shared by the whole fleet and is burned for the whole fleet mass.</p>
                 <p><b style="color:#da70d6;">Combat</b><br>Combat happens every year after all fleets of every empire have moved, wherever fleets of empires that are at war with each other share a location or come within <b>5 light years</b> (an armed fleet that ends its move within 5 light years of an enemy fleet, or whose path for the year passed within 5 light years of where an enemy fleet ended up, or an armed fleet that stayed put while an enemy ended or passed within 5 light years of it; jump gates and wormholes leave no path), or a fleet sits at an enemy world with defenses or an armed starbase. It is fought on a 10 by 10 battle board for up to 16 rounds. Each fleet becomes tokens, one per ship design, holding all its ships of that design; shields of a token are one pooled stack. Every round has three parts: (1) every token picks a target from its battle plan, (2) tokens move in up to three phases, heaviest first with a random margin of 15 percent, and (3) weapons fire from the highest initiative to the lowest (hull initiative plus battle computers plus the weapon's own initiative; shorter ranges first on ties). A token moves 0.5 to 2.5 squares a round: (best warp - 4) / 4 minus mass / 280 per engine, plus a quarter square per Maneuvering Jet and half a square per Overthruster (War Monger races half a square more); an Energy Dampener anywhere in the battle slows every token by one square a round. <b>Beams</b> always hit and lose 10 percent of their power over their full range; damage goes to shields first, then armor, and a beam token that destroys its target spills the rest onto other tokens in that square (up to one token per ship firing). Gatling weapons hit every enemy token in range. Sappers only damage shields. Capacitors raise beam damage, and Beam Deflectors lower it. <b>Torpedoes</b> may miss: each one hits by its accuracy, raised by battle computers (they cut the miss chance) and lowered by the target's jammers, which cancel one to one. A hit puts half its damage on armor and half on shields; a miss still does an eighth of its damage to shields. A torpedo strike can kill at most one ship per hit. Capital missiles do double damage to a token whose shields are gone. Starbase weapons get +1 range. Cloaked fleets may stay unseen until they fire. Players who survive a battle against ships with better technology have up to a 50 percent chance of learning a level in one field where the enemy was ahead. Empires that are neutral or allied never fight, even when they share a location, pass close by or orbit the planets of the other empire (the Attack Who setting of a battle plan therefore only matters between empires at war). Review any fight in <b>Management, Battle Reports</b> and press Watch Replay. You are also told about battles you were not in when a scanner of yours covers the place where they happened (the scan range of a planet, a fleet with a scanner or a mineral packet; cloaking is ignored). Those battles are listed and can be replayed the same way, with a note that your scanners saw them.</p>
@@ -3705,14 +3720,14 @@
                 <p><b style="color:#da70d6;">Habitability</b><br>Each planet has gravity, temperature and radiation. The shaded band on each bar is the range your race tolerates and the marker is the planet. A planet with every value inside the band is habitable, and the closer to center the better. Any value outside the band makes the planet hostile. A factor your race is immune to counts as perfect everywhere, and its band fills the whole bar. Maximum population is habitability percent of 100,000, changed by your race's population traits (Hyper-Expansion halves it, Jack of All Trades adds 20 percent, Only Basic Remote Mining adds 10 percent).</p>
                 <p><b style="color:#da70d6;">Colonizing</b><br>Build a Colony Ship (the planet needs a ship dock and at least 7,500 colonists), fly it to a neutral planet and use the Colonize task on the waypoint, or Fleet, Colonize Planet once it is in orbit (an order carried out at the start of next year). The ship is used up, its colonists (up to 5,000) found the colony and 75 percent of its minerals are left on the planet. If colony ships of two empires land on the same planet in the same year, the larger colony wins. A colony can be founded on a hostile planet (you are warned first), but its colonists slowly die off. Unsurveyed planets cannot be colonized until your ship in orbit has surveyed them, which happens as it arrives. A new colony makes a few Resources a year: queue a factory or mine first, and give it a Space Station with a dock before it can build ships. See Population and Growth for how colonies grow.</p>
                 <p><b style="color:#da70d6;">Advanced Options</b><br>On the New Game screen, Advanced Options opens a box where you can add any of these to the game. <b>Beginner: Maximum Minerals</b> gives every homeworld 100 percent mineral concentrations and every other world at least 50 percent. <b>Slower Tech Advances</b> doubles the cost of every research level. <b>Accelerated BBS Play</b> speeds up the opening: you begin with an extra loaded Colony Ship and a Small Freighter at your homeworld, and AI empires start with 50 percent more banked Resources. <b>No Random Events</b> turns off random events. <b>AI Opponents can form alliances</b> lets rivals team up over time; allied rivals each earn 10 percent more. <b>Public Player Scores</b> (on by default) shows every empire's score on the Scoreboard; turn it off to hide rival scores. <b>Galaxy clumping</b> gathers stars into tight clusters with empty space between them; off spreads the stars out in long webs. Neighbor distances stay inside the Star Density range either way. <b>Mines need colonists (classic operating limit)</b> is off to start with, and then every mine works while its planet has any colonist; ticked, only a limited number of mines can operate per 10,000 colonists, like factories.</p>
-                <p><b style="color:#da70d6;">Victory Conditions</b><br>On the New Game screen, Victory Conditions opens a box where you can tick any of these. <b>Own a share of all planets</b> is ticked to start with at 60 percent; set it anywhere from 10 to 100 percent of every planet in the galaxy. <b>Attain a tech level</b>: a level from 1 to 26 in a number of fields from 1 to 6. <b>Exceed a score</b>: from 1,000 to 1,000,000. <b>Exceed second place score by a percentage</b>: your score must be at least that much higher than the runner-up (starts at 100 percent, meaning double the second best score; choose 1 to 1,000). <b>Own capital ships</b>: from 2 to 1,000 (capital ships cannot be built yet, so this cannot be met until ship design arrives). <b>Highest score after a number of years</b>: from 10 to 1,000,000 years. At the bottom, pick how many of the ticked conditions a winner must meet (1 up to the number ticked), and how many years must pass before a winner can be declared (10 to 1,000,000). Every empire is judged the same way at the end of each turn, and if several qualify the highest score wins. The Scoreboard lists the active conditions. In a single player game you can keep playing after a winner is declared. In a multiplayer game the game ends (see Multiplayer Victory and Game Over).</p>
+                <p><b style="color:#da70d6;">Victory Conditions</b><br>On the New Game screen, Victory Conditions opens a box where you can tick any of these. <b>Own a share of all planets</b> is ticked to start with at 60 percent; set it anywhere from 10 to 100 percent of every planet in the galaxy. <b>Attain a tech level</b>: a level from 1 to 26 in a number of fields from 1 to 6. <b>Exceed a score</b>: from 1,000 to 1,000,000. <b>Exceed second place score by a percentage</b>: your score must be at least that much higher than the runner-up (starts at 100 percent, meaning double the second best score; choose 1 to 1,000). <b>Own capital ships</b>: from 2 to 1,000 (a capital ship is an armed ship built on a Cruiser, Battle Cruiser, Battleship or Dreadnought hull; it is the hull that decides, not the armor or weapons fitted). <b>Highest score after a number of years</b>: from 10 to 1,000,000 years. At the bottom, pick how many of the ticked conditions a winner must meet (1 up to the number ticked), and how many years must pass before a winner can be declared (10 to 1,000,000). Every empire is judged the same way at the end of each turn, and if several qualify the highest score wins. The Scoreboard lists the active conditions. In a single player game you can keep playing after a winner is declared. In a multiplayer game the game ends (see Multiplayer Victory and Game Over).</p>
                 <p><b style="color:#da70d6;">Management</b><br>Economy shows your Resources, the research and manufacturing split, operating factories and mines, and Ore mined and stockpiled. Research lets you pick the field and shows progress and your engine. <b>Fleet Roster</b> lists every fleet with its position, fuel, cargo and route. Each fleet has a <b>Select and Center</b> button: it closes the roster, selects that fleet, selects the planet it is orbiting and moves the star map to it (a fleet in deep space is selected and centered on its position). Scoreboard ranks every empire by planets, ships, tech, Resources per year and Ore. <b>Autobuild</b> opens your empire's Autobuild rules (see Autobuild).</p>
                 <p><b style="color:#da70d6;">Continue Game</b><br>The <b>Continue Game</b> button on the title screen (or the C key) takes you back to the game you played last in this browser. If the last game was a single player game it loads your browser save (the one made with Save File). If the last game was a multiplayer game and this browser is still signed in to your account, it goes straight into that multiplayer game without opening the lobby. If you are signed out, or the game cannot be loaded, it falls back to your browser saved single player game, or tells you there is none.</p>
                 <p><b style="color:#da70d6;">Saving</b><br>Save File stores the game in this browser, including every fleet, its waypoints and fuel, tech levels, research progress, your budget, your starbase designs, every planet's orbital installation, your Advanced Options and Victory Conditions, and a copy of every custom race in play (yours and your rivals'). Continue Game on the title screen loads that save. Since version 0.8.0 the save also keeps your Galactic Event Log (the last 300 entries) and your latest turn report, and it uses a new format that can hold several human empires; older saves are converted automatically the first time you load them. Load File and Open Game import a saved JSON file, and any custom races inside it that are not already in your list are added to it. Your list of custom races is saved in this browser the moment you save a race in the wizard, separately from any game. Saves from before version 0.7.62 load with Public Player Scores on, every other option off and no victory conditions; saves from before 0.7.61 have every existing starbase converted into a Basic Space Station with a dock; saves from before 0.7.60 have their single fleet converted into the fleet system; saves from before 0.7.59 are also converted to the new economy. Since version 0.9.0 the save also keeps your Autobuild rules, each planet's Autobuild switch, auto items in queues, mineral packets in flight, Mystery Traders and the items you own; saves from before 0.9.0 load with Autobuild switched off (the default rules are there, tick Autobuild is on to use them). Abandon Game returns to the title screen and discards unsaved progress. In a multiplayer game Save File and Load File are not offered, because the server keeps the game; <b>Game Lobby</b> in the Settings menu takes you back to the game's lobby.</p>
                 <p><b style="color:#da70d6;">Resources Belong to Planets</b><br>Every planet makes its own Resources from its colonists and its operating factories, and every planet spends them only on its own production queue. There is no empire-wide bank or shared pool: Resources a planet does not spend this turn are lost, and one planet can never pay for another planet\'s buildings. Research is the one shared pool: the research share of every planet is added together and put into the field you chose. Minerals are also kept per planet. To move minerals or colonists between planets use freighters, or fire mineral packets.</p>
                 <p><b style="color:#da70d6;">Colonizing and Cargo</b><br>A ship with a Colonization Module and colonists in its hold can found a colony on an uninhabited world you have surveyed. On a world with 0% or lower habitability for your race the colonists die off, and you are warned first. The colonists come from the planet that built the colony ship, and a planet keeps a minimum population when it loads them. Ships carry four cargo types: colonists, Ironium, Boranium and Germanium. Use Cargo and Transfer in orbit of your own planets (or load and unload tasks on waypoints) to move them. Every kT of cargo adds to the ship\'s mass, which lowers its top warp and increases the fuel it burns, so check fuel before you load a heavy freighter.</p>
                 <p><b style="color:#da70d6;">Mass Drivers and Mineral Packets</b><br>No planet starts with a Mass Driver. Queue one under Structures once your Propulsion is high enough: level 1 needs Propulsion 3, level 2 needs 5, and so on up to level 6 at Propulsion 13. Each level also acts as a packet accelerator: a level N driver fires one packet a year of up to 250 x N kT at Warp 3 + 2 x N, and catches packets up to that same warp. Open the Planet menu and choose Fire Mineral Packet, pick any known planet and the minerals to load; they leave the planet immediately and fly toward the target at warp squared light years a year. A world of yours with a driver of enough speed catches the packet and the minerals go straight into its stockpile. A slower driver catches only part of it, and a world with no driver cannot catch it at all. What is not caught hits the planet as a weapon, killing colonists and destroying mines, factories and defenses, and that works against enemy planets too. A packet that hits an uninhabited world is simply lost. You can see your own packets and any packet flying at one of your planets.</p>
-                <p><b style="color:#da70d6;">Stargates</b><br>A stargate is built on a planet that has a starbase in orbit: pick it in the planet's Structures list (one gate at a time; a better gate replaces the old one). Each gate has a safe mass and a range: Stargate 100/250 (Propulsion 5, Construction 5), any/300 (Propulsion 6, Construction 10), 150/600 (Propulsion 11, Construction 7), 300/500 (Propulsion 9, Construction 13), 100/any (Propulsion 16, Construction 12), any/800 (Propulsion 12, Construction 18) and any/any (Propulsion 19, Construction 24). To use one, give a fleet orbiting a gate planet a waypoint at another planet with a stargate of yours or a Friend's, and set its speed to <b>Use Stargate</b> in the Waypoints window. The fleet arrives next year, whatever the distance, and burns no fuel. Every ship must be within the smaller mass limit of the two gates, and the distance within the range of the starting gate. Over the limits (up to five times) the speed shows Danger: the fleet arrives damaged and some ships may be destroyed; more than five times over shows Never. Fleets carrying cargo cannot use a gate (fuel is not cargo), except for Interstellar Traveler races, whose gates between their own planets also have no mass or range limit, cost 25% less and hurt ships half as much. Hyper-Expansion races cannot build stargates. A ship with the Jump Gate trader item can use Use Stargate from anywhere. The planet summary shows a planet's gate next to its starbase. (The gate list and tech levels follow the original game as best I remember them; costs and the damage for going over the limits are my estimates.)</p>
+                <p><b style="color:#da70d6;">Stargates</b><br>A stargate is built on a planet that has a starbase in orbit: pick it in the planet's Structures list (one gate at a time; a better gate replaces the old one). Each gate has a safe mass and a range: Stargate 100/250 (Propulsion 5, Construction 5), any/300 (Propulsion 6, Construction 10), 150/600 (Propulsion 11, Construction 7), 300/500 (Propulsion 9, Construction 13), 100/any (Propulsion 16, Construction 12), any/800 (Propulsion 12, Construction 18) and any/any (Propulsion 19, Construction 24). To use one, give a fleet orbiting a gate planet a waypoint at another planet with a stargate of yours or a Friend's, and set its speed to <b>Use Stargate</b> in the Waypoints window. The fleet arrives next year, whatever the distance, and burns no fuel. Every ship must be within the smaller mass limit of the two gates, and the distance within the range of the starting gate. Over the limits (up to five times) the speed shows Danger: the fleet arrives damaged and some ships may be destroyed; more than five times over shows Never. Fleets carrying cargo cannot use a gate (fuel is not cargo), except for Interstellar Traveler races, whose gates between their own planets also have no mass or range limit, cost 25% less and hurt ships half as much. Hyper-Expansion races cannot build stargates. A ship with the Jump Gate trader item can use Use Stargate from anywhere. The planet summary shows a planet's gate next to its starbase. Base costs, before the discount for technology above the requirement, are: 100/250 400 Resources, any/300 500, 150/600 1,000, 300/500 1,200, 100/any 1,400, any/800 1,400 and any/any 1,600, each with 100 Ironium, 40 Boranium and 40 Germanium. (The gate list, tech levels and costs follow the table you supplied; the damage for going over the limits is my estimate.)</p>
                 <p><b style="color:#da70d6;">Wormholes</b><br>Wormholes are rare openings in deep space, never close to a planet, that link two distant points. They are hard to see: a normal scanner finds one only within a quarter of its range (planet-penetrating scanners at their full penetrating range), and a fleet that passes over one finds it. Once found it stays on your map as a purple swirl; click it to see where it leads (Unknown until you have been through it or found the other end) and how stable it is, from Rock Solid (stays put for 30 years or more) to Very Unstable (moves within about 5 years). Each end also drifts a little every year and jumps somewhere new when its time runs out, which also makes its destination unknown again. To travel, plot a waypoint on the wormhole in plot mode; the waypoint follows the wormhole as it drifts. When the fleet reaches the opening it comes out at the other end in the same year, with no fuel used and no mass or cargo limit. Make sure the fleet has fuel to get home from wherever it ends up.</p>
                 <p><b style="color:#da70d6;">Numbers at a Glance</b><br>Exact constants used by the game, for planning and checking. <b>Population:</b> one population unit is 1,000,000 colonists in internal accounting. <b>Terraforming limits (normal):</b> the Gravity, Temperature and Radiation fields at level 1, 5, 10, 16 allow 3, 7, 11, 15 percent change, and those steps also need Biotechnology 1, 2, 3, 4. <b>Total Terraforming</b> (Claim Adjuster or the Total Terraforming trait): Biotechnology 0, 3, 6, 9, 13, 17, 22, 25 allow 3, 5, 7, 10, 15, 20, 25, 30 percent. <b>Claim Adjuster</b> terraforms up to 200 steps a year per planet at no cost. <b>Trait modifiers:</b> Weapon costs x0.75 for Weapons Master and x1.25 for Inner Strength; Inner Strength defenses cost x0.6; Cheap Engines cost x0.5 but may fail above warp 6 (10 percent chance a turn); Total Terraforming terraform cost x0.7; Inner Strength freighters grow colonists at half the planet growth rate; Packet Physics packets have a 50 percent chance to nudge the target planet 1 percent toward ideal on impact. <b>Stargate travel</b> uses warp 11. Mines, fuel and combat numbers are in their own entries.</p>
                 <p><b style="color:#da70d6;">Diplomacy</b><br>Every empire starts <b>Neutral</b> toward every other empire. Open Management, <b>Diplomacy</b> to see your status with each empire you have met and to give diplomatic orders. A relation is shared: both empires always have the same status. <b>Neutral:</b> you can <b>Ask for Alliance</b> or <b>Declare War</b>. <b>Allied:</b> you can <b>Break Alliance</b> (you both become neutral at once) or <b>Declare War</b> directly. <b>At War:</b> you can <b>Request Stand Down</b>; if the other empire accepts you both become neutral. Orders are carried out when the year is played out. A war declaration takes effect after that year, so the war is on from the following year. Fleets and starbases fight, bomb, invade and lay damaging minefields only against empires they are at war with. Neutral or allied ships that meet, pass close by, or orbit the planets and starbases of the other empire never fight, and troops cannot land on a planet of an empire you are not at war with. Allies refuel at your planets with docks, use your stargates and are safe from your minefields; your patrols only chase empires you are at war with. <b>AI answers:</b> an AI decides on an alliance by its intelligence: smarter AIs want a longer peace first, distrust much stronger neighbours and remember your past attacks, broken alliances and war declarations, and an AI that does not know you refuses. An AI weighs a stand down by who is winning. Smarter AIs also declare war more often when they believe they are stronger, judging you only from what they have seen of your worlds. <b>Requests to a player</b> (or from an AI to you) appear at the start of the next year in the year summary window, which you cannot close until you accept or reject each one. <b>While Skip My Turns is on</b>, every alliance or stand down request made to you is rejected automatically, so nothing waits for your answer: the sender is told you rejected it, and your own year summary says it was rejected by Skip My Turns. Requests already waiting when a skipped year is played out are rejected too.</p>
@@ -4190,7 +4205,8 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.87.0';
+        const GAME_VERSION = '0.93.0';
+        const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
             E: ['engine'],
@@ -4204,12 +4220,15 @@
             M: ['mech'],
             Q: ['cloak', 'elec', 'mech'],
             Y: ['scanner', 'cloak', 'elec', 'mech'],
-            P: ['scanner', 'shield', 'beam', 'torpedo'],
+            D: ['shield', 'cloak', 'elec', 'mech'],
+            N: ['mine', 'cloak', 'elec', 'mech'],
+            V: ['beam', 'torpedo', 'shield'],
+            Z: ['armor', 'scanner', 'cloak', 'elec', 'mech'],
             L: ['mine'],
             R: ['mech'],
             G: ['beam', 'torpedo', 'bomb', 'shield', 'armor', 'scanner', 'cloak', 'elec', 'mech', 'mine']
         };
-        const SLOT_NAMES = { E: 'Engine', W: 'Weapon', B: 'Bomb', S: 'Shield or Armor', H: 'Shield', A: 'Armor', C: 'Scanner', X: 'Electrical', M: 'Mechanical', Q: 'Electrical or Mechanical', Y: 'Scanner, Electrical or Mechanical', P: 'Scanner, Shield or Weapon', L: 'Mine Layer', R: 'Mining', G: 'General Purpose' };
+        const SLOT_NAMES = { E: 'Engine', W: 'Weapon', B: 'Bomb', S: 'Shield or Armor', H: 'Shield', A: 'Armor', C: 'Scanner', X: 'Electrical', M: 'Mechanical', Q: 'Electrical or Mechanical', Y: 'Scanner, Electrical or Mechanical', D: 'Shield, Electrical or Mechanical', N: 'Mine Layer, Electrical or Mechanical', V: 'Weapon or Shield', Z: 'Armor, Scanner, Electrical or Mechanical', L: 'Mine Layer', R: 'Robot Miner', G: 'General Purpose' };
         const CAT_NAMES = { engine: 'Engines', beam: 'Beam Weapons', torpedo: 'Torpedoes and Missiles', bomb: 'Bombs', shield: 'Shields', armor: 'Armor', scanner: 'Scanners', cloak: 'Cloaking Devices', elec: 'Electrical', mech: 'Mechanical', mine: 'Mine Layers' };
         const CAT_ORDER = ['engine', 'beam', 'torpedo', 'bomb', 'shield', 'armor', 'scanner', 'cloak', 'elec', 'mech', 'mine'];
         const LAYOUT_VERSION = 2;
@@ -4419,41 +4438,171 @@
         const STARBASE_SWEEP_RANGE = 3;
 
         const SHIP_HULLS = {
-            smallfreighter: { label: 'Small Freighter', level: 1, mass: 25, armor: 25, fuel: 130, cargo: 70, init: 0, cost: { res: 20, iron: 12, bora: 0, germ: 17 }, slots: 'ESY' },
-            mediumfreighter: { label: 'Medium Freighter', level: 4, mass: 60, armor: 50, fuel: 450, cargo: 210, init: 0, cost: { res: 40, iron: 20, bora: 0, germ: 19 }, slots: 'ESY' },
-            largefreighter: { label: 'Large Freighter', level: 9, mass: 125, armor: 150, fuel: 2600, cargo: 1200, init: 0, cost: { res: 100, iron: 35, bora: 0, germ: 21 }, slots: 'EESSYY' },
-            superfreighter: { label: 'Super Freighter', level: 14, mass: 175, armor: 400, fuel: 8000, cargo: 3000, init: 0, cost: { res: 125, iron: 45, bora: 0, germ: 21 }, slots: 'EEESSSSSYYY', prt: 'IS' },
-            scout: { label: 'Scout', level: 1, mass: 8, armor: 20, fuel: 50, cargo: 0, init: 1, cost: { res: 10, iron: 4, bora: 2, germ: 4 }, slots: 'ECG' },
-            frigate: { label: 'Frigate', level: 7, mass: 8, armor: 45, fuel: 125, cargo: 0, init: 4, cost: { res: 12, iron: 4, bora: 2, germ: 4 }, slots: 'ECSSG' },
-            destroyer: { label: 'Destroyer', level: 4, mass: 30, armor: 200, fuel: 280, cargo: 0, init: 3, cost: { res: 35, iron: 15, bora: 3, germ: 5 }, slots: 'EWWAAMQC' },
-            cruiser: { label: 'Cruiser', level: 10, mass: 90, armor: 700, fuel: 600, cargo: 0, init: 5, cost: { res: 85, iron: 40, bora: 5, germ: 8 }, slots: 'EEWWWWSSQQGG' },
-            battlecruiser: { label: 'Battle Cruiser', level: 11, mass: 120, armor: 1000, fuel: 1400, cargo: 0, init: 5, cost: { res: 120, iron: 55, bora: 8, germ: 12 }, slots: 'EEWWWWWWSSSSQQGG', prt: 'WM' },
-            battleship: { label: 'Battleship', level: 14, mass: 222, armor: 2000, fuel: 2800, cargo: 0, init: 10, cost: { res: 225, iron: 120, bora: 25, germ: 20 }, slots: 'EEEEWWWWWWWWWWWWSSSSSSSSAAAAQQQC' },
-            dreadnought: { label: 'Dreadnought', level: 17, mass: 250, armor: 4500, fuel: 4500, cargo: 0, init: 10, cost: { res: 275, iron: 140, bora: 30, germ: 25 }, slots: 'EEEEEWWWWWWWWWWWWWWWWSSSSSSSSAAAAAAAAQQQQQQGG', prt: 'WM' },
-            privateer: { label: 'Privateer', level: 5, mass: 65, armor: 150, fuel: 650, cargo: 250, init: 3, cost: { res: 50, iron: 50, bora: 3, germ: 2 }, slots: 'EPPSSQQ' },
-            rogue: { label: 'Rogue', level: 9, mass: 75, armor: 450, fuel: 2250, cargo: 500, init: 4, cost: { res: 60, iron: 80, bora: 5, germ: 5 }, slots: 'EEPPSSQQXX', prt: 'SS' },
-            galleon: { label: 'Galleon', level: 12, mass: 125, armor: 900, fuel: 2500, cargo: 1000, init: 4, cost: { res: 105, iron: 70, bora: 5, germ: 5 }, slots: 'EEEEPPPPSSSSQQQ' },
-            minicolony: { label: 'Mini-Colony Ship', level: 1, mass: 8, armor: 10, fuel: 150, cargo: 10, init: 0, cost: { res: 3, iron: 2, bora: 0, germ: 2 }, slots: 'EM', prt: 'HE' },
-            colony: { label: 'Colony Ship', level: 1, mass: 20, armor: 20, fuel: 200, cargo: 25, init: 0, cost: { res: 20, iron: 10, bora: 0, germ: 15 }, slots: 'EM' },
-            minibomber: { label: 'Mini Bomber', level: 2, mass: 28, armor: 50, fuel: 120, cargo: 0, init: 0, cost: { res: 35, iron: 20, bora: 5, germ: 10 }, slots: 'EBB' },
-            b17: { label: 'B-17 Bomber', level: 7, mass: 69, armor: 175, fuel: 400, cargo: 0, init: 0, cost: { res: 150, iron: 55, bora: 10, germ: 10 }, slots: 'EEBBBBBBBBY' },
-            stealthbomber: { label: 'Stealth Bomber', level: 9, mass: 70, armor: 225, fuel: 750, cargo: 0, init: 0, cost: { res: 175, iron: 55, bora: 10, germ: 15 }, slots: 'EEBBBBBBBBYXX', prt: 'SS' },
-            b52: { label: 'B-52 Bomber', level: 16, mass: 110, armor: 450, fuel: 750, cargo: 0, init: 0, cost: { res: 280, iron: 90, bora: 15, germ: 10 }, slots: 'EEEBBBBBBBBBBBBBBBBSSSSY' },
-            midgetminer: { label: 'Midget Miner', level: 1, mass: 10, armor: 100, fuel: 210, cargo: 0, init: 0, cost: { res: 20, iron: 10, bora: 0, germ: 3 }, slots: 'ERR', lrt: 'ARM' },
-            minerminer: { label: 'Mini-Miner', level: 3, mass: 80, armor: 130, fuel: 210, cargo: 0, init: 0, cost: { res: 50, iron: 25, bora: 0, germ: 6 }, slots: 'ESRRR' },
-            miner: { label: 'Miner', level: 7, mass: 110, armor: 475, fuel: 500, cargo: 0, init: 0, cost: { res: 110, iron: 32, bora: 0, germ: 6 }, slots: 'EESSRRRRRRY', lrt: 'ARM' },
-            maximiner: { label: 'Maxi-Miner', level: 12, mass: 110, armor: 1400, fuel: 850, cargo: 0, init: 0, cost: { res: 140, iron: 32, bora: 0, germ: 6 }, slots: 'EEESSSRRRRRRRRRRRRY' },
-            ultraminer: { label: 'Ultra-Miner', level: 15, mass: 100, armor: 1500, fuel: 1300, cargo: 0, init: 0, cost: { res: 130, iron: 30, bora: 0, germ: 6 }, slots: 'EEESSSRRRRRRRRRRRRRRRRYY', lrt: 'ARM' },
-            fueltransport: { label: 'Fuel Transport', level: 5, mass: 12, armor: 5, fuel: 750, cargo: 0, init: 0, cost: { res: 50, iron: 10, bora: 0, germ: 5 }, slots: 'ES', prt: 'IS', fuelGen: 200, repairBonus: 0.05 },
-            superfuel: { label: 'Super-Fuel Xport', level: 8, mass: 111, armor: 12, fuel: 2250, cargo: 0, init: 0, cost: { res: 70, iron: 20, bora: 0, germ: 8 }, slots: 'EESSY', prt: 'IS', fuelGen: 200, repairBonus: 0.1 },
-            minelayer: { label: 'Mini Mine Layer', level: 1, mass: 10, armor: 60, fuel: 400, cargo: 0, init: 0, cost: { res: 20, iron: 8, bora: 2, germ: 5 }, slots: 'ELLY' },
-            supermine: { label: 'Super Mine Layer', level: 16, mass: 30, armor: 1200, fuel: 2200, cargo: 0, init: 0, cost: { res: 30, iron: 20, bora: 3, germ: 9 }, slots: 'EEELLLLLLLLSSSSYY', prt: 'SD' },
-            nubian: { label: 'Nubian', level: 27, mass: 100, armor: 5000, fuel: 5000, cargo: 0, init: 2, cost: { res: 150, iron: 75, bora: 12, germ: 12 }, slots: 'EEEGGGGGGGGGGGGGGGGGGGGGGGG' },
-            metamorph: { label: 'Meta Morph', level: 11, mass: 85, armor: 500, fuel: 700, cargo: 300, init: 2, cost: { res: 120, iron: 50, bora: 12, germ: 12 }, slots: 'EEEGGGGGGGG', prt: 'HE' },
-            minimorph: { label: 'Mini Morph', level: 8, mass: 70, armor: 250, fuel: 400, cargo: 150, init: 2, cost: { res: 28, iron: 8, bora: 2, germ: 2 }, slots: 'EEGGGGGGGGGG', trader: true }
+            smallfreighter: { label: 'Small Freighter', level: 1, mass: 25, armor: 25, fuel: 130, cargo: 70, init: 0, cost: { res: 20, iron: 12, bora: 0, germ: 17 } },
+            mediumfreighter: { label: 'Medium Freighter', level: 4, mass: 60, armor: 50, fuel: 450, cargo: 210, init: 0, cost: { res: 40, iron: 20, bora: 0, germ: 19 } },
+            largefreighter: { label: 'Large Freighter', level: 9, mass: 125, armor: 150, fuel: 2600, cargo: 1200, init: 0, cost: { res: 100, iron: 35, bora: 0, germ: 21 } },
+            superfreighter: { label: 'Super Freighter', level: 14, mass: 175, armor: 400, fuel: 8000, cargo: 3000, init: 0, cost: { res: 125, iron: 45, bora: 0, germ: 21 }, prt: 'IS' },
+            scout: { label: 'Scout', level: 1, mass: 8, armor: 20, fuel: 50, cargo: 0, init: 1, cost: { res: 10, iron: 4, bora: 2, germ: 4 } },
+            frigate: { label: 'Frigate', level: 7, mass: 8, armor: 45, fuel: 125, cargo: 0, init: 4, cost: { res: 12, iron: 4, bora: 2, germ: 4 } },
+            destroyer: { label: 'Destroyer', level: 4, mass: 30, armor: 200, fuel: 280, cargo: 0, init: 3, cost: { res: 35, iron: 15, bora: 3, germ: 5 } },
+            cruiser: { label: 'Cruiser', level: 10, mass: 90, armor: 700, fuel: 600, cargo: 0, init: 5, cost: { res: 85, iron: 40, bora: 5, germ: 8 } },
+            battlecruiser: { label: 'Battle Cruiser', level: 11, mass: 120, armor: 1000, fuel: 1400, cargo: 0, init: 5, cost: { res: 120, iron: 55, bora: 8, germ: 12 }, prt: 'WM' },
+            battleship: { label: 'Battleship', level: 14, mass: 222, armor: 2000, fuel: 2800, cargo: 0, init: 10, cost: { res: 225, iron: 120, bora: 25, germ: 20 } },
+            dreadnought: { label: 'Dreadnought', level: 17, mass: 250, armor: 4500, fuel: 4500, cargo: 0, init: 10, cost: { res: 275, iron: 140, bora: 30, germ: 25 }, prt: 'WM' },
+            privateer: { label: 'Privateer', level: 5, mass: 65, armor: 150, fuel: 650, cargo: 250, init: 3, cost: { res: 50, iron: 50, bora: 3, germ: 2 } },
+            rogue: { label: 'Rogue', level: 9, mass: 75, armor: 450, fuel: 2250, cargo: 500, init: 4, cost: { res: 60, iron: 80, bora: 5, germ: 5 }, prt: 'SS' },
+            galleon: { label: 'Galleon', level: 12, mass: 125, armor: 900, fuel: 2500, cargo: 1000, init: 4, cost: { res: 105, iron: 70, bora: 5, germ: 5 } },
+            minicolony: { label: 'Mini Colony Ship', level: 1, mass: 8, armor: 10, fuel: 150, cargo: 10, init: 0, cost: { res: 3, iron: 2, bora: 0, germ: 2 }, prt: 'HE' },
+            colony: { label: 'Colony Ship', level: 1, mass: 20, armor: 20, fuel: 200, cargo: 25, init: 0, cost: { res: 20, iron: 10, bora: 0, germ: 15 } },
+            minibomber: { label: 'Mini Bomber', level: 2, mass: 28, armor: 50, fuel: 120, cargo: 0, init: 0, cost: { res: 35, iron: 20, bora: 5, germ: 10 } },
+            b17: { label: 'B-17 Bomber', level: 7, mass: 69, armor: 175, fuel: 400, cargo: 0, init: 0, cost: { res: 150, iron: 55, bora: 10, germ: 10 } },
+            stealthbomber: { label: 'Stealth Bomber', level: 9, mass: 70, armor: 225, fuel: 750, cargo: 0, init: 0, cost: { res: 175, iron: 55, bora: 10, germ: 15 }, prt: 'SS' },
+            b52: { label: 'B-52 Bomber', level: 16, mass: 110, armor: 450, fuel: 750, cargo: 0, init: 0, cost: { res: 280, iron: 90, bora: 15, germ: 10 } },
+            midgetminer: { label: 'Midget Miner', level: 1, mass: 10, armor: 100, fuel: 210, cargo: 0, init: 0, cost: { res: 20, iron: 10, bora: 0, germ: 3 }, lrt: 'ARM' },
+            minerminer: { label: 'Mini Miner', level: 3, mass: 80, armor: 130, fuel: 210, cargo: 0, init: 0, cost: { res: 50, iron: 25, bora: 0, germ: 6 } },
+            miner: { label: 'Miner', level: 7, mass: 110, armor: 475, fuel: 500, cargo: 0, init: 0, cost: { res: 110, iron: 32, bora: 0, germ: 6 }, lrt: 'ARM' },
+            maximiner: { label: 'Maxi Miner', level: 12, mass: 110, armor: 1400, fuel: 850, cargo: 0, init: 0, cost: { res: 140, iron: 32, bora: 0, germ: 6 } },
+            ultraminer: { label: 'Ultra Miner', level: 15, mass: 100, armor: 1500, fuel: 1300, cargo: 0, init: 0, cost: { res: 130, iron: 30, bora: 0, germ: 6 }, lrt: 'ARM' },
+            fueltransport: { label: 'Fuel Transport', level: 5, mass: 12, armor: 5, fuel: 750, cargo: 0, init: 0, cost: { res: 50, iron: 10, bora: 0, germ: 5 }, prt: 'IS', fuelGen: 200, repairBonus: 0.05 },
+            superfuel: { label: 'Super Fuel Transport', level: 8, mass: 111, armor: 12, fuel: 2250, cargo: 0, init: 0, cost: { res: 70, iron: 20, bora: 0, germ: 8 }, prt: 'IS', fuelGen: 200, repairBonus: 0.1 },
+            minelayer: { label: 'Mini Mine Layer', level: 1, mass: 10, armor: 60, fuel: 400, cargo: 0, init: 0, cost: { res: 20, iron: 8, bora: 2, germ: 5 } },
+            supermine: { label: 'Super Mine Layer', level: 16, mass: 30, armor: 1200, fuel: 2200, cargo: 0, init: 0, cost: { res: 30, iron: 20, bora: 3, germ: 9 }, prt: 'SD' },
+            nubian: { label: 'Nubian', level: 27, mass: 100, armor: 5000, fuel: 5000, cargo: 0, init: 2, cost: { res: 150, iron: 75, bora: 12, germ: 12 } },
+            metamorph: { label: 'Meta Morph', level: 11, mass: 85, armor: 500, fuel: 700, cargo: 300, init: 2, cost: { res: 120, iron: 50, bora: 12, germ: 12 }, prt: 'HE' },
+            minimorph: { label: 'Mini Morph', level: 8, mass: 70, armor: 250, fuel: 400, cargo: 300, init: 2, cost: { res: 28, iron: 8, bora: 2, germ: 2 }, trader: true }
         };
 
-        definePart('megapoly', 'Mega Poly Shell', 'armor', { energy: 14, construction: 14, electronics: 14, biotechnology: 6 }, 20, [34, 9, 3, 3], { armor: 400, xShield: 100, xCloak: 40, jam: 20, xScan: 80, trader: true });
+        
+
+        const HULL_MAPS = {
+            smallfreighter: [0, 'E1 Y1 S1'],
+            mediumfreighter: [1, 'E1 Y1 S1'],
+            largefreighter: [2, 'E2 Y2 S2'],
+            superfreighter: [3, 'E3 Y3 S5 X2'],
+            scout: [4, 'E1 C1 G1'],
+            frigate: [5, 'E1 C1 G3 S2'],
+            destroyer: [6, 'E1 W1 W1 G1 A2 M1 X1'],
+            cruiser: [7, 'E2 D1 D1 W2 W2 G2 S2'],
+            battlecruiser: [8, 'E2 D2 D2 W3 W3 G3 S4'],
+            battleship: [9, 'E4 Y1 H8 W6 W6 W2 W2 W4 A6 X3 X3'],
+            dreadnought: [10, 'E5 S4 S4 W6 W6 X4 X4 W8 W8 A8 V5 V5 G2'],
+            privateer: [11, 'E1 S2 Y1 G1 G1'],
+            rogue: [12, 'E2 S3 N2 C1 G2 G2 N2 X1 X1'],
+            galleon: [13, 'E4 S2 S2 G3 G3 N2 N2 C2'],
+            minicolony: [14, 'E1 M1'],
+            colony: [15, 'E1 M1'],
+            minibomber: [16, 'E1 B2'],
+            b17: [17, 'E2 B4 B4 Y1'],
+            stealthbomber: [18, 'E2 B4 B4 Y1 X1'],
+            b52: [19, 'E3 B4 B4 B4 B4 Y2 H2'],
+            midgetminer: [20, 'E1 R2'],
+            minerminer: [21, 'E1 Y1 R1 R1'],
+            miner: [22, 'E2 Z2 R2 R1 R2 R1'],
+            maximiner: [23, 'E3 Z2 R4 R1 R4 R1'],
+            ultraminer: [24, 'E2 Z3 R4 R2 R4 R2'],
+            fueltransport: [25, 'E1 H1'],
+            superfuel: [26, 'E2 H2 C1'],
+            minelayer: [27, 'E1 L2 L2 Y1'],
+            supermine: [28, 'E3 L8 L8 S3 Y3 N3'],
+            nubian: [29, 'E3 G3 G3 G3 G3 G3 G3 G3 G3 G3 G3 G3 G3'],
+            minimorph: [30, 'E3 G8 G2 G2 G1 G2 G2'],
+            metamorph: [31, 'E3 G8 G2 G2 G1 G2 G2']
+        };
+        Object.keys(HULL_MAPS).forEach(k => {
+            const h = SHIP_HULLS[k];
+            let start = 0;
+            h.no = HULL_MAPS[k][0];
+            h.map = HULL_MAPS[k][1].split(' ').map((t, i) => {
+                const g = { no: i + 1, code: t[0], cap: Number(t.slice(1)), start: start };
+                start += g.cap;
+                return g;
+            });
+            h.slots = h.map.map(g => g.code.repeat(g.cap)).join('');
+        });
+
+        const HULL_POS = {
+            smallfreighter: ['0,0 6,0 4,0', '2,0,2,2'],
+            mediumfreighter: ['0,0 8,0 6,0', '2,0,4,2'],
+            largefreighter: ['0,1 6,0 6,2', '2,0,4,4'],
+            superfreighter: ['0,2 6,0 6,2 6,4', '2,0,4,6'],
+            scout: ['0,0 4,0 2,0', ''],
+            frigate: ['0,0 6,0 4,0 2,0', ''],
+            destroyer: ['0,3 3,0 3,6 4,3 2,3 1,1 1,5', ''],
+            cruiser: ['0,2 2,1 2,3 4,0 4,4 6,2 4,2', ''],
+            battlecruiser: ['0,2 2,1 2,3 4,0 4,4 6,2 4,2', ''],
+            battleship: ['0,3 8,3 6,2 4,1 4,5 2,0 2,6 6,4 4,3 2,2 2,4', ''],
+            dreadnought: ['0,3 0,1 0,5 2,0 2,6 2,2 2,4 4,1 4,5 4,3 6,2 6,4 8,3', ''],
+            privateer: ['0,2 6,1 6,3 4,0 4,4', '2,2,4,2'],
+            rogue: ['0,3 5,3 5,5 7,3 3,0 3,6 5,1 1,0 1,6', '2,2,3,4'],
+            galleon: ['0,3 3,0 3,6 5,0 5,6 6,2 6,4 8,3', '2,2,4,4'],
+            minicolony: ['0,0 4,0', '2,0,2,2'],
+            colony: ['0,0 4,0', '2,0,2,2'],
+            minibomber: ['0,0 2,0', ''],
+            b17: ['0,0 2,0 4,0 6,0', ''],
+            stealthbomber: ['0,1 2,0 2,2 4,0 4,2', ''],
+            b52: ['0,2 2,0 2,4 4,1 4,3 6,2 2,2', ''],
+            midgetminer: ['0,0 2,0', ''],
+            minerminer: ['0,1 4,1 2,0 2,2', ''],
+            miner: ['0,1 6,1 2,0 4,0 2,2 4,2', ''],
+            maximiner: ['0,1 6,1 2,0 4,0 2,2 4,2', ''],
+            ultraminer: ['0,1 6,1 2,0 4,0 2,2 4,2', ''],
+            fueltransport: ['0,0 2,0', ''],
+            superfuel: ['0,0 2,0 4,0', ''],
+            minelayer: ['0,1 2,0 2,2 4,1', ''],
+            supermine: ['0,1 2,0 2,2 4,1 6,0 6,2', ''],
+            nubian: ['0,3 0,1 0,5 2,0 2,6 2,2 2,4 4,1 4,5 4,3 6,2 6,4 8,3', ''],
+            minimorph: ['0,2 2,2 6,1 6,3 8,2 2,0 2,4', '4,1,2,4'],
+            metamorph: ['0,2 2,2 6,1 6,3 8,2 2,0 2,4', '4,1,2,4']
+        };
+
+        Object.keys(SHIP_HULLS).forEach(k => {
+            const h = SHIP_HULLS[k];
+            const pp = HULL_POS[k][0].split(' ').map(t => t.split(',').map(Number));
+            h.map.forEach((g, i) => { g.x = pp[i][0]; g.y = pp[i][1]; });
+            const cb = HULL_POS[k][1] ? HULL_POS[k][1].split(',').map(Number) : null;
+            h.cargoBox = cb ? { x: cb[0], y: cb[1], w: cb[2], h: cb[3] } : null;
+        });
+
+        function sdCapText(g) {
+            return (g.code === 'E' ? 'Needs ' : 'Up to ') + g.cap;
+        }
+
+        function hullSlotText(h) {
+            return h.map.map(g => 'Slot ' + g.no + ' ' + SLOT_NAMES[g.code] + ' (' + sdCapText(g).toLowerCase() + ')').join('; ');
+        }
+
+        function shipPlaceParts(hullKey, keys) {
+            const h = SHIP_HULLS[hullKey];
+            const out = h.slots.split('').map(() => '');
+            const held = h.map.map(() => '');
+            const fill = h.map.map(() => 0);
+            let engine = '';
+            (keys || []).forEach(key => {
+                const part = PARTS[key];
+                if (!key || !part) return;
+                if (part.cat === 'engine') {
+                    if (engine) return;
+                    const ei = h.map.findIndex(g => g.code === 'E');
+                    if (ei < 0) return;
+                    engine = key;
+                    held[ei] = key;
+                    fill[ei] = h.map[ei].cap;
+                    return;
+                }
+                const room = (g, n) => g.code !== 'E' && fill[n] < g.cap && slotAccepts(g.code, part);
+                let i = h.map.findIndex((g, n) => room(g, n) && held[n] === key);
+                if (i < 0) i = h.map.findIndex((g, n) => room(g, n) && !held[n]);
+                if (i < 0) return;
+                held[i] = key;
+                fill[i]++;
+            });
+            h.map.forEach((g, n) => {
+                for (let j = 0; j < fill[n]; j++) out[g.start + j] = held[n];
+            });
+            return out;
+        }
+
+definePart('megapoly', 'Mega Poly Shell', 'armor', { energy: 14, construction: 14, electronics: 14, biotechnology: 6 }, 20, [34, 9, 3, 3], { armor: 400, xShield: 100, xCloak: 40, jam: 20, xScan: 80, trader: true });
         definePart('mcm', 'Multi Contained Munition', 'beam', { energy: 21, weapons: 21, electronics: 16, biotechnology: 12 }, 8, [24, 4, 24, 4], { power: 140, range: 3, init: 6, xCloak: 20, jam: 10, xScan: 150, xBomb: { pop: 2, popMin: 100, inst: 5 }, xLay: 40, trader: true });
         definePart('hushaboom', 'Hush-a-Boom', 'bomb', { weapons: 12, electronics: 12, biotechnology: 12 }, 5, [2, 1, 2, 0], { pop: 3, popMin: 100, inst: 2, trader: true });
         definePart('multifunction', 'Multi Function Pod', 'elec', { energy: 11, propulsion: 11, electronics: 11 }, 2, [15, 5, 0, 5], { xCloak: 60, jam: 10, trader: true });
@@ -5274,7 +5423,7 @@ const DEFENDERS_PER_POP=100;
         const LRT_LIST = [
             { key: 'IFE', name: 'Improved Fuel Efficiency', cost: 15, active: true, desc: 'Engines burn 15 percent less fuel.' },
             { key: 'TT', name: 'Total Terraforming', cost: 20, active: true, desc: 'Terraforming reaches up to 30 percent on each environment value (with Biotechnology) and costs 30 percent less.' },
-            { key: 'ARM', name: 'Advanced Remote Mining', cost: 10, active: true, desc: 'Midget Miner, Miner and Ultra-Miner hulls for remote mining.' },
+            { key: 'ARM', name: 'Advanced Remote Mining', cost: 10, active: true, desc: 'Midget Miner, Miner and Ultra Miner hulls for remote mining.' },
             { key: 'ISB', name: 'Improved Starbases', cost: 12, active: true, desc: 'Space Stations and Starbases cost 20 percent less.' },
             { key: 'GR', name: 'Generalized Research', cost: 14, active: true, desc: 'Research is spread: 15 percent goes to each field and 35 percent more to the current one.' },
             { key: 'UR', name: 'Ultimate Recycling', cost: 10, active: true, desc: 'Scrapped ships return 90 percent of their minerals at a starbase and 45 percent at a planet.' },
@@ -6226,13 +6375,13 @@ const DEFENDERS_PER_POP=100;
         }
 
         const STARGATES = {
-            gate100_250: { label: 'Stargate 100/250', req: [0, 0, 5, 5, 0, 0], mass: 100, range: 250, cost: { res: 200, iron: 50, bora: 50, germ: 50 } },
-            gateany_300: { label: 'Stargate any/300', req: [0, 0, 6, 10, 0, 0], mass: Infinity, range: 300, cost: { res: 250, iron: 50, bora: 50, germ: 50 } },
-            gate150_600: { label: 'Stargate 150/600', req: [0, 0, 11, 7, 0, 0], mass: 150, range: 600, cost: { res: 500, iron: 50, bora: 50, germ: 50 } },
-            gate300_500: { label: 'Stargate 300/500', req: [0, 0, 9, 13, 0, 0], mass: 300, range: 500, cost: { res: 600, iron: 50, bora: 50, germ: 50 } },
-            gate100_any: { label: 'Stargate 100/any', req: [0, 0, 16, 12, 0, 0], mass: 100, range: Infinity, cost: { res: 700, iron: 50, bora: 50, germ: 50 } },
-            gateany_800: { label: 'Stargate any/800', req: [0, 0, 12, 18, 0, 0], mass: Infinity, range: 800, cost: { res: 700, iron: 50, bora: 50, germ: 50 } },
-            gateany_any: { label: 'Stargate any/any', req: [0, 0, 19, 24, 0, 0], mass: Infinity, range: Infinity, cost: { res: 800, iron: 50, bora: 50, germ: 50 } }
+            gate100_250: { label: 'Stargate 100/250', req: [0, 0, 5, 5, 0, 0], mass: 100, range: 250, cost: { res: 400, iron: 100, bora: 40, germ: 40 } },
+            gateany_300: { label: 'Stargate any/300', req: [0, 0, 6, 10, 0, 0], mass: Infinity, range: 300, cost: { res: 500, iron: 100, bora: 40, germ: 40 } },
+            gate150_600: { label: 'Stargate 150/600', req: [0, 0, 11, 7, 0, 0], mass: 150, range: 600, cost: { res: 1000, iron: 100, bora: 40, germ: 40 } },
+            gate300_500: { label: 'Stargate 300/500', req: [0, 0, 9, 13, 0, 0], mass: 300, range: 500, cost: { res: 1200, iron: 100, bora: 40, germ: 40 } },
+            gate100_any: { label: 'Stargate 100/any', req: [0, 0, 16, 12, 0, 0], mass: 100, range: Infinity, cost: { res: 1400, iron: 100, bora: 40, germ: 40 } },
+            gateany_800: { label: 'Stargate any/800', req: [0, 0, 12, 18, 0, 0], mass: Infinity, range: 800, cost: { res: 1400, iron: 100, bora: 40, germ: 40 } },
+            gateany_any: { label: 'Stargate any/any', req: [0, 0, 19, 24, 0, 0], mass: Infinity, range: Infinity, cost: { res: 1600, iron: 100, bora: 40, germ: 40 } }
         };
         const GATE_WARP = 11;
         const GATE_LIMIT_MULT = 5;
@@ -11097,10 +11246,10 @@ const DEFENDERS_PER_POP=100;
 
         function defaultShipDesigns() {
             return [
-                { id: 'Scout', name: 'Long Range Scout', hull: 'scout', slots: ['sublight', 'deepspace', 'fueltank'], obsolete: false },
-                { id: 'Colony Ship', name: 'Colony Ship', hull: 'colony', slots: ['sublight', 'colonymodule'], obsolete: false },
-                { id: 'Small Freighter', name: 'Small Freighter', hull: 'smallfreighter', slots: ['sublight', '', ''], obsolete: false },
-                { id: 'Destroyer', name: 'Destroyer', hull: 'destroyer', slots: ['sublight', 'laser', 'laser', '', '', '', '', 'deepspace'], obsolete: false }
+                { id: 'Scout', name: 'Long Range Scout', hull: 'scout', slots: ['sublight', 'deepspace', 'fueltank'], obsolete: false, map: HULL_MAP_VERSION },
+                { id: 'Colony Ship', name: 'Colony Ship', hull: 'colony', slots: ['sublight', 'colonymodule'], obsolete: false, map: HULL_MAP_VERSION },
+                { id: 'Small Freighter', name: 'Small Freighter', hull: 'smallfreighter', slots: ['sublight', '', ''], obsolete: false, map: HULL_MAP_VERSION },
+                { id: 'Destroyer', name: 'Destroyer', hull: 'destroyer', slots: ['sublight', 'laser', 'laser', 'deepspace', '', '', '', ''], obsolete: false, map: HULL_MAP_VERSION }
             ];
         }
 
@@ -11435,33 +11584,16 @@ const DEFENDERS_PER_POP=100;
             const seen = {};
             (Array.isArray(list) ? list : []).forEach(raw => {
                 if (!raw || typeof raw.id !== 'string' || !SHIP_HULLS[raw.hull] || seen[raw.id]) return;
-                const code = SHIP_HULLS[raw.hull].slots;
-                const src = Array.isArray(raw.slots) ? raw.slots : [];
-                const slots = [];
-                const spare = [];
-                for (let i = 0; i < code.length; i++) {
-                    const key = src[i];
-                    if (key && PARTS[key] && slotAccepts(code[i], PARTS[key])) slots.push(key);
-                    else {
-                        slots.push('');
-                        if (key && PARTS[key]) spare.push(key);
-                    }
-                }
-                for (let i = code.length; i < src.length; i++) if (src[i] && PARTS[src[i]]) spare.push(src[i]);
-                spare.forEach(key => {
-                    const j = slots.findIndex((x, n) => !x && slotAccepts(code[n], PARTS[key]));
-                    if (j >= 0) slots[j] = key;
-                });
-                const eng = slots.find((x, n) => x && code[n] === 'E');
-                if (eng) for (let n = 0; n < code.length; n++) if (code[n] === 'E' && !slots[n]) slots[n] = eng;
+                const slots = designFileSlots(raw);
                 seen[raw.id] = true;
-                out.push({ id: raw.id, name: String(raw.name || raw.id).slice(0, 28), hull: raw.hull, slots: slots, obsolete: !!raw.obsolete, auto: !!raw.auto });
+                const d = { id: raw.id, name: String(raw.name || raw.id).slice(0, 28), hull: raw.hull, slots: slots, obsolete: !!raw.obsolete, auto: !!raw.auto, map: HULL_MAP_VERSION };
+                out.push(d);
             });
             return out.length ? out : defaultShipDesigns();
         }
 
         function copyShipDesign(d) {
-            return { id: d.id, name: d.name, hull: d.hull, slots: d.slots.slice(), obsolete: !!d.obsolete };
+            return { id: d.id, name: d.name, hull: d.hull, slots: d.slots.slice(), obsolete: !!d.obsolete, map: HULL_MAP_VERSION };
         }
 
         function shipDesignIssues(d) {
@@ -11694,27 +11826,50 @@ const DEFENDERS_PER_POP=100;
         }
 
         function sdGroups(hullKey) {
-            const code = SHIP_HULLS[hullKey].slots;
-            const out = [];
-            let i = 0;
-            while (i < code.length) {
-                let j = i;
-                while (j < code.length && code[j] === code[i]) j++;
-                let n = j - i;
-                if (code[i] === 'E') {
-                    out.push({ code: 'E', start: i, cap: n });
-                } else {
-                    let s = i;
-                    while (n > 0) {
-                        const c = n >= 8 ? 8 : n >= 4 ? 4 : n >= 2 ? 2 : 1;
-                        out.push({ code: code[i], start: s, cap: c });
-                        s += c;
-                        n -= c;
-                    }
+            return SHIP_HULLS[hullKey].map;
+        }
+
+        function sdMapHtml(hullKey, still) {
+            const h = SHIP_HULLS[hullKey];
+            let W = 2;
+            let H = 2;
+            h.map.forEach(g => { W = Math.max(W, g.x + 2); H = Math.max(H, g.y + 2); });
+            if (h.cargoBox) { W = Math.max(W, h.cargoBox.x + h.cargoBox.w); H = Math.max(H, h.cargoBox.y + h.cargoBox.h); }
+            let o = '<div class="sdm-wrap" style="max-width:' + (W * (still ? 42 : 62)) + 'px;"><div class="sdm-grid" style="grid-template-columns:repeat(' + W + ',1fr);grid-template-rows:repeat(' + H + ',1fr);aspect-ratio:' + W + ' / ' + H + ';">';
+            h.map.forEach((g, gi) => {
+                let mid = '';
+                let attrs = '';
+                if (!still) {
+                    const st = sdGroupState(sdDraft, g);
+                    const part = st.key ? PARTS[st.key] : null;
+                    const q = g.code === 'E' ? g.cap : st.qty;
+                    mid = part ? '<div class="sdm-part">' + (q > 1 ? q + ' x ' : '') + escapeHtml(part.name) + (st.mixed ? ' (mixed)' : '') + '</div>' : '<div class="sdm-empty">Empty</div>';
+                    attrs = ' data-g="' + gi + '"';
                 }
-                i = j;
+                o += '<div class="sdm-cell' + (!still && gi === sdActive ? ' active' : '') + (still ? ' still' : '') + '"' + attrs + ' style="grid-column:' + (g.x + 1) + ' / span 2;grid-row:' + (g.y + 1) + ' / span 2;background:' + (TB_SLOT_COLORS[g.code] || '#ffffff') + ';"><div class="sdm-type">' + escapeHtml(SLOT_NAMES[g.code]) + '</div>' + mid + '<div class="sdm-ft">' + sdCapText(g) + '<br>Slot ' + g.no + '</div></div>';
+            });
+            if (h.cargoBox) o += '<div class="sdm-cell sdm-cargo" style="grid-column:' + (h.cargoBox.x + 1) + ' / span ' + h.cargoBox.w + ';grid-row:' + (h.cargoBox.y + 1) + ' / span ' + h.cargoBox.h + ';"><div>Cargo<br>' + h.cargo + ' kT</div></div>';
+            return o + '</div></div>';
+        }
+
+        function sdEditHtml(gi) {
+            const g = sdGroups(sdDraft.hull)[gi];
+            const st = sdGroupState(sdDraft, g);
+            const part = st.key ? PARTS[st.key] : null;
+            const q = g.code === 'E' ? g.cap : st.qty;
+            let o = '<div class="sd-slotedit"><b>Slot ' + g.no + ': ' + escapeHtml(SLOT_NAMES[g.code]) + '</b> <span class="sd-cap">' + sdCapText(g) + '</span>';
+            if (part) {
+                o += ' | <b>' + (q > 1 ? q + ' x ' : '') + escapeHtml(part.name) + '</b>';
+                if (g.code !== 'E' && g.cap > 1) {
+                    o += ' <label>Qty <select class="sd-qty" data-g="' + gi + '">';
+                    for (let n = 1; n <= g.cap; n++) o += '<option value="' + n + '"' + (n === q ? ' selected' : '') + '>' + n + '</option>';
+                    o += '</select></label>';
+                }
+                o += ' <button type="button" class="sd-clear" data-g="' + gi + '" title="Empty this slot">Clear</button>';
+            } else {
+                o += ' | Empty. Pick a part from the list.';
             }
-            return out;
+            return o + '</div>';
         }
 
         function sdDefaultActive(hullKey) {
@@ -11726,7 +11881,7 @@ const DEFENDERS_PER_POP=100;
         function sdBlankDraft() {
             const hull = sdFirstHull();
             sdActive = sdDefaultActive(hull);
-            return { id: null, name: 'New Design', hull: hull, slots: SHIP_HULLS[hull].slots.split('').map(() => ''), obsolete: false };
+            return { id: null, name: 'New Design', hull: hull, slots: SHIP_HULLS[hull].slots.split('').map(() => ''), obsolete: false, map: HULL_MAP_VERSION };
         }
 
         function sdGroupState(d, g) {
@@ -11811,7 +11966,7 @@ const DEFENDERS_PER_POP=100;
         }
 
         function sdPickerHtml(g, st) {
-            let html = '<div class="sd-pick-head">Parts for the <b>' + escapeHtml(SLOT_NAMES[g.code]) + '</b> slot' + (g.cap > 1 ? ' (holds up to ' + g.cap + ')' : '') + '</div>';
+            let html = '<div class="sd-pick-head">Parts for <b>Slot ' + g.no + '</b>: ' + escapeHtml(SLOT_NAMES[g.code]) + (g.cap > 1 || g.code === 'E' ? ' (' + sdCapText(g).toLowerCase() + ')' : ' (up to 1)') + '</div>';
             if (g.code === 'E') html += '<div class="sd-pick-note">Every engine slot takes the same engine, so the whole slot fills with the engine you pick.</div>';
             html += '<div class="sd-pick-row sd-pick-empty" data-key="">Empty this slot</div>';
             let hidden = 0;
@@ -11913,33 +12068,14 @@ const DEFENDERS_PER_POP=100;
             if (sdActive >= gs.length) sdActive = sdDefaultActive(sdDraft.hull);
             const h = SHIP_HULLS[sdDraft.hull];
             document.getElementById('sd-hullinfo').innerHTML = 'Hull: mass <b>' + h.mass + ' kT</b> | armor <b>' + h.armor + '</b> | fuel <b>' + h.fuel + ' mg</b> | cargo <b>' + h.cargo + ' kT</b> | initiative <b>' + h.init + '</b><br>Slots: ' +
-                gs.map(g => escapeHtml(SLOT_NAMES[g.code]) + (g.cap > 1 ? ' x' + g.cap : '')).join(', ');
+                gs.map(g => g.no + '. ' + escapeHtml(SLOT_NAMES[g.code]) + ' (' + sdCapText(g).toLowerCase() + ')').join('; ');
             const inUse = sdDraft.id !== null && designInUse(sdDraft.id);
             document.getElementById('sd-lock').innerHTML = sdNotice ? escapeHtml(sdNotice) : (inUse
                 ? 'Ships of this design exist or are queued. You can look at it, rename it or make it obsolete. Change any part and the changes go into a new copy.'
-                : 'Click a slot, then click a part in the list on the right. Stacked slots hold several of the same part; set how many with the number box.');
+                : 'Click a slot on the hull picture, then click a part in the list on the right. Stacked slots hold several of the same part; set how many with the number box.');
             const pickerEl = document.getElementById('sd-picker');
             const keepScroll = sdLastActive === sdActive ? pickerEl.scrollTop : 0;
-            document.getElementById('sd-slots').innerHTML = gs.map((g, gi) => {
-                const st = sdGroupState(sdDraft, g);
-                const part = st.key ? PARTS[st.key] : null;
-                const q = g.code === 'E' ? g.cap : st.qty;
-                let html = '<div class="sd-slotbox t-' + g.code + (gi === sdActive ? ' active' : '') + (part ? ' filled' : '') + '" data-g="' + gi + '">' +
-                    '<div class="sd-slothead">' + escapeHtml(SLOT_NAMES[g.code]) + (g.cap > 1 ? '<span class="sd-cap"> x' + g.cap + '</span>' : '') + '</div>';
-                if (part) {
-                    html += '<div class="sd-slotpart"><b>' + (q > 1 ? q + ' x ' : '') + escapeHtml(part.name) + '</b>' + (st.mixed ? ' (mixed, save to tidy)' : '') + '</div>';
-                    html += '<div class="sd-slotctl">';
-                    if (g.code !== 'E' && g.cap > 1) {
-                        html += '<label>Qty <select class="sd-qty" data-g="' + gi + '">';
-                        for (let n = 1; n <= g.cap; n++) html += '<option value="' + n + '"' + (n === q ? ' selected' : '') + '>' + n + '</option>';
-                        html += '</select></label>';
-                    }
-                    html += '<button type="button" class="sd-clear" title="Empty this slot">Clear</button></div>';
-                } else {
-                    html += '<div class="sd-slotpart sd-empty">Empty</div>';
-                }
-                return html + '</div>';
-            }).join('');
+            document.getElementById('sd-slots').innerHTML = sdMapHtml(sdDraft.hull) + sdEditHtml(sdActive);
             const curState = sdGroupState(sdDraft, gs[sdActive]);
             pickerEl.innerHTML = sdPickerHtml(gs[sdActive], curState);
             pickerEl.scrollTop = keepScroll;
@@ -12000,7 +12136,7 @@ const DEFENDERS_PER_POP=100;
                 gameAlert('You already have ' + MAX_SHIP_DESIGNS + ' active designs. Make one obsolete first.');
                 return;
             }
-            const d = { id: sdNewId(), name: sdDraft.name, hull: sdDraft.hull, slots: sdDraft.slots.slice(), obsolete: false };
+            const d = { id: sdNewId(), name: sdDraft.name, hull: sdDraft.hull, slots: sdDraft.slots.slice(), obsolete: false, map: HULL_MAP_VERSION };
             shipDesigns.push(d);
             sdDraft = copyShipDesign(d);
             sdNotice = '';
@@ -12096,6 +12232,7 @@ const DEFENDERS_PER_POP=100;
                 name: d.name,
                 hull: d.hull,
                 hullLabel: SHIP_HULLS[d.hull] ? SHIP_HULLS[d.hull].label : d.hull,
+                map: HULL_MAP_VERSION,
                 slots: d.slots.slice(),
                 parts: d.slots.filter(Boolean).map(k => (PARTS[k] ? PARTS[k].name : k)),
                 mass: info.mass,
@@ -12111,6 +12248,43 @@ const DEFENDERS_PER_POP=100;
             downloadJsonFile(fileName, { game: 'freespace4x', kind: DESIGN_FILE_KIND, version: GAME_VERSION, exported: new Date().toISOString(), designs: list.map(designFileEntry) });
         }
 
+        function shipFixSlots(hullKey, src) {
+            const h = SHIP_HULLS[hullKey];
+            const code = h.slots;
+            const slots = [];
+            let misfit = src.length > code.length;
+            for (let i = 0; i < code.length; i++) {
+                const key = src[i];
+                if (key && PARTS[key] && slotAccepts(code[i], PARTS[key])) slots.push(key);
+                else {
+                    slots.push('');
+                    if (key) misfit = true;
+                }
+            }
+            h.map.forEach(g => {
+                const kinds = {};
+                let n = 0;
+                for (let j = 0; j < g.cap; j++) {
+                    const k = slots[g.start + j];
+                    if (k && !kinds[k]) {
+                        kinds[k] = true;
+                        n++;
+                    }
+                }
+                if (n > 1) misfit = true;
+            });
+            if (misfit) return shipPlaceParts(hullKey, src);
+            const eng = slots.find((x, n) => x && code[n] === 'E');
+            if (eng) for (let n = 0; n < code.length; n++) if (code[n] === 'E' && !slots[n]) slots[n] = eng;
+            return slots;
+        }
+
+        function designFileSlots(raw) {
+            const src = Array.isArray(raw.slots) ? raw.slots : [];
+            if (raw.map !== HULL_MAP_VERSION) return shipPlaceParts(raw.hull, src);
+            return shipFixSlots(raw.hull, src);
+        }
+
         function designBlockers(raw) {
             const out = [];
             const hull = SHIP_HULLS[raw.hull];
@@ -12121,7 +12295,8 @@ const DEFENDERS_PER_POP=100;
                 else out.push('the ' + hull.label + ' hull needs Construction ' + shownLevel(hull.level) + ' (you have ' + shownLevel(techConstruction) + ')');
             }
             const slots = Array.isArray(raw.slots) ? raw.slots : [];
-            if (slots.length > hull.slots.length) out.push('has more parts than the ' + hull.label + ' hull has slots');
+            const fresh = raw.map === HULL_MAP_VERSION;
+            if (fresh && slots.length > hull.slots.length) out.push('has more parts than the ' + hull.label + ' hull has slots');
             const seen = {};
             slots.forEach((k, i) => {
                 if (!k) return;
@@ -12130,7 +12305,7 @@ const DEFENDERS_PER_POP=100;
                     out.push('slot ' + (i + 1) + ' holds a part this game does not know (' + String(k).slice(0, 30) + ')');
                     return;
                 }
-                if (i < hull.slots.length && !slotAccepts(hull.slots[i], part)) out.push(part.name + ' does not fit slot ' + (i + 1) + ' (' + SLOT_NAMES[hull.slots[i]] + ')');
+                if (fresh && i < hull.slots.length && !slotAccepts(hull.slots[i], part)) out.push(part.name + ' does not fit slot ' + (i + 1) + ' (' + SLOT_NAMES[hull.slots[i]] + ')');
                 if (seen[k] || shipPartUnlocked(k)) return;
                 seen[k] = true;
                 if (part.trader) out.push(part.name + ' is only sold by the Mystery Trader and you do not own it');
@@ -12142,7 +12317,7 @@ const DEFENDERS_PER_POP=100;
                 }
             });
             if (!out.length) {
-                const draft = { id: 'import', name: String(raw.name || 'Imported'), hull: raw.hull, slots: hull.slots.split('').map((c, i) => slots[i] || ''), obsolete: false };
+                const draft = { id: 'import', name: String(raw.name || 'Imported'), hull: raw.hull, slots: designFileSlots(raw), obsolete: false, map: HULL_MAP_VERSION };
                 shipDesignIssues(draft).forEach(x => out.push(x));
             }
             return out;
@@ -12178,7 +12353,7 @@ const DEFENDERS_PER_POP=100;
                     return;
                 }
                 const hull = SHIP_HULLS[raw.hull];
-                const d = { id: sdNewId(), name: uniqueDesignName(name), hull: raw.hull, slots: hull.slots.split('').map((c, i) => (raw.slots[i] && PARTS[raw.slots[i]] ? raw.slots[i] : '')), obsolete: false };
+                const d = { id: sdNewId(), name: uniqueDesignName(name), hull: raw.hull, slots: designFileSlots(raw), obsolete: false, map: HULL_MAP_VERSION };
                 shipDesigns.push(d);
                 added.push(d.name);
             });
@@ -12310,7 +12485,7 @@ const DEFENDERS_PER_POP=100;
             { key: 'trader', label: 'Mystery Trader Items', desc: 'These can only be built after a Mystery Trader gives you the item.' }
         ];
         const TB_COLORS = { engine: '#ff8c42', beam: '#ff5555', torpedo: '#ffb347', bomb: '#ff6b9d', shield: '#4da6ff', armor: '#aab4c0', scanner: '#78ff78', cloak: '#b388ff', elec: '#ffe14d', mech: '#d2b27a', mine: '#ff8c00', hull: '#da70d6', sbhull: '#00e5ff', sbcomp: '#7fdbca', planetscan: '#78ff78', gate: '#c77dff', massdriver: '#ffd700', structure: '#cfd8dc', trader: '#ffd700' };
-        const TB_SLOT_COLORS = { E: '#ff8c42', W: '#ff5555', B: '#ff6b9d', S: '#4da6ff', H: '#4da6ff', A: '#aab4c0', C: '#78ff78', X: '#ffe14d', M: '#d2b27a', Q: '#e6d28a', Y: '#b8e08a', P: '#ff9a7a', L: '#ff8c00', R: '#c9a66b', G: '#ffffff' };
+        const TB_SLOT_COLORS = { E: '#ff8c42', W: '#ff5555', B: '#ff6b9d', S: '#4da6ff', H: '#4da6ff', A: '#aab4c0', C: '#78ff78', X: '#ffe14d', M: '#d2b27a', Q: '#e6d28a', Y: '#b8e08a', D: '#9fb4d8', N: '#d9a35a', V: '#ff8a8a', Z: '#cfd8a0', L: '#ff8c00', R: '#c9a66b', G: '#ffffff' };
         const TB_SHORT = { energy: 'Ener', weapons: 'Weap', propulsion: 'Prop', construction: 'Cons', electronics: 'Elec', biotechnology: 'Bio' };
         const TB_STATE = { cat: 'all', q: '', sort: 'group', only: false, sel: '' };
         let tbItems = [];
@@ -12416,6 +12591,10 @@ const DEFENDERS_PER_POP=100;
             if (p.xScan) add('Also scans', p.xScan + ' ly');
             if (p.xBomb) add('Also bombs', p.xBomb.pop + '% of colonists (at least ' + p.xBomb.popMin + '), ' + p.xBomb.inst + ' installations');
             if (p.xLay) add('Also lays', p.xLay + ' Standard mines a year');
+            const codes = Object.keys(SLOT_ACCEPTS).filter(c => slotAccepts(c, p));
+            if (codes.length) add('Fits slot types', codes.map(c => SLOT_NAMES[c]).join('; '));
+            const nh = Object.keys(SHIP_HULLS).filter(k => SHIP_HULLS[k].map.some(g => codes.indexOf(g.code) !== -1)).length;
+            if (codes.length) add('Hulls with a slot for it', nh + ' of ' + Object.keys(SHIP_HULLS).length);
             return s;
         }
 
@@ -12459,16 +12638,6 @@ const DEFENDERS_PER_POP=100;
             });
         }
 
-        function tbSlotText(code) {
-            const groups = [];
-            code.split('').forEach(c => {
-                const g = groups.find(x => x.c === c);
-                if (g) g.n++;
-                else groups.push({ c: c, n: 1 });
-            });
-            return groups.map(g => g.n + ' ' + SLOT_NAMES[g.c]).join(', ');
-        }
-
         function tbHullItem(k, lv) {
             const h = SHIP_HULLS[k];
             const req = h.level > 1 ? { construction: h.level } : {};
@@ -12484,7 +12653,8 @@ const DEFENDERS_PER_POP=100;
                 if (miss.length) why.push('Needs ' + miss.join(', ') + '.');
                 avail = ok && !miss.length;
             }
-            const stats = [['Hull mass', h.mass + ' kT'], ['Armor', h.armor], ['Fuel capacity', h.fuel + ' mg'], ['Cargo', h.cargo + ' kT'], ['Initiative', h.init || 0], ['Slots', h.slots.length], ['Slot layout', tbSlotText(h.slots)]];
+            const stats = [['Hull mass', h.mass + ' kT'], ['Armor', h.armor], ['Fuel capacity', h.fuel + ' mg'], ['Cargo', h.cargo + ' kT'], ['Initiative', h.init || 0], ['Slots', h.map.length + ' (' + h.slots.length + ' parts at most)'], ['Slot layout', hullSlotText(h)]];
+            if (hullIsCapital(k)) stats.push(['Class', 'Capital ship hull (counts as a capital ship when armed)']);
             if (h.fuelGen) stats.push(['Makes fuel', h.fuelGen + ' mg a year']);
             if (h.repairBonus) stats.push(['Repair bonus', Math.round(h.repairBonus * 100) + '%']);
             const notes = [];
@@ -12494,7 +12664,7 @@ const DEFENDERS_PER_POP=100;
             notes.push('Engine slots must all hold the same engine. Slot layouts are this game\'s own approximation where the original layouts are not known.');
             return tbItem({
                 id: 'hull:' + k, name: h.label, group: h.trader ? 'trader' : 'hull', req: req, cost: miniCost(h.cost, { construction: h.level }), base: h.cost, mass: h.mass,
-                stats: stats, notes: notes, avail: avail, why: why, spec: { g: 'hull', f: h, t: tbTier(req), key: k }, extra: tbSlotText(h.slots)
+                stats: stats, notes: notes, avail: avail, why: why, spec: { g: 'hull', f: h, t: tbTier(req), key: k }, extra: hullSlotText(h), shipHull: k
             });
         }
 
@@ -12738,24 +12908,19 @@ const DEFENDERS_PER_POP=100;
                     break;
                 }
                 case 'hull': {
-                    const key = sp.key || '';
-                    const code = f.slots || 'E';
-                    let body;
-                    if (/freighter/.test(key)) body = '<path d="M6 18 H48 L58 32 L48 46 H6 Z"/>';
-                    else if (/colony/.test(key)) body = '<path d="M8 32 A24 18 0 0 1 56 32 A24 18 0 0 1 8 32 Z"/>';
-                    else if (key === 'scout' || key === 'frigate') body = '<path d="M6 22 L50 22 L60 32 L50 42 L6 42 Z"/>';
-                    else if (/bomb|b17|b52/.test(key)) body = '<path d="M4 32 L30 8 L36 8 L36 20 L60 32 L36 44 L36 56 L30 56 Z"/>';
-                    else if (/mine|miner/.test(key)) body = '<path d="M6 16 H44 L60 24 V40 L44 48 H6 Z"/>';
-                    else body = '<path d="M4 32 L16 12 H44 L60 32 L44 52 H16 Z"/>';
-                    o += `<g fill="${d}" stroke="${c}" stroke-width="2.5" stroke-linejoin="round">${body}</g>`;
-                    const cols = Math.ceil(Math.sqrt(code.length * 1.7));
-                    const rows = Math.ceil(code.length / cols);
-                    const cell = Math.min(7, 30 / cols, 20 / rows);
-                    const x0 = 32 - cols * cell / 2;
-                    const y0 = 32 - rows * cell / 2;
-                    code.split('').forEach((ch, i) => {
-                        o += `<rect x="${(x0 + (i % cols) * cell + 0.4).toFixed(1)}" y="${(y0 + Math.floor(i / cols) * cell + 0.4).toFixed(1)}" width="${(cell - 0.8).toFixed(1)}" height="${(cell - 0.8).toFixed(1)}" fill="${TB_SLOT_COLORS[ch] || '#fff'}"/>`;
+                    const hh = SHIP_HULLS[sp.key];
+                    if (!hh || !hh.map) break;
+                    let W = 2;
+                    let H = 2;
+                    hh.map.forEach(g => { W = Math.max(W, g.x + 2); H = Math.max(H, g.y + 2); });
+                    if (hh.cargoBox) { W = Math.max(W, hh.cargoBox.x + hh.cargoBox.w); H = Math.max(H, hh.cargoBox.y + hh.cargoBox.h); }
+                    const u = Math.min(54 / W, 50 / H);
+                    const ox = 32 - W * u / 2;
+                    const oy = 30 - H * u / 2;
+                    hh.map.forEach(g => {
+                        o += `<rect x="${(ox + g.x * u + 0.3).toFixed(1)}" y="${(oy + g.y * u + 0.3).toFixed(1)}" width="${(2 * u - 0.6).toFixed(1)}" height="${(2 * u - 0.6).toFixed(1)}" fill="${TB_SLOT_COLORS[g.code] || '#fff'}" stroke="${d}" stroke-width="0.6"/>`;
                     });
+                    if (hh.cargoBox) o += `<rect x="${(ox + hh.cargoBox.x * u + 0.3).toFixed(1)}" y="${(oy + hh.cargoBox.y * u + 0.3).toFixed(1)}" width="${(hh.cargoBox.w * u - 0.6).toFixed(1)}" height="${(hh.cargoBox.h * u - 0.6).toFixed(1)}" fill="#f4f4f4" stroke="${d}" stroke-width="0.6"/>`;
                     break;
                 }
                 case 'sbhull': {
@@ -12845,6 +13010,7 @@ const DEFENDERS_PER_POP=100;
             h += rows.length ? rows.map(x => `<div style="padding-left:10px;">${TB_SHORT[x.k]}: <b>${x.need}</b></div>`).join('') : '<div style="padding-left:10px;">None</div>';
             h += `<div style="margin-top:8px;font-weight:bold;color:${it.avail ? '#32cd32' : '#ff6b6b'};">${it.avail ? 'Available' : 'Not available'}</div></div>`;
             h += '<div class="tb-stats"><table>' + it.stats.map(s => `<tr><td>${escapeHtml(s[0])}</td><td>${escapeHtml(s[1])}</td></tr>`).join('') + '</table></div></div>';
+            if (it.shipHull) h += `<div class="sbl-section"><div style="font-weight:bold;color:#fff;margin:8px 0 2px;">Hull layout</div>${sdMapHtml(it.shipHull, true)}</div>`;
             if (it.layoutHull) h += `<div class="sbl-section"><div style="font-weight:bold;color:#fff;margin:8px 0 2px;">Slot layout</div>${sbLayoutHtml(it.layoutHull, { unit: 42 })}</div>`;
             if (it.chart) h += `<div class="tb-chart">${tbEngineChart(it.chart)}<div style="font-size:11px;color:#aaa;padding:2px 6px;">Fuel use per warp (percent): ${it.chart.eff.map((v, n) => 'W' + (n + 1) + ' ' + v).join(', ')}. The blue number is the free warp.${it.chart.warp10Safe ? '' : ' The dotted column is Warp 10, where ships can be lost.'}</div></div>`;
             h += '<div class="tb-notes">';
@@ -13013,11 +13179,15 @@ const DEFENDERS_PER_POP=100;
         });
         document.getElementById('sd-slots').addEventListener('click', (e) => {
             if (e.target.closest('select') || e.target.closest('label')) return;
-            const box = e.target.closest('.sd-slotbox');
-            if (!box) return;
-            const gi = parseInt(box.dataset.g);
-            if (e.target.closest('.sd-clear')) sdSetPart(gi, '');
-            sdActive = gi;
+            const clr = e.target.closest('.sd-clear');
+            if (clr) {
+                sdSetPart(parseInt(clr.dataset.g), '');
+                renderShipDesigner();
+                return;
+            }
+            const cell = e.target.closest('.sdm-cell[data-g]');
+            if (!cell) return;
+            sdActive = parseInt(cell.dataset.g);
             renderShipDesigner();
         });
         document.getElementById('sd-picker').addEventListener('click', (e) => {
@@ -15063,6 +15233,44 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.93.0', d: 'Oct 4, 2026 9:10 PM', t: "Stargate Costs Match the Stars! Table", items: [
+                "The game has the seven stargates from your table: 100/250, any/300, 150/600, 300/500, 100/any, any/800 and any/any, each with the safe ship mass, jump range and Propulsion and Construction needs shown there. Those already matched.",
+                "Costs were wrong and now match: 400, 500, 1,000, 1,200, 1,400, 1,400 and 1,600 Resources, each with 100 Ironium, 40 Boranium and 40 Germanium (before the discount for technology above the requirement; Interstellar Traveler races still pay 25 percent less).",
+                "Help: Stargates updated. The Technology Browser shows the new costs."
+            ] },
+            { v: '0.92.0', d: 'Oct 4, 2026 8:55 PM', t: "Capital Ships Decided by Hull", items: [
+                "A capital ship is now an armed ship built on one of the four capital hulls from Stars!: Cruiser, Battle Cruiser, Battleship or Dreadnought. Before, the game called any armed ship with 700 or more armor a capital ship, so a lightly armored Battleship did not count and a heavily armored freighter could.",
+                "Every other armed or bomb-carrying ship is an escort, and ships with no weapons or bombs are unarmed. The class decides the Scoreboard columns, the score (200 points per capital ship, 50 per escort, 20 per unarmed ship) and the Own capital ships victory condition, which can now be met.",
+                "The Technology Browser shows a Class line on the four capital hulls.",
+                "Help: Victory Conditions and Technology Browser updated."
+            ] },
+            { v: '0.91.0', d: 'Oct 4, 2026 8:40 PM', t: "Ship Design Audit and Polish (Phase 4 of 4)", items: [
+                "Uploaded design files are now tidied exactly like saved designs. A file with one engine in an engine slot that needs several now gets the full engine set, so the design is complete and its cost and speed are right at once instead of after the next load.",
+                "A slot always holds one kind of part. If a saved design or a design file puts two different parts in one slot (for example a Laser and an X-Ray in one Weapon slot), the parts are split into separate slots that accept them, and anything that does not fit is dropped.",
+                "Checked on all 32 hulls: costs and masses, the Space Dock 200 kT limit in Ship Construction, queuing ships at a Space Station, real battles between armed fleets (and unarmed hulls against armed ones), saves from before the new hull layouts with ships in service, Fleet Roster and Manage Ships, station designs, the read-only Ship Designer and the Ship Construction list on a phone. No other fault was found.",
+                "Help: Ship Design Files updated."
+            ] },
+            { v: '0.90.0', d: 'Oct 4, 2026 8:30 PM', t: "Hull Layouts in the Technology Browser (Phase 3 of 4)", items: [
+                "Ship hull pages in the Technology Browser now draw the full hull layout from the Stars! pictures: every slot in its place, colored by type, with its slot number, type and Needs N or Up to N, and the cargo block in kT.",
+                "The small picture in the browser list for each ship hull is now that same layout, shrunk, instead of colored squares.",
+                "Part pages (engines, weapons, shields and so on) gained two lines: Fits slot types, which names every slot type that takes the part, and Hulls with a slot for it, a count out of 32.",
+                "Help: Technology Browser updated."
+            ] },
+            { v: '0.89.0', d: 'Oct 4, 2026 8:03 PM', t: "Hull Pictures in the Ship Designer (Phase 2 of 4)", items: [
+                "The Ship Designer now draws every hull the way the Stars! pictures do. Each slot sits where it does on the picture, colored by the type of part it takes, and shows its type, its slot number, Needs N (engines) or Up to N, and the part you put in it. A white block shows the cargo space in kT on the hulls that have one.",
+                "Click a slot on the picture to select it (gold outline), then click a part in the list on the right. The bar under the picture holds the Qty box and the Clear button for the selected slot.",
+                "The slot boxes that were laid out in a grid are gone; the picture replaces them. Designs, costs, saves and files are unchanged.",
+                "Help: Ship Designer updated. Technology Browser hull pictures and more Help come in phase 3."
+            ] },
+            { v: '0.88.0', d: 'Oct 5, 2026 2:49 AM', t: "Ship Hulls Rebuilt From the Stars! Pictures (Phase 1 of 4)", items: [
+                "All 32 ship hulls now have the numbered slots of the Stars! hull pictures: each slot has a number, the type of part it takes, and either Needs N (engines) or Up to N. Before, the designer guessed groups of 1, 2, 4 and 8, so several hulls had the wrong number of slots.",
+                "Four new slot types appear: Shield, Electrical or Mechanical (Cruiser, Battle Cruiser); Mine Layer, Electrical or Mechanical (Rogue, Galleon, Super Mine Layer); Weapon or Shield (Dreadnought); Armor, Scanner, Electrical or Mechanical (Miner, Maxi Miner, Ultra Miner). The old Scanner, Shield or Weapon slot is gone.",
+                "Slot counts changed on 19 hulls. The biggest: Dreadnought 69 parts (was 45), Battleship 45 (was 32), Nubian 39 (was 27), Super Mine Layer 28 (was 17), Rogue 16, Mini Morph and Meta Morph 20. A few hulls shrank: Ultra Miner 17 (was 24), Maxi Miner 15 (was 19).",
+                "Saved designs and design files from older versions are moved into the new slots when loaded: engines first, then each part into the first slot that takes it. Parts that no longer fit are dropped, so ships of a shrunken design can lose parts. The starting Destroyer's scanner moved to its General Purpose slot.",
+                "Renamed: Mini-Colony Ship, Mini-Miner, Maxi-Miner, Ultra-Miner and Super-Fuel Xport are now Mini Colony Ship, Mini Miner, Maxi Miner, Ultra Miner and Super Fuel Transport. Mini Morph cargo is 300 kT.",
+                "The AI builds its designs on the new slots. The hull pictures, a Technology Browser map and more Help come in phases 2 to 4.",
+                "Help: Ship Designer and Ship Hulls updated."
+            ] },
             { v: '0.87.0', d: 'Oct 4, 2026 2:47 PM', t: "Technology Browser Title Bar Fixed", items: [
                 "The Technology Browser's Close button in the title bar now stays fully in view while you scroll. Before, the title bar shared a style with the picture and cost row of each item, which could push the button partly out of sight and give the item page the same stuck-to-the-top look.",
                 "The item page (picture, costs and mass) is back to its normal layout.",
@@ -17912,10 +18120,16 @@ const DEFENDERS_PER_POP=100;
             drawGalaxyMap();
         }
 
+        const CAPITAL_HULLS = ['cruiser', 'battlecruiser', 'battleship', 'dreadnought'];
+
+        function hullIsCapital(hullKey) {
+            return CAPITAL_HULLS.indexOf(hullKey) !== -1;
+        }
+
         function shipClassFor(e, type) {
             const info = e.id === myEmpireId ? shipInfo(type) : infoFor(e, type);
             if (!info.hasWeapons && !info.hasBombs) return 'unarmed';
-            return info.armor >= 700 ? 'capitals' : 'escorts';
+            return hullIsCapital(info.hull) ? 'capitals' : 'escorts';
         }
 
         function humanEmpireStats(e) {
@@ -18692,10 +18906,10 @@ const DEFENDERS_PER_POP=100;
         }
 
         const AI_SLOT_PREFS = {
-            scout: { E: ['engine'], C: ['scanner'], Y: ['scanner', 'mech'], P: ['scanner'], G: ['mech', 'scanner'], M: ['mech'], Q: ['mech'], S: ['armor'], X: [] },
+            scout: { E: ['engine'], C: ['scanner'], Y: ['scanner', 'mech'], G: ['mech', 'scanner'], M: ['mech'], Q: ['mech'], S: ['armor'], X: [] },
             colony: { E: ['engine'], M: ['mech'], G: ['mech'], Q: ['mech'], Y: ['mech'], S: [], C: [], X: [] },
-            freighter: { E: ['engine'], M: ['mech'], G: ['mech'], Q: ['mech'], Y: ['mech'], S: ['armor'], C: [], P: ['shield'], X: [] },
-            war: { E: ['engine'], W: ['beam', 'torpedo'], P: ['beam', 'torpedo'], S: ['armor', 'shield'], H: ['shield'], A: ['armor'], C: ['scanner'], X: ['elec'], Q: ['elec'], Y: ['scanner'], M: ['mech'], G: ['beam', 'armor'], B: [] },
+            freighter: { E: ['engine'], M: ['mech'], G: ['mech'], Q: ['mech'], Y: ['mech'], S: ['armor'], C: [], X: [] },
+            war: { E: ['engine'], W: ['beam', 'torpedo'], D: ['shield'], V: ['beam', 'torpedo'], Z: ['armor'], N: [], S: ['armor', 'shield'], H: ['shield'], A: ['armor'], C: ['scanner'], X: ['elec'], Q: ['elec'], Y: ['scanner'], M: ['mech'], G: ['beam', 'armor'], B: [] },
             bomber: { E: ['engine'], B: ['bomb'], S: ['armor', 'shield'], A: ['armor'], H: ['shield'], Y: ['scanner'], X: ['elec'], Q: ['elec'], G: ['bomb'], C: ['scanner'], M: ['mech'] }
         };
         const AI_HULLS = {
@@ -18733,7 +18947,7 @@ const DEFENDERS_PER_POP=100;
                 shipDesigns.splice(drop, 1);
             }
             if (active.length >= MAX_SHIP_DESIGNS) return cur || null;
-            const d = { id: sdNewId(), name: ({ scout: 'Pathfinder', colony: 'Settler', freighter: 'Hauler', war: 'Warden', bomber: 'Hammer' })[role] + ' ' + shownLevel(Math.max(techPropulsion, techWeapons, techConstruction)), hull: want.hull, slots: want.slots, obsolete: false, aiRole: role };
+            const d = { id: sdNewId(), name: ({ scout: 'Pathfinder', colony: 'Settler', freighter: 'Hauler', war: 'Warden', bomber: 'Hammer' })[role] + ' ' + shownLevel(Math.max(techPropulsion, techWeapons, techConstruction)), hull: want.hull, slots: want.slots, obsolete: false, map: HULL_MAP_VERSION, aiRole: role };
             shipDesigns.push(d);
             return d;
         }
@@ -23008,26 +23222,17 @@ const DEFENDERS_PER_POP=100;
                     h += '<li><b>' + escapeHtml(PARTS[k].name) + '</b> (' + escapeHtml(partReqText(PARTS[k])) + '): ' + escapeHtml(partSummary(PARTS[k])) + '</li>';
                 } else if (SHIP_HULLS[k]) {
                     const x = SHIP_HULLS[k];
-                    h += '<li><b>' + escapeHtml(x.label) + '</b> (Construction ' + shownLevel(x.level) + '): a ship hull with slots ' + x.slots + ', hull mass ' + x.mass + ' kT, armor ' + x.armor + ', fuel ' + x.fuel + ' mg, cargo ' + x.cargo + ' kT, cost ' + x.cost.res + '/' + x.cost.iron + '/' + x.cost.bora + '/' + x.cost.germ + '. It has ten general purpose positions, simplified from its original grouped slots.</li>';
+                    h += '<li><b>' + escapeHtml(x.label) + '</b> (Construction ' + shownLevel(x.level) + '): a ship hull with ' + hullSlotText(x) + '. Hull mass ' + x.mass + ' kT, armor ' + x.armor + ', fuel ' + x.fuel + ' mg, cargo ' + x.cargo + ' kT, cost ' + x.cost.res + '/' + x.cost.iron + '/' + x.cost.bora + '/' + x.cost.germ + '.</li>';
                 }
             });
             return h + '</ul>';
         }
 
         function hullCatalogHtml() {
-            const slotText = code => {
-                const groups = [];
-                code.split('').forEach(c => {
-                    const g = groups.find(x => x.c === c);
-                    if (g) g.n++;
-                    else groups.push({ c: c, n: 1 });
-                });
-                return groups.map(g => g.n + ' ' + SLOT_NAMES[g.c]).join(', ');
-            };
-            return 'Each hull lists its slots by type and how many parts each type holds. Engine slots must all hold the same engine. Tech is shown as the Construction level needed.<ul>' + Object.keys(SHIP_HULLS).filter(k => !SHIP_HULLS[k].trader).map(k => {
+            return 'Each hull lists its numbered slots as in the Stars! hull pictures: the type of part each slot takes and how many it holds (an engine slot needs that many engines, any other slot holds up to that many of one part). Tech is shown as the Construction level needed.<ul>' + Object.keys(SHIP_HULLS).filter(k => !SHIP_HULLS[k].trader).map(k => {
                 const x = SHIP_HULLS[k];
                 const t = partRaceText(x);
-                return '<li><b>' + escapeHtml(x.label) + '</b> (Construction ' + shownLevel(x.level) + (t ? ', ' + t : '') + '): ' + slotText(x.slots) + '. Hull mass ' + x.mass + ' kT, armor ' + x.armor + ', fuel ' + x.fuel + ' mg, cargo ' + x.cargo + ' kT, initiative ' + (x.init || 0) + ', cost ' + x.cost.res + '/' + x.cost.iron + '/' + x.cost.bora + '/' + x.cost.germ + (x.fuelGen ? ', makes ' + x.fuelGen + ' mg of fuel a year' : '') + '</li>';
+                return '<li><b>' + escapeHtml(x.label) + '</b> (Construction ' + shownLevel(x.level) + (t ? ', ' + t : '') + '): ' + hullSlotText(x) + '. Hull mass ' + x.mass + ' kT, armor ' + x.armor + ', fuel ' + x.fuel + ' mg, cargo ' + x.cargo + ' kT, initiative ' + (x.init || 0) + ', cost ' + x.cost.res + '/' + x.cost.iron + '/' + x.cost.bora + '/' + x.cost.germ + (x.fuelGen ? ', makes ' + x.fuelGen + ' mg of fuel a year' : '') + '</li>';
             }).join('') + '</ul>';
         }
 
