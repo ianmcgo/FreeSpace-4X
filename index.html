@@ -594,12 +594,22 @@
         .ore-ico-iron::before, .text-iron::before { background-image: url(https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Ironium.png); }
         .ore-ico-bora::before, .text-bora::before { background-image: url(https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Boranium.png); }
         .ore-ico-germ::before, .text-germ::before { background-image: url(https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Germanium.png); }
-        html { --pa: 0.4; --pa-top: 0.64; }
+        html { --pa: 0.4; --pa-top: 1; }
         select option, select optgroup { background-color: #121019; color: #d0d0e0; }
         #ui-modal { background: transparent; justify-content: center; align-items: center; }
         #ui-modal .modal-content { max-width: 380px; margin: 0; padding: 16px; }
-        body.dd-popup #view-dashboard { visibility: hidden; }
+        body.dd-popup .view.active { visibility: hidden; }
         body.dd-popup .modal-overlay.dd-modal.active { background: transparent; }
+        .gs-native { display: none !important; }
+        .gs-btn { flex: 1 1 0; min-width: 0; text-align: left; padding: 8px 28px 8px 10px; background: rgba(18, 16, 25, var(--pa-top)); color: #d0d0e0; border: 1px solid #3d2c55; border-radius: 4px; font: inherit; font-size: 13px; cursor: pointer; position: relative; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; box-sizing: border-box; }
+        .gs-btn::after { content: '\25BE'; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #da70d6; }
+        .gs-btn:hover, .gs-btn.open { border-color: #da70d6; }
+        .gs-menu { position: fixed; z-index: 20000; display: none; flex-direction: column; background: rgba(18, 16, 25, var(--pa-top)); border: 1px solid #3d2c55; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.6); overflow-y: auto; box-sizing: border-box; }
+        .gs-menu.open { display: flex; }
+        .gs-item { text-align: left; padding: 9px 12px; background: transparent; color: #d0d0e0; border: none; border-bottom: 1px solid #2a1f3d; font: inherit; font-size: 13px; cursor: pointer; white-space: nowrap; }
+        .gs-item:last-child { border-bottom: none; }
+        .gs-item:hover { background: rgba(46, 36, 68, var(--pa-top)); }
+        .gs-item.sel { color: #ffd700; font-weight: bold; }
         .modal-overlay.dd-modal { justify-content: center; align-items: center; }
         #view-research.active, #view-economy.active { display: flex; justify-content: center; align-items: center; }
         #view-research .container-box, #view-economy .container-box { margin: 0; }
@@ -626,9 +636,9 @@
         .rq-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 6px; font-size: 12px; }
         .rq-row select, .rq-row input { width: auto; padding: 4px; font-size: 12px; }
         .rq-row input { width: 64px; }
-        #tr-slider { width: 100%; margin: 10px 0 4px; }
+        #tr-slider, #po-slider { width: 100%; margin: 10px 0 4px; }
         .tr-row { display: flex; justify-content: space-between; font-size: 11px; color: #aaa; }
-        #tr-value { color: #ffd700; font-weight: bold; font-size: 15px; }
+        #tr-value, #po-value { color: #ffd700; font-weight: bold; font-size: 15px; }
         .text-fuel { color: #00ffff; font-weight: bold; }
         .text-res { color: #ffa040; font-weight: bold; }
 
@@ -2225,9 +2235,9 @@
             .sd-layout { display: grid; grid-template-columns: 210px 1fr; gap: 12px; }
         @media (max-width: 760px) { .sd-layout { grid-template-columns: 1fr; } }
         .tb-bar { display: flex; gap: 6px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
-        .tb-bar select { flex: 1 1 0; min-width: 120px; }
+        .tb-bar select, .tb-bar .gs-btn { flex: 1 1 0; min-width: 120px; }
         .tb-nowrap { flex-wrap: nowrap; }
-        .tb-nowrap select { min-width: 0; }
+        .tb-nowrap select, .tb-nowrap .gs-btn { min-width: 0; }
         .tb-bar input[type="text"] { flex: 2 1 160px; min-width: 0; }
         .tb-bar .nav-button { margin: 0; padding: 6px 12px; width: auto; }
         .tb-layout { display: grid; grid-template-columns: 270px 1fr; gap: 12px; }
@@ -2276,7 +2286,7 @@
             #tb-list { max-height: 26vh; }
             #tb-detail { max-height: none; }
             .tb-icon svg { width: 84px; height: 84px; }
-            .tb-bar input[type="text"], #tb-sort { flex: 1 1 100%; }
+            .tb-bar input[type="text"], #tb-sort, #tb-sort + .gs-btn { flex: 1 1 100%; }
         }
         #sd-list { max-height: 40vh; overflow-y: auto; border: 1px solid #332244; background: rgba(8, 8, 12, var(--pa)); border-radius: 4px; }
         .sd-item { padding: 7px 9px; border-bottom: 1px solid #221a33; cursor: pointer; font-size: 13px; color: #ddd; }
@@ -2385,7 +2395,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.113.0 (Updated: October 07, 2026 12:45 PM)</div>
+            <div class="version-text">Version 0.114.0 (Updated: October 07, 2026 1:30 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -3666,6 +3676,11 @@
             <input type="range" id="tr-slider" min="0" max="95" step="1" value="60">
             <div class="tr-row"><span>Solid</span><span id="tr-value">60%</span><span>Clear</span></div>
             <button class="nav-button" id="btn-tr-reset" style="margin-top: 8px;">Reset (60%)</button>
+            <div class="wiz-group-title">Popup and Menu Opacity</div>
+            <div style="font-size: 12px; color: #ccc; line-height: 1.5;">How solid pop-up windows and drop-down menus are. 100% is fully solid; lower values let the star field show through them.</div>
+            <input type="range" id="po-slider" min="30" max="100" step="1" value="100">
+            <div class="tr-row"><span>Faint</span><span id="po-value">100%</span><span>Solid</span></div>
+            <button class="nav-button" id="btn-po-reset" style="margin-top: 8px;">Reset (100%)</button>
             <div class="wiz-group-title">Planet Names on Map</div>
             <div style="font-size: 12px; color: #ccc; line-height: 1.5;">Size of planet names on the star map. Slide all the way left to hide them.</div>
             <input type="range" id="pn-slider" min="0" max="24" step="1" value="10">
@@ -3791,7 +3806,7 @@
             <div style="text-align:left;">
                 <p><b style="color:#da70d6;">Absolute Beginner: Play in Two Minutes</b><br><b>The idea.</b> You lead a young empire that starts with one homeworld and a few ships. Other empires, run by the computer or by friends, are doing the same. You win by growing larger and stronger than they are, or by meeting the victory conditions chosen for the game. Each turn is one year.<br><br><b>Each year do three things.</b> First, <b>planets</b>: click your homeworld and give it something to build in the production queue, such as mines and factories at first, then scouts and colony ships. Second, <b>research</b>: pick a technology field to study so your ships and buildings improve over time. Third, <b>ships</b>: click a fleet, then click a star on the map to send it there. Scouts reveal the galaxy. A colony ship carries colonists to a good planet. Then press <b>End Turn</b> and the year plays out.<br><br><b>How to grow.</b> Look for planets with a high habitability percentage and send colonists there. New colonies grow by themselves and produce Resources and minerals. Use Resources to build and research, and mine minerals to pay for ships. Keep scouting, keep building, and keep a few warships near your homeworld because enemies will arrive eventually.<br><br><b>If something looks wrong,</b> the game warns you before you end a turn with idle planets or fleets, or send a ship somewhere it cannot reach. When you are ready for more, read the rest of Basic, then Advanced.</p>
                 <p><b style="color:#da70d6;">Goal</b><br>Grow your empire from a single homeworld: scan the galaxy, colonize habitable worlds, mine ore, build infrastructure and outscore your AI opponents. Check the Scoreboard under Management to see how you rank. If the game was created with Victory Conditions, the first empire to meet them wins (see Victory Conditions below).</p>
-                <p><b style="color:#da70d6;">Technology Browser</b><br>Open <b>Management, Technology Browser</b> to look up every item in the game (a ship hull page also draws the full hull layout with slot numbers, types, limits and cargo, and a part page lists the slot types it fits, including Shield, Electrical or Mechanical, Mine Layer, Electrical or Mechanical, Weapon or Shield, and Armor, Scanner, Electrical or Mechanical) with a picture, its cost, mass, tech requirements and stats. A <b>Close</b> button sits in the top bar of the window and stays in view while you scroll; there is another at the bottom, and Escape closes it too (the first Escape clears the search box). Use the <b>Prev</b> and <b>Next</b> buttons or the arrow keys to step through the list, or pick a category from the drop-down: Engines, Beam Weapons, Torpedoes and Missiles, Bombs, Shields, Armor, Ship Scanners, Cloaking Devices, Electrical, Mechanical, Mine Layers, Ship Hulls, Space Station and Starbase Hulls, Starbase Components, Planetary Scanners, Stargates, Mass Drivers, Planet Installations and Mystery Trader Items (or All Technology for everything at once). The <b>search box</b> finds items by name, category, stat, tech requirement or race trait (type several words and every word must match, for example <b>jammer torpedo</b> or <b>Propulsion 6</b>); press Escape to clear it. <b>Sort</b> by category then tech level, tech level, name, Resources cost or mass. Tick <b>Show Only Available Technology</b> to hide everything you cannot build yet. Each row has a dot: green means you can use it now, red means you cannot. <b>Reading an item:</b> the picture is drawn by the game from the item's type and stats (ship hull pictures show the hull's slot map from the Stars! pictures with each slot colored by type and the cargo block in white, space station and starbase pictures show the hull's slot map with each slot colored by type, and the small dots under a large picture show how advanced the tech is). Beside it are the cost in Ironium, Boranium, Germanium and Resources and the mass in kT. The cost shown is what you pay now, after miniaturization; when it is lower than the base cost the base is shown in grey beside it. <b>Tech Req</b> lists the levels needed (a level you have not reached shows under Not available with how far you are from it), and the table lists the item's stats: damage, range, initiative, accuracy, shields, armor, scanner ranges, cargo and fuel capacity, slots and the like. Engines also get a <b>Fuel Usage vs. Warp Speed</b> chart: the blue number on the bottom is the engine's free warp, and a dotted column marks Warp 10 when the engine is not safe there. Notes at the bottom tell you about race limits, special behavior and why an item is not available to you. Tech levels here are the levels you see on the Research screen (Tech 0 is where you start). Mystery Trader items show as not available until a trader gives you the item. Costs for space stations and starbases do not include a race's starbase cost adjustment. Ship hull slot layouts are this game's own approximation where the original layouts are not known. The five space station and starbase hulls (Orbital Fort, Space Dock, Space Station, Ultra Station and Death Star) use the slot maps supplied for this game, and their pages draw the whole map with each slot's type, its limit and its slot number. The Cruiser, Battle Cruiser, Battleship and Dreadnought pages carry a Class line because those four hulls are the capital ship hulls.</p>
+                <p><b style="color:#da70d6;">Technology Browser</b><br>Open <b>Management, Technology Browser</b> to look up every item in the game (a ship hull page also draws the full hull layout with slot numbers, types, limits and cargo, and a part page lists the slot types it fits, including Shield, Electrical or Mechanical, Mine Layer, Electrical or Mechanical, Weapon or Shield, and Armor, Scanner, Electrical or Mechanical) with a picture, its cost, mass, tech requirements and stats. A <b>Close</b> button sits in the top bar of the window and stays in view while you scroll; there is another at the bottom, and Escape closes it too (the first Escape clears the search box). Use the <b>Prev</b> and <b>Next</b> buttons or the arrow keys to step through the list, or pick a category from the in-game drop-down list (it opens inside the game on phones too, not the browser's own option menu): Engines, Beam Weapons, Torpedoes and Missiles, Bombs, Shields, Armor, Ship Scanners, Cloaking Devices, Electrical, Mechanical, Mine Layers, Ship Hulls, Space Station and Starbase Hulls, Starbase Components, Planetary Scanners, Stargates, Mass Drivers, Planet Installations and Mystery Trader Items (or All Technology for everything at once). The <b>search box</b> finds items by name, category, stat, tech requirement or race trait (type several words and every word must match, for example <b>jammer torpedo</b> or <b>Propulsion 6</b>); press Escape to clear it. <b>Sort</b> (also an in-game drop-down) by category then tech level, tech level, name, Resources cost or mass. Tick <b>Show Only Available Technology</b> to hide everything you cannot build yet. Each row has a dot: green means you can use it now, red means you cannot. <b>Reading an item:</b> the picture is drawn by the game from the item's type and stats (ship hull pictures show the hull's slot map from the Stars! pictures with each slot colored by type and the cargo block in white, space station and starbase pictures show the hull's slot map with each slot colored by type, and the small dots under a large picture show how advanced the tech is). Beside it are the cost in Ironium, Boranium, Germanium and Resources and the mass in kT. The cost shown is what you pay now, after miniaturization; when it is lower than the base cost the base is shown in grey beside it. <b>Tech Req</b> lists the levels needed (a level you have not reached shows under Not available with how far you are from it), and the table lists the item's stats: damage, range, initiative, accuracy, shields, armor, scanner ranges, cargo and fuel capacity, slots and the like. Engines also get a <b>Fuel Usage vs. Warp Speed</b> chart: the blue number on the bottom is the engine's free warp, and a dotted column marks Warp 10 when the engine is not safe there. Notes at the bottom tell you about race limits, special behavior and why an item is not available to you. Tech levels here are the levels you see on the Research screen (Tech 0 is where you start). Mystery Trader items show as not available until a trader gives you the item. Costs for space stations and starbases do not include a race's starbase cost adjustment. Ship hull slot layouts are this game's own approximation where the original layouts are not known. The five space station and starbase hulls (Orbital Fort, Space Dock, Space Station, Ultra Station and Death Star) use the slot maps supplied for this game, and their pages draw the whole map with each slot's type, its limit and its slot number. The Cruiser, Battle Cruiser, Battleship and Dreadnought pages carry a Class line because those four hulls are the capital ship hulls.</p>
                 <p><b style="color:#da70d6;">Ship Designer</b><br>Open <b>Management, Ship Designer</b>. It works like the Stars! designer: choose a hull, click a slot on the hull, then click a part from the list on the right. The list shows only parts you can build now; tick <b>Also list parts I cannot use yet</b> to see the rest with the tech they need. The hull drop-down likewise lists only hulls you have the Construction tech for. <b>Slots and stacks:</b> every hull has the numbered slots of the Stars! hull pictures (Slot 1, Slot 2 and so on), each with the type of part it takes. A slot marked <b>Up to 4</b> holds up to 4 of one part, and the <b>Qty</b> box sets how many. The hull is drawn as in the Stars! pictures: each slot sits where it does on the picture, colored by its type, and shows its slot number, its type, <b>Needs N</b> or <b>Up to N</b> and the part fitted in it; a white block marks the cargo space in kT. Click a slot on the picture to select it (gold outline); the bar under the picture sets Qty or clears the slot. Under the hull name the designer also lists every slot with its limit. Putting a part into an empty slot fills the whole stack; swapping the part keeps your quantity. <b>Engines:</b> engines work the same way but an engine slot marked <b>Needs 4</b> always holds exactly 4, all the same engine, so a big hull's engine slot is one slot that still needs several engines. Slot types: <b>Engine</b>, <b>Weapon</b> (beams and torpedoes), <b>Bomb</b>, <b>Shield or Armor</b>, <b>Shield</b>, <b>Armor</b>, <b>Scanner</b>, <b>Electrical</b> (cloaks, battle computers, jammers, capacitors), <b>Mechanical</b> (cargo pods, fuel tanks, colonization module, jets), <b>Electrical or Mechanical</b>, <b>Scanner, Electrical or Mechanical</b>, <b>Shield, Electrical or Mechanical</b>, <b>Mine Layer, Electrical or Mechanical</b>, <b>Armor, Scanner, Electrical or Mechanical</b>, <b>Weapon or Shield</b>, <b>Mine Layer</b>, <b>Robot Miner</b> (mining robots only) and <b>General Purpose</b> (anything). Clear empties a slot. The panel under the slots shows cost (after miniaturization), mass, armor, shields, fuel, cargo, the engine's free and best warp and its fuel table, combat speed and initiative, scanner range, cloaking and weapons. Some parts belong to one primary trait only (for example the Rogue hull and Pick Pocket Scanner for Super-Stealth races). <b>Saved designs:</b> the list on the left holds your designs; obsolete ones are hidden until you tick <b>Show obsolete designs</b>. You can keep 16 active designs; make old ones <b>Obsolete</b> to free room. A design with ships built or queued cannot be changed: the moment you change a hull or part on it, the designer makes a copy named with Mk2 and your changes go into that copy, which you keep with Save. Designs the game gave you whose hull you cannot build yet (the Destroyer, for example) are hidden as obsolete and come back by themselves when your Construction reaches the hull. Designs saved before version 0.88 are moved into the new slots when the game loads them: each engine goes in the engine slot and every other part goes into the first slot that takes it, and a part that no longer fits is dropped. Design files made before 0.88 are converted the same way when uploaded. Ships of a changed design keep their design, so a hull that now has fewer slots of a type than before (for example the Maxi Miner and Ultra Miner) can lose parts. Your starting hulls at Tech 0 are the Small Freighter, Scout, Colony Ship and Mini Mine Layer (Mini Colony Ship for Hyper-Expansion races). The Technology Browser (Management menu) shows every part and hull with pictures; the Equipment Catalog and Ship Hulls sections in Help list them as text. Slot numbers, types and limits of every hull follow the Stars! hull pictures; hull mass, armor, fuel, cost and tech level are still this game's own numbers. Every scanner in the part list shows its normal range and its penetrating range (or none), so you can compare them before picking. Your starting Long Range Scout is a Scout hull with a Quick Jump 5 engine in the Engine slot, a Rhino Scanner (50 ly normal, no penetrating) in the Scanner slot and a Fuel Tank in the General Purpose slot.</p>
                 <p><b style="color:#da70d6;">Building Designs and Refitting</b><br>Every active design appears in a planet's build list at its real cost. <b>Retrofit:</b> a fleet in orbit of a planet with a starbase that has a <b>Fleet Yard</b> can be refitted to another design with the same hull; the cost is the new design minus a credit for the old parts. <b>Scrap:</b> a ship can be scrapped at any of your planets for half its minerals back. Both are in <b>Fleet, Manage Ships and Names</b>.</p>
                 <p><b style="color:#da70d6;">Ship Design Files</b><br>The Ship Designer can save designs to your device and load them into another game. <b>Download This Design</b> saves the selected saved design and <b>Download All Designs</b> saves every active one, as a .json file holding each design's name, hull, parts slot by slot, mass and cost. <b>Upload Designs</b> reads such a file. Every design in it is checked against this game: the hull and every part must be unlocked by your current technology, allowed for your race's traits, and (for Mystery Trader items) owned, and the design must be complete (engines, matching engine types, parts in slots that take them). Designs that pass are added with a new name if the name is already taken. Designs you cannot build are refused, and a window lists each one with what is missing, for example the tech level needed and the level you have. A design is only added while you have fewer than 16 active designs. A file is tidied as it is read, the same way an old save is: an engine slot is filled with the engine, a slot that holds two different parts is split so every slot keeps one kind of part, and a file with two engine types keeps the first one.</p>
@@ -3858,12 +3873,12 @@
                 <p><b style="color:#da70d6;">Auto Items and Repeating Builds</b><br>In Structures, choose Mine, Factory or Defense and tick the <b>Auto</b> box under Quantity to Queue to queue <b>Auto Mines</b>, <b>Auto Factories</b> or <b>Auto Defenses</b>. An auto item is a standing order that stays in the queue. Each turn it builds one unit after another while the planet has room: Mines up to the number its colonists supply (at least 1), Factories up to the number its colonists can run, Defenses up to 10. When it reaches the limit it does not block the queue, the Resources move on to the next item, and it starts again by itself when more colonists arrive. A planet can have one auto item of each kind. Ordinary items have a quantity and are removed when finished.</p>
                 <p><b style="color:#da70d6;">Autobuild</b><br>Autobuild fills a planet's queue for you. It is an empire-wide ordered list of rules (Management, Autobuild, or the Rules button in the Production Queue panel). When a planet's queue runs empty the game reads the list from the top; the first rule whose condition is true and whose Ore is on hand adds an item to the queue, the planet builds it in the same turn, and the list is read again, so a planet can climb the whole ladder in one turn. Each rule has an item (Mine, Factory, Defense, Scout, Small Freighter, Destroyer or Colony Ship), a condition and an on or off switch. Conditions: <b>while below the planet limit</b> (Mines and Factories only: the number the planet's colonists supply or can run) and <b>until this many</b> (the planet has that many; for ships, the whole empire has that many built and queued, and the planet needs a ship dock; Colony Ships also need 7,500 colonists). Use the arrows to change priority. A rule is skipped when the planet cannot pay the Ore for one unit, so planets never queue things they cannot build. The default list is Mines, then Factories, then up to 5 Defenses, in that order. Under <b>Follow empire rules or Off</b> in the Production Queue panel, a single planet can switch Autobuild off, for example while you build a colony ship or starbase by hand. Items queued by Autobuild carry an Autobuild tag, and the turn report lists what it queued. Terraforming rules are not possible yet because the game has no terraforming. A new game starts with Autobuild on; saves from before version 0.9.0 load with it off.</p>
                 <p><b style="color:#da70d6;">Mines and Factories</b><br>The economy is a loop: colonists give Resources, factories add more Resources, Resources and Ore build mines, factories and ships, and mines dig the Ore. <b>Mines</b> dig Ironium, Boranium and Germanium every year; a richer concentration gives more, and digging slowly lowers it (see Ore and Mining). By default every mine works as long as the planet has colonists (turn on Mines need colonists under Advanced Options for 10 mines per 10,000 working colonists). <b>Factories</b> need workers: 10 per 10,000 working colonists for the standard economy, and any extra factories sit idle until the population grows. The queue panel and the Year Report say how many are idle. A custom race changes these numbers in the Race Wizard.</p>
-                <p><b style="color:#da70d6;">Pop-up Windows</b><br>Everything you open from the Planet, Fleet, Management and Settings menus, including Structures, Ship Construction, Manage Waypoints, Manage Ships and Names, Fleet Roster, Ship Designer, Autobuild, Battle Reports, Battle Plans, Minefields, Diplomacy, Reports, Scoreboard, Help and Updates, opens in the middle of the screen over the blank scrolling star field, the same way Research does. To close a window, click outside it, or use its Close or Back button; either one returns you to the main game view. The UI window is the one exception that keeps the game visible behind it so you can watch your changes. The menus themselves open under their button and are only as wide as their longest line.</p>
+                <p><b style="color:#da70d6;">Pop-up Windows</b><br>Everything you open from the Planet, Fleet, Management and Settings menus, including Structures, Ship Construction, Manage Waypoints, Manage Ships and Names, Fleet Roster, Ship Designer, Autobuild, Battle Reports, Battle Plans, Minefields, Diplomacy, Reports, Scoreboard, Help and Updates, opens in the middle of the screen over the blank scrolling star field, the same way Research does. This goes for every pop-up window, including small ones such as Do a Task Here, Transfer, Cargo, the Turn Report and the Technology Browser. How solid the windows are is set in Settings, UI, under Popup and Menu Opacity (100% by default). To close a window, click outside it, or use its Close or Back button; either one returns you to the main game view. The UI window is the one exception that keeps the game visible behind it so you can watch your changes. The menus themselves open under their button and are only as wide as their longest line.</p>
                 <p><b style="color:#da70d6;">Ore Concentration Bars</b><br>The planet picture and the ore are both inside the Planet Summary box, with the population, status, habitability and starbase text to the right of the picture; ore is in the Ore On Hand &amp; Concentrations section under the population and habitability lines. That section also carries the Resources, Mines, Factories, Mass Driver and Defenses lines. It shows each ore on one line: its name, how many kilotons are on hand or in the ground, and a bar for the concentration. The bar fills to the concentration percentage. Green means 75% and up, an excellent mining world for that ore; yellow means 26% to 74%, a middling one; red means 0% to 25%, so mines there will produce little. A gray bar with a question mark means the world has not been surveyed yet.</p>
                 <p><b style="color:#da70d6;">Game Images</b><br>The Cabal Coffers Gaming logo on the title screen and the small Ironium, Boranium and Germanium icons beside ore names are loaded from the game's GitHub images folder instead of being built into the game file. They need an internet connection the first time they are shown, and your browser keeps them afterward. If an image cannot be reached the game keeps working and only that picture is missing.</p>
                 <p><b style="color:#da70d6;">Planet Names on Map</b><br>Open Settings, then UI, and use the Planet Names on Map slider to change how large planet names are drawn on the star map. The slider runs from Hidden (all the way left, no names at all, not even for your own or the selected planet) to 24 px, and starts at 10 px. Names keep the same size on screen however far you zoom, so zoom in for more room around each name. At low zoom, names of planets nobody owns still hide to cut clutter; your planets and the selected planet keep theirs. Fleet and wormhole labels are not affected. Reset returns to 10 px. Your choice is saved in this browser.</p>
                 <p><b style="color:#da70d6;">Menu Colors and Sensor Circles</b><br>Each top menu has its own colour: Planet is green, Fleet blue, Management olive and Settings maroon, and every button inside a menu uses the same colour. In Settings, UI, the Sensor Circles slider changes how strong the scanner range circles look on the star map, and the Fill button turns the colour fill off so only the outline of each range is drawn.</p>
-                <p><b style="color:#da70d6;">Panel Transparency</b><br>Every panel, menu and window in the game is partly see-through, so the scrolling star field from the title screen shows behind it, including behind the star map. Open Settings, then UI, and drag the Panel Transparency slider: 0% gives solid panels and higher values let more of the stars show through (the highest setting is 95%). Menus and pop-up windows never go fully clear, so their text stays readable. The window sits in the middle of the screen and leaves the game visible behind it so you can watch the change as you drag. Reset puts it back to 60%. Your choice is saved in this browser and applies on every screen, including the setup screens.</p>
+                <p><b style="color:#da70d6;">Panel Transparency</b><br>Every panel, menu and window in the game is partly see-through, so the scrolling star field from the title screen shows behind it, including behind the star map. Open Settings, then UI, and drag the Panel Transparency slider: 0% gives solid panels and higher values let more of the stars show through (the highest setting is 95%). Panel Transparency changes the panels on the screen; pop-up windows and drop-down menus have their own <b>Popup and Menu Opacity</b> slider just below it in the same window. That one starts at 100% (fully solid) and can go down to 30% if you want the stars to show through windows and menus; Reset puts it back to 100%. The window sits in the middle of the screen and leaves the game visible behind it so you can watch the change as you drag. Reset on Panel Transparency puts it back to 60%. Your choice is saved in this browser and applies on every screen, including the setup screens.</p>
                 <p><b style="color:#da70d6;">Minimizing Panels on a Desktop</b><br>On a wide screen (900 pixels and up) the boxes beside the star map can be tucked away to give the rest more room. Press the <b>▲</b> in the top right corner of the Galactic Event Log, Fleets in Orbit, Production Queue, Fleet Summary or Planet Summary box. The box disappears and a button with its name appears in the top bar, to the left of End Turn. Press that button to bring the box back. When a whole column of boxes is minimized the star map and the remaining column grow wider; when only some are minimized the boxes still showing grow taller to use the space. The top bar, the bottom bar and the star map cannot be minimized. A tab only shows while its box would normally be on screen: minimize the Production Queue, then pick a planet that is not yours and the tab goes away just as the box does; pick one of your colonies again and the tab comes back, still minimized, ready to open. Your choices are remembered on this device. On a phone or tablet the ▲ does nothing and every box stays where it is.</p>
                 <p><b style="color:#da70d6;">Help and Updates Windows</b><br>Help is sorted into three levels: <b>Basic</b> (start with Absolute Beginner), <b>Advanced</b> and <b>Autistic level</b> (exact numbers and edge cases). Settings, Help and Settings, Updates open the same window, one showing Help and the other the Updates list. A Close button sits at the top right of the window and another at the bottom; Escape closes it too. Every topic is a collapsible section. The Contents list on the left jumps to a topic and opens it, Expand All and Collapse All open or close everything, and the search box filters the sections to those containing every word you type, opens them and highlights the matches. Clear the box (or press Escape) to see everything again. On a narrow screen the Contents button shows or hides the list. Updates lists every version, newest first, and a new entry is added to it with each release.</p>
 
@@ -4661,7 +4676,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.113.0';
+        const GAME_VERSION = '0.114.0';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -10396,12 +10411,12 @@ const DEFENDERS_PER_POP=100;
 
         function syncPopupBackdrop() {
             let open = false;
-            Object.keys(POPUP_CLOSE_BUTTONS).forEach(id => {
-                if (POPUP_KEEP_DASHBOARD.indexOf(id) === -1 && document.getElementById(id).classList.contains('active')) open = true;
+            document.querySelectorAll('.modal-overlay.active').forEach(el => {
+                if (el.id !== 'game-dialog' && POPUP_KEEP_DASHBOARD.indexOf(el.id) === -1) open = true;
             });
             const dlg = document.getElementById('game-dialog');
             if (dlg.classList.contains('active') && dlg.classList.contains('dd-modal')) open = true;
-            document.body.classList.toggle('dd-popup', open && dashboardActive());
+            document.body.classList.toggle('dd-popup', open);
         }
 
         function closeOnOutsideClick(el, onOutside) {
@@ -10417,6 +10432,9 @@ const DEFENDERS_PER_POP=100;
             const overlay = document.getElementById(id);
             overlay.classList.add('dd-modal');
             closeOnOutsideClick(overlay, () => document.getElementById(POPUP_CLOSE_BUTTONS[id]).click());
+        });
+        document.querySelectorAll('.modal-overlay').forEach(el => {
+            if (el.id !== 'game-dialog') el.classList.add('dd-modal');
         });
         Object.keys(POPUP_VIEW_CLOSE_BUTTONS).forEach(id => {
             closeOnOutsideClick(document.getElementById(id), () => document.getElementById(POPUP_VIEW_CLOSE_BUTTONS[id]).click());
@@ -14019,6 +14037,83 @@ const DEFENDERS_PER_POP=100;
             document.getElementById('tb-detail').scrollTop = 0;
         }
 
+        function makeGameSelect(sel) {
+            sel.classList.add('gs-native');
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'gs-btn';
+            btn.setAttribute('aria-haspopup', 'listbox');
+            if (sel.getAttribute('aria-label')) btn.setAttribute('aria-label', sel.getAttribute('aria-label'));
+            sel.parentNode.insertBefore(btn, sel.nextSibling);
+            const menu = document.createElement('div');
+            menu.className = 'gs-menu';
+            menu.setAttribute('role', 'listbox');
+            document.body.appendChild(menu);
+            function sync() {
+                const o = sel.options[sel.selectedIndex];
+                btn.textContent = o ? o.textContent : '';
+            }
+            function close() {
+                menu.classList.remove('open');
+                btn.classList.remove('open');
+            }
+            function open() {
+                menu.innerHTML = '';
+                Array.prototype.forEach.call(sel.options, (o, i) => {
+                    const it = document.createElement('button');
+                    it.type = 'button';
+                    it.className = 'gs-item' + (i === sel.selectedIndex ? ' sel' : '');
+                    it.textContent = o.textContent;
+                    it.addEventListener('click', () => {
+                        sel.selectedIndex = i;
+                        sync();
+                        close();
+                        sel.dispatchEvent(new Event('change'));
+                    });
+                    menu.appendChild(it);
+                });
+                const r = btn.getBoundingClientRect();
+                const vh = window.innerHeight;
+                menu.style.minWidth = r.width + 'px';
+                menu.style.maxWidth = (window.innerWidth - 8) + 'px';
+                menu.style.left = Math.max(4, Math.min(r.left, window.innerWidth - Math.max(r.width, 160) - 4)) + 'px';
+                const below = vh - r.bottom - 8;
+                const above = r.top - 8;
+                if (below >= 200 || below >= above) {
+                    menu.style.top = (r.bottom + 2) + 'px';
+                    menu.style.bottom = 'auto';
+                    menu.style.maxHeight = Math.max(120, below) + 'px';
+                } else {
+                    menu.style.bottom = (vh - r.top + 2) + 'px';
+                    menu.style.top = 'auto';
+                    menu.style.maxHeight = Math.max(120, above) + 'px';
+                }
+                menu.classList.add('open');
+                btn.classList.add('open');
+                const cur = menu.querySelector('.sel');
+                if (cur) cur.scrollIntoView({ block: 'nearest' });
+            }
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (menu.classList.contains('open')) close(); else open();
+            });
+            document.addEventListener('pointerdown', (e) => {
+                if (!menu.classList.contains('open')) return;
+                if (e.target === btn || menu.contains(e.target)) return;
+                close();
+            });
+            window.addEventListener('resize', close);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && menu.classList.contains('open')) {
+                    e.stopPropagation();
+                    close();
+                }
+            }, true);
+            sel._gsSync = sync;
+            sel._gsClose = close;
+            sync();
+        }
+
         function openTechBrowser() {
             tbItems = tbCollect();
             const sel = document.getElementById('tb-cat');
@@ -14027,14 +14122,20 @@ const DEFENDERS_PER_POP=100;
             document.getElementById('tb-search').value = TB_STATE.q;
             document.getElementById('tb-sort').value = TB_STATE.sort;
             document.getElementById('tb-avail').checked = TB_STATE.only;
+            document.getElementById('tb-cat')._gsSync();
+            document.getElementById('tb-sort')._gsSync();
             tbRender(true);
             document.getElementById('techbrowser-modal').classList.add('active');
         }
 
         function closeTechBrowser() {
+            document.getElementById('tb-cat')._gsClose();
+            document.getElementById('tb-sort')._gsClose();
             document.getElementById('techbrowser-modal').classList.remove('active');
         }
 
+        makeGameSelect(document.getElementById('tb-cat'));
+        makeGameSelect(document.getElementById('tb-sort'));
         document.getElementById('btn-mgmt-techbrowser').addEventListener('click', openTechBrowser);
         document.getElementById('btn-tb-close').addEventListener('click', closeTechBrowser);
         document.getElementById('btn-tb-close-top').addEventListener('click', closeTechBrowser);
@@ -16199,6 +16300,12 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.114.0', d: "Oct 7, 2026 1:30 PM", t: "Popup Opacity, Star Field Behind Every Window, In-Game Dropdowns", items: [
+                'New Popup and Menu Opacity slider in Settings, UI. Pop-up windows and drop-down menus now start fully solid (100%); slide left to let the stars show through (down to 30%). Reset puts it back to 100%. It is separate from Panel Transparency, which no longer changes menus and windows.',
+                'Every pop-up window now sits over the scrolling star field, the same way Research does. Before, windows such as Do a Task Here, the Technology Browser, Transfer, Cargo and the Turn Report kept a dark backdrop.',
+                'The Technology Browser category and sort choices now open an in-game drop-down list instead of the phone or browser option menu. Tap outside the list or press Escape to close it.',
+                'Help: Panel Transparency, Pop-up Windows and Technology Browser updated.'
+            ] },
             { v: '0.113.0', d: "Oct 7, 2026 12:45 PM", t: "Inactive Account Cleanup", items: [
                 'Accounts that have not signed in for a year now get an email saying the account will be deleted in a month unless they sign in. Signing in once is enough: the countdown is cancelled.',
                 'A month after that warning, accounts that still have not signed in are deleted. Before an account is deleted it resigns from every game it is in (the usual resign rules apply), its open lobbies and unsent invitations are removed, and games it created that are still running are handed to another player so they keep going. Admins are never deleted.',
@@ -20672,10 +20779,28 @@ const DEFENDERS_PER_POP=100;
             panelAlpha = 1 - panelTransparency / 100;
             const root = document.documentElement;
             root.style.setProperty('--pa', panelAlpha.toFixed(3));
-            root.style.setProperty('--pa-top', (0.6 + 0.4 * panelAlpha).toFixed(3));
             document.getElementById('tr-slider').value = panelTransparency;
             document.getElementById('tr-value').innerText = panelTransparency + '%';
             if (dashboardActive()) drawGalaxyMap();
+        }
+
+        const POPUP_OPACITY_DEFAULT = 100;
+        const POPUP_OPACITY_MIN = 30;
+        let popupOpacity = POPUP_OPACITY_DEFAULT;
+        try {
+            const storedPopupOpacity = parseInt(localStorage.getItem('fs4x-popup-opacity'), 10);
+            if (!isNaN(storedPopupOpacity)) popupOpacity = storedPopupOpacity;
+        } catch (err) { }
+
+        function applyPopupOpacity() {
+            popupOpacity = Math.max(POPUP_OPACITY_MIN, Math.min(100, Math.round(popupOpacity)));
+            document.documentElement.style.setProperty('--pa-top', (popupOpacity / 100).toFixed(2));
+            document.getElementById('po-slider').value = popupOpacity;
+            document.getElementById('po-value').innerText = popupOpacity + '%';
+        }
+
+        function savePopupOpacity() {
+            try { localStorage.setItem('fs4x-popup-opacity', String(popupOpacity)); } catch (err) { }
         }
 
         function savePanelTransparency() {
@@ -20699,6 +20824,17 @@ const DEFENDERS_PER_POP=100;
             savePanelTransparency();
         });
         applyPanelTransparency();
+        document.getElementById('btn-po-reset').addEventListener('click', () => {
+            popupOpacity = POPUP_OPACITY_DEFAULT;
+            applyPopupOpacity();
+            savePopupOpacity();
+        });
+        document.getElementById('po-slider').addEventListener('input', (e) => {
+            popupOpacity = parseInt(e.target.value, 10);
+            applyPopupOpacity();
+            savePopupOpacity();
+        });
+        applyPopupOpacity();
 
         function applyPlanetNameSize() {
             planetNameSize = Math.max(0, Math.min(PLANET_NAME_SIZE_MAX, Math.round(planetNameSize)));
