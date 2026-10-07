@@ -597,7 +597,16 @@
         html { --pa: 0.4; --pa-top: 1; }
         select option, select optgroup { background-color: #121019; color: #d0d0e0; }
         #ui-modal { background: transparent; justify-content: center; align-items: center; }
-        #ui-modal .modal-content { max-width: 380px; margin: 0; padding: 16px; }
+        #ui-modal .modal-content { max-width: 820px; width: 94vw; margin: 0; padding: 16px; max-height: 92vh; overflow-y: auto; box-sizing: border-box; }
+        .ui-section { color: #da70d6; font-weight: bold; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #3d2c55; padding-bottom: 4px; margin: 14px 0 8px; }
+        .ui-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .ui-card { background: rgba(12, 11, 18, 0.6); border: 1px solid #332244; border-radius: 4px; padding: 10px; }
+        .ui-card-title { color: #ffd700; font-weight: bold; font-size: 13px; margin-bottom: 4px; }
+        .ui-desc { font-size: 12px; color: #ccc; line-height: 1.45; }
+        .ui-card .nav-button { width: 100%; }
+        .ui-card input[type="range"] { width: 100%; margin: 10px 0 4px; }
+        @media (max-width: 640px) { .ui-grid { grid-template-columns: 1fr; } }
+        #view-research .container-box, #view-economy .container-box { background-color: rgba(15, 15, 25, var(--pa-top)); }
         body.dd-popup .view.active { visibility: hidden; }
         body.dd-popup .modal-overlay.dd-modal.active { background: transparent; }
         .gs-native { display: none !important; }
@@ -2395,7 +2404,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.114.0 (Updated: October 07, 2026 1:30 PM)</div>
+            <div class="version-text">Version 0.115.0 (Updated: October 07, 2026 2:05 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -3671,51 +3680,80 @@
     <div id="ui-modal" class="modal-overlay" style="z-index: 1900;">
         <div class="modal-content">
             <h2 class="screen-header" style="margin-top: 0;">UI</h2>
-            <div class="wiz-group-title" style="margin-top: 0;">Panel Transparency</div>
-            <div style="font-size: 12px; color: #ccc; line-height: 1.5;">How much of the scrolling star field shows through panels, menus and windows. 0% is solid.</div>
-            <input type="range" id="tr-slider" min="0" max="95" step="1" value="60">
-            <div class="tr-row"><span>Solid</span><span id="tr-value">60%</span><span>Clear</span></div>
-            <button class="nav-button" id="btn-tr-reset" style="margin-top: 8px;">Reset (60%)</button>
-            <div class="wiz-group-title">Popup and Menu Opacity</div>
-            <div style="font-size: 12px; color: #ccc; line-height: 1.5;">How solid pop-up windows and drop-down menus are. 100% is fully solid; lower values let the star field show through them.</div>
-            <input type="range" id="po-slider" min="30" max="100" step="1" value="100">
-            <div class="tr-row"><span>Faint</span><span id="po-value">100%</span><span>Solid</span></div>
-            <button class="nav-button" id="btn-po-reset" style="margin-top: 8px;">Reset (100%)</button>
-            <div class="wiz-group-title">Planet Names on Map</div>
-            <div style="font-size: 12px; color: #ccc; line-height: 1.5;">Size of planet names on the star map. Slide all the way left to hide them.</div>
-            <input type="range" id="pn-slider" min="0" max="24" step="1" value="10">
-            <div class="tr-row"><span>Hidden</span><span id="pn-value">10 px</span><span>Large</span></div>
-            <button class="nav-button" id="btn-pn-reset" style="margin-top: 8px;">Reset (10 px)</button>
-            <div class="wiz-group-title">Fleet Names on Map</div>
-            <div style="font-size: 12px; color: #ccc; line-height: 1.5;">Size of fleet names on the star map. Slide all the way left to hide them.</div>
-            <input type="range" id="fn-slider" min="0" max="24" step="1" value="10">
-            <div class="tr-row"><span>Hidden</span><span id="fn-value">10 px</span><span>Large</span></div>
-            <button class="nav-button" id="btn-fn-reset" style="margin-top: 8px;">Reset (10 px)</button>
-            <div class="wiz-group-title">Music</div>
-            <div style="font-size: 12px; color: #ccc; line-height: 1.5;">Calm space music that is made up fresh each time you play. Slide to set how loud it is, or turn it off.</div>
-            <input type="range" id="au-music-slider" min="0" max="100" step="1" value="5">
-            <div class="tr-row"><span>Quiet</span><span id="au-music-value">5%</span><span>Loud</span></div>
-            <button class="nav-button" id="btn-au-music" style="margin-top: 8px;">Music: ON</button>
-            <div class="wiz-group-title">Sound Effects</div>
-            <div style="font-size: 12px; color: #ccc; line-height: 1.5;">Button clicks, end of turn, year report, notices, victory and defeat. Slide to set how loud they are, or turn them off.</div>
-            <input type="range" id="au-sfx-slider" min="0" max="100" step="1" value="5">
-            <div class="tr-row"><span>Quiet</span><span id="au-sfx-value">5%</span><span>Loud</span></div>
-            <button class="nav-button" id="btn-au-sfx" style="margin-top: 8px;">Sound Effects: ON</button>
-            <div class="wiz-group-title">Event Log Display</div>
-            <div style="font-size: 12px; color: #ccc; line-height: 1.5;">Tick the kinds of information you want to see in the event log. Unticked kinds are only hidden on screen; they stay saved and can still be exported.</div>
-            <div id="log-display-types" style="font-size: 12px; line-height: 1.9; margin-top: 4px;"></div>
-            <div class="wiz-group-title">Sensor Circles</div>
-            <div style="font-size: 12px; color: #ccc; line-height: 1.5;">How strong the scanner range circles look on the star map. At 0% only the outline can be seen.</div>
-            <input type="range" id="sc-slider" min="0" max="100" step="1" value="100">
-            <div class="tr-row"><span>Faint</span><span id="sc-value">100%</span><span>Strong</span></div>
-            <div style="display: flex; gap: 8px; margin-top: 8px;">
-                <button class="nav-button" id="btn-sc-reset">Reset (100%)</button>
-                <button class="nav-button" id="btn-sc-outline">Fill: ON</button>
+            <div class="ui-section">Windows and Panels</div>
+            <div class="ui-grid">
+                <div class="ui-card">
+                    <div class="ui-card-title">Panel Transparency</div>
+                    <div class="ui-desc">How much of the scrolling star field shows through panels. 0% is solid.</div>
+                    <input type="range" id="tr-slider" min="0" max="95" step="1" value="60">
+                    <div class="tr-row"><span>Solid</span><span id="tr-value">60</span><span>Clear</span></div>
+                    <button class="nav-button" id="btn-tr-reset" style="margin-top: 8px;">Reset (60%)</button>
+                </div>
+                <div class="ui-card">
+                    <div class="ui-card-title">Popup and Menu Opacity</div>
+                    <div class="ui-desc">How solid pop-up windows, drop-down menus and the Research and Economy screens are. 100% is fully solid.</div>
+                    <input type="range" id="po-slider" min="30" max="100" step="1" value="100">
+                    <div class="tr-row"><span>Faint</span><span id="po-value">100</span><span>Solid</span></div>
+                    <button class="nav-button" id="btn-po-reset" style="margin-top: 8px;">Reset (100%)</button>
+                </div>
             </div>
-            <div class="wiz-group-title">Map Rulers and Legend</div>
-            <div style="display: flex; gap: 8px;">
-                <button class="nav-button" id="btn-toggle-rulers">📏 Map Rulers: ON</button>
-                <button class="nav-button" id="btn-toggle-legend">🗺 Map Legend: ON</button>
+            <div class="ui-section">Star Map</div>
+            <div class="ui-grid">
+                <div class="ui-card">
+                    <div class="ui-card-title">Planet Names</div>
+                    <div class="ui-desc">Size of planet names on the map. All the way left hides them.</div>
+                    <input type="range" id="pn-slider" min="0" max="24" step="1" value="10">
+                    <div class="tr-row"><span>Hidden</span><span id="pn-value">10</span><span>Large</span></div>
+                    <button class="nav-button" id="btn-pn-reset" style="margin-top: 8px;">Reset (10 px)</button>
+                </div>
+                <div class="ui-card">
+                    <div class="ui-card-title">Fleet Names</div>
+                    <div class="ui-desc">Size of fleet names on the map. All the way left hides them.</div>
+                    <input type="range" id="fn-slider" min="0" max="24" step="1" value="10">
+                    <div class="tr-row"><span>Hidden</span><span id="fn-value">10</span><span>Large</span></div>
+                    <button class="nav-button" id="btn-fn-reset" style="margin-top: 8px;">Reset (10 px)</button>
+                </div>
+                <div class="ui-card">
+                    <div class="ui-card-title">Sensor Circles</div>
+                    <div class="ui-desc">How strong the scanner range circles look. At 0% only the outline shows.</div>
+                    <input type="range" id="sc-slider" min="0" max="100" step="1" value="100">
+                    <div class="tr-row"><span>Faint</span><span id="sc-value">100</span><span>Strong</span></div>
+                    <div style="display: flex; gap: 8px; margin-top: 8px;">
+                        <button class="nav-button" id="btn-sc-reset" style="margin: 0;">Reset (100%)</button>
+                        <button class="nav-button" id="btn-sc-outline" style="margin: 0;">Fill: ON</button>
+                    </div>
+                </div>
+                <div class="ui-card">
+                    <div class="ui-card-title">Rulers and Legend</div>
+                    <div class="ui-desc">Show or hide the distance rulers and the colour legend on the star map.</div>
+                    <button class="nav-button" id="btn-toggle-rulers" style="margin-top: 8px;">📏 Map Rulers: ON</button>
+                    <button class="nav-button" id="btn-toggle-legend" style="margin-top: 8px;">🗺 Map Legend: ON</button>
+                </div>
+            </div>
+            <div class="ui-section">Sound</div>
+            <div class="ui-grid">
+                <div class="ui-card">
+                    <div class="ui-card-title">Music</div>
+                    <div class="ui-desc">Calm space music made up fresh each time you play.</div>
+                    <input type="range" id="au-music-slider" min="0" max="100" step="1" value="5">
+                    <div class="tr-row"><span>Quiet</span><span id="au-music-value">5</span><span>Loud</span></div>
+                    <button class="nav-button" id="btn-au-music" style="margin-top: 8px;">Music: ON</button>
+                </div>
+                <div class="ui-card">
+                    <div class="ui-card-title">Sound Effects</div>
+                    <div class="ui-desc">Button clicks, end of turn, year report, notices, victory and defeat.</div>
+                    <input type="range" id="au-sfx-slider" min="0" max="100" step="1" value="5">
+                    <div class="tr-row"><span>Quiet</span><span id="au-sfx-value">5</span><span>Loud</span></div>
+                    <button class="nav-button" id="btn-au-sfx" style="margin-top: 8px;">Sound Effects: ON</button>
+                </div>
+            </div>
+            <div class="ui-section">Event Log</div>
+            <div class="ui-card">
+                <button type="button" class="nav-button" id="btn-log-display-toggle" aria-expanded="false" style="margin: 0;">Choose what the event log shows &#9656;</button>
+                <div id="log-display-wrap" style="display: none;">
+                    <div class="ui-desc" style="margin-top: 8px;">Tick the kinds of information you want to see. Unticked kinds are only hidden on screen; they stay saved and can still be exported.</div>
+                    <div id="log-display-types" style="font-size: 12px; line-height: 1.9; margin-top: 4px; columns: 2 220px;"></div>
+                </div>
             </div>
             <button class="nav-button btn-primary" id="btn-ui-close" style="margin-top: 14px;">Close</button>
         </div>
@@ -3873,12 +3911,12 @@
                 <p><b style="color:#da70d6;">Auto Items and Repeating Builds</b><br>In Structures, choose Mine, Factory or Defense and tick the <b>Auto</b> box under Quantity to Queue to queue <b>Auto Mines</b>, <b>Auto Factories</b> or <b>Auto Defenses</b>. An auto item is a standing order that stays in the queue. Each turn it builds one unit after another while the planet has room: Mines up to the number its colonists supply (at least 1), Factories up to the number its colonists can run, Defenses up to 10. When it reaches the limit it does not block the queue, the Resources move on to the next item, and it starts again by itself when more colonists arrive. A planet can have one auto item of each kind. Ordinary items have a quantity and are removed when finished.</p>
                 <p><b style="color:#da70d6;">Autobuild</b><br>Autobuild fills a planet's queue for you. It is an empire-wide ordered list of rules (Management, Autobuild, or the Rules button in the Production Queue panel). When a planet's queue runs empty the game reads the list from the top; the first rule whose condition is true and whose Ore is on hand adds an item to the queue, the planet builds it in the same turn, and the list is read again, so a planet can climb the whole ladder in one turn. Each rule has an item (Mine, Factory, Defense, Scout, Small Freighter, Destroyer or Colony Ship), a condition and an on or off switch. Conditions: <b>while below the planet limit</b> (Mines and Factories only: the number the planet's colonists supply or can run) and <b>until this many</b> (the planet has that many; for ships, the whole empire has that many built and queued, and the planet needs a ship dock; Colony Ships also need 7,500 colonists). Use the arrows to change priority. A rule is skipped when the planet cannot pay the Ore for one unit, so planets never queue things they cannot build. The default list is Mines, then Factories, then up to 5 Defenses, in that order. Under <b>Follow empire rules or Off</b> in the Production Queue panel, a single planet can switch Autobuild off, for example while you build a colony ship or starbase by hand. Items queued by Autobuild carry an Autobuild tag, and the turn report lists what it queued. Terraforming rules are not possible yet because the game has no terraforming. A new game starts with Autobuild on; saves from before version 0.9.0 load with it off.</p>
                 <p><b style="color:#da70d6;">Mines and Factories</b><br>The economy is a loop: colonists give Resources, factories add more Resources, Resources and Ore build mines, factories and ships, and mines dig the Ore. <b>Mines</b> dig Ironium, Boranium and Germanium every year; a richer concentration gives more, and digging slowly lowers it (see Ore and Mining). By default every mine works as long as the planet has colonists (turn on Mines need colonists under Advanced Options for 10 mines per 10,000 working colonists). <b>Factories</b> need workers: 10 per 10,000 working colonists for the standard economy, and any extra factories sit idle until the population grows. The queue panel and the Year Report say how many are idle. A custom race changes these numbers in the Race Wizard.</p>
-                <p><b style="color:#da70d6;">Pop-up Windows</b><br>Everything you open from the Planet, Fleet, Management and Settings menus, including Structures, Ship Construction, Manage Waypoints, Manage Ships and Names, Fleet Roster, Ship Designer, Autobuild, Battle Reports, Battle Plans, Minefields, Diplomacy, Reports, Scoreboard, Help and Updates, opens in the middle of the screen over the blank scrolling star field, the same way Research does. This goes for every pop-up window, including small ones such as Do a Task Here, Transfer, Cargo, the Turn Report and the Technology Browser. How solid the windows are is set in Settings, UI, under Popup and Menu Opacity (100% by default). To close a window, click outside it, or use its Close or Back button; either one returns you to the main game view. The UI window is the one exception that keeps the game visible behind it so you can watch your changes. The menus themselves open under their button and are only as wide as their longest line.</p>
+                <p><b style="color:#da70d6;">Pop-up Windows</b><br>Everything you open from the Planet, Fleet, Management and Settings menus, including Structures, Ship Construction, Manage Waypoints, Manage Ships and Names, Fleet Roster, Ship Designer, Autobuild, Battle Reports, Battle Plans, Minefields, Diplomacy, Reports, Scoreboard, Help and Updates, opens in the middle of the screen over the blank scrolling star field, the same way Research does. This goes for every pop-up window, including small ones such as Do a Task Here, Transfer, Cargo, the Turn Report and the Technology Browser. How solid the windows are is set in Settings, UI, under Popup and Menu Opacity (100% by default). To close a window, click outside it (this works for the Technology Browser, Do a Task Here, Transfer, Cargo and Turn Report windows too), or use its Close or Back button; either one returns you to the main game view. The UI window is the one exception that keeps the game visible behind it so you can watch your changes. The menus themselves open under their button and are only as wide as their longest line.</p>
                 <p><b style="color:#da70d6;">Ore Concentration Bars</b><br>The planet picture and the ore are both inside the Planet Summary box, with the population, status, habitability and starbase text to the right of the picture; ore is in the Ore On Hand &amp; Concentrations section under the population and habitability lines. That section also carries the Resources, Mines, Factories, Mass Driver and Defenses lines. It shows each ore on one line: its name, how many kilotons are on hand or in the ground, and a bar for the concentration. The bar fills to the concentration percentage. Green means 75% and up, an excellent mining world for that ore; yellow means 26% to 74%, a middling one; red means 0% to 25%, so mines there will produce little. A gray bar with a question mark means the world has not been surveyed yet.</p>
                 <p><b style="color:#da70d6;">Game Images</b><br>The Cabal Coffers Gaming logo on the title screen and the small Ironium, Boranium and Germanium icons beside ore names are loaded from the game's GitHub images folder instead of being built into the game file. They need an internet connection the first time they are shown, and your browser keeps them afterward. If an image cannot be reached the game keeps working and only that picture is missing.</p>
                 <p><b style="color:#da70d6;">Planet Names on Map</b><br>Open Settings, then UI, and use the Planet Names on Map slider to change how large planet names are drawn on the star map. The slider runs from Hidden (all the way left, no names at all, not even for your own or the selected planet) to 24 px, and starts at 10 px. Names keep the same size on screen however far you zoom, so zoom in for more room around each name. At low zoom, names of planets nobody owns still hide to cut clutter; your planets and the selected planet keep theirs. Fleet and wormhole labels are not affected. Reset returns to 10 px. Your choice is saved in this browser.</p>
                 <p><b style="color:#da70d6;">Menu Colors and Sensor Circles</b><br>Each top menu has its own colour: Planet is green, Fleet blue, Management olive and Settings maroon, and every button inside a menu uses the same colour. In Settings, UI, the Sensor Circles slider changes how strong the scanner range circles look on the star map, and the Fill button turns the colour fill off so only the outline of each range is drawn.</p>
-                <p><b style="color:#da70d6;">Panel Transparency</b><br>Every panel, menu and window in the game is partly see-through, so the scrolling star field from the title screen shows behind it, including behind the star map. Open Settings, then UI, and drag the Panel Transparency slider: 0% gives solid panels and higher values let more of the stars show through (the highest setting is 95%). Panel Transparency changes the panels on the screen; pop-up windows and drop-down menus have their own <b>Popup and Menu Opacity</b> slider just below it in the same window. That one starts at 100% (fully solid) and can go down to 30% if you want the stars to show through windows and menus; Reset puts it back to 100%. The window sits in the middle of the screen and leaves the game visible behind it so you can watch the change as you drag. Reset on Panel Transparency puts it back to 60%. Your choice is saved in this browser and applies on every screen, including the setup screens.</p>
+                <p><b style="color:#da70d6;">Panel Transparency</b><br>Every panel, menu and window in the game is partly see-through, so the scrolling star field from the title screen shows behind it, including behind the star map. Open Settings, then UI, and drag the Panel Transparency slider: 0% gives solid panels and higher values let more of the stars show through (the highest setting is 95%). Panel Transparency changes the panels on the screen; pop-up windows, drop-down menus and the Research and Economy screens have their own <b>Popup and Menu Opacity</b> slider next to it in the same window. The UI window groups its settings into Windows and Panels, Star Map, Sound and Event Log; the Event Log section keeps its tick boxes hidden until you click <b>Choose what the event log shows</b>. That one starts at 100% (fully solid) and can go down to 30% if you want the stars to show through windows and menus; Reset puts it back to 100%. The window sits in the middle of the screen and leaves the game visible behind it so you can watch the change as you drag. Reset on Panel Transparency puts it back to 60%. Your choice is saved in this browser and applies on every screen, including the setup screens.</p>
                 <p><b style="color:#da70d6;">Minimizing Panels on a Desktop</b><br>On a wide screen (900 pixels and up) the boxes beside the star map can be tucked away to give the rest more room. Press the <b>▲</b> in the top right corner of the Galactic Event Log, Fleets in Orbit, Production Queue, Fleet Summary or Planet Summary box. The box disappears and a button with its name appears in the top bar, to the left of End Turn. Press that button to bring the box back. When a whole column of boxes is minimized the star map and the remaining column grow wider; when only some are minimized the boxes still showing grow taller to use the space. The top bar, the bottom bar and the star map cannot be minimized. A tab only shows while its box would normally be on screen: minimize the Production Queue, then pick a planet that is not yours and the tab goes away just as the box does; pick one of your colonies again and the tab comes back, still minimized, ready to open. Your choices are remembered on this device. On a phone or tablet the ▲ does nothing and every box stays where it is.</p>
                 <p><b style="color:#da70d6;">Help and Updates Windows</b><br>Help is sorted into three levels: <b>Basic</b> (start with Absolute Beginner), <b>Advanced</b> and <b>Autistic level</b> (exact numbers and edge cases). Settings, Help and Settings, Updates open the same window, one showing Help and the other the Updates list. A Close button sits at the top right of the window and another at the bottom; Escape closes it too. Every topic is a collapsible section. The Contents list on the left jumps to a topic and opens it, Expand All and Collapse All open or close everything, and the search box filters the sections to those containing every word you type, opens them and highlights the matches. Clear the box (or press Escape) to see everything again. On a narrow screen the Contents button shows or hides the list. Updates lists every version, newest first, and a new entry is added to it with each release.</p>
 
@@ -4676,7 +4714,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.114.0';
+        const GAME_VERSION = '0.115.0';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -10435,6 +10473,16 @@ const DEFENDERS_PER_POP=100;
         });
         document.querySelectorAll('.modal-overlay').forEach(el => {
             if (el.id !== 'game-dialog') el.classList.add('dd-modal');
+        });
+        const POPUP_OUTSIDE_EXTRA = {
+            'techbrowser-modal': 'btn-tb-close',
+            'taskhere-modal': 'btn-th-close',
+            'xfer-modal': 'btn-xfer-close',
+            'cargo-modal': 'btn-close-cargo',
+            'turn-report-modal': 'btn-close-turn-report'
+        };
+        Object.keys(POPUP_OUTSIDE_EXTRA).forEach(id => {
+            closeOnOutsideClick(document.getElementById(id), () => document.getElementById(POPUP_OUTSIDE_EXTRA[id]).click());
         });
         Object.keys(POPUP_VIEW_CLOSE_BUTTONS).forEach(id => {
             closeOnOutsideClick(document.getElementById(id), () => document.getElementById(POPUP_VIEW_CLOSE_BUTTONS[id]).click());
@@ -16300,6 +16348,13 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.115.0', d: "Oct 7, 2026 2:05 PM", t: "UI Window Reorganized, Click Outside to Close, Solid Research and Economy", items: [
+                'The Research and Economy screens now follow the Popup and Menu Opacity setting, so they start fully solid (100%).',
+                'The Technology Browser, Do a Task Here, Transfer, Cargo and Turn Report windows now close when you click outside them.',
+                'The UI settings window is wider and grouped into Windows and Panels, Star Map, Sound and Event Log, with each setting in its own box.',
+                'The Event Log Display tick boxes are hidden until you click Choose what the event log shows, to reduce clutter.',
+                'Help: Panel Transparency and Pop-up Windows updated.'
+            ] },
             { v: '0.114.0', d: "Oct 7, 2026 1:30 PM", t: "Popup Opacity, Star Field Behind Every Window, In-Game Dropdowns", items: [
                 'New Popup and Menu Opacity slider in Settings, UI. Pop-up windows and drop-down menus now start fully solid (100%); slide left to let the stars show through (down to 30%). Reset puts it back to 100%. It is separate from Panel Transparency, which no longer changes menus and windows.',
                 'Every pop-up window now sits over the scrolling star field, the same way Research does. Before, windows such as Do a Task Here, the Technology Browser, Transfer, Cargo and the Turn Report kept a dark backdrop.',
@@ -20807,6 +20862,13 @@ const DEFENDERS_PER_POP=100;
             try { localStorage.setItem('fs4x-panel-transparency', String(panelTransparency)); } catch (err) { }
         }
 
+        document.getElementById('btn-log-display-toggle').addEventListener('click', (e) => {
+            const wrap = document.getElementById('log-display-wrap');
+            const show = wrap.style.display === 'none';
+            wrap.style.display = show ? 'block' : 'none';
+            e.currentTarget.setAttribute('aria-expanded', show ? 'true' : 'false');
+            e.currentTarget.innerHTML = 'Choose what the event log shows ' + (show ? '&#9662;' : '&#9656;');
+        });
         document.getElementById('btn-ui').addEventListener('click', () => {
             document.getElementById('ui-modal').classList.add('active');
         });
