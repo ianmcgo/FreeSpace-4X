@@ -823,9 +823,34 @@
         #z-hud .z-reticle::before, #z-hud .z-reticle::after { content: ''; position: absolute; background: rgba(110, 200, 255, 0.5); }
         #z-hud .z-reticle::before { left: 12px; top: -8px; width: 1px; height: 40px; }
         #z-hud .z-reticle::after { top: 12px; left: -8px; height: 1px; width: 40px; }
-        @media (max-width: 600px) { #z-hud-text { bottom: 44px !important; } }
+        @media (max-width: 600px) { #z-hud .z-mfd { display: none; } #z-hud .z-radar { width: 22vw; height: 22vw; } }
+        #z-hud .z-glass { position: absolute; inset: 0; background: linear-gradient(112deg, rgba(255, 255, 255, 0) 18%, rgba(190, 225, 255, 0.05) 24%, rgba(255, 255, 255, 0) 31%, rgba(255, 255, 255, 0) 62%, rgba(190, 225, 255, 0.035) 66%, rgba(255, 255, 255, 0) 70%), radial-gradient(ellipse 60% 40% at 50% 40%, rgba(120, 190, 255, 0.04), rgba(0, 0, 0, 0) 70%); }
+        #z-hud .z-streaks { position: absolute; inset: 0; display: none; }
+        #z-hud.z-moving .z-streaks { display: block; }
+        #z-hud .z-streaks span { position: absolute; left: 50%; top: 42%; width: 1.5px; height: 34px; margin-left: -0.75px; background: linear-gradient(rgba(180, 225, 255, 0), rgba(200, 235, 255, 0.75)); transform-origin: 50% 0; opacity: 0; animation: zstreak 1.1s linear infinite; }
+        @keyframes zstreak { 0% { opacity: 0; transform: rotate(var(--a)) translateY(18px) scaleY(0.2); } 25% { opacity: 0.75; } 100% { opacity: 0; transform: rotate(var(--a)) translateY(var(--d)) scaleY(1.8); } }
+        #z-hud .z-dash { position: absolute; left: 0; right: 0; bottom: 0; height: 21%; display: flex; justify-content: center; align-items: flex-end; gap: 2.2%; padding-bottom: 1.2%; box-sizing: border-box; }
+        #z-hud .z-mfd { width: 25%; max-width: 250px; height: 74%; box-sizing: border-box; border: 1px solid rgba(110, 200, 255, 0.45); border-radius: 5px; background: linear-gradient(rgba(6, 22, 34, 0.9), rgba(2, 8, 14, 0.92)); box-shadow: inset 0 0 14px rgba(60, 160, 255, 0.18), 0 0 6px rgba(60, 160, 255, 0.15); color: #9fe8ff; font: 10px/1.35 monospace; padding: 4px 7px; overflow: hidden; }
+        #z-hud .z-mfd b { color: #e6f7ff; font-weight: normal; }
+        #z-hud .z-mfd .z-h { color: #5fb8e8; letter-spacing: 1px; font-size: 9px; border-bottom: 1px solid rgba(110, 200, 255, 0.25); margin-bottom: 2px; }
+        #z-hud .z-bar { height: 5px; background: rgba(110, 200, 255, 0.12); border-radius: 2px; margin: 1px 0 3px; overflow: hidden; }
+        #z-hud .z-bar i { display: block; height: 100%; }
+        #z-hud .z-radar { width: 16vh; height: 16vh; max-width: 150px; max-height: 150px; flex: 0 0 auto; border-radius: 50%; background: radial-gradient(circle, rgba(10, 40, 30, 0.92), rgba(2, 12, 8, 0.95)); border: 1px solid rgba(57, 255, 156, 0.5); box-shadow: 0 0 10px rgba(57, 255, 156, 0.2), inset 0 0 12px rgba(57, 255, 156, 0.15); position: relative; overflow: hidden; }
+        #z-hud .z-radar svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+        #z-hud .z-sweep { transform-origin: 50px 50px; animation: zsweep 3s linear infinite; }
+        @keyframes zsweep { to { transform: rotate(360deg); } }
+        #z-hud .z-warn { display: inline-block; padding: 0 3px; margin-right: 3px; border-radius: 2px; font-size: 9px; background: rgba(255, 70, 60, 0.25); color: #ff8a80; border: 1px solid rgba(255, 90, 80, 0.6); animation: zblink 1s steps(2) infinite; }
+        @keyframes zblink { 50% { opacity: 0.35; } }
+        #z-hud .z-target { position: absolute; display: none; transform: translate(-50%, -50%); }
+        #z-hud .z-target svg { width: 100%; height: 100%; display: block; }
+        #z-hud .z-target div { position: absolute; left: 50%; top: 100%; transform: translateX(-50%); margin-top: 3px; white-space: nowrap; font: 10px monospace; color: #ffd27a; text-shadow: 0 0 3px #000; }
+        #z-hud .z-lamps { position: absolute; left: 50%; bottom: 22.5%; transform: translateX(-50%); display: flex; gap: 6px; }
+        #z-hud .z-lamps i { width: 6px; height: 6px; border-radius: 50%; background: #39ff9c; box-shadow: 0 0 5px #39ff9c; animation: zblink 1.7s steps(2) infinite; }
+        #z-hud .z-lamps i:nth-child(2) { background: #6ec8ff; box-shadow: 0 0 5px #6ec8ff; animation-duration: 2.3s; }
+        #z-hud .z-lamps i:nth-child(3) { background: #ffbe50; box-shadow: 0 0 5px #ffbe50; animation-duration: 3.1s; }
+        #z-hud .z-lamps i:nth-child(4) { background: #ff5050; box-shadow: 0 0 5px #ff5050; animation-duration: 0.9s; }
         #z-labels { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
-        #z-hud-text { position: absolute; left: 50%; bottom: 3%; transform: translateX(-50%); padding: 4px 12px; border: 1px solid rgba(110, 200, 255, 0.5); border-radius: 4px; background: rgba(5, 15, 25, 0.75); color: #9fe8ff; font: 12px monospace; white-space: nowrap; max-width: 92%; overflow: hidden; text-overflow: ellipsis; }
+        #z-hud-text { position: absolute; left: 50%; top: 7.5%; transform: translateX(-50%); padding: 4px 12px; border: 1px solid rgba(110, 200, 255, 0.5); border-radius: 4px; background: rgba(5, 15, 25, 0.75); color: #9fe8ff; font: 12px monospace; white-space: nowrap; max-width: 92%; overflow: hidden; text-overflow: ellipsis; }
         #galaxy-canvas.z-tilted { opacity: 0; }
         #galaxy-3d.z-tilted { -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), #000 32%); mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), #000 32%); }
         #galaxy-3d.z-tilted.z-under { -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.1), #000 32%); mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.1), #000 32%); }
@@ -2720,7 +2745,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.201.0 (Updated: October 10, 2026 7:30 PM)</div>
+            <div class="version-text">Version 0.205.0 (Updated: October 10, 2026 3:57 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -3270,7 +3295,7 @@
                 <button class="tool-icon" id="btn-fleet-toggle" style="background-color: rgba(26, 42, 58, var(--pa)); border-color: #00ffff; color: #00ffff;">🚀 Fleet ▼</button>
                 <div class="dropdown-content">
                     <button class="tool-icon" id="btn-fleet-movement" style="color: #00ffff;">🗺️ Manage Waypoints</button>
-                    <button class="tool-icon" id="btn-fleet-task-here" style="color: #ffa500;">⚙ Do Task Here (No Move)</button>
+                    <button class="tool-icon" id="btn-fleet-task-here" style="color: #ffa500;">⚙ Orders at This Spot</button>
                     <button class="tool-icon" id="btn-toggle-plot" style="color: #00ffff;">📍 Plot Course Mode: OFF</button>
                     <button class="tool-icon" id="btn-toggle-rings" style="color: #00ffff;">◎ Warp Range Circle: OFF</button>
                     <button class="tool-icon" id="btn-toggle-scan" style="color: #78ff78;">📡 Scanner Rings: ON</button>
@@ -3464,7 +3489,7 @@
                         <button type="button" id="map-3d-btn" title="Show planets and ships as 3D models">3D</button>
                         <div id="gal-tabs" class="gal-tabs" style="display: none;"></div>
                         <button type="button" id="map-z-btn" title="Tilt the 3D star map (Z view)" style="display: none;">Z</button>
-                        <div id="z-hud" style="display: none;"><svg class="z-pit" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="zpit-metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3a48"/><stop offset="1" stop-color="#0c141c"/></linearGradient><linearGradient id="zpit-dash" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2a36"/><stop offset="1" stop-color="#05090d"/></linearGradient></defs><path d="M0 0 H100 V5 Q50 13 0 5 Z" fill="url(#zpit-metal)"/><path d="M0 5 Q50 13 100 5" fill="none" stroke="rgba(110,200,255,0.45)" stroke-width="0.4"/><path d="M0 0 L8 0 L17 100 L0 100 Z" fill="url(#zpit-metal)"/><path d="M100 0 L92 0 L83 100 L100 100 Z" fill="url(#zpit-metal)"/><path d="M8 3 L17 100" stroke="rgba(110,200,255,0.35)" stroke-width="0.35" fill="none"/><path d="M92 3 L83 100" stroke="rgba(110,200,255,0.35)" stroke-width="0.35" fill="none"/><path d="M0 100 V82 Q50 72 100 82 V100 Z" fill="url(#zpit-dash)"/><path d="M0 82 Q50 72 100 82" fill="none" stroke="rgba(110,200,255,0.55)" stroke-width="0.4"/><rect x="22" y="84" width="9" height="5" rx="0.8" fill="rgba(57,255,156,0.22)" stroke="rgba(57,255,156,0.6)" stroke-width="0.25"/><rect x="69" y="84" width="9" height="5" rx="0.8" fill="rgba(255,190,80,0.2)" stroke="rgba(255,190,80,0.6)" stroke-width="0.25"/><rect x="33" y="85" width="2" height="2" fill="rgba(255,80,80,0.8)"/><rect x="36" y="85" width="2" height="2" fill="rgba(110,200,255,0.8)"/><rect x="62" y="85" width="2" height="2" fill="rgba(57,255,156,0.8)"/><rect x="65" y="85" width="2" height="2" fill="rgba(255,190,80,0.8)"/></svg><div class="z-reticle"></div><div id="z-hud-text"></div></div>
+                        <div id="z-hud" style="display: none;"><div class="z-streaks"></div><div class="z-glass"></div><svg class="z-pit" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="zpit-metal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0a1118"/><stop offset="0.55" stop-color="#2c3d4c"/><stop offset="1" stop-color="#121c25"/></linearGradient><linearGradient id="zpit-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1218"/><stop offset="0.7" stop-color="#26394a"/><stop offset="1" stop-color="#16222d"/></linearGradient><linearGradient id="zpit-dash" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3b4a"/><stop offset="0.08" stop-color="#18242f"/><stop offset="1" stop-color="#04080c"/></linearGradient><linearGradient id="zpit-glow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(110,200,255,0.5)"/><stop offset="1" stop-color="rgba(110,200,255,0)"/></linearGradient></defs><path d="M0 0 H100 V6 Q50 14 0 6 Z" fill="url(#zpit-top)"/><path d="M0 6 Q50 14 100 6" fill="none" stroke="rgba(110,200,255,0.5)" stroke-width="0.35"/><path d="M0 4.6 Q50 12.4 100 4.6" fill="none" stroke="rgba(0,0,0,0.6)" stroke-width="0.3"/><rect x="38" y="1.2" width="24" height="1.4" rx="0.5" fill="rgba(5,12,18,0.9)" stroke="rgba(110,200,255,0.35)" stroke-width="0.15"/><rect x="39" y="1.6" width="3" height="0.6" fill="#39ff9c" opacity="0.8"/><rect x="43" y="1.6" width="3" height="0.6" fill="#6ec8ff" opacity="0.8"/><rect x="47" y="1.6" width="6" height="0.6" fill="#6ec8ff" opacity="0.35"/><rect x="54" y="1.6" width="3" height="0.6" fill="#ffbe50" opacity="0.8"/><rect x="58" y="1.6" width="3" height="0.6" fill="#ff5050" opacity="0.7"/><path d="M49.5 6 L50.5 6 L50.3 10 L49.7 10 Z" fill="#1b2935"/><path d="M0 0 L9 0 L19 100 L0 100 Z" fill="url(#zpit-metal)"/><path d="M100 0 L91 0 L81 100 L100 100 Z" fill="url(#zpit-metal)"/><path d="M9 3 L19 100" stroke="rgba(110,200,255,0.4)" stroke-width="0.3" fill="none"/><path d="M91 3 L81 100" stroke="rgba(110,200,255,0.4)" stroke-width="0.3" fill="none"/><path d="M7.3 3 L16.6 100" stroke="rgba(0,0,0,0.55)" stroke-width="0.25" fill="none"/><path d="M92.7 3 L83.4 100" stroke="rgba(0,0,0,0.55)" stroke-width="0.25" fill="none"/><path d="M2 20 L11 20 M2.6 40 L12.8 40 M3.2 60 L14.7 60" stroke="rgba(0,0,0,0.6)" stroke-width="0.3"/><path d="M98 20 L89 20 M97.4 40 L87.2 40 M96.8 60 L85.3 60" stroke="rgba(0,0,0,0.6)" stroke-width="0.3"/><circle cx="9.84" cy="12" r="0.28" fill="#3d5163"/><circle cx="90.16" cy="12" r="0.28" fill="#3d5163"/><circle cx="10.66" cy="20" r="0.28" fill="#3d5163"/><circle cx="89.34" cy="20" r="0.28" fill="#3d5163"/><circle cx="11.48" cy="28" r="0.28" fill="#3d5163"/><circle cx="88.52" cy="28" r="0.28" fill="#3d5163"/><circle cx="12.31" cy="36" r="0.28" fill="#3d5163"/><circle cx="87.69" cy="36" r="0.28" fill="#3d5163"/><circle cx="13.13" cy="44" r="0.28" fill="#3d5163"/><circle cx="86.87" cy="44" r="0.28" fill="#3d5163"/><circle cx="13.96" cy="52" r="0.28" fill="#3d5163"/><circle cx="86.04" cy="52" r="0.28" fill="#3d5163"/><circle cx="14.78" cy="60" r="0.28" fill="#3d5163"/><circle cx="85.22" cy="60" r="0.28" fill="#3d5163"/><circle cx="15.60" cy="68" r="0.28" fill="#3d5163"/><circle cx="84.40" cy="68" r="0.28" fill="#3d5163"/><circle cx="16.43" cy="76" r="0.28" fill="#3d5163"/><circle cx="83.57" cy="76" r="0.28" fill="#3d5163"/><rect x="2" y="44" width="5.5" height="9" rx="0.5" fill="rgba(4,12,18,0.85)" stroke="rgba(110,200,255,0.3)" stroke-width="0.15"/><rect x="2.6" y="45" width="4.3" height="0.7" fill="#39ff9c" opacity="0.7"/><rect x="2.6" y="46.4" width="3" height="0.7" fill="#6ec8ff" opacity="0.7"/><rect x="2.6" y="47.8" width="3.6" height="0.7" fill="#6ec8ff" opacity="0.5"/><rect x="2.6" y="49.2" width="2" height="0.7" fill="#ffbe50" opacity="0.7"/><rect x="2.6" y="50.6" width="4" height="0.7" fill="#6ec8ff" opacity="0.4"/><rect x="92.5" y="44" width="5.5" height="9" rx="0.5" fill="rgba(4,12,18,0.85)" stroke="rgba(110,200,255,0.3)" stroke-width="0.15"/><path d="M93 51 L94 48.5 L95 50 L96 46 L97.5 49" stroke="#39ff9c" stroke-width="0.25" fill="none" opacity="0.8"/><path d="M0 100 V79 Q50 69 100 79 V100 Z" fill="url(#zpit-dash)"/><path d="M0 79 Q50 69 100 79" fill="none" stroke="rgba(110,200,255,0.6)" stroke-width="0.35"/><path d="M0 80.2 Q50 70.2 100 80.2" fill="none" stroke="rgba(0,0,0,0.5)" stroke-width="0.4"/><path d="M10 79 Q50 71 90 79 L90 80 Q50 72 10 80 Z" fill="url(#zpit-glow)" opacity="0.35"/><path d="M3 90 H8 M3 92 H8 M3 94 H8 M92 90 H97 M92 92 H97 M92 94 H97" stroke="rgba(0,0,0,0.6)" stroke-width="0.4"/></svg><div class="z-reticle"></div><div class="z-target"><svg viewBox="0 0 40 40"><path d="M2 12 V2 H12 M28 2 H38 V12 M38 28 V38 H28 M12 38 H2 V28" fill="none" stroke="#ffd27a" stroke-width="2"/><circle cx="20" cy="20" r="1.5" fill="#ffd27a"/></svg><div></div></div><div class="z-lamps"><i></i><i></i><i></i><i></i></div><div class="z-dash"><div class="z-mfd" id="z-mfd-l"></div><div class="z-radar"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="rgba(57,255,156,0.25)" stroke-width="0.8"/><circle cx="50" cy="50" r="31" fill="none" stroke="rgba(57,255,156,0.2)" stroke-width="0.6"/><circle cx="50" cy="50" r="16" fill="none" stroke="rgba(57,255,156,0.2)" stroke-width="0.6"/><path d="M50 4 V96 M4 50 H96" stroke="rgba(57,255,156,0.15)" stroke-width="0.5"/><g class="z-sweep"><path d="M50 50 L50 4 A46 46 0 0 1 82.5 17.5 Z" fill="rgba(57,255,156,0.18)"/><path d="M50 50 L50 4" stroke="rgba(57,255,156,0.8)" stroke-width="0.8"/></g><g id="z-radar-blips"></g><path d="M50 44 L54 54 L50 51.5 L46 54 Z" fill="#e6fff2"/></svg></div><div class="z-mfd" id="z-mfd-r"></div></div><div id="z-hud-text"></div></div>
                         <div id="z-follow-bar" style="display: none;">
                             <button type="button" id="map-follow-btn" title="View from behind the selected fleet">🎥 Follow</button>
                             <button type="button" id="map-cockpit-btn" title="See from inside the fleet's cockpit" style="display: none;">👁 Cockpit</button>
@@ -4155,7 +4180,7 @@
 
     <div id="taskhere-modal" class="modal-overlay" style="z-index: 1150;">
         <div class="modal-content" style="max-width: 560px;">
-            <h2 class="screen-header" style="color: #ffa500;">⚙ Do a Task Here</h2>
+            <h2 class="screen-header" id="th-title" style="color: #ffa500;">⚙ Orders at This Spot</h2>
             <div id="th-body"></div>
             <div style="display: flex; gap: 10px; margin-top: 16px;">
                 <button class="nav-button btn-primary" id="btn-th-apply">Give Order</button>
@@ -4659,7 +4684,7 @@
                 <p><b style="color:#da70d6;">How the AI Empires Play</b><br>AI empires are full empires, like yours. Each year, before the year is played out, every AI gives its orders: it chooses research (favoring Propulsion, Construction and Weapons), designs its own ships from the parts it has unlocked (scouts, colony ships, warships and later bombers, replacing a design when better parts arrive), queues scouts, colony ships, warships and orbital stations with docks at grown colonies, and lets Autobuild handle mines, factories and defenses. Its scouts explore unknown stars and come home to refuel, its colony ships settle the best habitable planets they can reach, and its warships gather at home on patrol, then set out to explore and to attack known enemy planets, bombing them when they carry bombs. <b>Freighters:</b> from about year 8, once an AI has three or more planets it builds freighters (more when it is at war). An idle freighter finds a planet whose production is short of Ore, flies to a planet with spare Ore, loads it and delivers it. <b>Invasion:</b> at war, a freighter in orbit of an AI planet with enough spare colonists loads troops for an enemy planet that has no starbase, carrying more troops than the defenders (and their planetary defenses) can stop. If the target has defenses, the AI first sends its biggest idle warship fleet as an escort and the troop ship waits at home until the escort will arrive no later than the troops; with no escort available it only invades undefended worlds. A troop ship that waits more than 8 years, loses its escort or loses its target unloads and gives up. Leftover troops are unloaded at home in peacetime. <b>What the AI knows:</b> an AI plans only from what its own scanners and ships have seen: the owner, population, defenses and starbase of a foreign planet are the values from its last survey, and it allows extra troops when that survey is old. It cannot target a colony it has never seen. <b>Mass drivers and packets:</b> from about year 15, an AI with three or more planets builds mass drivers at its homeworld and big dock worlds, one level at a time. Each year a driver with spare ore fires a packet to an own planet that needs ore and has a driver at least as fast; at war it fires spare ore at a known enemy world with a slower (or no) driver, which kills colonists and wrecks installations there. <b>Remote miners:</b> from about year 12 the AI builds robot miner ships and parks them over rich unowned worlds (preferring ones it cannot live on) within 160 light years of its planets; its freighters collect the mined ore. <b>Terraforming ships:</b> from about year 15, once it has terraformer parts, the AI sends terraforming ships to its own worst planets and to nearly habitable unowned worlds within 120 light years, which it can then colonize. <b>Wormholes:</b> scouts that run out of nearby stars explore known wormholes whose far end they have not seen, and warships use a known wormhole when both ends are known, it cuts the trip by at least 40 percent and neither end is about to move. <b>Minefields:</b> about halfway to its first war an AI builds mine layers (where its race and tech allow mine dispensers), sends them to its own planets nearest its rivals, lays a field of about 1,200 mines at each, then moves on to the next unprotected world. <b>Stargates:</b> from about year 25, an AI with three or more planets builds stargates at its homeworld and its big starbase worlds (preferring gates with no mass limit), and its warships and mine layers jump through them when a gate brings them much closer to their target without going over the gate's limits. <b>Terraforming:</b> with Biotechnology 3, every AI colony of 15,000 or more colonists queues terraforming steps toward its race's ideal until there is nothing left to improve. AI empires fight each other too, unless they are allies. They use the same fuel, research, growth and combat rules as you. Intelligence sets how much research they fund (10 to 30 percent), how soon and how often they build warships and go to war (Novice after about 70 years, Master after about 15), how big a fleet they wait for and how many colonies they aim for. AI empires appear on the map when your scanners see their fleets, and on the Scoreboard with their real planets, ships and technology. Saved games from earlier versions convert their AI rivals into full AI empires with no fleets, starting from their known planets and roughly their old tech level. In multiplayer, a resigned player's empire handed to the AI keeps its planets and fleets and plays on as an AI.</p>
                 <p><b style="color:#da70d6;">The Two Currencies: Resources and Ore</b><br>Nothing is built with one currency alone. <b style="color:#ffa040;">Resources</b> are your industrial labor and factory output. <b style="color:#da70d6;">Ore</b> is the physical matter: <span style="color:#4169e1;">Ironium</span>, <span style="color:#32cd32;">Boranium</span> and <span style="color:#ffd700;">Germanium</span>, dug out of planets by mines. Each has its own icon wherever ore is shown: <span class="ore-ico-iron"></span><span style="color:#4169e1;">Ironium</span> (blue crystal), <span class="ore-ico-bora"></span><span style="color:#32cd32;">Boranium</span> (green crystal) and <span class="ore-ico-germ"></span><span style="color:#ffd700;">Germanium</span> (gold crystal). A queue item that is too big to finish within the forecast shows its percent done and about how many more years it needs. Every hull, factory and ship needs a mix of both. Plenty of Ore but no factories means your queues stall for lack of Resources. Plenty of Resources but a mine running dry of Germanium means your queues stall for lack of Ore. Watch both.</p>
                 <p><b style="color:#da70d6;">Resources</b><br>With the standard economy each planet makes 1 Resource per 1,000 working colonists plus 1 Resource per operating factory. Only 10 factories per 10,000 working colonists can operate. Colonists above a planet's capacity count as half a worker each (up to three times capacity) and colonists beyond that do not work (see Population and Growth). Factories the colonists cannot run sit idle. Your homeworld starts with 25,000 colonists and 10 factories, producing 35 Resources a year, and room for 1,000,000 colonists. A custom race can change every one of these numbers on the Economy tab of the wizard.</p>
-                <p><b style="color:#da70d6;">Ore and Mining</b><br>Ironium, Boranium and Germanium each have a concentration from 1 to 100 percent. With the standard economy every 10 operating mines dig up to 10 kT a year of each mineral at 100 percent concentration, scaled down by the real concentration (a concentration of 50 gives half). Mining lowers concentration: a mineral loses one point of concentration for every 12,500 divided by its current concentration mine-years, so a rich deposit falls slowly at first and a poor one falls more slowly still. A concentration never drops below 1, and a homeworld never drops below 30. Remote mining ships wear deposits down the same way. Ore piles up on the planet where it is mined and can be moved by fleets (see Cargo).</p>
+                <p><b style="color:#da70d6;">Ore and Mining</b><br>Ironium, Boranium and Germanium each have a concentration from 1 to 100 percent. With the standard economy every 10 operating mines dig up to 10 kT a year of each mineral at 100 percent concentration, scaled down by the real concentration (a concentration of 50 gives half). Mining lowers concentration: a mineral loses one point of concentration for every 12,500 divided by its current concentration mine-years, so a rich deposit falls slowly at first and a poor one falls more slowly still. A concentration never drops below 1, and a homeworld never drops below 30. Remote mining ships wear deposits down the same way. To start remote mining, park a fleet with mining robots in orbit of an unowned world and press Remote Mining in the orbit menu, or give a waypoint the task <b>Start Remote Mining</b> so the ship starts mining the moment it arrives (it stops when the fleet leaves). Ore piles up on the planet where it is mined and can be moved by fleets (see Cargo).</p>
                 <p><b style="color:#da70d6;">The Budget: Research vs Manufacturing</b><br>Management, Economy splits your Resources between research and manufacturing (starts at 15 percent research). A short <b>Explanation</b> box just above Close starts folded; tap it to read it. Research Resources flow into your active research field. Manufacturing Resources pay for the build queue on the planet that produced them. Manufacturing Resources that no queue item can use that year are not lost: they go to research. So a planet with an empty queue is simply a research planet.</p>
                 <p><b style="color:#da70d6;">The Planet Picture</b><br>The picture at the top left is the selected planet, turning slowly. Every planet is drawn from its own data. The share of ocean follows its habitability: a high habitability world is mostly blue water with green continents and swirling white clouds, a hostile world has dry dark basins instead of seas. Temperature adds ice caps and snowy peaks on cold worlds and a glowing, lava-streaked surface and a thick haze on hot ones. The color of the land comes from the ore under it: rich Ironium gives rusty red, rich Boranium gives blue-green, rich Germanium gives gold, and the richer the ore overall the deeper the tint. A planet you have not scanned is a gray, dim sphere with a question mark.</p>
                 <p><b style="color:#da70d6;">The Galactic Event Log</b><br>The log lists what happened to your empire, with the <b>newest line at the top</b> and the oldest at the bottom. A new line appears at the top as soon as it happens, and the box scrolls back to the top so you always see it. This applies to the Events tab and, in multiplayer, to the Chat and Both tabs too: new chat messages appear at the top of the list.</p>
@@ -4675,7 +4700,7 @@
                 <p><b style="color:#da70d6;">Autobuild</b><br>Autobuild fills a planet's queue for you. The Autobuild Rules window explains itself in a folding <b>Explanation</b> box just above Close that starts closed. It is an empire-wide ordered list of rules (Management, Autobuild, or the Rules button in the Production Queue panel). When a planet's queue runs empty the game reads the list from the top; the first rule whose condition is true and whose Ore is on hand adds an item to the queue, the planet builds it in the same turn, and the list is read again, so a planet can climb the whole ladder in one turn. Each rule has an item (Mine, Factory, Defense, Scout, Small Freighter, Destroyer or Colony Ship), a condition and an on or off switch. Conditions: <b>while below the planet limit</b> (Mines and Factories only: the number the planet's colonists supply or can run) and <b>until this many</b> (the planet has that many; for ships, the whole empire has that many built and queued, and the planet needs a ship dock; Colony Ships also need 7,500 colonists). Use the arrows to change priority. A rule is skipped when the planet cannot pay the Ore for one unit, so planets never queue things they cannot build. The default list is Mines, then Factories, then up to 5 Defenses, in that order. Under <b>Follow empire rules or Off</b> in the Production Queue panel, a single planet can switch Autobuild off, for example while you build a colony ship or starbase by hand. Items queued by Autobuild carry an Autobuild tag, and the turn report lists what it queued. Terraforming rules are not possible yet because the game has no terraforming. A new game starts with Autobuild on; saves from before version 0.9.0 load with it off.</p>
                 <p><b style="color:#da70d6;">Mines and Factories</b><br>The economy is a loop: colonists give Resources, factories add more Resources, Resources and Ore build mines, factories and ships, and mines dig the Ore. <b>Mines</b> dig Ironium, Boranium and Germanium every year; a richer concentration gives more, and digging slowly lowers it (see Ore and Mining). By default every mine works as long as the planet has colonists (turn on Mines need colonists under Advanced Options for 10 mines per 10,000 working colonists). <b>Factories</b> need workers: 10 per 10,000 working colonists for the standard economy, and any extra factories sit idle until the population grows. The queue panel and the Year Report say how many are idle. A custom race changes these numbers in the Race Wizard.</p>
                 <p><b style="color:#da70d6;">Text Size</b><br>Settings, <b>UI</b>, <b>Text Size</b> has four sliders from 70% to 160%. <b>All UI</b> scales the whole interface at once: the top menu bar, the side panels, the bottom bar, pop-up windows and drop-down menus (the star map itself keeps its size; use Planet Names on Map and Fleet Names on Map for map text). The other three scale one part on top of that: <b>Drop-down menus and lists</b> (the Planet, Fleet, Management and Settings menus and every drop-down list), <b>Pop-up windows</b> (every window that opens over the game, plus Research and Economy) and the <b>Bottom bar</b> (Year, Empire and the multiplayer bar). Reset All puts them back to 100%. Choices are remembered on this device.</p>
-                <p><b style="color:#da70d6;">Pop-up Windows</b><br>Every pop-up window has a small <b>×</b> in its top right corner that closes it, the same as its Close or Cancel button (in a question box it answers Cancel). Every drop-down list in the game opens as an in-game list under the box, on phones too, instead of the browser's own option menu: tap a choice to pick it, or tap outside the list or press Escape to close it without changing anything. With a keyboard, Enter, Space or Alt+Down opens the list and the arrow keys move through it. Structures, Ship Construction, Economy, Research, Autobuild, Space Station and Space Station Design windows keep their explanation in a folding <b>Explanation</b> box at the bottom, just above Close, that starts closed. Close is always the last button. Everything you open from the Planet, Fleet, Management and Settings menus, including Structures, Ship Construction, Manage Waypoints, Fleet Roster, Ship Designer, Autobuild, Battle Reports, Minefields, Diplomacy, Planet Roster, Scoreboard, Help and Updates, opens in the middle of the screen over the blank scrolling star field, the same way Research does. This goes for every pop-up window, including small ones such as Do a Task Here, Transfer, Cargo, the Turn Report and the Technology Browser. How solid the windows are is set in Settings, UI, under Popup and Menu Opacity (100% by default). To close a window, click outside it (this works for the Technology Browser, Do a Task Here, Transfer, Cargo and Turn Report windows too), or use its Close or Back button; either one returns you to the main game view. The UI window is the one exception that keeps the game visible behind it so you can watch your changes. Its four groups (Windows and Panels, Star Map, Sound and Event Log) fold up when you click their heading, and the browser remembers which ones you left folded. The menus themselves open under their button and are only as wide as their longest line. The UI window groups all start folded; click a heading to open it. The browser right-click menu is disabled in the game.</p>
+                <p><b style="color:#da70d6;">Pop-up Windows</b><br>Every pop-up window has a small <b>×</b> in its top right corner that closes it, the same as its Close or Cancel button (in a question box it answers Cancel). Every drop-down list in the game opens as an in-game list under the box, on phones too, instead of the browser's own option menu: tap a choice to pick it, or tap outside the list or press Escape to close it without changing anything. With a keyboard, Enter, Space or Alt+Down opens the list and the arrow keys move through it. Structures, Ship Construction, Economy, Research, Autobuild, Space Station and Space Station Design windows keep their explanation in a folding <b>Explanation</b> box at the bottom, just above Close, that starts closed. Close is always the last button. Everything you open from the Planet, Fleet, Management and Settings menus, including Structures, Ship Construction, Manage Waypoints, Fleet Roster, Ship Designer, Autobuild, Battle Reports, Minefields, Diplomacy, Planet Roster, Scoreboard, Help and Updates, opens in the middle of the screen over the blank scrolling star field, the same way Research does. This goes for every pop-up window, including small ones such as Orders at, Transfer, Cargo, the Turn Report and the Technology Browser. How solid the windows are is set in Settings, UI, under Popup and Menu Opacity (100% by default). To close a window, click outside it (this works for the Technology Browser, Orders at, Transfer, Cargo and Turn Report windows too), or use its Close or Back button; either one returns you to the main game view. The UI window is the one exception that keeps the game visible behind it so you can watch your changes. Its four groups (Windows and Panels, Star Map, Sound and Event Log) fold up when you click their heading, and the browser remembers which ones you left folded. The menus themselves open under their button and are only as wide as their longest line. The UI window groups all start folded; click a heading to open it. The browser right-click menu is disabled in the game.</p>
                 <p><b style="color:#da70d6;">Ore Concentration Bars</b><br>The planet picture and the ore are both inside the Planet Summary box, with the population, status, habitability and starbase text to the right of the picture; ore is in the Ore On Hand &amp; Concentrations section under the population and habitability lines. That section also carries the Resources, Mines, Factories, Mass Driver and Defenses lines. It shows each ore on one line: its name, how many kilotons are on hand or in the ground, and a bar for the concentration. The bar fills to the concentration percentage. Green means 75% and up, an excellent mining world for that ore; yellow means 26% to 74%, a middling one; red means 0% to 25%, so mines there will produce little. A gray bar with a question mark means the world has not been surveyed yet.</p>
                 <p><b style="color:#da70d6;">Game Images</b><br>The Cabal Coffers Gaming logo on the title screen and the small Ironium, Boranium and Germanium icons beside ore names are loaded from the game's GitHub images folder instead of being built into the game file. They need an internet connection the first time they are shown, and your browser keeps them afterward. If an image cannot be reached the game keeps working and only that picture is missing.</p>
                 <p><b style="color:#da70d6;">Planet Names on Map</b><br>Open Settings, then UI, and use the Planet Names on Map slider to change how large planet names are drawn on the star map. The slider runs from Hidden (all the way left, no names at all, not even for your own or the selected planet) to 24 px, and starts at 10 px. Names keep the same size on screen however far you zoom, so zoom in for more room around each name. At low zoom, names of planets nobody owns still hide to cut clutter; your planets and the selected planet keep theirs. <b>Names never pile on top of each other:</b> each name goes to the right of its planet if there is room, and otherwise to the left, above or below. Names are placed in this order: the selected planet, planets with an owner, then unowned worlds, so when space runs out it is the unowned names that are left off until you zoom in. Your own and the selected planet's names are always shown. Fleet names follow the same rule, and a fleet name that cannot fit anywhere is hidden unless that fleet is selected. Wormhole labels are not affected. Reset returns to 10 px. Your choice is saved in this browser.</p>
@@ -4700,21 +4725,21 @@
                 <p><b style="color:#da70d6;">Your Own View of the Galaxy</b><br>Each empire keeps its own record of what it has seen. The planets you have scanned, your survey dates, your fleets, your technology, your research, your budget, your starbase designs and your Galactic Event Log belong to your empire alone. In a game with more than one human, another player's scans never reveal anything to you, and their worlds show as rival worlds (red) once your own scanners find them. Your Galactic Event Log is private too: it lists only what happened to you, plus battles your scanners detected. Every empire hears about the Mystery Trader, a player joining late and a player resigning. A planet you surveyed earlier but cannot scan now shows the population, mines, factories, defenses and starbase you last saw, with the year of that survey.</p>
                 <p><b style="color:#da70d6;">Random Events</b><br>Unless No Random Events is ticked, each year there is a small chance that something happens to one of your planets: a <b>mineral strike</b> raises the concentration of one mineral, a <b>population boom</b> adds colonists, a <b>plague</b> kills some of them, or a <b>salvage find</b> drops a cache of Ore on the planet. Events appear in the Galactic Event Log and the turn report.</p>
                 <p><b style="color:#da70d6;">Your Starting Fleet</b><br>You begin with a Long Range Scout in orbit of your homeworld: a Scout hull with a Quick Jump 5 engine, a Rhino Scanner (50 ly) and a fuel tank, 300 mg of fuel in all. Its job is to map the nearby stars. Your homeworld starts with a Basic Space Station that has a ship dock. Colony ships, freighters and warships are built there.</p>
-                <p><b style="color:#da70d6;">Z View (Tilted 3D Map)</b><br>When the map is in 3D, a <b>Z</b> button sits next to the 2D/3D button. Press it to tilt the star map so you look across the galaxy at an angle instead of straight down; press it again to go back to the top-down view (your choice and tilt are remembered on this device). The first time you press Z a warning says it may be slow or buggy on some computers and phones and is meant for high performance systems; confirm once and it will not ask again on this device. <b>Changing the tilt:</b> on a phone slide two fingers up or down; with a mouse hold the right button and drag up or down (drag left or right to turn the map), or hold Shift and use the wheel. The tilt goes all the way from straight down, through edge-on, to underneath the galaxy, so you can look up at planets and ships from below; turning the map swings the view all the way around. Pinch or wheel still zooms, one finger or the left button still drags the map, and tapping or clicking still selects planets and fleets and plots courses (Shift+click). In Z view routes, scanner ranges and minefields lie flat on the galaxy and shrink with distance, planets and ships stay 3D, planet and fleet names stand upright facing you (beside each planet, smaller with distance, and hidden when a nearer planet is in front of them), and the rulers and colour legend are hidden. The Z button disappears in 2D, and the tutorial always uses the top-down view. <b>Follow and Cockpit:</b> in Z view the <b>🎥 Follow</b> and <b>👁 Cockpit</b> buttons appear only while one of your fleets is selected, or a planet where one of your fleets is in orbit (the fleet you last picked there, or the first one). <b>Follow</b> shows only when that fleet has a route to follow (a waypoint away from where it is); on a planet it picks a fleet in orbit that has one. <b>Cockpit</b> shows only for a fleet orbiting a planet that has no task here order (on a planet it picks such a fleet); if that fleet is later given a task here, or leaves orbit, the camera goes back to the chase view. Fly works in Cockpit too and flies the route from the cockpit. <b>Follow</b> moves the camera behind and above the fleet, zooms in and turns so the fleet faces its first waypoint, with its route ahead drawn as a glowing path. <b>Cockpit</b> puts you in the pilot's seat of a fleet in orbit: you look out through the canopy, framed by its struts and dashboard, with a sight in the middle and a panel on the dashboard that names the fleet and where it is or where it is heading. With no route you circle the planet looking at it and its station; with a route you look out toward the first waypoint. In the cockpit the only buttons are <b>■ Stop</b>, which leaves the cockpit (back to Follow if you came from Follow, otherwise back to the free Z view), and Fly. Scanner range fills are hidden in the cockpit. Drag sideways to swing the camera around, up or down to raise or lower it; pinch or wheel moves closer or farther. Tapping another of your fleets follows that one instead. <b>▶ Fly</b> glides along the planned route as a preview: the fleet's own ship model moves along the path (the route line is hidden while it flies; in the cockpit you ride along), starting at the edge of its planet and stopping just short of a planet at the end instead of flying into it. While it flies the button reads <b>⏸ Pause</b>; pause it and it reads <b>▶ Continue</b>. Cockpit is hidden while flying. When the ship reaches the end it stops there and the button goes back to ▶ Fly (press it to fly again). Fleets still move only when the year is played. Press <b>■ Stop</b> or Escape to go back to the free Z view. <b>Settings, UI, Z View Tilt</b> sets how fast the tilt gestures work (25% to 200%) and can invert them. In Z view the far edge of the galaxy fades into a light haze, far planets use simpler models and the map redraws its animations a little less often, to stay smooth on phones. Z view works the same while watching a Simulation or a replay and in multiplayer view-only mode.</p>
-                <p><b style="color:#da70d6;">3D Map</b><br>The <b>3D</b> button in the top left corner of the star map turns the planets and ships into 3D models; the button then says <b>2D</b> and takes you back to the flat map. The same switch sets the look of the whole game, and your choice is remembered: in 3D the planet picture in the Planet Summary and the globes in the Planet Roster spin and are lit, and the Fleet Roster shows turning 3D ship models; in 2D planets become flat discs of one colour, the same colour as their dot on the 2D map (owner colour, blue habitable, dark red hostile, grey unscanned), and ships become flat top-down outlines in your empire colour; nothing spins. The switch also sets the Technology Browser and Research pictures: in 3D every ship part (engines, beam weapons, torpedoes, bombs, shields, armor, scanners, cloaks, electrical, mechanical and mine layers, including starbase versions) is a 3D model that grows more detailed with its tech level, still in lists and slowly turning in the big picture of the selected item; in 2D they are the flat drawings. Ship hulls use the 3D ship model of their family (freighter, warship, colony ship, bomber, miner, fuel transport, mine layer or alien), stretched and fitted with extra turrets, cargo pods, drills or wings to match the hull; space station hulls are an armed platform (Orbital Fort), a ring with a docking cradle (Space Dock), ringed hubs (Space Station, Ultra Station) or a cratered battle moon (Death Star); planetary scanners are a dish on a hill with range rings (gold when penetrating), stargates a ring with pylons, mass drivers a coil rail with a glowing packet, and planet installations a mine derrick, factory, defense dome, alchemy flask, terraform globe or the Genesis Device. Hiding the button in Settings, UI keeps whichever look you chose. <b>Planets</b> are lit, slowly turning globes painted from their real surface (oceans, land, ice caps and clouds once explored; grey rock while unscanned), with a soft glow in the color the flat map uses for them (your empire's color, another empire's color, blue for habitable, red for hostile; faint for unscanned). <b>Rings</b> (thin dotted lines close to the planet) appear only around planets with an orbital installation: a small ring for an Orbital Fort, a ring for a Space Station or Space Dock (other empires' installations always show as this ring), two rings for an Ultra Station and three, the outer one red, for a Death Star. Planets of yours with a ship dock also have a small gold station circling them. <b>Ships:</b> every fleet is drawn as the hull type it has the most ships of (on a tie the heavier hull), in its empire's color with glowing engines, pointing where it is going: scout, frigate, destroyer, cruiser (also Battle Cruiser), battleship (also Dreadnought), freighter (all four sizes), armed freighter (Privateer, Rogue, Galleon), colony ship with its habitat ring, bomber (flying wing), miner with drills, fuel tanker, mine layer with its mines, and a spinning alien star for the Nubian and Morph hulls. Heavier hulls are a little bigger. Ships grow as you zoom in. They only appear as 3D models once you have zoomed in a fair way; further out, fleets in orbit are not drawn (their names sit under the planet's name) and fleets in deep space are small dots, so the galaxy stays readable. <b>Other objects</b> are 3D too: a <b>stargate</b> is a silver ring with pylons and a glowing cyan heart floating beside its planet (yours, or another empire's gate you have seen); a <b>wormhole</b> is a swirling funnel of rings around a dark core (bluer when stable, redder when unstable); a <b>minefield</b> is a cloud of slowly turning spiked mines in the field's color (blue yours, gold an ally's, red anyone else's), more mines for bigger fields, inside its dashed outline; the <b>Mystery Trader</b> is a large glowing saucer with fins and circling lights; a <b>mineral packet</b> is a glowing capsule colored by its ore with a short trail. Labels, routes, the trader's course dots and wormhole links stay as on the flat map, and zoomed far out these objects go back to their flat symbols. Ships orbiting a planet circle close around it, moving smoothly, and your selected fleet glows. The names of your fleets in orbit are listed directly under the planet's name (on the flat map too). Everything else works exactly as on the flat map: clicking, dragging, zooming, turning, names, routes, scanner ranges, minefields, the ruler and the legend. The choice is remembered in this browser. 3D uses WebGL, which almost every browser has; if yours does not, the map stays flat. On a very large galaxy, or an older phone, 2D may run more smoothly.</p>
+                <p><b style="color:#da70d6;">Z View (Tilted 3D Map)</b><br>When the map is in 3D, a <b>Z</b> button sits next to the 2D/3D button. Press it to tilt the star map so you look across the galaxy at an angle instead of straight down; press it again to go back to the top-down view (your choice and tilt are remembered on this device). The first time you press Z a warning says it may be slow or buggy on some computers and phones and is meant for high performance systems; confirm once and it will not ask again on this device. <b>Changing the tilt:</b> on a phone slide two fingers up or down; with a mouse hold the right button and drag up or down (drag left or right to turn the map), or hold Shift and use the wheel. The tilt goes all the way from straight down, through edge-on, to underneath the galaxy, so you can look up at planets and ships from below; turning the map swings the view all the way around. Pinch or wheel still zooms, one finger or the left button still drags the map, and tapping or clicking still selects planets and fleets and plots courses (Shift+click). In Z view routes, scanner ranges and minefields lie flat on the galaxy and shrink with distance, planets and ships stay 3D, planet and fleet names stand upright facing you (beside each planet, smaller with distance, and hidden when a nearer planet is in front of them), and the rulers and colour legend are hidden. The Z button disappears in 2D, and the tutorial always uses the top-down view. <b>Follow and Cockpit:</b> in Z view the <b>🎥 Follow</b> and <b>👁 Cockpit</b> buttons appear only while one of your fleets is selected, or a planet where one of your fleets is in orbit (the fleet you last picked there, or the first one). <b>Follow</b> shows only when that fleet has a route to follow (a waypoint away from where it is); on a planet it picks a fleet in orbit that has one. <b>Cockpit</b> shows only for a fleet orbiting a planet that has no task here order (on a planet it picks such a fleet); if that fleet is later given a task here, or leaves orbit, the camera goes back to the chase view. Fly works in Cockpit too and flies the route from the cockpit. <b>Follow</b> moves the camera behind and above the fleet, zooms in and turns so the fleet faces its first waypoint, with its route ahead drawn as a glowing path. <b>Cockpit</b> puts you in the pilot's seat of a fleet in orbit: you look out through the canopy, framed by its struts, overhead console and dashboard, with a sight in the middle and a strip under the top console that names the fleet and where it is or where it is heading. The dashboard has live instruments: <b>Propulsion</b> on the left (warp of the next leg, the fleet's top and free warp, fuel with a bar, mass and ship count, and blinking FUEL and DMG warnings when fuel is under a quarter or the fleet is damaged), a green <b>radar scope</b> in the middle (forward is up; planets, your other fleets, enemy fleets you can see and your next waypoint in gold, within the fleet's scanner range or at least 60 ly) and <b>Cargo</b> on the right (each cargo type against the hold). A gold bracket marks your next waypoint with its name and distance when it is in view, and star streaks rush past while Fly is playing. On a phone only the radar is shown. With no route you circle the planet looking at it and its station; with a route you look out toward the first waypoint. In the cockpit the only buttons are <b>■ Stop</b>, which leaves the cockpit (back to Follow if you came from Follow, otherwise back to the free Z view), and Fly. Scanner range fills are hidden in the cockpit. Drag sideways to swing the camera around, up or down to raise or lower it; pinch or wheel moves closer or farther. Tapping another of your fleets follows that one instead. <b>▶ Fly</b> glides along the planned route as a preview: the fleet's own ship model moves along the path (the route line is hidden while it flies; in the cockpit you ride along), starting at the edge of its planet and stopping just short of a planet at the end instead of flying into it. While it flies the button reads <b>⏸ Pause</b>; pause it and it reads <b>▶ Continue</b>. Cockpit is hidden while flying. When the ship reaches the end it stops there and the button goes back to ▶ Fly (press it to fly again). Fleets still move only when the year is played. Press <b>■ Stop</b> or Escape to go back to the free Z view. <b>Settings, UI, Z View Tilt</b> sets how fast the tilt gestures work (25% to 200%) and can invert them. In Z view the far edge of the galaxy fades into a light haze, far planets use simpler models and the map redraws its animations a little less often, to stay smooth on phones. Z view works the same while watching a Simulation or a replay and in multiplayer view-only mode.</p>
+                <p><b style="color:#da70d6;">3D Map</b><br>The <b>3D</b> button in the top left corner of the star map turns the planets and ships into 3D models; the button then says <b>2D</b> and takes you back to the flat map. The same switch sets the look of the whole game, and your choice is remembered: in 3D the planet picture in the Planet Summary and the globes in the Planet Roster spin and are lit, and the Fleet Roster shows turning 3D ship models; in 2D planets become flat discs of one colour, the same colour as their dot on the 2D map (owner colour, blue habitable, dark red hostile, grey unscanned), and ships become flat top-down outlines in your empire colour; nothing spins. The switch also sets the Technology Browser and Research pictures: in 3D every ship part (engines, beam weapons, torpedoes, bombs, shields, armor, scanners, cloaks, electrical, mechanical and mine layers, including starbase versions) is a 3D model that grows more detailed with its tech level, still in lists and slowly turning in the big picture of the selected item; in 2D they are the flat drawings. Ship hulls use the 3D ship model of their family (freighter, warship, colony ship, bomber, miner, fuel transport, mine layer or alien), stretched and fitted with extra turrets, cargo pods, drills or wings to match the hull; space station hulls are an armed platform (Orbital Fort), a ring with a docking cradle (Space Dock), ringed hubs (Space Station, Ultra Station) or a cratered battle moon (Death Star); planetary scanners are a dish on a hill with range rings (gold when penetrating), stargates a ring with pylons, mass drivers a coil rail with a glowing packet, and planet installations a mine derrick, factory, defense dome, alchemy flask, terraform globe or the Genesis Device. Hiding the button in Settings, UI keeps whichever look you chose. <b>Planets</b> are lit, slowly turning globes painted from their real surface (oceans, land, ice caps and clouds once explored; grey rock while unscanned), with a soft glow in the color the flat map uses for them (your empire's color, another empire's color, blue for habitable, red for hostile; faint for unscanned). <b>Rings</b> (thin dotted lines close to the planet) appear only around planets with an orbital installation: a small ring for an Orbital Fort, a ring for a Space Station or Space Dock (other empires' installations always show as this ring), two rings for an Ultra Station and three, the outer one red, for a Death Star. Planets of yours with a ship dock also have a small gold station circling them. <b>Ships:</b> every fleet is drawn as the hull type it has the most ships of (on a tie the heavier hull), in its empire's color with glowing engines, pointing where it is going: scout, frigate, destroyer, cruiser (also Battle Cruiser), battleship (also Dreadnought), freighter (all four sizes), armed freighter (Privateer, Rogue, Galleon), colony ship with its habitat ring, bomber (flying wing), miner with drills, fuel tanker, mine layer with its mines, and a spinning alien star for the Nubian and Morph hulls. Heavier hulls are a little bigger. Ships grow as you zoom in. They only appear as 3D models once you have zoomed in a fair way; further out, fleets in orbit are not drawn (their names sit under the planet's name) and fleets in deep space are small dots, so the galaxy stays readable. <b>Other objects</b> are 3D too: a <b>stargate</b> is a silver ring with pylons and a glowing cyan heart floating beside its planet (yours, or another empire's gate you have seen); a <b>wormhole</b> is a swirling funnel of rings around a dark core (bluer when stable, redder when unstable); a <b>minefield</b> is a cloud of slowly turning spiked mines in the field's color (blue yours, gold an ally's, red anyone else's), more mines for bigger fields, inside its dashed outline; the <b>Mystery Trader</b> is a large glowing saucer with fins and circling lights; a <b>mineral packet</b> is a glowing capsule colored by its ore with a short trail. Labels, routes, the trader's course dots and wormhole links stay as on the flat map, and zoomed far out these objects go back to their flat symbols. Ships orbiting a planet circle close around it, moving smoothly, and your selected fleet glows. Zoomed in, ships show their detail: grey armored hulls with panel lines and your empire colour on stripes and bands, dark engine bells with glowing exhaust, turrets, masts, radar dishes, lit windows and blinking red and green navigation lights (white on the bow of big warships). A planet with a ship dock has a small ring station with spokes, solar panels and lit windows circling it, and planets have a thin glowing atmosphere. Click a ship where you see it to select its fleet; zoomed out, where ships in orbit are not drawn, click the planet again (or a fleet name under it) to step through the fleets in orbit. The names of your fleets in orbit are listed directly under the planet's name (on the flat map too). Everything else works exactly as on the flat map: clicking, dragging, zooming, turning, names, routes, scanner ranges, minefields, the ruler and the legend. The choice is remembered in this browser. 3D uses WebGL, which almost every browser has; if yours does not, the map stays flat. On a very large galaxy, or an older phone, 2D may run more smoothly.</p>
                 <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. You can zoom in 15 times closer than before (up to 60 times the full-galaxy scale), enough to fill the map with one star and its neighbors. Planets stop growing at a set size when you zoom in far, and planet names stay the same readable size at every zoom; change the size or hide them in Settings, UI. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Every empire in the game, AI empires included, is given its own random color when the game begins. An empire's planets, planet names, fleets and fleet names are drawn in its color, and the empire name at the bottom right uses yours. Planets nobody owns show habitability: blue is habitable, dark red hostile, grey not scanned yet; a gold center means a ship dock. Planets have no outline. The planet or fleet you selected last is marked by a slowly pulsing, glowing gold outline: a ring around the planet, or a glow around the fleet's arrow. Select a planet and the ring appears on it; click a fleet (on the map, in Fleets in Orbit, in the Fleet Summary or in the fleet drop-down) and the glow moves to that fleet. Only one of the two glows at a time, and the glow follows the map while you pan and zoom. The legend in the lower left lists your empire and every empire you have met, each in its color, and adds more columns when it gets long. <b>Rulers:</b> a ruler runs along the bottom and the right edge of the star map and measures distance in light years from the corner of the visible map. The bottom ruler starts at 0 in the lower left and counts going right; the right ruler starts at 0 just above the bottom ruler and counts going up. Small ticks mark fifths of each numbered step. The numbered step changes as you zoom so the labels stay readable; zoomed in far enough it is 1 ly with ticks every 0.2 ly. The rulers always count from the edge you are looking at, so they are a distance scale and not map coordinates. <b>Map display settings:</b> in Settings, <b>UI</b>, the <b>Map Rulers</b> button hides or shows both rulers, <b>Map Legend</b> hides or shows the legend in the lower left (on a phone-sized screen, under 900 pixels wide, both start OFF until you turn them on, and the game remembers your choice), and the <b>Fleet Names on Map</b> slider sets the size of fleet names (0 hides them; they still only appear when you are zoomed in enough). Planet names have their own slider. Your choices are remembered on this device. Hold the right mouse button and drag in a circle to turn the map; text stays upright and the face-north button at the bottom right turns it back. The distance rulers stay on the bottom and right edges while the map is turned; they measure distance across the screen, so they still work at any angle. A fleet in orbit that has an order to do something at that planet points its nose at the planet. Clicking another empire's fleet highlights it with the same pulsing gold glow as your own selected fleet. Fleet names and waypoint labels do not show warp speeds (see the Fleets in Orbit box or Manage Waypoints for those). A plain right-click turns off Measure Distance or Plot Course Mode. The icons at the bottom right (measure, plot course) can be hidden in Settings, UI, Star Map, and so can the <b>2D/3D button</b> at the top left (2D/3D Button: ON or OFF; hiding it keeps whichever view is showing).</p>
                 <p><b style="color:#da70d6;">Playing on a Phone or Tablet</b><br>On a narrow screen the Star Map sits at the top of the dashboard and the planet, fleet and queue panels scroll underneath it. Drag with one finger to pan, pinch with two fingers to zoom around the point between your fingers, and tap a star or fleet to select it. A touch screen has no Shift key, so to plot a course turn on Fleet, Plot Course Mode (or the Plot button in the Fleets in Orbit panel) and tap stars or empty space on the map to add waypoints. The map resizes when you turn the device. The Race Wizard also fits a phone: its tabs scroll sideways and the Point Ledger is hidden, but the Advantage Points counter stays in view. Twist two fingers while pinching to turn the map.</p>
-                <p><b style="color:#da70d6;">Fleets on the Map</b><br>Every group of ships is a fleet. Your fleets are arrowheads in your empire color with their name beside them. A fleet in orbit slowly circles its planet; several fleets share the orbit, evenly spaced. A fleet in deep space sits where it is. Pick a fleet in the Fleets in Orbit panel, in the Fleet Roster, or by clicking its arrow on the map. A fleet with orders shows a line to each waypoint, a numbered box at each stop with its travel time in years (zoomed out the boxes become small dots so they do not cover the map; zoom in to see them), and the current warp next to its name. The names of your fleets in orbit are listed directly under the name of the planet they orbit. A dashed orange leg means you do not have the fuel to finish that leg. When a fleet is selected and the <b>Warp Range Circle</b> is on, dashed rings show how far it moves in one year: green for its free speed, amber for the warp of its first waypoint. Turn it on or off with <b>Fleet, Warp Range Circle</b>; it starts off and the choice is remembered in this browser.</p>
+                <p><b style="color:#da70d6;">Fleets on the Map</b><br>Every group of ships is a fleet. Your fleets are arrowheads in your empire color with their name beside them. A fleet in orbit slowly circles its planet; several fleets share the orbit, evenly spaced. A fleet in deep space sits where it is. Pick a fleet in the Fleets in Orbit panel, in the Fleet Roster, or by clicking its arrow on the map. A fleet with orders shows a line to each waypoint, a numbered box at each stop with its travel time in years (zoomed out the boxes become small dots so they do not cover the map; zoom in to see them), and the current warp next to its name. The names of your fleets in orbit are listed directly under the name of the planet they orbit, and clicking one of those names selects that fleet. Clicking a planet you have already selected steps through the fleets orbiting it, one per click, and then back to the planet, so you can always reach a fleet in orbit even when its ship is too small to click or is hidden because you are zoomed out. A dashed orange leg means you do not have the fuel to finish that leg. When a fleet is selected and the <b>Warp Range Circle</b> is on, dashed rings show how far it moves in one year: green for its free speed, amber for the warp of its first waypoint. Turn it on or off with <b>Fleet, Warp Range Circle</b>; it starts off and the choice is remembered in this browser.</p>
                 <p><b style="color:#da70d6;">The Fleet Menu and Fleet Actions</b><br>The Fleet menu always offers Manage Waypoints, Plot Course Mode and Warp Range Circle. Below them the menu adds actions that only make sense where you are. Select a planet that has one of your fleets in orbit and the matching actions appear: <b>Colonize Planet</b> on a neutral world when a fleet there has a Colony Ship, <b>Cargo and Transfer</b> on one of your planets when a fleet there can carry cargo, <b>Merge Fleets Here</b> and <b>Fleet Transfer</b> when two or more of your fleets share the orbit, and <b>Orbital Bombardment</b> and <b>Ground Invasion</b> at a rival homeworld. With no fleet in orbit of the selected planet, these actions are not shown.</p>
                 <p><b style="color:#da70d6;">Warp Speed and Travel Time</b><br>A fleet travels at a Warp factor from 1 to 10. In one year it covers the warp squared in light years: Warp 4 is 16 ly, Warp 6 is 36 ly, Warp 9 is 81 ly. A fleet stops at every waypoint it reaches, even if it could have gone farther that year. Travel time to a waypoint is the distance divided by the speed, rounded up to whole years.</p>
                 <p><b style="color:#da70d6;">Fuel</b><br>Fuel is measured in milligrams (mg) and is shared by every ship in a fleet. Each hull has a tank, and fuel tanks add more. Every engine has a fuel table: the percent of normal fuel it burns at each warp from 1 to 10 (shown in the Ship Designer and the Equipment Catalog). The fuel a ship burns in a year is its mass in kT (hull, parts and its share of the cargo) times that percent times the distance in light years, divided by 2,000, so fuel use climbs steeply at high warps. Improved Fuel Efficiency races burn 15 percent less. Ships burn no fuel in battle. Warp 1 is always free, and ramscoop engines are free up to their free speed. <b>Running out:</b> a fleet travels at its ordered speed until its tank is empty, then a ramscoop fleet carries on at its free speed and any other fleet limps along at Warp 1. <b>Ramscoops make fuel:</b> a ship with a ramscoop engine travelling at or below the fleet's free speed gathers fuel, more the slower it goes (my estimate: half a mg per light year for each warp below the free speed plus one). <b>Fuel makers:</b> Fuel Transport and Super-Fuel Xport hulls make 200 mg of fuel a year wherever they are, and an Anti-matter Generator 50 mg. <b>Orders that run dry are refused:</b> when you add a waypoint, change a warp or send a fleet somewhere it cannot reach on the fuel it will have, a Not Enough Fuel window says how much the leg needs and offers the fastest warp that makes it; nothing is ordered unless you accept. The check counts refuelling at your own planets with docks along the route.</p>
                 <p><b style="color:#da70d6;">Engines</b><br>Engines are ship parts chosen in the Ship Designer: Quick Jump 5, Long Hump 6, Daddy Long Legs 7, Alpha Drive 8, Trans-Galactic Drive, Interspace-10, Trans-Star 10, the ramscoops (Radiating Hydro-Ram Scoop, Sub-Galactic, Trans-Galactic Fuel, Super and Mizer Scoops, Galaxy Scoop) and the Fuel Mizer (Improved Fuel Efficiency races). Every engine can push a ship to Warp 10, but the fuel it burns grows quickly above its best speed. <b>Best warp</b> is the fastest speed below 120 percent fuel use (for ramscoops, the fastest free speed), and it is the default speed for new waypoints. Warp 10 is risky: unless every ship in the fleet uses an engine built for Warp 10 (Interspace-10 and Trans-Star 10), each ship has a 10 percent chance of being lost every year it travels at Warp 10. No Ramscoop Engines races cannot build ramscoops but get the Interspace-10.</p>
                 <p><b style="color:#da70d6;">Refueling</b><br>A fleet is refuelled to full every year while it orbits one of your planets whose Space Station or Starbase has a ship dock (the reference calls this a starbase with ship-building capability). Your homeworld has one. Empires you have declared Friend refuel at your docks too, and you at theirs. Orbital Forts and planets without a starbase do not refuel. Away from a dock, fuel only comes from fuel-making hulls and parts, from ramscoops, or from another fleet: see Fleet Transfer.</p>
                 <p><b style="color:#da70d6;">Fleet Transfer</b><br>When two or more of your fleets are at the same spot, in orbit or in deep space, <b>Fleet Transfer</b> (in the Fleet menu at a planet, or in the Waypoints window) moves fuel and cargo between them: pick the other fleet, then enter a positive number to move from the selected fleet to the other or a negative number for the other way. Fuel cannot go above the other fleet's tank. You can also give a waypoint that follows one of your fleets the <b>Transport</b> task: it then has a Fuel line as well as the four cargo lines, where load means take from the other fleet and unload means give to it, and Wait for % holds until the transfer is done. This is how tankers keep a deep-space task force going.</p>
-                <p><b style="color:#da70d6;">Do Task Here</b><br>Open the <b>Fleet</b> menu and press <b>⚙ Do Task Here (No Move)</b> to give the selected fleet a task at the spot where it is, without sending it anywhere. The window lists only the tasks that make sense where the fleet is: in orbit of a planet you can pick <b>Transport</b> (with a saved cargo order such as Load All Ore, Unload Everything or Load Colonists), <b>Colonize</b> (only if the fleet has a Colonization Module), <b>Load Ore</b> and <b>Unload Ore</b>; if another of your fleets is in the same spot you can also <b>Transport to a fleet here</b> (cargo between the two fleets) or <b>Merge with a fleet here</b>; anywhere, even in deep space, you can pick <b>Patrol</b> (with its range) or <b>Scrap Fleet</b> (it asks you to confirm; in deep space everything is lost). Under <b>Then</b> choose <b>Do it first, then carry on with its route</b>, which puts the task at the front of the route so the fleet does it next year and then sets off for its first waypoint, or <b>Replace its route with just this</b>, which clears the route (and any patrol or guard). The task is carried out when the year is played out, like any other order, and the fleet does not move, use fuel, or need a working engine, so a fleet that cannot fly can still do it. It appears in Manage Waypoints as a waypoint marked <b>(task here, no move)</b>, where you can change the task or its cargo orders, or remove it to cancel. <b>Send a Fleet Here</b> now does the same when you send a fleet to the planet it is already orbiting with a task chosen: it stays put and does the task. Tasks that ask for colonists give the usual colonist warning. In a multiplayer game the button does nothing while you are only looking at the galaxy (view only).</p>
-                <p><b style="color:#da70d6;">Send a Fleet Here</b><br>The planet summary has a <b>Send a Fleet Here</b> box under the planet's bars whenever you have a fleet. Choose any of your fleets (it starts on the selected one; the list shows how far each is), then <b>Go now</b> to replace its route with this planet, or <b>Add as next waypoint</b> to put the planet at the end of its route. Pick the speed and the task to carry out on arrival (Transport, Colonize, Patrol, Scrap and so on; Transport starts with Load All Ore, change it in the Waypoints window). The line above the button shows distance, years and fuel. The fuel check and the colonist warning apply.</p>
+                <p><b style="color:#da70d6;">Orders at a Planet</b><br>Open the <b>Fleet</b> menu and press <b>⚙ Orders at</b> followed by the name of the planet the fleet is orbiting (or <b>Orders at This Spot</b> in deep space) to give the selected fleet a task where it is, without sending it anywhere. The window lists only the tasks this fleet can really do there: in orbit of a planet you can pick <b>Transport</b> (fleets with a cargo hold, with a saved cargo order such as Load All Ore, Unload Everything or Load Colonists), <b>Colonize</b> (only a fleet with a Colonization Module, at an unowned planet), <b>Load Ore</b> and <b>Unload Ore</b> (fleets with a cargo hold, at your own planets), <b>Start Remote Mining</b> (fleets with mining robots, at an unowned planet); if another of your fleets is in the same spot you can also <b>Transport to a fleet here</b> (cargo between the two fleets) or <b>Merge with a fleet here</b>; anywhere, even in deep space, you can pick <b>Patrol</b> (with its range) or <b>Scrap Fleet</b> (it asks you to confirm; in deep space everything is lost). Under <b>Then</b> choose <b>Do it first, then carry on with its route</b>, which puts the task at the front of the route so the fleet does it next year and then sets off for its first waypoint, or <b>Replace its route with just this</b>, which clears the route (and any patrol or guard). The task is carried out when the year is played out, like any other order, and the fleet does not move, use fuel, or need a working engine, so a fleet that cannot fly can still do it. It appears in Manage Waypoints as a waypoint marked <b>(task here, no move)</b>, where you can change the task or its cargo orders, or remove it to cancel. <b>Send a Fleet Here</b> now does the same when you send a fleet to the planet it is already orbiting with a task chosen: it stays put and does the task. Tasks that ask for colonists give the usual colonist warning. In a multiplayer game the button does nothing while you are only looking at the galaxy (view only).</p>
+                <p><b style="color:#da70d6;">Send a Fleet Here</b><br>The planet summary has a <b>Send a Fleet Here</b> box under the planet's bars whenever you have a fleet. Choose any of your fleets (it starts on the selected one; the list shows how far each is), then <b>Go now</b> to replace its route with this planet, or <b>Add as next waypoint</b> to put the planet at the end of its route. Pick the speed and the task to carry out on arrival (Transport, Colonize, Patrol, Scrap and so on; Transport starts with Load All Ore, change it in the Waypoints window). The On arrival list changes with the fleet you pick and only shows tasks that fleet can do at this planet, so a scout never gets Colonize and a warship never gets Load Ore. The line above the button shows distance, years and fuel. The fuel check and the colonist warning apply.</p>
                 <p><b style="color:#da70d6;">Warnings Before You Commit</b><br><b>Missing Orders:</b> pressing End Turn first checks your empire. If any planet has nothing to build (empty queue and Autobuild off) or any fleet has no orders (no waypoints, patrol, colonize, invade or ops task), a window lists them and asks whether to end the turn anyway. Tick Mark these idle fleets as standing guard to stop warnings about fleets you want to stay put, or use Stand Guard and Stop Guard in the Waypoints window. Turn the whole check off or on with Settings, Missing-Order Warning. <b>Not Enough Fuel:</b> see Fuel. <b>Colonists at Risk:</b> ordering colonists onto a world that is hostile to your race (habitability 0% or less) or not yet surveyed, by colonizing, a Colonize or Transport unload task, unloading cargo or invading, asks first. Colonists on a hostile world cannot grow and die off year by year.</p>
-                <p><b style="color:#da70d6;">Waypoints and Tasks</b><br>Fleet, Manage Waypoints (or the Waypoints button) opens the route window. Add the selected star as a waypoint, or turn on Fleet, Plot Course Mode (the Plot button) and click stars or empty space on the map; you can also hold Shift and click the map. Clicking one of your other fleets in Plot Course Mode makes a waypoint that follows that fleet as it moves. Each waypoint has its own Warp and Task, and any waypoint can be removed. Tasks run when the fleet arrives: <b>Transport</b> (cargo orders, see Transport and Zip Orders), <b>Colonize</b>, <b>Load Ore</b> and <b>Unload Ore</b> (quick versions of Transport), <b>Merge with Fleet</b> (on a waypoint that follows one of your fleets: the fleet joins it on arrival), <b>Patrol</b> (see Patrol) and <b>Scrap Fleet</b> (see Scrapping). A finished waypoint is removed from the list unless <b>Repeat Orders</b> is ticked, in which case it is added again at the end, so a freighter can run a supply loop for ever. A fleet waiting for cargo (Wait for %) stays at its waypoint until the hold is filled. A ship orbiting a planet turns to face its first waypoint and sits on the edge of the planet closest to it while it waits for the year to run. With Plot Course Mode off, click one of the selected fleet's waypoints on the map to be asked whether to delete it.</p>
+                <p><b style="color:#da70d6;">Waypoints and Tasks</b><br>Fleet, Manage Waypoints (or the Waypoints button) opens the route window. Add the selected star as a waypoint, or turn on Fleet, Plot Course Mode (the Plot button) and click stars or empty space on the map; you can also hold Shift and click the map. Clicking one of your other fleets in Plot Course Mode makes a waypoint that follows that fleet as it moves. Each waypoint has its own Warp and Task, and any waypoint can be removed. The Task list only offers what this fleet can really do at that waypoint: a scout is never offered Colonize, a ship without a cargo hold gets no cargo tasks, Load and Unload Ore need one of your own planets, and Colonize and Start Remote Mining need an unowned one. If a task stops fitting (for example after you split the fleet) it stays in the list marked <b>(cannot do)</b> with the reason underneath, and is skipped on arrival. Tasks run when the fleet arrives: <b>Transport</b> (cargo orders, see Transport and Zip Orders), <b>Colonize</b>, <b>Load Ore</b> and <b>Unload Ore</b> (quick versions of Transport), <b>Start Remote Mining</b> (a fleet with mining robots begins mining an unowned planet as soon as it arrives), <b>Merge with Fleet</b> (on a waypoint that follows one of your fleets: the fleet joins it on arrival), <b>Patrol</b> (see Patrol) and <b>Scrap Fleet</b> (see Scrapping). A finished waypoint is removed from the list unless <b>Repeat Orders</b> is ticked, in which case it is added again at the end, so a freighter can run a supply loop for ever. A fleet waiting for cargo (Wait for %) stays at its waypoint until the hold is filled. A ship orbiting a planet turns to face its first waypoint and sits on the edge of the planet closest to it while it waits for the year to run. With Plot Course Mode off, click one of the selected fleet's waypoints on the map to be asked whether to delete it.</p>
                 <p><b style="color:#da70d6;">Transport and Zip Orders</b><br>The Transport task gives separate orders for Ironium, Boranium, Germanium and Colonists: <b>Load all available</b>, <b>Unload all</b>, <b>Load exactly</b> or <b>Unload exactly</b> an amount, <b>Fill up to %</b> of the hold, <b>Wait for %</b> (load and stay until that share of the hold is full) and <b>Set amount to</b> (load or unload until the fleet carries exactly that much). Unloads run first, then loads. Ore can be loaded from your planets and from uninhabited ones, and unloaded anywhere (unloading at another empire's planet gives it the ore). Colonists can only be loaded from and unloaded onto your own planets (a planet keeps at least 1,000). <b>Zip orders</b> fill in all four lines at once: four are built in (Load All Ore, Unload Everything, Grab and Run, Load Colonists) and you can save up to four of your own with Save as Custom Zip; a fifth replaces the oldest. Custom zip orders belong to your empire and are kept in the save.</p>
                 <p><b style="color:#da70d6;">Patrol</b><br>The Patrol task (any waypoint) puts the fleet on patrol once it gets there. A patrolling fleet with no other orders looks every year for enemy fleets your scanners can see within its patrol range (25 to 300 ly, 50 to start), picks the nearest and flies to intercept it at the waypoint's warp, following it as it moves. Fleets of empires you have marked as Friend are left alone. Battles start as usual when the fleets meet. The route window shows the patrol and has Stop Patrol.</p>
                 <p><b style="color:#da70d6;">Routes for New Ships</b><br>Under the Production Queue of each planet, <b>Route new ships to</b> picks another of your planets. Every ship built at that planet afterwards starts with a waypoint to the route planet, which is handy for sending new freighters or warships to a front line or a collection point. Choose Nowhere to stop.</p>
@@ -5614,7 +5639,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.201.0';
+        const GAME_VERSION = '0.205.0';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -6311,6 +6336,7 @@ const DEFENDERS_PER_POP=100;
             colonize: 'Colonize',
             load: 'Load Ore',
             unload: 'Unload Ore',
+            mine: 'Start Remote Mining',
             merge: 'Merge with Fleet',
             patrol: 'Patrol',
             scrap: 'Scrap Fleet'
@@ -9378,6 +9404,40 @@ const DEFENDERS_PER_POP=100;
             removeFleet(f);
         }
 
+        function taskCheck(f, t, p, w) {
+            const yes = { ok: true, why: '' };
+            const no = why => ({ ok: false, why: why });
+            if (!t || t === 'none' || t === 'patrol' || t === 'scrap') return yes;
+            if (t === 'merge') return w && w.fleetTarget ? yes : no('Merge with Fleet needs a waypoint that follows one of your fleets.');
+            const cap = fleetCargoCapacity(f) > 0;
+            if (t === 'transport' && w && w.fleetTarget) return yes;
+            if (!p) return no(TASK_LABELS[t] + ' can only be done at a planet.');
+            const owner = shownOwner(p);
+            if (t === 'transport') return cap ? yes : no(f.name + ' has no cargo hold.');
+            if (t === 'load' || t === 'unload') {
+                if (!cap) return no(f.name + ' has no cargo hold.');
+                return owner === myEmpireId ? yes : no(TASK_LABELS[t] + ' only works at your own planets. Use Transport to pick up Ore from an unowned world.');
+            }
+            if (t === 'colonize') {
+                if (!fleetHasPart(f, 'colonizer')) return no(f.name + ' has no Colonization Module, so it cannot colonize.');
+                return owner === 'neutral' ? yes : no(p.name + ' already belongs to ' + (owner === myEmpireId ? 'you' : 'another empire') + '.');
+            }
+            if (t === 'mine') {
+                if (!fleetHasPart(f, 'mining')) return no(f.name + ' has no mining robots.');
+                return owner === 'neutral' ? yes : no('Remote mining only works on unowned worlds.');
+            }
+            return yes;
+        }
+
+        function ordersAtLabel(f) {
+            const idx = f ? fleetOrbitIndex(f) : -1;
+            return idx >= 0 ? 'Orders at ' + planets[idx].name : 'Orders at This Spot';
+        }
+
+        function taskAllowed(f, t, p, w) {
+            return taskCheck(f, t, p, w).ok;
+        }
+
         function executeWaypointTask(f, w, notes) {
             if (!w.task || w.task === 'none') return false;
             if (w.task === 'patrol') {
@@ -9419,6 +9479,17 @@ const DEFENDERS_PER_POP=100;
                 const r = colonizeWith(f, p);
                 notes.push(f.name + ' ' + r.msg);
                 return;
+            }
+            if (w.task === 'mine') {
+                if (p.owner !== 'neutral') {
+                    notes.push(f.name + ': Start Remote Mining skipped, ' + p.name + ' is already owned. Remote mining only works on unowned worlds.');
+                } else if (!fleetHasPart(f, 'mining')) {
+                    notes.push(f.name + ': Start Remote Mining skipped, the fleet has no mining robots.');
+                } else {
+                    fleetOps(f).mine = true;
+                    notes.push(f.name + ' started remote mining at ' + p.name + '.');
+                }
+                return false;
             }
             if (p.owner !== myEmpireId) {
                 notes.push(f.name + ': ' + TASK_LABELS[w.task] + ' skipped, ' + p.name + ' is not one of your planets.');
@@ -15580,6 +15651,8 @@ const DEFENDERS_PER_POP=100;
             const p = planets[selectedPlanetIndex];
             const here = fleetsAtSelectedPlanet();
             document.getElementById('btn-merge-fleets').style.display = here.length >= 2 ? 'block' : 'none';
+            const thBtn = document.getElementById('btn-fleet-task-here');
+            if (thBtn) thBtn.innerText = '⚙ ' + ordersAtLabel(getSelectedFleet());
             const items = [];
             const state = (prop, op) => (opsEligible(prop).some(f => fleetOps(f)[op]) ? 'ON' : 'OFF');
             if (here.length) {
@@ -15592,7 +15665,7 @@ const DEFENDERS_PER_POP=100;
                 if (here.length >= 2) items.push(['xfer', '⛽ Fleet Transfer (fuel and cargo)', '#ffa500']);
                 if (isForeignOwner(p.owner)) {
                     if (opsEligible('hasBombs').length) items.push(['bombard', '💣 Bombing: ' + state('hasBombs', 'bomb'), '#ff4500']);
-                    items.push(['invade', '⚔ Ground Invasion', '#ff8c00']);
+                    if (here.some(f => f.cargo.colonists > 0)) items.push(['invade', '⚔ Ground Invasion', '#ff8c00']);
                 }
                 if (opsEligible('layers').length) items.push(['minelay', '💥 Lay Mines: ' + state('layers', 'lay'), '#ffd700']);
                 if (p.owner === 'neutral' && opsEligible('mining').length) items.push(['remotemine', '⛏ Remote Mining: ' + state('mining', 'mine'), '#c0a060']);
@@ -18305,6 +18378,9 @@ const DEFENDERS_PER_POP=100;
                     const bodyC = V.dark ? [70, 74, 92] : c;
                     add(T(fam.body), bodyC);
                     if (fam.detail) add(T(fam.detail), metal);
+                    if (fam.trim) add(T(fam.trim), [62, 64, 72]);
+                    if (fam.paint) add(T(fam.paint), gold);
+                    if (fam.lights) glow(T(fam.lights), [255, 215, 140]);
                     if (V.pods && fam.detail) add(tmMap(T(fam.detail), v => [v[0], v[1], v[2] + 0.26]), metal);
                     if (V.turret) {
                         add(m3Box(0.35 * sx, 0, 0.32, 0.14, 0.1, 0.06), metal);
@@ -20678,6 +20754,10 @@ const DEFENDERS_PER_POP=100;
             const bc = [40 + c[0] * 215, 40 + c[1] * 215, 40 + c[2] * 215];
             push(fam.body, bc);
             push(fam.detail, [(0.62 + c[0] * 0.15) * 255, (0.65 + c[1] * 0.15) * 255, (0.7 + c[2] * 0.15) * 255]);
+            if (!flat) {
+                push(fam.trim, [58, 60, 68]);
+                push(fam.paint, [Math.min(255, bc[0] * 0.75), Math.min(255, bc[1] * 0.75), Math.min(255, bc[2] * 0.75)]);
+            }
             (fam.engines || []).forEach(e => { const p = P(e); items.push({ z: p[2] + 0.01, eng: p }); });
             items.sort((x, y) => x.z - y.z);
             const ec = fam.engineC || [1, 0.55, 0.15];
@@ -21553,7 +21633,10 @@ const DEFENDERS_PER_POP=100;
 
         function remoteMineFor(f, notes) {
             const idx = fleetOrbitIndex(f);
-            if (idx < 0) return;
+            if (idx < 0) {
+                if (f.waypoints.length) f.ops.mine = false;
+                return;
+            }
             const p = planets[idx];
             if (p.owner !== 'neutral') return;
             let rate = 0;
@@ -21848,6 +21931,28 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.205.0', d: "Oct 10, 2026 3:57 PM", t: "Detailed Ships, Stations and Cockpit", items: [
+                '3D map ships are far more detailed when zoomed in: armored hulls with panel lines, your empire colour on stripes and bands, engine bells with glowing exhaust flames, gun turrets, masts, radar dishes, lit windows and blinking navigation lights. Zoomed out they stay simple and brightly coloured so they are easy to spot.',
+                'Planets with a ship dock now have a ring station circling them (spokes, solar panels, lit windows) instead of a small gold diamond. Planets have a thin glowing atmosphere.',
+                'The Fleet Roster and the Technology Browser ship pictures use the new hull details too.',
+                'Cockpit view rebuilt: overhead console, riveted struts, glass glare and a full dashboard with Propulsion (warp, fuel bar, mass, warnings), a radar scope with nearby planets and fleets, and a Cargo display. A gold bracket marks the next waypoint, and star streaks rush past while Fly is playing.'
+            ] },
+            { v: '0.204.0', d: "Oct 10, 2026 3:44 PM", t: "Selecting Fleets in Orbit", items: [
+                '3D map: clicking a ship now selects its fleet where the ship is actually drawn. Before, the click was checked against the flat-map spot, so ships orbiting a big planet such as your homeworld could not be clicked.',
+                'Clicking a planet that is already selected steps through your fleets orbiting it, one per click, then back to the planet. This works in 2D, 3D and Z view, and also when zoomed out so far that ships in orbit are hidden.',
+                'The fleet names listed under a planet are clickable: click a name to select that fleet (flat and 3D map; not in Z view).'
+            ] },
+            { v: '0.203.0', d: "Oct 10, 2026 3:50 PM", t: "Orders That Fit the Fleet", items: [
+                'Fleet orders now only offer what the fleet can really do. The waypoint Task lists, the On arrival list in Send a Fleet Here and the Orders at window all use the same check: Colonize needs a Colonization Module and an unowned planet, cargo tasks need a cargo hold, Load and Unload Ore need one of your own planets, Start Remote Mining needs mining robots and an unowned planet.',
+                'Send a Fleet Here rebuilds its On arrival list whenever you pick another fleet or planet.',
+                'A waypoint task that no longer fits (for example after splitting a fleet) stays visible, marked (cannot do), with the reason underneath. It is skipped on arrival.',
+                'Ground Invasion only appears in the Fleet menu when a fleet in orbit carries colonists to land.',
+                'Do Task Here is now called Orders at, followed by the name of the planet the fleet is orbiting (Orders at This Spot in deep space). Help and the tutorial use the new name.'
+            ] },
+            { v: '0.202.0', d: "Oct 10, 2026 3:25 PM", t: "Mining on Arrival, 3D Fleet Jitter Fix", items: [
+                'New waypoint task, Start Remote Mining: a fleet with mining robots that arrives at an unowned planet begins remote mining at once. Pick it in the waypoint list or in Orders at. Mining stops when the fleet sets off again. Owned planets and fleets without robots skip the task with a note in the year report.',
+                '3D map: a fleet flying between two close planets no longer flickers or jumps from one planet to the other. Its place is now worked out fresh every frame and kept clear of every nearby planet at once.'
+            ] },
             { v: '0.201.0', d: "Oct 10, 2026 7:30 PM", t: "Game+: Lore for Every World", items: [
                 'In Game+ games every planet now has lore, shown in Management, Lore, Worlds once you survey it.',
                 'World lore describes its landscape and climate (matched to its temperature, gravity and radiation), its moons and sky, and a story: native life, early explorers, spacer legends or scientific mysteries. Homeworlds also name the empire and race that came from them.',
@@ -23408,7 +23513,7 @@ const DEFENDERS_PER_POP=100;
             return d.textContent.toLowerCase();
         }
 
-        const HELP_LEVELS = { basic: ["Absolute Beginner: Play in Two Minutes", "The Tutorial", "Goal", "Tips for Your First Turns", "The Star Map", "3D Map", "Z View (Tilted 3D Map)", "The Planet Picture", "What the Panels Show", "The Planet Menu", "Turn Flow", "Turns and Rounds", "The Year Report", "Resources", "Ore and Mining", "Population and Growth", "Structures", "The Production Queue", "Research", "Habitability", "Colonizing", "Colonizing and Cargo", "Ship Construction", "Your Starting Fleet", "Fleets on the Map", "The Fleet Menu and Fleet Actions", "Waypoints and Tasks", "Send a Fleet Here", "Do Task Here", "Cargo and Transfer", "Warnings Before You Commit", "Warp Speed and Travel Time", "Fuel", "Scanning and Discovery", "Skip Years", "The Event Log", "Management", "Saving", "Continue Game", "Replays", "New Game: Tutorial, Sandbox, Game+ and Simulation", "Simulation", "The New Game Screen", "AI Opponents", "Victory Conditions", "Defeat and Game Over", "Playing on a Phone or Tablet", "Planet Names on Map", "Panel Transparency", "Minimizing Panels on a Desktop", "Menu Colors and Sensor Circles", "Music and Sound Effects", "Galaxy Names and Fun Facts", "Help and Updates Windows", "Update Notice and What's New", "Multiplayer and Your Account", "Forgot Your Password", "The Multiplayer Lobby", "The Lounge, Lobby Chat and Player Profiles", "Joining a Multiplayer Game", "When the Game Begins", "Taking Your Turn", "My Games", "Defeat in Multiplayer"], advanced: ["Colonizing at the Same Time", "Random Events", "Refueling", "Fleet Transfer", "Merging Fleets", "Fleet Management and Naming Ships", "Scrapping", "Patrol", "Routes for New Ships", "Transport and Zip Orders", "Queue Controls and Estimates", "Auto Items and Repeating Builds", "Mines and Factories", "Autobuild", "Text Size", "Pop-up Windows", "Ore Concentration Bars", "Game Images", "The Galactic Event Log", "Planet Roster and Map Overlays", "Measuring Distance", "Advanced Options", "Scoreboard Table", "Score Graphs", "Game Stats", "Ship Repair", "Planetary Defenses", "Space Stations and Starbases", "Upgrading a Space Station or Starbase", "Building Designs and Refitting", "Technology Browser", "Ship Designer", "Ship Design Files", "Automation Files", "Resources Belong to Planets", "The Two Currencies: Resources and Ore", "The Budget: Research vs Manufacturing", "Your Own View of the Galaxy", "Miniaturization", "Engines", "Combat", "Battle Plans", "Battle Replay", "Bombing and Invasion", "Cloaking and Scanners", "Minefields", "Terraforming", "Mass Drivers and Mineral Packets", "Wormholes", "Stargates", "The Mystery Trader", "Diplomacy", "AI Intelligence: Mistakes, Aggression and Grudges", "How the AI Empires Play", "Custom Races and the Race Wizard", "The Six Wizard Tabs", "Advantage Points", "What a Custom Race Does In This Game", "Numbers at a Glance", "Creating a Multiplayer Game", "Opponents: Player Spots and AI", "Multiplayer Options", "The Game Lobby", "Inviting Players", "Inviting Players After the Game Has Started", "Examining Enemy Fleets", "Game Emails", "Multiplayer Victory and Game Over", "Watching While Others Play", "Turn Time Limit and Skipping", "Skip My Turns", "Changing Your Empire Color", "Who Is Online and How Long the Year Has Run", "Chat", "Whispers and Alliance Chat", "Play Types", "Resigning", "Player Stats, Charts and the Leaderboard", "Reliability, Records and Races", "Empire Records", "Military Records and Diplomacy", "Leaderboard Filters and Record Leaderboards", "Seasons", "Playing Now: Standings in Running Games", "Badges", "Admin Tools", "Inactive Accounts", "Warnings, Limits and Bans", "Equipment Catalog", "Ship Hulls", "Mystery Trader Items"] };
+        const HELP_LEVELS = { basic: ["Absolute Beginner: Play in Two Minutes", "The Tutorial", "Goal", "Tips for Your First Turns", "The Star Map", "3D Map", "Z View (Tilted 3D Map)", "The Planet Picture", "What the Panels Show", "The Planet Menu", "Turn Flow", "Turns and Rounds", "The Year Report", "Resources", "Ore and Mining", "Population and Growth", "Structures", "The Production Queue", "Research", "Habitability", "Colonizing", "Colonizing and Cargo", "Ship Construction", "Your Starting Fleet", "Fleets on the Map", "The Fleet Menu and Fleet Actions", "Waypoints and Tasks", "Send a Fleet Here", "Orders at a Planet", "Cargo and Transfer", "Warnings Before You Commit", "Warp Speed and Travel Time", "Fuel", "Scanning and Discovery", "Skip Years", "The Event Log", "Management", "Saving", "Continue Game", "Replays", "New Game: Tutorial, Sandbox, Game+ and Simulation", "Simulation", "The New Game Screen", "AI Opponents", "Victory Conditions", "Defeat and Game Over", "Playing on a Phone or Tablet", "Planet Names on Map", "Panel Transparency", "Minimizing Panels on a Desktop", "Menu Colors and Sensor Circles", "Music and Sound Effects", "Galaxy Names and Fun Facts", "Help and Updates Windows", "Update Notice and What's New", "Multiplayer and Your Account", "Forgot Your Password", "The Multiplayer Lobby", "The Lounge, Lobby Chat and Player Profiles", "Joining a Multiplayer Game", "When the Game Begins", "Taking Your Turn", "My Games", "Defeat in Multiplayer"], advanced: ["Colonizing at the Same Time", "Random Events", "Refueling", "Fleet Transfer", "Merging Fleets", "Fleet Management and Naming Ships", "Scrapping", "Patrol", "Routes for New Ships", "Transport and Zip Orders", "Queue Controls and Estimates", "Auto Items and Repeating Builds", "Mines and Factories", "Autobuild", "Text Size", "Pop-up Windows", "Ore Concentration Bars", "Game Images", "The Galactic Event Log", "Planet Roster and Map Overlays", "Measuring Distance", "Advanced Options", "Scoreboard Table", "Score Graphs", "Game Stats", "Ship Repair", "Planetary Defenses", "Space Stations and Starbases", "Upgrading a Space Station or Starbase", "Building Designs and Refitting", "Technology Browser", "Ship Designer", "Ship Design Files", "Automation Files", "Resources Belong to Planets", "The Two Currencies: Resources and Ore", "The Budget: Research vs Manufacturing", "Your Own View of the Galaxy", "Miniaturization", "Engines", "Combat", "Battle Plans", "Battle Replay", "Bombing and Invasion", "Cloaking and Scanners", "Minefields", "Terraforming", "Mass Drivers and Mineral Packets", "Wormholes", "Stargates", "The Mystery Trader", "Diplomacy", "AI Intelligence: Mistakes, Aggression and Grudges", "How the AI Empires Play", "Custom Races and the Race Wizard", "The Six Wizard Tabs", "Advantage Points", "What a Custom Race Does In This Game", "Numbers at a Glance", "Creating a Multiplayer Game", "Opponents: Player Spots and AI", "Multiplayer Options", "The Game Lobby", "Inviting Players", "Inviting Players After the Game Has Started", "Examining Enemy Fleets", "Game Emails", "Multiplayer Victory and Game Over", "Watching While Others Play", "Turn Time Limit and Skipping", "Skip My Turns", "Changing Your Empire Color", "Who Is Online and How Long the Year Has Run", "Chat", "Whispers and Alliance Chat", "Play Types", "Resigning", "Player Stats, Charts and the Leaderboard", "Reliability, Records and Races", "Empire Records", "Military Records and Diplomacy", "Leaderboard Filters and Record Leaderboards", "Seasons", "Playing Now: Standings in Running Games", "Badges", "Admin Tools", "Inactive Accounts", "Warnings, Limits and Bans", "Equipment Catalog", "Ship Hulls", "Mystery Trader Items"] };
         const HELP_LEVEL_NAMES = ['Basic', 'Advanced'];
 
         function helpLevelOf(title) {
@@ -23632,12 +23737,16 @@ const DEFENDERS_PER_POP=100;
                     warpOptions += `<option value="${GATE_WARP}" ${w.warp === GATE_WARP ? 'selected' : ''}>${lbl}</option>`;
                 }
                 let taskOptions = '';
+                const wpPlanet = isPlanet ? planets[w.planet] : null;
                 Object.keys(TASK_LABELS).forEach(t => {
                     if (!isPlanet && TASKS_ANYWHERE.indexOf(t) === -1 && !(t === 'transport' && w.fleetTarget)) return;
                     if (t === 'merge' && !w.fleetTarget) return;
-                    taskOptions += `<option value="${t}" ${t === w.task ? 'selected' : ''}>${TASK_LABELS[t]}</option>`;
+                    const ok = taskAllowed(f, t, wpPlanet, w);
+                    if (!ok && t !== w.task) return;
+                    taskOptions += `<option value="${t}" ${t === w.task ? 'selected' : ''}>${TASK_LABELS[t]}${ok ? '' : ' (cannot do)'}</option>`;
                 });
-                let extra = '';
+                const taskBad = taskCheck(f, w.task, wpPlanet, w);
+                let extra = taskBad.ok ? '' : `<div style="margin-top:6px;font-size:11px;color:#ff8c00;">This task cannot be done here: ${escapeHtml(taskBad.why)} It will be skipped on arrival.</div>`;
                 if (w.task === 'transport') {
                     const c = cleanCargoOrders(w.cargo);
                     if (w.fleetTarget) c.fuel = cleanFuelOrder(w.fuelOrder);
@@ -23811,8 +23920,20 @@ const DEFENDERS_PER_POP=100;
             return html;
         }
 
-        function sfhTaskOptions(p, keep) {
-            return Object.keys(TASK_LABELS).filter(t => t !== 'merge').map(t => `<option value="${t}" ${t === (keep || 'none') ? 'selected' : ''}>${TASK_LABELS[t]}</option>`).join('');
+        function sfhTaskOptions(p, keep, f) {
+            const list = Object.keys(TASK_LABELS).filter(t => t !== 'merge' && (!f || taskAllowed(f, t, p, null)));
+            const cur = list.indexOf(keep) !== -1 ? keep : 'none';
+            return list.map(t => `<option value="${t}" ${t === cur ? 'selected' : ''}>${TASK_LABELS[t]}</option>`).join('');
+        }
+
+        function sfhRefreshTasks() {
+            const st = sfhState();
+            const taskSel = document.getElementById('sfh-task');
+            if (!st.p || !st.f) return;
+            const key = st.f.id + ':' + selectedPlanetIndex + ':' + shownOwner(st.p) + ':' + fleetShipCount(st.f);
+            if (taskSel.dataset.key === key && taskSel.options.length) return;
+            taskSel.innerHTML = sfhTaskOptions(st.p, taskSel.value, st.f);
+            taskSel.dataset.key = key;
         }
 
         function renderSendFleetBox() {
@@ -23834,8 +23955,7 @@ const DEFENDERS_PER_POP=100;
                 warpSel.innerHTML = sfhWarpOptions(pick);
                 warpSel.dataset.fleet = String(pick.id);
             }
-            const taskSel = document.getElementById('sfh-task');
-            if (!taskSel.options.length) taskSel.innerHTML = sfhTaskOptions(p);
+            sfhRefreshTasks();
             sfhInfo();
         }
 
@@ -23865,6 +23985,7 @@ const DEFENDERS_PER_POP=100;
                         w.innerHTML = sfhWarpOptions(st.f);
                         w.dataset.fleet = String(st.f.id);
                     }
+                    sfhRefreshTasks();
                 }
                 sfhInfo();
             });
@@ -23881,6 +24002,12 @@ const DEFENDERS_PER_POP=100;
             const mode = document.getElementById('sfh-mode').value;
             const warp = parseInt(document.getElementById('sfh-warp').value) || defaultWarpFor(f);
             const task = document.getElementById('sfh-task').value;
+            const chk = taskCheck(f, task, p, null);
+            if (!chk.ok) {
+                gameAlert(f.name + ' cannot do ' + TASK_LABELS[task] + ' at ' + p.name + ': ' + chk.why);
+                sfhRefreshTasks();
+                return;
+            }
             if (mode === 'go' && Math.hypot(p.x - f.x, p.y - f.y) < 0.5 && task === 'none') {
                 gameAlert(`${f.name} is already in orbit of ${p.name}.`);
                 return;
@@ -23920,9 +24047,10 @@ const DEFENDERS_PER_POP=100;
             const others = fleetsHere(f);
             const list = [];
             if (atPlanet) {
-                list.push(['transport', 'Transport (cargo orders)']);
-                if (fleetHasPart(f, 'colonizer')) list.push(['colonize', 'Colonize']);
-                list.push(['load', 'Load Ore'], ['unload', 'Unload Ore']);
+                const here = planets[fleetOrbitIndex(f)];
+                [['transport', 'Transport (cargo orders)'], ['colonize', 'Colonize'], ['load', 'Load Ore'], ['unload', 'Unload Ore'], ['mine', 'Start Remote Mining']].forEach(x => {
+                    if (taskAllowed(f, x[0], here, null)) list.push(x);
+                });
             }
             if (others.length) list.push(['fleettransport', 'Transport to a fleet here (cargo and fuel)'], ['merge', 'Merge with a fleet here']);
             list.push(['patrol', 'Patrol'], ['scrap', 'Scrap Fleet']);
@@ -23936,6 +24064,7 @@ const DEFENDERS_PER_POP=100;
                 body.innerHTML = 'No fleet selected.';
                 return;
             }
+            document.getElementById('th-title').innerText = '⚙ ' + ordersAtLabel(f);
             const list = thTaskList(f);
             if (!list.some(x => x[0] === thState.task)) thState.task = list[0][0];
             const others = fleetsHere(f);
@@ -24618,6 +24747,70 @@ const DEFENDERS_PER_POP=100;
                 else txt += '  ·  holding position';
             }
             document.getElementById('z-hud-text').textContent = txt;
+            zHudPanels(f);
+        }
+
+        function zHudPanels(f) {
+            const hud = document.getElementById('z-hud');
+            const sk = hud.querySelector('.z-streaks');
+            if (sk && !sk.childNodes.length) {
+                let h = '';
+                for (let i = 0; i < 30; i++) h += `<span style="--a:${Math.round(i * 12 + (i * 37) % 9)}deg;--d:${Math.round(40 + (i * 53) % 35)}vh;animation-delay:${((i * 0.37) % 1.1).toFixed(2)}s;"></span>`;
+                sk.innerHTML = h;
+            }
+            hud.classList.toggle('z-moving', !!(zFly && !zFly.paused && !zFly.done));
+            const pct = (a, b) => b > 0 ? Math.max(0, Math.min(100, a / b * 100)) : 0;
+            const bar = (v, col) => `<div class="z-bar"><i style="width:${v.toFixed(0)}%;background:${col};"></i></div>`;
+            const cap = fleetFuelCapacity(f), fuelP = pct(f.fuel, cap);
+            const w = (f.waypoints || []).find(p => Math.hypot(p.x - f.x, p.y - f.y) > 0.5);
+            const dmg = fleetDamagePct(f);
+            let warn = '';
+            if (fuelP < 25) warn += '<span class="z-warn">FUEL</span>';
+            if (dmg > 0) warn += '<span class="z-warn">DMG ' + Math.round(dmg) + '%</span>';
+            if (zFly && zFly.done) warn += '<span class="z-warn" style="background:rgba(57,255,156,0.2);color:#39ff9c;border-color:#39ff9c;">ARRIVED</span>';
+            document.getElementById('z-mfd-l').innerHTML = '<div class="z-h">PROPULSION</div>' +
+                `Warp <b>${w ? w.warp === GATE_WARP ? 'GATE' : w.warp : 0}</b> / max <b>${fleetMaxWarp(f)}</b> &nbsp;free <b>${fleetFreeWarp(f)}</b><br>` +
+                `Fuel <b>${Math.round(f.fuel)}</b>/${cap} mg${bar(fuelP, fuelP < 25 ? '#ff5050' : '#39ff9c')}` +
+                `Mass <b>${fleetMass(f).toFixed(0)}</b> kT &nbsp;Ships <b>${fleetShipCount(f)}</b><br>${warn}`;
+            const cc = fleetCargoCapacity(f);
+            const cargo = f.cargo || {};
+            const row = (lbl, v, col, unit) => `${lbl} <b>${Math.round(v)}</b>${unit}${bar(pct(unit === '' ? v / COLONISTS_PER_KT : v, cc), col)}`;
+            document.getElementById('z-mfd-r').innerHTML = '<div class="z-h">CARGO ' + (cc > 0 ? Math.round(cargoKt(f)) + '/' + Math.round(cc) + ' kT' : 'NONE') + '</div>' +
+                (cc > 0 ? row('Fe', cargo.iron || 0, '#6ec8ff', ' kT') + row('Bo', cargo.bora || 0, '#39ff9c', ' kT') + row('Ge', cargo.germ || 0, '#ffd27a', ' kT') + row('Col', cargo.colonists || 0, '#e6f7ff', '') : '<span style="opacity:0.6;">No cargo hold</span><br>') +
+                (dmg > 0 ? 'Hull damage <b>' + Math.round(dmg) + '%</b>' : 'Hull <b>intact</b>');
+            const sc = fleetScanner(f);
+            const R = Math.max(60, sc.range || 0);
+            const fx = zFly && zFly.x !== undefined ? zFly.x : f.x, fy = zFly && zFly.y !== undefined ? zFly.y : f.y;
+            const o = worldToScreen(fx, fy);
+            const blip = (x, y, col, r) => {
+                const sp = worldToScreen(x, y);
+                const dx = (sp.x - o.x) / mapScale, dy = (sp.y - o.y) / mapScale;
+                const d = Math.hypot(dx, dy);
+                if (d > R) return '';
+                return `<circle cx="${(50 + dx / R * 46).toFixed(1)}" cy="${(50 + dy / R * 46).toFixed(1)}" r="${r}" fill="${col}"/>`;
+            };
+            let bl = '';
+            planets.forEach(p => { if (p.revealed !== false) bl += blip(p.x, p.y, shownOwner(p) === myEmpireId ? '#39ff9c' : shownOwner(p) === 'neutral' ? 'rgba(200,220,230,0.7)' : '#ff5050', 2); });
+            playerFleets.forEach(o2 => { if (o2 !== f) bl += blip(o2.x, o2.y, '#6ec8ff', 1.4); });
+            (lastForeignDrawn || []).forEach(v => { bl += blip(v.f.x, v.f.y, '#ff8a80', 1.6); });
+            if (w) bl += blip(w.x, w.y, '#ffd27a', 2.4);
+            const g = document.getElementById('z-radar-blips');
+            if (g) g.innerHTML = bl;
+            const tg = hud.querySelector('.z-target');
+            let tx = null, tn = '', tr = 6;
+            if (w) { tx = [w.x, w.y]; tn = wpName(w) + ' · ' + Math.round(Math.hypot(w.x - fx, w.y - fy)) + ' ly'; if (w.planet >= 0) tr = zPlanetR(w.planet); }
+            const C = tx ? zCam() : null;
+            const pr = tx ? zProjectPt(C, worldToScreen(tx[0], tx[1]).x, worldToScreen(tx[0], tx[1]).y) : null;
+            const v = zViewBox();
+            if (pr && pr.x > 0 && pr.x < v.w && pr.y > v.h * 0.1 && pr.y < v.h * 0.78) {
+                const sz = Math.max(26, Math.min(140, tr * pr.k * 2.6));
+                tg.style.display = 'block';
+                tg.style.left = pr.x + 'px';
+                tg.style.top = pr.y + 'px';
+                tg.style.width = sz + 'px';
+                tg.style.height = sz + 'px';
+                tg.lastChild.textContent = tn;
+            } else tg.style.display = 'none';
         }
 
         function zHasRoute(f) {
@@ -25079,17 +25272,41 @@ const DEFENDERS_PER_POP=100;
 
         function findFleetAt(clickX, clickY) {
             const stacks = computeFleetStacks();
+            const ships3d = m3On() && m3ShipsShown();
             let best = null;
-            let bestDst = 11;
+            let bestDst = Infinity;
             playerFleets.forEach(f => {
-                const pos = fleetIconPosition(f, stacks);
+                const st = stacks[f.id];
+                const hit = ships3d ? m3FleetHits[f.id] : null;
+                if (m3On() && !ships3d && st && st.orbit) return;
+                const pos = hit || fleetIconPosition(f, stacks);
+                const reach = hit ? Math.max(11, hit.r) : 11;
                 const dst = Math.hypot(clickX - pos.x, clickY - pos.y);
-                if (dst <= bestDst) {
+                if (dst <= reach && dst < bestDst) {
                     bestDst = dst;
                     best = f;
                 }
             });
-            return best;
+            if (best || zTilt()) return best;
+            for (let i = mapLabelHits.length - 1; i >= 0; i--) {
+                const b = mapLabelHits[i];
+                if (clickX >= b.x && clickX <= b.x + b.w && clickY >= b.y && clickY <= b.y + b.h) {
+                    const f = getFleetById(b.fid);
+                    if (f) return f;
+                }
+            }
+            return null;
+        }
+
+        function orbitCycleNext(planetIdx) {
+            if (selectedPlanetIndex !== planetIdx) return null;
+            const orbiting = playerFleets.filter(f => fleetOrbitIndex(f) === planetIdx && fleetShipCount(f) > 0);
+            if (!orbiting.length) return null;
+            if (mapSelKind === 'planet') return orbiting[0];
+            if (mapSelKind !== 'fleet') return null;
+            const cur = orbiting.findIndex(f => f.id === selectedFleetId);
+            if (cur < 0) return null;
+            return orbiting[cur + 1] || null;
         }
 
         function plotWaypointAt(clickX, clickY, planetIdx, snap) {
@@ -25306,7 +25523,15 @@ const DEFENDERS_PER_POP=100;
                 plotWaypointAt(clickX, clickY, planetHit, traderTickAt(clickX, clickY));
                 return;
             }
-            const fleetHit = findFleetAt(clickX, clickY);
+            let fleetHit = findFleetAt(clickX, clickY);
+            if (fleetHit && planetHit !== -1 && fleetOrbitIndex(fleetHit) === planetHit && selectedPlanetIndex === planetHit) {
+                const selF = mapSelKind === 'fleet' ? getSelectedFleet() : null;
+                const inGroup = mapSelKind === 'planet' || (selF && fleetOrbitIndex(selF) === planetHit);
+                const ps = worldToScreen(planets[planetHit].x, planets[planetHit].y);
+                const fp = (m3On() && m3ShipsShown() && m3FleetHits[fleetHit.id]) || fleetIconPosition(fleetHit, computeFleetStacks());
+                const nearPlanet = Math.hypot(clickX - ps.x, clickY - ps.y) <= Math.hypot(clickX - fp.x, clickY - fp.y);
+                if (inGroup && (selF === fleetHit || nearPlanet)) fleetHit = null;
+            }
             const traderHit = fleetHit ? null : findTraderAt(clickX, clickY);
             const foreignHit = fleetHit || traderHit ? null : findForeignFleetAt(clickX, clickY);
             const whHit = fleetHit || traderHit || foreignHit || planetHit !== -1 ? null : findWormholeAtScreen(clickX, clickY);
@@ -25323,7 +25548,9 @@ const DEFENDERS_PER_POP=100;
                 showOwnFleetSummary(fleetHit);
                 updateDashboardPlanetView();
             } else if (planetHit !== -1) {
-                selectPlanet(planetHit);
+                const nextFleet = orbitCycleNext(planetHit);
+                if (nextFleet) showOwnFleetSummary(nextFleet);
+                else selectPlanet(planetHit);
                 updateDashboardPlanetView();
             }
         }
@@ -25693,10 +25920,10 @@ const DEFENDERS_PER_POP=100;
                 if (isSel && zFly && zFly.x !== undefined && m3On()) {
                     const fp = worldToScreen(zFly.x, zFly.y);
                     const ahead = worldToScreen(zFly.x + Math.cos(zFly.head || 0), zFly.y + Math.sin(zFly.head || 0));
-                    if (m3ShipsShown()) m3Fleets.push({ x: fp.x, y: fp.y, angle: Math.atan2(ahead.y - fp.y, ahead.x - fp.x), sel: true, color: myColor, hull: m3HullOf(f, shipDesigns), orbit: true, f: null, st: null });
+                    if (m3ShipsShown()) m3Fleets.push({ x: fp.x, y: fp.y, angle: Math.atan2(ahead.y - fp.y, ahead.x - fp.x), sel: true, color: myColor, hull: m3HullOf(f, shipDesigns), orbit: true, f: null, st: null, own: f.id });
                     return;
                 }
-                if (m3On() && m3ShipsShown()) m3Fleets.push({ x: pos.x, y: pos.y, angle: angle, sel: isSel && mapSelKind === 'fleet', color: myColor, hull: m3HullOf(f, shipDesigns), orbit: !!(st3 && st3.orbit), f: orbitFree ? f : null, st: orbitFree ? st3 : null });
+                if (m3On() && m3ShipsShown()) m3Fleets.push({ x: pos.x, y: pos.y, angle: angle, sel: isSel && mapSelKind === 'fleet', color: myColor, hull: m3HullOf(f, shipDesigns), orbit: !!(st3 && st3.orbit), f: orbitFree ? f : null, st: orbitFree ? st3 : null, own: f.id });
                 else if (m3On() && !(st3 && st3.orbit)) m3FleetDot(ctx, pos.x, pos.y, isSel && mapSelKind === 'fleet' ? '#ffffff' : myColor);
                 else drawFleetIcon(mapCtx, pos.x, pos.y, angle, isSel && mapSelKind === 'fleet', myColor);
                 if (fleetNameSize > 0 && (isSel || mapScale >= 0.7)) {
@@ -26093,6 +26320,8 @@ const DEFENDERS_PER_POP=100;
         }
 
         var m3OrbitLabeled = {};
+        var m3FleetHits = {};
+        var mapLabelHits = [];
 
         function placeMapLabelBlock(ctx, lines, x, y, r) {
             if (zLabelDefer) {
@@ -26121,6 +26350,7 @@ const DEFENDERS_PER_POP=100;
                 ctx.font = l.size + 'px Segoe UI';
                 ctx.fillStyle = l.color;
                 ctx.fillText(l.text, pick[0], yy);
+                if (l.fid !== undefined && ctx === mapCtx) mapLabelHits.push({ x: pick[0] - 2, y: yy - l.size * 0.95, w: ctx.measureText(l.text).width + 4, h: l.size * 1.2, fid: l.fid });
             });
         }
 
@@ -26130,6 +26360,7 @@ const DEFENDERS_PER_POP=100;
             zFollowApply();
             labelGrid = new Map();
             zLabels = [];
+            mapLabelHits = [];
             zLabelDefer = !!zTilt();
             const m3 = m3On();
             m3Planets = [];
@@ -26218,14 +26449,14 @@ const DEFENDERS_PER_POP=100;
                     if (oi < 0) return;
                     const isSel = !!selF && selF.id === f.id;
                     if (!isSel && mapScale < 0.7) return;
-                    (orbitNames[oi] = orbitNames[oi] || []).push({ text: f.name, color: isSel ? '#ffffff' : empireColor(myEmpireId) });
+                    (orbitNames[oi] = orbitNames[oi] || []).push({ text: f.name, color: isSel ? '#ffffff' : empireColor(myEmpireId), fid: f.id });
                 });
             }
             nameQueue.forEach(q => {
                 mapCtx.fillStyle = q.color;
                 const gapR = m3 ? m3PlanetRadius(dotRadius) * 1.6 : dotRadius * mapScale;
                 if (orbitNames[q.idx]) {
-                    placeMapLabelBlock(mapCtx, [{ text: q.text, color: q.color, size: planetNameSize }].concat(orbitNames[q.idx].map(o => ({ text: o.text, color: o.color, size: fleetNameSize }))), q.x, q.y, gapR);
+                    placeMapLabelBlock(mapCtx, [{ text: q.text, color: q.color, size: planetNameSize }].concat(orbitNames[q.idx].map(o => ({ text: o.text, color: o.color, size: fleetNameSize, fid: o.fid }))), q.x, q.y, gapR);
                     m3OrbitLabeled[q.idx] = true;
                 } else placeMapLabel(mapCtx, q.text, q.x, q.y, gapR, planetNameSize, q.prio < 2);
             });
@@ -26559,6 +26790,42 @@ const DEFENDERS_PER_POP=100;
             const cat = arrs => [].concat.apply([], arrs);
             const fam = {};
             const add = (key, body, detail, engines, extra) => { fam[key] = Object.assign({ body: mk(body), detail: detail && detail.length ? mk(detail) : null, engines: engines }, extra || {}); };
+            const deco = (key, d) => {
+                const F = fam[key];
+                const bells = cat(F.engines.map(e => m3PrismX(e[0] + 0.05 * (d.bs || 1), e[1], e[2], 0.16 * (d.bs || 1), 0.12 * (d.bs || 1), 8, 0.075 * (d.bs || 1))));
+                const trim = cat([bells].concat(d.trim || []));
+                F.trim = trim.length ? mk(trim) : null;
+                F.lights = d.lights && d.lights.length ? mk(cat(d.lights)) : null;
+                F.paint = d.paint && d.paint.length ? mk(cat(d.paint)) : null;
+                F.nav = d.nav || [];
+            };
+            const mast = (x, y, z, h) => m3Box(x, y, z + h / 2, 0.012, 0.012, h / 2);
+            const bulb = (x, y, z, r) => m3Octa(x, y, z, r || 0.025);
+            const dish = (x, y, z, r) => {
+                const out = [];
+                for (let k = 0; k < 10; k++) {
+                    const a0 = Math.PI * 2 * k / 10, a1 = Math.PI * 2 * (k + 1) / 10;
+                    const p0 = [x + Math.cos(a0) * r, y + Math.sin(a0) * r, z + r * 0.3], p1 = [x + Math.cos(a1) * r, y + Math.sin(a1) * r, z + r * 0.3];
+                    out.push([[x, y, z], p0, p1], [[x, y, z - 0.01], p1, p0]);
+                }
+                return cat([out, m3Box(x, y, z + r * 0.35, 0.008, 0.008, r * 0.35)]);
+            };
+            const winSide = (x0, x1, y, z, n, h) => {
+                const out = [];
+                for (let k = 0; k < n; k++) {
+                    const x = x0 + (x1 - x0) * (k + 0.5) / n;
+                    out.push(m3Box(x, y, z, Math.min(0.025, (x1 - x0) / n * 0.3), 0.006, h || 0.014));
+                }
+                return cat(out);
+            };
+            const winFront = (x, y0, y1, z, n) => {
+                const out = [];
+                for (let k = 0; k < n; k++) out.push(m3Box(x, y0 + (y1 - y0) * (k + 0.5) / n, z, 0.006, Math.min(0.02, (y1 - y0) / n * 0.32), 0.012));
+                return cat(out);
+            };
+            const band = (x, hy, hz, w, cy, cz) => m3Box(x, cy || 0, cz || 0, w || 0.035, hy, hz);
+            const gun = (x, y, z, s, twin) => cat([m3Box(x, y, z, s, s * 0.85, s * 0.45), m3Box(x + s * 0.2, y, z + s * 0.5, s * 0.5, s * 0.5, s * 0.15)].concat((twin ? [-1, 1] : [0]).map(o => m3Box(x + s * 1.5, y + o * s * 0.3, z + s * 0.15, s * 1.0, s * 0.09, s * 0.09))));
+            const plate = (x, y, z, sx, sy, sz) => m3Box(x, y, z, sx, sy, sz);
             add('generic', m3ShipTris(), null, [[-0.95, 0, 0.05]]);
             add('scout', cat([m3PrismX(0.25, 0, 0, 1.6, 0.17, 6, 0), m3Wings(0.0, -0.55, -0.6, 0.12, 0.72)]), m3Box(0.35, 0, 0.13, 0.16, 0.06, 0.06), [[-0.6, 0, 0]]);
             add('frigate', cat([m3Wedge(-0.6, 1.15, 0.33, 0.18), m3PrismX(-0.1, 0.56, 0, 1.0, 0.12, 6), m3PrismX(-0.1, -0.56, 0, 1.0, 0.12, 6), m3Box(-0.1, 0.42, 0, 0.12, 0.16, 0.03), m3Box(-0.1, -0.42, 0, 0.12, 0.16, 0.03)]), m3Box(0.05, 0, 0.2, 0.2, 0.11, 0.08), [[-0.62, 0.56, 0], [-0.62, -0.56, 0]]);
@@ -26584,6 +26851,31 @@ const DEFENDERS_PER_POP=100;
             add('miner', cat([m3Box(0, 0, 0, 0.6, 0.3, 0.2), m3Box(0.4, 0.38, 0, 0.25, 0.05, 0.05), m3Box(0.4, -0.38, 0, 0.25, 0.05, 0.05)]), cat([m3PrismX(0.95, 0.38, 0, 0.7, 0.14, 6, 0), m3PrismX(0.95, -0.38, 0, 0.7, 0.14, 6, 0), m3Box(-0.1, 0, 0.24, 0.2, 0.12, 0.06)]), [[-0.65, 0.15, 0], [-0.65, -0.15, 0]]);
             add('tanker', cat([m3PrismX(-0.1, 0, 0, 1.5, 0.3, 8), m3Wedge(0.65, 1.05, 0.18, 0.15)]), cat([m3PrismX(-0.5, 0, 0, 0.06, 0.33, 8), m3PrismX(-0.1, 0, 0, 0.06, 0.33, 8), m3PrismX(0.3, 0, 0, 0.06, 0.33, 8)]), [[-0.9, 0, 0]]);
             add('minelayer', cat([m3Box(0.1, 0, 0, 0.6, 0.22, 0.15), m3Wedge(0.7, 1.1, 0.22, 0.15), m3Box(-0.62, 0, 0, 0.1, 0.3, 0.06)]), cat([m3Octa(-0.65, 0.22, 0.12, 0.12), m3Octa(-0.65, -0.22, 0.12, 0.12), m3Octa(-0.82, 0, 0.12, 0.12), m3Octa(-0.45, 0, 0.18, 0.1)]), [[-0.72, 0.12, -0.05], [-0.72, -0.12, -0.05]]);
+            deco('generic', { nav: [[-0.6, 0.95, 0, 0], [-0.6, -0.95, 0, 1]] });
+            deco('scout', { bs: 0.8, trim: [mast(-0.15, 0, 0.14, 0.32), dish(0.62, 0, 0.16, 0.09), plate(0.0, 0, -0.16, 0.35, 0.05, 0.02)], lights: [bulb(-0.15, 0, 0.48, 0.022), winFront(0.515, -0.05, 0.05, 0.14, 3)], paint: [band(0.8, 0.165, 0.165, 0.035), band(-0.35, 0.165, 0.165, 0.02)], nav: [[-0.58, 0.72, 0, 0], [-0.58, -0.72, 0, 1]] });
+            deco('frigate', { trim: [gun(0.35, 0, 0.1, 0.055), mast(-0.25, 0, 0.12, 0.3), plate(-0.1, 0.56, 0.12, 0.35, 0.03, 0.01), plate(-0.1, -0.56, 0.12, 0.35, 0.03, 0.01)], lights: [winFront(0.255, -0.15, 0.15, 0.22, 5), winSide(-0.1, 0.2, 0.115, 0.22, 4), winSide(-0.1, 0.2, -0.115, 0.22, 4), bulb(-0.25, 0, 0.43, 0.02), bulb(0.42, 0.56, 0, 0.05), bulb(0.42, -0.56, 0, 0.05)], paint: [band(0.25, 0.122, 0.122, 0.05, 0.56, 0), band(0.25, 0.122, 0.122, 0.05, -0.56, 0), band(-0.45, 0.28, 0.16, 0.03)], nav: [[0.15, 0.68, 0, 0], [0.15, -0.68, 0, 1]] });
+            deco('destroyer', { trim: [m3Box(-0.15 - 0.2, 0, 0.23, 0.1, 0.025, 0.025), mast(-0.55, 0.07, 0.39, 0.26), mast(-0.55, -0.07, 0.39, 0.18), dish(-0.3, 0, 0.16, 0.08), plate(0.1, 0.226, -0.06, 0.75, 0.006, 0.04), plate(0.1, -0.226, -0.06, 0.75, 0.006, 0.04), plate(0.3, 0, 0.152, 0.25, 0.12, 0.004)], lights: [winSide(-0.75, 0.75, 0.226, 0.06, 10), winSide(-0.75, 0.75, -0.226, 0.06, 10), winFront(-0.385, -0.08, 0.08, 0.3, 4), bulb(-0.55, 0.07, 0.66, 0.02)], paint: [band(0.55, 0.23, 0.16, 0.04), band(-0.8, 0.23, 0.16, 0.025), band(1.05, 0.17, 0.115, 0.025)], nav: [[-1.0, 0.55, 0, 0], [-1.0, -0.55, 0, 1]] });
+            deco('cruiser', { trim: [gun(0.75, 0, 0.32, 0.07, true), gun(0.35, 0, 0.32, 0.07, true), dish(-0.3, 0, 0.56, 0.12), mast(-0.45, 0.1, 0.47, 0.3), mast(-0.45, -0.1, 0.47, 0.22), plate(0.1, 0.306, -0.07, 0.85, 0.006, 0.05), plate(0.1, -0.306, -0.07, 0.85, 0.006, 0.05), plate(-0.75, 0.15, 0.183, 0.18, 0.1, 0.004), plate(-0.75, -0.15, 0.183, 0.18, 0.1, 0.004)], lights: [winSide(-0.9, 0.9, 0.306, 0.07, 14), winSide(-0.9, 0.9, -0.306, 0.07, 14), winSide(-0.9, 0.9, 0.306, -0.02, 14), winSide(-0.9, 0.9, -0.306, -0.02, 14), winFront(-0.045, -0.12, 0.12, 0.38, 5), bulb(-0.45, 0.1, 0.78, 0.022)], paint: [band(0.6, 0.31, 0.19, 0.05), band(-0.55, 0.31, 0.19, 0.03), band(1.2, 0.22, 0.13, 0.03)], nav: [[-0.95, 1.0, 0, 0], [-0.95, -1.0, 0, 1], [1.6, 0, 0.02, 2]] });
+            deco('battleship', { trim: [gun(-0.4, 0, 0.29, 0.08, true), gun(0.25, 0.47, 0.17, 0.05), gun(0.25, -0.47, 0.17, 0.05), dish(-0.1, 0, 0.64, 0.14), mast(-0.3, 0.12, 0.49, 0.32), mast(-0.3, -0.12, 0.49, 0.25), plate(0.3, 0, 0.222, 0.35, 0.2, 0.004), plate(-1.0, 0, 0.222, 0.2, 0.25, 0.004), plate(0.4, 0.386, -0.1, 1.0, 0.006, 0.06), plate(0.4, -0.386, -0.1, 1.0, 0.006, 0.06)], lights: [winSide(-0.8, 0.8, 0.575, 0.02, 16), winSide(-0.8, 0.8, -0.575, 0.02, 16), winSide(-1.2, 1.2, 0.386, 0.1, 20), winSide(-1.2, 1.2, -0.386, 0.1, 20), winFront(0.255, -0.15, 0.15, 0.4, 6), bulb(-0.3, 0.12, 0.83, 0.025)], paint: [band(1.0, 0.39, 0.23, 0.06), band(-1.1, 0.39, 0.23, 0.04), band(1.5, 0.27, 0.15, 0.035), band(0.2, 0.105, 0.125, 0.04, 0.47, 0), band(0.2, 0.105, 0.125, 0.04, -0.47, 0)], nav: [[-0.9, 0.58, 0, 0], [-0.9, -0.58, 0, 1], [1.9, 0, 0.02, 2]] });
+            const frDeco = (more) => ({ trim: [plate(0.9, 0, 0.13, 0.1, 0.1, 0.004), mast(0.62, 0, 0.2, 0.2)].concat(more || []), lights: [winSide(0.52, 0.78, 0.256, 0.1, 4), winSide(0.52, 0.78, -0.256, 0.1, 4), winFront(0.822, -0.15, 0.15, 0.12, 5), bulb(0.62, 0, 0.42, 0.02), bulb(-1.08, 0.17, 0.17, 0.025), bulb(-1.08, -0.17, 0.17, 0.025)], paint: cat([0.28, -0.12, -0.52].map(x => cat([band(x, 0.145, 0.155, 0.03, 0.17, 0), band(x, 0.145, 0.155, 0.03, -0.17, 0)]))).concat([]), nav: [[0.65, 0.27, 0.1, 0], [0.65, -0.27, 0.1, 1]] });
+            const fd = frDeco();
+            fd.paint = [fd.paint];
+            deco('freighter', fd);
+            const ad = frDeco([gun(0.55, 0.36, 0.13, 0.05), gun(0.55, -0.36, 0.13, 0.05)]);
+            ad.paint = [ad.paint];
+            ad.nav = [[-0.8, 0.95, 0, 0], [-0.8, -0.95, 0, 1]];
+            deco('armed', ad);
+            const ringWin = [], solar = [];
+            for (let k = 0; k < 14; k++) {
+                const a = Math.PI * 2 * (k + 0.5) / 14;
+                ringWin.push(m3Box(0, Math.cos(a) * 0.553, Math.sin(a) * 0.553, 0.05, 0.012 + Math.abs(Math.sin(a)) * 0.01, 0.012 + Math.abs(Math.cos(a)) * 0.01));
+            }
+            [-1, 1].forEach(sd => { for (let q = 0; q < 3; q++) solar.push(m3Box(-0.48, sd * (0.22 + q * 0.17), 0, 0.12, 0.075, 0.006)); solar.push(m3Box(-0.48, sd * 0.4, 0, 0.012, 0.3, 0.008)); });
+            deco('colony', { trim: [cat(solar), dish(0.55, 0, 0.1, 0.08)], lights: [cat(ringWin), winFront(1.12, -0.04, 0.04, 0, 2), bulb(1.13, 0, 0, 0.03)], paint: [band(0.6, 0.23, 0.23, 0.04), band(-0.8, 0.21, 0.21, 0.03)], nav: [[-0.48, 0.75, 0, 0], [-0.48, -0.75, 0, 1]] });
+            deco('bomber', { bs: 0.8, trim: [plate(0.05, 0, -0.06, 0.25, 0.14, 0.01), plate(0.4, 0.3, 0.06, 0.15, 0.02, 0.004), plate(0.4, -0.3, 0.06, 0.15, 0.02, 0.004)], lights: [m3Octa(0.5, 0, 0.13, 0.06), winSide(-0.1, 0.3, 0.45, -0.03, 3), winSide(-0.1, 0.3, -0.45, -0.03, 3)], paint: [m3Box(-0.3, 0.7, 0.01, 0.12, 0.03, 0.012), m3Box(-0.3, -0.7, 0.01, 0.12, 0.03, 0.012)], nav: [[-0.55, 1.15, 0, 0], [-0.55, -1.15, 0, 1]] });
+            deco('miner', { trim: [band(0.85, 0.15, 0.15, 0.03, 0.38, 0), band(0.85, 0.15, 0.15, 0.03, -0.38, 0), band(1.05, 0.1, 0.1, 0.025, 0.38, 0), band(1.05, 0.1, 0.1, 0.025, -0.38, 0), mast(-0.3, 0, 0.2, 0.25), plate(-0.3, 0.301, 0, 0.25, 0.006, 0.12), plate(-0.3, -0.301, 0, 0.25, 0.006, 0.12)], lights: [winFront(0.105, -0.08, 0.08, 0.26, 4), bulb(0.62, 0.25, 0.18, 0.04), bulb(0.62, -0.25, 0.18, 0.04), bulb(-0.3, 0, 0.47, 0.02)], paint: [m3Box(0.2, 0.38, 0, 0.04, 0.06, 0.06), m3Box(0.45, 0.38, 0, 0.04, 0.06, 0.06), m3Box(0.2, -0.38, 0, 0.04, 0.06, 0.06), m3Box(0.45, -0.38, 0, 0.04, 0.06, 0.06), band(0, 0.305, 0.205, 0.05)], nav: [[-0.6, 0.31, 0.15, 0], [-0.6, -0.31, 0.15, 1]] });
+            deco('tanker', { trim: [m3Box(-0.1, 0, 0.31, 0.7, 0.025, 0.025), m3Box(-0.1, 0.12, 0.28, 0.7, 0.018, 0.018), m3Box(-0.1, -0.12, 0.28, 0.7, 0.018, 0.018), m3Box(0.45, 0, 0.33, 0.03, 0.05, 0.03), m3Box(-0.65, 0, 0.33, 0.03, 0.05, 0.03), mast(0.7, 0, 0.15, 0.2)], lights: [winFront(1.0, -0.06, 0.06, 0.02, 3), winSide(0.7, 0.9, 0.12, 0.08, 2), winSide(0.7, 0.9, -0.12, 0.08, 2), bulb(0.7, 0, 0.37, 0.02)], paint: [m3PrismX(-0.3, 0, 0, 0.12, 0.305, 8), m3PrismX(0.1, 0, 0, 0.12, 0.305, 8)], nav: [[-0.75, 0.31, 0, 0], [-0.75, -0.31, 0, 1]] });
+            deco('minelayer', { trim: [plate(-0.62, 0, 0.065, 0.08, 0.28, 0.004), mast(0.3, 0, 0.15, 0.22), gun(0.45, 0, 0.13, 0.04)], lights: [winSide(-0.3, 0.5, 0.226, 0.04, 6), winSide(-0.3, 0.5, -0.226, 0.04, 6), bulb(0.3, 0, 0.38, 0.02), bulb(-0.65, 0.22, 0.25, 0.03), bulb(-0.65, -0.22, 0.25, 0.03)], paint: [band(0.15, 0.225, 0.155, 0.03), band(0.0, 0.225, 0.155, 0.03), band(-0.15, 0.225, 0.155, 0.03)], nav: [[-0.62, 0.31, 0, 0], [-0.62, -0.31, 0, 1]] });
             const spikes = [];
             for (let k = 0; k < 5; k++) {
                 const a = Math.PI * 2 * k / 5;
@@ -26591,6 +26883,13 @@ const DEFENDERS_PER_POP=100;
                 spikes.push([b1, b2, tip], [b2, b3, tip], [b3, b1, tip]);
             }
             add('alien', cat([m3Octa(0, 0, 0, 0.42), spikes]), m3Octa(0, 0, 0.32, 0.16), [[0, 0, 0.42]], { spin: 0.9, engineC: [0.75, 0.35, 1] });
+            const veins = [];
+            for (let k = 0; k < 5; k++) {
+                const a = Math.PI * 2 * k / 5;
+                veins.push(m3Octa(Math.cos(a) * 1.15, Math.sin(a) * 1.15, 0.05, 0.05), m3Octa(Math.cos(a) * 0.7, Math.sin(a) * 0.7, 0.1, 0.03));
+            }
+            deco('alien', { bs: 0.01, lights: veins, nav: [] });
+            fam.alien.lightC = [0.85, 0.45, 1];
             const disc = [], dome = [], fins = [];
             const DN = 18;
             for (let k = 0; k < DN; k++) {
@@ -26611,6 +26910,26 @@ const DEFENDERS_PER_POP=100;
                 gateParts.push.apply(gateParts, m3Box(Math.cos(a) * 1.0, Math.sin(a) * 1.0, 0, 0.16, 0.16, 0.22));
             }
             fam.gatePylons = { body: mk(gateParts), engines: [] };
+            const stRing = [], stSpoke = [], stLights = [], stPanels = [];
+            const SN = 16, SR = 0.78, SW = 0.09;
+            for (let k = 0; k < SN; k++) {
+                const a0 = Math.PI * 2 * k / SN, a1 = Math.PI * 2 * (k + 1) / SN;
+                const P = (a, r, z) => [Math.cos(a) * r, Math.sin(a) * r, z];
+                stRing.push([P(a0, SR, -SW), P(a1, SR, -SW), P(a1, SR, SW)], [P(a0, SR, -SW), P(a1, SR, SW), P(a0, SR, SW)]);
+                stRing.push([P(a0, SR - 0.14, -SW), P(a1, SR - 0.14, SW), P(a1, SR - 0.14, -SW)], [P(a0, SR - 0.14, -SW), P(a0, SR - 0.14, SW), P(a1, SR - 0.14, SW)]);
+                stRing.push([P(a0, SR, SW), P(a1, SR, SW), P(a1, SR - 0.14, SW)], [P(a0, SR, SW), P(a1, SR - 0.14, SW), P(a0, SR - 0.14, SW)]);
+                stRing.push([P(a0, SR, -SW), P(a1, SR - 0.14, -SW), P(a1, SR, -SW)], [P(a0, SR, -SW), P(a0, SR - 0.14, -SW), P(a1, SR - 0.14, -SW)]);
+                const am = (a0 + a1) / 2;
+                stLights.push(m3Box(Math.cos(am) * (SR + 0.004), Math.sin(am) * (SR + 0.004), 0.03, 0.02 + Math.abs(Math.sin(am)) * 0.02, 0.02 + Math.abs(Math.cos(am)) * 0.02, 0.018));
+            }
+            for (let k = 0; k < 4; k++) {
+                const a = Math.PI / 2 * k;
+                stSpoke.push(m3Box(Math.cos(a) * 0.45, Math.sin(a) * 0.45, 0, Math.abs(Math.cos(a)) * 0.22 + 0.022, Math.abs(Math.sin(a)) * 0.22 + 0.022, 0.03));
+            }
+            [-1, 1].forEach(sd => { stPanels.push(m3Box(0, 0, sd * 0.5, 0.025, 0.025, 0.18)); for (let q = 0; q < 2; q++) stPanels.push(m3Box(sd * (0.25 + q * 0.3), 0, sd * 0.68, 0.13, 0.11, 0.008)); });
+            const stHub = cat([m3PrismX(0, 0, 0, 0.5, 0.2, 10).map(t => t.map(v => [v[1], v[2], v[0]])), m3PrismX(0, 0, 0, 0.18, 0.28, 10).map(t => t.map(v => [v[1], v[2], v[0]]))]);
+            stLights.push(m3Octa(0, 0, 0.92, 0.035), m3Box(0, 0.285, 0, 0.05, 0.006, 0.03), m3Box(0, -0.285, 0, 0.05, 0.006, 0.03));
+            fam.station = { body: mk(cat([stRing, stHub])), detail: mk(cat([cat(stSpoke), m3Box(0, 0, 0.75, 0.012, 0.012, 0.17)])), trim: mk(cat(stPanels)), lights: mk(cat(stLights)), engines: [] };
             return fam;
         }
 
@@ -26620,8 +26939,8 @@ const DEFENDERS_PER_POP=100;
             let gl = null;
             try { gl = cv.getContext('webgl', { alpha: true, antialias: true, premultipliedAlpha: false }) || cv.getContext('experimental-webgl'); } catch (err) { gl = null; }
             if (!gl) return false;
-            const vs = 'attribute vec3 aPos; attribute vec3 aNrm; attribute vec2 aUv; uniform mat4 uProj; uniform mat4 uModel; uniform mat3 uNrmM; varying vec3 vN; varying vec2 vUv; varying vec3 vP; void main() { vec4 w = uModel * vec4(aPos, 1.0); vP = w.xyz; vN = normalize(uNrmM * aNrm); vUv = aUv; gl_Position = uProj * w; }';
-            const fs = 'precision mediump float; varying vec3 vN; varying vec2 vUv; varying vec3 vP; uniform sampler2D uTex; uniform float uUseTex; uniform vec3 uColor; uniform vec3 uEmit; uniform vec3 uLight; uniform float uRim; uniform float uSpec; uniform float uFlat; uniform vec3 uRimC; void main() { if (uFlat > 0.5) { gl_FragColor = texture2D(uTex, vUv); return; } vec3 n = normalize(vN); if (n.z < 0.0) n = -n; vec3 base = uUseTex > 0.5 ? texture2D(uTex, vUv).rgb : uColor; float d = max(dot(n, uLight), 0.0); float rim = pow(1.0 - max(n.z, 0.0), 2.5) * uRim; vec3 h = normalize(uLight + vec3(0.0, 0.0, 1.0)); float sp = pow(max(dot(n, h), 0.0), 24.0) * uSpec; vec3 c = base * (0.22 + 0.9 * d) + uRimC * rim + vec3(sp) + uEmit; gl_FragColor = vec4(c, 1.0); }';
+            const vs = 'attribute vec3 aPos; attribute vec3 aNrm; attribute vec2 aUv; uniform mat4 uProj; uniform mat4 uModel; uniform mat3 uNrmM; varying vec3 vN; varying vec2 vUv; varying vec3 vP; varying vec3 vL; varying vec3 vLN; void main() { vec4 w = uModel * vec4(aPos, 1.0); vP = w.xyz; vN = normalize(uNrmM * aNrm); vUv = aUv; vL = aPos; vLN = aNrm; gl_Position = uProj * w; }';
+            const fs = 'precision mediump float; varying vec3 vN; varying vec2 vUv; varying vec3 vP; varying vec3 vL; varying vec3 vLN; uniform sampler2D uTex; uniform float uUseTex; uniform vec3 uColor; uniform vec3 uEmit; uniform vec3 uLight; uniform float uRim; uniform float uSpec; uniform float uFlat; uniform vec3 uRimC; uniform float uPanel; uniform float uAlpha; float hsh(vec3 q) { return fract(sin(dot(q, vec3(12.9898, 78.233, 37.719))) * 43758.5453); } void main() { if (uFlat > 0.5) { gl_FragColor = texture2D(uTex, vUv); return; } if (uAlpha > 0.0) { gl_FragColor = vec4(uEmit * uAlpha, 1.0); return; } if (uAlpha < 0.0) { vec3 an = normalize(vN); float fr = pow(1.0 - abs(an.z), 2.2); gl_FragColor = vec4(uEmit * (-uAlpha) * fr, 1.0); return; } vec3 n = normalize(vN); if (n.z < 0.0) n = -n; vec3 base = uUseTex > 0.5 ? texture2D(uTex, vUv).rgb : uColor; if (uPanel > 0.0) { vec3 q = vL * uPanel; vec3 cell = floor(q); vec3 f = abs(fract(q) - 0.5) * 2.0; vec3 w = 1.0 - abs(normalize(vLN)); float ln = max(max(smoothstep(0.86, 0.97, f.x) * w.x, smoothstep(0.86, 0.97, f.y) * w.y), smoothstep(0.86, 0.97, f.z) * w.z); base *= (0.92 + 0.16 * hsh(cell)) * (1.0 - 0.26 * ln); } float d = max(dot(n, uLight), 0.0); float rim = pow(1.0 - max(n.z, 0.0), 2.5) * uRim; vec3 h = normalize(uLight + vec3(0.0, 0.0, 1.0)); float sp = pow(max(dot(n, h), 0.0), 24.0 + uPanel * 4.0) * uSpec; vec3 amb = mix(vec3(0.14, 0.13, 0.16), vec3(0.2, 0.23, 0.3), n.z); vec3 c = base * (amb + 0.88 * d) + uRimC * rim + vec3(sp) + uEmit; gl_FragColor = vec4(c, 1.0); }';
             const prog = gl.createProgram();
             gl.attachShader(prog, m3Shader(gl, gl.VERTEX_SHADER, vs));
             gl.attachShader(prog, m3Shader(gl, gl.FRAGMENT_SHADER, fs));
@@ -26645,7 +26964,7 @@ const DEFENDERS_PER_POP=100;
             m3 = {
                 gl: gl, cv: cv, prog: prog,
                 a: { pos: gl.getAttribLocation(prog, 'aPos'), nrm: gl.getAttribLocation(prog, 'aNrm'), uv: gl.getAttribLocation(prog, 'aUv') },
-                u: { proj: loc('uProj'), model: loc('uModel'), nrmM: loc('uNrmM'), tex: loc('uTex'), useTex: loc('uUseTex'), color: loc('uColor'), emit: loc('uEmit'), light: loc('uLight'), rim: loc('uRim'), spec: loc('uSpec'), flat: loc('uFlat'), rimC: loc('uRimC') },
+                u: { proj: loc('uProj'), model: loc('uModel'), nrmM: loc('uNrmM'), tex: loc('uTex'), useTex: loc('uUseTex'), color: loc('uColor'), emit: loc('uEmit'), light: loc('uLight'), rim: loc('uRim'), spec: loc('uSpec'), flat: loc('uFlat'), rimC: loc('uRimC'), panel: loc('uPanel'), alpha: loc('uAlpha') },
                 quad: m3Mesh(gl, [0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0], [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1], [0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1]),
                 underTex: null,
                 sphere: m3Mesh(gl, sp[0], sp[1], sp[2]),
@@ -26654,6 +26973,7 @@ const DEFENDERS_PER_POP=100;
                 torusDash: m3Mesh(gl, dashPos, dashNrm),
                 ship: m3Mesh(gl, shp[0], shp[1]),
                 oct: m3Mesh(gl, oct[0], oct[1]),
+                plume: (() => { const d = m3FlatData(m3PrismX(0, 0, 0, 1, 0, 8, 1)); return m3Mesh(gl, d[0], d[1]); })(),
                 tex: new Map(),
                 texFor: null,
                 models: m3BuildModels(gl),
@@ -26753,6 +27073,8 @@ const DEFENDERS_PER_POP=100;
             const rc = opt.rimC || [0.55, 0.7, 1.0];
             gl.uniform3f(m3.u.rimC, rc[0], rc[1], rc[2]);
             gl.uniform1f(m3.u.spec, opt.spec || 0);
+            gl.uniform1f(m3.u.panel, opt.panel || 0);
+            gl.uniform1f(m3.u.alpha, opt.add || 0);
             const bind = (buf, at, n) => {
                 if (at < 0) return;
                 gl.bindBuffer(gl.ARRAY_BUFFER, buf);
@@ -26848,7 +27170,17 @@ const DEFENDERS_PER_POP=100;
                     const px = Math.cos(a) * R, pz = Math.sin(a) * R;
                     const ry = -Math.sin(TX) * pz, rz = Math.cos(TX) * pz;
                     const ox = px * Math.cos(TZ) - ry * Math.sin(TZ), oy = px * Math.sin(TZ) + ry * Math.cos(TZ);
-                    m3Draw(m3.oct, m3Model(q.x + ox, q.y + oy, rz / m3Zk, Math.max(2.5, q.r * 0.26), t * 1.3, 0.6, t), { color: [1, 0.84, 0.2], emit: [0.35, 0.28, 0.05], rim: 0.2, spec: 0.4 });
+                    const ssc = Math.max(2.5, q.r * 0.3);
+                    if (ssc < 6) m3Draw(m3.oct, m3Model(q.x + ox, q.y + oy, rz / m3Zk, ssc * 0.85, t * 1.3, 0.6, t), { color: [1, 0.84, 0.2], emit: [0.35, 0.28, 0.05], rim: 0.2, spec: 0.4 });
+                    else {
+                        const st = m3.models.station;
+                        const SM = m3Model(q.x + ox, q.y + oy, rz / m3Zk, ssc, t * 0.5 + q.i, 0.95, 0.25);
+                        m3Draw(st.body, SM, { color: [0.62, 0.6, 0.55], emit: [0.06, 0.05, 0.02], rim: 0.3, spec: 0.5, panel: ssc > 14 ? 6 : 0 });
+                        m3Draw(st.detail, SM, { color: [0.95, 0.78, 0.25], emit: [0.25, 0.18, 0.03], rim: 0.2, spec: 0.6 });
+                        m3Draw(st.trim, SM, { color: [0.12, 0.16, 0.3], emit: [0.02, 0.04, 0.1], rim: 0.2, spec: 1.2 });
+                        const lp = 0.75 + 0.25 * Math.sin(t * 2 + q.i);
+                        m3Draw(st.lights, SM, { color: [1, 0.9, 0.6], emit: [lp, lp * 0.88, lp * 0.6], rim: 0 });
+                    }
                 }
             });
             m3Objects.forEach((o, k) => {
@@ -26906,6 +27238,17 @@ const DEFENDERS_PER_POP=100;
                 m3Draw(m3.models.gatePylons.body, m3Model(gx, gy, 60, R * 0.65, t * 0.5, 0.32, 0), { color: [0.55, 0.6, 0.7], emit: [0.05, 0.1, 0.15], rim: 0.2, spec: 0.6 });
                 m3Draw(m3.sphereLo, m3Model(gx, gy, 55, R * 0.5, 0, 0, 0), { color: [0.3, 0.9, 1], emit: [0.2 * pulse, 0.85 * pulse, pulse], rim: 0.9, rimC: [0.6, 1, 1] });
             });
+            gl.enable(gl.BLEND);
+            gl.blendFunc(gl.ONE, gl.ONE);
+            gl.depthMask(false);
+            m3Planets.forEach(q => {
+                if (q.r < 7 || q.x < -q.r * 3 || q.y < -q.r * 3 || q.x > W + q.r * 3 || q.y > H + q.r * 3) return;
+                const pc = m3Hex(q.color);
+                const hc = q.owned || q.known ? [0.32 + pc[0] * 0.12, 0.5 + pc[1] * 0.12, 0.95] : [0.32, 0.38, 0.5];
+                m3Draw(q.r > 24 ? m3.sphere : m3.sphereLo, m3Model(q.x, q.y, 0, q.r * 1.07, 0, 0, 0), { add: -(q.owned ? 0.6 : q.known ? 0.45 : 0.3), emit: hc, color: [0, 0, 0] });
+            });
+            gl.depthMask(true);
+            gl.disable(gl.BLEND);
             m3Fleets.forEach(f => {
                 if (f.f && f.st) {
                     const one = {};
@@ -26917,20 +27260,34 @@ const DEFENDERS_PER_POP=100;
                 }
             });
             m3Fleets.forEach(f => {
-                let best = null, bd = Infinity;
-                const clear = q => q.r + m3ShipScale(f) * 1.5 + 1.5;
-                m3Planets.forEach(q => {
-                    const d = Math.hypot(f.x - q.x, f.y - q.y);
-                    if (d < clear(q) && d - q.r < bd) { bd = d - q.r; best = q; }
-                });
-                if (!best) return;
-                let dx = f.x - best.x, dy = f.y - best.y;
-                if (Math.hypot(dx, dy) < 0.5) { dx = 0.7; dy = -0.7; }
-                const l = Math.hypot(dx, dy);
-                const cl = clear(best);
-                f.x = best.x + dx / l * cl;
-                f.y = best.y + dy / l * cl;
+                if (f.f && f.st) f.rx = f.ry = undefined;
+                if (f.rx === undefined) { f.rx = f.x; f.ry = f.y; }
+                let nx = f.rx, ny = f.ry;
+                const sh = m3ShipScale(f) * 1.5 + 1.5;
+                for (let pass = 0; pass < 8; pass++) {
+                    let moved = false;
+                    for (let n = 0; n < m3Planets.length; n++) {
+                        const q = m3Planets[n];
+                        const cl = q.r + sh;
+                        let dx = nx - q.x, dy = ny - q.y;
+                        if (Math.abs(dx) >= cl || Math.abs(dy) >= cl) continue;
+                        let d = Math.hypot(dx, dy);
+                        if (d >= cl - 0.01) continue;
+                        if (d < 0.5) { dx = 0.7; dy = -0.7; d = Math.hypot(dx, dy); }
+                        nx = q.x + dx / d * cl;
+                        ny = q.y + dy / d * cl;
+                        moved = true;
+                    }
+                    if (!moved) break;
+                }
+                f.x = nx;
+                f.y = ny;
             });
+            m3FleetHits = {};
+            m3Fleets.forEach(f => {
+                if (f.own !== undefined) m3FleetHits[f.own] = { x: f.x, y: f.y, r: m3ShipScale(f) * 1.6 + 4 };
+            });
+            const plumes = [];
             m3Fleets.forEach((f, k) => {
                 const fam = m3.models[M3_HULL_FAMILY[f.hull] || 'generic'] || m3.models.generic;
                 const sc = m3ShipScale(f);
@@ -26938,8 +27295,31 @@ const DEFENDERS_PER_POP=100;
                 const c = m3Hex(f.color);
                 const glow = f.sel ? 0.35 + 0.25 * Math.sin(t * 5) : 0;
                 const M = m3Model(f.x, f.y, 400, sc, f.angle + (fam.spin ? t * fam.spin : 0), fam.spin ? 0.3 : bank, 0);
-                m3Draw(fam.body, M, { color: c, emit: [glow + c[0] * 0.15, glow + c[1] * 0.15, glow + c[2] * 0.15], rim: 0.5, spec: 0.5 });
-                if (fam.detail) m3Draw(fam.detail, M, { color: [0.62 + c[0] * 0.15, 0.65 + c[1] * 0.15, 0.7 + c[2] * 0.15], emit: [glow, glow, glow], rim: 0.3, spec: 0.7 });
+                const fine = sc >= 11;
+                const panel = sc >= 32 ? 5 : 0;
+                const hk = Math.max(0, Math.min(1, (sc - 11) / 24));
+                const hull = [0, 1, 2].map(i => c[i] + ((0.3 + (i === 2 ? 0.04 : i * 0.01)) + c[i] * 0.32 - c[i]) * hk);
+                m3Draw(fam.body, M, { color: fine ? hull : c, emit: [glow + c[0] * 0.08, glow + c[1] * 0.08, glow + c[2] * 0.08], rim: fine ? 0.3 : 0.45, rimC: [0.45 + c[0] * 0.4, 0.55 + c[1] * 0.4, 0.75 + c[2] * 0.3], spec: fine ? 0.2 : 0.5, panel: panel });
+                if (fam.detail) m3Draw(fam.detail, M, { color: [0.46 + c[0] * 0.08, 0.48 + c[1] * 0.08, 0.52 + c[2] * 0.08], emit: [glow, glow, glow], rim: 0.25, spec: 0.3, panel: panel ? panel * 1.6 : 0 });
+                if (fine) {
+                    if (fam.paint) m3Draw(fam.paint, M, { color: c, emit: [glow + c[0] * 0.18, glow + c[1] * 0.18, glow + c[2] * 0.18], rim: 0.35, spec: 0.8 });
+                    if (fam.trim) m3Draw(fam.trim, M, { color: [0.2, 0.21, 0.24], emit: [glow * 0.5, glow * 0.5, glow * 0.5], rim: 0.25, spec: 1.1 });
+                    if (fam.lights) {
+                        const lc = fam.lightC || [1, 0.85, 0.55];
+                        const lp = 0.85 + 0.15 * Math.sin(t * 2.3 + k);
+                        m3Draw(fam.lights, M, { color: lc, emit: [lc[0] * lp, lc[1] * lp, lc[2] * lp], rim: 0, spec: 0 });
+                    }
+                    const m = M.m;
+                    (fam.nav || []).forEach((nv, i) => {
+                        const on = (Math.sin(t * 3.2 + k * 0.7 + (nv[3] === 2 ? 1.6 : 0)) > 0.55);
+                        if (!on) return;
+                        const nc = nv[3] === 0 ? [1, 0.15, 0.1] : nv[3] === 1 ? [0.15, 1, 0.3] : [1, 1, 1];
+                        const wx = m[0] * nv[0] + m[4] * nv[1] + m[8] * nv[2] + m[12];
+                        const wy = m[1] * nv[0] + m[5] * nv[1] + m[9] * nv[2] + m[13];
+                        const wz = m[2] * nv[0] + m[6] * nv[1] + m[10] * nv[2] + m[14];
+                        m3Draw(m3.sphereLo, m3Model(wx, wy, wz / m3Zk + 1, Math.max(0.9, sc * 0.035), 0, 0, 0), { color: nc, emit: nc, rim: 0 });
+                    });
+                }
                 const fl = 0.8 + 0.2 * Math.sin(t * 12 + k);
                 const ec = fam.engineC || [1, 0.55, 0.15];
                 fam.engines.forEach(e => {
@@ -26947,9 +27327,30 @@ const DEFENDERS_PER_POP=100;
                     const wx = m[0] * e[0] + m[4] * e[1] + m[8] * e[2] + m[12];
                     const wy = m[1] * e[0] + m[5] * e[1] + m[9] * e[2] + m[13];
                     const wz = m[2] * e[0] + m[6] * e[1] + m[10] * e[2] + m[14];
-                    m3Draw(m3.sphereLo, m3Model(wx, wy, wz / m3Zk + 1, sc * 0.16 * fl, 0, 0, 0), { color: ec, emit: [ec[0], ec[1] * 0.9, ec[2] * 0.7], rim: 0 });
+                    m3Draw(m3.sphereLo, m3Model(wx, wy, wz / m3Zk + 1, sc * (fine ? 0.1 : 0.16) * fl, 0, 0, 0), { color: ec, emit: [1, 0.95, 0.85], rim: 0 });
+                    if (fine && !fam.spin) plumes.push({ x: wx, y: wy, z: wz, a: f.angle, sc: sc, fl: fl, ec: ec, bank: bank });
                 });
             });
+            if (plumes.length) {
+                gl.enable(gl.BLEND);
+                gl.blendFunc(gl.ONE, gl.ONE);
+                gl.depthMask(false);
+                plumes.forEach((q, i) => {
+                    const flick = 0.85 + 0.15 * Math.sin(t * 23 + i * 1.7);
+                    const len = q.sc * 0.55 * q.fl * flick;
+                    [[1, 0.42, 0.55], [0.55, 0.22, 1]].forEach(L => {
+                        const dx = -Math.cos(q.a) * len * 0.5 * L[0], dy = -Math.sin(q.a) * len * 0.5 * L[0];
+                        const M2 = m3Model(q.x + dx, q.y + dy, q.z / m3Zk, 1, q.a, q.bank, 0);
+                        const mm = M2.m;
+                        const sx = len * L[0], sr = q.sc * 0.1 * L[1] / 0.42;
+                        for (let r = 0; r < 3; r++) { mm[r] *= sx; mm[4 + r] *= sr; mm[8 + r] *= sr; }
+                        const k2 = L[2] * 0.6;
+                        m3Draw(m3.plume, M2, { add: k2, emit: [q.ec[0], q.ec[1] * 0.85, q.ec[2] * 0.6 + 0.15], color: [0, 0, 0] });
+                    });
+                });
+                gl.depthMask(true);
+                gl.disable(gl.BLEND);
+            }
             if (C) {
                 if (!m3.overTex) m3.overTex = gl.createTexture();
                 gl.bindTexture(gl.TEXTURE_2D, m3.overTex);
@@ -38305,7 +38706,7 @@ const DEFENDERS_PER_POP=100;
                 { title: 'The Year Report', noResume: true, target: '#turn-report-body', label: 'Report', say: "The report tells you the Hauler arrived and how much it unloaded." },
                 { title: 'Continue', noResume: true, target: '#btn-close-turn-report', label: 'Continue', say: "Close the report.", done: () => !tutModalOpen('turn-report-modal') },
                 { title: 'Delivered', enter: () => { tutPick('B'); tutZoom([tutHome(), tutTag('B')]); }, target: '#summary-ore-box', label: 'Ore', say: () => "<b>" + tutPName('B') + "</b> now holds the extra Ironium, ready for factories, mines and ships. Hauling by hand like this is how you feed young colonies." },
-                { title: 'More ways to move cargo', target: '#fleet-panel', label: 'Fleets', say: "A few more tricks. <b>Fleet Transfer</b> moves fuel and cargo between two fleets in the same spot. The <b>Task Here</b> and <b>Waypoints</b> windows let a freighter run a loop for you: load at one world, unload at another, year after year. Freighters can also carry <b>colonists</b> to seed new worlds, but only from and to your own planets. At an <b>unclaimed</b> planet you may move only ore." },
+                { title: 'More ways to move cargo', target: '#fleet-panel', label: 'Fleets', say: "A few more tricks. <b>Fleet Transfer</b> moves fuel and cargo between two fleets in the same spot. The <b>Orders at</b> and <b>Waypoints</b> windows let a freighter run a loop for you: load at one world, unload at another, year after year. Freighters can also carry <b>colonists</b> to seed new worlds, but only from and to your own planets. At an <b>unclaimed</b> planet you may move only ore." },
                 { title: 'Lesson done', say: "Cargo moves ore and colonists where they are needed. Next lesson: the Mystery Trader." }
             ] },
             { id: 'trader', title: 'The Mystery Trader', scenario: 'trader', onResume: () => tutZoomTrader(), steps: [
@@ -38351,7 +38752,7 @@ const DEFENDERS_PER_POP=100;
                 { title: 'The grand tour', target: '.dash-toolbar', label: 'Menus', say: "This lesson walks through every menu and window you have not met yet. Nothing here changes your game. Each menu is color coded: green <b>Planet</b>, blue <b>Fleet</b>, yellow <b>Management</b> and red <b>Settings</b>, plus <b>Skip Years</b> and <b>End Turn</b> on the right." }
             ].concat(
                 tutMenuTour('btn-manufacturing-toggle', 'manufacturing-dropdown', 'Planet', "<b>Structures</b> queues mines, factories, defenses, stations, stargates and mass drivers. <b>Ship Construction</b> queues ships and appears once the planet has a starbase with a dock. <b>Space Station</b> upgrades or salvages the orbital installation. <b>Fire Mineral Packet</b> appears on a planet with a mass driver."),
-                tutMenuTour('btn-fleet-toggle', 'fleet-dropdown', 'Fleet', "<b>Manage Waypoints</b> opens the route window; <b>Do Task Here</b> gives an order without moving. <b>Plot Course Mode</b> turns map clicks into waypoints, and the two ring buttons show or hide fuel range and scanner circles. <b>Merge Fleets</b> and order buttons such as Colonize, Cargo, Bombing and Lay Mines appear when they can be used at the selected planet."),
+                tutMenuTour('btn-fleet-toggle', 'fleet-dropdown', 'Fleet', "<b>Manage Waypoints</b> opens the route window; <b>Orders at</b> (the planet's name) gives an order without moving. <b>Plot Course Mode</b> turns map clicks into waypoints, and the two ring buttons show or hide fuel range and scanner circles. <b>Merge Fleets</b> and order buttons such as Colonize, Cargo, Bombing and Lay Mines appear when they can be used at the selected planet."),
                 tutMenuTour('btn-management-toggle', 'management-dropdown', 'Management', "<b>Economy</b> and <b>Research</b> set budgets and fields. <b>Autobuild</b> holds your build rules. <b>Fleet Roster</b>, <b>Ship Designer</b>, <b>Space Station Design</b> and <b>Technology Browser</b> manage ships and parts. <b>Battle Reports</b> and <b>Minefields</b> appear when you know of any. <b>Diplomacy</b> sets relations with other empires. <b>Planet Roster</b>, <b>Measure Distance</b>, <b>Scoreboard</b> and <b>Game Stats</b> show the state of the galaxy."),
                 tutMenuTour('btn-settings-toggle', 'settings-dropdown', 'Settings', "<b>Save File</b> and <b>Load File</b> keep your games. <b>Missing-Order Warning</b> toggles the reminder before End Turn. <b>UI</b> adjusts transparency and text size. <b>Export Event Log</b> saves your log. <b>Help</b> and <b>Updates</b> are the manual and the change list. <b>Abandon Game</b> returns to the title screen. In multiplayer games more buttons appear here: emails, inviting late players and skipping your turns.")
             ).concat(
