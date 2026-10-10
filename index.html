@@ -781,6 +781,25 @@
         #map-3d-btn { position: absolute; left: 8px; top: 8px; z-index: 5; min-width: 38px; height: 28px; padding: 0 8px; font-size: 13px; font-weight: bold; letter-spacing: 0.05em; cursor: pointer; color: #9fffd0; background: rgba(10, 30, 40, 0.85); border: 1px solid #1f8a55; border-radius: 4px; box-shadow: 0 0 8px rgba(57, 255, 156, 0.25); }
         #map-3d-btn:hover { border-color: #39ff9c; }
         body.hide-3d-btn #map-3d-btn { display: none !important; }
+        #map-z-btn { position: absolute; left: 56px; top: 8px; z-index: 5; min-width: 30px; height: 28px; padding: 0 8px; font-size: 13px; font-weight: bold; cursor: pointer; color: #9fd8ff; background: rgba(10, 30, 40, 0.85); border: 1px solid #1f5a8a; border-radius: 4px; }
+        #map-z-btn.on { color: #ffd27a; border-color: #b8862a; box-shadow: 0 0 8px rgba(255, 190, 80, 0.3); }
+        body.hide-3d-btn #map-z-btn { left: 8px; }
+        #z-follow-bar { position: absolute; left: 94px; top: 8px; right: 8px; z-index: 5; display: flex; gap: 4px; flex-wrap: wrap; pointer-events: none; }
+        body.hide-3d-btn #z-follow-bar { left: 46px; }
+        #z-follow-bar button { pointer-events: auto; height: 28px; padding: 0 8px; font-size: 12px; font-weight: bold; cursor: pointer; color: #9fd8ff; background: rgba(10, 30, 40, 0.85); border: 1px solid #1f5a8a; border-radius: 4px; }
+        #z-follow-bar button.on { color: #ffd27a; border-color: #b8862a; }
+        #z-hud { position: absolute; inset: 0; z-index: 4; pointer-events: none; overflow: hidden; background: radial-gradient(ellipse 70% 65% at 50% 42%, rgba(0, 0, 0, 0) 62%, rgba(10, 20, 30, 0.35) 100%); }
+        #z-hud .z-pit { position: absolute; inset: 0; width: 100%; height: 100%; }
+        #z-hud .z-reticle { position: absolute; left: 50%; top: 42%; width: 26px; height: 26px; margin: -13px 0 0 -13px; border: 1px solid rgba(110, 200, 255, 0.45); border-radius: 50%; }
+        #z-hud .z-reticle::before, #z-hud .z-reticle::after { content: ''; position: absolute; background: rgba(110, 200, 255, 0.5); }
+        #z-hud .z-reticle::before { left: 12px; top: -8px; width: 1px; height: 40px; }
+        #z-hud .z-reticle::after { top: 12px; left: -8px; height: 1px; width: 40px; }
+        @media (max-width: 600px) { #z-hud-text { bottom: 44px !important; } }
+        #z-labels { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+        #z-hud-text { position: absolute; left: 50%; bottom: 3%; transform: translateX(-50%); padding: 4px 12px; border: 1px solid rgba(110, 200, 255, 0.5); border-radius: 4px; background: rgba(5, 15, 25, 0.75); color: #9fe8ff; font: 12px monospace; white-space: nowrap; max-width: 92%; overflow: hidden; text-overflow: ellipsis; }
+        #galaxy-canvas.z-tilted { opacity: 0; }
+        #galaxy-3d.z-tilted { -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), #000 32%); mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), #000 32%); }
+        #galaxy-3d.z-tilted.z-under { -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.1), #000 32%); mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.1), #000 32%); }
         #map-3d-btn.on { color: #ffd27a; border-color: #b8862a; box-shadow: 0 0 8px rgba(255, 190, 80, 0.3); }
         #galaxy-canvas:active {
             cursor: grabbing;
@@ -817,6 +836,16 @@
         .hab-fill-temp { background: #ff4500; }
         .hab-fill-rad { background: #32cd32; }
 
+        :root { --z-all: 1; --z-dd: 1; --z-pop: 1; --z-bar: 1; }
+        .ts-row { display: grid; grid-template-columns: minmax(90px, 1fr) 2fr 44px; gap: 8px; align-items: center; margin-top: 6px; font-size: 12px; color: #ccc; }
+        .ts-row input { width: 100%; }
+        .ts-row span { text-align: right; color: #9fe; }
+        .ui-card-wide { grid-column: 1 / -1; }
+        body.ui-zoomed .modal-content, body.ui-zoomed #view-research .container-box, body.ui-zoomed #view-economy .container-box { zoom: var(--z-pop); }
+        body.ui-zoomed .modal-content { max-height: calc(88vh / var(--z-pop)); }
+        body.ui-zoomed .dropdown-content > *, body.ui-zoomed .gs-menu > *, body.ui-zoomed select, body.ui-zoomed .gs-btn { zoom: var(--z-dd); }
+        body.ui-zoomed .dash-footer { zoom: var(--z-bar); }
+        body.ui-zoomed .dash-toolbar, body.ui-zoomed .retro-panel:not(.map-panel), body.ui-zoomed .map-panel > .retro-header { zoom: var(--z-all); }
         .dash-footer {
             background-color: rgba(19, 17, 26, var(--pa));
             border: 1px solid #332244;
@@ -1408,6 +1437,11 @@
             cursor: pointer;
             color: #ddd;
         }
+
+        .gc-wrap { position: relative; margin-bottom: 8px; }
+        .gc-wrap .game-card { margin-bottom: 0; padding-right: 116px; }
+        .gc-lobby { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); padding: 4px 9px; font-size: 11px; color: #e0c8ff; background: rgba(40, 24, 60, 0.9); border: 1px solid #6a4a8a; border-radius: 4px; cursor: pointer; }
+        .gc-lobby:hover { background: rgba(70, 40, 100, 0.95); }
 
         .game-card:hover {
             background: rgba(34, 34, 44, var(--pa));
@@ -2358,7 +2392,7 @@
             font-size: 14px;
             box-sizing: border-box;
         }
-        #doc-count { font-size: 11px; color: #8fe6d0; }
+        #doc-count { display: none; }
         .doc-layout { flex: 1; min-height: 0; display: flex; gap: 12px; }
         #doc-toc {
             flex: 0 0 220px;
@@ -2391,6 +2425,12 @@
             #doc-toc { flex: 0 0 auto; max-height: 30%; }
             #doc-contents-btn { display: inline-block; }
             .doc-box { height: 92vh; }
+            .doc-head h2 { flex: 1 1 100%; }
+            .doc-head .tool-icon { flex: 1 1 0; min-width: 0; white-space: nowrap; }
+            .doc-tools input[type="search"] { flex: 1 1 90px; min-width: 0; width: 0; font-size: 13px; padding: 6px 8px; }
+            .doc-tools .tool-icon { flex: none; padding-left: 8px; padding-right: 8px; }
+            #doc-contents-btn { order: 1; }
+            #doc-expand, #doc-collapse { order: 2; flex: 1 1 calc(50% - 3px); }
         }
             .sd-layout { display: grid; grid-template-columns: 210px 1fr; gap: 12px; }
         @media (max-width: 760px) { .sd-layout { grid-template-columns: 1fr; } }
@@ -2651,7 +2691,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 0.182.0 (Updated: October 10, 2026 3:45 PM)</div>
+            <div class="version-text">Version 0.188.0 (Updated: October 10, 2026 8:30 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -3347,11 +3387,19 @@
 
             <div class="map-col" style="display: flex; flex-direction: column; gap: 8px; height: 100%; min-height: 0;">
                 <div class="retro-panel map-panel" style="flex-grow: 1; display: flex; flex-direction: column; height: 100%;">
-                    <div class="retro-header"><span><span class="hdr-desktop">Tactical Star Map</span><span class="hdr-mobile">Star Map: drag to pan, pinch to zoom or turn, tap to select</span></span><span>▲</span></div>
+                    <div class="retro-header"><span><span class="hdr-desktop">Tactical Star Map</span><span class="hdr-mobile">Star Map</span></span><span>▲</span></div>
                     <div class="scanner-canvas-container" style="flex-grow: 1; height: auto;">
                         <canvas id="galaxy-3d"></canvas>
                         <canvas id="galaxy-canvas"></canvas>
+                        <canvas id="z-labels" style="display: none;"></canvas>
                         <button type="button" id="map-3d-btn" title="Show planets and ships as 3D models">3D</button>
+                        <button type="button" id="map-z-btn" title="Tilt the 3D star map (Z view)" style="display: none;">Z</button>
+                        <div id="z-hud" style="display: none;"><svg class="z-pit" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="zpit-metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3a48"/><stop offset="1" stop-color="#0c141c"/></linearGradient><linearGradient id="zpit-dash" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2a36"/><stop offset="1" stop-color="#05090d"/></linearGradient></defs><path d="M0 0 H100 V5 Q50 13 0 5 Z" fill="url(#zpit-metal)"/><path d="M0 5 Q50 13 100 5" fill="none" stroke="rgba(110,200,255,0.45)" stroke-width="0.4"/><path d="M0 0 L8 0 L17 100 L0 100 Z" fill="url(#zpit-metal)"/><path d="M100 0 L92 0 L83 100 L100 100 Z" fill="url(#zpit-metal)"/><path d="M8 3 L17 100" stroke="rgba(110,200,255,0.35)" stroke-width="0.35" fill="none"/><path d="M92 3 L83 100" stroke="rgba(110,200,255,0.35)" stroke-width="0.35" fill="none"/><path d="M0 100 V82 Q50 72 100 82 V100 Z" fill="url(#zpit-dash)"/><path d="M0 82 Q50 72 100 82" fill="none" stroke="rgba(110,200,255,0.55)" stroke-width="0.4"/><rect x="22" y="84" width="9" height="5" rx="0.8" fill="rgba(57,255,156,0.22)" stroke="rgba(57,255,156,0.6)" stroke-width="0.25"/><rect x="69" y="84" width="9" height="5" rx="0.8" fill="rgba(255,190,80,0.2)" stroke="rgba(255,190,80,0.6)" stroke-width="0.25"/><rect x="33" y="85" width="2" height="2" fill="rgba(255,80,80,0.8)"/><rect x="36" y="85" width="2" height="2" fill="rgba(110,200,255,0.8)"/><rect x="62" y="85" width="2" height="2" fill="rgba(57,255,156,0.8)"/><rect x="65" y="85" width="2" height="2" fill="rgba(255,190,80,0.8)"/></svg><div class="z-reticle"></div><div id="z-hud-text"></div></div>
+                        <div id="z-follow-bar" style="display: none;">
+                            <button type="button" id="map-follow-btn" title="View from behind the selected fleet">🎥 Follow</button>
+                            <button type="button" id="map-cockpit-btn" title="See from inside the fleet's cockpit" style="display: none;">👁 Cockpit</button>
+                            <button type="button" id="map-fly-btn" title="Fly the fleet along its planned route (preview)" style="display: none;">▶ Fly</button>
+                        </div>
                         <div id="map-tools" class="map-tools">
                             <button type="button" id="mt-reset" title="Face north again" style="display: none;">&#8635;</button>
                             <button type="button" id="mt-measure" title="Measure distance">&#128207;</button>
@@ -3426,7 +3474,7 @@
 
     <div id="turn-report-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 640px;">
-            <h2 class="screen-header" style="color: #ffd700;"><span id="tr-title">⏳ Turn Report &amp; Planetary Logistics</span> (<span id="tr-year">2401</span>)</h2>
+            <h2 class="screen-header" style="color: #ffd700;"><span id="tr-title">⏳ Year Report</span> (<span id="tr-year">2401</span>)</h2>
             <div id="turn-report-body" style="font-size: 13px; line-height: 1.6; color: #ddd; background: rgba(8, 8, 12, var(--pa)); border: 1px solid #332244; padding: 15px; border-radius: 4px; max-height: 340px; overflow-y: auto; margin-bottom: 20px;">
                 -- Turn logistics summary --
             </div>
@@ -3458,6 +3506,7 @@
                 <summary>Explanation</summary>
                 <div id="build-modal-desc" style="font-size: 13px; color: #ccc; line-height: 1.5; padding: 6px 2px 2px;"></div>
             </details>
+            <button class="nav-button" id="btn-build-designer" style="width: 100%; margin-bottom: 8px; display: none;">&#128736; Ship Designer</button>
             <button class="nav-button rp-back" id="btn-build-planet" style="width: 100%; margin-bottom: 8px; display: none;">&larr; Back to Planet Roster</button>
             <button class="nav-button" id="btn-close-build" style="width: 100%;">Close</button>
         </div>
@@ -3895,6 +3944,7 @@
                 <button class="tool-icon" id="btn-sd-export-all" style="color: #00ffff;">⬇ Download All Designs</button>
                 <button class="tool-icon" id="btn-sd-import" style="color: #32cd32;">⬆ Upload Designs</button>
             </div>
+            <button class="nav-button rp-back" id="btn-sd-build" style="margin-top: 10px; width: 100%; display: none;">&larr; Back to Ship Construction</button>
             <button class="nav-button" id="btn-sd-close" style="margin-top: 10px;">Close</button>
         </div>
     </div>
@@ -4080,7 +4130,7 @@
                 <button type="button" class="nav-button" id="rep-goto-btn" style="flex: none; width: auto; margin: 0; padding: 4px 12px;">Go</button>
                 <span id="rep-goto-msg" style="color: #ffb347; flex-basis: 100%;"></span>
             </div>
-            <div id="rep-body" style="max-height: 62vh; overflow-y: auto;"></div>
+            <div id="rep-body"></div>
             <div style="display: flex; gap: 8px; margin-top: 12px;">
                 <button class="nav-button btn-primary" id="btn-rep-close" style="flex: 1;">Close</button>
             </div>
@@ -4191,6 +4241,15 @@
                     <div class="tr-row"><span>Faint</span><span id="po-value">100</span><span>Solid</span></div>
                     <button class="nav-button" id="btn-po-reset" style="margin-top: 8px;">Reset (100%)</button>
                 </div>
+                <div class="ui-card ui-card-wide">
+                    <div class="ui-card-title">Text Size</div>
+                    <div class="ui-desc">Make text bigger or smaller. <b>All UI</b> scales everything below together and also the main panels and top menu bar (not the star map itself).</div>
+                    <div class="ts-row"><label for="ts-all">All UI</label><input type="range" id="ts-all" data-k="all" min="70" max="160" step="5" value="100"><span id="ts-all-v">100%</span></div>
+                    <div class="ts-row"><label for="ts-dd">Drop-down menus and lists</label><input type="range" id="ts-dd" data-k="dd" min="70" max="160" step="5" value="100"><span id="ts-dd-v">100%</span></div>
+                    <div class="ts-row"><label for="ts-pop">Pop-up windows</label><input type="range" id="ts-pop" data-k="pop" min="70" max="160" step="5" value="100"><span id="ts-pop-v">100%</span></div>
+                    <div class="ts-row"><label for="ts-bar">Bottom bar</label><input type="range" id="ts-bar" data-k="bar" min="70" max="160" step="5" value="100"><span id="ts-bar-v">100%</span></div>
+                    <button class="nav-button" id="btn-ts-reset" style="margin-top: 8px;">Reset All (100%)</button>
+                </div>
             </div>
             <div class="ui-section">Star Map</div>
             <div class="ui-grid">
@@ -4227,6 +4286,16 @@
                     <button class="nav-button" id="btn-toggle-maptools" style="margin-top: 8px;">🧭 Map Tool Icons: ON</button>
                     <div class="ui-desc" style="margin-top: 8px;">The 2D/3D view button at the top left of the star map. Hiding it keeps the current view.</div>
                     <button class="nav-button" id="btn-toggle-3dbtn" style="margin-top: 8px;">🧊 2D/3D Button: ON</button>
+                </div>
+                <div class="ui-card">
+                    <div class="ui-card-title">Z View Tilt</div>
+                    <div class="ui-desc">How fast a two-finger slide, right-drag or Shift+wheel tilts the map in Z view, and which way.</div>
+                    <input type="range" id="z-sens" min="25" max="200" step="5" value="100">
+                    <div class="tr-row"><span>Slow</span><span id="z-sens-value">100%</span><span>Fast</span></div>
+                    <div style="display: flex; gap: 8px; margin-top: 8px;">
+                        <button class="nav-button" id="btn-z-sens-reset" style="margin: 0;">Reset (100%)</button>
+                        <button class="nav-button" id="btn-z-invert" style="margin: 0;">↕ Invert Tilt: OFF</button>
+                    </div>
                 </div>
             </div>
             <div class="ui-section">Empire</div>
@@ -4417,7 +4486,7 @@
                 <p><b style="color:#da70d6;">Absolute Beginner: Play in Two Minutes</b><br><b>The idea.</b> You lead a young empire that starts with one homeworld and a few ships. Other empires, run by the computer or by friends, are doing the same. You win by growing larger and stronger than they are, or by meeting the victory conditions chosen for the game. Each turn is one year. Rather be shown than read? Press <b>New Game</b>, then the <b>🤖 Tutorial</b> card (or Replay Tutorial at the top of this Help window) and K-7 walks you through it.<br><br><b>Each year do three things.</b> First, <b>planets</b>: click your homeworld and give it something to build in the production queue, such as mines and factories at first, then scouts and colony ships. Second, <b>research</b>: pick a technology field to study so your ships and buildings improve over time. Third, <b>ships</b>: click a fleet, then click a star on the map to send it there. Scouts reveal the galaxy. A colony ship carries colonists to a good planet. Then press <b>End Turn</b> and the year plays out.<br><br><b>How to grow.</b> Look for planets with a high habitability percentage and send colonists there. New colonies grow by themselves and produce Resources and minerals. Use Resources to build and research, and mine minerals to pay for ships. Keep scouting, keep building, and keep a few warships near your homeworld because enemies will arrive eventually.<br><br><b>If something looks wrong,</b> the game warns you before you end a turn with idle planets or fleets, or send a ship somewhere it cannot reach. When you are ready for more, read the rest of Basic, then Advanced.</p>
                 <p><b style="color:#da70d6;">Goal</b><br>Grow your empire from a single homeworld: scan the galaxy, colonize habitable worlds, mine ore, build infrastructure and outscore your AI opponents. Check the Scoreboard under Management to see how you rank. If the game was created with Victory Conditions, the first empire to meet them wins (see Victory Conditions below).</p>
                 <p><b style="color:#da70d6;">Technology Browser</b><br>Open <b>Management, Technology Browser</b> to look up every item in the game (a ship hull page also draws the full hull layout with slot numbers, types, limits and cargo, and a part page lists the slot types it fits, including Shield, Electrical or Mechanical, Mine Layer, Electrical or Mechanical, Weapon or Shield, and Armor, Scanner, Electrical or Mechanical) with a picture, its cost, mass, tech requirements and stats. The small <b>×</b> in the top right corner or the <b>Close</b> button at the bottom closes it, and Escape closes it too (the first Escape clears the search box). The title scrolls away with the rest of the window. Use the <b>Prev</b> and <b>Next</b> buttons or the arrow keys to step through the list, or pick a category from the in-game drop-down list (it opens inside the game on phones too, not the browser's own option menu): Engines, Beam Weapons, Torpedoes and Missiles, Bombs, Shields, Armor, Ship Scanners, Cloaking Devices, Electrical, Mechanical, Mine Layers, Ship Hulls, Space Station and Starbase Hulls, Starbase Components, Planetary Scanners, Stargates, Mass Drivers, Planet Installations and Mystery Trader Items (or All Technology for everything at once). The <b>search box</b> finds items by name, category, stat, tech requirement or race trait (type several words and every word must match, for example <b>jammer torpedo</b> or <b>Propulsion 6</b>); press Escape to clear it. <b>Sort</b> (also an in-game drop-down) by category then tech level, tech level, name, Resources cost or mass. Tick <b>Show Only Available Technology</b> to hide everything you cannot build yet. Each row has a dot: green means you can use it now, red means you cannot. <b>Reading an item:</b> the picture is drawn by the game from the item's type and stats (ship hull pictures show the hull's slot map from the Stars! pictures with each slot colored by type and the cargo block in white, space station and starbase pictures show the hull's slot map with each slot colored by type, and the small dots under a large picture show how advanced the tech is). Beside it are the cost in Ironium, Boranium, Germanium and Resources and the mass in kT. The cost shown is what you pay now, after miniaturization; when it is lower than the base cost the base is shown in grey beside it. <b>Tech Req</b> lists the levels needed (a level you have not reached shows under Not available with how far you are from it), and the table lists the item's stats: damage, range, initiative, accuracy, shields, armor, scanner ranges, cargo and fuel capacity, slots and the like. Engines also get a <b>Fuel Usage vs. Warp Speed</b> chart: the blue number on the bottom is the engine's free warp, and a dotted column marks Warp 10 when the engine is not safe there. Notes at the bottom tell you about race limits, special behavior and why an item is not available to you. Tech levels here are the levels you see on the Research screen (Tech 0 is where you start). Mystery Trader items show as not available until a trader gives you the item. Costs for space stations and starbases do not include a race's starbase cost adjustment. Ship hull slot layouts are this game's own approximation where the original layouts are not known. The five space station and starbase hulls (Orbital Fort, Space Dock, Space Station, Ultra Station and Death Star) use the slot maps supplied for this game, and their pages draw the whole map with each slot's type, its limit and its slot number. The Cruiser, Battle Cruiser, Battleship and Dreadnought pages carry a Class line because those four hulls are the capital ship hulls.</p>
-                <p><b style="color:#da70d6;">Ship Designer</b><br>Open <b>Management, Ship Designer</b>. It works like the Stars! designer: choose a hull, click a slot on the hull, then click a part from the list on the right. The list shows only parts you can build now; tick <b>Also list parts I cannot use yet</b> to see the rest with the tech they need. The hull drop-down likewise lists only hulls you have the Construction tech for. <b>Slots and stacks:</b> every hull has the numbered slots of the Stars! hull pictures (Slot 1, Slot 2 and so on), each with the type of part it takes. A slot marked <b>Up to 4</b> holds up to 4 of one part, and the <b>Qty</b> box sets how many. The hull is drawn as in the Stars! pictures: each slot sits where it does on the picture, colored by its type, and shows its slot number, its type, <b>Needs N</b> or <b>Up to N</b> and the part fitted in it; a white block marks the cargo space in kT. Click a slot on the picture to select it (gold outline); the bar under the picture sets Qty or clears the slot. Under the hull name the designer also lists every slot with its limit. Putting a part into an empty slot fills the whole stack; swapping the part keeps your quantity. <b>Engines:</b> engines work the same way but an engine slot marked <b>Needs 4</b> always holds exactly 4, all the same engine, so a big hull's engine slot is one slot that still needs several engines. Slot types: <b>Engine</b>, <b>Weapon</b> (beams and torpedoes), <b>Bomb</b>, <b>Shield or Armor</b>, <b>Shield</b>, <b>Armor</b>, <b>Scanner</b>, <b>Electrical</b> (cloaks, battle computers, jammers, capacitors), <b>Mechanical</b> (cargo pods, fuel tanks, colonization module, jets), <b>Electrical or Mechanical</b>, <b>Scanner, Electrical or Mechanical</b>, <b>Shield, Electrical or Mechanical</b>, <b>Mine Layer, Electrical or Mechanical</b>, <b>Armor, Scanner, Electrical or Mechanical</b>, <b>Weapon or Shield</b>, <b>Mine Layer</b>, <b>Robot Miner</b> (mining robots only) and <b>General Purpose</b> (anything). Clear empties a slot. The panel under the slots shows cost (after miniaturization), mass, armor, shields, fuel, cargo, the engine's free and best warp and its fuel table, combat speed and initiative, scanner range, cloaking and weapons. Some parts belong to one primary trait only (for example the Rogue hull and Pick Pocket Scanner for Super-Stealth races). <b>Saved designs:</b> the list on the left holds your designs; obsolete ones are hidden until you tick <b>Show obsolete designs</b>. You can keep 16 active designs; make old ones <b>Obsolete</b> to free room. A design with ships built or queued cannot be changed: the moment you change a hull or part on it, the designer makes a copy named with Mk2 and your changes go into that copy, which you keep with Save. Designs the game gave you whose hull you cannot build yet (the Destroyer, for example) are hidden as obsolete and come back by themselves when your Construction reaches the hull. Designs saved before version 0.88 are moved into the new slots when the game loads them: each engine goes in the engine slot and every other part goes into the first slot that takes it, and a part that no longer fits is dropped. Design files made before 0.88 are converted the same way when uploaded. Ships of a changed design keep their design, so a hull that now has fewer slots of a type than before (for example the Maxi Miner and Ultra Miner) can lose parts. Your starting hulls at Tech 0 are the Small Freighter, Scout, Colony Ship and Mini Mine Layer (Mini Colony Ship for Hyper-Expansion races). The Technology Browser (Management menu) shows every part and hull with pictures; the Equipment Catalog and Ship Hulls sections in Help list them as text. Slot numbers, types and limits of every hull follow the Stars! hull pictures; hull mass, armor, fuel, cost and tech level are still this game's own numbers. Every scanner in the part list shows its normal range and its penetrating range (or none), so you can compare them before picking. Your starting Long Range Scout is a Scout hull with a Quick Jump 5 engine in the Engine slot, a Rhino Scanner (50 ly normal, no penetrating) in the Scanner slot and a Fuel Tank in the General Purpose slot.</p>
+                <p><b style="color:#da70d6;">Ship Designer</b><br>Open <b>Management, Ship Designer</b>, or press <b>🛠 Ship Designer</b> at the bottom of a planet's Ship Construction window (this closes Ship Construction; the designer then shows a <b>← Back to Ship Construction</b> button above Close that reopens it at the same planet with your new designs in the build list). It works like the Stars! designer: choose a hull, click a slot on the hull, then click a part from the list on the right. The list shows only parts you can build now; tick <b>Also list parts I cannot use yet</b> to see the rest with the tech they need. The hull drop-down likewise lists only hulls you have the Construction tech for. <b>Slots and stacks:</b> every hull has the numbered slots of the Stars! hull pictures (Slot 1, Slot 2 and so on), each with the type of part it takes. A slot marked <b>Up to 4</b> holds up to 4 of one part, and the <b>Qty</b> box sets how many. The hull is drawn as in the Stars! pictures: each slot sits where it does on the picture, colored by its type, and shows its slot number, its type, <b>Needs N</b> or <b>Up to N</b> and the part fitted in it; a white block marks the cargo space in kT. Click a slot on the picture to select it (gold outline); the bar under the picture sets Qty or clears the slot. Under the hull name the designer also lists every slot with its limit. Putting a part into an empty slot fills the whole stack; swapping the part keeps your quantity. <b>Engines:</b> engines work the same way but an engine slot marked <b>Needs 4</b> always holds exactly 4, all the same engine, so a big hull's engine slot is one slot that still needs several engines. Slot types: <b>Engine</b>, <b>Weapon</b> (beams and torpedoes), <b>Bomb</b>, <b>Shield or Armor</b>, <b>Shield</b>, <b>Armor</b>, <b>Scanner</b>, <b>Electrical</b> (cloaks, battle computers, jammers, capacitors), <b>Mechanical</b> (cargo pods, fuel tanks, colonization module, jets), <b>Electrical or Mechanical</b>, <b>Scanner, Electrical or Mechanical</b>, <b>Shield, Electrical or Mechanical</b>, <b>Mine Layer, Electrical or Mechanical</b>, <b>Armor, Scanner, Electrical or Mechanical</b>, <b>Weapon or Shield</b>, <b>Mine Layer</b>, <b>Robot Miner</b> (mining robots only) and <b>General Purpose</b> (anything). Clear empties a slot. The panel under the slots shows cost (after miniaturization), mass, armor, shields, fuel, cargo, the engine's free and best warp and its fuel table, combat speed and initiative, scanner range, cloaking and weapons. Some parts belong to one primary trait only (for example the Rogue hull and Pick Pocket Scanner for Super-Stealth races). <b>Saved designs:</b> the list on the left holds your designs; obsolete ones are hidden until you tick <b>Show obsolete designs</b>. You can keep 16 active designs; make old ones <b>Obsolete</b> to free room. A design with ships built or queued cannot be changed: the moment you change a hull or part on it, the designer makes a copy named with Mk2 and your changes go into that copy, which you keep with Save. Designs the game gave you whose hull you cannot build yet (the Destroyer, for example) are hidden as obsolete and come back by themselves when your Construction reaches the hull. Designs saved before version 0.88 are moved into the new slots when the game loads them: each engine goes in the engine slot and every other part goes into the first slot that takes it, and a part that no longer fits is dropped. Design files made before 0.88 are converted the same way when uploaded. Ships of a changed design keep their design, so a hull that now has fewer slots of a type than before (for example the Maxi Miner and Ultra Miner) can lose parts. Your starting hulls at Tech 0 are the Small Freighter, Scout, Colony Ship and Mini Mine Layer (Mini Colony Ship for Hyper-Expansion races). The Technology Browser (Management menu) shows every part and hull with pictures; the Equipment Catalog and Ship Hulls sections in Help list them as text. Slot numbers, types and limits of every hull follow the Stars! hull pictures; hull mass, armor, fuel, cost and tech level are still this game's own numbers. Every scanner in the part list shows its normal range and its penetrating range (or none), so you can compare them before picking. Your starting Long Range Scout is a Scout hull with a Quick Jump 5 engine in the Engine slot, a Rhino Scanner (50 ly normal, no penetrating) in the Scanner slot and a Fuel Tank in the General Purpose slot.</p>
                 <p><b style="color:#da70d6;">Building Designs and Refitting</b><br>Every active design appears in a planet's build list at its real cost. <b>Retrofit:</b> a fleet in orbit of a planet with a starbase that has a <b>Fleet Yard</b> can be refitted to another design with the same hull; the cost is the new design minus a credit for the old parts. <b>Scrap:</b> a ship can be scrapped at any of your planets for half its minerals back. Both are in <b>Management, Fleet Roster, Manage Ships &amp; Names</b>.</p>
                 <p><b style="color:#da70d6;">Ship Design Files</b><br>The Ship Designer can save designs to your device and load them into another game. The file buttons sit in a row at the bottom of the Ship Designer, above Close. <b>Download This Design</b> saves the selected saved design and <b>Download All Designs</b> saves every active one, as a .json file holding each design's name, hull, parts slot by slot, mass and cost. <b>Upload Designs</b> reads such a file. Every design in it is checked against this game: the hull and every part must be unlocked by your current technology, allowed for your race's traits, and (for Mystery Trader items) owned, and the design must be complete (engines, matching engine types, parts in slots that take them). Designs that pass are added with a new name if the name is already taken. Designs you cannot build are refused, and a window lists each one with what is missing, for example the tech level needed and the level you have. A design is only added while you have fewer than 16 active designs. A file is tidied as it is read, the same way an old save is: an engine slot is filled with the engine, a slot that holds two different parts is split so every slot keeps one kind of part, and a file with two engine types keeps the first one.</p>
                 <p><b style="color:#da70d6;">Automation Files</b><br>Your standing orders can move between games. <b>Export Automation</b> (in the Autobuild window, side by side with Import Automation) saves a .json file with your Autobuild rules and switch, your custom zip orders, your battle plans, your research budget and next-field choice, and the Missing-Order Warning setting. <b>Import Automation</b> reads such a file and lets you tick which of these to replace in the current game; everything else stays as it is. Fleets that used a battle plan that is not in the imported list go back to Default.</p>
@@ -4453,7 +4522,7 @@
                 <p><b style="color:#da70d6;">Creating a Multiplayer Game</b><br>In the lobby press <b>Create Multiplayer Game</b>. You get the New Game screen titled New Multiplayer Game. At the top, <b>Multiplayer Game Name</b> is what other players see in the list of games (it starts as Multiplayer Game). Your Empire Name and Choose Race are your own empire; universe size, star density, player position, Victory Conditions and Advanced Options work exactly as in single player and apply to everyone. The <b>Opponents</b> button (it replaces AI Opponents) shows how many player spots and AI opponents the game has. When everything is set, press <b>Create Multiplayer Game</b>. Back returns to the lobby without creating anything. You can have up to 10 games waiting for players at once. Under Your Empire Name is <b>Your Empire Color</b>: pick one of 16 colors or leave it on Random. Every empire in a game has its own color, and nobody can pick a color another empire already holds.</p>
                 <p><b style="color:#da70d6;">Opponents: Player Spots and AI</b><br>On the Opponents screen, <b>Add Player Spot</b> adds a seat for another person and <b>Add AI Opponent</b> adds a computer empire with its own name, race and intelligence. A multiplayer game needs at least one Player Spot. Up to 15 opponents fit in a game, so 16 empires in all. Remove takes a spot or AI out. Turn order is decided when the game begins (see When the Game Begins). Each AI Opponent card has an <b>Empire Color</b> list: choose a color for that computer empire or leave it on Random, and a free color is picked when the game launches. Colors already chosen for other empires are not offered.</p>
                 <p><b style="color:#da70d6;">Multiplayer Options</b><br>When creating a multiplayer game, Advanced Options starts with a Multiplayer Options section. (The game's name is on the New Multiplayer Game screen itself.) <b>Who Can Join</b> is Public (selected to start with: anyone can join) or Private: a password is then required, 4 to 64 characters, and players must type it to join. Players you invite by email or username will not need it. <b>Allow custom races</b> is off to start with, and then every empire, AI included, uses one of the six built-in races. Turn it on and choose one rule: <b>Anyone can bring their own custom race</b>, where each player may pick one of their own Race Wizard designs when they join (the join form has <b>Design or Manage Custom Races</b>, which opens the Race Wizard right there and brings you back to the form with the new race chosen), or <b>Only the game creator chooses races</b>, where you set the race of every Player Spot yourself on the Opponents screen (built-in, random, one of your custom races, or Player's choice to let them pick a built-in race). <b>Play Type</b> is Custom time limit (with a <b>Turn Time Limit</b> that you type in as any number of hours and minutes, from 1 minute up to 30 days, 72 hours to start with; untick <b>Use a time limit for each year</b> for no limit), Turn-a-Day or Blitz (see Play Types). <b>Allow inviting players after the game starts</b> is off to start with; tick it if you want the host to be able to bring new players into a running game (see Inviting Players After the Game Has Started). <b>When a Player Resigns</b> decides what happens to a resigning player's empire: <b>A new AI empire takes over</b> (selected to start with: a computer empire with a random name, race and intelligence takes over its planets, ships and starbases and plays on as one of the AI opponents), <b>The empire is removed</b> (its ships are scrapped and its planets left uninhabited, with colonists, mines, factories, defenses, starbases and building queues gone, so anyone can colonize them; the ore stays on the ground), or <b>The empire keeps its standing orders</b>. The game lobby shows the choice.</p>
-                <p><b style="color:#da70d6;">The Game Lobby</b><br>After you create a game, or when you open one from My Games, you see its lobby. The top box shows its status (for example Waiting for players: 1 of 3 player spots filled), the host, public or private, the galaxy settings, the custom race rule, the advanced options and the victory conditions. Below it every empire is listed by seat: players who have joined with their username, empire and race (yours is marked You, the creator is marked Host), AI opponents with their race and intelligence, and open spots shown as <b>Waiting for player...</b>. <b>Refresh</b> reloads the list. <b>Cancel Game</b>, shown only to the creator before the game starts, deletes the game for everyone. <b>Leave Game</b>, shown to players who joined before the game starts, gives your spot back so someone else can take it (the creator cancels instead). <b>Invite Player</b> sends someone an invitation (see Inviting Players). Once the game is running the lobby also shows the turn time limit, a Resigned badge on players who have left and a Playing now badge on the player whose turn it is, with <b>Resign</b>, <b>Skip Turn</b> (when the current turn is overdue) and, for finished games or after you resign, <b>Remove from My Games</b>. <b>⇠ Back to Lobby</b> always returns to the main Multiplayer Lobby (the one with My Profile and the Lounge). Every seat shows its <b>Color</b> with a colored dot. Your own seat has a color list so you can change your color any time before the last player joins and the galaxy is built; the host can also change the color of AI opponents. Colors are first come, first served: a color another empire holds is not listed, and if two people click the same color at once, the second is told it was just taken. Seats still on Random get a free random color when the galaxy is built.</p>
+                <p><b style="color:#da70d6;">The Game Lobby</b><br>After you create a game, or when you open a forming or finished game from My Games (or press ⚙ Game Lobby on a running one), you see its lobby. The top box shows its status (for example Waiting for players: 1 of 3 player spots filled), the host, public or private, the galaxy settings, the custom race rule, the advanced options and the victory conditions. Below it every empire is listed by seat: players who have joined with their username, empire and race (yours is marked You, the creator is marked Host), AI opponents with their race and intelligence, and open spots shown as <b>Waiting for player...</b>. <b>Refresh</b> reloads the list. <b>Cancel Game</b>, shown only to the creator before the game starts, deletes the game for everyone. <b>Leave Game</b>, shown to players who joined before the game starts, gives your spot back so someone else can take it (the creator cancels instead). <b>Invite Player</b> sends someone an invitation (see Inviting Players). Once the game is running the lobby also shows the turn time limit, a Resigned badge on players who have left and a Playing now badge on the player whose turn it is, with <b>Resign</b>, <b>Skip Turn</b> (when the current turn is overdue) and, for finished games or after you resign, <b>Remove from My Games</b>. <b>⇠ Back to Lobby</b> always returns to the main Multiplayer Lobby (the one with My Profile and the Lounge). Every seat shows its <b>Color</b> with a colored dot. Your own seat has a color list so you can change your color any time before the last player joins and the galaxy is built; the host can also change the color of AI opponents. Colors are first come, first served: a color another empire holds is not listed, and if two people click the same color at once, the second is told it was just taken. Seats still on Random get a free random color when the galaxy is built.</p>
                 <p><b style="color:#da70d6;">Inviting Players</b><br>Any player in a game that is still waiting for players can press <b>Invite Player</b> in its lobby and type an <b>email address</b> or a <b>username</b>, then press Send Invite. The person gets an email with a <b>Join the Game</b> link straight to that game. The link works even for a private game without the password, so you do not have to share it. If they have no account yet, the link opens the sign in screen: they press Register, create an account, and land in the game ready to press Join This Game. Players invited by username (or by the email of their account) also see the invitation under <b>Invitations</b> at the top of their Multiplayer Lobby, with Open and Decline. Each invitation link can be used once. Inviting someone does not hold a spot for them: spots go to whoever joins first. A game can send up to 30 invitations, and the same person can be invited again after 10 minutes.</p>
                 <p><b style="color:#da70d6;">Inviting Players After the Game Has Started</b><br>This only works in a game whose creator ticked <b>Allow inviting players after the game starts</b> in Multiplayer Options; it is off to start with, and games made before version 0.79.0 keep it on. The host (the player who created the game) can then bring new players into a game that is already running. In the galaxy open <b>Settings</b> and press <b>✉ Invite to Game</b> (only the host sees it), type an <b>email address</b> or a <b>username</b> and press Send Invite. The person gets an email with a link; players with an account also see the invitation under Invitations in their Multiplayer Lobby. When they open it and sign in (or register first) they see a <b>Join</b> window where they choose their <b>empire name</b> and <b>race</b> (custom races only if the game allows them). Their empire is then added to the galaxy on a <b>random uninhabited planet</b>, at least 15 percent of the galaxy's width away from every other empire when such a planet exists (otherwise on one of the most distant free planets), as a new homeworld with the usual starting population, mines, factories and starbase, plus a Long Range Scout and the starting technology of their race. The game keeps its current year, so the newcomer starts behind the others and the other players are told that a new empire has joined, without being told where. The new player gives orders like everyone else; until they send orders the year waits for them just as for any other player, subject to the game's time limit. A late invitation can be used once, the host can send up to 30 per game, and a game can hold at most 16 human players. The Join window also has <b>Your Empire Color</b>, listing only the colors no other empire has. Random picks a free one.</p>
                 <p><b style="color:#da70d6;">Examining Enemy Fleets</b><br>An enemy fleet that one of your scanners can see is drawn as a triangle in its owner's empire color beside its position on the star map, labelled with the name its owner gave that fleet (no ship count; zoom in to see the labels). Click the triangle to examine it. A Fleet Summary box opens in the left column, in the place of the Planet Summary, and the Production Queue and Fleets in Orbit boxes are hidden with it (tap a planet to bring them back). At the bottom of an enemy fleet's summary, <b>Send a Fleet to This Fleet</b> lets you pick one of your fleets and a Warp speed and press Send Fleet: the fleet's route is replaced by one waypoint at the enemy fleet, and while your scanners can still see that fleet your fleet follows it each year (if you lose sight of it, your fleet heads for the last place it was seen). The line above the button tells you the distance, years and fuel for the trip, and a fuel warning offers a slower Warp if the trip is too far. You can tap one of your own fleets the same way: its Fleet Summary shows its position, ships, mass, warp, fuel, cargo and orders, with Waypoints and Plot buttons. It names the empire and says whether it is a friend, neutral or an enemy, gives the fleet's position and whether it is in orbit or deep space, and lists every ship design and hull with its count, plus the total ship count and mass. When one of your penetrating scanners reaches the fleet, or one of your fleets or planets is at the same spot, a close scan also shows armor, beam weapons, torpedo launchers, bombs, colony ships, scanner ships and cargo space. Cargo actually on board and where the fleet is heading cannot be seen. A fleet your scanners cannot see cannot be clicked, and cloaked ships may stay hidden even inside your range.</p>
@@ -4463,7 +4532,7 @@
                 <p><b style="color:#da70d6;">When the Game Begins</b><br>The moment the last Player Spot is filled, the game status changes to Starting and the browser of the player who joined last builds the galaxy: every empire gets its homeworld, starting fleet and starting technology, and Random races are picked. Every player is emailed that the game has begun. From then on all players give their orders for the year at the same time.</p>
                 <p><b style="color:#da70d6;">Taking Your Turn</b><br>When your orders are needed, the game lobby button reads <b>Give Your Orders</b> and My Games marks the game. The galaxy opens on your own empire, seen through your own scanners. The bottom panel shows the year with how long it has been running and when it ends, who is online, and who you are waiting on. Give your orders and press <b>End Turn</b>: your orders are sent to the server and your name drops off everyone's Waiting on line. Until the last player is in you can keep changing your orders; the End Turn button then reads <b>Resend Orders</b>. When the last player sends orders, that player's browser fetches everybody's orders, adds the AI empires' orders, plays out the year for the whole galaxy and uploads the new year. Every player is emailed a year summary, and the next time you open the galaxy your Year Report opens by itself; if the galaxy is already open when the new year arrives, that one window opens with the heading A New Year. If the browser that is playing out the year is closed or loses its connection, any other player's browser that is open picks the job up automatically after a few minutes.</p>
                 <p><b style="color:#da70d6;">Watching While Others Play</b><br>While the year is being played out, the galaxy is view only for a moment: a VIEW ONLY badge appears and the bar says the year is being played out. Otherwise you can always look around and give orders. A player who has resigned watches the game in view only mode. The game checks the server every few seconds and loads the new year by itself.</p>
-                <p><b style="color:#da70d6;">My Games</b><br>My Games in the lobby lists every multiplayer game you created or joined, games where it is your turn first, then running games by newest activity, then finished games. Each card shows its status, host, progress (players joined, the year and whose turn it is, or the result), the number of empires and the galaxy size. A lock means the game is private. Badges: <b>Your turn</b>, <b>Turn overdue</b> (the player whose turn it is has run past the turn time limit, so you can skip them) and <b>🏆 Victory</b>. Pick a game to open its lobby. Sign in on any device to see the same list.</p>
+                <p><b style="color:#da70d6;">My Games</b><br>My Games in the lobby lists every multiplayer game you created or joined, games where it is your turn first, then running games by newest activity, then finished games. Each card shows its status, host, progress (players joined, the year and whose turn it is, or the result), the number of empires and the galaxy size. A lock means the game is private. Badges: <b>Your turn</b>, <b>Turn overdue</b> (the player whose turn it is has run past the turn time limit, so you can skip them) and <b>🏆 Victory</b>. Pick a game that is running to go straight into its galaxy; its <b>⚙ Game Lobby</b> button opens the game's lobby instead (players, Resign, Invite, Skip Turn). Games still forming and finished games open their lobby. Sign in on any device to see the same list.</p>
                 <p><b style="color:#da70d6;">Turn Time Limit and Skipping</b><br>Every multiplayer game has a deadline for each year, set by its Play Type (see Play Types). The bottom panel of the galaxy lists who you are waiting on, and under the year it shows <b>Year ends in 5h 12m</b>, the time left before the year is played out and late players are skipped; the game lobby shows who is still to send orders (each player carries a <b>Giving orders</b> or <b>Orders sent</b> badge) and the deadline. The countdown ticks every second, under an hour it shows minutes and seconds, and in a Blitz game the panel pulses in the last minute if your own orders are not in. The limit can be as short or as long as the game needs: a 20 minute limit gives a quick evening game, 48 hours suits a play-by-email pace, and the countdown and the Skip emails always show the exact time you chose, such as <b>1 hour 30 minutes</b>. Everyone gives orders at the same time and can press End Turn at any time, then keep changing orders and press End Turn again until the last player is in. When the last human sends orders, the AI empires add theirs and the whole year is played out at once. Once the deadline has passed, a player who has sent orders can play the year without the late players: in Turn-a-Day and Blitz games this happens automatically in the browser of the first such player who has the game open; in a Custom game press <b>Play the Year Without</b> (in the lobby or in the bar at the bottom). The late players' empires follow their standing orders for that year: building queues, research and fleet waypoints carry on. Outside Blitz games they are emailed that their orders were not sent in time.</p>
                 <p><b style="color:#da70d6;">Skip My Turns</b><br>In a multiplayer game the Settings menu has a <b>⏭ Skip My Turns: OFF</b> button. Press it and confirm to pass the <b>next 100 years</b> for you. The count is kept on the game server, so you can close the page, the tab or the whole browser and nobody is kept waiting for you. Each year the server sends <b>blank orders</b> for you as soon as the year opens: you give no new orders, and your production queues, research and fleet waypoints carry on as they already were. The button then reads <b>ON (99 more years)</b> and counts down by one every year; when it reaches zero it turns OFF by itself. If this year's orders are not sent yet when you press it, the orders you have given but not sent are discarded and blank orders are sent right away. You cannot turn it on after you have sent this year's orders: wait for the next year to open, then turn it on. Press the button again and confirm to cancel the rest at any time; blank orders already sent for the current year are taken back so you can give real orders. You can open the game and look around while skipping is ON, and you can change the current year's orders (press Resend Orders), but the next year is skipped again until the count runs out or you cancel. <b>Limit:</b> the server only holds the orders. A year is played out by the browser of a player who has the game open, so if every player in the game is away, the year waits until one of them opens it. The button is not shown in single player games, after you resign, or when the game is over.</p>
                 <p><b style="color:#da70d6;">Changing Your Empire Color</b><br>Open <b>Settings</b>, then <b>UI</b>, find the <b>Empire</b> section and press <b>🎨 Change Empire Color</b> (it works in single player too, where it changes your color at once). The list shows only the colors no other empire holds (including AI empires), with your current color marked. Pick one and press <b>Change Color</b>: your planets, fleets and name change color on the star map, and every other player sees it within about half a minute. The server remembers each player's color, so nobody else can take yours, and the color you leave becomes free for others. If two players pick the same color at the same moment the second is told it was just taken. Players who have resigned or been defeated cannot change color. Colors are first chosen in the lobby (see The Game Lobby).</p>
@@ -4500,6 +4569,7 @@
                 <p><b style="color:#da70d6;">Auto Items and Repeating Builds</b><br>In Structures, choose Mine, Factory or Defense and tick the <b>Auto</b> box under Quantity to Queue to queue <b>Auto Mines</b>, <b>Auto Factories</b> or <b>Auto Defenses</b>. An auto item is a standing order that stays in the queue. Each turn it builds one unit after another while the planet has room: Mines up to the number its colonists supply (at least 1), Factories up to the number its colonists can run, Defenses up to 10. When it reaches the limit it does not block the queue, the Resources move on to the next item, and it starts again by itself when more colonists arrive. A planet can have one auto item of each kind. Ordinary items have a quantity and are removed when finished.</p>
                 <p><b style="color:#da70d6;">Autobuild</b><br>Autobuild fills a planet's queue for you. The Autobuild Rules window explains itself in a folding <b>Explanation</b> box just above Close that starts closed. It is an empire-wide ordered list of rules (Management, Autobuild, or the Rules button in the Production Queue panel). When a planet's queue runs empty the game reads the list from the top; the first rule whose condition is true and whose Ore is on hand adds an item to the queue, the planet builds it in the same turn, and the list is read again, so a planet can climb the whole ladder in one turn. Each rule has an item (Mine, Factory, Defense, Scout, Small Freighter, Destroyer or Colony Ship), a condition and an on or off switch. Conditions: <b>while below the planet limit</b> (Mines and Factories only: the number the planet's colonists supply or can run) and <b>until this many</b> (the planet has that many; for ships, the whole empire has that many built and queued, and the planet needs a ship dock; Colony Ships also need 7,500 colonists). Use the arrows to change priority. A rule is skipped when the planet cannot pay the Ore for one unit, so planets never queue things they cannot build. The default list is Mines, then Factories, then up to 5 Defenses, in that order. Under <b>Follow empire rules or Off</b> in the Production Queue panel, a single planet can switch Autobuild off, for example while you build a colony ship or starbase by hand. Items queued by Autobuild carry an Autobuild tag, and the turn report lists what it queued. Terraforming rules are not possible yet because the game has no terraforming. A new game starts with Autobuild on; saves from before version 0.9.0 load with it off.</p>
                 <p><b style="color:#da70d6;">Mines and Factories</b><br>The economy is a loop: colonists give Resources, factories add more Resources, Resources and Ore build mines, factories and ships, and mines dig the Ore. <b>Mines</b> dig Ironium, Boranium and Germanium every year; a richer concentration gives more, and digging slowly lowers it (see Ore and Mining). By default every mine works as long as the planet has colonists (turn on Mines need colonists under Advanced Options for 10 mines per 10,000 working colonists). <b>Factories</b> need workers: 10 per 10,000 working colonists for the standard economy, and any extra factories sit idle until the population grows. The queue panel and the Year Report say how many are idle. A custom race changes these numbers in the Race Wizard.</p>
+                <p><b style="color:#da70d6;">Text Size</b><br>Settings, <b>UI</b>, <b>Text Size</b> has four sliders from 70% to 160%. <b>All UI</b> scales the whole interface at once: the top menu bar, the side panels, the bottom bar, pop-up windows and drop-down menus (the star map itself keeps its size; use Planet Names on Map and Fleet Names on Map for map text). The other three scale one part on top of that: <b>Drop-down menus and lists</b> (the Planet, Fleet, Management and Settings menus and every drop-down list), <b>Pop-up windows</b> (every window that opens over the game, plus Research and Economy) and the <b>Bottom bar</b> (Year, Empire and the multiplayer bar). Reset All puts them back to 100%. Choices are remembered on this device.</p>
                 <p><b style="color:#da70d6;">Pop-up Windows</b><br>Every pop-up window has a small <b>×</b> in its top right corner that closes it, the same as its Close or Cancel button (in a question box it answers Cancel). Every drop-down list in the game opens as an in-game list under the box, on phones too, instead of the browser's own option menu: tap a choice to pick it, or tap outside the list or press Escape to close it without changing anything. With a keyboard, Enter, Space or Alt+Down opens the list and the arrow keys move through it. Structures, Ship Construction, Economy, Research, Autobuild, Space Station and Space Station Design windows keep their explanation in a folding <b>Explanation</b> box at the bottom, just above Close, that starts closed. Close is always the last button. Everything you open from the Planet, Fleet, Management and Settings menus, including Structures, Ship Construction, Manage Waypoints, Fleet Roster, Ship Designer, Autobuild, Battle Reports, Minefields, Diplomacy, Planet Roster, Scoreboard, Help and Updates, opens in the middle of the screen over the blank scrolling star field, the same way Research does. This goes for every pop-up window, including small ones such as Do a Task Here, Transfer, Cargo, the Turn Report and the Technology Browser. How solid the windows are is set in Settings, UI, under Popup and Menu Opacity (100% by default). To close a window, click outside it (this works for the Technology Browser, Do a Task Here, Transfer, Cargo and Turn Report windows too), or use its Close or Back button; either one returns you to the main game view. The UI window is the one exception that keeps the game visible behind it so you can watch your changes. Its four groups (Windows and Panels, Star Map, Sound and Event Log) fold up when you click their heading, and the browser remembers which ones you left folded. The menus themselves open under their button and are only as wide as their longest line. The UI window groups all start folded; click a heading to open it. The browser right-click menu is disabled in the game.</p>
                 <p><b style="color:#da70d6;">Ore Concentration Bars</b><br>The planet picture and the ore are both inside the Planet Summary box, with the population, status, habitability and starbase text to the right of the picture; ore is in the Ore On Hand &amp; Concentrations section under the population and habitability lines. That section also carries the Resources, Mines, Factories, Mass Driver and Defenses lines. It shows each ore on one line: its name, how many kilotons are on hand or in the ground, and a bar for the concentration. The bar fills to the concentration percentage. Green means 75% and up, an excellent mining world for that ore; yellow means 26% to 74%, a middling one; red means 0% to 25%, so mines there will produce little. A gray bar with a question mark means the world has not been surveyed yet.</p>
                 <p><b style="color:#da70d6;">Game Images</b><br>The Cabal Coffers Gaming logo on the title screen and the small Ironium, Boranium and Germanium icons beside ore names are loaded from the game's GitHub images folder instead of being built into the game file. They need an internet connection the first time they are shown, and your browser keeps them afterward. If an image cannot be reached the game keeps working and only that picture is missing.</p>
@@ -4517,7 +4587,7 @@
                 <p><b style="color:#da70d6;">Music and Sound Effects</b><br>Both start at a quiet 5%, so raise them to taste. The game plays calm space music that is made up fresh each time, plus sound effects for button clicks, ending your turn, the Year Report, notices, victory and defeat. Sound starts after your first click or key press. Open Settings, UI to find the Music and Sound Effects sections. Each has a volume slider and an ON/OFF button, so you can quiet one, switch off one, or switch off both. Your choices are saved on this device. Sound pauses while the browser tab is hidden.</p>
                 <p><b style="color:#da70d6;">Galaxy Names and Fun Facts</b><br>Every new galaxy is named after a real one, like Andromeda, the Whirlpool Galaxy or the Large Magellanic Cloud, and the name appears in your first event log entry. Select a surveyed planet that is named after a real star, like Vega, Sirius or Rigel, and press the <b>Fun Fact</b> button in the Planet Summary to read a true fact about that star. Press it again to hide the text. Homeworlds, planets you have not surveyed and planets with an invented name have no button.</p>
                 <p><b style="color:#da70d6;">The Event Log</b><br>The log keeps 600 entries; at 600 the oldest 200 are deleted, and a pop-up warns you from 500 entries on. Export Event Log lets you choose a year range and the kinds of information to save, and Settings, UI, Event Log Display hides kinds you do not want to see on screen (they stay saved). Year summaries can be hidden whole, and the other kinds also filter the lines inside a summary. The event log panel keeps a history of your empire. Giving an order writes nothing to the log: orders are only plans until the year is played out. When the year runs, the things that actually happened are logged: a fleet setting out for a destination or arriving, colonists landing, items built, research finished, and one Year summary entry with everything the Year Report said (lines already logged on their own are not repeated inside it). Old Orders given entries from earlier versions stay in saved logs. Your log holds only your own empire's story: other empires' orders, fleets, production and research never appear in it, only events that touch you, such as a battle at your world, a minefield hit, a bombing, an alliance or a Mystery Trader, including what each tech level-up unlocked. Survey and contact messages list each world with its habitability for your people and its owner. Use Settings, Export Event Log to save the whole log as a text file.</p>
-                <p><b style="color:#da70d6;">The Year Report</b><br>After every year one window, the Turn Report &amp; Planetary Logistics, tells you what happened to your empire: fleet reports, Resources produced, research, ore mined, events, items built, production waiting on Ore and idle factories. When a planet's production queue is stuck for lack of Ore, or a fleet has run out of fuel, a boxed Needs your attention list opens the report with one line for each, and its Warp to button closes the report and takes the map to that planet or fleet. Lines that have nothing to say are left out: Manufacturing appears only when your planets had Resources to spend, Built only when something was finished. If another empire sent you an alliance or stand down request, answer each one in this window before you can close it. In multiplayer, when a new year arrives while you are playing, this same window opens with the heading A New Year and a short message telling you to give your orders; there is no second pop-up on top of it.</p>
+                <p><b style="color:#da70d6;">The Year Report</b><br>After every year one window, the <b>Year Report (year)</b>, tells you what happened to your empire: fleet reports, Resources produced, research, ore mined, events, items built, production waiting on Ore and idle factories. When a planet's production queue is stuck for lack of Ore, or a fleet has run out of fuel, a boxed Needs your attention list opens the report with one line for each, and its Warp to button closes the report and takes the map to that planet or fleet. Lines that have nothing to say are left out: Manufacturing appears only when your planets had Resources to spend, Built only when something was finished. If another empire sent you an alliance or stand down request, answer each one in this window before you can close it. In multiplayer, when a new year arrives while you are playing, this same window opens by itself (no second pop-up on top of it); give your orders and press End Turn when you have read it.</p>
                 <p><b style="color:#da70d6;">Defeat in Multiplayer</b><br>If you lose your last planet in a multiplayer game, a Defeat screen shows the standings and you become a spectator. You are not resigned: you can keep looking at the whole galaxy, the Year Report and the chat, but the End Turn button disappears and the year no longer waits for you. You also get an email. You can resign from the game lobby at any time. If every player who was still playing is defeated, the game ends and the top empire left wins, even an AI. When a game ends the winner sees Victory and everyone else sees Defeat, once each. After every player who has not resigned has read it, the game disappears from the server and My Games; if someone never returns, it disappears 24 hours after the end.</p>
                 <p><b style="color:#da70d6;">Defeat and Game Over</b><br>In a single player game, if your last planet is taken over or destroyed, your empire has fallen. A Defeat window shows the final standings of every empire (rank, planets and score), and when you press <b>Return to Title Screen</b> you go back to the title screen. The saved game of that run is removed so Continue Game does not offer a dead empire; a game file you saved yourself still opens. This also happens at the end of a Skip Years run. Multiplayer games are not affected: a player without planets keeps watching until the game ends.</p>
                 <p><b style="color:#da70d6;">Turns and Rounds</b><br>There are no separate turns per empire any more: there is one year, and every empire gives orders for it. In a single player game the year is played out as soon as you press End Turn. In a multiplayer game every player gives orders at the same time; you can change your orders and press End Turn again until the last player has sent theirs. Because everything happens at once, the order in which players press End Turn never matters: no player can grab a planet first just by ending their turn earlier.</p>
@@ -4525,8 +4595,9 @@
                 <p><b style="color:#da70d6;">Your Own View of the Galaxy</b><br>Each empire keeps its own record of what it has seen. The planets you have scanned, your survey dates, your fleets, your technology, your research, your budget, your starbase designs and your Galactic Event Log belong to your empire alone. In a game with more than one human, another player's scans never reveal anything to you, and their worlds show as rival worlds (red) once your own scanners find them. Your Galactic Event Log is private too: it lists only what happened to you, plus battles your scanners detected. Every empire hears about the Mystery Trader, a player joining late and a player resigning. A planet you surveyed earlier but cannot scan now shows the population, mines, factories, defenses and starbase you last saw, with the year of that survey.</p>
                 <p><b style="color:#da70d6;">Random Events</b><br>Unless No Random Events is ticked, each year there is a small chance that something happens to one of your planets: a <b>mineral strike</b> raises the concentration of one mineral, a <b>population boom</b> adds colonists, a <b>plague</b> kills some of them, or a <b>salvage find</b> drops a cache of Ore on the planet. Events appear in the Galactic Event Log and the turn report.</p>
                 <p><b style="color:#da70d6;">Your Starting Fleet</b><br>You begin with a Long Range Scout in orbit of your homeworld: a Scout hull with a Quick Jump 5 engine, a Rhino Scanner (50 ly) and a fuel tank, 300 mg of fuel in all. Its job is to map the nearby stars. Your homeworld starts with a Basic Space Station that has a ship dock. Colony ships, freighters and warships are built there.</p>
-                <p><b style="color:#da70d6;">3D Map</b><br>The <b>3D</b> button in the top left corner of the star map turns the planets and ships into 3D models; the button then says <b>2D</b> and takes you back to the flat map. The same switch sets the look of the whole game, and your choice is remembered: in 3D the planet picture in the Planet Summary and the globes in the Planet Roster spin and are lit, and the Fleet Roster shows turning 3D ship models; in 2D planets become flat discs of one colour, the same colour as their dot on the 2D map (owner colour, blue habitable, dark red hostile, grey unscanned), and ships become flat top-down outlines in your empire colour; nothing spins. The switch also sets the Technology Browser and Research pictures: in 3D every ship part (engines, beam weapons, torpedoes, bombs, shields, armor, scanners, cloaks, electrical, mechanical and mine layers, including starbase versions) is a 3D model that grows more detailed with its tech level, still in lists and slowly turning in the big picture of the selected item; in 2D they are the flat drawings. Ship hulls use the 3D ship model of their family (freighter, warship, colony ship, bomber, miner, fuel transport, mine layer or alien), stretched and fitted with extra turrets, cargo pods, drills or wings to match the hull; space station hulls are an armed platform (Orbital Fort), a ring with a docking cradle (Space Dock), ringed hubs (Space Station, Ultra Station) or a cratered battle moon (Death Star); planetary scanners are a dish on a hill with range rings (gold when penetrating), stargates a ring with pylons, mass drivers a coil rail with a glowing packet, and planet installations a mine derrick, factory, defense dome, alchemy flask, terraform globe or the Genesis Device. Hiding the button in Settings, UI keeps whichever look you chose. <b>Planets</b> are lit, slowly turning globes painted from their real surface (oceans, land, ice caps and clouds once explored; grey rock while unscanned), with a soft glow in the color the flat map uses for them (your empire's color, another empire's color, blue for habitable, red for hostile; faint for unscanned). <b>Rings</b> appear only around planets with an orbital installation: a small ring for an Orbital Fort, a ring for a Space Station or Space Dock (other empires' installations always show as this ring), two rings for an Ultra Station and three, the outer one red, for a Death Star. Planets of yours with a ship dock also have a small gold station circling them. <b>Ships:</b> every fleet is drawn as the hull type it has the most ships of (on a tie the heavier hull), in its empire's color with glowing engines, pointing where it is going: scout, frigate, destroyer, cruiser (also Battle Cruiser), battleship (also Dreadnought), freighter (all four sizes), armed freighter (Privateer, Rogue, Galleon), colony ship with its habitat ring, bomber (flying wing), miner with drills, fuel tanker, mine layer with its mines, and a spinning alien star for the Nubian and Morph hulls. Heavier hulls are a little bigger. Ships grow as you zoom in. They only appear as 3D models once you have zoomed in a fair way; further out, fleets in orbit are not drawn (their names sit under the planet's name) and fleets in deep space are small dots, so the galaxy stays readable. <b>Other objects</b> are 3D too: a <b>stargate</b> is a silver ring with pylons and a glowing cyan heart floating beside its planet (yours, or another empire's gate you have seen); a <b>wormhole</b> is a swirling funnel of rings around a dark core (bluer when stable, redder when unstable); a <b>minefield</b> is a cloud of slowly turning spiked mines in the field's color (blue yours, gold an ally's, red anyone else's), more mines for bigger fields, inside its dashed outline; the <b>Mystery Trader</b> is a large glowing saucer with fins and circling lights; a <b>mineral packet</b> is a glowing capsule colored by its ore with a short trail. Labels, routes, the trader's course dots and wormhole links stay as on the flat map, and zoomed far out these objects go back to their flat symbols. Ships orbiting a planet circle close around it, moving smoothly, and your selected fleet glows. The names of your fleets in orbit are listed directly under the planet's name (on the flat map too). Everything else works exactly as on the flat map: clicking, dragging, zooming, turning, names, routes, scanner ranges, minefields, the ruler and the legend. The choice is remembered in this browser. 3D uses WebGL, which almost every browser has; if yours does not, the map stays flat. On a very large galaxy, or an older phone, 2D may run more smoothly.</p>
-                <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. You can zoom in 15 times closer than before (up to 60 times the full-galaxy scale), enough to fill the map with one star and its neighbors. Planets stop growing at a set size when you zoom in far, and planet names stay the same readable size at every zoom; change the size or hide them in Settings, UI. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Every empire in the game, AI empires included, is given its own random color when the game begins. An empire's planets, planet names, fleets and fleet names are drawn in its color, and the empire name at the bottom right uses yours. Planets nobody owns show habitability: blue is habitable, dark red hostile, grey not scanned yet; a gold center means a ship dock. Planets have no outline. The planet or fleet you selected last is marked by a slowly pulsing, glowing gold outline: a ring around the planet, or a glow around the fleet's arrow. Select a planet and the ring appears on it; click a fleet (on the map, in Fleets in Orbit, in the Fleet Summary or in the fleet drop-down) and the glow moves to that fleet. Only one of the two glows at a time, and the glow follows the map while you pan and zoom. The legend in the lower left lists your empire and every empire you have met, each in its color, and adds more columns when it gets long. <b>Rulers:</b> a ruler runs along the bottom and the right edge of the star map and measures distance in light years from the corner of the visible map. The bottom ruler starts at 0 in the lower left and counts going right; the right ruler starts at 0 just above the bottom ruler and counts going up. Small ticks mark fifths of each numbered step. The numbered step changes as you zoom so the labels stay readable; zoomed in far enough it is 1 ly with ticks every 0.2 ly. The rulers always count from the edge you are looking at, so they are a distance scale and not map coordinates. <b>Map display settings:</b> in Settings, <b>UI</b>, the <b>Map Rulers</b> button hides or shows both rulers, <b>Map Legend</b> hides or shows the legend in the lower left (on a phone-sized screen, under 900 pixels wide, both start OFF until you turn them on, and the game remembers your choice), and the <b>Fleet Names on Map</b> slider sets the size of fleet names (0 hides them; they still only appear when you are zoomed in enough). Planet names have their own slider. Your choices are remembered on this device. Hold the right mouse button and drag in a circle to turn the map; text stays upright and the face-north button at the bottom right turns it back. The distance rulers stay on the bottom and right edges while the map is turned; they measure distance across the screen, so they still work at any angle. A fleet in orbit that has an order to do something at that planet points its nose at the planet. A plain right-click turns off Measure Distance or Plot Course Mode. The icons at the bottom right (measure, plot course) can be hidden in Settings, UI, Star Map, and so can the <b>2D/3D button</b> at the top left (2D/3D Button: ON or OFF; hiding it keeps whichever view is showing).</p>
+                <p><b style="color:#da70d6;">Z View (Tilted 3D Map)</b><br>When the map is in 3D, a <b>Z</b> button sits next to the 2D/3D button. Press it to tilt the star map so you look across the galaxy at an angle instead of straight down; press it again to go back to the top-down view (your choice and tilt are remembered on this device). <b>Changing the tilt:</b> on a phone slide two fingers up or down; with a mouse hold the right button and drag up or down (drag left or right to turn the map), or hold Shift and use the wheel. The tilt goes all the way from straight down, through edge-on, to underneath the galaxy, so you can look up at planets and ships from below; turning the map swings the view all the way around. Pinch or wheel still zooms, one finger or the left button still drags the map, and tapping or clicking still selects planets and fleets and plots courses (Shift+click). In Z view routes, scanner ranges and minefields lie flat on the galaxy and shrink with distance, planets and ships stay 3D, planet and fleet names stand upright facing you (beside each planet, smaller with distance, and hidden when a nearer planet is in front of them), and the rulers and colour legend are hidden. The Z button disappears in 2D, and the tutorial always uses the top-down view. <b>Follow and Cockpit:</b> in Z view the <b>🎥 Follow</b> and <b>👁 Cockpit</b> buttons appear only while one of your fleets is selected, or a planet where one of your fleets is in orbit (the fleet you last picked there, or the first one). <b>Follow</b> shows only when that fleet has a route to follow (a waypoint away from where it is); on a planet it picks a fleet in orbit that has one. <b>Cockpit</b> shows only for a fleet orbiting a planet that has no task here order (on a planet it picks such a fleet); if that fleet is later given a task here, or leaves orbit, the camera goes back to the chase view. Fly works in Cockpit too and flies the route from the cockpit. <b>Follow</b> moves the camera behind and above the fleet, zooms in and turns so the fleet faces its first waypoint, with its route ahead drawn as a glowing path. <b>Cockpit</b> puts you in the pilot's seat of a fleet in orbit: you look out through the canopy, framed by its struts and dashboard, with a sight in the middle and a panel on the dashboard that names the fleet and where it is or where it is heading. With no route you circle the planet looking at it and its station; with a route you look out toward the first waypoint. In the cockpit the only buttons are <b>■ Stop</b>, which leaves the cockpit (back to Follow if you came from Follow, otherwise back to the free Z view), and Fly. Scanner range fills are hidden in the cockpit. Drag sideways to swing the camera around, up or down to raise or lower it; pinch or wheel moves closer or farther. Tapping another of your fleets follows that one instead. <b>▶ Fly</b> glides along the planned route as a preview: the fleet's own ship model moves along the path (the route line is hidden while it flies; in the cockpit you ride along), starting at the edge of its planet and stopping just short of a planet at the end instead of flying into it. While it flies the button reads <b>⏸ Pause</b>; pause it and it reads <b>▶ Continue</b>. Cockpit is hidden while flying. When the ship reaches the end it stops there and the button goes back to ▶ Fly (press it to fly again). Fleets still move only when the year is played. Press <b>■ Stop</b> or Escape to go back to the free Z view. <b>Settings, UI, Z View Tilt</b> sets how fast the tilt gestures work (25% to 200%) and can invert them. In Z view the far edge of the galaxy fades into a light haze, far planets use simpler models and the map redraws its animations a little less often, to stay smooth on phones. Z view works the same while watching a Simulation or a replay and in multiplayer view-only mode.</p>
+                <p><b style="color:#da70d6;">3D Map</b><br>The <b>3D</b> button in the top left corner of the star map turns the planets and ships into 3D models; the button then says <b>2D</b> and takes you back to the flat map. The same switch sets the look of the whole game, and your choice is remembered: in 3D the planet picture in the Planet Summary and the globes in the Planet Roster spin and are lit, and the Fleet Roster shows turning 3D ship models; in 2D planets become flat discs of one colour, the same colour as their dot on the 2D map (owner colour, blue habitable, dark red hostile, grey unscanned), and ships become flat top-down outlines in your empire colour; nothing spins. The switch also sets the Technology Browser and Research pictures: in 3D every ship part (engines, beam weapons, torpedoes, bombs, shields, armor, scanners, cloaks, electrical, mechanical and mine layers, including starbase versions) is a 3D model that grows more detailed with its tech level, still in lists and slowly turning in the big picture of the selected item; in 2D they are the flat drawings. Ship hulls use the 3D ship model of their family (freighter, warship, colony ship, bomber, miner, fuel transport, mine layer or alien), stretched and fitted with extra turrets, cargo pods, drills or wings to match the hull; space station hulls are an armed platform (Orbital Fort), a ring with a docking cradle (Space Dock), ringed hubs (Space Station, Ultra Station) or a cratered battle moon (Death Star); planetary scanners are a dish on a hill with range rings (gold when penetrating), stargates a ring with pylons, mass drivers a coil rail with a glowing packet, and planet installations a mine derrick, factory, defense dome, alchemy flask, terraform globe or the Genesis Device. Hiding the button in Settings, UI keeps whichever look you chose. <b>Planets</b> are lit, slowly turning globes painted from their real surface (oceans, land, ice caps and clouds once explored; grey rock while unscanned), with a soft glow in the color the flat map uses for them (your empire's color, another empire's color, blue for habitable, red for hostile; faint for unscanned). <b>Rings</b> (thin dotted lines close to the planet) appear only around planets with an orbital installation: a small ring for an Orbital Fort, a ring for a Space Station or Space Dock (other empires' installations always show as this ring), two rings for an Ultra Station and three, the outer one red, for a Death Star. Planets of yours with a ship dock also have a small gold station circling them. <b>Ships:</b> every fleet is drawn as the hull type it has the most ships of (on a tie the heavier hull), in its empire's color with glowing engines, pointing where it is going: scout, frigate, destroyer, cruiser (also Battle Cruiser), battleship (also Dreadnought), freighter (all four sizes), armed freighter (Privateer, Rogue, Galleon), colony ship with its habitat ring, bomber (flying wing), miner with drills, fuel tanker, mine layer with its mines, and a spinning alien star for the Nubian and Morph hulls. Heavier hulls are a little bigger. Ships grow as you zoom in. They only appear as 3D models once you have zoomed in a fair way; further out, fleets in orbit are not drawn (their names sit under the planet's name) and fleets in deep space are small dots, so the galaxy stays readable. <b>Other objects</b> are 3D too: a <b>stargate</b> is a silver ring with pylons and a glowing cyan heart floating beside its planet (yours, or another empire's gate you have seen); a <b>wormhole</b> is a swirling funnel of rings around a dark core (bluer when stable, redder when unstable); a <b>minefield</b> is a cloud of slowly turning spiked mines in the field's color (blue yours, gold an ally's, red anyone else's), more mines for bigger fields, inside its dashed outline; the <b>Mystery Trader</b> is a large glowing saucer with fins and circling lights; a <b>mineral packet</b> is a glowing capsule colored by its ore with a short trail. Labels, routes, the trader's course dots and wormhole links stay as on the flat map, and zoomed far out these objects go back to their flat symbols. Ships orbiting a planet circle close around it, moving smoothly, and your selected fleet glows. The names of your fleets in orbit are listed directly under the planet's name (on the flat map too). Everything else works exactly as on the flat map: clicking, dragging, zooming, turning, names, routes, scanner ranges, minefields, the ruler and the legend. The choice is remembered in this browser. 3D uses WebGL, which almost every browser has; if yours does not, the map stays flat. On a very large galaxy, or an older phone, 2D may run more smoothly.</p>
+                <p><b style="color:#da70d6;">The Star Map</b><br>Drag to pan. Scroll to zoom: the map zooms in and out around the point under your cursor, so the star you are pointing at stays put. You can zoom in 15 times closer than before (up to 60 times the full-galaxy scale), enough to fill the map with one star and its neighbors. Planets stop growing at a set size when you zoom in far, and planet names stay the same readable size at every zoom; change the size or hide them in Settings, UI. Click a star to select it, click a fleet to select it, and Shift+click to plot a course for the selected fleet. Every empire in the game, AI empires included, is given its own random color when the game begins. An empire's planets, planet names, fleets and fleet names are drawn in its color, and the empire name at the bottom right uses yours. Planets nobody owns show habitability: blue is habitable, dark red hostile, grey not scanned yet; a gold center means a ship dock. Planets have no outline. The planet or fleet you selected last is marked by a slowly pulsing, glowing gold outline: a ring around the planet, or a glow around the fleet's arrow. Select a planet and the ring appears on it; click a fleet (on the map, in Fleets in Orbit, in the Fleet Summary or in the fleet drop-down) and the glow moves to that fleet. Only one of the two glows at a time, and the glow follows the map while you pan and zoom. The legend in the lower left lists your empire and every empire you have met, each in its color, and adds more columns when it gets long. <b>Rulers:</b> a ruler runs along the bottom and the right edge of the star map and measures distance in light years from the corner of the visible map. The bottom ruler starts at 0 in the lower left and counts going right; the right ruler starts at 0 just above the bottom ruler and counts going up. Small ticks mark fifths of each numbered step. The numbered step changes as you zoom so the labels stay readable; zoomed in far enough it is 1 ly with ticks every 0.2 ly. The rulers always count from the edge you are looking at, so they are a distance scale and not map coordinates. <b>Map display settings:</b> in Settings, <b>UI</b>, the <b>Map Rulers</b> button hides or shows both rulers, <b>Map Legend</b> hides or shows the legend in the lower left (on a phone-sized screen, under 900 pixels wide, both start OFF until you turn them on, and the game remembers your choice), and the <b>Fleet Names on Map</b> slider sets the size of fleet names (0 hides them; they still only appear when you are zoomed in enough). Planet names have their own slider. Your choices are remembered on this device. Hold the right mouse button and drag in a circle to turn the map; text stays upright and the face-north button at the bottom right turns it back. The distance rulers stay on the bottom and right edges while the map is turned; they measure distance across the screen, so they still work at any angle. A fleet in orbit that has an order to do something at that planet points its nose at the planet. Clicking another empire's fleet highlights it with the same pulsing gold glow as your own selected fleet. Fleet names and waypoint labels do not show warp speeds (see the Fleets in Orbit box or Manage Waypoints for those). A plain right-click turns off Measure Distance or Plot Course Mode. The icons at the bottom right (measure, plot course) can be hidden in Settings, UI, Star Map, and so can the <b>2D/3D button</b> at the top left (2D/3D Button: ON or OFF; hiding it keeps whichever view is showing).</p>
                 <p><b style="color:#da70d6;">Playing on a Phone or Tablet</b><br>On a narrow screen the Star Map sits at the top of the dashboard and the planet, fleet and queue panels scroll underneath it. Drag with one finger to pan, pinch with two fingers to zoom around the point between your fingers, and tap a star or fleet to select it. A touch screen has no Shift key, so to plot a course turn on Fleet, Plot Course Mode (or the Plot button in the Fleets in Orbit panel) and tap stars or empty space on the map to add waypoints. The map resizes when you turn the device. The Race Wizard also fits a phone: its tabs scroll sideways and the Point Ledger is hidden, but the Advantage Points counter stays in view. Twist two fingers while pinching to turn the map.</p>
                 <p><b style="color:#da70d6;">Fleets on the Map</b><br>Every group of ships is a fleet. Your fleets are arrowheads in your empire color with their name beside them. A fleet in orbit slowly circles its planet; several fleets share the orbit, evenly spaced. A fleet in deep space sits where it is. Pick a fleet in the Fleets in Orbit panel, in the Fleet Roster, or by clicking its arrow on the map. A fleet with orders shows a line to each waypoint, a numbered box at each stop with its travel time in years (zoomed out the boxes become small dots so they do not cover the map; zoom in to see them), and the current warp next to its name. The names of your fleets in orbit are listed directly under the name of the planet they orbit. A dashed orange leg means you do not have the fuel to finish that leg. When a fleet is selected and the <b>Warp Range Circle</b> is on, dashed rings show how far it moves in one year: green for its free speed, amber for the warp of its first waypoint. Turn it on or off with <b>Fleet, Warp Range Circle</b>; it starts off and the choice is remembered in this browser.</p>
                 <p><b style="color:#da70d6;">The Fleet Menu and Fleet Actions</b><br>The Fleet menu always offers Manage Waypoints, Plot Course Mode and Warp Range Circle. Below them the menu adds actions that only make sense where you are. Select a planet that has one of your fleets in orbit and the matching actions appear: <b>Colonize Planet</b> on a neutral world when a fleet there has a Colony Ship, <b>Cargo and Transfer</b> on one of your planets when a fleet there can carry cargo, <b>Merge Fleets Here</b> and <b>Fleet Transfer</b> when two or more of your fleets share the orbit, and <b>Orbital Bombardment</b> and <b>Ground Invasion</b> at a rival homeworld. With no fleet in orbit of the selected planet, these actions are not shown.</p>
@@ -4553,7 +4624,7 @@
                 <p><b style="color:#da70d6;">Management</b><br>Economy shows your Resources, the research and manufacturing split, operating factories and mines, and Ore mined and stockpiled. Research lets you pick the field and shows progress and your engine. <b>Fleet Roster</b> lists every fleet with its position, fuel, cargo and route. Each fleet has a <b>Select and Center</b> button: it closes the roster, selects that fleet, selects the planet it is orbiting and moves the star map to it (a fleet in deep space is selected and centered on its position). Scoreboard ranks every empire by planets, ships, tech, Resources per year and Ore: empires are columns across the top in their empire colour, the scores run down the left, and the best value in each row glows gold (for Rank, 1st place). In a big galaxy the table scrolls sideways while the score names stay in view. <b>Autobuild</b> opens your empire's Autobuild rules (see Autobuild).</p>
                 <p><b style="color:#da70d6;">Continue Game</b><br>The title screen shows <b>Continue Game</b> (or press C) only when this browser holds a saved single player game, and it loads that save. A single player game is saved in this browser automatically when it starts, when you load one, and every time you press End Turn; a green note at the bottom of the screen confirms each save. Save File still saves by hand. If you have signed in and played a multiplayer game on this device, <b>Continue Multiplayer Game</b> also appears and takes you straight back into that game (it asks you to sign in first if you have signed out). In a multiplayer game a green note tells you every time your orders were sent to the server after you press End Turn.</p>
                 <p><b style="color:#da70d6;">Replays</b><br>Games can be recorded year by year so they can be watched again: single player games, simulations and multiplayer games (the tutorial is never recorded). <b>Recording is off unless you turn it on:</b> tick <b>Record a replay</b> in <b>Advanced Options</b> when you set up the game (for multiplayer, the host ticks it when creating the game). It cannot be switched on later, and the 🎞 Download Replay buttons only appear in games that record. Each year keeps the whole galaxy as it stood once every empire had given its orders, so a replay can show any empire's view, its fog of war and its orders for that year. <b>Downloading:</b> press <b>🎞 Download Replay</b> on the Victory, Defeat, Game Over or Simulation Complete screen, or at any time in <b>Settings</b>. You get a <b>.fs4xreplay</b> file with every recorded year plus the galaxy as it is now. <b>Where it is kept:</b> single player games and simulations are recorded in this browser (the six most recent games are kept; older ones are removed to save space). A single player game loaded on another device, or one started before version 0.168.0, only has the years played since. Multiplayer years are kept on the server by the browser that plays out each year, so every player can download the complete replay, but only while the game exists: when every player has read the final result (or 24 hours after the end) the game and its replay are removed, so download it from the result screen. Files grow with the galaxy, roughly 15 to 100 kB per year. <b>Watching a replay:</b> press <b>New Game</b>, then <b>🎞 Replays</b>, and pick a .fs4xreplay file. The replay plays like a simulation (the top bar says REPLAY): for every year it shows each empire's orders in turn (research, new ship designs, where each fleet was sent and what each planet added to its queue, worked out from what changed since the year before) through that empire's eyes and fog of war, then a Year Summary of what happened, with the same Wait, ⏱ countdown, ⏭ Continue and ⏸ Pause as a simulation. <b>Watching</b> chooses <b>🔁 Every empire in turn</b> or one empire to follow (then each year shows only that empire's orders); the <b>Scoreboard</b> (Management, Scoreboard, which shows every empire's numbers in a replay) has a <b>👁 View</b> button under each empire's name to switch to it. <b>◀ Year</b> and <b>Year ▶</b> step back or forward a year, and the <b>Year</b> at the bottom left becomes a gold link: click it to jump to any recorded year with a slider or a list. Years that were not recorded are skipped, and the summary then says which years are missing. The last year is the galaxy as it was when the file was saved; the replay ends with the standings, and <b>Look Around</b> keeps it open. Opening a replay never changes your saved game. Close it with <b>⏹ End</b> or Settings, Close Replay.</p>
-                <p><b style="color:#da70d6;">Saving</b><br>Save File stores the game in this browser, including every fleet, its waypoints and fuel, tech levels, research progress, your budget, your starbase designs, every planet's orbital installation, your Advanced Options and Victory Conditions, and a copy of every custom race in play (yours and your rivals'). Continue Game on the title screen loads that save, and single player games are also saved there automatically at the start and after every End Turn. Since version 0.8.0 the save also keeps your Galactic Event Log (the last 300 entries) and your latest turn report, and it uses a new format that can hold several human empires; older saves are converted automatically the first time you load them. Load File and Open Game import a saved JSON file, and any custom races inside it that are not already in your list are added to it. Your list of custom races is saved in this browser the moment you save a race in the wizard, separately from any game. Saves from before version 0.7.62 load with Public Player Scores on, every other option off and no victory conditions; saves from before 0.7.61 have every existing starbase converted into a Basic Space Station with a dock; saves from before 0.7.60 have their single fleet converted into the fleet system; saves from before 0.7.59 are also converted to the new economy. Since version 0.9.0 the save also keeps your Autobuild rules, each planet's Autobuild switch, auto items in queues, mineral packets in flight, Mystery Traders and the items you own; saves from before 0.9.0 load with Autobuild switched off (the default rules are there, tick Autobuild is on to use them). Abandon Game (single player only; multiplayer has Back to Lobby instead) returns to the title screen and discards unsaved progress. In a multiplayer game Save File and Load File are not offered, because the server keeps the game; <b>⇠ Back to Lobby</b> in the Settings menu takes you back to the main Multiplayer Lobby; open the game's own lobby (Resign, Invite and so on) from My Games.</p>
+                <p><b style="color:#da70d6;">Saving</b><br>Save File stores the game in this browser, including every fleet, its waypoints and fuel, tech levels, research progress, your budget, your starbase designs, every planet's orbital installation, your Advanced Options and Victory Conditions, and a copy of every custom race in play (yours and your rivals'). Continue Game on the title screen loads that save, and single player games are also saved there automatically at the start and after every End Turn. Since version 0.8.0 the save also keeps your Galactic Event Log (the last 300 entries) and your latest turn report, and it uses a new format that can hold several human empires; older saves are converted automatically the first time you load them. Load File and Open Game import a saved JSON file, and any custom races inside it that are not already in your list are added to it. Your list of custom races is saved in this browser the moment you save a race in the wizard, separately from any game. Saves from before version 0.7.62 load with Public Player Scores on, every other option off and no victory conditions; saves from before 0.7.61 have every existing starbase converted into a Basic Space Station with a dock; saves from before 0.7.60 have their single fleet converted into the fleet system; saves from before 0.7.59 are also converted to the new economy. Since version 0.9.0 the save also keeps your Autobuild rules, each planet's Autobuild switch, auto items in queues, mineral packets in flight, Mystery Traders and the items you own; saves from before 0.9.0 load with Autobuild switched off (the default rules are there, tick Autobuild is on to use them). Abandon Game (single player only; multiplayer has Back to Lobby instead) returns to the title screen and discards unsaved progress. In a multiplayer game Save File and Load File are not offered, because the server keeps the game; <b>⇠ Back to Lobby</b> in the Settings menu takes you back to the main Multiplayer Lobby; open the game's own lobby (Resign, Invite and so on) with ⚙ Game Lobby in My Games.</p>
                 <p><b style="color:#da70d6;">Resources Belong to Planets</b><br>Every planet makes its own Resources from its colonists and its operating factories, and every planet spends them only on its own production queue. There is no empire-wide bank or shared pool: Resources a planet does not spend this turn are lost, and one planet can never pay for another planet\'s buildings. Research is the one shared pool: the research share of every planet is added together and put into the field you chose. Minerals are also kept per planet. To move minerals or colonists between planets use freighters, or fire mineral packets.</p>
                 <p><b style="color:#da70d6;">Colonizing and Cargo</b><br>A ship with a Colonization Module and colonists in its hold can found a colony on an uninhabited world you have surveyed. On a world with 0% or lower habitability for your race the colonists die off, and you are warned first. The colonists come from the planet that built the colony ship, and a planet keeps a minimum population when it loads them. Ships carry four cargo types: colonists, Ironium, Boranium and Germanium. Use Cargo and Transfer in orbit of your own planets (or load and unload tasks on waypoints) to move them. Every kT of cargo adds to the ship\'s mass, which lowers its top warp and increases the fuel it burns, so check fuel before you load a heavy freighter.</p>
                 <p><b style="color:#da70d6;">Mass Drivers and Mineral Packets</b><br>No planet starts with a Mass Driver. Queue one under Structures once your Propulsion is high enough: level 1 needs Propulsion 3, level 2 needs 5, and so on up to level 6 at Propulsion 13. Each level also acts as a packet accelerator: a level N driver fires one packet a year of up to 250 x N kT at Warp 3 + 2 x N, and catches packets up to that same warp. Open the Planet menu and choose Fire Mineral Packet, pick any known planet and the minerals to load; they leave the planet immediately and fly toward the target at warp squared light years a year. A world of yours with a driver of enough speed catches the packet and the minerals go straight into its stockpile. A slower driver catches only part of it, and a world with no driver cannot catch it at all. What is not caught hits the planet as a weapon, killing colonists and destroying mines, factories and defenses, and that works against enemy planets too. A packet that hits an uninhabited world is simply lost. You can see your own packets and any packet flying at one of your planets.</p>
@@ -5427,7 +5498,7 @@
         const ORBIT_SPEED = 0.45;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '0.182.0';
+        const GAME_VERSION = '0.188.0';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -7275,7 +7346,7 @@ const DEFENDERS_PER_POP=100;
                 rosterPaint(det, roster.detail, rot);
             }
             if (!document.getElementById('reports-modal').classList.contains('active')) return;
-            const box = document.getElementById('rep-body').getBoundingClientRect();
+            const box = document.querySelector('#reports-modal .modal-content').getBoundingClientRect();
             document.querySelectorAll('#rep-body canvas.ros-globe').forEach(cv => {
                 const r = cv.getBoundingClientRect();
                 if (r.bottom < box.top || r.top > box.bottom || r.width === 0) return;
@@ -10882,6 +10953,7 @@ const DEFENDERS_PER_POP=100;
         function renderBuildModal(p, mode) {
             buildMode = mode;
             const ships = mode === 'ships';
+            document.getElementById('btn-build-designer').style.display = ships ? '' : 'none';
             document.getElementById('build-modal-title').innerText = ships ? 'Ship Construction at ' + p.name : 'Structures at ' + p.name;
             document.getElementById('build-modal-desc').innerText = ships
                 ? 'Ships are built by the orbital dock. Every ship costs Resources and Ore, spent a little each turn until it is finished. A finished ship appears in orbit as a new fleet.'
@@ -12917,6 +12989,7 @@ const DEFENDERS_PER_POP=100;
         document.getElementById('btn-mgmt-measure').addEventListener('click', () => setMeasureMode(!measureMode));
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && measureMode && !dialogActive) setMeasureMode(false);
+            else if (e.key === 'Escape' && zFollow && !dialogActive && !document.querySelector('.modal-overlay.active')) zSetFollow(false);
         });
 
         function refreshPlotButtons() {
@@ -14879,13 +14952,28 @@ const DEFENDERS_PER_POP=100;
             });
         }
 
+        var sdFromBuild = null;
         function openShipDesigner() {
+            document.getElementById('btn-sd-build').style.display = sdFromBuild === null ? 'none' : '';
             sdNotice = '';
             renderShipDesigner();
             document.getElementById('shipdesign-modal').classList.add('active');
         }
 
-        document.getElementById('btn-mgmt-shipdesign').addEventListener('click', openShipDesigner);
+        document.getElementById('btn-mgmt-shipdesign').addEventListener('click', () => { sdFromBuild = null; openShipDesigner(); });
+        document.getElementById('btn-build-designer').addEventListener('click', () => {
+            sdFromBuild = selectedPlanetIndex;
+            document.getElementById('build-modal').classList.remove('active');
+            openShipDesigner();
+        });
+        document.getElementById('btn-sd-build').addEventListener('click', () => {
+            const idx = sdFromBuild;
+            sdFromBuild = null;
+            document.getElementById('shipdesign-modal').classList.remove('active');
+            if (idx !== null && planets[idx]) selectPlanet(idx);
+            openBuildModal('ships');
+            document.getElementById('btn-build-planet').style.display = bpFromPlanet !== null && bpFromPlanet !== undefined ? '' : 'none';
+        });
 
         const TB_CATS = [
             { key: 'all', label: 'All Technology', desc: 'Everything in the game. Pick a category to narrow the list, or type in the search box.' },
@@ -16382,6 +16470,7 @@ const DEFENDERS_PER_POP=100;
         });
 
         document.getElementById('btn-sd-close').addEventListener('click', () => {
+            sdFromBuild = null;
             document.getElementById('shipdesign-modal').classList.remove('active');
         });
         document.getElementById('btn-sd-new').addEventListener('click', () => {
@@ -19224,6 +19313,78 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '0.188.0', d: "Oct 10, 2026 8:30 PM", t: "Cockpit Seat, Pause and Continue, Upright Names, Look From Below, My Games Opens the Galaxy", items: [
+                'Z view Cockpit is now a real pilot\'s view: the camera sits where the cockpit is and looks out through a canopy frame with struts, a dashboard with lights, a sight in the middle and the fleet panel on the dashboard. In orbit you circle the planet looking at it; scanner fills are hidden.',
+                'In the cockpit the only buttons are ■ Stop (leaves the cockpit, back to Follow if you came from there) and Fly. The Chase button is gone.',
+                'Fly: the button now reads ⏸ Pause while flying and ▶ Continue when paused. At the end the ship stops and the button goes back to ▶ Fly. Cockpit is hidden while flying.',
+                'Fly stops the ship just short of a planet at the end (and starts at the edge of the planet it leaves) instead of flying into it.',
+                'The small gold station now circles exactly on the dotted station orbit ring, and stays on it in the tilted Z view.',
+                'In Z view planet and fleet names stand upright facing you beside their planet, shrink with distance, fade toward the horizon and are hidden behind nearer planets.',
+                'Z view tilt now goes past edge-on to underneath the galaxy, so you can look up at planets from below, and turning swings all the way around.',
+                'Multiplayer: in My Games, a running game opens straight into its galaxy. A ⚙ Game Lobby button on its card opens the lobby (Resign, Invite, Skip Turn). Forming and finished games still open their lobby.',
+                'Help: Z View, My Games, The Game Lobby and Saving updated.'
+            ] },
+            { v: '0.187.3', d: "Oct 10, 2026 7:30 PM", t: "Cockpit Fly Is Back", items: [
+                'Z view: 👁 Cockpit now shows for any of your fleets orbiting a planet unless it has a task here order, including fleets with a route out. Fleets in deep space still do not offer it.',
+                'The ▶ Fly button works in Cockpit again: it flies the route from the cockpit.',
+                'Help: 3D Map updated.'
+            ] },
+            { v: '0.187.2', d: "Oct 10, 2026 7:20 PM", t: "Cockpit Only in Orbit", items: [
+                'Z view: the 👁 Cockpit button now appears only for one of your fleets that is orbiting a planet with no route and no task here order. Fleets in deep space, fleets with waypoints and fleets with a task here no longer offer Cockpit.',
+                'If a fleet you are watching from the cockpit is given a route or a task here, the camera switches back to the chase view behind it.',
+                'The ▶ Fly button is hidden while in Cockpit.',
+                'Help: 3D Map updated.'
+            ] },
+            { v: '0.187.1', d: "Oct 10, 2026 7:00 PM", t: "Ship Designer from Ship Construction, Follow Needs a Route", items: [
+                'Ship Construction has a new 🛠 Ship Designer button at the bottom (above Close). It closes Ship Construction and opens the Ship Designer.',
+                'When the Ship Designer was opened that way, a ← Back to Ship Construction button sits at its bottom above Close. It reopens Ship Construction at the same planet with the build list refreshed, so a design you just saved is ready to queue. A Back to Planet Roster button you had there is kept.',
+                'Z view: the 🎥 Follow button now only appears when the selected fleet (or a fleet orbiting the selected planet) has a route to follow. 👁 Cockpit still appears for any of your fleets.',
+                'Help: Ship Designer and 3D Map updated.'
+            ] },
+            { v: '0.187.0', d: "Oct 10, 2026 6:40 PM", t: "Text Size Settings, Simpler Year Report", items: [
+                'Settings, UI has a new Text Size card with four sliders (70% to 160%): All UI (scales everything below plus the main panels and top menu bar, not the star map itself), Drop-down menus and lists, Pop-up windows, and the Bottom bar. Reset All returns to 100%. Your choices are remembered on this device.',
+                'Year Report: the window is now titled just Year Report (year). The line about every empire giving its orders and the small Year ... Report: heading inside the box are gone.',
+                'Help: Windows and Panels and The Year Report updated.'
+            ] },
+            { v: '0.186.0', d: "Oct 10, 2026 6:15 PM", t: "Cockpit View, Fly Shows the Ship, Enemy Fleet Selection", items: [
+                'Z view: new 👁 Cockpit button puts you inside a fleet, low over the galaxy and looking where it is heading, with a small panel for the fleet, warp and next waypoint. A fleet in orbit with no orders gives a cockpit view of its planet as it circles it. While following, the button switches between Cockpit and Chase.',
+                'Follow and Cockpit only appear when one of your fleets is selected, or a planet with one of your fleets in orbit. The ◀ ▶ fleet buttons were removed.',
+                '▶ Fly now moves the fleet\'s own ship model along its route (no more lone engine light) and hides the route line while it flies.',
+                'Selecting another empire\'s fleet on the star map now shows the same pulsing gold highlight as selecting your own, in 2D and 3D.',
+                'Star map: warp speeds were removed from fleet names and waypoint labels (waypoints still show the years to reach them).',
+                'Help: Z View and The Star Map updated.'
+            ] },
+            { v: '0.185.1', d: "Oct 10, 2026 5:45 PM", t: "Slimmer Station Rings", items: [
+                '3D map: the orbit ring around a planet with a space station or starbase is now a thin dotted line sitting much closer to the planet.'
+            ] },
+            { v: '0.185.0', d: "Oct 10, 2026 5:35 PM", t: "Z View Polish", items: [
+                'Settings, UI has a new Z View Tilt card: a speed slider (25% to 200%) for the tilt gestures and an Invert Tilt switch.',
+                'Z view is lighter on phones: far planets use simpler 3D models and the map\'s animations redraw a little less often while tilted.',
+                'The far edge of the tilted galaxy now fades into a light haze.',
+                'Tutorial lesson 2 mentions the 3D and Z buttons (the tutorial itself keeps the flat top-down view). Z view checked in Simulation, replays and multiplayer view-only mode.',
+                'Phase Z3 of 3: the Z view plan is complete.',
+                'Help: Z View updated.'
+            ] },
+            { v: '0.184.0', d: "Oct 10, 2026 5:10 PM", t: "Z View: Follow a Fleet", items: [
+                'In Z view a 🎥 Follow button puts the camera behind and above the selected fleet, facing its first waypoint, with the whole route ahead drawn as a glowing path.',
+                'Drag sideways to swing around the fleet, up and down to raise or lower the camera; pinch or wheel to move closer. ◀ ▶ step through your fleets, ▶ Fly glides the camera along the planned route (preview only), and 🎥 Stop or Escape returns to the free Z view.',
+                'Phase Z2 of 3: polish and phone tuning come next.',
+                'Help: Z View updated.'
+            ] },
+            { v: '0.183.1', d: "Oct 10, 2026 4:40 PM", t: "Planet Roster Scrolls as One Page", items: [
+                'Planet Roster: the Go to location box is no longer pinned at the top; the whole window scrolls together, so the planet lists get the full height.'
+            ] },
+            { v: '0.183.0', d: "Oct 10, 2026 4:30 PM", t: "Z View: Tilted 3D Star Map", items: [
+                'New Z button beside the 2D/3D button while the map is in 3D. It tilts the star map so you look across the galaxy at an angle, with real perspective: near stars are bigger, far ones smaller.',
+                'Tilt with a two-finger slide up or down on phones, or right-drag up and down with a mouse (right-drag sideways turns the map, Shift+wheel also tilts). Pinch and wheel zoom, dragging pans, and taps and clicks still select planets and fleets and plot courses.',
+                'Names, routes, scanner ranges and minefields lie on the galaxy plane in Z view; the rulers and colour legend are hidden. Press Z again for the top-down view. Your choice and tilt are remembered.',
+                'Phase Z1 of 3: the view from behind a fleet comes next.',
+                'Help and Updates windows on phones: Replay Tutorial and Chapters share one row, the search box is narrower so Contents fits beside it (Expand All and Collapse All share the next row), and the section count is gone.',
+                'Help: new Z View section.'
+            ] },
+            { v: '0.182.1', d: "Oct 10, 2026 3:55 PM", t: "Shorter Star Map Title on Phones", items: [
+                'The star map panel title on phones is now just Star Map, without the drag, pinch and tap hints (Help, The Star Map still explains them).'
+            ] },
             { v: '0.182.0', d: "Oct 10, 2026 3:45 PM", t: "Roster Cards and 3D Fleet Flicker", items: [
                 'Opening a planet from the Planet Roster closes the roster and the planet card has a Back to Planet Roster button. Opening a fleet from the Fleet Roster closes the roster and the fleet card has a Back to Fleet Roster button (or Back to Planet Roster when you came from a planet card).',
                 '3D map: fleets flying near planets no longer jump from planet to planet while you zoom. A fleet passing close to a planet is now nudged just outside the globe and slides smoothly as you zoom, instead of snapping to a spot far out from whichever planet was nearest.',
@@ -20592,7 +20753,7 @@ const DEFENDERS_PER_POP=100;
             return d.textContent.toLowerCase();
         }
 
-        const HELP_LEVELS = { basic: ["Absolute Beginner: Play in Two Minutes", "The Tutorial", "Goal", "Tips for Your First Turns", "The Star Map", "3D Map", "The Planet Picture", "What the Panels Show", "The Planet Menu", "Turn Flow", "Turns and Rounds", "The Year Report", "Resources", "Ore and Mining", "Population and Growth", "Structures", "The Production Queue", "Research", "Habitability", "Colonizing", "Colonizing and Cargo", "Ship Construction", "Your Starting Fleet", "Fleets on the Map", "The Fleet Menu and Fleet Actions", "Waypoints and Tasks", "Send a Fleet Here", "Do Task Here", "Cargo and Transfer", "Warnings Before You Commit", "Warp Speed and Travel Time", "Fuel", "Scanning and Discovery", "Skip Years", "The Event Log", "Management", "Saving", "Continue Game", "Replays", "New Game: Tutorial, Sandbox, Scenario and Simulation", "Simulation", "The New Game Screen", "AI Opponents", "Victory Conditions", "Defeat and Game Over", "Playing on a Phone or Tablet", "Planet Names on Map", "Panel Transparency", "Minimizing Panels on a Desktop", "Menu Colors and Sensor Circles", "Music and Sound Effects", "Galaxy Names and Fun Facts", "Help and Updates Windows", "Update Notice and What's New", "Multiplayer and Your Account", "Forgot Your Password", "The Multiplayer Lobby", "The Lounge, Lobby Chat and Player Profiles", "Joining a Multiplayer Game", "When the Game Begins", "Taking Your Turn", "My Games", "Defeat in Multiplayer"], advanced: ["Colonizing at the Same Time", "Random Events", "Refueling", "Fleet Transfer", "Merging Fleets", "Fleet Management and Naming Ships", "Scrapping", "Patrol", "Routes for New Ships", "Transport and Zip Orders", "Queue Controls and Estimates", "Auto Items and Repeating Builds", "Mines and Factories", "Autobuild", "Pop-up Windows", "Ore Concentration Bars", "Game Images", "The Galactic Event Log", "Planet Roster and Map Overlays", "Measuring Distance", "Advanced Options", "Scoreboard Table", "Score Graphs", "Game Stats", "Ship Repair", "Planetary Defenses", "Space Stations and Starbases", "Upgrading a Space Station or Starbase", "Building Designs and Refitting", "Technology Browser", "Ship Designer", "Ship Design Files", "Automation Files", "Resources Belong to Planets", "The Two Currencies: Resources and Ore", "The Budget: Research vs Manufacturing", "Your Own View of the Galaxy", "Miniaturization", "Engines", "Combat", "Battle Plans", "Battle Replay", "Bombing and Invasion", "Cloaking and Scanners", "Minefields", "Terraforming", "Mass Drivers and Mineral Packets", "Wormholes", "Stargates", "The Mystery Trader", "Diplomacy", "AI Intelligence: Mistakes, Aggression and Grudges", "How the AI Empires Play", "Custom Races and the Race Wizard", "The Six Wizard Tabs", "Advantage Points", "What a Custom Race Does In This Game", "Numbers at a Glance", "Creating a Multiplayer Game", "Opponents: Player Spots and AI", "Multiplayer Options", "The Game Lobby", "Inviting Players", "Inviting Players After the Game Has Started", "Examining Enemy Fleets", "Game Emails", "Multiplayer Victory and Game Over", "Watching While Others Play", "Turn Time Limit and Skipping", "Skip My Turns", "Changing Your Empire Color", "Who Is Online and How Long the Year Has Run", "Chat", "Whispers and Alliance Chat", "Play Types", "Resigning", "Player Stats, Charts and the Leaderboard", "Reliability, Records and Races", "Empire Records", "Military Records and Diplomacy", "Leaderboard Filters and Record Leaderboards", "Seasons", "Playing Now: Standings in Running Games", "Badges", "Admin Tools", "Inactive Accounts", "Warnings, Limits and Bans", "Equipment Catalog", "Ship Hulls", "Mystery Trader Items"] };
+        const HELP_LEVELS = { basic: ["Absolute Beginner: Play in Two Minutes", "The Tutorial", "Goal", "Tips for Your First Turns", "The Star Map", "3D Map", "Z View (Tilted 3D Map)", "The Planet Picture", "What the Panels Show", "The Planet Menu", "Turn Flow", "Turns and Rounds", "The Year Report", "Resources", "Ore and Mining", "Population and Growth", "Structures", "The Production Queue", "Research", "Habitability", "Colonizing", "Colonizing and Cargo", "Ship Construction", "Your Starting Fleet", "Fleets on the Map", "The Fleet Menu and Fleet Actions", "Waypoints and Tasks", "Send a Fleet Here", "Do Task Here", "Cargo and Transfer", "Warnings Before You Commit", "Warp Speed and Travel Time", "Fuel", "Scanning and Discovery", "Skip Years", "The Event Log", "Management", "Saving", "Continue Game", "Replays", "New Game: Tutorial, Sandbox, Scenario and Simulation", "Simulation", "The New Game Screen", "AI Opponents", "Victory Conditions", "Defeat and Game Over", "Playing on a Phone or Tablet", "Planet Names on Map", "Panel Transparency", "Minimizing Panels on a Desktop", "Menu Colors and Sensor Circles", "Music and Sound Effects", "Galaxy Names and Fun Facts", "Help and Updates Windows", "Update Notice and What's New", "Multiplayer and Your Account", "Forgot Your Password", "The Multiplayer Lobby", "The Lounge, Lobby Chat and Player Profiles", "Joining a Multiplayer Game", "When the Game Begins", "Taking Your Turn", "My Games", "Defeat in Multiplayer"], advanced: ["Colonizing at the Same Time", "Random Events", "Refueling", "Fleet Transfer", "Merging Fleets", "Fleet Management and Naming Ships", "Scrapping", "Patrol", "Routes for New Ships", "Transport and Zip Orders", "Queue Controls and Estimates", "Auto Items and Repeating Builds", "Mines and Factories", "Autobuild", "Text Size", "Pop-up Windows", "Ore Concentration Bars", "Game Images", "The Galactic Event Log", "Planet Roster and Map Overlays", "Measuring Distance", "Advanced Options", "Scoreboard Table", "Score Graphs", "Game Stats", "Ship Repair", "Planetary Defenses", "Space Stations and Starbases", "Upgrading a Space Station or Starbase", "Building Designs and Refitting", "Technology Browser", "Ship Designer", "Ship Design Files", "Automation Files", "Resources Belong to Planets", "The Two Currencies: Resources and Ore", "The Budget: Research vs Manufacturing", "Your Own View of the Galaxy", "Miniaturization", "Engines", "Combat", "Battle Plans", "Battle Replay", "Bombing and Invasion", "Cloaking and Scanners", "Minefields", "Terraforming", "Mass Drivers and Mineral Packets", "Wormholes", "Stargates", "The Mystery Trader", "Diplomacy", "AI Intelligence: Mistakes, Aggression and Grudges", "How the AI Empires Play", "Custom Races and the Race Wizard", "The Six Wizard Tabs", "Advantage Points", "What a Custom Race Does In This Game", "Numbers at a Glance", "Creating a Multiplayer Game", "Opponents: Player Spots and AI", "Multiplayer Options", "The Game Lobby", "Inviting Players", "Inviting Players After the Game Has Started", "Examining Enemy Fleets", "Game Emails", "Multiplayer Victory and Game Over", "Watching While Others Play", "Turn Time Limit and Skipping", "Skip My Turns", "Changing Your Empire Color", "Who Is Online and How Long the Year Has Run", "Chat", "Whispers and Alliance Chat", "Play Types", "Resigning", "Player Stats, Charts and the Leaderboard", "Reliability, Records and Races", "Empire Records", "Military Records and Diplomacy", "Leaderboard Filters and Record Leaderboards", "Seasons", "Playing Now: Standings in Running Games", "Badges", "Admin Tools", "Inactive Accounts", "Warnings, Limits and Bans", "Equipment Catalog", "Ship Hulls", "Mystery Trader Items"] };
         const HELP_LEVEL_NAMES = ['Basic', 'Advanced'];
 
         function helpLevelOf(title) {
@@ -21583,6 +21744,7 @@ const DEFENDERS_PER_POP=100;
         let mapOffsetY = 0;
         let mapRot = 0;
         let rotating = false;
+        let zLastX = 0, zLastY = 0, zPinchMidY = null;
         let rotLastAngle = 0;
         let rightMoved = false;
         let isDragging = false;
@@ -21613,6 +21775,494 @@ const DEFENDERS_PER_POP=100;
                 x: (dx * c + dy * sn) / mapScale + half,
                 y: (-dx * sn + dy * c) / mapScale + half
             };
+        }
+
+        var zOn = false;
+        var mapTilt = 0.75;
+        const Z_TILT_MAX = Math.PI - 0.15, Z_TILT_MIN = 0.12, Z_FOV = 40 * Math.PI / 180;
+        try {
+            zOn = localStorage.getItem('fs4x-zview') === '1';
+            const zt = parseFloat(localStorage.getItem('fs4x-ztilt'));
+            if (zt > 0) mapTilt = Math.min(Z_TILT_MAX, Math.max(Z_TILT_MIN, zt));
+        } catch (err) { }
+
+        var zSens = 1;
+        var zInvert = false;
+        try {
+            const zs = parseFloat(localStorage.getItem('fs4x-zsens'));
+            if (zs > 0) zSens = Math.min(2, Math.max(0.25, zs));
+            zInvert = localStorage.getItem('fs4x-zinvert') === '1';
+        } catch (err) { }
+
+        function zTiltDelta(d) {
+            return d * zSens * (zInvert ? -1 : 1);
+        }
+
+        function zSyncSettings() {
+            const sl = document.getElementById('z-sens');
+            if (!sl) return;
+            sl.value = String(Math.round(zSens * 100));
+            document.getElementById('z-sens-value').textContent = Math.round(zSens * 100) + '%';
+            document.getElementById('btn-z-invert').textContent = '↕ Invert Tilt: ' + (zInvert ? 'ON' : 'OFF');
+        }
+
+        function zTilt() {
+            return zOn && map3d && m3 && !tutActive ? mapTilt : 0;
+        }
+
+        function zMakeCam(pos, phi, W0, H0, cx, cy) {
+            const D = (H0 / 2) / Math.tan(Z_FOV / 2);
+            const cp = Math.cos(phi), sp = Math.sin(phi);
+            return { t: Math.PI / 2 - phi, W0: W0, H0: H0, D: D, cx: cx, cy: cy, pos: pos, u: [0, -sp, cp], f: [0, -cp, -sp] };
+        }
+
+        function zCamAt(t, W0, H0, cx, cy) {
+            if (zCockpitOn()) {
+                const k = zCockpitSpec();
+                return zMakeCam([cx, cy + k.back, k.h], k.phi, W0, H0, cx, cy);
+            }
+            const D = (H0 / 2) / Math.tan(Z_FOV / 2);
+            if (Math.abs(t - Math.PI / 2) < 0.06) t = Math.PI / 2 + (t < Math.PI / 2 ? -0.06 : 0.06);
+            return zMakeCam([cx, cy + D * Math.sin(t), D * Math.cos(t)], Math.PI / 2 - t, W0, H0, cx, cy);
+        }
+
+        function zViewBox() {
+            const box = mapCanvas.parentElement;
+            return { w: box && box.clientWidth ? box.clientWidth : mapCanvas.width, h: box && box.clientHeight ? box.clientHeight : mapCanvas.height };
+        }
+
+        function zCam() {
+            const v = zViewBox();
+            return zCamAt(zTilt(), v.w, v.h, mapCanvas.width / 2, mapCanvas.height / 2);
+        }
+
+        function zUnproject(C, sx, sy) {
+            const a = (sx - C.W0 / 2) / C.D, b = -(sy - C.H0 / 2) / C.D;
+            const dx = a, dy = b * C.u[1] + C.f[1];
+            let dz = b * C.u[2] + C.f[2];
+            if (C.pos[2] >= 0) {
+                if (dz > -0.02) dz = -0.02;
+            } else if (dz < 0.02) dz = 0.02;
+            const k = -C.pos[2] / dz;
+            return { x: C.pos[0] + dx * k, y: C.pos[1] + dy * k };
+        }
+
+        function zVirtualSize() {
+            const v = zViewBox();
+            const t = zTilt();
+            if (!t) return v;
+            const C = zCamAt(t, v.w, v.h, 0, 0);
+            let hw = v.w / 2, hh = v.h / 2;
+            [[0, 0], [v.w, 0], [0, v.h], [v.w, v.h], [v.w / 2, 0], [v.w / 2, v.h]].forEach(p => {
+                const q = zUnproject(C, p[0], p[1]);
+                hw = Math.max(hw, Math.abs(q.x));
+                hh = Math.max(hh, Math.abs(q.y));
+            });
+            return { w: Math.round(Math.min(2000, hw + 24) * 2), h: Math.round(Math.min(2000, hh + 24) * 2) };
+        }
+
+        function zSyncCanvas() {
+            const box = mapCanvas.parentElement;
+            if (!box || !box.clientWidth) return false;
+            const v = zVirtualSize();
+            mapCanvas.classList.toggle('z-tilted', !!zTilt());
+            document.getElementById('galaxy-3d').classList.toggle('z-tilted', !!zTilt());
+            document.getElementById('galaxy-3d').classList.toggle('z-under', zTilt() > Math.PI / 2);
+            if (mapCanvas.width === v.w && mapCanvas.height === v.h) return false;
+            mapCanvas.width = v.w;
+            mapCanvas.height = v.h;
+            return true;
+        }
+
+        function zSetTilt(v) {
+            mapTilt = Math.min(Z_TILT_MAX, Math.max(Z_TILT_MIN, v));
+            try { localStorage.setItem('fs4x-ztilt', String(mapTilt)); } catch (err) { }
+            drawGalaxyMap();
+        }
+
+        function zSyncButton() {
+            const b = document.getElementById('map-z-btn');
+            if (!b) return;
+            b.style.display = map3d ? '' : 'none';
+            b.classList.toggle('on', !!zOn);
+            b.title = zOn ? 'Back to the top-down 3D view' : 'Tilt the 3D star map (Z view)';
+            const bar = document.getElementById('z-follow-bar');
+            if (!bar) return;
+            const tilted = !!(zOn && map3d && !tutActive);
+            bar.style.display = tilted ? '' : 'none';
+            const fb = document.getElementById('map-follow-btn');
+            const ck = document.getElementById('map-cockpit-btn');
+            const fly = document.getElementById('map-fly-btn');
+            const sel = getSelectedFleet();
+            const inPit = !!(zCockpit && zFollow);
+            const showF = !inPit && (zFollow || !!zFollowCandidate(true));
+            const showC = inPit || (!zFly && (zFollow ? zCockpitOk(sel) : !!zFollowCandidate(false, true)));
+            fb.style.display = showF ? '' : 'none';
+            fb.classList.toggle('on', !!zFollow);
+            fb.textContent = zFollow ? '■ Stop' : '🎥 Follow';
+            fb.title = zFollow ? 'Stop following the fleet' : 'View from behind the selected fleet';
+            ck.style.display = showC ? '' : 'none';
+            ck.classList.toggle('on', inPit);
+            ck.textContent = inPit ? '■ Stop' : '👁 Cockpit';
+            ck.title = inPit ? 'Leave the cockpit' : 'See from inside the fleet\'s cockpit';
+            fly.style.display = zFollow && (!!zFly || zHasRoute(sel)) ? '' : 'none';
+            const running = !!(zFly && !zFly.done && !zFly.paused);
+            fly.textContent = !zFly || zFly.done ? '▶ Fly' : zFly.paused ? '▶ Continue' : '⏸ Pause';
+            fly.title = running ? 'Pause the flight' : zFly && zFly.paused ? 'Continue the flight' : 'Fly the fleet along its planned route (preview)';
+            fly.classList.toggle('on', running);
+        }
+
+        function zToggle() {
+            zOn = !zOn;
+            if (!zOn) {
+                zFollow = false;
+                zFly = null;
+            }
+            if (zOn && mapTilt < Z_TILT_MIN) mapTilt = 0.75;
+            try { localStorage.setItem('fs4x-zview', zOn ? '1' : '0'); } catch (err) { }
+            zSyncButton();
+            drawGalaxyMap();
+        }
+
+        function zSyncHud() {
+            const hud = document.getElementById('z-hud');
+            if (!hud) return;
+            const on = zCockpitOn();
+            hud.style.display = on ? '' : 'none';
+            if (!on) return;
+            const f = getSelectedFleet();
+            let txt = f.name;
+            if (zFly) txt += zFly.done ? '  ·  arrived' : zFly.paused ? '  ·  paused' : '  ·  route preview';
+            else if (zCockpitOrbit >= 0 && planets[zCockpitOrbit]) txt += '  ·  orbiting ' + planets[zCockpitOrbit].name;
+            else {
+                const w = (f.waypoints || []).find(p => Math.hypot(p.x - f.x, p.y - f.y) > 0.5);
+                if (w) txt += '  ·  Warp ' + w.warp + ' to ' + wpName(w) + ', ' + Math.round(Math.hypot(w.x - f.x, w.y - f.y)) + ' ly';
+                else txt += '  ·  holding position';
+            }
+            document.getElementById('z-hud-text').textContent = txt;
+        }
+
+        function zHasRoute(f) {
+            return !!(f && (f.waypoints || []).some(w => Math.hypot(w.x - f.x, w.y - f.y) > 0.5));
+        }
+
+        function zCockpitOk(f) {
+            return !!f && fleetOrbitIndex(f) >= 0 && !(f.waypoints || []).some(w => w.here);
+        }
+
+        function zFollowCandidate(needRoute, needCockpit) {
+            if (!playerFleets.length) return null;
+            if (mapSelKind === 'fleet') {
+                const f = getSelectedFleet() || null;
+                if (needRoute && !zHasRoute(f)) return null;
+                return needCockpit && !zCockpitOk(f) ? null : f;
+            }
+            if (mapSelKind === 'planet' && selectedPlanetIndex >= 0) {
+                let here = playerFleets.filter(f => fleetOrbitIndex(f) === selectedPlanetIndex);
+                if (needRoute) here = here.filter(zHasRoute);
+                if (needCockpit) here = here.filter(zCockpitOk);
+                return here.find(f => f.id === selectedFleetId) || here[0] || null;
+            }
+            return null;
+        }
+
+        function zStartWith(cockpit) {
+            const f = cockpit ? zFollowCandidate(false, true) : (zFollowCandidate(true) || zFollowCandidate());
+            if (!f) return;
+            selectedFleetId = f.id;
+            mapSelKind = 'fleet';
+            zCockpit = !!cockpit;
+            zSetFollow(true);
+            if (zCockpit && mapScale < 14) {
+                mapScale = 14;
+                drawGalaxyMap();
+            }
+            updateDashboardPlanetView();
+        }
+
+        var zCockpit = false;
+        var zCockpitOrbit = -1;
+
+        function zCockpitOn() {
+            return zCockpit && zFollow && !!zTilt() && !!getSelectedFleet();
+        }
+
+        function zPlanetPx() {
+            return m3PlanetRadius(Math.min(Math.max(4, Math.min(10, 5 / mapScale)), 16 / mapScale));
+        }
+
+        function zPlanetR(i) {
+            const q = i >= 0 ? m3Planets.find(o => o.i === i) : null;
+            return q && q.r > 0 ? q.r : zPlanetPx();
+        }
+
+        function zCockpitSpec() {
+            if (zCockpitOrbit >= 0) return { back: 0, h: zPlanetR(zCockpitOrbit) * 0.45, phi: 0.12 };
+            return { back: 0, h: Math.max(5, 5 * m3ZoomFactor()), phi: 0.1 };
+        }
+
+        var zFollow = false;
+        var zFollowYaw = 0;
+        var zFollowHead = 0;
+        var zFly = null;
+
+        function zFollowOn() {
+            return zFollow && !!zTilt() && !!getSelectedFleet();
+        }
+
+        function zRoutePts(f) {
+            return [[f.x, f.y]].concat((f.waypoints || []).map(w => [w.x, w.y]));
+        }
+
+        function zFollowApply() {
+            if (!zFollow) return;
+            if (!zTilt() || !getSelectedFleet()) {
+                zFollow = false;
+                zFly = null;
+                zSyncButton();
+                return;
+            }
+            const f = getSelectedFleet();
+            if (zCockpit && mapScale < 14) mapScale = 14;
+            let x = f.x, y = f.y, head = zFollowHead;
+            if (zFly) {
+                const k = Math.min(1, zFlyElapsed() / zFly.ms);
+                if (k >= 1 && !zFly.done) {
+                    zFly.el = zFly.ms;
+                    zFly.done = true;
+                    setTimeout(zSyncButton, 0);
+                }
+                let d = k * zFly.len;
+                for (let i = 1; i < zFly.pts.length; i++) {
+                    const a = zFly.pts[i - 1], b = zFly.pts[i];
+                    const l = Math.hypot(b[0] - a[0], b[1] - a[1]);
+                    if (l <= 0) continue;
+                    head = Math.atan2(b[1] - a[1], b[0] - a[0]);
+                    if (d <= l || i === zFly.pts.length - 1) {
+                        const q = Math.min(1, d / l);
+                        x = a[0] + (b[0] - a[0]) * q;
+                        y = a[1] + (b[1] - a[1]) * q;
+                        break;
+                    }
+                    d -= l;
+                }
+                zFly.x = x;
+                zFly.y = y;
+            } else {
+                const w = (f.waypoints || []).find(p => Math.hypot(p.x - f.x, p.y - f.y) > 0.5);
+                if (w) head = Math.atan2(w.y - f.y, w.x - f.x);
+            }
+            if (zFly) zFly.head = head;
+            zCockpitOrbit = -1;
+            if (zCockpit && !zCockpitOk(f)) {
+                zCockpit = false;
+                zSyncButton();
+                zSyncHud();
+            }
+            if (zCockpit && !zFly) {
+                const oi = fleetOrbitIndex(f);
+                const w0 = (f.waypoints || []).find(p => Math.hypot(p.x - f.x, p.y - f.y) > 0.5);
+                if (oi >= 0 && !w0) {
+                    zCockpitOrbit = oi;
+                    const th = performance.now() / 1000 * 0.12;
+                    const ro = zPlanetR(oi) * 4.2 / mapScale;
+                    const oh = th + Math.PI - 0.3;
+                    mapRot = -Math.PI / 2 - oh + zFollowYaw;
+                    while (mapRot > Math.PI) mapRot -= Math.PI * 2;
+                    while (mapRot < -Math.PI) mapRot += Math.PI * 2;
+                    centerMapOn(planets[oi].x + Math.cos(th) * ro, planets[oi].y + Math.sin(th) * ro);
+                    zFollowHead = head;
+                    return;
+                }
+            }
+            zFollowHead = head;
+            if (zCockpit) {
+                mapRot = -Math.PI / 2 - head + zFollowYaw;
+                while (mapRot > Math.PI) mapRot -= Math.PI * 2;
+                while (mapRot < -Math.PI) mapRot += Math.PI * 2;
+                if (!zFly && fleetOrbitIndex(f) >= 0) {
+                    const out = zPlanetR(fleetOrbitIndex(f)) * 2.2 / mapScale;
+                    x += Math.cos(head - zFollowYaw) * out;
+                    y += Math.sin(head - zFollowYaw) * out;
+                }
+                centerMapOn(x, y);
+                return;
+            }
+            mapRot = -Math.PI / 2 - head + zFollowYaw;
+            while (mapRot > Math.PI) mapRot -= Math.PI * 2;
+            while (mapRot < -Math.PI) mapRot += Math.PI * 2;
+            const ahead = zViewBox().h * 0.22 / mapScale;
+            const yawHead = head - zFollowYaw;
+            centerMapOn(x + Math.cos(yawHead) * ahead, y + Math.sin(yawHead) * ahead);
+        }
+
+        function zSetFollow(on) {
+            zFollow = !!on && !!zTilt() && !!getSelectedFleet();
+            if (!zFollow) zCockpit = false;
+            zFly = null;
+            zFollowYaw = 0;
+            if (zFollow && mapTilt < 0.7) mapTilt = 0.85;
+            if (zFollow && mapScale < 3) mapScale = 3;
+            zCockpitKick();
+            zSyncButton();
+            drawGalaxyMap();
+        }
+
+        let zCockLast = 0;
+
+        function zCockpitLoop(ts) {
+            if (!zCockpitOn() || zFly) return;
+            if (ts - zCockLast > 33) {
+                zCockLast = ts;
+                drawGalaxyMap();
+            }
+            requestAnimationFrame(zCockpitLoop);
+        }
+
+        function zCockpitKick() {
+            if (zCockpitOn()) requestAnimationFrame(zCockpitLoop);
+        }
+
+        var zCockpitFromFollow = false;
+
+        function zToggleCockpit() {
+            if (zCockpit && zFollow) {
+                if (!zCockpitFromFollow) {
+                    zSetFollow(false);
+                    return;
+                }
+                zFly = null;
+                zCockpit = false;
+                zFollowYaw = 0;
+                zSyncButton();
+                drawGalaxyMap();
+                return;
+            }
+            if (!zFollow) {
+                zCockpitFromFollow = false;
+                zStartWith(true);
+                return;
+            }
+            if (zFly || !zCockpitOk(getSelectedFleet())) return;
+            zCockpitFromFollow = true;
+            zCockpit = true;
+            zFollowYaw = 0;
+            if (zCockpit && mapScale < 14) mapScale = 14;
+            zSyncButton();
+            drawGalaxyMap();
+            zCockpitKick();
+        }
+
+        let zFlyLast = 0;
+
+        function zFlyElapsed() {
+            if (!zFly) return 0;
+            return zFly.el + (zFly.paused || zFly.done ? 0 : performance.now() - zFly.t0);
+        }
+
+        function zFlyLoop(ts) {
+            if (!zFly || zFly.paused || zFly.done) return;
+            if (ts && ts - zFlyLast < 30) {
+                requestAnimationFrame(zFlyLoop);
+                return;
+            }
+            zFlyLast = ts || 0;
+            drawGalaxyMap();
+            if (zFly && zFly.done) {
+                zSyncButton();
+                zSyncHud();
+                return;
+            }
+            requestAnimationFrame(zFlyLoop);
+        }
+
+        function zFlyPath(f) {
+            const pts = zRoutePts(f).map(p => [p[0], p[1]]);
+            if (pts.length < 2) return pts;
+            const pi = p => planets.findIndex(q => Math.hypot(q.x - p[0], q.y - p[1]) < 0.5);
+            const pull = (a, b) => {
+                const stop = zPlanetR(pi(a)) * (zCockpit ? 4.5 : 2.2) / mapScale;
+                const l = Math.hypot(b[0] - a[0], b[1] - a[1]);
+                if (l <= 0) return;
+                const d = Math.min(stop, l * 0.45) / l;
+                a[0] += (b[0] - a[0]) * d;
+                a[1] += (b[1] - a[1]) * d;
+            };
+            const n = pts.length - 1;
+            if (pi(pts[n]) >= 0) pull(pts[n], pts[n - 1]);
+            if (pi(pts[0]) >= 0) pull(pts[0], pts[1]);
+            return pts;
+        }
+
+        function zFlyRoute() {
+            if (zFly && !zFly.done) {
+                if (zFly.paused) {
+                    zFly.paused = false;
+                    zFly.t0 = performance.now();
+                    requestAnimationFrame(zFlyLoop);
+                } else {
+                    zFly.el = zFlyElapsed();
+                    zFly.paused = true;
+                }
+                zSyncButton();
+                drawGalaxyMap();
+                return;
+            }
+            const f = getSelectedFleet();
+            if (!f || !zFollow) return;
+            const pts = zFlyPath(f);
+            let len = 0;
+            for (let i = 1; i < pts.length; i++) len += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+            if (len < 1) {
+                gameAlert('This fleet has no route to fly. Give it waypoints first.', 'Fly Route');
+                return;
+            }
+            zFly = { pts: pts, len: len, t0: performance.now(), el: 0, paused: false, done: false, ms: Math.max(2500, Math.min(12000, len * 25)) };
+            zSyncButton();
+            requestAnimationFrame(zFlyLoop);
+        }
+
+        function zDrawFollowRoute(ctx) {
+            if (!zFollowOn() || zFly || zCockpit) return;
+            const f = getSelectedFleet();
+            const pts = zRoutePts(f).map(p => worldToScreen(p[0], p[1]));
+            if (pts.length > 1) {
+                ctx.save();
+                ctx.lineJoin = 'round';
+                ctx.lineCap = 'round';
+                [[14, 'rgba(255, 210, 120, 0.12)'], [7, 'rgba(255, 210, 120, 0.25)'], [2.5, 'rgba(255, 240, 190, 0.9)']].forEach(st => {
+                    ctx.lineWidth = st[0];
+                    ctx.strokeStyle = st[1];
+                    ctx.beginPath();
+                    pts.forEach((p, i) => { if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); });
+                    ctx.stroke();
+                });
+                ctx.restore();
+            }
+            if (zFly && zFly.x !== undefined) {
+                const c = worldToScreen(zFly.x, zFly.y);
+                const g = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, 16);
+                g.addColorStop(0, 'rgba(255, 255, 230, 1)');
+                g.addColorStop(0.4, 'rgba(255, 200, 90, 0.7)');
+                g.addColorStop(1, 'rgba(255, 160, 40, 0)');
+                ctx.fillStyle = g;
+                ctx.beginPath();
+                ctx.arc(c.x, c.y, 16, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function mapPointFromClient(clientX, clientY) {
+            const rect = mapCanvas.getBoundingClientRect();
+            const lx = clientX - rect.left, ly = clientY - rect.top;
+            if (zTilt()) return zUnproject(zCam(), lx, ly);
+            return { x: lx * (mapCanvas.width / (rect.width || 1)), y: ly * (mapCanvas.height / (rect.height || 1)) };
+        }
+
+        function zPanClient(px, py, cx, cy) {
+            const a = mapPointFromClient(px, py), b = mapPointFromClient(cx, cy);
+            holdAnchor(screenToWorld(a.x, a.y), b.x, b.y);
+            drawGalaxyMap();
         }
 
         function computeFleetStacks() {
@@ -21807,8 +22457,7 @@ const DEFENDERS_PER_POP=100;
         function resizeMapCanvas() {
             const container = mapCanvas.parentElement;
             if (container) {
-                mapCanvas.width = container.clientWidth;
-                mapCanvas.height = container.clientHeight;
+                zSyncCanvas();
                 drawGalaxyMap();
             }
         }
@@ -21819,7 +22468,8 @@ const DEFENDERS_PER_POP=100;
         if (window.ResizeObserver) {
             new ResizeObserver(() => {
                 const c = mapCanvas.parentElement;
-                if (c && (c.clientWidth !== mapCanvas.width || c.clientHeight !== mapCanvas.height)) resizeMapCanvas();
+                const v = zVirtualSize();
+                if (c && c.clientWidth && (v.w !== mapCanvas.width || v.h !== mapCanvas.height)) resizeMapCanvas();
             }).observe(mapCanvas.parentElement);
         }
 
@@ -21827,6 +22477,8 @@ const DEFENDERS_PER_POP=100;
             if (e.button === 2) {
                 rotating = true;
                 rightMoved = false;
+                zLastX = e.clientX;
+                zLastY = e.clientY;
                 rotLastAngle = mouseCanvasAngle(e);
                 pointerDownX = e.clientX;
                 pointerDownY = e.clientY;
@@ -21834,6 +22486,8 @@ const DEFENDERS_PER_POP=100;
             }
             if (e.button !== 0) return;
             isDragging = true;
+            zLastX = e.clientX;
+            zLastY = e.clientY;
             startX = e.clientX - mapOffsetX;
             startY = e.clientY - mapOffsetY;
             pointerDownX = e.clientX;
@@ -21844,6 +22498,17 @@ const DEFENDERS_PER_POP=100;
         window.addEventListener('mousemove', (e) => {
             if (rotating) {
                 if (Math.hypot(e.clientX - pointerDownX, e.clientY - pointerDownY) > 4) rightMoved = true;
+                if (rightMoved && zTilt()) {
+                    const ddx = e.clientX - zLastX, ddy = e.clientY - zLastY;
+                    zLastX = e.clientX;
+                    zLastY = e.clientY;
+                    if (Math.abs(ddx) > 0) {
+                        if (zFollowOn()) zFollowYaw += ddx * 0.006;
+                        else rotateMapAt(mapCanvas.width / 2, mapCanvas.height / 2, ddx * 0.006);
+                    }
+                    if (Math.abs(ddy) > 0) zSetTilt(mapTilt - zTiltDelta(ddy * 0.006));
+                    return;
+                }
                 if (rightMoved) {
                     const a = mouseCanvasAngle(e);
                     let d = a - rotLastAngle;
@@ -21859,6 +22524,21 @@ const DEFENDERS_PER_POP=100;
             const dy = e.clientY - pointerDownY;
             if (Math.hypot(dx, dy) > 4) {
                 hasDragged = true;
+            }
+            if (zTilt()) {
+                if (zFollowOn()) {
+                    zFollowYaw += (e.clientX - zLastX) * 0.006;
+                    zLastX = e.clientX;
+                    const ddy = e.clientY - zLastY;
+                    zLastY = e.clientY;
+                    if (ddy) zSetTilt(mapTilt - zTiltDelta(ddy * 0.006));
+                    else drawGalaxyMap();
+                    return;
+                }
+                zPanClient(zLastX, zLastY, e.clientX, e.clientY);
+                zLastX = e.clientX;
+                zLastY = e.clientY;
+                return;
             }
             mapOffsetX = e.clientX - startX;
             mapOffsetY = e.clientY - startY;
@@ -21953,6 +22633,9 @@ const DEFENDERS_PER_POP=100;
             const foreignHit = fleetHit || traderHit ? null : findForeignFleetAt(clickX, clickY);
             const whHit = fleetHit || traderHit || foreignHit || planetHit !== -1 ? null : findWormholeAtScreen(clickX, clickY);
             if (foreignHit) {
+                foreignSel = { e: foreignHit.e.id, f: foreignHit.f.id };
+                mapSelKind = 'foreign';
+                drawGalaxyMap();
                 showForeignFleetInfo(foreignHit);
             } else if (whHit) {
                 gameAlert(wormholeText(whHit.w, whHit.end), 'Wormhole');
@@ -22013,18 +22696,20 @@ const DEFENDERS_PER_POP=100;
                 return;
             }
             if (isDragging && !hasDragged) {
-                const rect = mapCanvas.getBoundingClientRect();
-                handleMapTap(e.clientX - rect.left, e.clientY - rect.top, e.shiftKey);
+                const mp = mapPointFromClient(e.clientX, e.clientY);
+                handleMapTap(mp.x, mp.y, e.shiftKey);
             }
             isDragging = false;
         });
 
         mapCanvas.addEventListener('wheel', (e) => {
             e.preventDefault();
-            const rect = mapCanvas.getBoundingClientRect();
-            const mx = (e.clientX - rect.left) * (mapCanvas.width / rect.width);
-            const my = (e.clientY - rect.top) * (mapCanvas.height / rect.height);
-            zoomMapAt(mx, my, e.deltaY < 0 ? 1.1 : 1 / 1.1);
+            if (e.shiftKey && zTilt()) {
+                zSetTilt(mapTilt + zTiltDelta(e.deltaY < 0 ? 0.05 : -0.05));
+                return;
+            }
+            const mp = mapPointFromClient(e.clientX, e.clientY);
+            zoomMapAt(mp.x, mp.y, e.deltaY < 0 ? 1.1 : 1 / 1.1);
         }, { passive: false });
 
         let touchMode = null;
@@ -22037,11 +22722,7 @@ const DEFENDERS_PER_POP=100;
         let pinchAngle = 0;
 
         function touchCanvasPoint(clientX, clientY) {
-            const rect = mapCanvas.getBoundingClientRect();
-            return {
-                x: (clientX - rect.left) * (mapCanvas.width / rect.width),
-                y: (clientY - rect.top) * (mapCanvas.height / rect.height)
-            };
+            return mapPointFromClient(clientX, clientY);
         }
 
         function touchSpread(a, b) {
@@ -22060,6 +22741,7 @@ const DEFENDERS_PER_POP=100;
                 touchMoved = true;
                 pinchDist = touchSpread(e.touches[0], e.touches[1]);
                 pinchAngle = Math.atan2(e.touches[1].clientY - e.touches[0].clientY, e.touches[1].clientX - e.touches[0].clientX);
+                zPinchMidY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
             }
         }, { passive: false });
 
@@ -22069,9 +22751,16 @@ const DEFENDERS_PER_POP=100;
                 const t = e.touches[0];
                 if (!touchMoved && Math.hypot(t.clientX - touchStartX, t.clientY - touchStartY) > 8) touchMoved = true;
                 if (touchMoved) {
-                    mapOffsetX += t.clientX - touchLastX;
-                    mapOffsetY += t.clientY - touchLastY;
-                    drawGalaxyMap();
+                    if (zFollowOn()) {
+                        zFollowYaw += (t.clientX - touchLastX) * 0.008;
+                        if (t.clientY !== touchLastY) zSetTilt(mapTilt - zTiltDelta((t.clientY - touchLastY) * 0.008));
+                        else drawGalaxyMap();
+                    } else if (zTilt()) zPanClient(touchLastX, touchLastY, t.clientX, t.clientY);
+                    else {
+                        mapOffsetX += t.clientX - touchLastX;
+                        mapOffsetY += t.clientY - touchLastY;
+                        drawGalaxyMap();
+                    }
                 }
                 touchLastX = t.clientX;
                 touchLastY = t.clientY;
@@ -22087,7 +22776,13 @@ const DEFENDERS_PER_POP=100;
                     if (d > Math.PI) d -= Math.PI * 2;
                     if (d < -Math.PI) d += Math.PI * 2;
                     pinchAngle = ang;
-                    if (Math.abs(d) > 0.0001) rotateMapAt(mid.x, mid.y, d);
+                    if (Math.abs(d) > 0.0001) {
+                        if (zFollowOn()) zFollowYaw += d;
+                        else rotateMapAt(mid.x, mid.y, d);
+                    }
+                    const my = (a.clientY + b.clientY) / 2;
+                    if (zTilt() && zPinchMidY !== null && Math.abs(my - zPinchMidY) > 0) zSetTilt(mapTilt - zTiltDelta((my - zPinchMidY) * 0.008));
+                    zPinchMidY = my;
                 }
                 pinchDist = dist;
             }
@@ -22112,6 +22807,19 @@ const DEFENDERS_PER_POP=100;
         mapCanvas.addEventListener('touchcancel', () => {
             touchMode = null;
         });
+
+        function drawSelectionGlowRing(ctx, x, y, r) {
+            const k = selectionPulse();
+            ctx.save();
+            ctx.shadowColor = 'rgba(255, 226, 122, 1)';
+            ctx.shadowBlur = 6 + 12 * k;
+            ctx.strokeStyle = 'rgba(255, 226, 122, ' + (0.5 + 0.5 * k).toFixed(3) + ')';
+            ctx.lineWidth = 1.4 + 1.2 * k;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.restore();
+        }
 
         function drawFleetIcon(ctx, x, y, angle, selected, color) {
             ctx.save();
@@ -22146,6 +22854,7 @@ const DEFENDERS_PER_POP=100;
             const freeW = sel ? fleetFreeWarp(sel) : 0;
             const maxWsel = sel ? fleetMaxWarp(sel) : 0;
 
+            zDrawFollowRoute(ctx);
             drawWormholes(ctx);
             const mfSources = getScannerSources();
             minefields.forEach(m => {
@@ -22196,6 +22905,7 @@ const DEFENDERS_PER_POP=100;
             playerFleets.forEach(f => {
                 if (!f.waypoints.length) return;
                 const isSel = sel && f.id === sel.id;
+                if (isSel && (zFly || zCockpitOn())) return;
                 const route = planRoute(f);
                 let prev = worldToScreen(f.x, f.y);
                 f.waypoints.forEach((w, i) => {
@@ -22233,7 +22943,7 @@ const DEFENDERS_PER_POP=100;
                         ctx.textAlign = 'left';
                         ctx.fillStyle = '#9fe';
                         ctx.font = '10px Segoe UI';
-                        ctx.fillText(route.legs[i].years + 'y W' + w.warp, cur.x + 10, cur.y + 14);
+                        ctx.fillText(route.legs[i].years + 'y', cur.x + 10, cur.y + 14);
                     } else {
                         ctx.fillStyle = 'rgba(0, 255, 255, 0.5)';
                         ctx.fillRect(cur.x - 2, cur.y - 2, 4, 4);
@@ -22245,6 +22955,7 @@ const DEFENDERS_PER_POP=100;
             lastForeignDrawn.forEach(v => {
                 const sp = worldToScreen(v.f.x, v.f.y);
                 const fc = empireColor(v.e.id);
+                const fSel = mapSelKind === 'foreign' && !!foreignSel && foreignSel.e === v.e.id && foreignSel.f === v.f.id;
                 if (m3On()) {
                     let fa = -Math.PI / 2;
                     const fw = v.f.waypoints && v.f.waypoints[0];
@@ -22252,8 +22963,9 @@ const DEFENDERS_PER_POP=100;
                         const tp = worldToScreen(fw.x, fw.y);
                         fa = Math.atan2(tp.y - sp.y, tp.x - sp.x);
                     }
-                    if (m3ShipsShown()) m3Fleets.push({ x: sp.x + 9, y: sp.y - 9, angle: fa, sel: false, color: fc, hull: m3HullOf(v.f, v.e.shipDesigns) });
-                    else if (fleetOrbitIndex(v.f) < 0) m3FleetDot(ctx, sp.x, sp.y, fc);
+                    if (m3ShipsShown()) m3Fleets.push({ x: sp.x + 9, y: sp.y - 9, angle: fa, sel: fSel, color: fc, hull: m3HullOf(v.f, v.e.shipDesigns) });
+                    else if (fleetOrbitIndex(v.f) < 0 || fSel) m3FleetDot(ctx, sp.x, sp.y, fSel ? '#ffffff' : fc);
+                    if (fSel && !m3ShipsShown()) drawSelectionGlowRing(ctx, sp.x, sp.y, 9);
                 } else {
                 ctx.save();
                 ctx.translate(sp.x + 9, sp.y - 9);
@@ -22267,6 +22979,14 @@ const DEFENDERS_PER_POP=100;
                 ctx.closePath();
                 ctx.fill();
                 ctx.stroke();
+                if (fSel) {
+                    const k = selectionPulse();
+                    ctx.shadowColor = 'rgba(255, 226, 122, 1)';
+                    ctx.shadowBlur = 6 + 12 * k;
+                    ctx.strokeStyle = 'rgba(255, 226, 122, ' + (0.5 + 0.5 * k).toFixed(3) + ')';
+                    ctx.lineWidth = 1.4 + 1.2 * k;
+                    ctx.stroke();
+                }
                 ctx.restore();
                 }
                 if (fleetNameSize > 0 && mapScale >= 0.6 && !(m3On() && !m3ShipsShown() && fleetOrbitIndex(v.f) >= 0)) {
@@ -22290,6 +23010,14 @@ const DEFENDERS_PER_POP=100;
                 }
                 const st3 = stacks[f.id];
                 const orbitFree = !!(st3 && st3.orbit && !f.waypoints.length);
+                if (isSel && zCockpitOn()) return;
+                if (zCockpitOn() && zCockpitOrbit >= 0 && fleetOrbitIndex(f) === zCockpitOrbit) return;
+                if (isSel && zFly && zFly.x !== undefined && m3On()) {
+                    const fp = worldToScreen(zFly.x, zFly.y);
+                    const ahead = worldToScreen(zFly.x + Math.cos(zFly.head || 0), zFly.y + Math.sin(zFly.head || 0));
+                    if (m3ShipsShown()) m3Fleets.push({ x: fp.x, y: fp.y, angle: Math.atan2(ahead.y - fp.y, ahead.x - fp.x), sel: true, color: myColor, hull: m3HullOf(f, shipDesigns), orbit: true, f: null, st: null });
+                    return;
+                }
                 if (m3On() && m3ShipsShown()) m3Fleets.push({ x: pos.x, y: pos.y, angle: angle, sel: isSel && mapSelKind === 'fleet', color: myColor, hull: m3HullOf(f, shipDesigns), orbit: !!(st3 && st3.orbit), f: orbitFree ? f : null, st: orbitFree ? st3 : null });
                 else if (m3On() && !(st3 && st3.orbit)) m3FleetDot(ctx, pos.x, pos.y, isSel && mapSelKind === 'fleet' ? '#ffffff' : myColor);
                 else drawFleetIcon(mapCtx, pos.x, pos.y, angle, isSel && mapSelKind === 'fleet', myColor);
@@ -22302,13 +23030,14 @@ const DEFENDERS_PER_POP=100;
                         const ps = worldToScreen(planets[oi].x, planets[oi].y);
                         const dr = Math.min(Math.max(4, Math.min(10, 5 / mapScale)), 16 / mapScale);
                         const gap = m3On() ? m3OrbitRadius() + 6 * m3ZoomFactor() : dr * mapScale + 14;
-                        placeMapLabel(ctx, f.name + (f.waypoints.length ? ' (Warp ' + f.waypoints[0].warp + ')' : ''), ps.x, ps.y + gap * 0.35 + stL.i * (fleetNameSize + 3), gap, fleetNameSize, isSel);
-                    } else placeMapLabel(ctx, f.name + (f.waypoints.length ? ' (Warp ' + f.waypoints[0].warp + ')' : ''), pos.x, pos.y, m3On() ? m3LabelGap() : 8, fleetNameSize, isSel);
+                        placeMapLabel(ctx, f.name, ps.x, ps.y + gap * 0.35 + stL.i * (fleetNameSize + 3), gap, fleetNameSize, isSel);
+                    } else placeMapLabel(ctx, f.name, pos.x, pos.y, m3On() ? m3LabelGap() : 8, fleetNameSize, isSel);
                 }
             });
         }
 
         let mapSelKind = 'planet';
+        var foreignSel = null;
 
         function selectionPulse() {
             return 0.5 + 0.5 * Math.sin(Date.now() * 0.0026);
@@ -22328,6 +23057,7 @@ const DEFENDERS_PER_POP=100;
         }
 
         function selectionGlowActive() {
+            if (mapSelKind === 'foreign') return !!foreignSel;
             if (mapSelKind === 'fleet') return !!getSelectedFleet();
             const p = planets[selectedPlanetIndex];
             return !!p && p.revealed !== false;
@@ -22642,7 +23372,20 @@ const DEFENDERS_PER_POP=100;
             });
         }
 
+        var zLabelDefer = false;
+        var zLabels = [];
+
+        function zLabelPt(ctx, x, y) {
+            const m = ctx.getTransform();
+            return { x: m.a * x + m.c * y + m.e, y: m.b * x + m.d * y + m.f };
+        }
+
         function placeMapLabel(ctx, text, x, y, r, size, force) {
+            if (zLabelDefer) {
+                const p = zLabelPt(ctx, x, y);
+                zLabels.push({ text: text, x: p.x, y: p.y, r: r, size: size, force: !!force, color: ctx.fillStyle });
+                return true;
+            }
             ctx.font = size + 'px Segoe UI';
             const w = ctx.measureText(text).width + 2;
             const h = size * 1.15;
@@ -22674,6 +23417,11 @@ const DEFENDERS_PER_POP=100;
         var m3OrbitLabeled = {};
 
         function placeMapLabelBlock(ctx, lines, x, y, r) {
+            if (zLabelDefer) {
+                const p = zLabelPt(ctx, x, y);
+                zLabels.push({ lines: lines.map(l => ({ text: l.text, color: l.color, size: l.size })), x: p.x, y: p.y, r: r, force: true });
+                return;
+            }
             let w = 0, h = 0;
             lines.forEach(l => {
                 ctx.font = l.size + 'px Segoe UI';
@@ -22700,7 +23448,11 @@ const DEFENDERS_PER_POP=100;
 
         function drawGalaxyMap() {
             if (!mapCtx) return;
+            zSyncCanvas();
+            zFollowApply();
             labelGrid = new Map();
+            zLabels = [];
+            zLabelDefer = !!zTilt();
             const m3 = m3On();
             m3Planets = [];
             m3Fleets = [];
@@ -22788,7 +23540,7 @@ const DEFENDERS_PER_POP=100;
                     if (oi < 0) return;
                     const isSel = !!selF && selF.id === f.id;
                     if (!isSel && mapScale < 0.7) return;
-                    (orbitNames[oi] = orbitNames[oi] || []).push({ text: f.name + (f.waypoints.length ? ' (Warp ' + f.waypoints[0].warp + ')' : ''), color: isSel ? '#ffffff' : empireColor(myEmpireId) });
+                    (orbitNames[oi] = orbitNames[oi] || []).push({ text: f.name, color: isSel ? '#ffffff' : empireColor(myEmpireId) });
                 });
             }
             nameQueue.forEach(q => {
@@ -22804,14 +23556,15 @@ const DEFENDERS_PER_POP=100;
             drawTraderLayer();
             drawFleetLayer();
 
-            const legend = showMapLegend ? [[empireColor(myEmpireId), empireName + (simActive ? ' (watching)' : ' (you)')]] : [];
-            if (showMapLegend) empires.forEach(e => {
+            const zt = !!zTilt();
+            const legend = showMapLegend && !zt ? [[empireColor(myEmpireId), empireName + (simActive ? ' (watching)' : ' (you)')]] : [];
+            if (showMapLegend && !zt) empires.forEach(e => {
                 if (e.id === myEmpireId || e.mpGone) return;
                 const met = planets.some(p => p.revealed !== false && shownOwner(p) === e.id) || (lastForeignDrawn || []).some(v => v.e === e);
                 if (met) legend.push([empireColor(e.id), e.name]);
             });
-            if (showMapLegend) legend.push(['#ffd700', 'Station or starbase with ship dock'], ['#4fc3f7', 'Habitable'], ['#8b3a3a', 'Hostile'], ['#888888', 'Unscanned']);
-            if (showMapLegend && showScanRings) legend.push(['#be3838', 'Normal scanner range (outer, maroon)'], ['#8c8c26', 'Penetrating scanner range (inner, olive)']);
+            if (showMapLegend && !zt) legend.push(['#ffd700', 'Station or starbase with ship dock'], ['#4fc3f7', 'Habitable'], ['#8b3a3a', 'Hostile'], ['#888888', 'Unscanned']);
+            if (showMapLegend && !zt && showScanRings) legend.push(['#be3838', 'Normal scanner range (outer, maroon)'], ['#8c8c26', 'Penetrating scanner range (inner, olive)']);
             mapCtx.font = '11px Segoe UI';
             const legendBottom = rulersShown() ? 30 : 10;
             const rowsFit = Math.max(4, Math.floor((mapCanvas.height - legendBottom - 2) / 15));
@@ -22830,9 +23583,77 @@ const DEFENDERS_PER_POP=100;
                 mapCtx.fillText(item[1], x + 10, y + 4);
             });
             drawMeasureLayer();
-            drawMapRulers();
+            if (!zt) drawMapRulers();
             syncMapTools();
-            if (m3) m3Render();
+            zSyncHud();
+            zLabelDefer = false;
+            zDrawLabels();
+            if (m3) {
+                m3OverDirty = true;
+                m3Render();
+            }
+        }
+
+        function zProjectPt(C, x, y) {
+            const rx = x - C.pos[0], ry = y - C.pos[1], rz = -C.pos[2];
+            const dz = ry * C.f[1] + rz * C.f[2];
+            if (dz < 2) return null;
+            const up = ry * C.u[1] + rz * C.u[2];
+            return { x: C.W0 / 2 + C.D * rx / dz, y: C.H0 / 2 - C.D * up / dz, k: C.D / dz };
+        }
+
+        function zDrawLabels() {
+            const cv = document.getElementById('z-labels');
+            if (!cv) return;
+            if (!zTilt()) {
+                if (cv.style.display !== 'none') cv.style.display = 'none';
+                zLabels = [];
+                return;
+            }
+            const v = zViewBox();
+            const dpr = Math.min(2, window.devicePixelRatio || 1);
+            const w = Math.round(v.w * dpr), h = Math.round(v.h * dpr);
+            if (cv.width !== w || cv.height !== h) {
+                cv.width = w;
+                cv.height = h;
+            }
+            cv.style.display = '';
+            const g = cv.getContext('2d');
+            g.setTransform(dpr, 0, 0, dpr, 0, 0);
+            g.clearRect(0, 0, v.w, v.h);
+            const C = zCam();
+            const saved = labelGrid;
+            labelGrid = new Map();
+            const items = [];
+            const discs = [];
+            m3Planets.forEach(q => {
+                const p = zProjectPt(C, q.x, q.y);
+                if (p && p.k > 0.05) discs.push({ x: p.x, y: p.y, R: q.r * p.k, k: p.k });
+            });
+            const hidden = p => discs.some(d => d.k > p.k * 1.15 && Math.hypot(d.x - p.x, d.y - p.y) < d.R);
+            zLabels.forEach(L => {
+                const p = zProjectPt(C, L.x, L.y);
+                if (p && p.x > -150 && p.x < v.w + 150 && p.y > -40 && p.y < v.h + 40 && !hidden(p)) items.push({ L: L, p: p });
+            });
+            items.sort((a, b) => (b.L.force ? 1 : 0) - (a.L.force ? 1 : 0) || b.p.k - a.p.k);
+            g.shadowColor = 'rgba(0, 0, 0, 0.95)';
+            g.shadowBlur = 3;
+            items.forEach(it => {
+                const L = it.L, p = it.p;
+                const k = Math.max(0.7, Math.min(1.6, p.k));
+                const own = discs.find(d => Math.abs(d.x - p.x) < 1.5 && Math.abs(d.y - p.y) < 1.5);
+                const rr = Math.max(L.r * p.k, own ? own.R + 3 : 0);
+                g.globalAlpha = Math.max(0.12, Math.min(1, 0.1 + 0.9 * (zTilt() > Math.PI / 2 ? (v.h - p.y) : p.y) / (v.h * 0.32)));
+                if (L.lines) placeMapLabelBlock(g, L.lines.map(l => ({ text: l.text, color: l.color, size: Math.max(8, Math.round(l.size * k)) })), p.x, p.y, rr);
+                else {
+                    g.fillStyle = L.color;
+                    placeMapLabel(g, L.text, p.x, p.y, rr, Math.max(8, Math.round(L.size * k)), L.force);
+                }
+            });
+            g.globalAlpha = 1;
+            g.shadowBlur = 0;
+            labelGrid = saved;
+            zLabels = [];
         }
 
         setTimeout(resizeMapCanvas, 100);
@@ -22842,6 +23663,8 @@ const DEFENDERS_PER_POP=100;
         var m3Fleets = [];
         var m3Objects = [];
         var m3 = null;
+        var m3Zk = 1;
+        var m3OverDirty = true;
         let m3Raf = 0;
         let m3Last = 0;
         const M3_KEY = 'fs4x-map3d';
@@ -23124,6 +23947,15 @@ const DEFENDERS_PER_POP=100;
             const sp = m3SphereData(36, 18);
             const spLo = m3SphereData(16, 8);
             const tr = m3TorusData(1.55, 0.07, 48, 8);
+            const trd = m3TorusData(1.55, 0.028, 72, 6);
+            const dashPos = [], dashNrm = [];
+            for (let i = 0; i < trd[0].length; i += 36 * 3) {
+                if ((i / (36 * 3)) % 2) continue;
+                for (let j = i; j < i + 36 * 3 && j < trd[0].length; j++) {
+                    dashPos.push(trd[0][j]);
+                    dashNrm.push(trd[1][j]);
+                }
+            }
             const shp = m3FlatData(m3ShipTris());
             const oct = m3FlatData([[[0, 0, 1], [1, 0, 0], [0, 1, 0]], [[0, 0, 1], [0, 1, 0], [-1, 0, 0]], [[0, 0, 1], [-1, 0, 0], [0, -1, 0]], [[0, 0, 1], [0, -1, 0], [1, 0, 0]], [[0, 0, -1], [0, 1, 0], [1, 0, 0]], [[0, 0, -1], [-1, 0, 0], [0, 1, 0]], [[0, 0, -1], [0, -1, 0], [-1, 0, 0]], [[0, 0, -1], [1, 0, 0], [0, -1, 0]]]);
             m3 = {
@@ -23135,6 +23967,7 @@ const DEFENDERS_PER_POP=100;
                 sphere: m3Mesh(gl, sp[0], sp[1], sp[2]),
                 sphereLo: m3Mesh(gl, spLo[0], spLo[1], spLo[2]),
                 torus: m3Mesh(gl, tr[0], tr[1]),
+                torusDash: m3Mesh(gl, dashPos, dashNrm),
                 ship: m3Mesh(gl, shp[0], shp[1]),
                 oct: m3Mesh(gl, oct[0], oct[1]),
                 tex: new Map(),
@@ -23163,7 +23996,7 @@ const DEFENDERS_PER_POP=100;
                 return o;
             };
             const R = mul(mul(Rz, Rx), Ry);
-            const m = new Float32Array([R[0] * sc, R[1] * sc, R[2] * sc, 0, R[3] * sc, R[4] * sc, R[5] * sc, 0, R[6] * sc, R[7] * sc, R[8] * sc, 0, tx, ty, tz, 1]);
+            const m = new Float32Array([R[0] * sc, R[1] * sc, R[2] * sc, 0, R[3] * sc, R[4] * sc, R[5] * sc, 0, R[6] * sc, R[7] * sc, R[8] * sc, 0, tx, ty, tz * m3Zk, 1]);
             return { m: m, n: new Float32Array(R) };
         }
 
@@ -23216,7 +24049,11 @@ const DEFENDERS_PER_POP=100;
         function m3Draw(mesh, M, opt) {
             const gl = m3.gl;
             gl.uniformMatrix4fv(m3.u.model, false, M.m);
-            gl.uniformMatrix3fv(m3.u.nrmM, false, M.n);
+            if (m3.viewRot) {
+                const V = m3.viewRot, N = M.n, o = new Float32Array(9);
+                for (let c = 0; c < 3; c++) for (let r = 0; r < 3; r++) o[c * 3 + r] = V[r] * N[c * 3] + V[3 + r] * N[c * 3 + 1] + V[6 + r] * N[c * 3 + 2];
+                gl.uniformMatrix3fv(m3.u.nrmM, false, o);
+            } else gl.uniformMatrix3fv(m3.u.nrmM, false, M.n);
             gl.uniform1f(m3.u.useTex, opt.tex ? 1 : 0);
             if (opt.tex) {
                 gl.activeTexture(gl.TEXTURE0);
@@ -23250,9 +24087,11 @@ const DEFENDERS_PER_POP=100;
             const cv = m3.cv;
             const W = mapCanvas.width, H = mapCanvas.height;
             if (!W || !H) return;
-            if (cv.width !== W || cv.height !== H) {
-                cv.width = W;
-                cv.height = H;
+            const C = zTilt() ? zCam() : null;
+            const VW = C ? C.W0 : W, VH = C ? C.H0 : H;
+            if (cv.width !== VW || cv.height !== VH) {
+                cv.width = VW;
+                cv.height = VH;
             }
             if (m3.texFor !== planets) {
                 m3.tex.forEach(x => gl.deleteTexture(x.t));
@@ -23261,17 +24100,29 @@ const DEFENDERS_PER_POP=100;
             }
             m3.budget = 4;
             const t = (performance.now() - m3.start) / 1000;
-            gl.viewport(0, 0, W, H);
+            gl.viewport(0, 0, VW, VH);
             gl.clearColor(5 / 255, 5 / 255, 8 / 255, panelAlpha);
             gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
             gl.enable(gl.DEPTH_TEST);
             gl.disable(gl.CULL_FACE);
             gl.useProgram(m3.prog);
             const D = 4000;
-            gl.uniformMatrix4fv(m3.u.proj, false, new Float32Array([2 / W, 0, 0, 0, 0, -2 / H, 0, 0, 0, 0, -1 / D, 0, -1, 1, 0, 1]));
+            if (C) {
+                const a = C.D / (C.W0 / 2), b = C.D / (C.H0 / 2), n = 1, fa = C.D * 14;
+                const A = (fa + n) / (fa - n), Bc = -2 * fa * n / (fa - n);
+                const px = C.pos[0], py = C.pos[1], pz = C.pos[2], u1 = C.u[1], u2 = C.u[2], f1 = C.f[1], f2 = C.f[2];
+                const fp = f1 * py + f2 * pz;
+                gl.uniformMatrix4fv(m3.u.proj, false, new Float32Array([a, 0, 0, 0, 0, b * u1, A * f1, f1, 0, b * u2, A * f2, f2, -a * px, -b * (u1 * py + u2 * pz), -A * fp + Bc, -fp]));
+                m3.viewRot = new Float32Array([1, 0, 0, 0, u1, -f1, 0, u2, -f2]);
+                m3Zk = 0.02;
+            } else {
+                gl.uniformMatrix4fv(m3.u.proj, false, new Float32Array([2 / W, 0, 0, 0, 0, -2 / H, 0, 0, 0, 0, -1 / D, 0, -1, 1, 0, 1]));
+                m3.viewRot = null;
+                m3Zk = 1;
+            }
             const lx = -0.45, ly = -0.55, lz = 0.7, ll = Math.hypot(lx, ly, lz);
             gl.uniform3f(m3.u.light, lx / ll, ly / ll, lz / ll);
-            if (m3Under) {
+            if (m3Under && !zCockpitOn()) {
                 if (!m3.underTex) m3.underTex = gl.createTexture();
                 gl.bindTexture(gl.TEXTURE_2D, m3.underTex);
                 if (m3UnderDirty) {
@@ -23285,7 +24136,7 @@ const DEFENDERS_PER_POP=100;
                 gl.enable(gl.BLEND);
                 gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
                 gl.depthMask(false);
-                m3Draw(m3.quad, { m: new Float32Array([W, 0, 0, 0, 0, H, 0, 0, 0, 0, 1, 0, 0, 0, -3500, 1]), n: new Float32Array([1, 0, 0, 0, 1, 0, 0, 0, 1]) }, { tex: m3.underTex, flat: true });
+                m3Draw(m3.quad, { m: new Float32Array([W, 0, 0, 0, 0, H, 0, 0, 0, 0, 1, 0, 0, 0, C ? -0.5 : -3500, 1]), n: new Float32Array([1, 0, 0, 0, 1, 0, 0, 0, 1]) }, { tex: m3.underTex, flat: true });
                 gl.depthMask(true);
                 gl.disable(gl.BLEND);
             }
@@ -23297,23 +24148,23 @@ const DEFENDERS_PER_POP=100;
                 const pc = m3Hex(q.color);
                 const glowC = q.owned || q.known ? pc : [0.55, 0.62, 0.75];
                 const glowK = q.owned ? 0.95 : q.known ? 0.6 : 0.35;
-                m3Draw(q.r < 11 ? m3.sphereLo : m3.sphere, m3Model(q.x, q.y, 0, q.r, TZ, TX, spin), tex ? { tex: tex, rim: glowK, rimC: glowC, spec: q.known ? 0.12 : 0 } : { color: pc, rim: glowK, rimC: glowC });
+                m3Draw(q.r < 11 || (C && q.y < C.cy - C.H0 * 0.15) ? m3.sphereLo : m3.sphere, m3Model(q.x, q.y, 0, q.r, TZ, TX, spin), tex ? { tex: tex, rim: glowK, rimC: glowC, spec: q.known ? 0.12 : 0 } : { color: pc, rim: glowK, rimC: glowC });
                 if (q.inst) {
                     const ringC = [pc[0] * 0.8 + 0.15, pc[1] * 0.8 + 0.15, pc[2] * 0.8 + 0.15];
                     const ringE = [pc[0] * 0.45, pc[1] * 0.45, pc[2] * 0.45];
                     const rings = q.inst === 'fort' ? [0.88] : q.inst === 'ultra' ? [1, 1.22] : q.inst === 'deathstar' ? [1, 1.2, 1.4] : [1];
                     rings.forEach((k, n) => {
                         const ds = q.inst === 'deathstar';
-                        m3Draw(m3.torus, m3Model(q.x, q.y, 0, q.r * k, TZ, TX, t * (n % 2 ? -0.2 : 0.15)), { color: ds && n === 2 ? [0.9, 0.2, 0.2] : ringC, emit: ds && n === 2 ? [0.6, 0.08, 0.05] : ringE, rim: 0, spec: 0.3 });
+                        m3Draw(m3.torusDash, m3Model(q.x, q.y, 0, q.r * k * 0.8, TZ, TX, t * (n % 2 ? -0.2 : 0.15)), { color: ds && n === 2 ? [0.9, 0.2, 0.2] : ringC, emit: ds && n === 2 ? [0.6, 0.08, 0.05] : ringE, rim: 0, spec: 0.3 });
                     });
                 }
                 if (q.dock) {
                     const a = -t * 0.9 + q.i;
-                    const R = q.r * 1.55;
+                    const R = q.r * 0.8 * 1.55 * (q.inst === 'fort' ? 0.88 : 1);
                     const px = Math.cos(a) * R, pz = Math.sin(a) * R;
                     const ry = -Math.sin(TX) * pz, rz = Math.cos(TX) * pz;
                     const ox = px * Math.cos(TZ) - ry * Math.sin(TZ), oy = px * Math.sin(TZ) + ry * Math.cos(TZ);
-                    m3Draw(m3.oct, m3Model(q.x + ox, q.y + oy, rz, Math.max(2.5, q.r * 0.26), t * 1.3, 0.6, t), { color: [1, 0.84, 0.2], emit: [0.35, 0.28, 0.05], rim: 0.2, spec: 0.4 });
+                    m3Draw(m3.oct, m3Model(q.x + ox, q.y + oy, rz / m3Zk, Math.max(2.5, q.r * 0.26), t * 1.3, 0.6, t), { color: [1, 0.84, 0.2], emit: [0.35, 0.28, 0.05], rim: 0.2, spec: 0.4 });
                 }
             });
             m3Objects.forEach((o, k) => {
@@ -23412,9 +24263,27 @@ const DEFENDERS_PER_POP=100;
                     const wx = m[0] * e[0] + m[4] * e[1] + m[8] * e[2] + m[12];
                     const wy = m[1] * e[0] + m[5] * e[1] + m[9] * e[2] + m[13];
                     const wz = m[2] * e[0] + m[6] * e[1] + m[10] * e[2] + m[14];
-                    m3Draw(m3.sphereLo, m3Model(wx, wy, wz + 1, sc * 0.16 * fl, 0, 0, 0), { color: ec, emit: [ec[0], ec[1] * 0.9, ec[2] * 0.7], rim: 0 });
+                    m3Draw(m3.sphereLo, m3Model(wx, wy, wz / m3Zk + 1, sc * 0.16 * fl, 0, 0, 0), { color: ec, emit: [ec[0], ec[1] * 0.9, ec[2] * 0.7], rim: 0 });
                 });
             });
+            if (C) {
+                if (!m3.overTex) m3.overTex = gl.createTexture();
+                gl.bindTexture(gl.TEXTURE_2D, m3.overTex);
+                if (m3OverDirty) {
+                    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, mapCanvas);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                    m3OverDirty = false;
+                }
+                gl.enable(gl.BLEND);
+                gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+                gl.disable(gl.DEPTH_TEST);
+                m3Draw(m3.quad, { m: new Float32Array([W, 0, 0, 0, 0, H, 0, 0, 0, 0, 1, 0, 0, 0, 0.3, 1]), n: new Float32Array([1, 0, 0, 0, 1, 0, 0, 0, 1]) }, { tex: m3.overTex, flat: true });
+                gl.enable(gl.DEPTH_TEST);
+                gl.disable(gl.BLEND);
+            }
         }
 
         function m3Loop(ts) {
@@ -23440,6 +24309,7 @@ const DEFENDERS_PER_POP=100;
             btn.classList.toggle('on', map3d);
             btn.title = map3d ? 'Back to the flat 2D map' : 'Show planets and ships as 3D models';
             document.getElementById('galaxy-3d').style.display = map3d ? 'block' : 'none';
+            zSyncButton();
             drawGalaxyMap();
             if (map3d && !m3Raf) m3Raf = requestAnimationFrame(m3Loop);
             if (document.getElementById('techbrowser-modal').classList.contains('active')) tbRender(true);
@@ -23447,6 +24317,64 @@ const DEFENDERS_PER_POP=100;
         }
 
         document.getElementById('map-3d-btn').addEventListener('click', () => m3Set(!map3d));
+        var uiText = { all: 1, dd: 1, pop: 1, bar: 1 };
+        try {
+            const t = JSON.parse(localStorage.getItem('fs4x-text-size') || 'null');
+            if (t) ['all', 'dd', 'pop', 'bar'].forEach(k => { if (t[k] >= 0.7 && t[k] <= 1.6) uiText[k] = t[k]; });
+        } catch (err) { }
+
+        function applyUiText() {
+            const r = document.documentElement.style;
+            r.setProperty('--z-all', String(uiText.all));
+            r.setProperty('--z-dd', String(uiText.dd * uiText.all));
+            r.setProperty('--z-pop', String(uiText.pop * uiText.all));
+            r.setProperty('--z-bar', String(uiText.bar * uiText.all));
+            document.body.classList.toggle('ui-zoomed', ['all', 'dd', 'pop', 'bar'].some(k => Math.abs(uiText[k] - 1) > 0.001));
+            ['all', 'dd', 'pop', 'bar'].forEach(k => {
+                const el = document.getElementById('ts-' + k);
+                if (!el) return;
+                el.value = String(Math.round(uiText[k] * 100));
+                document.getElementById('ts-' + k + '-v').textContent = Math.round(uiText[k] * 100) + '%';
+            });
+            try { localStorage.setItem('fs4x-text-size', JSON.stringify(uiText)); } catch (err) { }
+            setTimeout(resizeMapCanvas, 0);
+        }
+
+        ['all', 'dd', 'pop', 'bar'].forEach(k => {
+            document.getElementById('ts-' + k).addEventListener('input', e => {
+                uiText[k] = Math.min(1.6, Math.max(0.7, parseInt(e.target.value, 10) / 100));
+                applyUiText();
+            });
+        });
+        document.getElementById('btn-ts-reset').addEventListener('click', () => {
+            uiText = { all: 1, dd: 1, pop: 1, bar: 1 };
+            applyUiText();
+        });
+        applyUiText();
+
+        document.getElementById('map-z-btn').addEventListener('click', zToggle);
+        document.getElementById('z-sens').addEventListener('input', e => {
+            zSens = Math.min(2, Math.max(0.25, parseInt(e.target.value, 10) / 100));
+            try { localStorage.setItem('fs4x-zsens', String(zSens)); } catch (err) { }
+            zSyncSettings();
+        });
+        document.getElementById('btn-z-sens-reset').addEventListener('click', () => {
+            zSens = 1;
+            try { localStorage.setItem('fs4x-zsens', '1'); } catch (err) { }
+            zSyncSettings();
+        });
+        document.getElementById('btn-z-invert').addEventListener('click', () => {
+            zInvert = !zInvert;
+            try { localStorage.setItem('fs4x-zinvert', zInvert ? '1' : '0'); } catch (err) { }
+            zSyncSettings();
+        });
+        zSyncSettings();
+        document.getElementById('map-follow-btn').addEventListener('click', () => {
+            if (zFollow) zSetFollow(false);
+            else zStartWith(false);
+        });
+        document.getElementById('map-cockpit-btn').addEventListener('click', zToggleCockpit);
+        document.getElementById('map-fly-btn').addEventListener('click', zFlyRoute);
         try { if (localStorage.getItem(M3_KEY) === '1') setTimeout(() => m3Set(true, true), 300); } catch (err) {}
 
         const planetPic = document.getElementById('planet-pic');
@@ -23805,6 +24733,7 @@ const DEFENDERS_PER_POP=100;
         }
 
         function updateDashboardPlanetView() {
+            zSyncButton();
             if (planets.length === 0) return;
             syncMgmtVisibility();
             if (fleetSummaryOwnId !== null) {
@@ -24639,7 +25568,7 @@ const DEFENDERS_PER_POP=100;
         }
 
         function yearReportHtml(c, year) {
-            let html = `<div><b>Year ${year} Report:</b></div>`;
+            let html = '';
             html += yearAlertsHtml(c);
             if (c.fleet.length) {
                 html += `<div>• <b style="color:#00ffff;">Fleets:</b></div>`;
@@ -25770,8 +26699,8 @@ const DEFENDERS_PER_POP=100;
 
         function showTurnReport(year, html, intro) {
             document.getElementById('tr-year').innerText = year;
-            document.getElementById('tr-title').innerText = intro ? '⏳ A New Year: Turn Report & Planetary Logistics' : '⏳ Turn Report & Planetary Logistics';
-            document.getElementById('turn-report-body').innerHTML = (intro ? '<div style="color:#9fe8b0;margin-bottom:8px;">' + escapeHtml(intro) + '</div>' : '') + html + dipInboxHtml();
+            document.getElementById('tr-title').innerText = '⏳ Year Report';
+            document.getElementById('turn-report-body').innerHTML = html + dipInboxHtml();
             document.getElementById('turn-report-modal').classList.add('active');
             sfxPlay('chime');
             dipSyncReportClose();
@@ -29309,7 +30238,7 @@ const DEFENDERS_PER_POP=100;
             }, 'Cancel Game', 'Yes, Cancel It');
         }
 
-        function gameCardHtml(x) {
+        function gameCardHtml(x, mine) {
             const size = selectOptionText('sp-map-size', x.size_key || 'medium').split(' (')[0];
             let progress = '';
             if (x.status === 'lobby') progress = 'Players: ' + x.humans_joined + ' of ' + x.human_seats;
@@ -29317,10 +30246,12 @@ const DEFENDERS_PER_POP=100;
             else if (x.status === 'finished') progress = x.abandoned ? 'Ended without a winner in ' + x.year : (x.i_won ? 'You won' : 'Won by ' + (x.winner_name || 'an empire')) + ' in ' + x.year;
             if (x.status === 'active' && x.my_status === 'resigned') progress = 'Year ' + x.year + ', you resigned';
             if (x.status === 'active' && x.my_status === 'defeated') progress = 'Year ' + x.year + ', your empire has fallen (spectating)';
-            return `<button type="button" class="game-card" data-id="${x.id}">
+            const direct = !!(mine && x.status === 'active');
+            const card = `<button type="button" class="game-card" data-id="${x.id}"${direct ? ' data-direct="1"' : ''}>
                 <div class="game-card-title">${x.is_private ? '🔒 ' : ''}${escapeHtml(x.name)}<span class="game-status ${x.status}">${escapeHtml(GAME_STATUS_LABELS[x.status] || x.status)}</span>${x.is_my_turn ? '<span class="game-status starting">Your turn</span>' : ''}${x.i_won ? '<span class="game-status won">🏆 Victory</span>' : ''}${x.can_skip ? '<span class="game-status lobby">Orders overdue</span>' : ''}${x.play_type === 'blitz' ? '<span class="game-status lobby">⏱ Blitz</span>' : x.play_type === 'daily' ? '<span class="game-status lobby">📅 Turn-a-Day</span>' : ''}</div>
                 <div class="game-card-sub">Host: ${escapeHtml(x.creator_name || '?')}${x.is_creator ? ' (you)' : ''} | ${escapeHtml(progress)} | ${x.seat_count} empires | ${escapeHtml(size)} galaxy</div>
             </button>`;
+            return direct ? `<div class="gc-wrap">${card}<button type="button" class="gc-lobby" data-id="${x.id}" title="Open this game's lobby (Resign, Invite, players)">⚙ Game Lobby</button></div>` : card;
         }
 
         async function mpShowMyGames() {
@@ -29335,7 +30266,7 @@ const DEFENDERS_PER_POP=100;
                 if (res.error) throw res.error;
                 const games = Array.isArray(res.data) ? res.data : [];
                 list.innerHTML = games.length
-                    ? games.map(gameCardHtml).join('')
+                    ? games.map(x => gameCardHtml(x, true)).join('')
                     : '<div class="wiz-empty">You are not in any multiplayer games yet. Create one from the lobby.</div>';
             } catch (err) {
                 list.innerHTML = '';
@@ -29344,8 +30275,17 @@ const DEFENDERS_PER_POP=100;
         }
 
         document.getElementById('mpm-list').addEventListener('click', (e) => {
+            const lb = e.target.closest ? e.target.closest('.gc-lobby') : null;
+            if (lb) {
+                mpOpenGame(lb.dataset.id, null, 'mygames');
+                return;
+            }
             const b = e.target.closest ? e.target.closest('.game-card') : null;
-            if (b) mpOpenGame(b.dataset.id, null, 'mygames');
+            if (!b) return;
+            if (b.dataset.direct) {
+                mpSetStatus('mpm-status', 'Loading the galaxy...');
+                mpEnterGalaxy(b.dataset.id).then(() => mpSetStatus('mpm-status', ''));
+            } else mpOpenGame(b.dataset.id, null, 'mygames');
         });
         document.getElementById('mpm-refresh').addEventListener('click', mpShowMyGames);
         document.getElementById('mpm-back').addEventListener('click', mpShowLobby);
@@ -33860,7 +34800,7 @@ const DEFENDERS_PER_POP=100;
                     lastPicDraw = ts;
                     drawPlanetPicture(ts);
                 }
-                if (!isDragging && ts - lastMapAnim > 60 && (selectionGlowActive() || (playerFleets.length && playerFleets.some(f => fleetOrbitIndex(f) >= 0)))) {
+                if (!isDragging && ts - lastMapAnim > (zTilt() ? 140 : 60) && (selectionGlowActive() || (playerFleets.length && playerFleets.some(f => fleetOrbitIndex(f) >= 0)))) {
                     lastMapAnim = ts;
                     drawGalaxyMap();
                 }
@@ -34379,7 +35319,7 @@ const DEFENDERS_PER_POP=100;
         const TUT_LESSONS = [
             { id: 'welcome', title: 'Welcome and How to Win', scenario: 'basic', steps: [
                 { title: 'Meet your guide', first: true, say: "Greetings, Commander! I am <b>K-7</b>, your flight instructor. I will walk you through FreeSpace 4x one lesson at a time, inside a small practice galaxy built just for training.<br>Nothing here touches your real games, and your progress is <b>saved after every step</b>, so you can leave at any time and come back to the exact spot. Press <b>Next</b> to begin, or <b>Skip Tutorial</b> if you already know your way around." },
-                { title: 'The star map', target: '.map-col', allow: ['#galaxy-canvas'], label: 'Star map', say: "This is the <b>Tactical Star Map</b>. Every dot is a star system with one planet. Your empire is shown in your color; the other color belongs to the <b>Training Rival</b>, a gentle computer opponent.<br>Try it: <b>drag</b> to pan and use the <b>mouse wheel</b> (or pinch) to zoom. Press Next when you are ready." },
+                { title: 'The star map', target: '.map-col', allow: ['#galaxy-canvas'], label: 'Star map', say: "This is the <b>Tactical Star Map</b>. Every dot is a star system with one planet. Your empire is shown in your color; the other color belongs to the <b>Training Rival</b>, a gentle computer opponent.<br>Try it: <b>drag</b> to pan and use the <b>mouse wheel</b> (or pinch) to zoom. The <b>3D</b> button at the top left turns planets and ships into 3D models, and in 3D the <b>Z</b> button tilts the map and can follow a fleet from behind (the tutorial keeps the flat top-down view). Press Next when you are ready." },
                 { title: 'Years are turns', target: '#lbl-year', label: 'Year', say: "Each turn is <b>one year</b>. The galaxy starts in <b>2400</b>. You give orders, then the year plays out for every empire at once: ships move, planets grow and build, battles happen." },
                 { title: 'Open Management', target: '#btn-management-toggle', label: 'Click', say: "Let's find out how to win. Click the yellow <b>Management</b> menu.", hint: "The Management button is in the top bar, with a briefcase icon. Click it once.", done: () => tutDropOpen('management-dropdown') },
                 { title: 'Open the Scoreboard', transient: true, target: '#btn-mgmt-scoreboard', label: 'Click', say: "Now click <b>Scoreboard</b>.", hint: "If the menu closed, I will step back so you can open it again.", done: () => tutModalOpen('scoreboard-modal') },
