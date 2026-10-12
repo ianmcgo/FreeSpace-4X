@@ -7,7 +7,7 @@ jobs:
   butler:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Stage build
         run: |
           mkdir dist
@@ -16,7 +16,7 @@ jobs:
           echo "VERSION=$(grep -o "GAME_VERSION = '[^']*'" index.html | head -1 | cut -d"'" -f2)" >> "$GITHUB_ENV"
       - name: Install butler
         run: |
-          curl -fsSL -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+          curl -fsSL -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
           unzip -q butler.zip
           chmod +x butler
       - name: Push
