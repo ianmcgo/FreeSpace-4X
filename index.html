@@ -289,7 +289,7 @@
         .vg-msg { position: absolute; left: 50%; top: 22px; transform: translateX(-50%); font-size: 11px; letter-spacing: 0.2em; padding: 4px 10px; border: 1px solid rgba(255, 179, 71, 0.6); color: #ffb347; background: rgba(20, 12, 4, 0.7); display: none; pointer-events: none; white-space: nowrap; }
         .vg-msg.on { display: block; }
         .vg-msg.wait { border-color: rgba(127, 249, 255, 0.55); color: #7ff9ff; background: rgba(4, 14, 22, 0.7); animation: vcBlink 0.9s steps(2, start) infinite; }
-        .vg-card { position: absolute; right: 26px; top: 70px; min-width: 210px; max-width: 280px; padding: 12px 14px; display: none; background: linear-gradient(180deg, rgba(14, 10, 30, 0.92), rgba(6, 4, 16, 0.94)); border: 1px solid rgba(127, 249, 255, 0.6); box-shadow: 0 0 14px rgba(127, 249, 255, 0.25), inset 0 0 18px rgba(181, 21, 181, 0.15); clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px); pointer-events: none; }
+        .vg-card { position: absolute; right: 26px; top: 96px; min-width: 210px; max-width: 280px; padding: 12px 14px; display: none; background: linear-gradient(180deg, rgba(14, 10, 30, 0.92), rgba(6, 4, 16, 0.94)); border: 1px solid rgba(127, 249, 255, 0.6); box-shadow: 0 0 14px rgba(127, 249, 255, 0.25), inset 0 0 18px rgba(181, 21, 181, 0.15); clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px); pointer-events: none; }
         .vg-card.on { display: block; animation: vgCard 0.25s ease-out; }
         @keyframes vgCard { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: none; } }
         .vg-card-tag { font-size: 9px; letter-spacing: 0.26em; color: #da70d6; }
@@ -3218,7 +3218,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 1.6.0 (Updated: October 12, 2026 9:55 AM)</div>
+            <div class="version-text">Version 1.6.1 (Updated: October 12, 2026 9:47 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -6408,7 +6408,7 @@
         const ORBIT_SPEED = 0.15;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '1.6.0';
+        const GAME_VERSION = '1.6.1';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -24162,6 +24162,9 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '1.6.1', d: "Oct 12, 2026 9:47 AM", t: "Globe Card Position", items: [
+                'On a computer, the country card on the Visitor Origins globe now opens lower, so it no longer covers the close × button.'
+            ] },
             { v: '1.6.0', d: "Oct 12, 2026 9:55 AM", t: "Visitor Globe: New Countries and Replay", items: [
                 'New: a country that sends its first-ever visit is flagged NEW for 24 hours: a green pulsing ring and NEW label on its pin, a NEW badge in the list, and a green NEW CONTACT banner when you open the globe. Its card also shows when the first contact happened.',
                 'New: the REPLAY button (bottom left on a computer, under the title on a phone) plays back how visits grew day by day. Drag the slider to any day or press play and watch countries light up in the order they first visited. Press REPLAY again, or close the globe, to return to live numbers.',
