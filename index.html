@@ -360,6 +360,11 @@
         .vg-chips .vg-flybtn { padding: 5px 0; letter-spacing: 0.06em; }
         .vg-sort { width: 100%; box-sizing: border-box; margin: 0 0 8px; padding: 6px 8px; font: bold 10px 'Consolas', 'Lucida Console', 'Courier New', monospace; letter-spacing: 0.14em; color: #7ff9ff; background: rgba(4, 10, 20, 0.85); border: 1px solid rgba(127, 249, 255, 0.35); }
         .vg-sort:focus { outline: none; border-color: #7ff9ff; box-shadow: 0 0 8px rgba(127, 249, 255, 0.4); }
+        .vg-badges-head { margin-top: 10px; font-size: 9px; letter-spacing: 0.2em; color: #da70d6; }
+        .vg-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+        .vg-badge { padding: 3px 6px; font-size: 9px; letter-spacing: 0.08em; color: rgba(185, 253, 255, 0.4); border: 1px solid rgba(127, 249, 255, 0.18); background: rgba(127, 249, 255, 0.02); }
+        .vg-badge.got { color: #ffd666; border-color: rgba(255, 214, 102, 0.7); background: rgba(255, 214, 102, 0.08); text-shadow: 0 0 6px rgba(255, 214, 102, 0.5); }
+        .vg-share { width: 100%; margin-top: 10px; }
         .vg-card.wide { min-width: 300px; max-width: 340px; }
         .vg-cmp { display: grid; grid-template-columns: auto 1fr 1fr; gap: 3px 10px; margin-top: 8px; font-size: 11px; align-items: baseline; }
         .vg-cmp span:nth-child(3n+1) { font-size: 9px; letter-spacing: 0.16em; color: #da70d6; }
@@ -3279,7 +3284,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 1.18.0 (Updated: October 12, 2026 2:30 PM)</div>
+            <div class="version-text">Version 1.19.0 (Updated: October 12, 2026 3:05 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -3363,6 +3368,9 @@
                 </div>
                 <div class="vg-conts" id="vg-conts"></div>
                 <div class="vg-legend" id="vg-legend"></div>
+                <div class="vg-badges-head" id="vg-badges-head"></div>
+                <div class="vg-badges" id="vg-badges"></div>
+                <button type="button" class="vg-flybtn vg-share" id="vg-share">SAVE SHARE CARD (PNG)</button>
             </div>
                 <div class="vg-pane-empty" id="vg-ov-empty">No visits with a location yet.</div>
             </div>
@@ -5495,7 +5503,7 @@
                 <p><b style="color:#da70d6;">Skip Years</b><br>In a single player game the <b>Skip Years</b> button beside End Turn plays several years in a row with your orders unchanged. Choose 1 to 100 years. Each year is played exactly as if you had pressed End Turn without changing anything: queues and Autobuild keep building, research continues, and fleets follow the waypoints they already have (a fleet with no orders stays put). The missing-order warning is not shown. The skip stops early, and tells you why, only when your empire fights a battle, when you lose a planet, or when a victory condition is met. Battles you only watch on your scanners and diplomacy requests do not interrupt it. The summary window opens only after all the years you chose have been played (or it stopped early), and any requests that arrived wait there for your answer. At the end you see the report of the last year played (earlier years are in the Galactic Event Log) and the game is saved. In multiplayer use Skip My Turns in the Settings menu instead; the button is hidden there.</p>
                 <p><b style="color:#da70d6;">Opening Intro</b><br>The first time the game is opened in a browser, a 20 second intro plays: shots of the galaxy map, fleets, the tilted Z view, planets, your territory, the Ship Designer, the cockpit and the Technology Browser cross-fade into each other with slow camera drifts, each held for about two seconds with its caption, then the FreeSpace 4x title glows in and holds for a few seconds while the closing chord rings out. It has its own sound track (a low space drone, a whoosh and chime on each shot, a rising sweep and a deep boom with a bright chord as the title appears), made up by the game like the rest of its sound. Browsers do not allow sound before you have clicked or pressed a key on a page, so on that very first visit a <b>🔊 Click for sound</b> sign appears in the top left: click anywhere or press any key once and the sound joins in from that moment. After that, a click or a key skips to the title screen; <b>Skip</b> in the top right and Escape always skip. Its loudness follows the louder of your Music and Sound Effects volumes (with a sensible minimum so it can be heard), and it is silent if both are off or at 0. The game's music is held back while the intro plays. It plays automatically only once per browser (clearing the site data brings it back) and never when you arrive from a multiplayer invite link or a password reset email. To watch it again, press <b>🎬 Watch Intro</b> at the top of the Help window, or <b>▶ Play Intro</b> in Settings, UI; it plays over whatever screen you are on and then returns you there.</p>
                 <p><b style="color:#da70d6;">Visitor Counter</b><br>The <b>Visitor Log</b> panel in the bottom right corner of the title screen shows how many times FreeSpace 4x has been opened by all players. The count is stored on the game server, so it goes up no matter where the game file is opened from (the website or a downloaded copy), as long as there is an internet connection. <b>What counts as a visit:</b> opening the game in a new browser tab counts once. Refreshing that tab on the same day does not count again. A tab left open counts once more on each new day (by your computer's clock). <b>Lights:</b> green <b>UPLINK</b> means the number is live from the server (it refreshes every few minutes while the title screen is showing); amber <b>OFFLINE</b> means the server cannot be reached, and the panel shows the last count this browser saw (or dashes if it has never connected). A visit made while offline is counted when the connection comes back. <b>Privacy:</b> the server keeps only the country each visit came from (worked out by the network the game server runs on). No IP address, account or other personal information is stored.</p>
-                <p><b style="color:#da70d6;">Visitor Origins Globe</b><br>Click the Visitor Log (or select it and press Enter) to open <b>Visitor Origins</b>, a holographic globe of Earth. <b>Pins:</b> every country with visitors glows and carries a pin; more visits make the pin taller, larger and brighter, going from cyan through magenta to white for the busiest country. Your own country pulses green and is marked <b>YOU</b> (shown even before it has a pin). <b>Moving around:</b> drag or swipe to spin the globe (it keeps spinning a little when you let go and turns slowly on its own when left alone), scroll the mouse wheel or pinch to zoom. <b>Details:</b> tap a pin or any country to open its card: number of visits, share of all traffic and when the last visit came in. The panel on the right (below the globe on a phone) shows the total visits, how many countries have visited, an intel box (top country and its share, the latest contact, your country's rank and the farthest visitor from your country; click a line to fly there) with a continent bar, the visits Today and in the Last 7 Days, a Last 30 Days bar chart (one bar per day, today outlined, the busiest day named above it; days follow Universal Time and counts only exist from October 12, 2026) and the top countries; click a country there to fly the globe to it. <b>Arcs and night:</b> glowing arcs run from each visiting country to your own (thicker and brighter for more visits, with a light flowing toward you; the selected country's arc turns white; no arcs show if your country is unknown). The night side of Earth is shaded for the current time of day, with a warm glow along the sunrise and sunset line. The <b>ARCS</b> and <b>NIGHT</b> buttons at the bottom left of the globe turn each on or off. <b>New countries:</b> a country with its first-ever visit is marked NEW for 24 hours (green pulsing ring and NEW label on its pin, NEW badge in the list, a NEW CONTACT banner when the globe opens, and its card shows the first contact time). <b>Replay:</b> the REPLAY button plays back visits day by day: drag the slider or press play, then press REPLAY again (or close the globe) to go back to live numbers. Replay needs at least two days of history; the server only began keeping per-country daily history on October 12, 2026, so it fills in over time, and countries on the map at that point count as first seen October 12. <b>Flags and search:</b> every country shows a flag (some Windows computers show two letters instead) and the SEARCH COUNTRY box above Top Origins finds any country by name or short name; Enter or a tap flies the globe there and opens its card. <b>Milestones:</b> when total visits pass 100, 250, 500, 1,000, 2,500, 5,000, 10,000 and so on, or the country count reaches 10, 25, 50, 100 or 150, golden rings pulse out from the globe and a MILESTONE REACHED banner appears the next time you open it (remembered per device; the first time on a device only notes where things stand). The NEXT MILESTONE line in the intel box shows how far away the next one is. <b>PER 1M:</b> shades the globe, pins, arcs and list by visits per million people instead of total visits, using rounded built-in population estimates plus one million per country so one visit from a tiny country does not dominate. <b>SOUND:</b> a soft ping when the globe opens, a chime for a NEW CONTACT and a rising chime for a milestone; the button turns them on or off (remembered per device) and they also follow your Sound Effects settings. <b>The moon:</b> a small moon orbits the globe and keeps orbiting while you move it. Its pin (marked ?) holds every visit with no known country: hidden or blocked locations, Tor, and the visits counted before country tracking began on October 12, 2026. Tap the moon or its row in the list to see that number. <b>Closing:</b> Close, the × button or Escape (Escape first closes an open card). Without an internet connection the globe still turns but shows NO SIGNAL instead of counts. Country shapes come from Natural Earth (public domain). <b>Arrival hour:</b> a 24-bar chart shows which hour of the day (in your local time) visitors tend to arrive; it fills in from the day it was added. <b>Live pulse:</b> while the globe is open it checks for new visits about every 20 seconds, and a white ripple plus a LIVE banner show where each new visitor came from. <b>Weekday pattern and streak:</b> a 7-bar chart shows the average visits for each day of the week, and the intel box shows the longest and current run of days with at least one visit (UTC days, last 90 days). Flag pictures come from the Twemoji flag set (CC BY 4.0), built into the game so they also show on Windows. <b>Panel tabs:</b> under the four number boxes, OVERVIEW shows the intel box, TRENDS shows the three charts, and ORIGINS shows the search box and country list. The last tab you used is remembered. <b>Reach and coverage:</b> a country card shows what share of its population the visits equal (an upper limit, since visits are not unique players). Overview shows WORLD REACH and a coverage bar of 195 countries; VIEW MISSING or the MISSING button on Origins lists countries that have not visited, and tapping one flies there. FIND ME, LATEST and TOP fly to your country, the newest visitor and the top country. <b>Country card and compare:</b> the card also shows first contact date, rank and a 30 day chart. COMPARE on the Origins tab lets you pick two countries and see them side by side. <b>Sort and continents:</b> on Origins, the SORT menu orders the list (visits, newest contact, most recent visit, A to Z) and the NA, SA, EU, AF, AS and OC buttons show one continent in the list and highlight it on the globe.</p>
+                <p><b style="color:#da70d6;">Visitor Origins Globe</b><br>Click the Visitor Log (or select it and press Enter) to open <b>Visitor Origins</b>, a holographic globe of Earth. <b>Pins:</b> every country with visitors glows and carries a pin; more visits make the pin taller, larger and brighter, going from cyan through magenta to white for the busiest country. Your own country pulses green and is marked <b>YOU</b> (shown even before it has a pin). <b>Moving around:</b> drag or swipe to spin the globe (it keeps spinning a little when you let go and turns slowly on its own when left alone), scroll the mouse wheel or pinch to zoom. <b>Details:</b> tap a pin or any country to open its card: number of visits, share of all traffic and when the last visit came in. The panel on the right (below the globe on a phone) shows the total visits, how many countries have visited, an intel box (top country and its share, the latest contact, your country's rank and the farthest visitor from your country; click a line to fly there) with a continent bar, the visits Today and in the Last 7 Days, a Last 30 Days bar chart (one bar per day, today outlined, the busiest day named above it; days follow Universal Time and counts only exist from October 12, 2026) and the top countries; click a country there to fly the globe to it. <b>Arcs and night:</b> glowing arcs run from each visiting country to your own (thicker and brighter for more visits, with a light flowing toward you; the selected country's arc turns white; no arcs show if your country is unknown). The night side of Earth is shaded for the current time of day, with a warm glow along the sunrise and sunset line. The <b>ARCS</b> and <b>NIGHT</b> buttons at the bottom left of the globe turn each on or off. <b>New countries:</b> a country with its first-ever visit is marked NEW for 24 hours (green pulsing ring and NEW label on its pin, NEW badge in the list, a NEW CONTACT banner when the globe opens, and its card shows the first contact time). <b>Replay:</b> the REPLAY button plays back visits day by day: drag the slider or press play, then press REPLAY again (or close the globe) to go back to live numbers. Replay needs at least two days of history; the server only began keeping per-country daily history on October 12, 2026, so it fills in over time, and countries on the map at that point count as first seen October 12. <b>Flags and search:</b> every country shows a flag (some Windows computers show two letters instead) and the SEARCH COUNTRY box above Top Origins finds any country by name or short name; Enter or a tap flies the globe there and opens its card. <b>Milestones:</b> when total visits pass 100, 250, 500, 1,000, 2,500, 5,000, 10,000 and so on, or the country count reaches 10, 25, 50, 100 or 150, golden rings pulse out from the globe and a MILESTONE REACHED banner appears the next time you open it (remembered per device; the first time on a device only notes where things stand). The NEXT MILESTONE line in the intel box shows how far away the next one is. <b>PER 1M:</b> shades the globe, pins, arcs and list by visits per million people instead of total visits, using rounded built-in population estimates plus one million per country so one visit from a tiny country does not dominate. <b>SOUND:</b> a soft ping when the globe opens, a chime for a NEW CONTACT and a rising chime for a milestone; the button turns them on or off (remembered per device) and they also follow your Sound Effects settings. <b>The moon:</b> a small moon orbits the globe and keeps orbiting while you move it. Its pin (marked ?) holds every visit with no known country: hidden or blocked locations, Tor, and the visits counted before country tracking began on October 12, 2026. Tap the moon or its row in the list to see that number. <b>Closing:</b> Close, the × button or Escape (Escape first closes an open card). Without an internet connection the globe still turns but shows NO SIGNAL instead of counts. Country shapes come from Natural Earth (public domain). <b>Arrival hour:</b> a 24-bar chart shows which hour of the day (in your local time) visitors tend to arrive; it fills in from the day it was added. <b>Live pulse:</b> while the globe is open it checks for new visits about every 20 seconds, and a white ripple plus a LIVE banner show where each new visitor came from. <b>Weekday pattern and streak:</b> a 7-bar chart shows the average visits for each day of the week, and the intel box shows the longest and current run of days with at least one visit (UTC days, last 90 days). Flag pictures come from the Twemoji flag set (CC BY 4.0), built into the game so they also show on Windows. <b>Panel tabs:</b> under the four number boxes, OVERVIEW shows the intel box, TRENDS shows the three charts, and ORIGINS shows the search box and country list. The last tab you used is remembered. <b>Reach and coverage:</b> a country card shows what share of its population the visits equal (an upper limit, since visits are not unique players). Overview shows WORLD REACH and a coverage bar of 195 countries; VIEW MISSING or the MISSING button on Origins lists countries that have not visited, and tapping one flies there. FIND ME, LATEST and TOP fly to your country, the newest visitor and the top country. <b>Country card and compare:</b> the card also shows first contact date, rank and a 30 day chart. COMPARE on the Origins tab lets you pick two countries and see them side by side. <b>Sort and continents:</b> on Origins, the SORT menu orders the list (visits, newest contact, most recent visit, A to Z) and the NA, SA, EU, AF, AS and OC buttons show one continent in the list and highlight it on the globe. <b>Badges, moon facts and share card:</b> Overview lists 11 badges that stay earned on your device. Tapping the Moon shows a moon fact. SAVE SHARE CARD (PNG) makes a picture of the globe and key numbers to post.</p>
                 <p><b style="color:#da70d6;">Full Screen</b><br>On a computer, press <b>F</b> any time (except while typing in a box) to make the game fill your whole screen, and press F again or Esc to leave. Settings, UI also has a <b>Full Screen</b> button at the very top. The button is hidden on phones and tablets, and in places that do not allow full screen it says so.</p>
                 <p><b style="color:#da70d6;">Music and Sound Effects</b><br>Both start at a quiet 5%, so raise them to taste. The game plays calm space music that is made up fresh each time, plus sound effects for button clicks, ending your turn, the Year Report, notices, victory and defeat. When a Year Report shows that you met a new empire you hear a short first-contact call, and when your ships or scanners surveyed new planets you hear a scanner sweep. While a message window is open the music drops to a fifth of its volume and comes back when the window closes. Sound starts after your first click or key press. Open Settings, UI to find the Music and Sound Effects sections. Each has a volume slider and an ON/OFF button, so you can quiet one, switch off one, or switch off both. Your choices are saved on this device. Sound pauses while the browser tab is hidden.</p>
                 <p><b style="color:#da70d6;">Galaxy Names and Fun Facts</b><br>Unless you type your own name on the New Game screen, every new galaxy is named after a real one, like Andromeda, the Whirlpool Galaxy or the Large Magellanic Cloud, and the name appears in your first event log entry. Select a surveyed planet that is named after a real star, like Vega, Sirius or Rigel, and press the <b>Fun Fact</b> button on the planet card (Planet Summary and Planet Roster), just below Send a Fleet Here, to read a true fact about that star. Press it again to hide the text. Homeworlds, planets you have not surveyed and planets with an invented name have no button.</p>
@@ -6540,7 +6548,7 @@
         const ORBIT_SPEED = 0.15;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '1.18.0';
+        const GAME_VERSION = '1.19.0';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -24294,6 +24302,11 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '1.19.0', d: "Oct 12, 2026 3:05 PM", t: "Moon Facts, Badges and Share Card", items: [
+                'New: tap the Moon on the Visitor Origins globe and its card now shows a MOON FACT. Each tap shows the next one.',
+                'New: visitor badges on the Overview tab, 11 in all, such as 3 CONTINENTS, 6 CONTINENTS, 10 / 25 / 50 COUNTRIES, 1,000 VISITS, BUSY DAY (100 visits in a day), 7 and 30 DAY STREAK, FAR REACH and HOME BASE. Hover a badge to see what it needs. Earned badges stay earned. They are remembered on this device, and a gold banner announces a new one. The first time you open the globe on a device it only records the badges you already qualify for.',
+                'New: SAVE SHARE CARD (PNG) on the Overview tab. It makes a 1200 by 630 picture with the globe, total visits, countries, top origin, best streak, world reach and badge count. On phones that support sharing it opens the share sheet, and otherwise it downloads the picture.'
+            ] },
             { v: '1.18.0', d: "Oct 12, 2026 2:30 PM", t: "List Sort and Continent Filter", items: [
                 'New: a SORT menu on the Origins tab. Order the country list by most visits, newest contact, most recent visit, or A to Z. In the MISSING list the same menu switches between biggest population first and A to Z.',
                 'New: continent buttons (ALL, NA, SA, EU, AF, AS, OC) on the Origins tab. Pick one to show only that continent in the list, in both CONTACTED and MISSING. On the globe, the chosen continent gets a bright outline in its color, the other lands fade back, and pins from other continents are hidden. Choose ALL to clear it.'
@@ -37870,6 +37883,158 @@ const DEFENDERS_PER_POP=100;
             return Math.round(s / 86400) + ' days ago';
         }
 
+        const VG_BADGES = [
+            { id: 'c3', name: '3 CONTINENTS', tip: 'Visits from three different continents.', ok: c => c.conts >= 3 },
+            { id: 'c6', name: '6 CONTINENTS', tip: 'Visits from every inhabited continent.', ok: c => c.conts >= 6 },
+            { id: 'n10', name: '10 COUNTRIES', tip: 'Visits from 10 countries.', ok: c => c.nations >= 10 },
+            { id: 'n25', name: '25 COUNTRIES', tip: 'Visits from 25 countries.', ok: c => c.nations >= 25 },
+            { id: 'n50', name: '50 COUNTRIES', tip: 'Visits from 50 countries.', ok: c => c.nations >= 50 },
+            { id: 'v1k', name: '1,000 VISITS', tip: 'One thousand visits in total.', ok: c => c.total >= 1000 },
+            { id: 'day100', name: 'BUSY DAY', tip: '100 visits in a single day.', ok: c => c.bestDay >= 100 },
+            { id: 's7', name: '7 DAY STREAK', tip: 'Visits on 7 days in a row.', ok: c => c.streak >= 7 },
+            { id: 's30', name: '30 DAY STREAK', tip: 'Visits on 30 days in a row.', ok: c => c.streak >= 30 },
+            { id: 'far', name: 'FAR REACH', tip: 'A visitor more than 15,000 km from your country.', ok: c => c.farKm >= 15000 },
+            { id: 'home', name: 'HOME BASE', tip: 'Your own country is on the map.', ok: c => c.home }
+        ];
+        const VG_BADGE_KEY = 'fs4x-vg-badges';
+
+        function vgBadgeCtx() {
+            const known = vgData.rows.filter(r => r.country !== 'ZZ' && r.views > 0);
+            const places = vgDecode().places;
+            const conts = new Set();
+            known.forEach(r => { const k = vgContinent(r.country); if (k && k !== 'AN') conts.add(k); });
+            const stk = vgStreaks();
+            const mine = vgMyCountry && vgMyCountry !== 'ZZ' ? vgMyCountry : null;
+            let farKm = 0;
+            if (mine && places[mine]) known.forEach(r => { if (places[r.country]) farKm = Math.max(farKm, vgKm(places[mine], places[r.country])); });
+            return {
+                conts: conts.size, nations: known.length, total: vgData.total,
+                bestDay: (vgData.daily || []).reduce((m, d) => Math.max(m, d.views), 0),
+                streak: stk ? stk.best : 0, farKm: farKm,
+                home: !!(mine && known.some(r => r.country === mine))
+            };
+        }
+
+        function vgBadgeStored() {
+            try { const j = JSON.parse(localStorage.getItem(VG_BADGE_KEY)); return j && Array.isArray(j.ids) ? j.ids : null; } catch (e) { return null; }
+        }
+
+        function vgBadgeEarned() {
+            const c = vgBadgeCtx();
+            const now = VG_BADGES.filter(b => b.ok(c)).map(b => b.id);
+            const old = vgBadgeStored() || [];
+            return { ids: [...new Set(old.concat(now))], fresh: now.filter(id => old.indexOf(id) < 0), hadStore: vgBadgeStored() !== null };
+        }
+
+        function vgRenderBadges() {
+            const box = document.getElementById('vg-badges');
+            if (!box) return;
+            const e = vgData.ok ? vgBadgeEarned() : { ids: vgBadgeStored() || [] };
+            box.innerHTML = '';
+            VG_BADGES.forEach(b => {
+                const got = e.ids.indexOf(b.id) >= 0;
+                const el = document.createElement('span');
+                el.className = 'vg-badge' + (got ? ' got' : '');
+                el.textContent = (got ? '★ ' : '◇ ') + b.name;
+                el.title = b.tip + (got ? ' Earned.' : ' Not yet earned.');
+                box.appendChild(el);
+            });
+            document.getElementById('vg-badges-head').textContent = 'BADGES ' + VG_BADGES.filter(b => e.ids.indexOf(b.id) >= 0).length + ' / ' + VG_BADGES.length;
+        }
+
+        function vgCheckBadges() {
+            if (vg.replay || !vgData.ok) return;
+            const e = vgBadgeEarned();
+            try { localStorage.setItem(VG_BADGE_KEY, JSON.stringify({ ids: e.ids })); } catch (x) { }
+            vgRenderBadges();
+            if (!e.hadStore || !e.fresh.length) return;
+            const names = e.fresh.map(id => VG_BADGES.find(b => b.id === id).name);
+            vgCelebrate('BADGE UNLOCKED · ' + names.join(' · '));
+        }
+
+        const VG_MOON_FACTS = [
+            'The Moon is about 384,400 km from Earth, roughly 30 Earth diameters away.',
+            'The Moon drifts away from Earth by about 3.8 cm every year.',
+            'The same side of the Moon always faces Earth, because it turns once for every trip around us.',
+            'Moon gravity is about one sixth of Earth gravity, so a 60 kg person would weigh about 10 kg there.',
+            'Moonlight takes about 1.3 seconds to reach Earth.',
+            'Twelve people have walked on the Moon, between 1969 and 1972.',
+            'One day and night on the Moon lasts about 29.5 Earth days.',
+            'Moon surface temperatures swing from over 100 degrees C in sunlight to below minus 150 degrees C at night.',
+            'The Moon is about 3,474 km across, a little over a quarter of Earth\'s width.',
+            'The Moon has almost no atmosphere, so there is no sound and no weather there.',
+            'Moonquakes are real. Instruments left by Apollo crews recorded them for years.',
+            'The Moon is about 4.5 billion years old and probably formed from debris after a giant impact with early Earth.',
+            'On this globe, visits with no known country are shown on the Moon: hidden locations, Tor, and early visits before country tracking began.'
+        ];
+
+        async function vgShareCard() {
+            const btn = document.getElementById('vg-share');
+            try {
+                vgDraw(performance.now());
+                const W = 1200, H = 630, SPLIT = 700;
+                const cv = document.createElement('canvas');
+                cv.width = W; cv.height = H;
+                const g = cv.getContext('2d');
+                g.fillStyle = '#05050f'; g.fillRect(0, 0, W, H);
+                const srcs = ['vg-bg', 'vg-gl', 'vg-fx'].map(id => document.getElementById(id));
+                const sw = srcs[0].width, sh = srcs[0].height;
+                if (sw && sh) {
+                    const k = Math.max(SPLIT / sw, H / sh), dw = sw * k, dh = sh * k;
+                    g.save(); g.beginPath(); g.rect(0, 0, SPLIT, H); g.clip();
+                    srcs.forEach(c => { if (c.width) g.drawImage(c, (SPLIT - dw) / 2, (H - dh) / 2, dw, dh); });
+                    g.restore();
+                }
+                const mono = '"Twemoji Country Flags", Consolas, "Courier New", monospace';
+                g.strokeStyle = 'rgba(127,249,255,0.5)'; g.lineWidth = 2;
+                g.beginPath(); g.moveTo(SPLIT, 0); g.lineTo(SPLIT, H); g.stroke();
+                const x0 = SPLIT + 36;
+                g.textBaseline = 'alphabetic';
+                g.fillStyle = '#da70d6'; g.font = 'bold 22px ' + mono;
+                g.fillText('FREESPACE 4X', x0, 56);
+                g.fillStyle = '#e6faff'; g.font = 'bold 30px ' + mono;
+                g.fillText('VISITOR ORIGINS', x0, 94);
+                g.fillStyle = '#b9fdff'; g.font = 'bold 84px ' + mono;
+                g.fillText(vgData.ok ? vgData.total.toLocaleString() : '---', x0, 190);
+                g.fillStyle = 'rgba(185,253,255,0.7)'; g.font = '18px ' + mono;
+                g.fillText('TOTAL VISITS', x0, 218);
+                const cov = vgData.ok ? vgCoverage() : { got: 0, total: 195 };
+                const known = vgData.rows.filter(r => r.country !== 'ZZ');
+                const stk = vgStreaks();
+                const e = vgBadgeEarned();
+                const lines = [
+                    ['COUNTRIES', cov.got + ' of ' + cov.total],
+                    ['TOP ORIGIN', known.length ? vgLabel(known[0].country) : '-'],
+                    ['BEST STREAK', stk ? stk.best + (stk.best === 1 ? ' day' : ' days') : '-'],
+                    ['WORLD REACH', vgData.ok ? vgReachText(Math.max(vgData.total, 1), vgWorldPop()).replace(' people', '') : '-'],
+                    ['BADGES', VG_BADGES.filter(b => e.ids.indexOf(b.id) >= 0).length + ' of ' + VG_BADGES.length]
+                ];
+                let y = 276;
+                lines.forEach(l => {
+                    g.fillStyle = '#da70d6'; g.font = '16px ' + mono; g.fillText(l[0], x0, y);
+                    g.fillStyle = '#e6faff'; g.font = 'bold 22px ' + mono; g.fillText(l[1], x0, y + 28);
+                    y += 62;
+                });
+                g.fillStyle = 'rgba(185,253,255,0.55)'; g.font = '15px ' + mono;
+                g.fillText(new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }), x0, H - 24);
+                const blob = await new Promise(res => cv.toBlob(res, 'image/png'));
+                if (!blob) throw new Error('no image');
+                const file = new File([blob], 'freespace-4x-visitor-origins.png', { type: 'image/png' });
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    try { await navigator.share({ files: [file], title: 'FreeSpace 4X Visitor Origins' }); vgFlash('SHARE CARD READY'); return; } catch (x) { if (x && x.name === 'AbortError') return; }
+                }
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url; a.download = file.name;
+                document.body.appendChild(a); a.click(); a.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 4000);
+                vgFlash('SHARE CARD SAVED AS PNG');
+            } catch (x) {
+                vgFlash('SHARE CARD FAILED ON THIS DEVICE');
+            }
+            if (btn) btn.blur();
+        }
+
         function vgDate(iso) {
             const t = Date.parse(iso);
             return isNaN(t) ? '' : new Date(t).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -37969,7 +38134,8 @@ const DEFENDERS_PER_POP=100;
                 html = '<div class="vg-card-tag">☾ LUNAR RELAY · NO FIX</div><div class="vg-card-name">Unknown origin</div>' +
                     '<div class="vg-card-num">' + v.toLocaleString() + '<small>' + (v === 1 ? 'VISIT' : 'VISITS') + '</small></div>' +
                     (v ? '<div class="vg-card-row">' + pct.toFixed(pct < 10 ? 1 : 0) + '% of all traffic</div>' : '') +
-                    '<div class="vg-card-row">Visits with no country: hidden or blocked locations, Tor, and the first visits before country tracking began.</div>';
+                    '<div class="vg-card-row">Visits with no country: hidden or blocked locations, Tor, and the first visits before country tracking began.</div>' +
+                    '<div class="vg-card-row" style="color:#ffd666;margin-top:8px;">MOON FACT · ' + VG_MOON_FACTS[(vg.moonFact = ((vg.moonFact == null ? Math.floor(Math.random() * VG_MOON_FACTS.length) : vg.moonFact + 1)) % VG_MOON_FACTS.length)] + '</div>';
             } else {
                 html = '<div class="vg-card-tag">SECTOR ' + esc(code) + (v ? ' · CONTACT' : ' · NO CONTACT') + (vgData.fresh.has(code) ? ' · NEW' : '') + '</div><div class="vg-card-name">' + esc(vgLabel(code)) + '</div>' +
                     '<div class="vg-card-num">' + v.toLocaleString() + '<small>' + (v === 1 ? 'VISIT' : 'VISITS') + '</small></div>' +
@@ -38414,6 +38580,7 @@ const DEFENDERS_PER_POP=100;
             vgRenderHours();
             vgRenderWeek();
             vgRenderIntel();
+            vgRenderBadges();
             vgSyncPanes();
             document.getElementById('vg-nations').textContent = vgData.ok ? String(vgData.rows.filter(r => r.country !== 'ZZ').length) : '--';
             if (!vgData.ok) {
@@ -38536,6 +38703,7 @@ const DEFENDERS_PER_POP=100;
                 vgRenderList();
                 if (vg.sel) vgSelect(vg.sel, false);
                 vgCheckMilestones();
+                vgCheckBadges();
                 vgFlashNew();
                 vgSyncReplayBtn();
             } catch (e) {
@@ -38604,6 +38772,7 @@ const DEFENDERS_PER_POP=100;
                     vgRenderList();
                 }));
                 document.getElementById('vg-sort').addEventListener('change', e => { vg.sort = e.target.value; vgRenderList(); });
+                document.getElementById('vg-share').addEventListener('click', vgShareCard);
                 const setMode = m => { vg.listMode = m; vgRenderList(); };
                 document.getElementById('vg-mode-visited').addEventListener('click', () => setMode('visited'));
                 document.getElementById('vg-mode-missing').addEventListener('click', () => setMode('missing'));
