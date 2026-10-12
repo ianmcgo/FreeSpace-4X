@@ -136,6 +136,129 @@
             .patreon-logo { left: calc(8px + var(--title-logo) + var(--title-logo-gap)); bottom: 8px; }
         }
 
+
+        .vc-panel {
+            position: fixed;
+            right: 18px;
+            bottom: 14px;
+            z-index: 5;
+            min-width: 196px;
+            padding: 9px 14px 8px 16px;
+            box-sizing: border-box;
+            font-family: 'Consolas', 'Lucida Console', 'Courier New', monospace;
+            color: #7ff9ff;
+            background: linear-gradient(135deg, rgba(127, 249, 255, 0.85), rgba(181, 21, 181, 0.85) 55%, rgba(138, 43, 226, 0.9));
+            clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+            filter: drop-shadow(0 0 6px rgba(127, 249, 255, 0.35)) drop-shadow(0 0 14px rgba(181, 21, 181, 0.35));
+            user-select: none;
+            -webkit-user-select: none;
+            cursor: default;
+        }
+        .vc-panel::before {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            clip-path: polygon(13px 0, 100% 0, 100% calc(100% - 13px), calc(100% - 13px) 100%, 0 100%, 0 13px);
+            background:
+                radial-gradient(ellipse at 20% 0%, rgba(127, 249, 255, 0.14), rgba(0, 0, 0, 0) 60%),
+                linear-gradient(180deg, rgba(14, 10, 30, 0.96), rgba(6, 4, 16, 0.97));
+            z-index: -1;
+        }
+        .vc-panel::after {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            pointer-events: none;
+            clip-path: polygon(13px 0, 100% 0, 100% calc(100% - 13px), calc(100% - 13px) 100%, 0 100%, 0 13px);
+            background:
+                repeating-linear-gradient(0deg, rgba(127, 249, 255, 0.05) 0 1px, rgba(0, 0, 0, 0) 1px 3px),
+                linear-gradient(100deg, rgba(0, 0, 0, 0) 40%, rgba(127, 249, 255, 0.16) 50%, rgba(0, 0, 0, 0) 60%);
+            background-size: 100% 100%, 260% 100%;
+            background-position: 0 0, 160% 0;
+            animation: vcSweep 6s linear infinite;
+        }
+        .vc-head {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 9.5px;
+            letter-spacing: 0.22em;
+            color: #da70d6;
+            text-shadow: 0 0 6px rgba(218, 112, 214, 0.7);
+        }
+        .vc-label { flex: 1; white-space: nowrap; }
+        .vc-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #7ff9ff;
+            box-shadow: 0 0 6px #7ff9ff;
+            animation: vcBlink 0.9s steps(2, start) infinite;
+            flex: none;
+        }
+        .vc-state {
+            font-size: 8.5px;
+            letter-spacing: 0.16em;
+            padding: 1px 5px;
+            border: 1px solid rgba(127, 249, 255, 0.55);
+            color: #7ff9ff;
+            text-shadow: 0 0 5px rgba(127, 249, 255, 0.8);
+            white-space: nowrap;
+        }
+        .vc-num {
+            margin: 4px 0 3px;
+            font-size: clamp(20px, 1.9vw, 27px);
+            font-weight: bold;
+            letter-spacing: 0.08em;
+            line-height: 1.05;
+            white-space: nowrap;
+            text-align: right;
+            color: #b9fdff;
+            text-shadow: 0 0 4px #7ff9ff, 0 0 12px rgba(127, 249, 255, 0.75), 0 0 26px rgba(127, 249, 255, 0.35);
+            font-variant-numeric: tabular-nums;
+        }
+        .vc-num .vc-z { color: rgba(127, 249, 255, 0.16); text-shadow: none; }
+        .vc-num .vc-sep { color: #da70d6; text-shadow: 0 0 6px rgba(218, 112, 214, 0.8); margin: 0 1px; }
+        .vc-panel.vc-flash .vc-num { animation: vcFlicker 0.7s linear; }
+        .vc-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            font-size: 8px;
+            letter-spacing: 0.26em;
+            color: rgba(185, 253, 255, 0.55);
+            border-top: 1px solid rgba(127, 249, 255, 0.22);
+            padding-top: 4px;
+        }
+        .vc-bars { display: inline-flex; align-items: flex-end; gap: 2px; height: 9px; }
+        .vc-bars i { display: block; width: 3px; height: 100%; background: #7ff9ff; box-shadow: 0 0 4px #7ff9ff; transform-origin: bottom; animation: vcEq 1.1s ease-in-out infinite alternate; }
+        .vc-bars i:nth-child(2) { animation-delay: -0.3s; }
+        .vc-bars i:nth-child(3) { animation-delay: -0.7s; }
+        .vc-bars i:nth-child(4) { animation-delay: -0.15s; }
+        .vc-bars i:nth-child(5) { animation-delay: -0.5s; }
+        .vc-panel.vc-live .vc-dot { background: #5dff8f; box-shadow: 0 0 7px #5dff8f; animation: vcPulse 2s ease-in-out infinite; }
+        .vc-panel.vc-live .vc-state { color: #5dff8f; border-color: rgba(93, 255, 143, 0.6); text-shadow: 0 0 5px rgba(93, 255, 143, 0.8); }
+        .vc-panel.vc-off .vc-dot { background: #ffb347; box-shadow: 0 0 7px #ffb347; animation: vcBlink 1.6s steps(2, start) infinite; }
+        .vc-panel.vc-off .vc-state { color: #ffb347; border-color: rgba(255, 179, 71, 0.6); text-shadow: 0 0 5px rgba(255, 179, 71, 0.8); }
+        .vc-panel.vc-off .vc-num { color: rgba(185, 253, 255, 0.55); text-shadow: 0 0 6px rgba(127, 249, 255, 0.35); }
+        .vc-panel.vc-off .vc-bars i { animation-play-state: paused; transform: scaleY(0.2); }
+        @keyframes vcSweep { 0% { background-position: 0 0, 160% 0; } 55%, 100% { background-position: 0 0, -60% 0; } }
+        @keyframes vcBlink { 0% { opacity: 1; } 100% { opacity: 0.15; } }
+        @keyframes vcPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+        @keyframes vcEq { 0% { transform: scaleY(0.25); } 100% { transform: scaleY(1); } }
+        @keyframes vcFlicker { 0% { opacity: 0.2; } 10% { opacity: 1; } 18% { opacity: 0.4; } 26%, 100% { opacity: 1; } }
+        @media (max-width: 600px) {
+            .vc-panel { right: 8px; bottom: 8px; min-width: 0; padding: 6px 10px 6px 12px; }
+            .vc-num { font-size: 17px; }
+            .vc-head { font-size: 8px; letter-spacing: 0.16em; gap: 5px; }
+            .vc-state { font-size: 7.5px; }
+            .vc-foot { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .vc-panel::after, .vc-dot, .vc-bars i, .vc-panel.vc-flash .vc-num { animation: none !important; }
+        }
+
         .title-top-group {
             text-align: center;
             margin-top: 15vh;
@@ -2879,7 +3002,7 @@
         #intro { display: none; position: fixed; inset: 0; z-index: 30000; background: #000; overflow: hidden; cursor: pointer; user-select: none; -webkit-user-select: none; contain: strict; }
         html.intro-on #intro { display: block; }
         html.intro-on, html.intro-on body, html.intro-on #view-title { overflow: hidden; }
-        html.intro-on .title-top-group, html.intro-on .title-button-row, html.intro-on .title-footer, html.intro-on .cabal-logo, html.intro-on .patreon-logo { opacity: 0; }
+        html.intro-on .title-top-group, html.intro-on .title-button-row, html.intro-on .title-footer, html.intro-on .cabal-logo, html.intro-on .patreon-logo, html.intro-on .vc-panel { opacity: 0; }
         #intro .intro-shot { position: absolute; inset: 0; opacity: 0; overflow: hidden; will-change: opacity; }
         #intro .intro-shot > i { position: absolute; inset: -4%; background-size: cover; background-position: center; will-change: transform; }
         #intro .intro-shot::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.78) 100%); }
@@ -2898,7 +3021,7 @@
         html.intro-run #intro .intro-glow { animation: introGlow 2400ms ease-out both; animation-delay: 14600ms; }
         html.intro-run #intro { animation: introOut 1400ms ease-in-out both; animation-delay: 14900ms; }
         html.intro-run .title-top-group { animation: introTitle 2200ms cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: 15000ms; }
-        html.intro-run .title-button-row, html.intro-run .title-footer, html.intro-run .cabal-logo, html.intro-run .patreon-logo { animation: introFade 1000ms ease-out both; animation-delay: 16200ms; }
+        html.intro-run .title-button-row, html.intro-run .title-footer, html.intro-run .cabal-logo, html.intro-run .patreon-logo, html.intro-run .vc-panel { animation: introFade 1000ms ease-out both; animation-delay: 16200ms; }
         @keyframes introFadeShot { 0% { opacity: 0; } 25% { opacity: 1; } 75% { opacity: 1; } 100% { opacity: 0; } }
         @keyframes introDrift { from { transform: scale(1.14) translate(var(--dx), var(--dy)); } to { transform: scale(1.03) translate(0, 0); } }
         @keyframes introCap { 0% { opacity: 0; transform: translateX(-30px); filter: blur(6px); letter-spacing: 0.08em; } 14% { opacity: 1; transform: translateX(0); filter: blur(0); } 86% { opacity: 1; filter: blur(0); } 100% { opacity: 0; transform: translateX(14px); filter: blur(4px); letter-spacing: 0.24em; } }
@@ -2971,10 +3094,15 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 1.0.0 (Updated: October 11, 2026 11:20 PM)</div>
+            <div class="version-text">Version 1.1.0 (Updated: October 12, 2026 12:55 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
+        <div id="vc-panel" class="vc-panel" role="status" aria-live="polite" title="Visitor counter: every time the game is opened in a new browser tab (and once a day for a tab left open), the count goes up by one. It needs an internet connection.">
+            <div class="vc-head"><span class="vc-dot"></span><span class="vc-label">VISITOR LOG</span><span class="vc-state" id="vc-state">LINKING</span></div>
+            <div class="vc-num" id="vc-num"><span class="vc-z">---</span><span class="vc-sep">,</span><span class="vc-z">---</span><span class="vc-sep">,</span><span class="vc-z">---</span></div>
+            <div class="vc-foot"><span>SECTOR TRAFFIC</span><span class="vc-bars"><i></i><i></i><i></i><i></i><i></i></span></div>
+        </div>
     </div>
 
     <div id="view-new-game" class="view">
@@ -5069,6 +5197,7 @@
                 <p><b style="color:#da70d6;">Turn Flow</b><br>Give your orders, then press <b>End Turn</b>. Orders are only plans: nothing happens until the year is played out. A year is played out once every empire has given its orders, and then every empire's orders are carried out <b>at the same time</b>, including those of the AI empires. The year runs in this order: (1) the AI empires add their orders; (2) colonists ordered to land with the Colonize button land, before anything moves; (3) ships and armed starbases sweep enemy minefields, then every fleet of every empire moves along its waypoints at the same time, burning fuel and risking minefields; (4) waypoint tasks run for fleets that arrived (load, unload, colonize), and colony ships that reached the same planet in the same year compete for it; (5) mines are laid, remote mining ships work, fleets are repaired and refuelled; (6) the calendar moves on one year, mineral packets fly, battles are fought, bombs fall, troops land and detonated minefields explode; (7) every empire's planets build, mine and grow, random events roll and research advances; (8) minefields decay and victory conditions are checked. Then each empire gets its own Year Report.</p>
                 <p><b style="color:#da70d6;">Skip Years</b><br>In a single player game the <b>Skip Years</b> button beside End Turn plays several years in a row with your orders unchanged. Choose 1 to 100 years. Each year is played exactly as if you had pressed End Turn without changing anything: queues and Autobuild keep building, research continues, and fleets follow the waypoints they already have (a fleet with no orders stays put). The missing-order warning is not shown. The skip stops early, and tells you why, only when your empire fights a battle, when you lose a planet, or when a victory condition is met. Battles you only watch on your scanners and diplomacy requests do not interrupt it. The summary window opens only after all the years you chose have been played (or it stopped early), and any requests that arrived wait there for your answer. At the end you see the report of the last year played (earlier years are in the Galactic Event Log) and the game is saved. In multiplayer use Skip My Turns in the Settings menu instead; the button is hidden there.</p>
                 <p><b style="color:#da70d6;">Opening Intro</b><br>The first time the game is opened in a browser, a 20 second intro plays: shots of the galaxy map, fleets, the tilted Z view, planets, your territory, the Ship Designer, the cockpit and the Technology Browser cross-fade into each other with slow camera drifts, each held for about two seconds with its caption, then the FreeSpace 4x title glows in and holds for a few seconds while the closing chord rings out. It has its own sound track (a low space drone, a whoosh and chime on each shot, a rising sweep and a deep boom with a bright chord as the title appears), made up by the game like the rest of its sound. Browsers do not allow sound before you have clicked or pressed a key on a page, so on that very first visit a <b>🔊 Click for sound</b> sign appears in the top left: click anywhere or press any key once and the sound joins in from that moment. After that, a click or a key skips to the title screen; <b>Skip</b> in the top right and Escape always skip. Its loudness follows the louder of your Music and Sound Effects volumes (with a sensible minimum so it can be heard), and it is silent if both are off or at 0. The game's music is held back while the intro plays. It plays automatically only once per browser (clearing the site data brings it back) and never when you arrive from a multiplayer invite link or a password reset email. To watch it again, press <b>🎬 Watch Intro</b> at the top of the Help window, or <b>▶ Play Intro</b> in Settings, UI; it plays over whatever screen you are on and then returns you there.</p>
+                <p><b style="color:#da70d6;">Visitor Counter</b><br>The <b>Visitor Log</b> panel in the bottom right corner of the title screen shows how many times FreeSpace 4x has been opened by all players. The count is stored on the game server, so it goes up no matter where the game file is opened from (the website or a downloaded copy), as long as there is an internet connection. <b>What counts as a visit:</b> opening the game in a new browser tab counts once. Refreshing that tab on the same day does not count again. A tab left open counts once more on each new day (by your computer's clock). <b>Lights:</b> green <b>UPLINK</b> means the number is live from the server (it refreshes every few minutes while the title screen is showing); amber <b>OFFLINE</b> means the server cannot be reached, and the panel shows the last count this browser saw (or dashes if it has never connected). A visit made while offline is counted when the connection comes back. No account or personal information is sent, only "add one".</p>
                 <p><b style="color:#da70d6;">Music and Sound Effects</b><br>Both start at a quiet 5%, so raise them to taste. The game plays calm space music that is made up fresh each time, plus sound effects for button clicks, ending your turn, the Year Report, notices, victory and defeat. When a Year Report shows that you met a new empire you hear a short first-contact call, and when your ships or scanners surveyed new planets you hear a scanner sweep. While a message window is open the music drops to a fifth of its volume and comes back when the window closes. Sound starts after your first click or key press. Open Settings, UI to find the Music and Sound Effects sections. Each has a volume slider and an ON/OFF button, so you can quiet one, switch off one, or switch off both. Your choices are saved on this device. Sound pauses while the browser tab is hidden.</p>
                 <p><b style="color:#da70d6;">Galaxy Names and Fun Facts</b><br>Unless you type your own name on the New Game screen, every new galaxy is named after a real one, like Andromeda, the Whirlpool Galaxy or the Large Magellanic Cloud, and the name appears in your first event log entry. Select a surveyed planet that is named after a real star, like Vega, Sirius or Rigel, and press the <b>Fun Fact</b> button on the planet card (Planet Summary and Planet Roster), just below Send a Fleet Here, to read a true fact about that star. Press it again to hide the text. Homeworlds, planets you have not surveyed and planets with an invented name have no button.</p>
                 <p><b style="color:#da70d6;">The Event Log</b><br>The log keeps 600 entries; at 600 the oldest 200 are deleted, and a pop-up warns you from 500 entries on. Export Event Log lets you choose a year range and the kinds of information to save, and Settings, UI, Event Log Display hides kinds you do not want to see on screen (they stay saved). Year summaries can be hidden whole, and the other kinds also filter the lines inside a summary. The event log panel keeps a history of your empire. Giving an order writes nothing to the log: orders are only plans until the year is played out. When the year runs, the things that actually happened are logged: a fleet setting out for a destination or arriving, colonists landing, items built, research finished, and one Year summary entry with everything the Year Report said (lines already logged on their own are not repeated inside it). Old Orders given entries from earlier versions stay in saved logs. Your log holds only your own empire's story: other empires' orders, fleets, production and research never appear in it, only events that touch you, such as a battle at your world, a minefield hit, a bombing, an alliance or a Mystery Trader, including what each tech level-up unlocked. Survey and contact messages list each world with its habitability for your people and its owner. Use Settings, Export Event Log to save the whole log as a text file.</p>
@@ -6104,7 +6233,7 @@
         const ORBIT_SPEED = 0.15;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '1.0.0';
+        const GAME_VERSION = '1.1.0';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -23858,6 +23987,11 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '1.1.0', d: "Oct 12, 2026 12:55 AM", t: "Visitor Counter", items: [
+                'New: a sci-fi Visitor Log in the bottom right corner of the title screen counts how many times FreeSpace 4x has been opened, by everyone, everywhere. The count is kept on the game server, so it goes up whether the game is played from the website or from a downloaded copy of the file, as long as there is an internet connection.',
+                'Each new browser tab counts once. Refreshing the same tab on the same day does not count again, but a tab that is left open counts once more on each new day.',
+                'Without an internet connection the panel shows OFFLINE and the last count this browser saw, and it counts the visit as soon as the connection comes back.'
+            ] },
             { v: '1.0.0', d: "Oct 11, 2026 11:20 PM", t: "Version 1.0", items: [
                 'FreeSpace 4x reaches version 1.0! Thank you to everyone who played, tested and reported bugs along the way.',
                 'Everything from the 0.x versions is in: single player, Sandbox, Tutorial, Simulation and Replays, multiplayer with chat, profiles, badges, leaderboards and seasons, the 2D, 3D, Z and cockpit views, the ship and station designers, research, diplomacy, minefields, stargates, mass drivers and the Mystery Trader.',
@@ -25837,7 +25971,7 @@ const DEFENDERS_PER_POP=100;
             return d.textContent.toLowerCase();
         }
 
-        const HELP_LEVELS = { basic: ["Absolute Beginner: Play in Two Minutes", "The Tutorial", "Goal", "Tips for Your First Turns", "The Star Map", "3D Map", "Z View (Tilted 3D Map)", "The Planet Picture", "What the Panels Show", "Building at a Planet", "Turn Flow", "Turns and Rounds", "The Year Report", "Resources", "Ore and Mining", "Population and Growth", "Structures", "The Production Queue", "Research", "Habitability", "Colonizing", "Colonizing and Cargo", "Ship Construction", "Your Starting Fleet", "Fleets on the Map", "Fleet Actions", "Waypoints and Tasks", "Send a Fleet Here", "Orders at a Planet", "Cargo and Transfer", "Warnings Before You Commit", "Warp Speed and Travel Time", "Fuel", "Scanning and Discovery", "Skip Years", "The Event Log", "Management", "Saving", "Continue Game", "Replays", "New Game: Tutorial, Sandbox, Game+ and Simulation", "Simulation", "The New Game Screen", "AI Opponents", "Victory Conditions", "Defeat and Game Over", "Playing on a Phone or Tablet", "Planet Names on Map", "Panel Transparency", "Minimizing Panels on a Desktop", "Menu Colors and Sensor Circles", "Opening Intro", "Music and Sound Effects", "Galaxy Names and Fun Facts", "Help and Updates Windows", "Update Notice and What's New", "Multiplayer and Your Account", "Forgot Your Password", "The Multiplayer Lobby", "The Lounge, Lobby Chat and Player Profiles", "Joining a Multiplayer Game", "When the Game Begins", "Taking Your Turn", "My Games", "Defeat in Multiplayer"], advanced: ["Colonizing at the Same Time", "Random Events", "Refueling", "Fleet Transfer", "Merging Fleets", "Fleet Management and Naming Ships", "Scrapping", "Patrol", "Transport and Zip Orders", "Queue Controls and Estimates", "Auto Items and Repeating Builds", "Mines and Factories", "Autobuild", "Text Size", "Pop-up Windows", "Ore Concentration Bars", "Game Images", "The Galactic Event Log", "Planet Roster and Map Overlays", "Measuring Distance", "Advanced Options", "Scoreboard Table", "Score Graphs", "Game Stats", "Ship Repair", "Planetary Defenses", "Space Stations and Starbases", "Upgrading a Space Station or Starbase", "Building Designs and Refitting", "Technology Browser", "Ship Designer", "Ship Design Files", "Automation Files", "Resources Belong to Planets", "The Two Currencies: Resources and Ore", "The Budget: Research vs Manufacturing", "Your Own View of the Galaxy", "Miniaturization", "Engines", "Combat", "Battle Plans", "Battle Replay", "Bombing and Invasion", "Cloaking and Scanners", "Minefields", "Terraforming", "Mass Drivers and Mineral Packets", "Wormholes", "Stargates", "The Mystery Trader", "Comets", "Diplomacy", "AI Intelligence: Mistakes, Aggression and Grudges", "How the AI Empires Play", "Custom Races and the Race Wizard", "The Six Wizard Tabs", "Advantage Points", "What a Custom Race Does In This Game", "Numbers at a Glance", "Creating a Multiplayer Game", "Opponents: Player Spots and AI", "Multiplayer Options", "The Game Lobby", "Inviting Players", "Inviting Players After the Game Has Started", "Examining Enemy Fleets", "Game Emails", "Multiplayer Victory and Game Over", "Watching While Others Play", "Turn Time Limit and Skipping", "Skip My Turns", "Changing Your Empire Color", "Who Is Online and How Long the Year Has Run", "Chat", "Whispers and Alliance Chat", "Play Types", "Resigning", "Player Stats, Charts and the Leaderboard", "Reliability, Records and Races", "Empire Records", "Military Records and Diplomacy", "Leaderboard Filters and Record Leaderboards", "Seasons", "Playing Now: Standings in Running Games", "Badges", "Admin Tools", "Inactive Accounts", "Warnings, Limits and Bans", "Equipment Catalog", "Ship Hulls", "Mystery Trader Items"] };
+        const HELP_LEVELS = { basic: ["Absolute Beginner: Play in Two Minutes", "The Tutorial", "Goal", "Tips for Your First Turns", "The Star Map", "3D Map", "Z View (Tilted 3D Map)", "The Planet Picture", "What the Panels Show", "Building at a Planet", "Turn Flow", "Turns and Rounds", "The Year Report", "Resources", "Ore and Mining", "Population and Growth", "Structures", "The Production Queue", "Research", "Habitability", "Colonizing", "Colonizing and Cargo", "Ship Construction", "Your Starting Fleet", "Fleets on the Map", "Fleet Actions", "Waypoints and Tasks", "Send a Fleet Here", "Orders at a Planet", "Cargo and Transfer", "Warnings Before You Commit", "Warp Speed and Travel Time", "Fuel", "Scanning and Discovery", "Skip Years", "The Event Log", "Management", "Saving", "Continue Game", "Replays", "New Game: Tutorial, Sandbox, Game+ and Simulation", "Simulation", "The New Game Screen", "AI Opponents", "Victory Conditions", "Defeat and Game Over", "Playing on a Phone or Tablet", "Planet Names on Map", "Panel Transparency", "Minimizing Panels on a Desktop", "Menu Colors and Sensor Circles", "Opening Intro", "Visitor Counter", "Music and Sound Effects", "Galaxy Names and Fun Facts", "Help and Updates Windows", "Update Notice and What's New", "Multiplayer and Your Account", "Forgot Your Password", "The Multiplayer Lobby", "The Lounge, Lobby Chat and Player Profiles", "Joining a Multiplayer Game", "When the Game Begins", "Taking Your Turn", "My Games", "Defeat in Multiplayer"], advanced: ["Colonizing at the Same Time", "Random Events", "Refueling", "Fleet Transfer", "Merging Fleets", "Fleet Management and Naming Ships", "Scrapping", "Patrol", "Transport and Zip Orders", "Queue Controls and Estimates", "Auto Items and Repeating Builds", "Mines and Factories", "Autobuild", "Text Size", "Pop-up Windows", "Ore Concentration Bars", "Game Images", "The Galactic Event Log", "Planet Roster and Map Overlays", "Measuring Distance", "Advanced Options", "Scoreboard Table", "Score Graphs", "Game Stats", "Ship Repair", "Planetary Defenses", "Space Stations and Starbases", "Upgrading a Space Station or Starbase", "Building Designs and Refitting", "Technology Browser", "Ship Designer", "Ship Design Files", "Automation Files", "Resources Belong to Planets", "The Two Currencies: Resources and Ore", "The Budget: Research vs Manufacturing", "Your Own View of the Galaxy", "Miniaturization", "Engines", "Combat", "Battle Plans", "Battle Replay", "Bombing and Invasion", "Cloaking and Scanners", "Minefields", "Terraforming", "Mass Drivers and Mineral Packets", "Wormholes", "Stargates", "The Mystery Trader", "Comets", "Diplomacy", "AI Intelligence: Mistakes, Aggression and Grudges", "How the AI Empires Play", "Custom Races and the Race Wizard", "The Six Wizard Tabs", "Advantage Points", "What a Custom Race Does In This Game", "Numbers at a Glance", "Creating a Multiplayer Game", "Opponents: Player Spots and AI", "Multiplayer Options", "The Game Lobby", "Inviting Players", "Inviting Players After the Game Has Started", "Examining Enemy Fleets", "Game Emails", "Multiplayer Victory and Game Over", "Watching While Others Play", "Turn Time Limit and Skipping", "Skip My Turns", "Changing Your Empire Color", "Who Is Online and How Long the Year Has Run", "Chat", "Whispers and Alliance Chat", "Play Types", "Resigning", "Player Stats, Charts and the Leaderboard", "Reliability, Records and Races", "Empire Records", "Military Records and Diplomacy", "Leaderboard Filters and Record Leaderboards", "Seasons", "Playing Now: Standings in Running Games", "Badges", "Admin Tools", "Inactive Accounts", "Warnings, Limits and Bans", "Equipment Catalog", "Ship Hulls", "Mystery Trader Items"] };
         const HELP_LEVEL_NAMES = ['Basic', 'Advanced'];
 
         function helpLevelOf(title) {
@@ -36366,6 +36500,139 @@ const DEFENDERS_PER_POP=100;
             });
             return sb;
         }
+
+
+        const VC_DAY_KEY = 'fs4x_vc_day';
+        const VC_LAST_KEY = 'fs4x_vc_last';
+        const VC_DIGITS = 9;
+        let vcMemDay = null;
+        let vcShown = null;
+        let vcBusy = false;
+        let vcLastTry = 0;
+        let vcLastOk = 0;
+        let vcFailed = false;
+        let vcRaf = 0;
+
+        function vcToday() {
+            const d = new Date();
+            return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+        }
+        function vcStore(kind, key, val) {
+            try {
+                const st = kind === 's' ? window.sessionStorage : window.localStorage;
+                if (val === undefined) return st.getItem(key);
+                st.setItem(key, val);
+            } catch (e) { }
+            return null;
+        }
+        function vcCounted(day) {
+            return vcMemDay === day || vcStore('s', VC_DAY_KEY) === day;
+        }
+        function vcDigitsHtml(n) {
+            if (n == null || !isFinite(n)) return '<span class="vc-z">---</span><span class="vc-sep">,</span><span class="vc-z">---</span><span class="vc-sep">,</span><span class="vc-z">---</span>';
+            let str = String(Math.max(0, Math.floor(n)));
+            const width = Math.max(VC_DIGITS, Math.ceil(str.length / 3) * 3);
+            str = str.padStart(width, '0');
+            const lead = width - String(Math.max(0, Math.floor(n))).length;
+            let out = '';
+            for (let i = 0; i < width; i++) {
+                if (i > 0 && (width - i) % 3 === 0) out += '<span class="vc-sep">,</span>';
+                out += i < lead && i < width - 1 ? '<span class="vc-z">' + str[i] + '</span>' : str[i];
+            }
+            return out;
+        }
+        function vcSetState(state) {
+            const p = document.getElementById('vc-panel');
+            const st = document.getElementById('vc-state');
+            if (!p || !st) return;
+            p.classList.toggle('vc-live', state === 'live');
+            p.classList.toggle('vc-off', state === 'off');
+            st.textContent = state === 'live' ? 'UPLINK' : state === 'off' ? 'OFFLINE' : 'LINKING';
+        }
+        function vcShow(n) {
+            const el = document.getElementById('vc-num');
+            const p = document.getElementById('vc-panel');
+            if (!el) return;
+            if (vcRaf) cancelAnimationFrame(vcRaf);
+            const from = vcShown == null ? Math.max(0, n - Math.min(n, 60)) : vcShown;
+            const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (n !== vcShown && p) {
+                p.classList.remove('vc-flash');
+                void p.offsetWidth;
+                p.classList.add('vc-flash');
+            }
+            if (reduce || from === n) {
+                vcShown = n;
+                el.innerHTML = vcDigitsHtml(n);
+                return;
+            }
+            const t0 = performance.now();
+            const dur = 1400;
+            const step = (t) => {
+                const k = Math.min(1, (t - t0) / dur);
+                const e = 1 - Math.pow(1 - k, 3);
+                el.innerHTML = vcDigitsHtml(Math.round(from + (n - from) * e));
+                if (k < 1) vcRaf = requestAnimationFrame(step);
+                else { vcRaf = 0; vcShown = n; }
+            };
+            vcShown = n;
+            vcRaf = requestAnimationFrame(step);
+        }
+        function vcOffline() {
+            const last = Number(vcStore('l', VC_LAST_KEY));
+            vcSetState('off');
+            if (vcShown == null && last > 0) vcShow(last);
+            else if (vcShown == null) {
+                const el = document.getElementById('vc-num');
+                if (el) el.innerHTML = vcDigitsHtml(null);
+            }
+        }
+        async function vcTick(force) {
+            if (vcBusy) return;
+            const now = Date.now();
+            const day = vcToday();
+            const counted = vcCounted(day);
+            if (!force && vcFailed && now - vcLastTry < 300000) return;
+            if (!force && counted && now - vcLastOk < 180000) return;
+            if (navigator.onLine === false) { vcFailed = true; vcLastTry = now; vcOffline(); return; }
+            const c = mpClient();
+            if (!c) { vcFailed = true; vcLastTry = now; vcOffline(); return; }
+            vcBusy = true;
+            vcLastTry = now;
+            try {
+                const r = await c.rpc(counted ? 'get_site_views' : 'bump_site_views');
+                if (r.error || r.data == null || !isFinite(Number(r.data))) throw r.error || new Error('no count');
+                const n = Number(r.data);
+                if (!counted) {
+                    vcMemDay = day;
+                    vcStore('s', VC_DAY_KEY, day);
+                }
+                vcStore('l', VC_LAST_KEY, String(n));
+                vcFailed = false;
+                vcLastOk = Date.now();
+                vcSetState('live');
+                vcShow(n);
+            } catch (e) {
+                vcFailed = true;
+                vcOffline();
+            } finally {
+                vcBusy = false;
+            }
+        }
+        function vcStart() {
+            vcTick(true);
+            setInterval(() => {
+                if (!vcCounted(vcToday())) { vcTick(false); return; }
+                const title = document.getElementById('view-title');
+                if (document.visibilityState === 'visible' && title && title.classList.contains('active')) vcTick(false);
+            }, 60000);
+            window.addEventListener('online', () => vcTick(true));
+            window.addEventListener('offline', () => vcSetState('off'));
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible' && !vcCounted(vcToday())) vcTick(true);
+            });
+        }
+        setTimeout(vcStart, 0);
 
         function mpRedirectUrl() {
             if (location.protocol === 'https:' || location.protocol === 'http:') return location.origin + location.pathname;
