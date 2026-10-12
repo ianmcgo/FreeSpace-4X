@@ -22,4 +22,5 @@ jobs:
       - name: Push
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
-        run: ./butler push dist "${{ vars.ITCH_TARGET }}" --userversion "$VERSION"
+          TARGET: ${{ vars.ITCH_TARGET || secrets.ITCH_TARGET || 'maunderingcabal/freespace-4x:html5' }}
+        run: ./butler push dist "$TARGET" --userversion "$VERSION"
