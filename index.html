@@ -3241,7 +3241,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 1.14.0 (Updated: October 12, 2026 11:30 AM)</div>
+            <div class="version-text">Version 1.14.1 (Updated: October 12, 2026 11:48 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -4977,6 +4977,9 @@
     <div id="ui-modal" class="modal-overlay" style="z-index: 1900;">
         <div class="modal-content">
             <h2 class="screen-header" style="margin-top: 0;">UI</h2>
+            <div id="ui-fs-wrap" style="display: none; text-align: center; margin: 0 0 14px 0;">
+                <button class="nav-button" id="btn-ui-fullscreen" style="display: inline-block; float: none; min-width: 260px;">⛶ Enter Full Screen (F)</button>
+            </div>
             <div class="ui-section">Windows and Panels</div>
             <div class="ui-grid">
                 <div class="ui-card">
@@ -5074,14 +5077,6 @@
                     <div class="ui-card-title">Delete Buttons</div>
                     <div class="ui-desc">Show a small ✕ after each of your own chat messages (Lounge, game chat and whispers) so you can delete it. Off keeps the chat tidy.</div>
                     <button class="nav-button chat-del-toggle-ui" id="btn-chat-delete" style="margin-top: 8px; float: none;">✕ Chat Delete Buttons: OFF</button>
-                </div>
-            </div>
-            <div class="ui-section" id="ui-fs-section" style="display:none;">Display</div>
-            <div class="ui-grid" id="ui-fs-grid" style="display:none;">
-                <div class="ui-card">
-                    <div class="ui-card-title">Full Screen</div>
-                    <div class="ui-desc">Make the game fill your whole screen, hiding the browser or page around it. Press Esc to leave full screen.</div>
-                    <button class="nav-button" id="btn-ui-fullscreen" style="margin-top: 8px;">⛶ Enter Full Screen</button>
                 </div>
             </div>
             <div class="ui-section">Sound</div>
@@ -5420,7 +5415,7 @@
                 <p><b style="color:#da70d6;">Opening Intro</b><br>The first time the game is opened in a browser, a 20 second intro plays: shots of the galaxy map, fleets, the tilted Z view, planets, your territory, the Ship Designer, the cockpit and the Technology Browser cross-fade into each other with slow camera drifts, each held for about two seconds with its caption, then the FreeSpace 4x title glows in and holds for a few seconds while the closing chord rings out. It has its own sound track (a low space drone, a whoosh and chime on each shot, a rising sweep and a deep boom with a bright chord as the title appears), made up by the game like the rest of its sound. Browsers do not allow sound before you have clicked or pressed a key on a page, so on that very first visit a <b>🔊 Click for sound</b> sign appears in the top left: click anywhere or press any key once and the sound joins in from that moment. After that, a click or a key skips to the title screen; <b>Skip</b> in the top right and Escape always skip. Its loudness follows the louder of your Music and Sound Effects volumes (with a sensible minimum so it can be heard), and it is silent if both are off or at 0. The game's music is held back while the intro plays. It plays automatically only once per browser (clearing the site data brings it back) and never when you arrive from a multiplayer invite link or a password reset email. To watch it again, press <b>🎬 Watch Intro</b> at the top of the Help window, or <b>▶ Play Intro</b> in Settings, UI; it plays over whatever screen you are on and then returns you there.</p>
                 <p><b style="color:#da70d6;">Visitor Counter</b><br>The <b>Visitor Log</b> panel in the bottom right corner of the title screen shows how many times FreeSpace 4x has been opened by all players. The count is stored on the game server, so it goes up no matter where the game file is opened from (the website or a downloaded copy), as long as there is an internet connection. <b>What counts as a visit:</b> opening the game in a new browser tab counts once. Refreshing that tab on the same day does not count again. A tab left open counts once more on each new day (by your computer's clock). <b>Lights:</b> green <b>UPLINK</b> means the number is live from the server (it refreshes every few minutes while the title screen is showing); amber <b>OFFLINE</b> means the server cannot be reached, and the panel shows the last count this browser saw (or dashes if it has never connected). A visit made while offline is counted when the connection comes back. <b>Privacy:</b> the server keeps only the country each visit came from (worked out by the network the game server runs on). No IP address, account or other personal information is stored.</p>
                 <p><b style="color:#da70d6;">Visitor Origins Globe</b><br>Click the Visitor Log (or select it and press Enter) to open <b>Visitor Origins</b>, a holographic globe of Earth. <b>Pins:</b> every country with visitors glows and carries a pin; more visits make the pin taller, larger and brighter, going from cyan through magenta to white for the busiest country. Your own country pulses green and is marked <b>YOU</b> (shown even before it has a pin). <b>Moving around:</b> drag or swipe to spin the globe (it keeps spinning a little when you let go and turns slowly on its own when left alone), scroll the mouse wheel or pinch to zoom. <b>Details:</b> tap a pin or any country to open its card: number of visits, share of all traffic and when the last visit came in. The panel on the right (below the globe on a phone) shows the total visits, how many countries have visited, an intel box (top country and its share, the latest contact, your country's rank and the farthest visitor from your country; click a line to fly there) with a continent bar, the visits Today and in the Last 7 Days, a Last 30 Days bar chart (one bar per day, today outlined, the busiest day named above it; days follow Universal Time and counts only exist from October 12, 2026) and the top countries; click a country there to fly the globe to it. <b>Arcs and night:</b> glowing arcs run from each visiting country to your own (thicker and brighter for more visits, with a light flowing toward you; the selected country's arc turns white; no arcs show if your country is unknown). The night side of Earth is shaded for the current time of day, with a warm glow along the sunrise and sunset line. The <b>ARCS</b> and <b>NIGHT</b> buttons at the bottom left of the globe turn each on or off. <b>New countries:</b> a country with its first-ever visit is marked NEW for 24 hours (green pulsing ring and NEW label on its pin, NEW badge in the list, a NEW CONTACT banner when the globe opens, and its card shows the first contact time). <b>Replay:</b> the REPLAY button plays back visits day by day: drag the slider or press play, then press REPLAY again (or close the globe) to go back to live numbers. Replay needs at least two days of history; the server only began keeping per-country daily history on October 12, 2026, so it fills in over time, and countries on the map at that point count as first seen October 12. <b>Flags and search:</b> every country shows a flag (some Windows computers show two letters instead) and the SEARCH COUNTRY box above Top Origins finds any country by name or short name; Enter or a tap flies the globe there and opens its card. <b>Milestones:</b> when total visits pass 100, 250, 500, 1,000, 2,500, 5,000, 10,000 and so on, or the country count reaches 10, 25, 50, 100 or 150, golden rings pulse out from the globe and a MILESTONE REACHED banner appears the next time you open it (remembered per device; the first time on a device only notes where things stand). The NEXT MILESTONE line in the intel box shows how far away the next one is. <b>PER 1M:</b> shades the globe, pins, arcs and list by visits per million people instead of total visits, using rounded built-in population estimates plus one million per country so one visit from a tiny country does not dominate. <b>SOUND:</b> a soft ping when the globe opens, a chime for a NEW CONTACT and a rising chime for a milestone; the button turns them on or off (remembered per device) and they also follow your Sound Effects settings. <b>The moon:</b> a small moon orbits the globe and keeps orbiting while you move it. Its pin (marked ?) holds every visit with no known country: hidden or blocked locations, Tor, and the visits counted before country tracking began on October 12, 2026. Tap the moon or its row in the list to see that number. <b>Closing:</b> Close, the × button or Escape (Escape first closes an open card). Without an internet connection the globe still turns but shows NO SIGNAL instead of counts. Country shapes come from Natural Earth (public domain). <b>Arrival hour:</b> a 24-bar chart shows which hour of the day (in your local time) visitors tend to arrive; it fills in from the day it was added. <b>Live pulse:</b> while the globe is open it checks for new visits about every 20 seconds, and a white ripple plus a LIVE banner show where each new visitor came from. <b>Weekday pattern and streak:</b> a 7-bar chart shows the average visits for each day of the week, and the intel box shows the longest and current run of days with at least one visit (UTC days, last 90 days).</p>
-                <p><b style="color:#da70d6;">Full Screen</b><br>On a computer, Settings, UI has a <b>Full Screen</b> button that makes the game fill your whole screen. Press Esc or the same button to leave. It is hidden on phones and tablets, and in places that do not allow full screen the button says so.</p>
+                <p><b style="color:#da70d6;">Full Screen</b><br>On a computer, press <b>F</b> any time (except while typing in a box) to make the game fill your whole screen, and press F again or Esc to leave. Settings, UI also has a <b>Full Screen</b> button at the very top. The button is hidden on phones and tablets, and in places that do not allow full screen it says so.</p>
                 <p><b style="color:#da70d6;">Music and Sound Effects</b><br>Both start at a quiet 5%, so raise them to taste. The game plays calm space music that is made up fresh each time, plus sound effects for button clicks, ending your turn, the Year Report, notices, victory and defeat. When a Year Report shows that you met a new empire you hear a short first-contact call, and when your ships or scanners surveyed new planets you hear a scanner sweep. While a message window is open the music drops to a fifth of its volume and comes back when the window closes. Sound starts after your first click or key press. Open Settings, UI to find the Music and Sound Effects sections. Each has a volume slider and an ON/OFF button, so you can quiet one, switch off one, or switch off both. Your choices are saved on this device. Sound pauses while the browser tab is hidden.</p>
                 <p><b style="color:#da70d6;">Galaxy Names and Fun Facts</b><br>Unless you type your own name on the New Game screen, every new galaxy is named after a real one, like Andromeda, the Whirlpool Galaxy or the Large Magellanic Cloud, and the name appears in your first event log entry. Select a surveyed planet that is named after a real star, like Vega, Sirius or Rigel, and press the <b>Fun Fact</b> button on the planet card (Planet Summary and Planet Roster), just below Send a Fleet Here, to read a true fact about that star. Press it again to hide the text. Homeworlds, planets you have not surveyed and planets with an invented name have no button.</p>
                 <p><b style="color:#da70d6;">The Event Log</b><br>The log keeps 600 entries; at 600 the oldest 200 are deleted, and a pop-up warns you from 500 entries on. Export Event Log lets you choose a year range and the kinds of information to save, and Settings, UI, Event Log Display hides kinds you do not want to see on screen (they stay saved). Year summaries can be hidden whole, and the other kinds also filter the lines inside a summary. The event log panel keeps a history of your empire. Giving an order writes nothing to the log: orders are only plans until the year is played out. When the year runs, the things that actually happened are logged: a fleet setting out for a destination or arriving, colonists landing, items built, research finished, and one Year summary entry with everything the Year Report said (lines already logged on their own are not repeated inside it). Old Orders given entries from earlier versions stay in saved logs. Your log holds only your own empire's story: other empires' orders, fleets, production and research never appear in it, only events that touch you, such as a battle at your world, a minefield hit, a bombing, an alliance or a Mystery Trader, including what each tech level-up unlocked. Survey and contact messages list each world with its habitability for your people and its owner. Use Settings, Export Event Log to save the whole log as a text file.</p>
@@ -6464,7 +6459,7 @@
         const ORBIT_SPEED = 0.15;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '1.14.0';
+        const GAME_VERSION = '1.14.1';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -24218,6 +24213,10 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '1.14.1', d: "Oct 12, 2026 11:48 AM", t: "Full Screen: F Key and Top Button", items: [
+                'Changed: the Full Screen button now sits at the very top of Settings, UI, centered, instead of in its own section lower down.',
+                'New: press F anywhere in the game to enter or leave full screen. F is ignored while you are typing in a text box or holding Ctrl, Alt or Command.'
+            ] },
             { v: '1.14.0', d: "Oct 12, 2026 11:30 AM", t: "Full Screen Button", items: [
                 'New: Settings, UI has a Display section with a Full Screen button on computers. It makes the game fill your whole screen, and the same button (or Esc) leaves full screen. It does not show on phones and tablets.'
             ] },
@@ -36254,19 +36253,27 @@ const DEFENDERS_PER_POP=100;
         (function () {
             const btn = document.getElementById('btn-ui-fullscreen');
             const root = document.documentElement;
+            if (!document.fullscreenEnabled || !root.requestFullscreen) return;
             const coarse = !!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
-            if (!btn || coarse || !document.fullscreenEnabled || !root.requestFullscreen) return;
-            document.getElementById('ui-fs-section').style.display = '';
-            document.getElementById('ui-fs-grid').style.display = '';
-            const paint = () => { btn.textContent = document.fullscreenElement ? '⛶ Exit Full Screen' : '⛶ Enter Full Screen'; };
-            btn.addEventListener('click', () => {
+            if (btn && !coarse) document.getElementById('ui-fs-wrap').style.display = '';
+            const denied = () => { if (btn) btn.textContent = '⛶ Full Screen Not Allowed Here'; };
+            const toggle = () => {
                 try {
                     if (document.fullscreenElement) document.exitFullscreen();
-                    else root.requestFullscreen().catch(() => { btn.textContent = '⛶ Full Screen Not Allowed Here'; });
-                } catch (e) { btn.textContent = '⛶ Full Screen Not Allowed Here'; }
-            });
+                    else root.requestFullscreen().catch(denied);
+                } catch (e) { denied(); }
+            };
+            const paint = () => { if (btn) btn.textContent = document.fullscreenElement ? '⛶ Exit Full Screen (F)' : '⛶ Enter Full Screen (F)'; };
+            if (btn) btn.addEventListener('click', toggle);
             document.addEventListener('fullscreenchange', paint);
-            paint();
+            window.addEventListener('keydown', (e) => {
+                if (e.key !== 'f' && e.key !== 'F') return;
+                if (e.ctrlKey || e.altKey || e.metaKey || e.repeat) return;
+                const t = e.target;
+                if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+                e.preventDefault();
+                toggle();
+            });
         })();
 
         document.getElementById('btn-au-sfx').addEventListener('click', () => {
