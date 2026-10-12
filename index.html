@@ -3292,7 +3292,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 1.19.4 (Updated: October 12, 2026 11:45 AM)</div>
+            <div class="version-text">Version 1.19.5 (Updated: October 12, 2026 11:55 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -6556,7 +6556,7 @@
         const ORBIT_SPEED = 0.15;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '1.19.4';
+        const GAME_VERSION = '1.19.5';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -24310,6 +24310,9 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '1.19.5', d: "Oct 12, 2026 11:55 AM", t: "Top 3 Origins on Share Card", items: [
+                'The share card now lists the top 3 origin countries with their view counts, replacing the single top origin line.'
+            ] },
             { v: '1.19.4', d: "Oct 12, 2026 11:45 AM", t: "New Share Card Layout", items: [
                 'The Visitor Origins share card now shows the FREESPACE 4X logo instead of the globe, with the game website address under it.',
                 'Added a trend line: visits over the last 30 days as a small bar chart, plus how the last 7 days compare with the 7 days before.',
@@ -38103,17 +38106,26 @@ const DEFENDERS_PER_POP=100;
                     const dec = pc >= 1 ? 1 : Math.min(8, Math.max(2, 1 - Math.floor(Math.log10(pc))));
                     reach = pc.toFixed(dec) + '% of ' + (wp / 1000).toFixed(1) + ' billion people';
                 }
-                const lines = [
-                    ['COUNTRIES REACHED', cov.got + ' of ' + cov.total + ' · ' + covPc.toFixed(covPc >= 10 ? 0 : 1) + '%'],
-                    ['TOP ORIGIN', known.length ? vgLabel(known[0].country) : '-'],
-                    ['WORLD REACH', reach]
-                ];
-                let y = 190;
-                lines.forEach(l => {
-                    g.fillStyle = '#da70d6'; g.font = '16px ' + mono; g.fillText(l[0], x0, y);
-                    g.fillStyle = '#e6faff'; g.font = 'bold 22px ' + mono; g.fillText(l[1], x0, y + 28, rw);
-                    y += 62;
+                let y = 186;
+                g.fillStyle = '#da70d6'; g.font = '16px ' + mono; g.fillText('COUNTRIES REACHED', x0, y);
+                g.fillStyle = '#e6faff'; g.font = 'bold 22px ' + mono;
+                g.fillText(cov.got + ' of ' + cov.total + ' · ' + covPc.toFixed(covPc >= 10 ? 0 : 1) + '%', x0, y + 26, rw);
+                y += 58;
+                g.fillStyle = '#da70d6'; g.font = '16px ' + mono; g.fillText('TOP 3 ORIGINS', x0, y);
+                const top3 = known.slice(0, 3);
+                if (!top3.length) { g.fillStyle = '#e6faff'; g.font = 'bold 20px ' + mono; g.fillText('-', x0, y + 26); }
+                top3.forEach((r, i) => {
+                    g.fillStyle = '#e6faff'; g.font = 'bold 20px ' + mono;
+                    g.fillText((i + 1) + '. ' + vgLabel(r.country), x0, y + 26 + i * 27, rw - 130);
+                    g.textAlign = 'right';
+                    g.fillStyle = '#b9fdff';
+                    g.fillText(Number(r.views).toLocaleString() + (r.views === 1 ? ' view' : ' views'), x0 + rw, y + 26 + i * 27);
+                    g.textAlign = 'left';
                 });
+                y += 26 + Math.max(top3.length, 1) * 27 + 14;
+                g.fillStyle = '#da70d6'; g.font = '16px ' + mono; g.fillText('WORLD REACH', x0, y);
+                g.fillStyle = '#e6faff'; g.font = 'bold 22px ' + mono; g.fillText(reach, x0, y + 26, rw);
+                y += 62;
                 const dly = vgData.daily || [];
                 const ser = dly.slice(-30).map(r => r.views);
                 const sum = (arr) => arr.reduce((a, b) => a + b, 0);
@@ -38126,7 +38138,7 @@ const DEFENDERS_PER_POP=100;
                 g.fillStyle = '#da70d6'; g.font = '16px ' + mono; g.fillText('TREND · LAST 30 DAYS', x0, y);
                 g.fillStyle = '#e6faff'; g.font = 'bold 18px ' + mono; g.fillText(trend, x0, y + 26, rw);
                 if (ser.length >= 2 && sum(ser) > 0) {
-                    const mx = Math.max.apply(null, ser.concat([1])), bw = rw / ser.length, base = y + 100, mh = 56;
+                    const mx = Math.max.apply(null, ser.concat([1])), bw = rw / ser.length, base = y + 88, mh = 48;
                     ser.forEach((v, i) => {
                         const h = v ? Math.max(3, v / mx * mh) : 1;
                         g.fillStyle = v ? 'rgb(' + vgHeat(v / mx).join(',') + ')' : 'rgba(127,249,255,0.25)';
