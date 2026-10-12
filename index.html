@@ -3292,7 +3292,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 1.19.5 (Updated: October 12, 2026 11:55 AM)</div>
+            <div class="version-text">Version 1.19.6 (Updated: October 12, 2026 12:05 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -6556,7 +6556,7 @@
         const ORBIT_SPEED = 0.15;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '1.19.5';
+        const GAME_VERSION = '1.19.6';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -24310,6 +24310,9 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '1.19.6', d: "Oct 12, 2026 12:05 PM", t: "Share Card Order", items: [
+                'On the share card, TOP 3 ORIGINS now sits above COUNTRIES REACHED.'
+            ] },
             { v: '1.19.5', d: "Oct 12, 2026 11:55 AM", t: "Top 3 Origins on Share Card", items: [
                 'The share card now lists the top 3 origin countries with their view counts, replacing the single top origin line.'
             ] },
@@ -38107,10 +38110,6 @@ const DEFENDERS_PER_POP=100;
                     reach = pc.toFixed(dec) + '% of ' + (wp / 1000).toFixed(1) + ' billion people';
                 }
                 let y = 186;
-                g.fillStyle = '#da70d6'; g.font = '16px ' + mono; g.fillText('COUNTRIES REACHED', x0, y);
-                g.fillStyle = '#e6faff'; g.font = 'bold 22px ' + mono;
-                g.fillText(cov.got + ' of ' + cov.total + ' · ' + covPc.toFixed(covPc >= 10 ? 0 : 1) + '%', x0, y + 26, rw);
-                y += 58;
                 g.fillStyle = '#da70d6'; g.font = '16px ' + mono; g.fillText('TOP 3 ORIGINS', x0, y);
                 const top3 = known.slice(0, 3);
                 if (!top3.length) { g.fillStyle = '#e6faff'; g.font = 'bold 20px ' + mono; g.fillText('-', x0, y + 26); }
@@ -38123,6 +38122,10 @@ const DEFENDERS_PER_POP=100;
                     g.textAlign = 'left';
                 });
                 y += 26 + Math.max(top3.length, 1) * 27 + 14;
+                g.fillStyle = '#da70d6'; g.font = '16px ' + mono; g.fillText('COUNTRIES REACHED', x0, y);
+                g.fillStyle = '#e6faff'; g.font = 'bold 22px ' + mono;
+                g.fillText(cov.got + ' of ' + cov.total + ' · ' + covPc.toFixed(covPc >= 10 ? 0 : 1) + '%', x0, y + 26, rw);
+                y += 62;
                 g.fillStyle = '#da70d6'; g.font = '16px ' + mono; g.fillText('WORLD REACH', x0, y);
                 g.fillStyle = '#e6faff'; g.font = 'bold 22px ' + mono; g.fillText(reach, x0, y + 26, rw);
                 y += 62;
