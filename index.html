@@ -255,6 +255,87 @@
             .vc-state { font-size: 7.5px; }
             .vc-foot { display: none; }
         }
+        .vc-panel.vc-btn { cursor: pointer; transition: filter 0.2s ease, transform 0.2s ease; }
+        .vc-panel.vc-btn:hover, .vc-panel.vc-btn:focus-visible { filter: drop-shadow(0 0 8px rgba(127, 249, 255, 0.7)) drop-shadow(0 0 20px rgba(181, 21, 181, 0.55)); transform: translateY(-1px); outline: none; }
+        .vc-panel.vc-btn:active { transform: translateY(1px); }
+        .vc-open { color: #7ff9ff; }
+        .vg-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1200;
+            display: none;
+            grid-template-columns: minmax(0, 1fr) 300px;
+            background: #03030a;
+            color: #b9fdff;
+            font-family: 'Consolas', 'Lucida Console', 'Courier New', monospace;
+        }
+        .vg-overlay.open { display: grid; animation: vgIn 0.35s ease-out; }
+        @keyframes vgIn { from { opacity: 0; transform: scale(1.02); } to { opacity: 1; transform: scale(1); } }
+        .vg-stage { position: relative; overflow: hidden; touch-action: none; cursor: grab; min-height: 0; }
+        .vg-stage.drag { cursor: grabbing; }
+        .vg-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+        #vg-fx { pointer-events: none; }
+        .vg-frame { position: absolute; inset: 12px; pointer-events: none; }
+        .vg-frame i { position: absolute; width: 26px; height: 26px; border-color: rgba(127, 249, 255, 0.55); border-style: solid; border-width: 0; }
+        .vg-frame i:nth-child(1) { left: 0; top: 0; border-left-width: 2px; border-top-width: 2px; }
+        .vg-frame i:nth-child(2) { right: 0; top: 0; border-right-width: 2px; border-top-width: 2px; }
+        .vg-frame i:nth-child(3) { left: 0; bottom: 0; border-left-width: 2px; border-bottom-width: 2px; }
+        .vg-frame i:nth-child(4) { right: 0; bottom: 0; border-right-width: 2px; border-bottom-width: 2px; }
+        .vg-title { position: absolute; left: 26px; top: 22px; pointer-events: none; }
+        .vg-title b { display: block; font-size: clamp(16px, 2.2vw, 24px); letter-spacing: 0.3em; color: #e8b6f0; text-shadow: 0 0 8px rgba(218, 112, 214, 0.9), 0 0 22px rgba(181, 21, 181, 0.6); }
+        .vg-title span { display: block; margin-top: 4px; font-size: 10px; letter-spacing: 0.28em; color: rgba(127, 249, 255, 0.75); }
+        .vg-hint { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); font-size: 10px; letter-spacing: 0.22em; color: rgba(185, 253, 255, 0.6); white-space: nowrap; pointer-events: none; transition: opacity 0.8s ease; }
+        .vg-hint.gone { opacity: 0; }
+        .vg-msg { position: absolute; left: 50%; top: 22px; transform: translateX(-50%); font-size: 11px; letter-spacing: 0.2em; padding: 4px 10px; border: 1px solid rgba(255, 179, 71, 0.6); color: #ffb347; background: rgba(20, 12, 4, 0.7); display: none; pointer-events: none; white-space: nowrap; }
+        .vg-msg.on { display: block; }
+        .vg-msg.wait { border-color: rgba(127, 249, 255, 0.55); color: #7ff9ff; background: rgba(4, 14, 22, 0.7); animation: vcBlink 0.9s steps(2, start) infinite; }
+        .vg-card { position: absolute; right: 26px; top: 70px; min-width: 210px; max-width: 280px; padding: 12px 14px; display: none; background: linear-gradient(180deg, rgba(14, 10, 30, 0.92), rgba(6, 4, 16, 0.94)); border: 1px solid rgba(127, 249, 255, 0.6); box-shadow: 0 0 14px rgba(127, 249, 255, 0.25), inset 0 0 18px rgba(181, 21, 181, 0.15); clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px); pointer-events: none; }
+        .vg-card.on { display: block; animation: vgCard 0.25s ease-out; }
+        @keyframes vgCard { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: none; } }
+        .vg-card-tag { font-size: 9px; letter-spacing: 0.26em; color: #da70d6; }
+        .vg-card-name { font-size: 18px; margin: 4px 0 6px; color: #ffffff; text-shadow: 0 0 8px rgba(127, 249, 255, 0.7); }
+        .vg-card-num { font-size: 26px; font-weight: bold; color: #b9fdff; text-shadow: 0 0 10px rgba(127, 249, 255, 0.8); }
+        .vg-card-num small { font-size: 11px; letter-spacing: 0.18em; color: rgba(185, 253, 255, 0.7); font-weight: normal; margin-left: 6px; }
+        .vg-card-row { font-size: 11px; color: rgba(185, 253, 255, 0.75); margin-top: 4px; line-height: 1.4; }
+        .vg-card-you { margin-top: 6px; font-size: 10px; letter-spacing: 0.22em; color: #5dff8f; text-shadow: 0 0 6px rgba(93, 255, 143, 0.8); }
+        .vg-side { display: flex; flex-direction: column; min-height: 0; padding: 22px 16px 16px; box-sizing: border-box; background: linear-gradient(180deg, rgba(10, 8, 24, 0.96), rgba(4, 3, 12, 0.98)); border-left: 1px solid rgba(127, 249, 255, 0.3); box-shadow: inset 6px 0 18px rgba(181, 21, 181, 0.12); }
+        .vg-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+        .vg-stat { border: 1px solid rgba(127, 249, 255, 0.35); padding: 8px 8px 6px; background: rgba(127, 249, 255, 0.04); }
+        .vg-stat b { display: block; font-size: 22px; color: #b9fdff; text-shadow: 0 0 8px rgba(127, 249, 255, 0.8); font-variant-numeric: tabular-nums; }
+        .vg-stat span { display: block; font-size: 9px; letter-spacing: 0.2em; color: rgba(218, 112, 214, 0.9); margin-top: 2px; }
+        .vg-list-head { font-size: 10px; letter-spacing: 0.28em; color: #da70d6; padding-bottom: 6px; border-bottom: 1px solid rgba(127, 249, 255, 0.25); margin-bottom: 4px; }
+        .vg-list { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1; min-height: 0; }
+        .vg-row { display: grid; grid-template-columns: 22px 1fr auto; align-items: center; gap: 6px; padding: 6px 4px; font-size: 12px; cursor: pointer; border-bottom: 1px solid rgba(127, 249, 255, 0.08); position: relative; }
+        .vg-row:hover, .vg-row.sel { background: rgba(127, 249, 255, 0.08); }
+        .vg-row.sel { box-shadow: inset 2px 0 0 #7ff9ff; }
+        .vg-row .vg-rank { color: rgba(185, 253, 255, 0.45); font-size: 10px; }
+        .vg-row .vg-name { color: #e6faff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .vg-row .vg-n { color: #7ff9ff; font-variant-numeric: tabular-nums; }
+        .vg-row .vg-bar { position: absolute; left: 30px; right: 4px; bottom: 1px; height: 2px; }
+        .vg-row .vg-bar i { display: block; height: 100%; background: linear-gradient(90deg, #7ff9ff, #da70d6); box-shadow: 0 0 4px rgba(127, 249, 255, 0.7); }
+        .vg-row.vg-moon .vg-name { color: #c9c2d8; }
+        .vg-empty { padding: 14px 4px; font-size: 11px; color: rgba(185, 253, 255, 0.5); line-height: 1.5; }
+        .vg-close { margin-top: 12px; width: 100%; padding: 9px; font: bold 12px 'Consolas', 'Courier New', monospace; letter-spacing: 0.3em; color: #7ff9ff; background: rgba(127, 249, 255, 0.06); border: 1px solid rgba(127, 249, 255, 0.6); cursor: pointer; }
+        .vg-close:hover { background: rgba(127, 249, 255, 0.16); box-shadow: 0 0 10px rgba(127, 249, 255, 0.4); }
+        .vg-x { position: absolute; right: 314px; top: 16px; z-index: 3; width: 34px; height: 34px; font-size: 22px; line-height: 1; color: #7ff9ff; background: rgba(4, 10, 20, 0.7); border: 1px solid rgba(127, 249, 255, 0.55); cursor: pointer; }
+        .vg-x:hover { background: rgba(127, 249, 255, 0.18); }
+        @media (max-width: 760px) {
+            .vg-overlay { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; }
+            .vg-side { border-left: 0; border-top: 1px solid rgba(127, 249, 255, 0.3); max-height: 38vh; padding: 10px 12px 10px; }
+            .vg-stats { margin-bottom: 8px; }
+            .vg-stat b { font-size: 18px; }
+            .vg-x { right: 14px; top: 12px; }
+            .vg-title { left: 18px; top: 16px; }
+            .vg-title span { font-size: 8.5px; }
+            .vg-card { right: 14px; top: auto; bottom: 14px; min-width: 0; max-width: 62%; padding: 9px 11px; }
+            .vg-card-name { font-size: 15px; }
+            .vg-card-num { font-size: 20px; }
+            .vg-hint { display: none; }
+            .vg-close { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .vg-overlay.open, .vg-card.on, .vg-msg.wait { animation: none; }
+        }
         @media (prefers-reduced-motion: reduce) {
             .vc-panel::after, .vc-dot, .vc-bars i, .vc-panel.vc-flash .vc-num { animation: none !important; }
         }
@@ -3094,15 +3175,38 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 1.1.0 (Updated: October 12, 2026 12:55 AM)</div>
+            <div class="version-text">Version 1.2.0 (Updated: October 12, 2026 1:55 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
-        <div id="vc-panel" class="vc-panel" role="status" aria-live="polite" title="Visitor counter: every time the game is opened in a new browser tab (and once a day for a tab left open), the count goes up by one. It needs an internet connection.">
+        <div id="vc-panel" class="vc-panel vc-btn" role="button" tabindex="0" aria-label="Visitor Log: open the map of where visitors come from" title="Visitor Log: how many times the game has been opened. Click to see where visitors come from on a globe.">
             <div class="vc-head"><span class="vc-dot"></span><span class="vc-label">VISITOR LOG</span><span class="vc-state" id="vc-state">LINKING</span></div>
-            <div class="vc-num" id="vc-num"><span class="vc-z">---</span><span class="vc-sep">,</span><span class="vc-z">---</span><span class="vc-sep">,</span><span class="vc-z">---</span></div>
-            <div class="vc-foot"><span>SECTOR TRAFFIC</span><span class="vc-bars"><i></i><i></i><i></i><i></i><i></i></span></div>
+            <div class="vc-num" id="vc-num" aria-live="polite"><span class="vc-z">---</span><span class="vc-sep">,</span><span class="vc-z">---</span><span class="vc-sep">,</span><span class="vc-z">---</span></div>
+            <div class="vc-foot"><span class="vc-open">▸ OPEN ORIGIN MAP</span><span class="vc-bars"><i></i><i></i><i></i><i></i><i></i></span></div>
         </div>
+    </div>
+
+    <div id="vg-overlay" class="vg-overlay" role="dialog" aria-modal="true" aria-label="Visitor origins globe" aria-hidden="true">
+        <div class="vg-stage" id="vg-stage">
+            <canvas id="vg-bg"></canvas>
+            <canvas id="vg-gl"></canvas>
+            <canvas id="vg-fx"></canvas>
+            <div class="vg-frame"><i></i><i></i><i></i><i></i></div>
+            <div class="vg-title"><b>VISITOR ORIGINS</b><span>TERRA · LONG-RANGE TRAFFIC SCAN</span></div>
+            <div class="vg-msg" id="vg-msg"></div>
+            <div class="vg-card" id="vg-card"></div>
+            <div class="vg-hint" id="vg-hint">DRAG TO ROTATE · SCROLL OR PINCH TO ZOOM · TAP A PIN</div>
+        </div>
+        <aside class="vg-side">
+            <div class="vg-stats">
+                <div class="vg-stat"><b id="vg-total">---</b><span>TOTAL VISITS</span></div>
+                <div class="vg-stat"><b id="vg-nations">--</b><span>COUNTRIES</span></div>
+            </div>
+            <div class="vg-list-head">TOP ORIGINS</div>
+            <ol class="vg-list" id="vg-list"></ol>
+            <button type="button" class="vg-close" id="vg-close">CLOSE</button>
+        </aside>
+        <button type="button" class="vg-x" id="vg-x" aria-label="Close" title="Close">&times;</button>
     </div>
 
     <div id="view-new-game" class="view">
@@ -5197,7 +5301,8 @@
                 <p><b style="color:#da70d6;">Turn Flow</b><br>Give your orders, then press <b>End Turn</b>. Orders are only plans: nothing happens until the year is played out. A year is played out once every empire has given its orders, and then every empire's orders are carried out <b>at the same time</b>, including those of the AI empires. The year runs in this order: (1) the AI empires add their orders; (2) colonists ordered to land with the Colonize button land, before anything moves; (3) ships and armed starbases sweep enemy minefields, then every fleet of every empire moves along its waypoints at the same time, burning fuel and risking minefields; (4) waypoint tasks run for fleets that arrived (load, unload, colonize), and colony ships that reached the same planet in the same year compete for it; (5) mines are laid, remote mining ships work, fleets are repaired and refuelled; (6) the calendar moves on one year, mineral packets fly, battles are fought, bombs fall, troops land and detonated minefields explode; (7) every empire's planets build, mine and grow, random events roll and research advances; (8) minefields decay and victory conditions are checked. Then each empire gets its own Year Report.</p>
                 <p><b style="color:#da70d6;">Skip Years</b><br>In a single player game the <b>Skip Years</b> button beside End Turn plays several years in a row with your orders unchanged. Choose 1 to 100 years. Each year is played exactly as if you had pressed End Turn without changing anything: queues and Autobuild keep building, research continues, and fleets follow the waypoints they already have (a fleet with no orders stays put). The missing-order warning is not shown. The skip stops early, and tells you why, only when your empire fights a battle, when you lose a planet, or when a victory condition is met. Battles you only watch on your scanners and diplomacy requests do not interrupt it. The summary window opens only after all the years you chose have been played (or it stopped early), and any requests that arrived wait there for your answer. At the end you see the report of the last year played (earlier years are in the Galactic Event Log) and the game is saved. In multiplayer use Skip My Turns in the Settings menu instead; the button is hidden there.</p>
                 <p><b style="color:#da70d6;">Opening Intro</b><br>The first time the game is opened in a browser, a 20 second intro plays: shots of the galaxy map, fleets, the tilted Z view, planets, your territory, the Ship Designer, the cockpit and the Technology Browser cross-fade into each other with slow camera drifts, each held for about two seconds with its caption, then the FreeSpace 4x title glows in and holds for a few seconds while the closing chord rings out. It has its own sound track (a low space drone, a whoosh and chime on each shot, a rising sweep and a deep boom with a bright chord as the title appears), made up by the game like the rest of its sound. Browsers do not allow sound before you have clicked or pressed a key on a page, so on that very first visit a <b>🔊 Click for sound</b> sign appears in the top left: click anywhere or press any key once and the sound joins in from that moment. After that, a click or a key skips to the title screen; <b>Skip</b> in the top right and Escape always skip. Its loudness follows the louder of your Music and Sound Effects volumes (with a sensible minimum so it can be heard), and it is silent if both are off or at 0. The game's music is held back while the intro plays. It plays automatically only once per browser (clearing the site data brings it back) and never when you arrive from a multiplayer invite link or a password reset email. To watch it again, press <b>🎬 Watch Intro</b> at the top of the Help window, or <b>▶ Play Intro</b> in Settings, UI; it plays over whatever screen you are on and then returns you there.</p>
-                <p><b style="color:#da70d6;">Visitor Counter</b><br>The <b>Visitor Log</b> panel in the bottom right corner of the title screen shows how many times FreeSpace 4x has been opened by all players. The count is stored on the game server, so it goes up no matter where the game file is opened from (the website or a downloaded copy), as long as there is an internet connection. <b>What counts as a visit:</b> opening the game in a new browser tab counts once. Refreshing that tab on the same day does not count again. A tab left open counts once more on each new day (by your computer's clock). <b>Lights:</b> green <b>UPLINK</b> means the number is live from the server (it refreshes every few minutes while the title screen is showing); amber <b>OFFLINE</b> means the server cannot be reached, and the panel shows the last count this browser saw (or dashes if it has never connected). A visit made while offline is counted when the connection comes back. No account or personal information is sent, only "add one".</p>
+                <p><b style="color:#da70d6;">Visitor Counter</b><br>The <b>Visitor Log</b> panel in the bottom right corner of the title screen shows how many times FreeSpace 4x has been opened by all players. The count is stored on the game server, so it goes up no matter where the game file is opened from (the website or a downloaded copy), as long as there is an internet connection. <b>What counts as a visit:</b> opening the game in a new browser tab counts once. Refreshing that tab on the same day does not count again. A tab left open counts once more on each new day (by your computer's clock). <b>Lights:</b> green <b>UPLINK</b> means the number is live from the server (it refreshes every few minutes while the title screen is showing); amber <b>OFFLINE</b> means the server cannot be reached, and the panel shows the last count this browser saw (or dashes if it has never connected). A visit made while offline is counted when the connection comes back. <b>Privacy:</b> the server keeps only the country each visit came from (worked out by the network the game server runs on). No IP address, account or other personal information is stored.</p>
+                <p><b style="color:#da70d6;">Visitor Origins Globe</b><br>Click the Visitor Log (or select it and press Enter) to open <b>Visitor Origins</b>, a holographic globe of Earth. <b>Pins:</b> every country with visitors glows and carries a pin; more visits make the pin taller, larger and brighter, going from cyan through magenta to white for the busiest country. Your own country pulses green and is marked <b>YOU</b> (shown even before it has a pin). <b>Moving around:</b> drag or swipe to spin the globe (it keeps spinning a little when you let go and turns slowly on its own when left alone), scroll the mouse wheel or pinch to zoom. <b>Details:</b> tap a pin or any country to open its card: number of visits, share of all traffic and when the last visit came in. The panel on the right (below the globe on a phone) shows the total visits, how many countries have visited and the top countries; click a country there to fly the globe to it. <b>The moon:</b> a small moon orbits the globe. Its pin (marked ?) holds every visit with no known country: hidden or blocked locations, Tor, and the visits counted before country tracking began on October 12, 2026. Tap the moon or its row in the list to see that number. <b>Closing:</b> Close, the × button or Escape (Escape first closes an open card). Without an internet connection the globe still turns but shows NO SIGNAL instead of counts. Country shapes come from Natural Earth (public domain).</p>
                 <p><b style="color:#da70d6;">Music and Sound Effects</b><br>Both start at a quiet 5%, so raise them to taste. The game plays calm space music that is made up fresh each time, plus sound effects for button clicks, ending your turn, the Year Report, notices, victory and defeat. When a Year Report shows that you met a new empire you hear a short first-contact call, and when your ships or scanners surveyed new planets you hear a scanner sweep. While a message window is open the music drops to a fifth of its volume and comes back when the window closes. Sound starts after your first click or key press. Open Settings, UI to find the Music and Sound Effects sections. Each has a volume slider and an ON/OFF button, so you can quiet one, switch off one, or switch off both. Your choices are saved on this device. Sound pauses while the browser tab is hidden.</p>
                 <p><b style="color:#da70d6;">Galaxy Names and Fun Facts</b><br>Unless you type your own name on the New Game screen, every new galaxy is named after a real one, like Andromeda, the Whirlpool Galaxy or the Large Magellanic Cloud, and the name appears in your first event log entry. Select a surveyed planet that is named after a real star, like Vega, Sirius or Rigel, and press the <b>Fun Fact</b> button on the planet card (Planet Summary and Planet Roster), just below Send a Fleet Here, to read a true fact about that star. Press it again to hide the text. Homeworlds, planets you have not surveyed and planets with an invented name have no button.</p>
                 <p><b style="color:#da70d6;">The Event Log</b><br>The log keeps 600 entries; at 600 the oldest 200 are deleted, and a pop-up warns you from 500 entries on. Export Event Log lets you choose a year range and the kinds of information to save, and Settings, UI, Event Log Display hides kinds you do not want to see on screen (they stay saved). Year summaries can be hidden whole, and the other kinds also filter the lines inside a summary. The event log panel keeps a history of your empire. Giving an order writes nothing to the log: orders are only plans until the year is played out. When the year runs, the things that actually happened are logged: a fleet setting out for a destination or arriving, colonists landing, items built, research finished, and one Year summary entry with everything the Year Report said (lines already logged on their own are not repeated inside it). Old Orders given entries from earlier versions stay in saved logs. Your log holds only your own empire's story: other empires' orders, fleets, production and research never appear in it, only events that touch you, such as a battle at your world, a minefield hit, a bombing, an alliance or a Mystery Trader, including what each tech level-up unlocked. Survey and contact messages list each world with its habitability for your people and its owner. Use Settings, Export Event Log to save the whole log as a text file.</p>
@@ -6233,7 +6338,7 @@
         const ORBIT_SPEED = 0.15;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '1.1.0';
+        const GAME_VERSION = '1.2.0';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -15249,7 +15354,7 @@ const DEFENDERS_PER_POP=100;
         document.getElementById('btn-continue-mp').addEventListener('click', goContinueMp);
 
         window.addEventListener('keydown', (e) => {
-            if (dialogActive || e.ctrlKey || e.altKey || e.metaKey) return;
+            if (dialogActive || vgIsOpen || e.ctrlKey || e.altKey || e.metaKey) return;
             if (!document.getElementById('view-title').classList.contains('active')) return;
             const k = e.key.toLowerCase();
             if (k === 'n') goNewGameHub();
@@ -23987,6 +24092,13 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '1.2.0', d: "Oct 12, 2026 1:55 AM", t: "Visitor Origins Globe", items: [
+                'The Visitor Log on the title screen is now a button. Click it (or press Enter on it) to open Visitor Origins: a holographic globe of Earth showing where visitors come from.',
+                'Countries with visitors glow, and each one has a pin that grows taller, bigger and brighter (cyan, then magenta, then white) the more visits it has. Your own country pulses green with a YOU marker.',
+                'Drag or swipe to spin the globe, scroll or pinch to zoom, and tap a pin or a country to see its visits, its share of all traffic and when the last visit came in. The list on the right ranks the top countries; click one to fly the globe to it.',
+                'A small moon orbits the globe. Its pin holds every visit with no known country: hidden or blocked locations, Tor, and the first visits counted before country tracking began.',
+                'Only the country of each visit is kept on the server. No IP address or other personal information is stored.'
+            ] },
             { v: '1.1.0', d: "Oct 12, 2026 12:55 AM", t: "Visitor Counter", items: [
                 'New: a sci-fi Visitor Log in the bottom right corner of the title screen counts how many times FreeSpace 4x has been opened, by everyone, everywhere. The count is kept on the game server, so it goes up whether the game is played from the website or from a downloaded copy of the file, as long as there is an internet connection.',
                 'Each new browser tab counts once. Refreshing the same tab on the same day does not count again, but a tab that is left open counts once more on each new day.',
@@ -25971,7 +26083,7 @@ const DEFENDERS_PER_POP=100;
             return d.textContent.toLowerCase();
         }
 
-        const HELP_LEVELS = { basic: ["Absolute Beginner: Play in Two Minutes", "The Tutorial", "Goal", "Tips for Your First Turns", "The Star Map", "3D Map", "Z View (Tilted 3D Map)", "The Planet Picture", "What the Panels Show", "Building at a Planet", "Turn Flow", "Turns and Rounds", "The Year Report", "Resources", "Ore and Mining", "Population and Growth", "Structures", "The Production Queue", "Research", "Habitability", "Colonizing", "Colonizing and Cargo", "Ship Construction", "Your Starting Fleet", "Fleets on the Map", "Fleet Actions", "Waypoints and Tasks", "Send a Fleet Here", "Orders at a Planet", "Cargo and Transfer", "Warnings Before You Commit", "Warp Speed and Travel Time", "Fuel", "Scanning and Discovery", "Skip Years", "The Event Log", "Management", "Saving", "Continue Game", "Replays", "New Game: Tutorial, Sandbox, Game+ and Simulation", "Simulation", "The New Game Screen", "AI Opponents", "Victory Conditions", "Defeat and Game Over", "Playing on a Phone or Tablet", "Planet Names on Map", "Panel Transparency", "Minimizing Panels on a Desktop", "Menu Colors and Sensor Circles", "Opening Intro", "Visitor Counter", "Music and Sound Effects", "Galaxy Names and Fun Facts", "Help and Updates Windows", "Update Notice and What's New", "Multiplayer and Your Account", "Forgot Your Password", "The Multiplayer Lobby", "The Lounge, Lobby Chat and Player Profiles", "Joining a Multiplayer Game", "When the Game Begins", "Taking Your Turn", "My Games", "Defeat in Multiplayer"], advanced: ["Colonizing at the Same Time", "Random Events", "Refueling", "Fleet Transfer", "Merging Fleets", "Fleet Management and Naming Ships", "Scrapping", "Patrol", "Transport and Zip Orders", "Queue Controls and Estimates", "Auto Items and Repeating Builds", "Mines and Factories", "Autobuild", "Text Size", "Pop-up Windows", "Ore Concentration Bars", "Game Images", "The Galactic Event Log", "Planet Roster and Map Overlays", "Measuring Distance", "Advanced Options", "Scoreboard Table", "Score Graphs", "Game Stats", "Ship Repair", "Planetary Defenses", "Space Stations and Starbases", "Upgrading a Space Station or Starbase", "Building Designs and Refitting", "Technology Browser", "Ship Designer", "Ship Design Files", "Automation Files", "Resources Belong to Planets", "The Two Currencies: Resources and Ore", "The Budget: Research vs Manufacturing", "Your Own View of the Galaxy", "Miniaturization", "Engines", "Combat", "Battle Plans", "Battle Replay", "Bombing and Invasion", "Cloaking and Scanners", "Minefields", "Terraforming", "Mass Drivers and Mineral Packets", "Wormholes", "Stargates", "The Mystery Trader", "Comets", "Diplomacy", "AI Intelligence: Mistakes, Aggression and Grudges", "How the AI Empires Play", "Custom Races and the Race Wizard", "The Six Wizard Tabs", "Advantage Points", "What a Custom Race Does In This Game", "Numbers at a Glance", "Creating a Multiplayer Game", "Opponents: Player Spots and AI", "Multiplayer Options", "The Game Lobby", "Inviting Players", "Inviting Players After the Game Has Started", "Examining Enemy Fleets", "Game Emails", "Multiplayer Victory and Game Over", "Watching While Others Play", "Turn Time Limit and Skipping", "Skip My Turns", "Changing Your Empire Color", "Who Is Online and How Long the Year Has Run", "Chat", "Whispers and Alliance Chat", "Play Types", "Resigning", "Player Stats, Charts and the Leaderboard", "Reliability, Records and Races", "Empire Records", "Military Records and Diplomacy", "Leaderboard Filters and Record Leaderboards", "Seasons", "Playing Now: Standings in Running Games", "Badges", "Admin Tools", "Inactive Accounts", "Warnings, Limits and Bans", "Equipment Catalog", "Ship Hulls", "Mystery Trader Items"] };
+        const HELP_LEVELS = { basic: ["Absolute Beginner: Play in Two Minutes", "The Tutorial", "Goal", "Tips for Your First Turns", "The Star Map", "3D Map", "Z View (Tilted 3D Map)", "The Planet Picture", "What the Panels Show", "Building at a Planet", "Turn Flow", "Turns and Rounds", "The Year Report", "Resources", "Ore and Mining", "Population and Growth", "Structures", "The Production Queue", "Research", "Habitability", "Colonizing", "Colonizing and Cargo", "Ship Construction", "Your Starting Fleet", "Fleets on the Map", "Fleet Actions", "Waypoints and Tasks", "Send a Fleet Here", "Orders at a Planet", "Cargo and Transfer", "Warnings Before You Commit", "Warp Speed and Travel Time", "Fuel", "Scanning and Discovery", "Skip Years", "The Event Log", "Management", "Saving", "Continue Game", "Replays", "New Game: Tutorial, Sandbox, Game+ and Simulation", "Simulation", "The New Game Screen", "AI Opponents", "Victory Conditions", "Defeat and Game Over", "Playing on a Phone or Tablet", "Planet Names on Map", "Panel Transparency", "Minimizing Panels on a Desktop", "Menu Colors and Sensor Circles", "Opening Intro", "Visitor Counter", "Visitor Origins Globe", "Music and Sound Effects", "Galaxy Names and Fun Facts", "Help and Updates Windows", "Update Notice and What's New", "Multiplayer and Your Account", "Forgot Your Password", "The Multiplayer Lobby", "The Lounge, Lobby Chat and Player Profiles", "Joining a Multiplayer Game", "When the Game Begins", "Taking Your Turn", "My Games", "Defeat in Multiplayer"], advanced: ["Colonizing at the Same Time", "Random Events", "Refueling", "Fleet Transfer", "Merging Fleets", "Fleet Management and Naming Ships", "Scrapping", "Patrol", "Transport and Zip Orders", "Queue Controls and Estimates", "Auto Items and Repeating Builds", "Mines and Factories", "Autobuild", "Text Size", "Pop-up Windows", "Ore Concentration Bars", "Game Images", "The Galactic Event Log", "Planet Roster and Map Overlays", "Measuring Distance", "Advanced Options", "Scoreboard Table", "Score Graphs", "Game Stats", "Ship Repair", "Planetary Defenses", "Space Stations and Starbases", "Upgrading a Space Station or Starbase", "Building Designs and Refitting", "Technology Browser", "Ship Designer", "Ship Design Files", "Automation Files", "Resources Belong to Planets", "The Two Currencies: Resources and Ore", "The Budget: Research vs Manufacturing", "Your Own View of the Galaxy", "Miniaturization", "Engines", "Combat", "Battle Plans", "Battle Replay", "Bombing and Invasion", "Cloaking and Scanners", "Minefields", "Terraforming", "Mass Drivers and Mineral Packets", "Wormholes", "Stargates", "The Mystery Trader", "Comets", "Diplomacy", "AI Intelligence: Mistakes, Aggression and Grudges", "How the AI Empires Play", "Custom Races and the Race Wizard", "The Six Wizard Tabs", "Advantage Points", "What a Custom Race Does In This Game", "Numbers at a Glance", "Creating a Multiplayer Game", "Opponents: Player Spots and AI", "Multiplayer Options", "The Game Lobby", "Inviting Players", "Inviting Players After the Game Has Started", "Examining Enemy Fleets", "Game Emails", "Multiplayer Victory and Game Over", "Watching While Others Play", "Turn Time Limit and Skipping", "Skip My Turns", "Changing Your Empire Color", "Who Is Online and How Long the Year Has Run", "Chat", "Whispers and Alliance Chat", "Play Types", "Resigning", "Player Stats, Charts and the Leaderboard", "Reliability, Records and Races", "Empire Records", "Military Records and Diplomacy", "Leaderboard Filters and Record Leaderboards", "Seasons", "Playing Now: Standings in Running Games", "Badges", "Admin Tools", "Inactive Accounts", "Warnings, Limits and Bans", "Equipment Catalog", "Ship Hulls", "Mystery Trader Items"] };
         const HELP_LEVEL_NAMES = ['Basic', 'Advanced'];
 
         function helpLevelOf(title) {
@@ -36633,6 +36745,830 @@ const DEFENDERS_PER_POP=100;
             });
         }
         setTimeout(vcStart, 0);
+
+        const VG_SHAPES = "FJinB|IECED@JL@HA@IGEG@ noB`ICA@H@@s_FBLB@GICE?KE~_F?\nTZeTRC@gAf@AJ[RHVAJKDADDJAD@HEJIREBNJTFJ?DDL?D@VEL@DYFIBEPCJEJAFCHEHWJKBKAIBQI?EGGIEC@GBC?GEA?KFKGAU?g@?\nEHlDiP?@?B?\\`A?Ap@R@BHC\\lA?DDAGk@ACGGGE[[UIWEAEOQAE@I?ECK??KA?\nCAvkAs]B?d@SLGb@GJQCKXIBOVM?III?K`@MRULMPIJGJIRDRJNMLGRER??qB?iAe@B_@HS@QGWE]@]G_@EMFMCEIM@_@P[MANWCGEW@_@Fm@F[BSAYHZHc@Bu@AQCSJUIRGKGW?QAOBSJUAa@H_@C]?BKQC_@F?PKOO?ISTKVGAUWMY@SH[TPHe@B?RYOWLDLSLSMMQAU[@]@YHAHNJMH@Hd@LZ@TEDHPPDFVLZ@NF@JTBXNRTFN@V]@GRIL[Ce@FSFMHWDUF_@@U@@NERMT]ROEIUH]LK_@GUMKM@MLQVMWUHQD]MEa@DS@QCQDWJEFc@??PEVQBMJ]KSUKGOPYVUVFLYHQJ_@DMDGNMBGDAVLDLF`@DVP`@@j@C\\?R@NLXF\\ZTPOC_@Yi@O]AQHPJETENYHa@CSU?LMFVJl@JPFVNLA@Qc@O^?TBLK?[FELBDCNLDNFFFBD?@Db@?^?FBTL@@DFP?R?H@CBAD?@XHTBTHD?DA@C?ACEIKEKBODQRIAC@AD?BC?CB@D?AADA@ENENGPERGPDD?VENBRGRALADABKF??Ff@?dA?bA?x@?|@?x@?z@?R?z@?v@? ns@af@OGY??BVHL?BE zp@ol@TIAGGAm@@c@J?DRAT?TBDA dq@ye@GEG?CBFJFADEAA ny@{m@JFZAVCII[CQDGD ry@mo@H?d@ABCg@?MB@@ n{@gp@WFBD\\DNEHG?GY@I? `v@om@`@Ar@EFK@IRGh@ATGGGg@@UDg@?QDDFWDKB[?[@_@Cg@Aa@@SFEFLBZDXCx@Bf@? pdA{o@[BDDd@DZEOG[A jdAgp@YBVB^??CSEI@ va@a_@HJLPMEKBDDQDGESFDLMCAHGLHNF@LCCOBCVPJ?MIRCR?f@?@EKGFCOKS_@MKOEI?BD ls@ug@UDWD?HOAMFPD\\EJGRHZHFIX@OICOEQM?CHICKD fp@gl@SGk@J[FAHe@ESLo@FQFQPb@Hm@J_@D]P]?DL`@VVG^SX@@JSJ[HGBKRDLXCp@O[NUJAFt@Gh@KVIEE\\IZI?Dx@BPGMMe@?g@CDEGIWSBGFG\\Ih@EMCTMP?NGHDb@BfAEj@E^ANGSGZ?DSOQSGs@ENJOLQOs@Ia@TBJg@E `z@im@i@?e@B\\PVBTNTAJO?IIISC xkAqn@a@Oi@K]?[A@LNFP?d@F^BZC |qAw`@SAFTQNF?JGFIHE@I?EIB |`Aqp@g@@u@FMHGF^A^El@ASEVC@G dlAi]H@`@GDGNEBETCDI?EUBKBQ@GFIFSFGJ |jAom@[Bq@?SDUFXDn@LXL?Fr@HHGl@KGGMMQMRKcAA jbAkn@QCS?CHJHbA@p@H\\?BEi@IxABZC[SQEw@Fc@Ja@?ZQQGS@GHGF paAul@UFKRELa@Hc@H@F^@KFDDb@Ab@ET@d@Dp@Bb@@JIXEP@VOKA_@A[?YCd@Cj@@Z?HGm@G^?`@EOMMGu@KSBHFm@EYHWIQFOPIGLSQAS@ v}@ml@TMUGWBc@CEDRH_@FBP`@FPALEp@O?Ei@@ raA_m@Y?OBPJ\\MEA p|@}n@OF?JHL^@TC?I^?@MU?]E[?AA ~z@kq@MESAFCm@AYJa@B_@BOJWFZDb@Lb@@h@ATIAEOEd@?TEJIMG fx@er@]CW?e@C]GW@UDOKYAc@A{@AK@y@Ai@?k@@u@@i@@c@D?Bn@Hp@BPBk@?l@J`@D`@Nf@BLBz@@[@LBOHPD^DHFZDCBa@??Bt@Jr@Ex@B\\Ad@A@Ic@CHMMAs@HXM`@COGc@CEEZGFKu@@O@_@Gl@AdA@b@GNGVEBE ~m@ci@LDT?BIGIQCOD?F@B d{@mj@MFLDXEN@ZGQEMGSBKBEB hg@e^EAYDUF?BH?XEPI ~f@k\\EHO@Q?HFF?VGDEGE\nUSvkAs]w@?{@?S?{@?y@?}@?y@?cA?eA?g@??GG?CJE@M@S@SFOCWDE?QESFQDOFODADE@@@E?CA?BCBE?A@@BSHEPCNDJHJBD?@ABE@E?UIUCYI?A@EBCIAS?Q?EGAAUMGC_@?c@?AEE?GCGGEOOMEBMCGD?ZMJADRHTDRDHJBB?JEHG?@EEB@DJ@H?NBF?J@ND]CEBZDL??CDDE@BLLN@EB?DECHCB?FDFHN@AEKHGBO@FCJLAMD?PE@ADCRLNRDLJH?HF@DTLJHFJBLCLENIL?HGT?L?FDJD@HA@GFEHOHOBGCMBINOFCRHBAHIJCT@PAN@F@CD?FCBB@FAFBL?LKP@LCJ@PBPNRFHHDF?LAHCDF@LENEDGBMJKFKHMLGN?JNNEJEBIDIJIHEFG`@??HN?f@?l@M\\IACX@T@BIJKHA@EJADCRABC@KRSN[?CHELQBOHICO?QDOGQAQAQB[DODIAC]FIPEEBODO b`BqKC@A@EFFDD@BBBC?CBGAAAC?C?AA@G@ n`B_L@BD?BC@AAAE@E@ ~`BgL?@H??AI? vaBqLA?CF@?D?BC?AEA rbB{LABB@DCA?AAC? `gBwd@O@AFJ@JALESC v~Agc@K@IDPHRFHEBIQEKC bwAqj@?hA?pBS?SDMFOLSKSEKHKFQHMLSTa@L?JHHJGPEBQXOJQPA^?VEh@SPCb@GZ@d@IVGTBCLJ@TBPDTBBIISUEDEXJLJZLMHPNTFRDDF\\HDHVFL?PBRFPD`@D@CUGQEUKWAIG[KCCOGAMKKVDDCJFJIDDFIRFJ?@KCEJGXBPIJC@KLGGKOIEIOAM@OGO?MEBGHCMGJ?TBDDLE\\BZEFGXK[Gk@IO?@Hi@?NKVGLIRGZGKIc@?WIEISGSAe@IQ@]K]DOFGCa@@@B_@BSAi@De@@O@YC]DUB hjB{f@KBKAODS@@@LBNCFCP@BAAG\nKZsu@w]NLN?@RHHf@ELb@JBd@FQ`@LDAHLAHGZA`@?F@ZGJB@J`@EJ@BFJBXLHLD?DGXABOH?ASVM`@@V@PQPG\\MBAr@JAhAH?LMLEVBFD@CEGBGVEFQJE?ES@?MQCO@CQBMR@NCVFPBHCAIJKN?NMIOBCOUSJAMi@U]?k@LWFUG_@AWJEE[?EI^MQGBESELMGEkAGICq@GQGc@BETSEYF@HS?q@SFDYNk@p@KIYJ]EIBIJMBGFYAKJ\nUZ_b@yX@iAs@KC@]LQFQPWAa@AWL@RI?CNY@EFE?IMYMKCE@PLOFMEWHXNNAF?@ECIZDDJHJNADHOBCLJTLEJ??KXGRILITMHSFCR@FC@OZKNJPFCHT?\nPGcwAr@a@Le@JMHIHCJ_@JEHP@CLQJKTK??FMBDBUF@DL@BEPARCNKHKJOXINDJDANNDHATA?_A?aA k~AhAGDAHDDBKBGFEJILECCKDEBGBGH q}ArBHDJBH?NEJEAEQBIACIA?AHK?EGIE@KKACB?JDJH@BB w_BhBEDGJID@DD@FGHKBOCAAD\nIDcwAr@?`A?~@PORCBDX?GOMEDUHOd@QN?\\SDHF@BG?GNIUEM?@E\\?FKPCFI[CIE_@FAFE^UJOUUKQ?QFMDUB cmApDAB?DLLND@CAEGKSG {rAhC@OCECGCD?HHL uhAqAJPMP@HUPV@DL?PPL@RF\\@ETFFKLAHEVFFIL?NA@YHEHO@QAQKMALMHMCK@KIIAQDOCI[GGGUU?QB {oAv@UDENNIN?J?L?CKY? inAjALCBGSACFDD }nAk@AJK@AF@NHA@LGHD@FKDYCOEG ykAQW?SMABNRLBRC^?PBBLQPKGc@G?HHCFJPFSXBDQV?JJDFEIORFBEAGLKASLDAV?ZJBFEEQBSF?DMGMAMI_@CGQMODW@ ejAlEXMQCIDGD@BF@ yjAhDM?QG@J\\BZA?GOCKD }hAfDKACFTBL@J?GIIAEEGD ybA~BAFe@@EGc@FGL]BWJTFTIP@TAPCVGLAFBb@GBIP?MSW@ODG@ g`ATALGHM@ILBV@^T?NQXOFKNOHMN[NQDOFOPMHONKRU@IK@_@BQPMLKFQTU?OLKNMHFNKFG?\nARzi@z_@EHILYL[BFHR?HEJ?R??m@ ~b@zQDNBR?RDD?J@HYPBLMF@HPX\\Hf@BTACJBNCHJDTBPGFDARMDIGEJPDNJ@RDHP?NJDLSLSBFPVJJVPFFFETKJFAPCn@AFK?ML?DE@UOGEM@IIOEY@KIC@GHCEGFGDUICBYCSEQKEDS?QMM?OKS?QDCFa@KU@QEQMSMKDGCE?a@UIES@EOQYDKLGOW?ABe@`@O@WNSFCFR\\SDU@OAQOCQICIJ?NPJLFTRXX\nCLzi@z_@?l@S?K?DFNDH?JANERAXKRIZWQB[LYFIIEMSGM@ nj@~IILALKFFRKTGZMCADDRTH?`@BDEFLJLRDPAPJTG`@EB?PJR?NLL?PERJDDPBRCXHBETGFDFIBAFHBAJDXHNAHDLNFATEDM??LGJo@@QBP?FBPFBPF@VGTMVIFMEKHK@a@GSUO\\EQOEa@WFIi@LEDXJCE[Ee@IKDS@UGAK_@M_@I]D]EO@WKYCe@Ei@Ek@@_@B]ICEI\nCDiQxACP@HCJKJIVFAXBD@DLEFBV@RCBMFECATNAFIDGNCBIJDNAFIJAH@?EFAF?L@F?B@?WDG@KAKBG?KV?AGH?@BJ@BHBDHCFBJ@FKBEDKDMx@?F@D?F@@ECAAIACGCE@EGI?ADGBKMKGCG?OGSIIKIAEAEAG?KAOCMEIAK?MGIKEODKFO@MBEKAAI@UIGBE?CEGAM@K@GAKNG@ECI@ICEFOL?VG@DFFBFHBH@NBF?LDD?JB@@HEH?V\nSO_Y`@JO?iAQUCEMAQMY?w@{@MOGM?I?S?GG?GCKAGEG??D@H?JBDBTHTJXP\\PTTXRP\\PRNTVBHBD\nKEoW|AZS@KfAg@BA?UEGIMEMFW@IHMKIMMIB?HGFM?WNE?E?C@M@EGQIGFM?PT?hAKNLFDFD@BLDFBJFF\nSDkNcDNIDE@ECG?GJK@G?EFE?KBEF?AGEG@GEEBCEKGOQ@@oA?GW??g@oA?mA?oA?ERBBARGVGBIFHJL@DD@LH\\AF@NFRJHHN@FFDDR?P?OB??I@EHG@MAOH??BJ?CDAJHJHLJ@NKFB@DHB?BR?BCL?D@DAHIBEL@DHDPDBD@MF\nTD{MgKAnAPAFNDJCBDDAFDF@FG?CD?JGD?DL@HFLTPHRAD@AFHDFFXFBCBABDN@AEDM@GHCHICIG@EAK?JQAM@KFMAGJA?KHGIYWQAYGi@CGFE?EFEB_@SImAd@oAd@\nHTxk@iKAH@FBBCD?DLCF@LAFBJEAGSBM@GEHG?GJACEK?QB\nDOxk@gJ?EBECCAG@IACO?KDC?CDK?@DI?IFFFHCF?F?@BF?BCD@FLDC?C\nRUsy@sq@i@Eg@Jm@PDPh@@v@C`@GNMXCs@M g_Aqp@s@JDFpBFe@YOAM? wuAqn@u@?gAHNNhA?^Bf@MIKYC s{Aan@q@BTF^Ad@GEEc@B mvA{l@QGYA[FAD\\?h@A@A _[kq@g@C]?CDKEQA]BFBX@P@@@VBTCKGl@? eM}`@b@?VACI[ESBI@BDAD m`@cm@o@ODIm@IaAMaAAa@Gg@AMFLDfAHz@F|@R\\R^PCPe@NJ@~@CDGb@E@ISC@Kg@OPC ixAq`@GR@PGTU`@\\EJZQT?LNKJLBOAS@UCMA[JQA[QIFGICCL wpAkYBC?II?CWDQQEWBMSEUGGIQ^DPF\\?FQVM`@GFQFMDGLSNG\\EZ@V@NHID?HHFPR?HZJVGV@HEJA\\LX@PDXCP?JIRIRAX@PBZGBOVCPATGTRGJPL\\ER?LIR?PE\\Hd@NRBF@JKX@FGLCHKHC\\DXKJHj@q@XOGEp@RR?AIXGRDDUb@CPFp@FHBjAFFDMLRDCDPF_@LDHZ?DDVK^@TFVGj@M\\?h@T@LRKNTCBHNOLO?KJ@HIBHJPBRRQP@LUVJFBBF?LKDAJCDGRCJ@@AZI\\CNC@BXQVGNIMCOOHG[G?EPBAGIEQACEBKGI?E\\EJ?JINBVG?CFGNA@EECJIT@DABBF?DKBGCAO@GEDCLCACFCJKCE@IRCH@BCREDK@GHEGEDQMK@CUIRIi@YQKGI\\MGKPMMQTUQO^MCMOAa@GSEa@Ju@BkAVOF?LTH^DxAOLB_@LAH?RYDOBAGJIMEo@JOEJMm@SQ@SDIMNKIKLKw@FIHV@?JMD_@CCKi@IeAQO@RJW@MEe@A]GUJWKTKKGy@F[DgATMIRI@EVAGGJO?Ec@QMQMCu@BCJRNMDELBZUJHLd@ZU@GEUEEIQIJIGMTABIOSXOc@MBMIAIJFRU@HMa@Gi@?c@JPQ@Sa@Eq@@i@ANKWKU?g@Is@CECu@AOBk@Ie@?CISGo@Ga@DZDm@@CHSCy@?k@HOFBHTDr@HNDWB]BQCILIE_@C_ABCHsA@AMi@@_@?_@JIJJFWN_@FSS_@Fa@Ee@FMEa@@NQ[GsDJQJs@NoACg@@OF@NWD[Cc@Ac@Be@Ac@PWENMIG}@Di@Ay@Hb_FFq@Ns@R@JMDDOu@Bg@PRH^@@PFBP?NEXEBIRAV@HECGVBIHJF_`F?XHXAQHKNIDAFDDb@Cv@LP@^NZJFFZMr@NHGPHZCDLVRAFUB@ZR@FNGF`@JFT\\BDTZPFMF]Jk@I[QK?G_@Ea@Wc@Sc@OO]V@JPr@TNYr@Fp@^OLj@B\\@?M\\CXHz@A`AD~@d@lAn@_@@IJSBKIU@[TAPNR@VF^\\ZFLXVZTJJZJJ?JIZL@F noBuk@AAQ?[D@BRBX@i_F?BEd_FG {Sw[ECMBE?CBA@IDSABFTBXHJCCGREACSGBA\nBSjp@wOIAM@?BTB@G ro@{OOFBLBAAIHG?A zo@wNE?GP?HD@BKFECK\nFKfe@j_@WIOBMGOFDFZDFGPHHI\nNOmHyp@GE]AYF_ALp@FHNPBHNV?h@KQE\\Ef@QNOw@EID[? mRoj@`@FN@GMXG\\FHLRHREX@VKJDJ?@Ld@CDJP?LLRT\\ZEFDFRALRAXKHDVNLHHJKf@VZBXIFUDm@QKu@Qe@Se@[o@e@_@Ow@Wk@I_@@]Oe@?c@C}@LXDUJ cPaq@\\Jx@@x@CBCZATG}@E[BSEq@Dg@D mNuo@j@Hb@EMCJGi@CGF[B\nGLf\\sr@cAKeA?YEeAA_D@}BNd@FjA?jB@IBeAA}@De@EOFTHs@E_BG{@BKFpALHD~@@m@@VLNJ?VWJ\\@`@De@HCPT?YPj@@WFFDZBZ?YL?Ff@GHD[BYJEN`@BNGVIEJVJu@?[@t@Nt@Nz@FT?RFZRj@LJ@ZBZBPL?LHJ^NGNHNHRZ@\\Qf@?PILS`@WHMBQZQGMLGSW]EGGCOTDJBP@VE@MGIS?g@B`@KPER@NEUQJGNMVSXG?Gt@Kh@At@@n@?VE`@Ks@Eg@ArACl@GAGkAIiAIGGt@EQGcAM]AFIm@C}@C}@?UDs@Io@D[@i@Dn@IAG\nTFaj@j]MDQBABDF^@?KCG?C\nTLcmApDACOEM?GAE@DDTFND?E@C\nZAeIzPIIGDCFG@M@I?QI?iAE@KR@JCDMAIGIECIICG@IDO?MCAEAIKAEGEKQO[MG?IBGAI@IZCL@T?DHAD??DDF?DKJKACIM?BN@NDHLHB@FHDHHLVTLJLFTFH@@BJAHBTCJ@F?TFN@JFH?FEDAHG?@BCAKFMEC?MJSHONY cQbQHGFDJDHLOLEACEIACGEGDE\nLScQbQEDDFBFH@BDD@NMIMKEGEIF\nMXdhAiSUAYA@B]Hm@Lg@?O??Ia@?GFIDKHEHCHKDODKOO?MFILGJKJCLEFODMDGAFPBL@Z@HCHEHCNMLCJGHUBGHQEMAOCKCKGEK?OCEMEUCO?K?EB?HJHBLC@BHBLDCB?B?DJBA@??BR?P??HH?GFGBABC@@DV?HNAB@D?DVUHENEJ@NDH@LCLCPINATIPGBEJAREFGTKHKBIEA@ECE?EDI@GDIPSRMHMPG@CAKHEJIBMJ?JKFI@EHMFOAGNGD@JE@FAHALGFMLCDA?CFA?CJEDEDKHEREFEH?HI?GHGF?BHF@?DKJKNIHC?O@IHELI@BBELCJKAAG@GG?ILMJEFKFKFOFQ\nUY~b@zQKASNG?SJOHKLFHCJFJTJNCH@PIL@JK?KEE?SCSEO\nBRj`@bTBKGIJMNIRKF?ROJ@YYUSMGQK?OHKHBCIAK?KFCDBF?@G@QBELEFBRC?[DIEC@KEGCOBKJE@GCKf@?DWC??IBC?KJEJ?FELCFGTATQAM@GAMX@JFNFDDH?L?J@FA?]NJP?FKJ?CIJKFQEC?GKE@ICGAGWMOCAAQ?Iu@?IBKFE?MICC@AGJA?Ke@?GECDCJCCKJOAAEOCGCAGME?CPA@K?MFEC?M@OBECMCUEGG@EI?CB@FEBEFDFBNEJAFKHI?ACE?GCGCI?E?I@ACBCAEG@IAKBGBEEC@CBI?EGGMISG?CJK`@IBALNNEDc@@?ROKWDa@LIHBJWEe@H]?]NYTMDQ?GFEVCJF`@HJZZLVLND@DLAd@D\\@LDFBXRX@RPHBJT?\\FNFTDTNPR@LAJBRBHLHTb@PNLFFRLJ\nBOlj@zEM?I?EEOGKGYA@LAF@LUPU@GFMBGDK?KD?JCB?HB?EVg@?BJAFKDCJBNDFAJDB?EPIPAb@DHP?JFT@CV?FNJMXENPLBF[JUGSJG@MHMKUFOCG@EGI?Q?MCEN_@\nPEtj@tAP?@@NBVL@FBFAHJD?FDBGPKJBHK?GJQ?OK?\\G@KAO^BD?L?PFHADBFGNJTDHHBRI@Gd@Sb@UNMFOAENYRc@Pg@FIFMLMNGGGHSEMOKAFDDADGAGBGHKIAKMQWGUSEMBMEAMFEHGDKRO@ICG@K?OFLRE@IH\nCOxh@YBBBKBEFDd@??JK@@FBAHB?LGDCJ?HHt@HIDAMSNGJ?FAHBNAJSFEDILGD@FEHED@NADGB?RK@EGA@IEEIAGKGIFECKBQCCBQFIAIG@CEDKACK@MMGA?GCOKIK?ACO@OIGEGGG?EDBDLBBHFDDD@NDHI@AHEB?F@FABC@CDYAK@MPGAM?KAGBBHBF@LCLED?BHHGBCFEP\nPAjo@mD@BEJBDFA@HDEBKCCBABEHEH@BDFDB?@BIJD@@@H@BK@BDABGFADAF??BBAACAC@CCABC?GGAEF?BG?A?EBIAGCKCEEK?@@K@GBGDEB\nCRpr@_EF@?FCBB@AB@B@BHCBEAA?EDCFCDA@EDCADBBBCFA@C?EAGBACCAAMBCAE@CBE@CCEHGFIF\nNIhs@yEBBDABCDAB@LC@@FEFGBEHGHGACCBAAE?AEC?@IE?C?CCEBACCAEEACCCA?C@C@CAC?GCAAG?@@@BAFBD@F@HAB?H@@@F?DBBADAB\nHN|r@kHF?@@FBB?B@BABA@?BB@BDDB@@BDCBBB?D?AHB?@DD?BEDAAGBABAFB?CDADCDAEE@C?CICIGA?CCE?A@A?I?I?EAAAE?E@C?CAI@A@EBEBG@ED\nSVzv@_HE@EBE@?BGCC@C@@F@DJADAHCH?DC?CGCCA@CC?\nGTrx@aH?EAE@CIOW?AEBA@CFCFGI??IQ?S??N@TE?EBACEBHFHB?BABDDB?ABB@FB?BHCJ?HCHG\nBZtv@cJ?CA?C@EKC??@C@?BBHA@@FA@BHBB@@BDD?AU?O\nVE|d@gBADFFTDLBDBNCLAB?GD?LAJQ@?BLD@FFBNB@DN@JKDQBGFCII?CDEBMAMCGCIFCJ@L?F@LQJAX@BEBA@CAG?GDC@IHAEIAOEEGECIMC@DH@EF?JHHGNG?EOFE?OWG@GGGELM@MH?DQ@UAIFO@KE?CWAW?NDEHO?OHANI?GBNJ?FEFB@LBAHDBMN\nGYhb@e@D?H?FBFBD?@BH?JI@GDKCOEGDGDCAGBCH?LOEC@IMCCADG?GOKMFKL?HG?KHGDBPJD?B@HGNE?CHKP\nSR`a@m@JCH@FA@DCB@BHAJQBID?FOAI?CKECQWBACO?SBHPALGJBF@HBF\nFRh_@sAHRFLDFH?BCBADDFCCGAICGFK@MIQGBMBUNAF {B}]ID[BHL@LDBHAABNJ?FIAEF?DEFFDELKBBFPJd@E\\D@JVBTIFBb@GFGIKCg@RUNI\\G@MYCa@DDWQHm@OEOQCCDG?IFMHIAQHC@EA mDsYMGCNFNFCDMCE\nECbn@BCLDLTRVFLP@JJHFIFCF@@EEE@GIMBIFHJICC@QECCKGM@GKCKGSJC?EFO@EAIDGD\nPRlh@qJI@CBBBN?J@?IAAO?\nJMno@qJM@IBCDL?DBJCHEAEG?C?\nCUlr@oMQ@O?QDGFSAEBQJKHE?KB@DO?MF@BLBJ?LA\\@MIFEJ?FEBKJ?PCDCXCFCGCRALHF?BDF@HAKECGGCICOACA\nZWoR|LHAF@HCF?JINADK?GFATUDKDCDOU@EBEAKKQOEAAGKGOA?FQ?GBEBG@ID?X@L@LCD@JB@DLRV\nBWkQxLZLPNDJDFJ@@H@DLBN?HEFAHBBHHDHFL@BEAKJSDA?{@S??eAOA]EGFKGE?KCC?ENEBEJUTG@?FEJO@KH\nNAmKnN?hAPHH?LAFABGFEHHLOFMBSDMD]?W@KFGHOJWBMNQ@OICKCM@KFA?qAAMHo@@c@GOCM@GB?@JBD?JFFG\\DN@?dAR??z@\nSNlIoGFOHEGCIMCIGGI@ICI?IDMDKLKLAJCJEDAD?FB?HA@@B@LEH?b@?D@D?J@@OQ@CCC?GCGBG?ICBEFBD?FED?BDT?\nMLdFwF?G@EDEBK@KGCAKG?KDKCG?CCoA?CMBAHuAHwA_@?cAj@aAj@EHKBGBAJUA?l@JL@JPBX@FDJ@L?BCJ@PFBFNF@DFBHCDD@LNN?DDFAJFBB@BGD@B?@DN?DC@@DE?E@AB@?ECEFG@EBCB?D@D@DDFADE@?D@B??E\nMRtIcLEEmA?B]CISA@q@aA??]kAn@^?IvAItAC@BLnA?BBF?JBJEF?@JFBJMJMLEHEH?HBHAFF@KEICQBS@IAIBIJG\nBJu@}BNBDMAm@BC@IDGDEAIEACGIAEEEEE?OH?FCJBFABHLDDBJ?J?^\nNEiHiMC^GD?DGDBFFh@@XVPHXIF?JK@@FD@?DB?LUB?NJNEHADBJAJFH@VIHBH?FGRGRBDB@HDF@PNID?DD?MVE?GJM@GAIKAGEYAQCAKKM?m@[Gy@g@cAe@_@HIHOG\nNGu@}B?_@?KCKEEIM@CCGBK?GAQEGAIECSCSFGFI?ICWHIAKGK@ECI@ODOKC?MTC?GF@B@DNNDJ@JBBBLJF@HDF@FJFJIF@JHD@FPDLRFFAFDNAHKFMLML?P?\nCMaHaGGLAJ@LKPJ?D@FABHIHIBAFEL@DHRDB?LAH@DIH?DGJID?FAD@JNENCVA@?J@JAH?`@?COFKHCBIBA?EEMGQEAKIGAKHKGAGEGAIKGCMCCAKEKOOAEACFG?EEA\nTGQ{E@HEDEFAHCB@l@ELNBDGBK@ICQBG@O?MFI?EQ?\nGH?{E?DGH?LANCFBPAHCJEF^JJDPDPEAGFQCUGOB[BOAKa@?G@GCG@\nCI~CkEAAEBO?AEC?EACFCAGCGBCFIBEEI?MDCZFNBTGP@FF?LCJ?VBLDRFBAAOAA@GFGDADECG@IAEA?AG@CACGADOBGAECA\nGNpG{FI?MDCAAAI@C??DC?EAA?EDG@EEEAEAC?CBADGFBD?DCAA@?DEDB@@DCFENF@@BAB@F@?D?BFD?BCAGHKB@B?D@?GBEAEBGDEN?D@B@BB@DHFHKFGBADC@I@CDAGIE?ECC?CA@EAA?G\nGWlIwFKAE?EAc@??F@@ADB@B?DBD?FHJIF?BE?CDC@C\nLRfDyC@DAHBFEDE@GFAF@@@ND?RGPOPIJMCEAEGIIIC?CAIJ@FCBE?CGE?\nSLfGqDIGAECCCAEAO?EDCF@DCD?FEAHHFH@DBDDALGHIBG@M\nBFjBoE@KEG?EOOAMEEIBGCAEOGCGQGKACBM?@HAFKL?FWD?LDDH@BFD@P?FAFBFA`@?@JCNLEH?DDHCBGFC\nCFcPgBF@JALAF@BDD?FCTHHA@@DJLCNAJGNEJDFH?LLALAJHHP@E?GHEFK?EHIAE@I?MECISOACEC@CBYGGGIE@GEAS@QIMUIGMAAFKJ?FBFADEDOHIF?DMHGHEJMDCF\nCGqJeA@JDHBL@N?J@F@D@DJHHHFR?NBFJFJLFC@EH?DFDAFGDBFFNSOKFKEEMAAIIHQ@EIAM@MHKIWDCL@DIAIW@OBODAKIQKIM@M@\nGAaFm@I?K@KAA?@HEHMAEBHVIJAL@LDHPAHI@HL@DDGJNJRSLQJS?ECEEOCMEA]??W\nGQ_Em@a@??V\\?D@BCEU\nZMeRdDIDGBK@KDGHENBDBNCNDFDPIDz@NALN@JF@FD@PNJJD@DCTAB??AFCLANBJKLO?_Ai@?@ECGBIAI@EG@?DIAK@GHO@KECHOBEFGHO@@UDBLGBCASCWDGEMEAYCG@\nMWoSvDQBCDGHEXDNEXE?GDGLAXHBDLJK@MCI?GFCD@JIHEEQEGBOCOCEDOFI\nMZsTdFMAWDEAM?EEK?UGOKCH@RCN?^CHDLFLJJRFTHTTF@LNFB@LINCH?DC?@R@FCB@FHFNDVJFDAFC@@HL?@GBI?EAUBMH[SWEMCAAKBEAMAM?YHEFADCFCP??G@M{@OKHEAGB?FBHALKJEMIC@YFMFED?DYEO\nSZaStOBHJ@JK?EEG?EE?I@CHAF\nAOcG~AFB@B@HB@DOGGECGF uFxBGAE?GAy@?ELEJCDGJKAGCIBCECIKAACI?@FW??JCF@JAJEF?VCAG?MAG?AD@HCHBFADh@??~@MNKJb@Fn@ALIpA@@?JGLAJBHB@KCQEQAIEQCGKKEIAM?KDEDKBK?CEGDSBMHKAC\nBIaRn@?FCBAFDBFHDFH??WDIK@EKK@\nILiUmSBDDABJC@BB@BIA?FH^@EH[EE@AEICMAEG?ACC??F@B\nLBkUySB?@BF?GOIMG?CFHFDH\nMG}]xFEFELAVEF@HBDDKBDCN@FDB@PFTHZJd@FZFTNDPFJENEBI@QFO?MAOIA?GIMAMDGBM?QEIAMI?KCGCG?KKOKEI@GG@IMAKEIEH\nPScUuRH@ACCCBACKE@?J@D\nGMlIoGU?CEE?GDE?GCCDHBF?FCFBB?BBPAAG\nTN}D}QFc@LG?CNK@OKKEOBQCIUIMB?HOGABHH?HEB@PJHAHK?CHGB@LHDDDLFCF@HHB\nDZlDcP?C?A?U_@OSAQEEIWGAMIAIGYCCGDCDS@KFMSIUCKGSEa@C_@AIBSGS?GBM?BHCPDNJJANOJ?BMFGb@EPAFBPAFBJAJFFKL?HGHICOHGJbAd@x@f@ZFT@@KFCJCDI`Ak@bAk@jAo@\nJOeUgSCEUFg@UGVBBf@HSRDBBDN@BFFDTC@AI_@?GAE?K\nAEg_@cNCA?DOCO?K@MMMKMMCFANH?@JCBHB?FDF?FBBz@IFS?C\nQAw^oN@MEIEAED?JBJD?DC\nKW_]wQCH@BELL@BIPAMSM@\nIQoWcSFWk@SGW@OICIKICU@GDICKVMDAJHFDLMRWHIN@LE??HKJJALALRd@Av@g@\\MVE\nOMoa@eM?GEG?GICBCAKI?GLKDMBK@IJCDGB?BFJ@DFDFLHABD@HAJ@BH?JD@HBBJ?FD?FHDJAJDH?DKNa@{@SMg@HM eb@aOBGEEA@@F@B\nVUogB|HKJD@DG?E ggBxH@E@OIDCNDAB@\nKHc_AsFDWMOYCQ@OFIMQFCL@V`@LGJR@PFNAFKHS\nTHw`A}GPAXBLNEVPGP?COP?@TH\\DN?NM?GPCPIHKBIHDFJ@@INGB@FEBIHKHIBJBICMEQGUKQFQ?I@ILOBIECGQFKJOHOGCIUMAIGKCGDAJM?DTAPSKEBKACEO@MNARON@PDF\nLAcbA{GPGHLNGEGAQNO@SLONABDJ@DCRJ@QEUL?@KFECGQKABI?@UICKNGPW?GPJDDDWJOVMPMLELBR\nMMq}@wKJBHFL@HTFBINKNGJFPDBCHMNAH?HGPJPFT@OEMFKAUFIDWBYFOLHTLJAJCEYBQNWCEJCLO@OGB?MIE@GCE?UOBIO?IKO@KYMMB?KEC@GK?EJIB?N?NRN@VUCCRKBDNOFG@MCAFPJBF\nVNe`AqEQGSAFKa@MAWBMCSDMLMLQNWVKEEKEFQV?FQJOICO?SAOKIFQB@JGFSBXPNPBLMTSXQJKNGd@@`@NLVJNPVPFKEMNK\nKPwpAkY spAoYCBFAFFDD?LHBBBFDJBHB?H@@G@KHBBF@L?FHH??@HC@@D@@CB?DCEGCC@AEK@CJAFCOMUIMMGDQ?@I]GGKKJ\nKR{mAqV?AI?GIM?GACCOVEJ?VFHPBNFP@@ICOHSOCLO\nMN{u@y]SCe@O]IQDS?MHS?]DQMFKUSUFQ@WBCN[FQCYAS@SHKHQ?YBQEYA]MK@IDWAHNLRCFKCSBOGOFQL@DNA\\@LDLL\\FRHTCHAJJGFAFLDLHVF\\?^FTHHEV?\\KRCXBf@CV?HKHQJCVKZAVCDGGWLOZGPIBM\nINy{@uPAFDB?JLCXLAJJN?HHNNC?TBDAFHDJ_@B?BJHIEKG?IQJAP?RC@MF?NGFJMJJDBFKDBJGLAN@FL?VB?NHHZLVVLJRL?FHDPDH@DNCXANFP?`@J@FNEDPDFJFDPQH[FSDIHQDYBKP[Fe@DY?WBSZJLAXWGGDETQKMk@?BOHI@OLGUUW@SUKSSS?MQKNIFKFQIG_@BUCQOUV@NGH?HLACTSJ[LJHFPSFQHYH[BKHM@WBQ?AGBKAIKCAN?BQFMCO@O?AMFEOAQMWMODMIILFFU@\nBD}x@wL?LFCANDI@IBIFKP?AFDJHC@@DAFA@OFMCKJECGKELKGKOFG?ALSBQ?K@HPF?DJIHCKC?K^\nBTix@kPGD@LN?NALBPG?CMMIEMBK@GB\nNPav@mP@HCJ@FP?VCLAJIZCXIPIRGGQKIGCODSJKBEHOBOFWBU@\nPKso@eUPNTB^CHFGPGJOHPJ?LRRJRRTVATTMFANIHCNj@?JLNCDOLMd@B^?Z@GU[K@GFC@QPGFKHI_@HSCKBCEM@YGAOIKO?AEOAE@GE?KGKKEFKS?EE@GII@IBGIGUCWAICKAMFEN_@F\nAFqh@kVK?MDE@OEE@EGK?CAAGGGIB@DE@@NGFGCGAMIM@S?CDJ@HBV@TBHFCFAHHHAFDDR?GJJDFJ?JFDDAN@@DN?HJ@NXFLABDJCRB^IQQ@MNA?MFOIIHCEMGWSDOACIOAIECOQCAGIDE?\nTJki@eVKUBMNCEIO@IKEK[EBHADG?FDRC@JSAYDe@ACPGAKB@FCJR?LALHF@FBFGAODAAEHCFF@FB@J?DFDANDDA\nKGkk@mYCGKAa@DAKKC[FGAa@?[@IFM@BD^HDFX@FLRCLBRHCBDDd@@XER@AKSBGEO@YOVILDNGQMDA\nTMy_@cYGEWCMDMLI?U?BIQGOK[JANGBSAGBIRULMHSHYF?JD?HE@FPBBNHDN@BHN@RE@QL?VQNATILAFBLALJPBBMCUNEEML?CQSDOGLKDINB@NDM\nIRk]uQJK?ID?AMHOVILSEMIG@KLEJWJOCEDUMECFIFKBGAWMGAEDFHKHE?ELQBMH]B]EACQCMKM@GCM@UHO@WPM?APFVDLIBHHGN?LO@ALPPIHGJQFAPGBAFZJFTd@ETCTAFYHAN@RHVEROREJQNYH@LEDF\nSYiUmSAC?GEIIGBGF?@OCGECEE?IGBUEIBO?WGI?UAHJHBANFVj@Rf@TTG\nAMa\\gWF@FK?CF?DCB?FELEAGBG[ACBGBBBIFDDGDI@?L\nSE{Eyc@IIOMEWJI@YMSS@EGDG][SUMMQ?EKe@BAMK?[H]LA\\EF`@DRLCJ^Nf@PLZMLSHPTTDF`@HPVAJNV?DQNUN]\nBYsPcb@SDCBIASBAHBDKJGB@BMBEBFDNAB@CFEJP@DB?HFAP?DCFBFCL?VCRAL?JDH??GDIKC?GDG?GQ?UGEIOG@GKCUG\nUA{Rq_@G?CCE@UAKHDBADO@GF?BWFOCKHK?]D?DFHCJBDP@HD@FN@JDR@ND?J@ABCD?LCDB@A^C?GR@DJNLFCHBHCEACECG?ACAA@K@CABAACDCBGDC?EFEFANEJ@DBF?DBL@DBHEJ?LAFB@EHCCGEEC@DIQOIAAEHQI?KEM?S@WBM?GBGCEBQ?G@?IECQA\nPLuMu`@?FEF?FJBEH?FIP@DH@PNEHBARGLBHAJBHGFB?AHIN??GLABDHC?ELAHEFKAGDIDGECDKME_@GWGSBADS?W@c@?I@ED\nATsIa]@FJ?CBDJBBP?HDNAZEBERB@@LAH?FCAC?CEAIDAEQ@MCI?EBAA@MEAGIMDKGG?MDIAIB@@AF\nHUyLg]IBADJBHLJLNBJANDD@PCLGDABEBAEKBCK?AGIBG@OAACG?ICA@GAEEE?UDCA\nMDsOc]ECKAODG@GD?DEBCFEB@BC@B@JA@AB@?@BFBDD@@GAI@GHKFGDEDA\nROsPm[IBICGB?DHBDABVJANGTDHB\\?NCF@BGBCCCBAFBHE@GJC@EJGOCKMIMKCGCM@K?IDECMAECG?E@EDGFIJAF@HAF\nLTqOwa@AFNFDHTFP?DEHA@ECEHARCBOUEa@?SAABI@SH\nLVaP}b@IDAFEJTFJBRIHA@CR@`@?TD?OIKQGONO?COQCGBQDO?\nEEoPed@ABLJEPFDN?PEFCPBAKD@LE@KYEYASBUA\nDEyGs`@EJDBEFEH@FGJF@DABBNBDBNBCDAHIBKFFHD@AL@@DCH?LBPA@DHED@TEBBN?AMIMZCHE?GBCCMBUK?CEEQBGCCO?CBMIBG@KOBKC?FSB?FUCIEUFID\nBGeMsZCFGAOB]?ICUEOFK@JFDLEJPARD?HP@LGNDL?@MHEAC@ACEGEHG@GEC\nGRmOaU@D\\@?CVCCGIDO?O?@BKA kMyXM?OEMFQA?IIBDLB@LAH?VBMJH@J?HIBBEJIHFBIHID?HPCEHJ@GPL?NGFOBMFIHI?EGIAEEC?CMAGEI@CCC?\nTR_[gVHBFETAHBT@H?VFN?HCTDFC?HDDDBDIGGJ@PCLJ\\@NITABFLBRKT?JSLIIOJIUQ]AGMe@@WKWEa@?a@L[FWCQ@WISASHCF@FMDGDLDETBDKN iOcYSEQ@AFQDBBV@FDNHFGACCAEMHC\nALcLoX?BDB@DFHBA?CJG@GAMAE@C@EGIABEACDC@AD@FAFGD\nHRkIa\\E@MFQBEAEFEDFDFCL?PAH?BBDCDFIFEFGDGDGFQFB@PEJGPENMCAHG?GJADFDE?GM?CAE@G??CGAAGOE\nCH_Eu\\?B@BGBI??FHBLABFH?BCHFH?HCDGH@?GOK@CI@ECO?CCUD\nLUwBi^CB?FD@BAAKC?\nBE{Bw^BLB?@JPIH@LIHGF?BEOCM?SCKHKB\nNLiCm`@CFDPBDJ?CTJCJIRBL?IEQ][GO?\nPTrDeYECGCEHK?AAK?EHHD?N@@@HF@GJDJGDBDDF?DFDHCH@CO@KHABEAMGG?GCK?GBE?G\nEStCeV?EEGCEFEEKFKGAAIAA?OIEDIJ?@@J?DIFBDB?MFG[MW@[?UBOA_@@GFc@FGCUHWC?JPLXB@DJJFNGJJFBLLBLLX?R?JFFFHADGDIRC\nIEzBu`@CLNPb@JZAOUHS[OMGCHBHK?OB\nNCsfBdLOJIHFBHELGLKJMBEI?IFIDED\nSBidBpEEDL?FKKBC@ adB~DBBLQBKE?GNGH qcBdEF?JADCAGMBEBCD wbB~CED?BNGHEFGCAGDOF eaBjCGDB@FCFG?CKF\nNZqmB`XFHHLNF@EFAIODKTGAGMEAO?KFM?CHGLQHMG?KHMDEPMRAMGDCNODK@KGI@BPDJNADDAH@B aiBfZOKKIIMGEAIMICFCFOGCF?HDFLNHFGHN?NDDLJRNHHBP?JETABEIOYSKCOE\nAUi{AnXK@AVFD@NDELLB?LAJO@MJO?IM@SDIAOC ymAbSRHPDBHDFP?J@PCL@L@JHD?HBHFLAL?RKJC?KIACC?GAM@KHSBK?IFM?EFGBOHOBGIFFQIDEF?IHO@EBEAKCCAI@KGMALGMQEGGOGIAC@OEKACEE?I?UEIIEIIIAG?IMQGPICFIEIIBAMIIEGIC?EG@?CIAICMHKJK?K@BKIOGC@EGKKEI@QC?INEKCKDKFOBEAKDKCG?CAIHDHFFD?AFDHFHADOJODIDMJE?IDCDQDMECKCGAKEO@G?E@KCOAC@ECICK?EGEEHAJC@AFEHAJ?FELMEEFIF@FCPAHE@EP@HELUHMHKF@BKLGRGCGHCCCTMJIFONCNAH@LIN@PBHBP?HBLHRLFFNDHDPFHBLBLADJFT?PFHFJFNGJCAIHBPLPEHAJAREJKBOBIHGRAEIBMHLPBKKAKGI@MNPJDFNNG?KJMHGCCXKL?RIb@@XDTFRA\nLKcr@uCBRFDPBFOB[G_@MHILIT\nCNmcAkJNE@QIGUEK?CFFFDJNH eq@oY@IMEPa@e@GKCMc@g@DIIASO?OMGACLQH[FMNFVEFWB[@WJKBIPIJW?g@BYCSB]JW?IDUI_@G]?WGMIME@GFGKKI@UBSI]GMMME]AO@AEPMNGNFRCJBBGMSIOWF[K?IQSIG?IHEOIWA[A]DOFMREFGLGPa@FWLGP]?QG_@EHPFFDTLRVCPDEPBVH??HJKFJ\\FAHP?FELLTHNLZDNFRDIIBGOKJINDVLJJR@HHKJOB?HOBUMQFM?AJZBHJPHHLSHGRKPMN?NJBCJKDBNBNJ@LRNZPVZPZNT@JHFEJFZHRBFTH?DMEGZEH@RCFGAKPCHGNJR@N?HBHBATH?@C@GLBFANGEOJCBSTBAWSO?O?OHCDKJ?TAGGHMLHNEVLPLN@FCJALCHDLL@OJBTAVCNGNCDIJCRKNEFBZMRKBUM@?IFIAOTW^GDOLGBEBKAGJCF@BQEEBCSIMCSBGMYAEG_@ICE\nTWckAgNJ^HNHO@OKQOOIDBJ\nIToEi\\M@AASCCD[D@HCFNANDAH@DEHQHINUNO?EDDBQDMDQHABBFJINAFJMF@HH@HNF@?ECKCCFIDIFCDGJCHGLANGPMLIDSHANGHBJFF@CGJCDMGEDG?EIBI?IGCBI?CGM@IC?G gHyVMADNADBHNGHAZICIU@UA mDqXIEKL@XH?FDFE?WBKI@\nDKeEka@JBNCFI?SCECEQAGCOE@HBDADI@BFDANLEH wFab@EHJNTK@G]E\nGBzBu`@NCJ?CIBIQASJHL |@k`@CKLKVCDEGGDEJH?SJIGSOOO?W?TRSAU?BNPPS@A@QVM@KVEFWB@JJDGHPHX?`@DHCJHPALDJC]SQC^CDGUEJICM]@\nIS`Hqh@BLULXLx@LPBXAv@GSGj@Ic@C?Eh@CKM_@A]L]KYD_@Ia@?\nAZ_\\eYE@MJG?CCKGIHILI@EBN@BNBFDB?HD?JIGIDEF@VL?MHAFEEEHGCCFCBCCCODI?AAHIEC y[eWJCHGBGC?EBG??BGJ\nGE_XcZACOB]B[HA@KASBEFKBDBIH@@H?NEBBZ@RIR@AIBKJGJADE\nPHojA}FHOQ@EDBPHI skAgECEAKK?BJOQ@PFFDJDDJMCE _nAgDAJ?JDPFSFHENDFVKDMEIJGDFHALJBEGOKEKGEHOECIM?@OOHAHAF aiAyDXPIMMKKMISCNLJHL mkAkJ@FELBNJFBNCNK@GAYH@JEB@HNIFKBFLKPBHEAGECDE@FHKBG?SGFA_@EQK?KDEEAD gkAcF@IKDK??FHHJD?I?I mmAsFEVNE?DEJHD?MDABKK@?GJOQ@ED\nMYq}@aCCAOFAHKAEGE@KJGJ?L@HADAJGDEP?DL@POVO@IJK@QFIAMBI uhAqAPCT?FTFFHZNBPEH@JHJALBLI@MMDOCCOGCWCMOIKIHCEG?AMAGMMIOG?IHAFKDQD@FL?CHLF\nBNegAkB@F@LF?BDHIGGQI\nSIsGa\\O@IEQ?CCC@CDND@FF@?BF?DAB@L?CABGAI\nFI{Pej@BL_@LPNUTLPQLFJ]LFHPJh@Xb@@b@D^DJKRECSFQGKQKm@UMC@GZIDG@]\\MZIKEWJYASDSIIM]GYFFL\nSKcMu]DDBFB@TED?DDF@@AHBF?@BN@FAHC@GAAACG?GA?AC?AEC?CCE??@GCIFKCI@MCSF\nCZkH}^IDM@?DIBCEM@?FO?IHD?BBB?@DB??@F@F?@BHCH@LEF?JFLEJGHC@IBEOCECOCCCE@GA\nERwU_H@GI]AMEEMAIKKVEPIH[PIJKJEDIDDBF?FGFKFEDEPGL?BCJBJIDNVC\nJPuwAoWPR?TFNCHHLXFb@@ZTLE?Ob@BTHV?SNL^JHHGCQJEFMSEIKSKMKg@EUBSc@MH]SIGMWBWGKUCIZ?N kyAoZMGCTZDPR^MHTT?BSIMUAE[EOUTODMB wqA}SIKKBGIMDCDJJFEHBDJJE?I\nPYjc@rKEH?ZSBGCMDCDAPAFG?ECGB?J@JBHBPPNN@TARES]BGRGVONAd@a@GU?KIQc@EQ@QH?D\nYEo_@{JO`@EJLDBH?DRF^HPLH@DAHFLBN@D?BDD?@DH?D@L?DKAKBEBMDGCA@GAC?GGG@GEIGDEAU?C@S@EAEFICMUQGy@G\nSA{TkQUBGECGOACEECRSg@ICCWD]Lw@f@e@@Q@CHMAGPIBCFMF?F@FADEDCDABEBE?CF?BGR{@HCCILLf@z@Rx@FPFLTHBDGD@RABAT?D@FEDHAFFFBIDE?GHEJQDOLMFALS@MAKJUHGHCDK?CDIDCDOLOHMH?CI?GCG\nAQl]vo@I?]C]BYHGJAFAH^D^Dd@Bh@Bn@?XGCGi@EQEKGIGKEKI lh@dq@m@?i@@OGIGSFDHDHh@Aj@?VE?AJC dm@pk@MAU?EIAG?OIIQAKFCDGHGFCHCFBFDFV@TBX?IGV@TBNE?GUG |~@|k@KCYB[?UBUAKHNAV@VAZ@RCHG rkA`m@CGWBYBWCJDPDZARE pnA|l@MESD_@FJAXAZC heBbp@KGe@BSDMDEHd@@XEJG@?JE noB|s@A?OKc@FCASEC?A?[FYGC?y@CSBI@]Fw@Bm@DkADy@EuABo@Ds@Ew@ECGlAA`ACNGt@CCIGGEEBI^CNG\\Eo@@m@C]Da@Ea@EOGFGXCZEh@Ab@Ad@ALGXENGDUI@QDa@A_@AOF_@AYCYEUE]A?GFGEEYCKD]CWC[?YA[EUCWCO@M?[A[BY?[CY@]@[?[?]?[?SEWCYBWAUGKDGFKDSEWF[@UD]AWC]@[@[BIGLGHEVAJGBEFOOBY?Y?W@SDGF[?YAYCYASBYAQMOFUBYAOFY?W@WDOGGGSF[ASBMFYASCUEWA[CYAQCKEEIBGDGDEDGDG?GAGGEGICEBI@GGGKEKGMEOEGGKEKES?KEMCOAMEKEOAKBFFRDFBNCN@LBLDHD@F?FIDLBP@JDJDJHBFGFIDOBODGFCFEFIDEFAPEFAFEF@HJFJDXBFDLF\\DXBVBZBNF^@b@A^@^?EF]BUDKDTD`@AZD@F?FWDCFWFk@@c@D[Dc@Dq@Bo@Ba@De@FSFIFWE_@Ec@Ei@Ea@Eq@?q@@g@DKG[Es@Ae@Ce@Ci@Ak@C]ELEFG?Ed@?h@Bd@?DGAOIC[Ca@CWEWEQG[CYAMA_@A[AYCWCUE[EQEQEEGTCGGMGSAUESEOGIIMCW?IFW??GIGU@EFW@YCWAU?IFUESCUAUAUEUAOEKEOBSAOHIDWCGGSCY?GFOGUAW?U?U@U@GDMDUCU?W?U?SCUAOESASAOEIKKESBGDQBS?MDMDUEEGQCUEQAWCOCOEOCQ@QEMEQ?QCAGQEOASCQAQ@S@OBAHODKDW@MDODS?OCQGQBS@QBS?S?OT?B@HRBNFAFW?BFHDHHODW@UCKGEGKEKECEKIKAUASASAIGEGMGSCOCKGKAMCS@QASAU?MCIMGDGHQ@Q@SAS@Q?MAO@OBQCU?QAS@MEIEMEWMM@MDMDYJS@Q?UCSAQEKEW?MCOBIDMDU?MBWDW@UAOEKEQAQ@U@QAQ?Q@Q@QCUCS?U?SAQACIAGKDCFEFGFQBUAY?QAY?S?Y?U@MDBFKDUBUDYB[@SBU?MEQBMDQDW@W@IFUBOFU@U?U@W?W?UBUBSBMD@FHDHHDDHHX@JFXBHFJDNFFFBD@H?FKFCDGFe@@GHb@@\\Bd@@PHBHFFHDYFIFQFWD[D]Dm@DIHy@BC@MDw@Cm@Da@B~_F?\nCYmS}TA?AEO?QELHA@@?B@B??A@AB?D@B?\nCYmS}TC?EAC?A@?@C?CAA??@RFHABGG?\nMAj@_UGLAJEREBBFXBHFH@@LVFDHPDR@^N?T@??JJ?DBH?DAP@DND@HVZTDZFFBFj@@?IGEEI?EEMKMEAEK?IGMKEMS?AIEQAOMIEOOBYGOAKKKSIOGMSEMM?KHSASBG?\nEGaVwLnA?lA?nA??iA?eADOEMBGGIY?SDQDI@OEGEQAMBEHCGODO?ICIZADDFBNBHDBDGHGL]@@GTKRO^GHEJQTB@?LWPCB\nLYsNwL?f@V??FnAe@lAe@RHNFHI^IFKNIHBFI?IJMGG@KCK@GCQ@GDQICAIBGMGEEIEAMWDGAOBYFIPQB[FUHICIIDOEGOIKA[BEFG?EBS@EDFHCFDLEN?dA?hA\nET{\\_Dv@z@X?PLL@BDL?FGPHDFLABAD?D?VOL?FG?IHCJUHC@GHIJAEKI?CE?QESGEAGIOKIGSAOWBEOKHKCCBM?QFEDGDGJGFFFDH?BADI@EACBBDEJGHGD_AVQ?\nDJoYyFG?ECCD?FJDGBDJBCD@HA@E?CEIGG\nSOq]cF?F?R?HFLLNP?~@WFEFIDKCEEKGBCFGHI?SESAQEIAGCI?\nUGeTRf@?T?F@JDBA?MCGAOCIGIGCEGFA?WGEMBOCM?KIILAHGVDLHLDF?T\nRW_RTGJ?JD@JADJJAAICA?KEEC@KE\nBAsJsYPGFGFEFEDGHGEGEBCCI?Q@M?GBG?DHIF@FD@B@DB@J\nMK_MmYIDALB?BBHAFDL@FE@GAGA@AEKAC?EAI?\nRSwJu[OEK@KFADKBAFIDGCC@BBCBDBAFIFFDBDA@@BH?D@@ACAAEB?BC@?BC@?BCB@@DB@?ADCFA@CDAEAAGHGEIF?GEDEDG\nMEqKsYD@@CFHADBADEHCCAAKECCAE@ABG@EB?@BB\nXK{KeY@EBABECCCAAECACBA?CBA?CBC?@DB@A@B?J@@D@A\nTTpe@wEKAC??NP@BAEE?G\nSSgReANMDGHBHADBFAJOBGLEDKFILI?EHGLGEAECEQEIMACDIHE@EAM?CBS??CICAEGCOJKAIMIK@KBEK??CI?@NALIFAD?HC??NBDH?DJK@IHAFIBKTLLJHJHL?NBLCFD";
+        const VG_PLACES = "AD,42.5,1.6,Andorra;AE,24.2,54.5,UAE;AF,35.0,67.5,Afghanistan;AG,17.1,-61.8,Antigua and Barbuda;AI,18.2,-63.1,Anguilla;AL,41.1,20.1,Albania;AM,40.1,45.2,Armenia;AO,-11.7,18.1,Angola;AQ,-79.3,-47.9,Antarctica;AR,-36.4,-65.0,Argentina;AS,-14.3,-170.7,American Samoa;AT,47.6,13.4,Austria;AU,-23.6,134.0,Australia;AW,12.5,-70.0,Aruba;AX,60.3,20.0,Aland Islands;AZ,40.3,47.3,Azerbaijan;BA,44.1,18.1,Bosnia and Herzegovina;BB,13.2,-59.5,Barbados;BD,23.7,90.4,Bangladesh;BE,50.6,4.7,Belgium;BF,12.0,-1.6,Burkina Faso;BG,42.6,25.0,Bulgaria;BH,26.1,50.5,Bahrain;BI,-3.1,30.0,Burundi;BJ,9.7,2.3,Benin;BL,17.9,-62.8,Saint Barthélemy;BM,32.3,-64.8,Bermuda;BN,4.5,114.6,Brunei;BO,-16.6,-65.1,Bolivia;BQ,12.2,-68.3,Bonaire Sint Eustatius and Saba;BR,-10.5,-56.4,Brazil;BS,24.7,-78.1,Bahamas;BT,27.4,90.6,Bhutan;BV,-54.4,3.4,Bouvet Island;BW,-22.5,24.6,Botswana;BY,53.6,28.1,Belarus;BZ,17.4,-88.7,Belize;CA,56.5,-100.0,Canada;CC,-12.2,96.8,Cocos (Keeling) Islands;CD,-4.6,23.7,DR Congo;CF,6.4,20.1,Central African Republic;CG,-1.1,14.4,Congo;CH,46.7,8.3,Switzerland;CI,8.0,-5.8,Côte d'Ivoire;CK,-21.2,-159.8,Cook Islands;CL,-33.0,-71.0,Chile;CM,6.3,13.0,Cameroon;CN,37.5,105.8,China;CO,3.5,-72.7,Colombia;CR,9.7,-84.0,Costa Rica;CU,21.6,-79.2,Cuba;CV,15.1,-23.6,Cape Verde;CW,12.2,-69.0,Curaçao;CX,-10.5,105.7,Christmas Island;CY,35.2,33.5,Cyprus;CZ,49.9,15.4,Czechia;DE,50.7,10.3,Germany;DJ,11.8,42.6,Djibouti;DK,56.2,9.5,Denmark;DM,15.4,-61.4,Dominica;DO,18.8,-70.5,Dominican Republic;DZ,29.4,1.8,Algeria;EC,-2.0,-78.6,Ecuador;EE,58.5,25.9,Estonia;EG,27.7,30.8,Egypt;EH,24.5,-12.4,Western Sahara;ER,15.1,39.2,Eritrea;ES,41.0,-4.0,Spain;ET,9.2,38.9,Ethiopia;FI,64.9,25.3,Finland;FJ,-16.5,-180.0,Fiji;FK,-51.7,-58.7,Falkland Islands (Malvinas);FM,6.9,158.2,Micronesia;FO,62.1,-6.8,Faroe Islands;FR,46.6,2.4,France;GA,-0.9,11.6,Gabon;GB,53.5,-1.8,United Kingdom;GD,12.1,-61.7,Grenada;GE,42.1,43.9,Georgia;GF,4.0,-53.0,French Guiana;GG,49.5,-2.6,Guernsey;GH,8.3,-1.1,Ghana;GI,36.1,-5.3,Gibraltar;GL,73.0,-42.4,Greenland;GM,13.4,-15.5,The Gambia;GN,10.1,-10.7,Guinea;GP,16.3,-61.5,Guadeloupe;GQ,1.5,10.2,Equatorial Guinea;GR,39.4,23.0,Greece;GS,-54.3,-36.7,South Georgia and the South Sandwich Islands;GT,15.6,-90.2,Guatemala;GU,13.4,144.8,Guam;GW,11.9,-15.1,Guinea-Bissau;GY,4.4,-58.8,Guyana;HK,22.5,114.1,Hong Kong;HM,-53.1,73.5,Heard Island and McDonald Islands;HN,14.6,-86.3,Honduras;HR,45.1,16.6,Croatia;HT,18.8,-72.7,Haiti;HU,47.3,19.4,Hungary;ID,-2.5,118.0,Indonesia;IE,53.5,-8.4,Ireland;IL,31.9,35.2,Israel;IM,54.2,-4.5,Isle of Man;IN,25.2,82.7,India;IO,-7.3,72.4,British Indian Ocean Territory;IQ,33.8,44.6,Iraq;IR,33.7,53.2,Iran;IS,65.3,-19.9,Iceland;IT,43.9,12.0,Italy;JE,49.2,-2.1,Jersey;JM,18.1,-77.3,Jamaica;JO,31.3,36.7,Jordan;JP,36.5,138.5,Japan;KE,0.7,37.5,Kenya;KG,41.1,73.3,Kyrgyzstan;KH,12.7,105.3,Cambodia;KI,1.9,-157.4,Kiribati;KM,-11.7,43.4,Comoros;KN,17.3,-62.7,Saint Kitts and Nevis;KP,40.4,127.4,North Korea;KR,36.1,127.4,South Korea;KW,29.3,47.7,Kuwait;KY,19.3,-81.3,Cayman Islands;KZ,48.6,66.1,Kazakhstan;LA,18.5,103.8,Laos;LB,33.9,36.0,Lebanon;LC,13.9,-61.0,Saint Lucia;LI,47.1,9.5,Liechtenstein;LK,8.3,80.6,Sri Lanka;LR,7.0,-9.1,Liberia;LS,-29.7,28.2,Lesotho;LT,55.1,24.3,Lithuania;LU,49.8,6.1,Luxembourg;LV,56.9,25.4,Latvia;LY,28.3,17.7,Libya;MA,28.6,-9.2,Morocco;MC,43.8,7.4,Monaco;MD,47.1,28.5,Moldova;ME,42.8,19.3,Montenegro;MF,18.1,-63.1,Saint Martin (French part);MG,-17.9,46.9,Madagascar;MH,7.1,171.2,Marshall Islands;MK,41.6,21.6,North Macedonia;ML,14.9,-5.5,Mali;MM,20.0,96.9,Myanmar;MN,48.2,103.0,Mongolia;MO,22.2,113.5,Macao;MP,15.2,145.8,Northern Mariana Islands;MQ,14.7,-61.0,Martinique;MR,19.8,-11.5,Mauritania;MS,16.7,-62.2,Montserrat;MT,35.9,14.5,Malta;MU,-20.3,57.5,Mauritius;MV,4.2,73.5,Maldives;MW,-12.8,34.0,Malawi;MX,24.3,-102.6,Mexico;MY,3.7,114.8,Malaysia;MZ,-17.3,35.4,Mozambique;NA,-21.9,18.2,Namibia;NC,-21.3,165.5,New Caledonia;NE,15.4,6.3,Niger;NF,-29.1,167.9,Norfolk Island;NG,8.7,7.8,Nigeria;NI,13.1,-84.8,Nicaragua;NL,51.8,5.6,The Netherlands;NO,61.5,9.5,Norway;NP,28.1,84.3,Nepal;NR,-0.5,166.9,Nauru;NU,-19.0,-169.9,Niue;NZ,-41.5,173.0,New Zealand;OM,21.1,55.8,Oman;PA,8.5,-80.2,Panama;PE,-7.4,-74.0,Peru;PF,-17.7,-149.4,French Polynesia;PG,-7.6,145.3,Papua New Guinea;PH,15.1,121.9,Philippines;PK,30.3,69.7,Pakistan;PL,51.4,19.1,Poland;PM,46.9,-56.3,Saint Pierre and Miquelon;PN,-24.4,-128.3,Pitcairn Islands;PR,18.2,-66.5,Puerto Rico;PS,31.9,35.2,Palestine;PT,40.0,-7.9,Portugal;PW,7.5,134.6,Palau;PY,-23.8,-57.6,Paraguay;QA,25.2,51.2,Qatar;RE,-21.1,55.5,Reunion;RO,45.9,24.5,Romania;RS,44.3,20.8,Serbia;RU,61.5,96.0,Russia;RW,-2.0,29.9,Rwanda;SA,23.6,45.6,Saudi Arabia;SB,-9.6,160.2,Solomon Islands;SC,-4.7,55.5,Seychelles;SD,14.0,30.1,Sudan;SE,62.6,17.1,Sweden;SG,1.4,103.9,Singapore;SH,-16.0,-5.7,Saint Helena;SI,46.1,14.8,Slovenia;SJ,78.0,16.0,Svalbard and Jan Mayen;SK,48.9,19.6,Slovakia;SL,8.6,-11.9,Sierra Leone;SM,43.9,12.5,San Marino;SN,14.0,-14.4,Senegal;SO,6.0,46.5,Somalia;SR,3.7,-56.1,Suriname;SS,7.9,30.3,South Sudan;ST,0.2,6.6,Sao Tome and Principe;SV,13.9,-88.8,El Salvador;SX,18.1,-63.1,Sint Maarten (Dutch part);SY,35.1,38.0,Syria;SZ,-26.5,31.6,Eswatini;TC,21.8,-71.7,Turks and Caicos Islands;TD,12.8,19.0,Chad;TF,-49.3,69.6,French Southern Territories;TG,8.7,0.7,Togo;TH,13.8,100.8,Thailand;TJ,38.9,70.8,Tajikistan;TK,-9.2,-171.8,Tokelau;TL,-8.9,125.8,Timor-Leste;TM,39.6,58.5,Turkmenistan;TN,34.2,9.8,Tunisia;TO,-21.1,-175.2,Tonga;TR,38.8,35.8,Turkey;TT,10.5,-61.3,Trinidad and Tobago;TV,-8.5,179.2,Tuvalu;TW,23.6,121.0,Taiwan;TZ,-6.6,34.4,Tanzania;UA,48.9,31.0,Ukraine;UG,1.4,32.1,Uganda;UM,19.3,166.6,United States Minor Outlying Islands;US,39.5,-98.5,United States;UY,-32.3,-56.0,Uruguay;UZ,41.4,65.8,Uzbekistan;VA,41.9,12.4,Vatican City;VC,13.2,-61.2,Saint Vincent and the Grenadines;VE,7.1,-66.1,Venezuela;VG,18.4,-64.6,Virgin Islands British;VI,17.8,-64.8,Virgin Islands U.S.;VN,16.6,106.1,Vietnam;VU,-15.1,166.9,Vanuatu;WF,-14.3,-178.1,Wallis and Futuna;WS,-13.6,-172.5,Samoa;XK,42.6,20.9,Kosovo;YE,16.1,47.1,Yemen;YT,-12.8,45.1,Mayotte;ZA,-28.3,24.4,South Africa;ZM,-12.5,28.8,Zambia;ZW,-19.2,29.6,Zimbabwe";
+
+        let vgIsOpen = false;
+        let vgGeo = null;
+        let vgData = { rows: [], map: {}, max: 1, total: 0, mine: null, fetched: 0, ok: false };
+        let vgMyCountry = null;
+        let vg = null;
+
+        function vgDecode() {
+            if (vgGeo) return vgGeo;
+            const shapes = [];
+            VG_SHAPES.split('\n').forEach(line => {
+                const code = line.slice(0, 2);
+                const rings = line.slice(2).split(' ').map(s => {
+                    const pts = [];
+                    let i = 0, x = 0, y = 0;
+                    while (i < s.length) {
+                        for (let k = 0; k < 2; k++) {
+                            let r = 0, sh = 0, b;
+                            do { b = s.charCodeAt(i++) - 63; r |= (b & 31) << sh; sh += 5; } while (b >= 32);
+                            const d = (r & 1) ? ~(r >> 1) : (r >> 1);
+                            if (k === 0) x += d; else y += d;
+                        }
+                        pts.push([x / 10, y / 10]);
+                    }
+                    return pts;
+                }).filter(r => r.length > 2);
+                shapes.push({ code: code, rings: rings });
+            });
+            const places = {};
+            VG_PLACES.split(';').forEach(e => {
+                const p = e.split(',');
+                places[p[0]] = { lat: +p[1], lon: +p[2], name: p[3] };
+            });
+            vgGeo = { shapes: shapes, places: places };
+            return vgGeo;
+        }
+
+        function vgName(code) {
+            if (code === 'ZZ') return 'Unknown origin';
+            const p = vgDecode().places[code];
+            return p ? p.name : code;
+        }
+
+        function vgHeat(t) {
+            const a = [127, 249, 255], b = [218, 112, 214], c = [255, 236, 255];
+            const m = t < 0.6 ? [a, b, t / 0.6] : [b, c, (t - 0.6) / 0.4];
+            return m[0].map((v, i) => Math.round(v + (m[1][i] - v) * m[2]));
+        }
+
+        function vgTone(code) {
+            const v = vgData.map[code] || 0;
+            if (!v) return 0;
+            return Math.min(1, Math.sqrt(v) / Math.sqrt(vgData.max || 1));
+        }
+
+        function vgRingPath(ctx, ring, W, H, off) {
+            let prev = null, shift = 0;
+            const pts = ring.map(p => {
+                let lon = p[0] + shift;
+                if (prev !== null) {
+                    while (lon - prev > 180) { shift -= 360; lon -= 360; }
+                    while (prev - lon > 180) { shift += 360; lon += 360; }
+                }
+                prev = lon;
+                return [lon, p[1]];
+            });
+            const span = pts[pts.length - 1][0] - pts[0][0];
+            if (Math.abs(span) > 300) {
+                const pole = pts[0][1] < 0 ? -90 : 90;
+                pts.push([pts[pts.length - 1][0], pole], [pts[0][0], pole]);
+            }
+            let lo = Infinity, hi = -Infinity;
+            pts.forEach(p => { lo = Math.min(lo, p[0]); hi = Math.max(hi, p[0]); });
+            const offsets = [0];
+            if (lo < -180) offsets.push(360);
+            if (hi > 180) offsets.push(-360);
+            offsets.forEach(o => {
+                pts.forEach((p, i) => {
+                    const x = (p[0] + o + off + 180) / 360 * W, y = (90 - p[1]) / 180 * H;
+                    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+                });
+                ctx.closePath();
+            });
+        }
+
+        function vgBakeTexture(sel) {
+            const W = 2048, H = 1024;
+            const cv = vg.tex2d || (vg.tex2d = document.createElement('canvas'));
+            cv.width = W; cv.height = H;
+            const g = cv.getContext('2d');
+            const sea = g.createLinearGradient(0, 0, 0, H);
+            sea.addColorStop(0, '#0a0f2a'); sea.addColorStop(0.5, '#071433'); sea.addColorStop(1, '#0a0f2a');
+            g.fillStyle = sea; g.fillRect(0, 0, W, H);
+            g.lineWidth = 1;
+            for (let lon = -180; lon <= 180; lon += 15) {
+                g.strokeStyle = lon === 0 ? 'rgba(127,249,255,0.22)' : 'rgba(127,249,255,0.07)';
+                const x = (lon + 180) / 360 * W;
+                g.beginPath(); g.moveTo(x, 0); g.lineTo(x, H); g.stroke();
+            }
+            for (let lat = -75; lat <= 75; lat += 15) {
+                g.strokeStyle = lat === 0 ? 'rgba(218,112,214,0.35)' : 'rgba(127,249,255,0.07)';
+                const y = (90 - lat) / 180 * H;
+                g.beginPath(); g.moveTo(0, y); g.lineTo(W, y); g.stroke();
+            }
+            vgDecode().shapes.forEach(s => {
+                const t = vgTone(s.code);
+                g.beginPath();
+                s.rings.forEach(r => vgRingPath(g, r, W, H, 0));
+                if (t > 0) {
+                    const c = vgHeat(t);
+                    g.fillStyle = 'rgba(' + Math.round(20 + c[0] * 0.45) + ',' + Math.round(40 + c[1] * 0.3) + ',' + Math.round(60 + c[2] * 0.4) + ',1)';
+                } else {
+                    g.fillStyle = '#0f2f3f';
+                }
+                g.fill('evenodd');
+                const isSel = sel && s.code === sel;
+                g.strokeStyle = isSel ? '#ffffff' : t > 0 ? 'rgba(220,250,255,0.9)' : 'rgba(127,249,255,0.55)';
+                g.lineWidth = isSel ? 3.5 : t > 0 ? 1.8 : 1.2;
+                g.stroke();
+            });
+            if (vg.gl && vg.texEarth) {
+                const gl = vg.gl;
+                gl.bindTexture(gl.TEXTURE_2D, vg.texEarth);
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, cv);
+            }
+        }
+
+        function vgBakeIds() {
+            const W = 1024, H = 512;
+            const cv = document.createElement('canvas');
+            cv.width = W; cv.height = H;
+            const g = cv.getContext('2d');
+            g.fillStyle = '#000'; g.fillRect(0, 0, W, H);
+            vgDecode().shapes.forEach((s, i) => {
+                g.beginPath();
+                s.rings.forEach(r => vgRingPath(g, r, W, H, 0));
+                g.fillStyle = 'rgb(' + (i + 1) + ',255,0)';
+                g.fill('evenodd');
+            });
+            vg.ids = g.getImageData(0, 0, W, H).data;
+        }
+
+        function vgMoonTexture() {
+            const W = 512, H = 256;
+            const cv = document.createElement('canvas');
+            cv.width = W; cv.height = H;
+            const g = cv.getContext('2d');
+            g.fillStyle = '#6f6a7c'; g.fillRect(0, 0, W, H);
+            let seed = 7;
+            const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+            for (let i = 0; i < 900; i++) {
+                const v = 90 + rnd() * 50;
+                g.fillStyle = 'rgba(' + v + ',' + (v - 4) + ',' + (v + 14) + ',0.25)';
+                g.fillRect(rnd() * W, rnd() * H, 2 + rnd() * 6, 2 + rnd() * 4);
+            }
+            for (let i = 0; i < 70; i++) {
+                const x = rnd() * W, y = 20 + rnd() * (H - 40), r = 3 + Math.pow(rnd(), 2) * 22;
+                const gr = g.createRadialGradient(x - r * 0.25, y - r * 0.25, r * 0.1, x, y, r);
+                gr.addColorStop(0, 'rgba(60,56,72,0.85)');
+                gr.addColorStop(0.75, 'rgba(84,80,98,0.7)');
+                gr.addColorStop(1, 'rgba(170,165,190,0.55)');
+                g.fillStyle = gr;
+                g.beginPath(); g.ellipse(x, y, r * 1.6, r, 0, 0, Math.PI * 2); g.fill();
+            }
+            return cv;
+        }
+
+        function vgShader(gl, type, src) {
+            const s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+            return s;
+        }
+
+        function vgSphere(gl, segU, segV) {
+            const pos = [], uv = [], idx = [];
+            for (let j = 0; j <= segV; j++) {
+                const v = j / segV, lat = Math.PI / 2 - v * Math.PI;
+                for (let i = 0; i <= segU; i++) {
+                    const u = i / segU, lon = -Math.PI + u * Math.PI * 2;
+                    pos.push(Math.cos(lat) * Math.sin(lon), Math.sin(lat), Math.cos(lat) * Math.cos(lon));
+                    uv.push(u, v);
+                }
+            }
+            for (let j = 0; j < segV; j++) for (let i = 0; i < segU; i++) {
+                const a = j * (segU + 1) + i, b = a + segU + 1;
+                idx.push(a, b, a + 1, a + 1, b, b + 1);
+            }
+            const mk = (data, T) => { const bf = gl.createBuffer(); gl.bindBuffer(T, bf); gl.bufferData(T, data, gl.STATIC_DRAW); return bf; };
+            return { pos: mk(new Float32Array(pos), gl.ARRAY_BUFFER), uv: mk(new Float32Array(uv), gl.ARRAY_BUFFER), idx: mk(new Uint16Array(idx), gl.ELEMENT_ARRAY_BUFFER), n: idx.length };
+        }
+
+        function vgTexture(gl, src) {
+            const t = gl.createTexture();
+            gl.bindTexture(gl.TEXTURE_2D, t);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src);
+            return t;
+        }
+
+        function vgInitGl() {
+            const cv = document.getElementById('vg-gl');
+            let gl = null;
+            try { gl = cv.getContext('webgl', { antialias: true, alpha: true, premultipliedAlpha: false }) || cv.getContext('experimental-webgl'); } catch (e) { gl = null; }
+            if (!gl) return false;
+            try {
+                const vs = vgShader(gl, gl.VERTEX_SHADER, 'attribute vec3 aPos;attribute vec2 aUv;uniform mat4 uProj;uniform mat3 uRot;uniform vec3 uOff;uniform float uScale;uniform mediump float uCam;varying vec2 vUv;varying vec3 vN;varying vec3 vW;void main(){vec3 n=uRot*aPos;vec3 w=n*uScale+uOff;vN=n;vW=w;vUv=aUv;gl_Position=uProj*vec4(w.x,w.y,w.z-uCam,1.0);}');
+                const fs = vgShader(gl, gl.FRAGMENT_SHADER, 'precision mediump float;uniform sampler2D uTex;uniform vec3 uRim;uniform mediump float uCam;uniform float uTime;uniform float uScan;varying vec2 vUv;varying vec3 vN;varying vec3 vW;void main(){vec3 n=normalize(vN);vec3 v=normalize(vec3(0.0,0.0,uCam)-vW);float ndv=max(dot(n,v),0.0);vec3 L=normalize(vec3(-0.55,0.55,0.75));float dif=0.45+0.75*max(dot(n,L),0.0);vec3 c=texture2D(uTex,vUv).rgb*dif;float fr=pow(1.0-ndv,2.4);c+=uRim*fr;float s=1.0-uScan*(0.5+0.5*sin(gl_FragCoord.y*1.7+uTime*3.0));c*=s;gl_FragColor=vec4(c,1.0);}');
+                const pr = gl.createProgram();
+                gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr);
+                if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(pr));
+                vg.gl = gl;
+                vg.prog = pr;
+                vg.loc = {};
+                ['aPos', 'aUv'].forEach(k => { vg.loc[k] = gl.getAttribLocation(pr, k); });
+                ['uProj', 'uRot', 'uOff', 'uScale', 'uCam', 'uTex', 'uRim', 'uTime', 'uScan'].forEach(k => { vg.loc[k] = gl.getUniformLocation(pr, k); });
+                vg.mesh = vgSphere(gl, 96, 48);
+                vg.moonMesh = vgSphere(gl, 32, 16);
+                vg.texEarth = vgTexture(gl, vg.tex2d);
+                vg.texMoon = vgTexture(gl, vgMoonTexture());
+                gl.enable(gl.DEPTH_TEST);
+                return true;
+            } catch (e) {
+                vg.gl = null;
+                return false;
+            }
+        }
+
+        function vgRot(yaw, pitch) {
+            const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+            return [cy, 0, sy, -sp * -sy, cp, -sp * cy, cp * -sy, sp, cp * cy];
+        }
+        function vgApply(r, p) {
+            return [r[0] * p[0] + r[1] * p[1] + r[2] * p[2], r[3] * p[0] + r[4] * p[1] + r[5] * p[2], r[6] * p[0] + r[7] * p[1] + r[8] * p[2]];
+        }
+        function vgLatLon(lat, lon) {
+            const a = lat * Math.PI / 180, b = lon * Math.PI / 180;
+            return [Math.cos(a) * Math.sin(b), Math.sin(a), Math.cos(a) * Math.cos(b)];
+        }
+
+        function vgResize() {
+            const st = document.getElementById('vg-stage');
+            const w = Math.max(1, st.clientWidth), h = Math.max(1, st.clientHeight);
+            const dpr = Math.min(2, window.devicePixelRatio || 1);
+            vg.w = w; vg.h = h; vg.dpr = dpr;
+            ['vg-bg', 'vg-gl', 'vg-fx'].forEach(id => {
+                const c = document.getElementById(id);
+                c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+            });
+            const bg = document.getElementById('vg-bg').getContext('2d');
+            bg.setTransform(dpr, 0, 0, dpr, 0, 0);
+            const grd = bg.createRadialGradient(w * 0.5, h * 0.5, 0, w * 0.5, h * 0.5, Math.max(w, h) * 0.75);
+            grd.addColorStop(0, '#0d1236'); grd.addColorStop(0.55, '#06061a'); grd.addColorStop(1, '#020208');
+            bg.fillStyle = grd; bg.fillRect(0, 0, w, h);
+            let seed = 11;
+            const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+            for (let i = 0; i < Math.round(w * h / 2600); i++) {
+                const a = 0.2 + rnd() * 0.8, r = rnd() < 0.08 ? 1.4 : 0.7;
+                bg.fillStyle = rnd() < 0.15 ? 'rgba(218,170,255,' + a + ')' : 'rgba(210,240,255,' + a + ')';
+                bg.beginPath(); bg.arc(rnd() * w, rnd() * h, r, 0, Math.PI * 2); bg.fill();
+            }
+            bg.strokeStyle = 'rgba(127,249,255,0.05)';
+            bg.lineWidth = 1;
+            for (let x = 0; x < w; x += 48) { bg.beginPath(); bg.moveTo(x + 0.5, 0); bg.lineTo(x + 0.5, h); bg.stroke(); }
+            for (let y = 0; y < h; y += 48) { bg.beginPath(); bg.moveTo(0, y + 0.5); bg.lineTo(w, y + 0.5); bg.stroke(); }
+        }
+
+        function vgCamera() {
+            const fov = 40 * Math.PI / 180;
+            const f = 1 / Math.tan(fov / 2);
+            const aspect = vg.w / vg.h;
+            const half = Math.min(fov / 2, Math.atan(Math.tan(fov / 2) * aspect));
+            const fit = 2.05 / Math.sin(half);
+            const cam = Math.max(1.22, fit / vg.zoom);
+            return { f: f, aspect: aspect, cam: cam };
+        }
+
+        function vgProject(p, C) {
+            const z = C.cam - p[2];
+            if (z <= 0.01) return null;
+            const nx = (C.f / C.aspect) * p[0] / z, ny = C.f * p[1] / z;
+            return [(nx * 0.5 + 0.5) * vg.w, (0.5 - ny * 0.5) * vg.h, z];
+        }
+
+        function vgMoonPos(now) {
+            const a = vg.moonA, R = 1.72, tilt = 0.38;
+            return [R * Math.cos(a), R * Math.sin(a) * Math.sin(tilt), R * Math.sin(a) * Math.cos(tilt)];
+        }
+
+        function vgDraw(now) {
+            const C = vgCamera();
+            const rot = vgRot(vg.yaw, vg.pitch);
+            const moon = vgMoonPos(now);
+            vg.C = C; vg.rot = rot; vg.moon = moon;
+            const gl = vg.gl;
+            if (gl) {
+                gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+                gl.clearColor(0, 0, 0, 0);
+                gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+                gl.useProgram(vg.prog);
+                const n = 0.05, fr = 50;
+                gl.uniformMatrix4fv(vg.loc.uProj, false, new Float32Array([C.f / C.aspect, 0, 0, 0, 0, C.f, 0, 0, 0, 0, (fr + n) / (n - fr), -1, 0, 0, 2 * fr * n / (n - fr), 0]));
+                gl.uniform1f(vg.loc.uCam, C.cam);
+                gl.uniform1f(vg.loc.uTime, vg.reduce ? 0 : now / 1000);
+                const drawMesh = (mesh, tex, r, off, sc, rim, scan) => {
+                    gl.uniformMatrix3fv(vg.loc.uRot, false, new Float32Array([r[0], r[3], r[6], r[1], r[4], r[7], r[2], r[5], r[8]]));
+                    gl.uniform3fv(vg.loc.uOff, off);
+                    gl.uniform1f(vg.loc.uScale, sc);
+                    gl.uniform3fv(vg.loc.uRim, rim);
+                    gl.uniform1f(vg.loc.uScan, scan);
+                    gl.activeTexture(gl.TEXTURE0);
+                    gl.bindTexture(gl.TEXTURE_2D, tex);
+                    gl.uniform1i(vg.loc.uTex, 0);
+                    gl.bindBuffer(gl.ARRAY_BUFFER, mesh.pos);
+                    gl.enableVertexAttribArray(vg.loc.aPos);
+                    gl.vertexAttribPointer(vg.loc.aPos, 3, gl.FLOAT, false, 0, 0);
+                    gl.bindBuffer(gl.ARRAY_BUFFER, mesh.uv);
+                    gl.enableVertexAttribArray(vg.loc.aUv);
+                    gl.vertexAttribPointer(vg.loc.aUv, 2, gl.FLOAT, false, 0, 0);
+                    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.idx);
+                    gl.drawElements(gl.TRIANGLES, mesh.n, gl.UNSIGNED_SHORT, 0);
+                };
+                drawMesh(vg.mesh, vg.texEarth, rot, [0, 0, 0], 1, [0.35, 0.85, 1.0], 0.06);
+                drawMesh(vg.moonMesh, vg.texMoon, vgRot(vg.moonSpin, 0.2), moon, 0.17, [0.55, 0.45, 0.75], 0.03);
+            }
+            vgDrawFx(now, C, rot, moon);
+        }
+
+        function vgPins(C, rot) {
+            const pins = [];
+            const places = vgDecode().places;
+            vgData.rows.forEach(r => {
+                if (r.country === 'ZZ') return;
+                const pl = places[r.country];
+                if (!pl) return;
+                const t = vgTone(r.country);
+                const n = vgApply(rot, vgLatLon(pl.lat, pl.lon));
+                const vis = n[2] * C.cam - 1;
+                if (vis <= 0) return;
+                const h = 0.05 + 0.24 * t;
+                const a = vgProject(n, C), b = vgProject([n[0] * (1 + h), n[1] * (1 + h), n[2] * (1 + h)], C);
+                if (!a || !b) return;
+                pins.push({ code: r.country, t: t, a: a, b: b, fade: Math.min(1, vis * 4) });
+            });
+            if (vgMyCountry && vgMyCountry !== 'ZZ' && !vgData.map[vgMyCountry] && places[vgMyCountry]) {
+                const pl = places[vgMyCountry];
+                const n = vgApply(rot, vgLatLon(pl.lat, pl.lon));
+                const vis = n[2] * C.cam - 1;
+                if (vis > 0) {
+                    const a = vgProject(n, C);
+                    if (a) pins.push({ code: vgMyCountry, t: 0, a: a, b: a, fade: Math.min(1, vis * 4), ghost: true });
+                }
+            }
+            pins.sort((p, q) => q.a[2] - p.a[2]);
+            return pins;
+        }
+
+        function vgMoonScreen(C, moon) {
+            const c = vgProject(moon, C);
+            if (!c) return null;
+            const r = 0.17 * C.f / c[2] * vg.h / 2;
+            const gr = C.f / Math.sqrt(C.cam * C.cam - 1) * vg.h / 2;
+            const hidden = moon[2] < 0 && Math.hypot(c[0] - vg.w / 2, c[1] - vg.h / 2) < gr + r * 0.2;
+            return { c: c, r: r, hidden: hidden };
+        }
+
+        function vgDrawFx(now, C, rot, moon) {
+            const cv = document.getElementById('vg-fx');
+            const g = cv.getContext('2d');
+            g.setTransform(vg.dpr, 0, 0, vg.dpr, 0, 0);
+            g.clearRect(0, 0, vg.w, vg.h);
+            const cx = vg.w / 2, cy = vg.h / 2;
+            const gr = C.f / Math.sqrt(C.cam * C.cam - 1) * vg.h / 2;
+            vg.globeR = gr;
+            const halo = g.createRadialGradient(cx, cy, gr * 0.98, cx, cy, gr * 1.22);
+            halo.addColorStop(0, 'rgba(127,249,255,0.35)');
+            halo.addColorStop(0.35, 'rgba(120,90,255,0.14)');
+            halo.addColorStop(1, 'rgba(0,0,0,0)');
+            g.fillStyle = halo;
+            g.beginPath(); g.arc(cx, cy, gr * 1.22, 0, Math.PI * 2); g.arc(cx, cy, gr * 0.995, 0, Math.PI * 2, true); g.fill('evenodd');
+            if (!vg.gl) {
+                g.strokeStyle = 'rgba(127,249,255,0.6)';
+                g.lineWidth = 1.5;
+                g.beginPath(); g.arc(cx, cy, gr, 0, Math.PI * 2); g.stroke();
+            }
+            g.save();
+            g.strokeStyle = 'rgba(127,249,255,0.18)';
+            g.setLineDash([3, 6]);
+            g.lineWidth = 1;
+            g.beginPath();
+            for (let i = 0; i <= 96; i++) {
+                const a = i / 96 * Math.PI * 2, R = 1.72, tilt = 0.38;
+                const p = vgProject([R * Math.cos(a), R * Math.sin(a) * Math.sin(tilt), R * Math.sin(a) * Math.cos(tilt)], C);
+                if (!p) continue;
+                const behind = R * Math.sin(a) * Math.cos(tilt) < 0 && Math.hypot(p[0] - cx, p[1] - cy) < gr;
+                if (i === 0 || behind) g.moveTo(p[0], p[1]); else g.lineTo(p[0], p[1]);
+            }
+            g.stroke();
+            g.restore();
+            const scale = Math.max(0.6, Math.min(1.8, gr / 260));
+            const pulse = vg.reduce ? 0.5 : (now / 1400) % 1;
+            const pins = vgPins(C, rot);
+            vg.pinHits = [];
+            pins.forEach(p => {
+                const col = vgHeat(p.t);
+                const rgb = col.join(',');
+                g.globalAlpha = p.fade;
+                if (!p.ghost) {
+                    const lg = g.createLinearGradient(p.a[0], p.a[1], p.b[0], p.b[1]);
+                    lg.addColorStop(0, 'rgba(' + rgb + ',0.15)');
+                    lg.addColorStop(1, 'rgba(' + rgb + ',0.95)');
+                    g.strokeStyle = lg;
+                    g.lineWidth = (1.5 + 2.5 * p.t) * scale;
+                    g.shadowColor = 'rgba(' + rgb + ',0.9)';
+                    g.shadowBlur = 8 * scale;
+                    g.beginPath(); g.moveTo(p.a[0], p.a[1]); g.lineTo(p.b[0], p.b[1]); g.stroke();
+                    const rad = (2.6 + 6 * p.t) * scale;
+                    g.fillStyle = 'rgba(' + rgb + ',1)';
+                    g.beginPath(); g.arc(p.b[0], p.b[1], rad, 0, Math.PI * 2); g.fill();
+                    g.shadowBlur = 0;
+                    g.fillStyle = 'rgba(255,255,255,0.9)';
+                    g.beginPath(); g.arc(p.b[0], p.b[1], rad * 0.4, 0, Math.PI * 2); g.fill();
+                    g.fillStyle = 'rgba(' + rgb + ',0.5)';
+                    g.beginPath(); g.ellipse(p.a[0], p.a[1], rad * 0.9, rad * 0.45, 0, 0, Math.PI * 2); g.fill();
+                    vg.pinHits.push({ code: p.code, x: p.b[0], y: p.b[1], r: rad + 8, z: p.a[2] });
+                    vg.pinHits.push({ code: p.code, x: p.a[0], y: p.a[1], r: rad + 4, z: p.a[2] });
+                }
+                if (p.code === vgMyCountry) {
+                    const rr = (8 + 22 * pulse) * scale;
+                    g.strokeStyle = 'rgba(93,255,143,' + (1 - pulse) + ')';
+                    g.lineWidth = 2;
+                    g.beginPath(); g.ellipse(p.a[0], p.a[1], rr, rr * 0.55, 0, 0, Math.PI * 2); g.stroke();
+                    g.fillStyle = '#5dff8f';
+                    g.font = 'bold ' + Math.round(9 * scale + 2) + 'px Consolas, monospace';
+                    g.textAlign = 'center';
+                    g.fillText('YOU', p.a[0], p.a[1] + 16 * scale + 6);
+                }
+                if (p.code === vg.sel) {
+                    g.strokeStyle = '#ffffff';
+                    g.lineWidth = 1.5;
+                    const rr = (12 + 3 * Math.sin(now / 200)) * scale;
+                    g.beginPath(); g.arc(p.b[0], p.b[1], rr, 0, Math.PI * 2); g.stroke();
+                    vg.selPt = p.b;
+                }
+                g.globalAlpha = 1;
+            });
+            const ms = vgMoonScreen(C, moon);
+            vg.moonHit = null;
+            const zz = vgData.map.ZZ || 0;
+            if (ms && !ms.hidden) {
+                vg.moonHit = { x: ms.c[0], y: ms.c[1], r: Math.max(ms.r, 10) + 6 };
+                if (zz > 0) {
+                    const t = vgTone('ZZ');
+                    const col = [200, 190, 230].join(',');
+                    const base = [ms.c[0], ms.c[1] - ms.r];
+                    const tip = [ms.c[0], ms.c[1] - ms.r - (14 + 26 * t) * scale];
+                    g.strokeStyle = 'rgba(' + col + ',0.9)';
+                    g.shadowColor = 'rgba(218,112,214,0.9)';
+                    g.shadowBlur = 8;
+                    g.lineWidth = (1.5 + 2 * t) * scale;
+                    g.beginPath(); g.moveTo(base[0], base[1]); g.lineTo(tip[0], tip[1]); g.stroke();
+                    g.fillStyle = 'rgba(' + col + ',1)';
+                    const rad = (2.6 + 5 * t) * scale;
+                    g.beginPath(); g.arc(tip[0], tip[1], rad, 0, Math.PI * 2); g.fill();
+                    g.shadowBlur = 0;
+                    g.fillStyle = 'rgba(200,190,230,0.85)';
+                    g.font = Math.round(8 * scale + 3) + 'px Consolas, monospace';
+                    g.textAlign = 'center';
+                    g.fillText('?', tip[0], tip[1] - rad - 4);
+                    vg.moonHit.tip = { x: tip[0], y: tip[1], r: rad + 8 };
+                    if (vg.sel === 'ZZ') vg.selPt = tip;
+                }
+                if (vg.sel === 'ZZ') {
+                    g.strokeStyle = '#ffffff';
+                    g.lineWidth = 1.5;
+                    g.beginPath(); g.arc(ms.c[0], ms.c[1], ms.r + 6 + 2 * Math.sin(now / 200), 0, Math.PI * 2); g.stroke();
+                    if (!zz) vg.selPt = ms.c;
+                }
+            }
+            const card = document.getElementById('vg-card');
+            if (vg.sel && vg.selPt && card.classList.contains('on')) {
+                const sr = card.getBoundingClientRect(), pr = document.getElementById('vg-stage').getBoundingClientRect();
+                const ex = sr.left - pr.left, ey = sr.top - pr.top + 14;
+                g.strokeStyle = 'rgba(127,249,255,0.55)';
+                g.lineWidth = 1;
+                g.setLineDash([4, 3]);
+                g.beginPath(); g.moveTo(vg.selPt[0], vg.selPt[1]); g.lineTo(ex - 14, ey); g.lineTo(ex, ey); g.stroke();
+                g.setLineDash([]);
+            }
+            vg.selPt = null;
+        }
+
+        function vgPickGlobe(sx, sy) {
+            const C = vg.C;
+            if (!C) return null;
+            const nx = sx / vg.w * 2 - 1, ny = 1 - sy / vg.h * 2;
+            const d = [nx * C.aspect / C.f, ny / C.f, -1];
+            const dl = Math.hypot(d[0], d[1], d[2]);
+            d[0] /= dl; d[1] /= dl; d[2] /= dl;
+            const o = [0, 0, C.cam];
+            const b = o[0] * d[0] + o[1] * d[1] + o[2] * d[2];
+            const c = C.cam * C.cam - 1;
+            const disc = b * b - c;
+            if (disc < 0) return null;
+            const t = -b - Math.sqrt(disc);
+            const h = [o[0] + d[0] * t, o[1] + d[1] * t, o[2] + d[2] * t];
+            const r = vg.rot;
+            const p = [r[0] * h[0] + r[3] * h[1] + r[6] * h[2], r[1] * h[0] + r[4] * h[1] + r[7] * h[2], r[2] * h[0] + r[5] * h[1] + r[8] * h[2]];
+            const lat = Math.asin(Math.max(-1, Math.min(1, p[1]))) * 180 / Math.PI;
+            const lon = Math.atan2(p[0], p[2]) * 180 / Math.PI;
+            if (!vg.ids) return { lat: lat, lon: lon, code: null };
+            const px = Math.min(1023, Math.max(0, Math.floor((lon + 180) / 360 * 1024)));
+            const py = Math.min(511, Math.max(0, Math.floor((90 - lat) / 180 * 512)));
+            const k = (py * 1024 + px) * 4;
+            const shapes = vgDecode().shapes;
+            const id = vg.ids[k] - 1;
+            const code = vg.ids[k + 1] === 255 && id >= 0 && id < shapes.length ? shapes[id].code : null;
+            return { lat: lat, lon: lon, code: code && code !== '--' ? code : null };
+        }
+
+        function vgPick(sx, sy) {
+            let best = null, bd = Infinity;
+            (vg.pinHits || []).forEach(h => {
+                const d = Math.hypot(sx - h.x, sy - h.y);
+                if (d < h.r && d < bd) { bd = d; best = h.code; }
+            });
+            if (vg.moonHit) {
+                const m = vg.moonHit;
+                const d = Math.hypot(sx - m.x, sy - m.y);
+                const dt = m.tip ? Math.hypot(sx - m.tip.x, sy - m.tip.y) : Infinity;
+                if ((d < m.r && d < bd) || (m.tip && dt < m.tip.r && dt < bd)) best = 'ZZ';
+            }
+            if (!best) {
+                const g = vgPickGlobe(sx, sy);
+                if (g && g.code) best = g.code;
+            }
+            vgSelect(best, false);
+        }
+
+        function vgAgo(ts) {
+            if (!ts) return '';
+            const s = Math.max(0, (Date.now() - new Date(ts).getTime()) / 1000);
+            if (s < 90) return 'just now';
+            if (s < 5400) return Math.round(s / 60) + ' min ago';
+            if (s < 129600) return Math.round(s / 3600) + ' h ago';
+            return Math.round(s / 86400) + ' days ago';
+        }
+
+        function vgSelect(code, fly) {
+            vg.sel = code || null;
+            const card = document.getElementById('vg-card');
+            document.querySelectorAll('#vg-list .vg-row').forEach(r => r.classList.toggle('sel', r.dataset.code === vg.sel));
+            if (vg.tex2d) vgBakeTexture(vg.sel && vg.sel !== 'ZZ' ? vg.sel : null);
+            if (!code) { card.classList.remove('on'); return; }
+            const row = vgData.rows.find(r => r.country === code);
+            const v = row ? row.views : 0;
+            const pct = vgData.total ? (v / vgData.total * 100) : 0;
+            const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+            let html;
+            if (code === 'ZZ') {
+                html = '<div class="vg-card-tag">☾ LUNAR RELAY · NO FIX</div><div class="vg-card-name">Unknown origin</div>' +
+                    '<div class="vg-card-num">' + v.toLocaleString() + '<small>' + (v === 1 ? 'VISIT' : 'VISITS') + '</small></div>' +
+                    (v ? '<div class="vg-card-row">' + pct.toFixed(pct < 10 ? 1 : 0) + '% of all traffic</div>' : '') +
+                    '<div class="vg-card-row">Visits with no country: hidden or blocked locations, Tor, and the first visits before country tracking began.</div>';
+            } else {
+                html = '<div class="vg-card-tag">SECTOR ' + esc(code) + (v ? ' · CONTACT' : ' · NO CONTACT') + '</div><div class="vg-card-name">' + esc(vgName(code)) + '</div>' +
+                    '<div class="vg-card-num">' + v.toLocaleString() + '<small>' + (v === 1 ? 'VISIT' : 'VISITS') + '</small></div>' +
+                    (v ? '<div class="vg-card-row">' + pct.toFixed(pct < 10 ? 1 : 0) + '% of all traffic</div><div class="vg-card-row">Last contact ' + vgAgo(row.last_seen) + '</div>' : '<div class="vg-card-row">No visits from here yet.</div>');
+            }
+            if (code === vgMyCountry) html += '<div class="vg-card-you">◉ YOU ARE HERE</div>';
+            card.innerHTML = html;
+            card.classList.remove('on');
+            void card.offsetWidth;
+            card.classList.add('on');
+            if (fly) vgFlyTo(code);
+        }
+
+        function vgFlyTo(code) {
+            if (code === 'ZZ') return;
+            const pl = vgDecode().places[code];
+            if (!pl) return;
+            let ty = -pl.lon * Math.PI / 180;
+            const tp = Math.max(-1.2, Math.min(1.2, pl.lat * Math.PI / 180));
+            const tau = Math.PI * 2;
+            let dy = ((ty - vg.yaw) % tau + tau * 1.5) % tau - Math.PI;
+            vg.fly = { y0: vg.yaw, p0: vg.pitch, dy: dy, dp: tp - vg.pitch, t0: performance.now(), dur: vg.reduce ? 1 : 900 };
+            vg.velYaw = 0;
+            vg.lastInput = performance.now();
+        }
+
+        function vgRenderList() {
+            const list = document.getElementById('vg-list');
+            const rows = vgData.rows;
+            document.getElementById('vg-total').textContent = vgData.ok ? vgData.total.toLocaleString() : '---';
+            document.getElementById('vg-nations').textContent = vgData.ok ? String(rows.filter(r => r.country !== 'ZZ').length) : '--';
+            if (!vgData.ok) {
+                list.innerHTML = '<li class="vg-empty">No signal from the server. Connect to the internet and open this window again to see where visitors came from.</li>';
+                return;
+            }
+            if (!rows.length) {
+                list.innerHTML = '<li class="vg-empty">No visits with a location yet.</li>';
+                return;
+            }
+            const max = rows.reduce((m, r) => Math.max(m, r.views), 1);
+            let rank = 0;
+            list.innerHTML = '';
+            rows.forEach(r => {
+                const li = document.createElement('li');
+                li.className = 'vg-row' + (r.country === 'ZZ' ? ' vg-moon' : '') + (r.country === vg.sel ? ' sel' : '');
+                li.dataset.code = r.country;
+                const rk = document.createElement('span');
+                rk.className = 'vg-rank';
+                rk.textContent = r.country === 'ZZ' ? '☾' : String(++rank).padStart(2, '0');
+                const nm = document.createElement('span');
+                nm.className = 'vg-name';
+                nm.textContent = (r.country === 'ZZ' ? 'Unknown (moon)' : vgName(r.country)) + (r.country === vgMyCountry ? ' ◉' : '');
+                const n = document.createElement('span');
+                n.className = 'vg-n';
+                n.textContent = r.views.toLocaleString();
+                const bar = document.createElement('span');
+                bar.className = 'vg-bar';
+                const bi = document.createElement('i');
+                bi.style.width = Math.max(3, r.views / max * 100) + '%';
+                bar.appendChild(bi);
+                li.append(rk, nm, n, bar);
+                li.addEventListener('click', () => vgSelect(r.country, true));
+                list.appendChild(li);
+            });
+        }
+
+        function vgMsg(text, wait) {
+            const m = document.getElementById('vg-msg');
+            m.textContent = text || '';
+            m.classList.toggle('on', !!text);
+            m.classList.toggle('wait', !!wait);
+        }
+
+        async function vgLoad() {
+            const c = mpClient();
+            if (!c || navigator.onLine === false) {
+                if (!vgData.fetched) { vgData.ok = false; vgRenderList(); }
+                vgMsg('NO SIGNAL · COUNTS UNAVAILABLE');
+                return;
+            }
+            if (Date.now() - vgData.fetched < 45000 && vgData.ok) return;
+            vgMsg('LINKING…', true);
+            try {
+                const calls = [c.rpc('get_country_views')];
+                if (vgMyCountry === null) calls.push(c.rpc('my_country'));
+                const res = await Promise.all(calls);
+                if (res[0].error || !Array.isArray(res[0].data)) throw res[0].error || new Error('no data');
+                if (res[1] && !res[1].error && typeof res[1].data === 'string') vgMyCountry = res[1].data;
+                const rows = res[0].data.map(r => ({ country: String(r.country || 'ZZ').toUpperCase(), views: Number(r.views) || 0, last_seen: r.last_seen })).filter(r => r.views > 0);
+                const places = vgDecode().places;
+                const merged = {};
+                rows.forEach(r => {
+                    const k = r.country === 'ZZ' || places[r.country] ? r.country : 'ZZ';
+                    if (!merged[k]) merged[k] = { country: k, views: 0, last_seen: r.last_seen };
+                    merged[k].views += r.views;
+                    if (r.last_seen && (!merged[k].last_seen || r.last_seen > merged[k].last_seen)) merged[k].last_seen = r.last_seen;
+                });
+                const list = Object.values(merged).sort((a, b) => (a.country === 'ZZ') - (b.country === 'ZZ') || b.views - a.views);
+                vgData.rows = list;
+                vgData.map = {};
+                list.forEach(r => { vgData.map[r.country] = r.views; });
+                vgData.max = list.filter(r => r.country !== 'ZZ').reduce((m, r) => Math.max(m, r.views), 1);
+                vgData.total = Math.max(list.reduce((s, r) => s + r.views, 0), vcShown || 0);
+                vgData.fetched = Date.now();
+                vgData.ok = true;
+                vgMsg('');
+                vgBakeTexture(vg.sel && vg.sel !== 'ZZ' ? vg.sel : null);
+                vgRenderList();
+                if (vg.sel) vgSelect(vg.sel, false);
+            } catch (e) {
+                vgMsg('NO SIGNAL · COUNTS UNAVAILABLE');
+                if (!vgData.ok) vgRenderList();
+            }
+        }
+
+        function vgLoop(now) {
+            if (!vgIsOpen) { vg.raf = 0; return; }
+            const dt = Math.min(0.05, (now - (vg.last || now)) / 1000);
+            vg.last = now;
+            if (vg.fly) {
+                const k = Math.min(1, (now - vg.fly.t0) / vg.fly.dur);
+                const e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+                vg.yaw = vg.fly.y0 + vg.fly.dy * e;
+                vg.pitch = vg.fly.p0 + vg.fly.dp * e;
+                if (k >= 1) vg.fly = null;
+            } else if (!vg.dragging) {
+                vg.yaw += vg.velYaw * dt;
+                vg.pitch = Math.max(-1.3, Math.min(1.3, vg.pitch + vg.velPitch * dt));
+                vg.velYaw *= Math.exp(-dt * 2.5);
+                vg.velPitch *= Math.exp(-dt * 2.5);
+                if (!vg.reduce && now - vg.lastInput > 4000 && !vg.sel) vg.yaw += 0.12 * dt;
+            }
+            if (!vg.dragging && !vg.reduce) vg.moonA += 0.22 * dt;
+            vg.moonSpin += 0.1 * dt;
+            vgDraw(now);
+            vg.raf = requestAnimationFrame(vgLoop);
+        }
+
+        function vgSetup() {
+            if (vg) return;
+            vg = { yaw: 1.9, pitch: 0.35, zoom: 1, velYaw: 0, velPitch: 0, moonA: 0.6, moonSpin: 0, lastInput: 0, sel: null, pointers: new Map(), reduce: !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) };
+            if (vg.reduce) vg.moonA = 0.9;
+            vgBakeTexture(null);
+            vgBakeIds();
+            if (!vgInitGl()) vgMsg('3D VIEW UNAVAILABLE ON THIS DEVICE');
+            const st = document.getElementById('vg-stage');
+            const pos = e => { const r = st.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+            st.addEventListener('pointerdown', e => {
+                if (e.button !== undefined && e.button > 0) return;
+                try { st.setPointerCapture(e.pointerId); } catch (er) { }
+                const p = pos(e);
+                vg.pointers.set(e.pointerId, p);
+                vg.fly = null;
+                vg.lastInput = performance.now();
+                document.getElementById('vg-hint').classList.add('gone');
+                if (vg.pointers.size === 1) {
+                    vg.dragging = true;
+                    vg.moved = 0;
+                    vg.pinched = false;
+                    vg.lastMove = performance.now();
+                    st.classList.add('drag');
+                } else if (vg.pointers.size === 2) {
+                    const ps = [...vg.pointers.values()];
+                    vg.pinchD = Math.hypot(ps[0][0] - ps[1][0], ps[0][1] - ps[1][1]) || 1;
+                    vg.pinchZ = vg.zoom;
+                    vg.pinched = true;
+                }
+            });
+            st.addEventListener('pointermove', e => {
+                const prev = vg.pointers.get(e.pointerId);
+                if (!prev) return;
+                const p = pos(e);
+                vg.pointers.set(e.pointerId, p);
+                vg.lastInput = performance.now();
+                if (vg.pointers.size === 1) {
+                    const dx = p[0] - prev[0], dy = p[1] - prev[1];
+                    const k = Math.PI / Math.max(200, vg.h) / vg.zoom * 1.1;
+                    vg.yaw += dx * k;
+                    vg.pitch = Math.max(-1.3, Math.min(1.3, vg.pitch + dy * k));
+                    const now = performance.now(), dtm = Math.max(8, now - vg.lastMove) / 1000;
+                    vg.velYaw = vg.velYaw * 0.6 + (dx * k / dtm) * 0.4;
+                    vg.velPitch = vg.velPitch * 0.6 + (dy * k / dtm) * 0.4;
+                    vg.lastMove = now;
+                    vg.moved += Math.abs(dx) + Math.abs(dy);
+                } else if (vg.pointers.size === 2) {
+                    const ps = [...vg.pointers.values()];
+                    const d = Math.hypot(ps[0][0] - ps[1][0], ps[0][1] - ps[1][1]);
+                    vg.zoom = Math.max(0.75, Math.min(3.2, vg.pinchZ * d / vg.pinchD));
+                    vg.velYaw = 0; vg.velPitch = 0;
+                }
+            });
+            const up = e => {
+                if (!vg.pointers.has(e.pointerId)) return;
+                const p = pos(e);
+                vg.pointers.delete(e.pointerId);
+                if (vg.pointers.size === 0) {
+                    vg.dragging = false;
+                    st.classList.remove('drag');
+                    if (performance.now() - vg.lastMove > 90) { vg.velYaw = 0; vg.velPitch = 0; }
+                    if (e.type === 'pointerup' && vg.moved < 6 && !vg.pinched) { vg.velYaw = 0; vg.velPitch = 0; vgPick(p[0], p[1]); }
+                }
+            };
+            st.addEventListener('pointerup', up);
+            st.addEventListener('pointercancel', up);
+            st.addEventListener('wheel', e => {
+                e.preventDefault();
+                vg.zoom = Math.max(0.75, Math.min(3.2, vg.zoom * Math.exp(-e.deltaY * 0.0015)));
+                vg.lastInput = performance.now();
+                document.getElementById('vg-hint').classList.add('gone');
+            }, { passive: false });
+            document.getElementById('vg-close').addEventListener('click', vgClose);
+            document.getElementById('vg-x').addEventListener('click', vgClose);
+            window.addEventListener('resize', () => { if (vgIsOpen) vgResize(); });
+            window.addEventListener('keydown', e => {
+                if (!vgIsOpen) return;
+                if (e.key === 'Escape') { e.preventDefault(); if (vg.sel) vgSelect(null); else vgClose(); }
+            });
+        }
+
+        function vgOpen() {
+            vgSetup();
+            const ov = document.getElementById('vg-overlay');
+            ov.classList.add('open');
+            ov.setAttribute('aria-hidden', 'false');
+            vgIsOpen = true;
+            vgResize();
+            vgRenderList();
+            vg.last = 0;
+            vg.lastInput = performance.now() - 2500;
+            if (!vg.raf) vg.raf = requestAnimationFrame(vgLoop);
+            vgLoad();
+            setTimeout(() => { const b = document.getElementById('vg-x'); if (b && vgIsOpen) b.focus({ preventScroll: true }); }, 50);
+        }
+
+        function vgClose() {
+            const ov = document.getElementById('vg-overlay');
+            ov.classList.remove('open');
+            ov.setAttribute('aria-hidden', 'true');
+            vgIsOpen = false;
+            if (vg && vg.raf) { cancelAnimationFrame(vg.raf); vg.raf = 0; }
+            const p = document.getElementById('vc-panel');
+            if (p) p.focus({ preventScroll: true });
+        }
+
+        (function () {
+            const p = document.getElementById('vc-panel');
+            if (!p) return;
+            p.addEventListener('click', vgOpen);
+            p.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); vgOpen(); }
+            });
+        })();
+
 
         function mpRedirectUrl() {
             if (location.protocol === 'https:' || location.protocol === 'http:') return location.origin + location.pathname;
