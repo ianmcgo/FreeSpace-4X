@@ -3292,7 +3292,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 1.19.3 (Updated: October 12, 2026 11:25 AM)</div>
+            <div class="version-text">Version 1.19.4 (Updated: October 12, 2026 11:45 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -6556,7 +6556,7 @@
         const ORBIT_SPEED = 0.15;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '1.19.3';
+        const GAME_VERSION = '1.19.4';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -24310,6 +24310,12 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '1.19.4', d: "Oct 12, 2026 11:45 AM", t: "New Share Card Layout", items: [
+                'The Visitor Origins share card now shows the FREESPACE 4X logo instead of the globe, with the game website address under it.',
+                'Added a trend line: visits over the last 30 days as a small bar chart, plus how the last 7 days compare with the 7 days before.',
+                'Countries reached now shows the percent of countries as well as the count. World reach now shows the percent of the world population (for example 0.0000011% of 8.1 billion people) instead of a confusing 1 in millions figure.',
+                'Removed the badges earned, best streak and VISITOR ORIGINS title from the card.'
+            ] },
             { v: '1.19.3', d: "Oct 12, 2026 11:25 AM", t: "Fuel Economy First", items: [
                 'Fuel Economy is now the first option in the New Game Advanced Options list (and first in multiplayer lobby listings).'
             ] },
@@ -38040,49 +38046,93 @@ const DEFENDERS_PER_POP=100;
             const btn = document.getElementById('vg-share');
             try {
                 vgDraw(performance.now());
-                const W = 1200, H = 630, SPLIT = 700;
+                const W = 1200, H = 630, SPLIT = 640;
                 const cv = document.createElement('canvas');
                 cv.width = W; cv.height = H;
                 const g = cv.getContext('2d');
-                g.fillStyle = '#05050f'; g.fillRect(0, 0, W, H);
-                const srcs = ['vg-bg', 'vg-gl', 'vg-fx'].map(id => document.getElementById(id));
-                const sw = srcs[0].width, sh = srcs[0].height;
-                if (sw && sh) {
-                    const k = Math.max(SPLIT / sw, H / sh), dw = sw * k, dh = sh * k;
-                    g.save(); g.beginPath(); g.rect(0, 0, SPLIT, H); g.clip();
-                    srcs.forEach(c => { if (c.width) g.drawImage(c, (SPLIT - dw) / 2, (H - dh) / 2, dw, dh); });
-                    g.restore();
+                const bg = g.createLinearGradient(0, 0, W, H);
+                bg.addColorStop(0, '#0a0620'); bg.addColorStop(1, '#05050f');
+                g.fillStyle = bg; g.fillRect(0, 0, W, H);
+                let sd = 7;
+                const rnd = () => { sd = (sd * 16807) % 2147483647; return sd / 2147483647; };
+                for (let i = 0; i < 160; i++) {
+                    g.fillStyle = 'rgba(200,230,255,' + (0.15 + rnd() * 0.55).toFixed(2) + ')';
+                    const r = rnd() < 0.1 ? 1.6 : 0.9;
+                    g.fillRect(rnd() * W, rnd() * H, r, r);
                 }
+                const glow = g.createRadialGradient(SPLIT / 2, 300, 20, SPLIT / 2, 300, 380);
+                glow.addColorStop(0, 'rgba(160,60,220,0.28)'); glow.addColorStop(1, 'rgba(160,60,220,0)');
+                g.fillStyle = glow; g.fillRect(0, 0, SPLIT, H);
+                const sans = '"Arial Black", Impact, "Helvetica Neue", Arial, sans-serif';
                 const mono = '"Twemoji Country Flags", Consolas, "Courier New", monospace';
+                g.textAlign = 'center'; g.textBaseline = 'alphabetic';
+                const cx = SPLIT / 2;
+                g.font = '900 94px ' + sans;
+                const tg = g.createLinearGradient(0, 90, 0, 190);
+                tg.addColorStop(0, '#ffffff'); tg.addColorStop(0.45, '#e9a6ff'); tg.addColorStop(1, '#b03cf0');
+                g.shadowColor = 'rgba(210,90,255,0.8)'; g.shadowBlur = 28;
+                g.fillStyle = tg; g.fillText('FREESPACE', cx, 180);
+                g.shadowBlur = 0;
+                g.font = '900 250px ' + sans;
+                const fg = g.createLinearGradient(0, 220, 0, 450);
+                fg.addColorStop(0, '#fff27a'); fg.addColorStop(0.55, '#ffbe1f'); fg.addColorStop(1, '#ff8a00');
+                g.shadowColor = 'rgba(255,170,0,0.75)'; g.shadowBlur = 34;
+                g.fillStyle = fg; g.fillText('4X', cx, 420);
+                g.shadowBlur = 0;
+                g.fillStyle = '#e6faff'; g.font = 'bold 26px ' + mono;
+                g.fillText('FREE SPACE STRATEGY', cx, 490);
+                g.fillStyle = '#6dffb3'; g.font = 'bold 22px ' + mono;
+                g.fillText('ianmcgo.github.io/FreeSpace-4X', cx, 560);
+                g.fillStyle = 'rgba(185,253,255,0.6)'; g.font = '17px ' + mono;
+                g.fillText('Play free in your browser', cx, 590);
+                g.textAlign = 'left';
                 g.strokeStyle = 'rgba(127,249,255,0.5)'; g.lineWidth = 2;
                 g.beginPath(); g.moveTo(SPLIT, 0); g.lineTo(SPLIT, H); g.stroke();
-                const x0 = SPLIT + 36;
-                g.textBaseline = 'alphabetic';
-                g.fillStyle = '#da70d6'; g.font = 'bold 22px ' + mono;
-                g.fillText('FREESPACE 4X', x0, 56);
-                g.fillStyle = '#e6faff'; g.font = 'bold 30px ' + mono;
-                g.fillText('VISITOR ORIGINS', x0, 94);
-                g.fillStyle = '#b9fdff'; g.font = 'bold 84px ' + mono;
-                g.fillText(vgData.ok ? vgData.total.toLocaleString() : '---', x0, 190);
+                const x0 = SPLIT + 40, rw = W - x0 - 40;
+                g.fillStyle = '#b9fdff'; g.font = 'bold 88px ' + mono;
+                g.fillText(vgData.ok ? vgData.total.toLocaleString() : '---', x0, 100);
                 g.fillStyle = 'rgba(185,253,255,0.7)'; g.font = '18px ' + mono;
-                g.fillText('TOTAL VISITS', x0, 218);
+                g.fillText('TOTAL VISITS', x0, 130);
                 const cov = vgData.ok ? vgCoverage() : { got: 0, total: 195 };
                 const known = vgData.rows.filter(r => r.country !== 'ZZ');
-                const stk = vgStreaks();
-                const e = vgBadgeEarned();
+                const covPc = cov.total ? cov.got / cov.total * 100 : 0;
+                const wp = vgData.ok ? vgWorldPop() : 0;
+                let reach = '-';
+                if (vgData.ok && wp) {
+                    const pc = Math.max(vgData.total, 1) / (wp * 1e6) * 100;
+                    const dec = pc >= 1 ? 1 : Math.min(8, Math.max(2, 1 - Math.floor(Math.log10(pc))));
+                    reach = pc.toFixed(dec) + '% of ' + (wp / 1000).toFixed(1) + ' billion people';
+                }
                 const lines = [
-                    ['COUNTRIES', cov.got + ' of ' + cov.total],
+                    ['COUNTRIES REACHED', cov.got + ' of ' + cov.total + ' · ' + covPc.toFixed(covPc >= 10 ? 0 : 1) + '%'],
                     ['TOP ORIGIN', known.length ? vgLabel(known[0].country) : '-'],
-                    ['BEST STREAK', stk ? stk.best + (stk.best === 1 ? ' day' : ' days') : '-'],
-                    ['WORLD REACH', vgData.ok ? vgReachText(Math.max(vgData.total, 1), vgWorldPop()).replace(' people', '') : '-'],
-                    ['BADGES', vgBadgeShown(e.ids).length + ' earned']
+                    ['WORLD REACH', reach]
                 ];
-                let y = 276;
+                let y = 190;
                 lines.forEach(l => {
                     g.fillStyle = '#da70d6'; g.font = '16px ' + mono; g.fillText(l[0], x0, y);
-                    g.fillStyle = '#e6faff'; g.font = 'bold 22px ' + mono; g.fillText(l[1], x0, y + 28);
+                    g.fillStyle = '#e6faff'; g.font = 'bold 22px ' + mono; g.fillText(l[1], x0, y + 28, rw);
                     y += 62;
                 });
+                const dly = vgData.daily || [];
+                const ser = dly.slice(-30).map(r => r.views);
+                const sum = (arr) => arr.reduce((a, b) => a + b, 0);
+                const l7 = sum(dly.slice(-7).map(r => r.views)), p7 = sum(dly.slice(-14, -7).map(r => r.views));
+                let trend = 'NOT ENOUGH DATA YET';
+                if (ser.length >= 2 && sum(ser) > 0) {
+                    if (p7 > 0) { const ch = (l7 - p7) / p7 * 100; trend = (ch >= 0 ? '+' : '') + ch.toFixed(0) + '% vs previous 7 days (' + l7 + ' vs ' + p7 + ')'; }
+                    else trend = l7 + ' visits in the last 7 days';
+                }
+                g.fillStyle = '#da70d6'; g.font = '16px ' + mono; g.fillText('TREND · LAST 30 DAYS', x0, y);
+                g.fillStyle = '#e6faff'; g.font = 'bold 18px ' + mono; g.fillText(trend, x0, y + 26, rw);
+                if (ser.length >= 2 && sum(ser) > 0) {
+                    const mx = Math.max.apply(null, ser.concat([1])), bw = rw / ser.length, base = y + 100, mh = 56;
+                    ser.forEach((v, i) => {
+                        const h = v ? Math.max(3, v / mx * mh) : 1;
+                        g.fillStyle = v ? 'rgb(' + vgHeat(v / mx).join(',') + ')' : 'rgba(127,249,255,0.25)';
+                        g.fillRect(x0 + i * bw + bw * 0.12, base - h, bw * 0.76, h);
+                    });
+                }
                 g.fillStyle = 'rgba(185,253,255,0.55)'; g.font = '15px ' + mono;
                 g.fillText(new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }), x0, H - 24);
                 const blob = await new Promise(res => cv.toBlob(res, 'image/png'));
