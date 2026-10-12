@@ -313,6 +313,8 @@
         .vg-trend-head span:last-child { color: rgba(127, 249, 255, 0.8); letter-spacing: 0.08em; text-align: right; }
         .vg-trend svg { display: block; width: 100%; height: 40px; }
         .vg-trend.off { display: none; }
+        .vg-devbar { height: 10px; margin-top: 2px; }
+        #vg-dev svg { margin-top: 6px; }
         .vg-trend svg#vg-calsvg { height: auto; }
         .vg-conts i, .vg-legend span { cursor: pointer; }
         .vg-intel { border: 1px solid rgba(127, 249, 255, 0.35); padding: 4px 8px 8px; margin-bottom: 14px; background: rgba(127, 249, 255, 0.04); }
@@ -3308,7 +3310,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 1.22.0 (Updated: October 12, 2026 1:15 PM)</div>
+            <div class="version-text">Version 1.23.0 (Updated: October 12, 2026 1:45 PM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -3373,6 +3375,12 @@
             <div class="vg-trend" id="vg-cal">
                 <div class="vg-trend-head"><span id="vg-cal-title">CALENDAR</span><span id="vg-cal-note"></span></div>
                 <svg id="vg-calsvg" role="img" aria-label="Visits per day as a calendar grid"></svg>
+            </div>
+            <div class="vg-trend" id="vg-dev">
+                <div class="vg-trend-head"><span>DEVICES</span><span id="vg-dev-note"></span></div>
+                <div class="vg-conts vg-devbar" id="vg-devbar"></div>
+                <div class="vg-legend" id="vg-devleg"></div>
+                <svg id="vg-devsvg" viewBox="0 0 300 40" preserveAspectRatio="none" role="img" aria-label="Visits per day split by desktop and mobile"></svg>
             </div>
             <div class="vg-trend" id="vg-disc">
                 <div class="vg-trend-head"><span>DISCOVERY TIMELINE</span><span id="vg-disc-note"></span></div>
@@ -5535,7 +5543,7 @@
                 <p><b style="color:#da70d6;">Skip Years</b><br>In a single player game the <b>Skip Years</b> button beside End Turn plays several years in a row with your orders unchanged. Choose 1 to 100 years. Each year is played exactly as if you had pressed End Turn without changing anything: queues and Autobuild keep building, research continues, and fleets follow the waypoints they already have (a fleet with no orders stays put). The missing-order warning is not shown. The skip stops early, and tells you why, only when your empire fights a battle, when you lose a planet, or when a victory condition is met. Battles you only watch on your scanners and diplomacy requests do not interrupt it. The summary window opens only after all the years you chose have been played (or it stopped early), and any requests that arrived wait there for your answer. At the end you see the report of the last year played (earlier years are in the Galactic Event Log) and the game is saved. In multiplayer use Skip My Turns in the Settings menu instead; the button is hidden there.</p>
                 <p><b style="color:#da70d6;">Opening Intro</b><br>The first time the game is opened in a browser, a 20 second intro plays: shots of the galaxy map, fleets, the tilted Z view, planets, your territory, the Ship Designer, the cockpit and the Technology Browser cross-fade into each other with slow camera drifts, each held for about two seconds with its caption, then the FreeSpace 4x title glows in and holds for a few seconds while the closing chord rings out. It has its own sound track (a low space drone, a whoosh and chime on each shot, a rising sweep and a deep boom with a bright chord as the title appears), made up by the game like the rest of its sound. Browsers do not allow sound before you have clicked or pressed a key on a page, so on that very first visit a <b>🔊 Click for sound</b> sign appears in the top left: click anywhere or press any key once and the sound joins in from that moment. After that, a click or a key skips to the title screen; <b>Skip</b> in the top right and Escape always skip. Its loudness follows the louder of your Music and Sound Effects volumes (with a sensible minimum so it can be heard), and it is silent if both are off or at 0. The game's music is held back while the intro plays. It plays automatically only once per browser (clearing the site data brings it back) and never when you arrive from a multiplayer invite link or a password reset email. To watch it again, press <b>🎬 Watch Intro</b> at the top of the Help window, or <b>▶ Play Intro</b> in Settings, UI; it plays over whatever screen you are on and then returns you there.</p>
                 <p><b style="color:#da70d6;">Visitor Counter</b><br>The <b>Visitor Log</b> panel in the bottom right corner of the title screen shows how many times FreeSpace 4x has been opened by all players. The count is stored on the game server, so it goes up no matter where the game file is opened from (the website or a downloaded copy), as long as there is an internet connection. <b>What counts as a visit:</b> opening the game in a new browser tab counts once. Refreshing that tab on the same day does not count again. A tab left open counts once more on each new day (by your computer's clock). <b>Lights:</b> green <b>UPLINK</b> means the number is live from the server (it refreshes every few minutes while the title screen is showing); amber <b>OFFLINE</b> means the server cannot be reached, and the panel shows the last count this browser saw (or dashes if it has never connected). A visit made while offline is counted when the connection comes back. <b>Privacy:</b> the server keeps only the country each visit came from (worked out by the network the game server runs on). No IP address, account or other personal information is stored.</p>
-                <p><b style="color:#da70d6;">Visitor Origins Globe</b><br>Click the Visitor Log (or select it and press Enter) to open <b>Visitor Origins</b>, a holographic globe of Earth. <b>Pins:</b> every country with visitors glows and carries a pin; more visits make the pin taller, larger and brighter, going from cyan through magenta to white for the busiest country. Your own country pulses green and is marked <b>YOU</b> (shown even before it has a pin). <b>Moving around:</b> drag or swipe to spin the globe (it keeps spinning a little when you let go and turns slowly on its own when left alone), scroll the mouse wheel or pinch to zoom. <b>Details:</b> tap a pin or any country to open its card: number of visits, share of all traffic and when the last visit came in. The panel on the right (below the globe on a phone) shows the total visits, how many countries have visited, an intel box (top country and its share, the latest contact, your country's rank and the farthest visitor from your country; click a line to fly there) with a continent bar, the visits Today and in the Last 7 Days, a Last 30 Days bar chart (one bar per day, today outlined, the busiest day named above it; days follow Universal Time and counts only exist from October 12, 2026) and the top countries; click a country there to fly the globe to it. <b>Arcs and night:</b> glowing arcs run from each visiting country to your own (thicker and brighter for more visits, with a light flowing toward you; the selected country's arc turns white; no arcs show if your country is unknown). The night side of Earth is shaded for the current time of day, with a warm glow along the sunrise and sunset line. The <b>ARCS</b> and <b>NIGHT</b> buttons at the bottom left of the globe turn each on or off. <b>New countries:</b> a country with its first-ever visit is marked NEW for 24 hours (green pulsing ring and NEW label on its pin, NEW badge in the list, a NEW CONTACT banner when the globe opens, and its card shows the first contact time). <b>Replay:</b> the REPLAY button plays back visits day by day: drag the slider or press play, then press REPLAY again (or close the globe) to go back to live numbers. Replay needs at least two days of history; the server only began keeping per-country daily history on October 12, 2026, so it fills in over time, and countries on the map at that point count as first seen October 12. <b>Flags and search:</b> every country shows a flag (some Windows computers show two letters instead) and the SEARCH COUNTRY box above Top Origins finds any country by name or short name; Enter or a tap flies the globe there and opens its card. <b>Milestones:</b> when total visits pass 100, 250, 500, 1,000, 2,500, 5,000, 10,000 and so on, or the country count reaches 10, 25, 50, 100 or 150, golden rings pulse out from the globe and a MILESTONE REACHED banner appears the next time you open it (remembered per device; the first time on a device only notes where things stand). The NEXT MILESTONE line in the intel box shows how far away the next one is. <b>PER 1M:</b> shades the globe, pins, arcs and list by visits per million people instead of total visits, using rounded built-in population estimates plus one million per country so one visit from a tiny country does not dominate. <b>SOUND:</b> a soft ping when the globe opens, a chime for a NEW CONTACT and a rising chime for a milestone; the button turns them on or off (remembered per device) and they also follow your Sound Effects settings. <b>The moon:</b> a small moon orbits the globe and keeps orbiting while you move it. Its pin (marked ?) holds every visit with no known country: hidden or blocked locations, Tor, and the visits counted before country tracking began on October 12, 2026. Tap the moon or its row in the list to see that number. <b>Closing:</b> Close, the × button or Escape (Escape first closes an open card). Without an internet connection the globe still turns but shows NO SIGNAL instead of counts. Country shapes come from Natural Earth (public domain). <b>Arrival hour:</b> a 24-bar chart shows which hour of the day (in your local time) visitors tend to arrive; it fills in from the day it was added. <b>Live pulse:</b> while the globe is open it checks for new visits about every 20 seconds, and a white ripple plus a LIVE banner show where each new visitor came from. <b>Weekday pattern and streak:</b> a 7-bar chart shows the average visits for each day of the week, and the intel box shows the longest and current run of days with at least one visit (UTC days, last 90 days). Flag pictures come from the Twemoji flag set (CC BY 4.0), built into the game so they also show on Windows. <b>Panel tabs:</b> under the four number boxes, OVERVIEW shows the intel box, TRENDS shows the three charts, a calendar of up to 365 days (best day outlined in gold) and the discovery timeline, and ORIGINS shows the search box and country list. The last tab you used is remembered. <b>Reach and coverage:</b> a country card shows what share of its population the visits equal (an upper limit, since visits are not unique players). Overview shows WORLD REACH, two goal bars (next visit goal and next country goal, with an estimated arrival time based on recent visits) and a coverage bar of 195 countries (the continent bar under it is clickable and filters the Origins list); the Trends tab ends with a discovery timeline of each country's first visit, and tapping one flies to it; VIEW MISSING or the MISSING button on Origins lists countries that have not visited, and tapping one flies there. FIND ME, LATEST and TOP fly to your country, the newest visitor and the top country. <b>Country card and compare:</b> the card also shows first contact date, rank and a 30 day chart. COMPARE on the Origins tab lets you pick two countries and see them side by side. <b>Sort and continents:</b> on Origins, the SORT menu orders the list (visits, newest contact, most recent visit, A to Z) and the NA, SA, EU, AF, AS and OC buttons show one continent in the list and highlight it on the globe. <b>Badges, moon facts and share card:</b> Overview lists the badges you have earned (only the highest in each line, such as 6 CONTINENTS instead of 3 CONTINENTS), and they stay earned on your device. Tapping the Moon shows a moon fact. SAVE SHARE CARD (PNG) makes a picture with the game logo, your top origins, countries reached, world reach and the trend to post. A country card also has SHARE THIS COUNTRY for a picture of just that country. A pop-up shows the picture first; press DOWNLOAD PNG to save it, or right-click it and choose Save Image if the page blocks downloads.</p>
+                <p><b style="color:#da70d6;">Visitor Origins Globe</b><br>Click the Visitor Log (or select it and press Enter) to open <b>Visitor Origins</b>, a holographic globe of Earth. <b>Pins:</b> every country with visitors glows and carries a pin; more visits make the pin taller, larger and brighter, going from cyan through magenta to white for the busiest country. Your own country pulses green and is marked <b>YOU</b> (shown even before it has a pin). <b>Moving around:</b> drag or swipe to spin the globe (it keeps spinning a little when you let go and turns slowly on its own when left alone), scroll the mouse wheel or pinch to zoom. <b>Details:</b> tap a pin or any country to open its card: number of visits, share of all traffic and when the last visit came in. The panel on the right (below the globe on a phone) shows the total visits, how many countries have visited, an intel box (top country and its share, the latest contact, your country's rank and the farthest visitor from your country; click a line to fly there) with a continent bar, the visits Today and in the Last 7 Days, a Last 30 Days bar chart (one bar per day, today outlined, the busiest day named above it; days follow Universal Time and counts only exist from October 12, 2026) and the top countries; click a country there to fly the globe to it. <b>Arcs and night:</b> glowing arcs run from each visiting country to your own (thicker and brighter for more visits, with a light flowing toward you; the selected country's arc turns white; no arcs show if your country is unknown). The night side of Earth is shaded for the current time of day, with a warm glow along the sunrise and sunset line. The <b>ARCS</b> and <b>NIGHT</b> buttons at the bottom left of the globe turn each on or off. <b>New countries:</b> a country with its first-ever visit is marked NEW for 24 hours (green pulsing ring and NEW label on its pin, NEW badge in the list, a NEW CONTACT banner when the globe opens, and its card shows the first contact time). <b>Replay:</b> the REPLAY button plays back visits day by day: drag the slider or press play, then press REPLAY again (or close the globe) to go back to live numbers. Replay needs at least two days of history; the server only began keeping per-country daily history on October 12, 2026, so it fills in over time, and countries on the map at that point count as first seen October 12. <b>Flags and search:</b> every country shows a flag (some Windows computers show two letters instead) and the SEARCH COUNTRY box above Top Origins finds any country by name or short name; Enter or a tap flies the globe there and opens its card. <b>Milestones:</b> when total visits pass 100, 250, 500, 1,000, 2,500, 5,000, 10,000 and so on, or the country count reaches 10, 25, 50, 100 or 150, golden rings pulse out from the globe and a MILESTONE REACHED banner appears the next time you open it (remembered per device; the first time on a device only notes where things stand). The NEXT MILESTONE line in the intel box shows how far away the next one is. <b>PER 1M:</b> shades the globe, pins, arcs and list by visits per million people instead of total visits, using rounded built-in population estimates plus one million per country so one visit from a tiny country does not dominate. <b>SOUND:</b> a soft ping when the globe opens, a chime for a NEW CONTACT and a rising chime for a milestone; the button turns them on or off (remembered per device) and they also follow your Sound Effects settings. <b>The moon:</b> a small moon orbits the globe and keeps orbiting while you move it. Its pin (marked ?) holds every visit with no known country: hidden or blocked locations, Tor, and the visits counted before country tracking began on October 12, 2026. Tap the moon or its row in the list to see that number. <b>Closing:</b> Close, the × button or Escape (Escape first closes an open card). Without an internet connection the globe still turns but shows NO SIGNAL instead of counts. Country shapes come from Natural Earth (public domain). <b>Arrival hour:</b> a 24-bar chart shows which hour of the day (in your local time) visitors tend to arrive; it fills in from the day it was added. <b>Live pulse:</b> while the globe is open it checks for new visits about every 20 seconds, and a white ripple plus a LIVE banner show where each new visitor came from. <b>Weekday pattern and streak:</b> a 7-bar chart shows the average visits for each day of the week, and the intel box shows the longest and current run of days with at least one visit (UTC days, last 90 days). Flag pictures come from the Twemoji flag set (CC BY 4.0), built into the game so they also show on Windows. <b>Panel tabs:</b> under the four number boxes, OVERVIEW shows the intel box, TRENDS shows the three charts, a calendar of up to 365 days (best day outlined in gold), a desktop vs mobile split (counted from when the device update went live) and the discovery timeline, and ORIGINS shows the search box and country list. The last tab you used is remembered. <b>Reach and coverage:</b> a country card shows what share of its population the visits equal (an upper limit, since visits are not unique players). Overview shows WORLD REACH, two goal bars (next visit goal and next country goal, with an estimated arrival time based on recent visits) and a coverage bar of 195 countries (the continent bar under it is clickable and filters the Origins list); the Trends tab ends with a discovery timeline of each country's first visit, and tapping one flies to it; VIEW MISSING or the MISSING button on Origins lists countries that have not visited, and tapping one flies there. FIND ME, LATEST and TOP fly to your country, the newest visitor and the top country. <b>Country card and compare:</b> the card also shows first contact date, rank and a 30 day chart. COMPARE on the Origins tab lets you pick two countries and see them side by side. <b>Sort and continents:</b> on Origins, the SORT menu orders the list (visits, newest contact, most recent visit, A to Z) and the NA, SA, EU, AF, AS and OC buttons show one continent in the list and highlight it on the globe. <b>Badges, moon facts and share card:</b> Overview lists the badges you have earned (only the highest in each line, such as 6 CONTINENTS instead of 3 CONTINENTS), and they stay earned on your device. Tapping the Moon shows a moon fact. SAVE SHARE CARD (PNG) makes a picture with the game logo, your top origins, countries reached, world reach and the trend to post. A country card also has SHARE THIS COUNTRY for a picture of just that country. A pop-up shows the picture first; press DOWNLOAD PNG to save it, or right-click it and choose Save Image if the page blocks downloads.</p>
                 <p><b style="color:#da70d6;">Full Screen</b><br>On a computer, press <b>F</b> any time (except while typing in a box) to make the game fill your whole screen, and press F again or Esc to leave. Settings, UI also has a <b>Full Screen</b> button at the very top. The button is hidden on phones and tablets, and in places that do not allow full screen it says so.</p>
                 <p><b style="color:#da70d6;">Music and Sound Effects</b><br>Both start at a quiet 5%, so raise them to taste. The game plays calm space music that is made up fresh each time, plus sound effects for button clicks, ending your turn, the Year Report, notices, victory and defeat. When a Year Report shows that you met a new empire you hear a short first-contact call, and when your ships or scanners surveyed new planets you hear a scanner sweep. While a message window is open the music drops to a fifth of its volume and comes back when the window closes. Sound starts after your first click or key press. Open Settings, UI to find the Music and Sound Effects sections. Each has a volume slider and an ON/OFF button, so you can quiet one, switch off one, or switch off both. Your choices are saved on this device. Sound pauses while the browser tab is hidden.</p>
                 <p><b style="color:#da70d6;">Galaxy Names and Fun Facts</b><br>Unless you type your own name on the New Game screen, every new galaxy is named after a real one, like Andromeda, the Whirlpool Galaxy or the Large Magellanic Cloud, and the name appears in your first event log entry. Select a surveyed planet that is named after a real star, like Vega, Sirius or Rigel, and press the <b>Fun Fact</b> button on the planet card (Planet Summary and Planet Roster), just below Send a Fleet Here, to read a true fact about that star. Press it again to hide the text. Homeworlds, planets you have not surveyed and planets with an invented name have no button.</p>
@@ -6580,7 +6588,7 @@
         const ORBIT_SPEED = 0.15;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '1.22.0';
+        const GAME_VERSION = '1.23.0';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -24334,6 +24342,11 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '1.23.0', d: "Oct 12, 2026 1:45 PM", t: "Desktop vs Mobile Split", items: [
+                'Trends has a new DEVICES box: a bar showing the share of visits from desktop and from mobile (touch only devices such as phones and tablets), the visit count for each, and a 30 day chart split by device.',
+                'Only a coarse desktop or mobile label is recorded with each counted visit. Nothing about the person or device is stored.',
+                'This needs the Supabase update 53_device_views.sql. Counting starts the day that update is applied, so earlier visits have no device information, and the box stays hidden until the first device visits arrive.'
+            ] },
             { v: '1.22.0', d: "Oct 12, 2026 1:15 PM", t: "Share a Country Card", items: [
                 'Every country card on the Visitor Origins globe that has visits now has a SHARE THIS COUNTRY button. It makes a picture with the FREESPACE 4X logo, the country name and flag, its visits, share of all traffic, rank, reach as a percent of its population, first contact date and a 30 day trend chart with the change against the previous 7 days.',
                 'The same confirm pop-up as the main share card appears first; press DOWNLOAD PNG to save it (the file is named after the country code), or right-click or long-press the picture and choose Save Image.'
@@ -37092,6 +37105,14 @@ const DEFENDERS_PER_POP=100;
                 if (el) el.innerHTML = vcDigitsHtml(null);
             }
         }
+        function vcDeviceKind() {
+            try { return window.matchMedia('(hover: none) and (pointer: coarse)').matches ? 'mobile' : 'desktop'; } catch (e) { return 'desktop'; }
+        }
+
+        function vcSendDevice(c) {
+            try { Promise.resolve(c.rpc('bump_site_view_device', { p_device: vcDeviceKind() })).catch(() => { }); } catch (e) { }
+        }
+
         async function vcTick(force) {
             if (vcBusy) return;
             const now = Date.now();
@@ -37111,6 +37132,7 @@ const DEFENDERS_PER_POP=100;
                 if (!counted) {
                     vcMemDay = day;
                     vcStore('s', VC_DAY_KEY, day);
+                    vcSendDevice(c);
                 }
                 vcStore('l', VC_LAST_KEY, String(n));
                 vcFailed = false;
@@ -38660,6 +38682,53 @@ const DEFENDERS_PER_POP=100;
             document.getElementById('vg-cal-note').textContent = 'BEST ' + vgDate(d[bi].day + 'T12:00:00Z').replace(/, \d{4}$/, '').toUpperCase() + ' · ' + d[bi].views.toLocaleString();
         }
 
+        function vgRenderDev() {
+            const box = document.getElementById('vg-dev');
+            const d = vgData.dev;
+            const tot = { desktop: 0, mobile: 0 };
+            (d || []).forEach(r => { if (r.device in tot) tot[r.device] += r.views; });
+            const all = tot.desktop + tot.mobile;
+            if (!vgData.ok || !all) { box.classList.add('off'); return; }
+            box.classList.remove('off');
+            const cols = { desktop: '#7ff9ff', mobile: '#da70d6' };
+            const names = { desktop: 'Desktop', mobile: 'Mobile' };
+            const bar = document.getElementById('vg-devbar'), leg = document.getElementById('vg-devleg');
+            bar.innerHTML = ''; leg.innerHTML = '';
+            ['desktop', 'mobile'].forEach(k => {
+                if (!tot[k]) return;
+                const pct = tot[k] / all * 100;
+                const i = document.createElement('i');
+                i.style.flex = String(tot[k]); i.style.background = cols[k];
+                i.title = names[k] + ': ' + tot[k].toLocaleString() + ' visits';
+                bar.appendChild(i);
+                const sp = document.createElement('span'), em = document.createElement('em');
+                em.style.background = cols[k];
+                sp.append(em, names[k] + ' ' + (pct < 10 ? pct.toFixed(1) : Math.round(pct)) + '% · ' + tot[k].toLocaleString());
+                leg.appendChild(sp);
+            });
+            const days = [...new Set(d.filter(r => r.views > 0).map(r => r.day))].sort();
+            document.getElementById('vg-dev-note').textContent = 'SINCE ' + vgDate(days[0] + 'T12:00:00Z').replace(/, \d{4}$/, '').toUpperCase();
+            leg.title = 'Counted from the day device tracking began; earlier visits have no device information.';
+            const by = {};
+            d.forEach(r => { (by[r.day] = by[r.day] || { desktop: 0, mobile: 0 })[r.device] = r.views; });
+            const out = [];
+            for (let i = 29; i >= 0; i--) {
+                const k = new Date(Date.now() - i * 864e5).toISOString().slice(0, 10);
+                out.push(by[k] || { desktop: 0, mobile: 0 });
+            }
+            const mx = out.reduce((m, o) => Math.max(m, o.desktop + o.mobile), 1);
+            const w = 300 / out.length;
+            let g = '';
+            out.forEach((o, i) => {
+                const hd = o.desktop / mx * 38, hm = o.mobile / mx * 38;
+                const x = (i * w + w * 0.12).toFixed(1), bw = (w * 0.76).toFixed(1);
+                if (!o.desktop && !o.mobile) g += '<rect x="' + x + '" y="39" width="' + bw + '" height="1" fill="rgba(127,249,255,0.2)"/>';
+                if (o.desktop) g += '<rect x="' + x + '" y="' + (40 - hd).toFixed(1) + '" width="' + bw + '" height="' + Math.max(1, hd).toFixed(1) + '" fill="' + cols.desktop + '"/>';
+                if (o.mobile) g += '<rect x="' + x + '" y="' + (40 - hd - hm).toFixed(1) + '" width="' + bw + '" height="' + Math.max(1, hm).toFixed(1) + '" fill="' + cols.mobile + '"/>';
+            });
+            document.getElementById('vg-devsvg').innerHTML = g;
+        }
+
         function vgRenderDisc() {
             const box = document.getElementById('vg-disc');
             const list = document.getElementById('vg-disc-list');
@@ -38910,7 +38979,7 @@ const DEFENDERS_PER_POP=100;
         function vgSyncPanes() {
             const off = id => document.getElementById(id).classList.contains('off');
             document.getElementById('vg-ov-empty').classList.toggle('on', off('vg-intel'));
-            document.getElementById('vg-tr-empty').classList.toggle('on', off('vg-trend') && off('vg-hours') && off('vg-wk') && off('vg-cal') && off('vg-disc'));
+            document.getElementById('vg-tr-empty').classList.toggle('on', off('vg-trend') && off('vg-hours') && off('vg-wk') && off('vg-cal') && off('vg-dev') && off('vg-disc'));
         }
 
         function vgRenderList() {
@@ -38931,6 +39000,7 @@ const DEFENDERS_PER_POP=100;
             vgRenderHours();
             vgRenderWeek();
             vgRenderCal();
+            vgRenderDev();
             vgRenderDisc();
             vgRenderIntel();
             vgRenderBadges();
@@ -39022,7 +39092,10 @@ const DEFENDERS_PER_POP=100;
             try {
                 const calls = [c.rpc('get_country_views'), c.rpc('get_daily_views', { n: 365 }), c.rpc('get_country_firsts'), c.rpc('get_country_daily', { n: 60 }), c.rpc('get_hour_views')];
                 if (vgMyCountry === null) calls.push(c.rpc('my_country'));
-                const res = await Promise.all(calls);
+                const pair = await Promise.all([Promise.all(calls), Promise.resolve(c.rpc('get_device_views', { n: 90 })).catch(() => null)]);
+                const res = pair[0];
+                const dv = pair[1];
+                vgData.dev = dv && !dv.error && Array.isArray(dv.data) ? dv.data.map(r => ({ day: String(r.day).slice(0, 10), device: String(r.device), views: Number(r.views) || 0 })) : vgData.dev || null;
                 const dly = res[1];
                 vgData.daily = dly && !dly.error && Array.isArray(dly.data) ? dly.data.map(r => ({ day: String(r.day).slice(0, 10), views: Number(r.views) || 0 })) : vgData.daily || null;
                 if (res[0].error || !Array.isArray(res[0].data)) throw res[0].error || new Error('no data');
