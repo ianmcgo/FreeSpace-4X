@@ -286,6 +286,7 @@
         .vg-title span { display: block; margin-top: 4px; font-size: 10px; letter-spacing: 0.28em; color: rgba(127, 249, 255, 0.75); }
         .vg-hint { position: absolute; right: 24px; bottom: 26px; font-size: 10px; letter-spacing: 0.22em; color: rgba(185, 253, 255, 0.6); white-space: nowrap; pointer-events: none; transition: opacity 0.8s ease; }
         .vg-hint.gone { opacity: 0; }
+        @media (min-width: 761px) and (max-width: 1240px) { .vg-hint { display: none; } }
         .vg-msg { position: absolute; left: 50%; top: 22px; transform: translateX(-50%); font-size: 11px; letter-spacing: 0.2em; padding: 4px 10px; border: 1px solid rgba(255, 179, 71, 0.6); color: #ffb347; background: rgba(20, 12, 4, 0.7); display: none; pointer-events: none; white-space: nowrap; }
         .vg-msg.on { display: block; }
         .vg-msg.wait { border-color: rgba(127, 249, 255, 0.55); color: #7ff9ff; background: rgba(4, 14, 22, 0.7); animation: vcBlink 0.9s steps(2, start) infinite; }
@@ -3240,7 +3241,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 1.13.1 (Updated: October 12, 2026 10:52 AM)</div>
+            <div class="version-text">Version 1.13.2 (Updated: October 12, 2026 11:08 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -6454,7 +6455,7 @@
         const ORBIT_SPEED = 0.15;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '1.13.1';
+        const GAME_VERSION = '1.13.2';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -24208,6 +24209,9 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '1.13.2', d: "Oct 12, 2026 11:08 AM", t: "Globe Hint Overlap", items: [
+                'Fixed: in a small browser window, such as the itch.io page before going fullscreen, the DRAG TO ROTATE hint at the bottom of the Visitor Origins globe overlapped the ARCS, NIGHT, REPLAY, PER 1M and SOUND buttons. The hint now hides when the window is too narrow to fit both.'
+            ] },
             { v: '1.13.1', d: "Oct 12, 2026 10:52 AM", t: "Globe Panel Fit", items: [
                 'Fixed: on shorter screens, such as itch.io fullscreen, the Visitor Origins side panel was cut off at the bottom, hiding the country list and the CLOSE button. The charts are now more compact on short screens, the country list always keeps some room, and the whole panel scrolls if it still does not fit.'
             ] },
