@@ -317,17 +317,18 @@
         .vg-empty { padding: 14px 4px; font-size: 11px; color: rgba(185, 253, 255, 0.5); line-height: 1.5; }
         .vg-close { margin-top: 12px; width: 100%; padding: 9px; font: bold 12px 'Consolas', 'Courier New', monospace; letter-spacing: 0.3em; color: #7ff9ff; background: rgba(127, 249, 255, 0.06); border: 1px solid rgba(127, 249, 255, 0.6); cursor: pointer; }
         .vg-close:hover { background: rgba(127, 249, 255, 0.16); box-shadow: 0 0 10px rgba(127, 249, 255, 0.4); }
-        .vg-x { position: absolute; right: 314px; top: 16px; z-index: 3; width: 34px; height: 34px; font-size: 22px; line-height: 1; color: #7ff9ff; background: rgba(4, 10, 20, 0.7); border: 1px solid rgba(127, 249, 255, 0.55); cursor: pointer; }
+        .vg-x { position: absolute; right: 346px; top: 46px; z-index: 3; width: 34px; height: 34px; font-size: 22px; line-height: 1; color: #7ff9ff; background: rgba(4, 10, 20, 0.7); border: 1px solid rgba(127, 249, 255, 0.55); cursor: pointer; }
         .vg-x:hover { background: rgba(127, 249, 255, 0.18); }
         @media (max-width: 760px) {
             .vg-overlay { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; }
             .vg-side { border-left: 0; border-top: 1px solid rgba(127, 249, 255, 0.3); max-height: 38vh; padding: 10px 12px 10px; }
             .vg-stats { margin-bottom: 8px; }
             .vg-stat b { font-size: 18px; }
-            .vg-x { right: 14px; top: 12px; }
+            .vg-x { right: 46px; top: 46px; }
             .vg-title { left: 18px; top: 16px; }
             .vg-title span { font-size: 8.5px; }
-            .vg-card { right: 14px; top: auto; bottom: 14px; min-width: 0; max-width: 62%; padding: 9px 11px; }
+            .vg-msg { top: 76px; font-size: 10px; letter-spacing: 0.12em; }
+            .vg-card { right: 30px; top: auto; bottom: 30px; min-width: 0; max-width: 62%; padding: 9px 11px; }
             .vg-card-name { font-size: 15px; }
             .vg-card-num { font-size: 20px; }
             .vg-hint { display: none; }
@@ -3175,7 +3176,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 1.2.0 (Updated: October 12, 2026 1:55 AM)</div>
+            <div class="version-text">Version 1.2.1 (Updated: October 12, 2026 9:12 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -5302,7 +5303,7 @@
                 <p><b style="color:#da70d6;">Skip Years</b><br>In a single player game the <b>Skip Years</b> button beside End Turn plays several years in a row with your orders unchanged. Choose 1 to 100 years. Each year is played exactly as if you had pressed End Turn without changing anything: queues and Autobuild keep building, research continues, and fleets follow the waypoints they already have (a fleet with no orders stays put). The missing-order warning is not shown. The skip stops early, and tells you why, only when your empire fights a battle, when you lose a planet, or when a victory condition is met. Battles you only watch on your scanners and diplomacy requests do not interrupt it. The summary window opens only after all the years you chose have been played (or it stopped early), and any requests that arrived wait there for your answer. At the end you see the report of the last year played (earlier years are in the Galactic Event Log) and the game is saved. In multiplayer use Skip My Turns in the Settings menu instead; the button is hidden there.</p>
                 <p><b style="color:#da70d6;">Opening Intro</b><br>The first time the game is opened in a browser, a 20 second intro plays: shots of the galaxy map, fleets, the tilted Z view, planets, your territory, the Ship Designer, the cockpit and the Technology Browser cross-fade into each other with slow camera drifts, each held for about two seconds with its caption, then the FreeSpace 4x title glows in and holds for a few seconds while the closing chord rings out. It has its own sound track (a low space drone, a whoosh and chime on each shot, a rising sweep and a deep boom with a bright chord as the title appears), made up by the game like the rest of its sound. Browsers do not allow sound before you have clicked or pressed a key on a page, so on that very first visit a <b>🔊 Click for sound</b> sign appears in the top left: click anywhere or press any key once and the sound joins in from that moment. After that, a click or a key skips to the title screen; <b>Skip</b> in the top right and Escape always skip. Its loudness follows the louder of your Music and Sound Effects volumes (with a sensible minimum so it can be heard), and it is silent if both are off or at 0. The game's music is held back while the intro plays. It plays automatically only once per browser (clearing the site data brings it back) and never when you arrive from a multiplayer invite link or a password reset email. To watch it again, press <b>🎬 Watch Intro</b> at the top of the Help window, or <b>▶ Play Intro</b> in Settings, UI; it plays over whatever screen you are on and then returns you there.</p>
                 <p><b style="color:#da70d6;">Visitor Counter</b><br>The <b>Visitor Log</b> panel in the bottom right corner of the title screen shows how many times FreeSpace 4x has been opened by all players. The count is stored on the game server, so it goes up no matter where the game file is opened from (the website or a downloaded copy), as long as there is an internet connection. <b>What counts as a visit:</b> opening the game in a new browser tab counts once. Refreshing that tab on the same day does not count again. A tab left open counts once more on each new day (by your computer's clock). <b>Lights:</b> green <b>UPLINK</b> means the number is live from the server (it refreshes every few minutes while the title screen is showing); amber <b>OFFLINE</b> means the server cannot be reached, and the panel shows the last count this browser saw (or dashes if it has never connected). A visit made while offline is counted when the connection comes back. <b>Privacy:</b> the server keeps only the country each visit came from (worked out by the network the game server runs on). No IP address, account or other personal information is stored.</p>
-                <p><b style="color:#da70d6;">Visitor Origins Globe</b><br>Click the Visitor Log (or select it and press Enter) to open <b>Visitor Origins</b>, a holographic globe of Earth. <b>Pins:</b> every country with visitors glows and carries a pin; more visits make the pin taller, larger and brighter, going from cyan through magenta to white for the busiest country. Your own country pulses green and is marked <b>YOU</b> (shown even before it has a pin). <b>Moving around:</b> drag or swipe to spin the globe (it keeps spinning a little when you let go and turns slowly on its own when left alone), scroll the mouse wheel or pinch to zoom. <b>Details:</b> tap a pin or any country to open its card: number of visits, share of all traffic and when the last visit came in. The panel on the right (below the globe on a phone) shows the total visits, how many countries have visited and the top countries; click a country there to fly the globe to it. <b>The moon:</b> a small moon orbits the globe. Its pin (marked ?) holds every visit with no known country: hidden or blocked locations, Tor, and the visits counted before country tracking began on October 12, 2026. Tap the moon or its row in the list to see that number. <b>Closing:</b> Close, the × button or Escape (Escape first closes an open card). Without an internet connection the globe still turns but shows NO SIGNAL instead of counts. Country shapes come from Natural Earth (public domain).</p>
+                <p><b style="color:#da70d6;">Visitor Origins Globe</b><br>Click the Visitor Log (or select it and press Enter) to open <b>Visitor Origins</b>, a holographic globe of Earth. <b>Pins:</b> every country with visitors glows and carries a pin; more visits make the pin taller, larger and brighter, going from cyan through magenta to white for the busiest country. Your own country pulses green and is marked <b>YOU</b> (shown even before it has a pin). <b>Moving around:</b> drag or swipe to spin the globe (it keeps spinning a little when you let go and turns slowly on its own when left alone), scroll the mouse wheel or pinch to zoom. <b>Details:</b> tap a pin or any country to open its card: number of visits, share of all traffic and when the last visit came in. The panel on the right (below the globe on a phone) shows the total visits, how many countries have visited and the top countries; click a country there to fly the globe to it. <b>The moon:</b> a small moon orbits the globe and keeps orbiting while you move it. Its pin (marked ?) holds every visit with no known country: hidden or blocked locations, Tor, and the visits counted before country tracking began on October 12, 2026. Tap the moon or its row in the list to see that number. <b>Closing:</b> Close, the × button or Escape (Escape first closes an open card). Without an internet connection the globe still turns but shows NO SIGNAL instead of counts. Country shapes come from Natural Earth (public domain).</p>
                 <p><b style="color:#da70d6;">Music and Sound Effects</b><br>Both start at a quiet 5%, so raise them to taste. The game plays calm space music that is made up fresh each time, plus sound effects for button clicks, ending your turn, the Year Report, notices, victory and defeat. When a Year Report shows that you met a new empire you hear a short first-contact call, and when your ships or scanners surveyed new planets you hear a scanner sweep. While a message window is open the music drops to a fifth of its volume and comes back when the window closes. Sound starts after your first click or key press. Open Settings, UI to find the Music and Sound Effects sections. Each has a volume slider and an ON/OFF button, so you can quiet one, switch off one, or switch off both. Your choices are saved on this device. Sound pauses while the browser tab is hidden.</p>
                 <p><b style="color:#da70d6;">Galaxy Names and Fun Facts</b><br>Unless you type your own name on the New Game screen, every new galaxy is named after a real one, like Andromeda, the Whirlpool Galaxy or the Large Magellanic Cloud, and the name appears in your first event log entry. Select a surveyed planet that is named after a real star, like Vega, Sirius or Rigel, and press the <b>Fun Fact</b> button on the planet card (Planet Summary and Planet Roster), just below Send a Fleet Here, to read a true fact about that star. Press it again to hide the text. Homeworlds, planets you have not surveyed and planets with an invented name have no button.</p>
                 <p><b style="color:#da70d6;">The Event Log</b><br>The log keeps 600 entries; at 600 the oldest 200 are deleted, and a pop-up warns you from 500 entries on. Export Event Log lets you choose a year range and the kinds of information to save, and Settings, UI, Event Log Display hides kinds you do not want to see on screen (they stay saved). Year summaries can be hidden whole, and the other kinds also filter the lines inside a summary. The event log panel keeps a history of your empire. Giving an order writes nothing to the log: orders are only plans until the year is played out. When the year runs, the things that actually happened are logged: a fleet setting out for a destination or arriving, colonists landing, items built, research finished, and one Year summary entry with everything the Year Report said (lines already logged on their own are not repeated inside it). Old Orders given entries from earlier versions stay in saved logs. Your log holds only your own empire's story: other empires' orders, fleets, production and research never appear in it, only events that touch you, such as a battle at your world, a minefield hit, a bombing, an alliance or a Mystery Trader, including what each tech level-up unlocked. Survey and contact messages list each world with its habitability for your people and its owner. Use Settings, Export Event Log to save the whole log as a text file.</p>
@@ -6338,7 +6339,7 @@
         const ORBIT_SPEED = 0.15;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '1.2.0';
+        const GAME_VERSION = '1.2.1';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -24092,6 +24093,13 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '1.2.1', d: "Oct 12, 2026 9:12 AM", t: "Globe Fixes", items: [
+                'Visitor Origins: tapping a country on the globe now works on phones. A tap anywhere on a country selects it, and a tap just beside a coast or on a small country picks the nearest one, instead of only registering near the pink pin.',
+                'The moon keeps orbiting while you drag or pinch the globe.',
+                'The globe now opens closer in, so the planet fills more of the screen. Zoom out to see the whole moon orbit.',
+                'The close × button now sits clear of the corner border instead of touching it.',
+                'Fixed the globe drawing slightly stretched on phones, which also threw taps off target when the list below it loaded after the globe opened.'
+            ] },
             { v: '1.2.0', d: "Oct 12, 2026 1:55 AM", t: "Visitor Origins Globe", items: [
                 'The Visitor Log on the title screen is now a button. Click it (or press Enter on it) to open Visitor Origins: a holographic globe of Earth showing where visitors come from.',
                 'Countries with visitors glow, and each one has a pin that grows taller, bigger and brighter (cyan, then magenta, then white) the more visits it has. Your own country pulses green with a YOU marker.',
@@ -36875,21 +36883,6 @@ const DEFENDERS_PER_POP=100;
             }
         }
 
-        function vgBakeIds() {
-            const W = 1024, H = 512;
-            const cv = document.createElement('canvas');
-            cv.width = W; cv.height = H;
-            const g = cv.getContext('2d');
-            g.fillStyle = '#000'; g.fillRect(0, 0, W, H);
-            vgDecode().shapes.forEach((s, i) => {
-                g.beginPath();
-                s.rings.forEach(r => vgRingPath(g, r, W, H, 0));
-                g.fillStyle = 'rgb(' + (i + 1) + ',255,0)';
-                g.fill('evenodd');
-            });
-            vg.ids = g.getImageData(0, 0, W, H).data;
-        }
-
         function vgMoonTexture() {
             const W = 512, H = 256;
             const cv = document.createElement('canvas');
@@ -37244,32 +37237,86 @@ const DEFENDERS_PER_POP=100;
             vg.selPt = null;
         }
 
-        function vgPickGlobe(sx, sy) {
+        function vgPolys() {
+            if (vg.polys) return vg.polys;
+            vg.polys = vgDecode().shapes.map(sh => {
+                const rings = sh.rings.map(ring => {
+                    let prev = null, shift = 0;
+                    const pts = ring.map(p => {
+                        let lon = p[0] + shift;
+                        if (prev !== null) {
+                            while (lon - prev > 180) { shift -= 360; lon -= 360; }
+                            while (prev - lon > 180) { shift += 360; lon += 360; }
+                        }
+                        prev = lon;
+                        return [lon, p[1]];
+                    });
+                    const span = pts[pts.length - 1][0] - pts[0][0];
+                    if (Math.abs(span) > 300) {
+                        const pole = pts[0][1] < 0 ? -90 : 90;
+                        pts.push([pts[pts.length - 1][0], pole], [pts[0][0], pole]);
+                    }
+                    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+                    pts.forEach(p => { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); });
+                    return { pts: pts, x0: x0, x1: x1, y0: y0, y1: y1 };
+                });
+                return { code: sh.code, rings: rings };
+            });
+            return vg.polys;
+        }
+
+        function vgLandAt(lat, lon) {
+            const polys = vgPolys();
+            for (let n = 0; n < polys.length; n++) {
+                const sh = polys[n];
+                for (let o = -360; o <= 360; o += 360) {
+                    const x = lon + o;
+                    let odd = false;
+                    for (let r = 0; r < sh.rings.length; r++) {
+                        const rg = sh.rings[r];
+                        if (x < rg.x0 || x > rg.x1 || lat < rg.y0 || lat > rg.y1) continue;
+                        const pts = rg.pts;
+                        for (let i = 0, k = pts.length - 1; i < pts.length; k = i++) {
+                            const a = pts[i], b = pts[k];
+                            if ((a[1] > lat) !== (b[1] > lat) && x < (b[0] - a[0]) * (lat - a[1]) / (b[1] - a[1]) + a[0]) odd = !odd;
+                        }
+                    }
+                    if (odd) return sh.code !== '--' ? sh.code : null;
+                }
+            }
+            return null;
+        }
+
+        function vgScreenLL(sx, sy) {
             const C = vg.C;
             if (!C) return null;
             const nx = sx / vg.w * 2 - 1, ny = 1 - sy / vg.h * 2;
             const d = [nx * C.aspect / C.f, ny / C.f, -1];
             const dl = Math.hypot(d[0], d[1], d[2]);
             d[0] /= dl; d[1] /= dl; d[2] /= dl;
-            const o = [0, 0, C.cam];
-            const b = o[0] * d[0] + o[1] * d[1] + o[2] * d[2];
-            const c = C.cam * C.cam - 1;
-            const disc = b * b - c;
+            const b = C.cam * d[2];
+            const disc = b * b - (C.cam * C.cam - 1);
             if (disc < 0) return null;
             const t = -b - Math.sqrt(disc);
-            const h = [o[0] + d[0] * t, o[1] + d[1] * t, o[2] + d[2] * t];
+            const h = [d[0] * t, d[1] * t, C.cam + d[2] * t];
             const r = vg.rot;
             const p = [r[0] * h[0] + r[3] * h[1] + r[6] * h[2], r[1] * h[0] + r[4] * h[1] + r[7] * h[2], r[2] * h[0] + r[5] * h[1] + r[8] * h[2]];
-            const lat = Math.asin(Math.max(-1, Math.min(1, p[1]))) * 180 / Math.PI;
-            const lon = Math.atan2(p[0], p[2]) * 180 / Math.PI;
-            if (!vg.ids) return { lat: lat, lon: lon, code: null };
-            const px = Math.min(1023, Math.max(0, Math.floor((lon + 180) / 360 * 1024)));
-            const py = Math.min(511, Math.max(0, Math.floor((90 - lat) / 180 * 512)));
-            const k = (py * 1024 + px) * 4;
-            const shapes = vgDecode().shapes;
-            const id = vg.ids[k] - 1;
-            const code = vg.ids[k + 1] === 255 && id >= 0 && id < shapes.length ? shapes[id].code : null;
-            return { lat: lat, lon: lon, code: code && code !== '--' ? code : null };
+            return { lat: Math.asin(Math.max(-1, Math.min(1, p[1]))) * 180 / Math.PI, lon: Math.atan2(p[0], p[2]) * 180 / Math.PI };
+        }
+
+        function vgPickGlobe(sx, sy) {
+            const c = vgScreenLL(sx, sy);
+            if (!c) return null;
+            let code = vgLandAt(c.lat, c.lon);
+            const reach = vg.touch ? [14, 28, 42] : [8, 16];
+            for (let q = 0; q < reach.length && !code; q++) {
+                for (let k = 0; k < 8 && !code; k++) {
+                    const a = k * Math.PI / 4;
+                    const e = vgScreenLL(sx + Math.cos(a) * reach[q], sy + Math.sin(a) * reach[q]);
+                    if (e) code = vgLandAt(e.lat, e.lon);
+                }
+            }
+            return { lat: c.lat, lon: c.lon, code: code };
         }
 
         function vgPick(sx, sy) {
@@ -37448,7 +37495,7 @@ const DEFENDERS_PER_POP=100;
                 vg.velPitch *= Math.exp(-dt * 2.5);
                 if (!vg.reduce && now - vg.lastInput > 4000 && !vg.sel) vg.yaw += 0.12 * dt;
             }
-            if (!vg.dragging && !vg.reduce) vg.moonA += 0.22 * dt;
+            if (!vg.reduce) vg.moonA += 0.22 * dt;
             vg.moonSpin += 0.1 * dt;
             vgDraw(now);
             vg.raf = requestAnimationFrame(vgLoop);
@@ -37456,10 +37503,9 @@ const DEFENDERS_PER_POP=100;
 
         function vgSetup() {
             if (vg) return;
-            vg = { yaw: 1.9, pitch: 0.35, zoom: 1, velYaw: 0, velPitch: 0, moonA: 0.6, moonSpin: 0, lastInput: 0, sel: null, pointers: new Map(), reduce: !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) };
+            vg = { yaw: 1.9, pitch: 0.35, zoom: 1.5, velYaw: 0, velPitch: 0, moonA: 0.6, moonSpin: 0, lastInput: 0, sel: null, pointers: new Map(), reduce: !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) };
             if (vg.reduce) vg.moonA = 0.9;
             vgBakeTexture(null);
-            vgBakeIds();
             if (!vgInitGl()) vgMsg('3D VIEW UNAVAILABLE ON THIS DEVICE');
             const st = document.getElementById('vg-stage');
             const pos = e => { const r = st.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
@@ -37469,6 +37515,7 @@ const DEFENDERS_PER_POP=100;
                 const p = pos(e);
                 vg.pointers.set(e.pointerId, p);
                 vg.fly = null;
+                vg.touch = e.pointerType === 'touch' || e.pointerType === 'pen';
                 vg.lastInput = performance.now();
                 document.getElementById('vg-hint').classList.add('gone');
                 if (vg.pointers.size === 1) {
@@ -37515,7 +37562,7 @@ const DEFENDERS_PER_POP=100;
                     vg.dragging = false;
                     st.classList.remove('drag');
                     if (performance.now() - vg.lastMove > 90) { vg.velYaw = 0; vg.velPitch = 0; }
-                    if (e.type === 'pointerup' && vg.moved < 6 && !vg.pinched) { vg.velYaw = 0; vg.velPitch = 0; vgPick(p[0], p[1]); }
+                    if (e.type === 'pointerup' && vg.moved < (vg.touch ? 16 : 6) && !vg.pinched) { vg.velYaw = 0; vg.velPitch = 0; vgPick(p[0], p[1]); }
                 }
             };
             st.addEventListener('pointerup', up);
@@ -37529,6 +37576,7 @@ const DEFENDERS_PER_POP=100;
             document.getElementById('vg-close').addEventListener('click', vgClose);
             document.getElementById('vg-x').addEventListener('click', vgClose);
             window.addEventListener('resize', () => { if (vgIsOpen) vgResize(); });
+            if (window.ResizeObserver) new ResizeObserver(() => { if (vgIsOpen) vgResize(); }).observe(st);
             window.addEventListener('keydown', e => {
                 if (!vgIsOpen) return;
                 if (e.key === 'Escape') { e.preventDefault(); if (vg.sel) vgSelect(null); else vgClose(); }
@@ -37541,8 +37589,8 @@ const DEFENDERS_PER_POP=100;
             ov.classList.add('open');
             ov.setAttribute('aria-hidden', 'false');
             vgIsOpen = true;
-            vgResize();
             vgRenderList();
+            vgResize();
             vg.last = 0;
             vg.lastInput = performance.now() - 2500;
             if (!vg.raf) vg.raf = requestAnimationFrame(vgLoop);
