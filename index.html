@@ -303,6 +303,39 @@
         .vg-stat { border: 1px solid rgba(127, 249, 255, 0.35); padding: 8px 8px 6px; background: rgba(127, 249, 255, 0.04); }
         .vg-stat b { display: block; font-size: 22px; color: #b9fdff; text-shadow: 0 0 8px rgba(127, 249, 255, 0.8); font-variant-numeric: tabular-nums; }
         .vg-stat span { display: block; font-size: 9px; letter-spacing: 0.2em; color: rgba(218, 112, 214, 0.9); margin-top: 2px; }
+        .vg-stats2 { margin-bottom: 8px; }
+        .vg-stats2 .vg-stat b { font-size: 18px; }
+        .vg-trend { border: 1px solid rgba(127, 249, 255, 0.35); padding: 6px 8px 6px; margin-bottom: 14px; background: rgba(127, 249, 255, 0.04); }
+        .vg-trend-head { display: flex; justify-content: space-between; gap: 8px; font-size: 9px; letter-spacing: 0.2em; color: rgba(218, 112, 214, 0.9); margin-bottom: 4px; }
+        .vg-trend-head span:last-child { color: rgba(127, 249, 255, 0.8); letter-spacing: 0.08em; text-align: right; }
+        .vg-trend svg { display: block; width: 100%; height: 40px; }
+        .vg-trend.off { display: none; }
+        .vg-intel { border: 1px solid rgba(127, 249, 255, 0.35); padding: 4px 8px 8px; margin-bottom: 14px; background: rgba(127, 249, 255, 0.04); }
+        .vg-intel.off { display: none; }
+        .vg-intel-row { display: grid; grid-template-columns: 96px 1fr; gap: 6px; align-items: baseline; padding: 5px 0; border-bottom: 1px solid rgba(127, 249, 255, 0.08); font-size: 11px; }
+        .vg-intel-row.off { display: none; }
+        .vg-intel-row span { font-size: 8.5px; letter-spacing: 0.16em; color: rgba(218, 112, 214, 0.9); }
+        .vg-intel-row b { font-weight: normal; color: #e6faff; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .vg-intel-row.go { cursor: pointer; }
+        .vg-intel-row.go:hover b { color: #7ff9ff; }
+        .vg-conts { display: flex; height: 8px; margin-top: 8px; gap: 1px; background: rgba(127, 249, 255, 0.08); }
+        .vg-conts i { display: block; height: 100%; min-width: 2px; }
+        .vg-legend { display: flex; flex-wrap: wrap; gap: 3px 10px; margin-top: 6px; font-size: 9.5px; color: rgba(185, 253, 255, 0.85); }
+        .vg-legend span { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+        .vg-legend em { width: 7px; height: 7px; display: inline-block; }
+        .vg-toggles { position: absolute; left: 50px; bottom: 20px; z-index: 2; display: flex; gap: 6px; }
+        .vg-toggles button { font: bold 10px 'Consolas', 'Courier New', monospace; letter-spacing: 0.2em; padding: 6px 10px; color: rgba(127, 249, 255, 0.55); background: rgba(4, 10, 20, 0.7); border: 1px solid rgba(127, 249, 255, 0.3); cursor: pointer; }
+        .vg-toggles button[aria-pressed="true"] { color: #7ff9ff; border-color: rgba(127, 249, 255, 0.75); background: rgba(127, 249, 255, 0.12); }
+        .vg-toggles button.off { display: none; }
+        .vg-toggles button.dim { opacity: 0.55; }
+        .vg-replay { position: absolute; left: 50px; bottom: 62px; z-index: 2; display: none; align-items: center; gap: 10px; padding: 6px 10px; background: rgba(4, 10, 20, 0.78); border: 1px solid rgba(127, 249, 255, 0.5); width: 380px; max-width: calc(100% - 100px); box-sizing: border-box; }
+        .vg-replay.on { display: flex; }
+        .vg-replay button { font: bold 12px 'Consolas', monospace; color: #7ff9ff; background: rgba(127, 249, 255, 0.1); border: 1px solid rgba(127, 249, 255, 0.6); width: 32px; height: 26px; cursor: pointer; }
+        .vg-replay input { flex: 1; min-width: 0; accent-color: #da70d6; }
+        .vg-replay span { font-size: 10px; letter-spacing: 0.1em; color: #b9fdff; white-space: nowrap; min-width: 92px; text-align: right; }
+        .vg-flash { position: absolute; left: 50%; top: 72px; transform: translateX(-50%); z-index: 2; display: none; padding: 5px 12px; font-size: 11px; letter-spacing: 0.18em; color: #5dff8f; border: 1px solid rgba(93, 255, 143, 0.7); background: rgba(4, 20, 12, 0.8); text-shadow: 0 0 8px rgba(93, 255, 143, 0.7); pointer-events: none; white-space: nowrap; max-width: calc(100% - 24px); overflow: hidden; text-overflow: ellipsis; box-sizing: border-box; }
+        .vg-flash.on { display: block; animation: vgIn 0.35s ease-out; }
+        .vg-new { margin-left: 6px; font-size: 8.5px; letter-spacing: 0.12em; color: #5dff8f; border: 1px solid rgba(93, 255, 143, 0.6); padding: 0 3px; vertical-align: 1px; }
         .vg-list-head { font-size: 10px; letter-spacing: 0.28em; color: #da70d6; padding-bottom: 6px; border-bottom: 1px solid rgba(127, 249, 255, 0.25); margin-bottom: 4px; }
         .vg-list { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1; min-height: 0; }
         .vg-row { display: grid; grid-template-columns: 22px 1fr auto; align-items: center; gap: 6px; padding: 6px 4px; font-size: 12px; cursor: pointer; border-bottom: 1px solid rgba(127, 249, 255, 0.08); position: relative; }
@@ -323,11 +356,20 @@
             .vg-overlay { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; }
             .vg-side { border-left: 0; border-top: 1px solid rgba(127, 249, 255, 0.3); max-height: 38vh; padding: 10px 12px 10px; }
             .vg-stats { margin-bottom: 8px; }
+            .vg-stats2 .vg-stat b { font-size: 15px; }
+            .vg-trend { margin-bottom: 8px; }
+            .vg-intel { margin-bottom: 8px; }
+            .vg-side { overflow-y: auto; max-height: 46vh; }
+            .vg-list { overflow: visible; flex: none; }
+            .vg-trend svg { height: 28px; }
             .vg-stat b { font-size: 18px; }
             .vg-x { right: 46px; top: 46px; }
             .vg-title { left: 18px; top: 16px; }
             .vg-title span { font-size: 8.5px; }
-            .vg-msg { top: 76px; font-size: 10px; letter-spacing: 0.12em; }
+            .vg-msg { top: 112px; font-size: 10px; letter-spacing: 0.12em; }
+            .vg-toggles { left: 18px; top: 70px; bottom: auto; }
+            .vg-replay { left: 18px; right: 18px; top: 108px; bottom: auto; width: auto; max-width: none; }
+            .vg-flash { top: 112px; font-size: 9.5px; letter-spacing: 0.1em; }
             .vg-card { right: 30px; top: auto; bottom: 30px; min-width: 0; max-width: 62%; padding: 9px 11px; }
             .vg-card-name { font-size: 15px; }
             .vg-card-num { font-size: 20px; }
@@ -3176,7 +3218,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 1.2.1 (Updated: October 12, 2026 9:12 AM)</div>
+            <div class="version-text">Version 1.6.0 (Updated: October 12, 2026 9:55 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -3196,12 +3238,39 @@
             <div class="vg-title"><b>VISITOR ORIGINS</b><span>TERRA · LONG-RANGE TRAFFIC SCAN</span></div>
             <div class="vg-msg" id="vg-msg"></div>
             <div class="vg-card" id="vg-card"></div>
+            <div class="vg-toggles">
+                <button type="button" id="vg-t-arcs" aria-pressed="true" title="Show lines from your country to each visiting country">ARCS</button>
+                <button type="button" id="vg-t-night" aria-pressed="true" title="Shade the night side of Earth">NIGHT</button>
+                <button type="button" id="vg-t-replay" aria-pressed="false" title="Replay how visits grew, day by day">REPLAY</button>
+            </div>
+            <div class="vg-replay" id="vg-replay">
+                <button type="button" id="vg-rp-play" aria-label="Play or pause">▶</button>
+                <input type="range" id="vg-rp-range" min="0" max="1" step="1" value="0" aria-label="Replay day">
+                <span id="vg-rp-label"></span>
+            </div>
+            <div class="vg-flash" id="vg-flash" aria-live="polite"></div>
             <div class="vg-hint" id="vg-hint">DRAG TO ROTATE · SCROLL OR PINCH TO ZOOM · TAP A PIN</div>
         </div>
         <aside class="vg-side">
             <div class="vg-stats">
                 <div class="vg-stat"><b id="vg-total">---</b><span>TOTAL VISITS</span></div>
                 <div class="vg-stat"><b id="vg-nations">--</b><span>COUNTRIES</span></div>
+            </div>
+            <div class="vg-stats vg-stats2">
+                <div class="vg-stat"><b id="vg-today">---</b><span>TODAY</span></div>
+                <div class="vg-stat"><b id="vg-week">---</b><span>LAST 7 DAYS</span></div>
+            </div>
+            <div class="vg-trend" id="vg-trend">
+                <div class="vg-trend-head"><span>LAST 30 DAYS</span><span id="vg-trend-note"></span></div>
+                <svg id="vg-spark" viewBox="0 0 300 40" preserveAspectRatio="none" role="img" aria-label="Visits per day for the last 30 days"></svg>
+            </div>
+            <div class="vg-intel off" id="vg-intel">
+                <div class="vg-intel-row" id="vg-i-top"><span>TOP ORIGIN</span><b></b></div>
+                <div class="vg-intel-row" id="vg-i-latest"><span>LATEST CONTACT</span><b></b></div>
+                <div class="vg-intel-row" id="vg-i-rank"><span>YOUR RANK</span><b></b></div>
+                <div class="vg-intel-row" id="vg-i-far"><span>FARTHEST</span><b></b></div>
+                <div class="vg-conts" id="vg-conts"></div>
+                <div class="vg-legend" id="vg-legend"></div>
             </div>
             <div class="vg-list-head">TOP ORIGINS</div>
             <ol class="vg-list" id="vg-list"></ol>
@@ -5303,7 +5372,7 @@
                 <p><b style="color:#da70d6;">Skip Years</b><br>In a single player game the <b>Skip Years</b> button beside End Turn plays several years in a row with your orders unchanged. Choose 1 to 100 years. Each year is played exactly as if you had pressed End Turn without changing anything: queues and Autobuild keep building, research continues, and fleets follow the waypoints they already have (a fleet with no orders stays put). The missing-order warning is not shown. The skip stops early, and tells you why, only when your empire fights a battle, when you lose a planet, or when a victory condition is met. Battles you only watch on your scanners and diplomacy requests do not interrupt it. The summary window opens only after all the years you chose have been played (or it stopped early), and any requests that arrived wait there for your answer. At the end you see the report of the last year played (earlier years are in the Galactic Event Log) and the game is saved. In multiplayer use Skip My Turns in the Settings menu instead; the button is hidden there.</p>
                 <p><b style="color:#da70d6;">Opening Intro</b><br>The first time the game is opened in a browser, a 20 second intro plays: shots of the galaxy map, fleets, the tilted Z view, planets, your territory, the Ship Designer, the cockpit and the Technology Browser cross-fade into each other with slow camera drifts, each held for about two seconds with its caption, then the FreeSpace 4x title glows in and holds for a few seconds while the closing chord rings out. It has its own sound track (a low space drone, a whoosh and chime on each shot, a rising sweep and a deep boom with a bright chord as the title appears), made up by the game like the rest of its sound. Browsers do not allow sound before you have clicked or pressed a key on a page, so on that very first visit a <b>🔊 Click for sound</b> sign appears in the top left: click anywhere or press any key once and the sound joins in from that moment. After that, a click or a key skips to the title screen; <b>Skip</b> in the top right and Escape always skip. Its loudness follows the louder of your Music and Sound Effects volumes (with a sensible minimum so it can be heard), and it is silent if both are off or at 0. The game's music is held back while the intro plays. It plays automatically only once per browser (clearing the site data brings it back) and never when you arrive from a multiplayer invite link or a password reset email. To watch it again, press <b>🎬 Watch Intro</b> at the top of the Help window, or <b>▶ Play Intro</b> in Settings, UI; it plays over whatever screen you are on and then returns you there.</p>
                 <p><b style="color:#da70d6;">Visitor Counter</b><br>The <b>Visitor Log</b> panel in the bottom right corner of the title screen shows how many times FreeSpace 4x has been opened by all players. The count is stored on the game server, so it goes up no matter where the game file is opened from (the website or a downloaded copy), as long as there is an internet connection. <b>What counts as a visit:</b> opening the game in a new browser tab counts once. Refreshing that tab on the same day does not count again. A tab left open counts once more on each new day (by your computer's clock). <b>Lights:</b> green <b>UPLINK</b> means the number is live from the server (it refreshes every few minutes while the title screen is showing); amber <b>OFFLINE</b> means the server cannot be reached, and the panel shows the last count this browser saw (or dashes if it has never connected). A visit made while offline is counted when the connection comes back. <b>Privacy:</b> the server keeps only the country each visit came from (worked out by the network the game server runs on). No IP address, account or other personal information is stored.</p>
-                <p><b style="color:#da70d6;">Visitor Origins Globe</b><br>Click the Visitor Log (or select it and press Enter) to open <b>Visitor Origins</b>, a holographic globe of Earth. <b>Pins:</b> every country with visitors glows and carries a pin; more visits make the pin taller, larger and brighter, going from cyan through magenta to white for the busiest country. Your own country pulses green and is marked <b>YOU</b> (shown even before it has a pin). <b>Moving around:</b> drag or swipe to spin the globe (it keeps spinning a little when you let go and turns slowly on its own when left alone), scroll the mouse wheel or pinch to zoom. <b>Details:</b> tap a pin or any country to open its card: number of visits, share of all traffic and when the last visit came in. The panel on the right (below the globe on a phone) shows the total visits, how many countries have visited and the top countries; click a country there to fly the globe to it. <b>The moon:</b> a small moon orbits the globe and keeps orbiting while you move it. Its pin (marked ?) holds every visit with no known country: hidden or blocked locations, Tor, and the visits counted before country tracking began on October 12, 2026. Tap the moon or its row in the list to see that number. <b>Closing:</b> Close, the × button or Escape (Escape first closes an open card). Without an internet connection the globe still turns but shows NO SIGNAL instead of counts. Country shapes come from Natural Earth (public domain).</p>
+                <p><b style="color:#da70d6;">Visitor Origins Globe</b><br>Click the Visitor Log (or select it and press Enter) to open <b>Visitor Origins</b>, a holographic globe of Earth. <b>Pins:</b> every country with visitors glows and carries a pin; more visits make the pin taller, larger and brighter, going from cyan through magenta to white for the busiest country. Your own country pulses green and is marked <b>YOU</b> (shown even before it has a pin). <b>Moving around:</b> drag or swipe to spin the globe (it keeps spinning a little when you let go and turns slowly on its own when left alone), scroll the mouse wheel or pinch to zoom. <b>Details:</b> tap a pin or any country to open its card: number of visits, share of all traffic and when the last visit came in. The panel on the right (below the globe on a phone) shows the total visits, how many countries have visited, an intel box (top country and its share, the latest contact, your country's rank and the farthest visitor from your country; click a line to fly there) with a continent bar, the visits Today and in the Last 7 Days, a Last 30 Days bar chart (one bar per day, today outlined, the busiest day named above it; days follow Universal Time and counts only exist from October 12, 2026) and the top countries; click a country there to fly the globe to it. <b>Arcs and night:</b> glowing arcs run from each visiting country to your own (thicker and brighter for more visits, with a light flowing toward you; the selected country's arc turns white; no arcs show if your country is unknown). The night side of Earth is shaded for the current time of day, with a warm glow along the sunrise and sunset line. The <b>ARCS</b> and <b>NIGHT</b> buttons at the bottom left of the globe turn each on or off. <b>New countries:</b> a country with its first-ever visit is marked NEW for 24 hours (green pulsing ring and NEW label on its pin, NEW badge in the list, a NEW CONTACT banner when the globe opens, and its card shows the first contact time). <b>Replay:</b> the REPLAY button plays back visits day by day: drag the slider or press play, then press REPLAY again (or close the globe) to go back to live numbers. Replay needs at least two days of history; the server only began keeping per-country daily history on October 12, 2026, so it fills in over time, and countries on the map at that point count as first seen October 12. <b>The moon:</b> a small moon orbits the globe and keeps orbiting while you move it. Its pin (marked ?) holds every visit with no known country: hidden or blocked locations, Tor, and the visits counted before country tracking began on October 12, 2026. Tap the moon or its row in the list to see that number. <b>Closing:</b> Close, the × button or Escape (Escape first closes an open card). Without an internet connection the globe still turns but shows NO SIGNAL instead of counts. Country shapes come from Natural Earth (public domain).</p>
                 <p><b style="color:#da70d6;">Music and Sound Effects</b><br>Both start at a quiet 5%, so raise them to taste. The game plays calm space music that is made up fresh each time, plus sound effects for button clicks, ending your turn, the Year Report, notices, victory and defeat. When a Year Report shows that you met a new empire you hear a short first-contact call, and when your ships or scanners surveyed new planets you hear a scanner sweep. While a message window is open the music drops to a fifth of its volume and comes back when the window closes. Sound starts after your first click or key press. Open Settings, UI to find the Music and Sound Effects sections. Each has a volume slider and an ON/OFF button, so you can quiet one, switch off one, or switch off both. Your choices are saved on this device. Sound pauses while the browser tab is hidden.</p>
                 <p><b style="color:#da70d6;">Galaxy Names and Fun Facts</b><br>Unless you type your own name on the New Game screen, every new galaxy is named after a real one, like Andromeda, the Whirlpool Galaxy or the Large Magellanic Cloud, and the name appears in your first event log entry. Select a surveyed planet that is named after a real star, like Vega, Sirius or Rigel, and press the <b>Fun Fact</b> button on the planet card (Planet Summary and Planet Roster), just below Send a Fleet Here, to read a true fact about that star. Press it again to hide the text. Homeworlds, planets you have not surveyed and planets with an invented name have no button.</p>
                 <p><b style="color:#da70d6;">The Event Log</b><br>The log keeps 600 entries; at 600 the oldest 200 are deleted, and a pop-up warns you from 500 entries on. Export Event Log lets you choose a year range and the kinds of information to save, and Settings, UI, Event Log Display hides kinds you do not want to see on screen (they stay saved). Year summaries can be hidden whole, and the other kinds also filter the lines inside a summary. The event log panel keeps a history of your empire. Giving an order writes nothing to the log: orders are only plans until the year is played out. When the year runs, the things that actually happened are logged: a fleet setting out for a destination or arriving, colonists landing, items built, research finished, and one Year summary entry with everything the Year Report said (lines already logged on their own are not repeated inside it). Old Orders given entries from earlier versions stay in saved logs. Your log holds only your own empire's story: other empires' orders, fleets, production and research never appear in it, only events that touch you, such as a battle at your world, a minefield hit, a bombing, an alliance or a Mystery Trader, including what each tech level-up unlocked. Survey and contact messages list each world with its habitability for your people and its owner. Use Settings, Export Event Log to save the whole log as a text file.</p>
@@ -6339,7 +6408,7 @@
         const ORBIT_SPEED = 0.15;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '1.2.1';
+        const GAME_VERSION = '1.6.0';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -24093,6 +24162,27 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '1.6.0', d: "Oct 12, 2026 9:55 AM", t: "Visitor Globe: New Countries and Replay", items: [
+                'New: a country that sends its first-ever visit is flagged NEW for 24 hours: a green pulsing ring and NEW label on its pin, a NEW badge in the list, and a green NEW CONTACT banner when you open the globe. Its card also shows when the first contact happened.',
+                'New: the REPLAY button (bottom left on a computer, under the title on a phone) plays back how visits grew day by day. Drag the slider to any day or press play and watch countries light up in the order they first visited. Press REPLAY again, or close the globe, to return to live numbers.',
+                'The server now keeps visits per country per day (country only, still no IP addresses). Because that history only started on October 12, 2026, replay needs at least two days of history and will fill in as days pass. Countries already on the map when tracking began are marked as first seen on October 12.'
+            ] },
+            { v: '1.5.0', d: "Oct 12, 2026 10:35 AM", t: "Visitor Globe: Arcs and Night", items: [
+                'New: glowing arcs on the Visitor Origins globe run from every visiting country to yours, thicker and brighter for more visits, with a small light flowing along each one toward you. Selecting a country turns its arc white. The arcs only appear when the game knows your country.',
+                'New: the night side of Earth is shaded in real time, with a warm glow along the line between day and night, so you can see where it is dark right now.',
+                'Two buttons at the bottom left of the globe, ARCS and NIGHT, switch each on or off.'
+            ] },
+            { v: '1.4.0', d: "Oct 12, 2026 10:05 AM", t: "Visitor Stats: Intel", items: [
+                'The Visitor Origins panel has a new intel box: your top country and its share of all visits, the latest contact (which country visited most recently and how long ago), your own country\'s rank, and the farthest visitor from your country in kilometers.',
+                'A colored bar splits the visits by continent (North America, South America, Europe, Africa, Asia, Oceania and Antarctica), with percentages underneath. Hover a segment to see its visit count.',
+                'Click the top, latest, rank or farthest line to fly the globe to that country.',
+                'On a phone the whole bottom panel now scrolls, so the country list is no longer squeezed.'
+            ] },
+            { v: '1.3.0', d: "Oct 12, 2026 9:40 AM", t: "Visitor Stats: Daily Activity", items: [
+                'The Visitor Origins panel now shows how many visits came in Today and in the Last 7 Days, next to the all-time total.',
+                'A new Last 30 Days chart shows visits per day, one bar per day, colored from cyan to white for the busiest days, with today outlined. Hover a bar (or long-press on a phone) to see that day, and the busiest day is named above the chart.',
+                'Days follow Universal Time (UTC), not your local clock. Daily counts only exist from October 12, 2026, when the Visitor Log began, so earlier days show empty.'
+            ] },
             { v: '1.2.1', d: "Oct 12, 2026 9:12 AM", t: "Globe Fixes", items: [
                 'Visitor Origins: tapping a country on the globe now works on phones. A tap anywhere on a country selects it, and a tap just beside a coast or on a small country picks the nearest one, instead of only registering near the pink pin.',
                 'The moon keeps orbiting while you drag or pinch the globe.',
@@ -36759,7 +36849,7 @@ const DEFENDERS_PER_POP=100;
 
         let vgIsOpen = false;
         let vgGeo = null;
-        let vgData = { rows: [], map: {}, max: 1, total: 0, mine: null, fetched: 0, ok: false };
+        let vgData = { hist: [], fresh: new Set(), daily: null, rows: [], map: {}, max: 1, total: 0, mine: null, fetched: 0, ok: false };
         let vgMyCountry = null;
         let vg = null;
 
@@ -36952,7 +37042,7 @@ const DEFENDERS_PER_POP=100;
             if (!gl) return false;
             try {
                 const vs = vgShader(gl, gl.VERTEX_SHADER, 'attribute vec3 aPos;attribute vec2 aUv;uniform mat4 uProj;uniform mat3 uRot;uniform vec3 uOff;uniform float uScale;uniform mediump float uCam;varying vec2 vUv;varying vec3 vN;varying vec3 vW;void main(){vec3 n=uRot*aPos;vec3 w=n*uScale+uOff;vN=n;vW=w;vUv=aUv;gl_Position=uProj*vec4(w.x,w.y,w.z-uCam,1.0);}');
-                const fs = vgShader(gl, gl.FRAGMENT_SHADER, 'precision mediump float;uniform sampler2D uTex;uniform vec3 uRim;uniform mediump float uCam;uniform float uTime;uniform float uScan;varying vec2 vUv;varying vec3 vN;varying vec3 vW;void main(){vec3 n=normalize(vN);vec3 v=normalize(vec3(0.0,0.0,uCam)-vW);float ndv=max(dot(n,v),0.0);vec3 L=normalize(vec3(-0.55,0.55,0.75));float dif=0.45+0.75*max(dot(n,L),0.0);vec3 c=texture2D(uTex,vUv).rgb*dif;float fr=pow(1.0-ndv,2.4);c+=uRim*fr;float s=1.0-uScan*(0.5+0.5*sin(gl_FragCoord.y*1.7+uTime*3.0));c*=s;gl_FragColor=vec4(c,1.0);}');
+                const fs = vgShader(gl, gl.FRAGMENT_SHADER, 'precision mediump float;uniform sampler2D uTex;uniform vec3 uRim;uniform mediump float uCam;uniform float uTime;uniform float uScan;uniform vec3 uSun;uniform float uNight;varying vec2 vUv;varying vec3 vN;varying vec3 vW;void main(){vec3 n=normalize(vN);vec3 v=normalize(vec3(0.0,0.0,uCam)-vW);float ndv=max(dot(n,v),0.0);vec3 L=normalize(vec3(-0.55,0.55,0.75));float dif=0.45+0.75*max(dot(n,L),0.0);vec3 c=texture2D(uTex,vUv).rgb*dif;float sd=dot(n,uSun);float nd=smoothstep(-0.14,0.14,sd);c*=mix(1.0-uNight*0.62,1.0,nd);c+=uNight*vec3(0.9,0.45,0.2)*0.1*exp(-pow(sd/0.09,2.0));float fr=pow(1.0-ndv,2.4);c+=uRim*fr;float s=1.0-uScan*(0.5+0.5*sin(gl_FragCoord.y*1.7+uTime*3.0));c*=s;gl_FragColor=vec4(c,1.0);}');
                 const pr = gl.createProgram();
                 gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr);
                 if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(pr));
@@ -36960,7 +37050,7 @@ const DEFENDERS_PER_POP=100;
                 vg.prog = pr;
                 vg.loc = {};
                 ['aPos', 'aUv'].forEach(k => { vg.loc[k] = gl.getAttribLocation(pr, k); });
-                ['uProj', 'uRot', 'uOff', 'uScale', 'uCam', 'uTex', 'uRim', 'uTime', 'uScan'].forEach(k => { vg.loc[k] = gl.getUniformLocation(pr, k); });
+                ['uProj', 'uRot', 'uOff', 'uScale', 'uCam', 'uTex', 'uRim', 'uTime', 'uScan', 'uSun', 'uNight'].forEach(k => { vg.loc[k] = gl.getUniformLocation(pr, k); });
                 vg.mesh = vgSphere(gl, 96, 48);
                 vg.moonMesh = vgSphere(gl, 32, 16);
                 vg.texEarth = vgTexture(gl, vg.tex2d);
@@ -37034,6 +37124,65 @@ const DEFENDERS_PER_POP=100;
             return [R * Math.cos(a), R * Math.sin(a) * Math.sin(tilt), R * Math.sin(a) * Math.cos(tilt)];
         }
 
+        function vgSunLatLon() {
+            const d = new Date();
+            const doy = (Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) - Date.UTC(d.getUTCFullYear(), 0, 0)) / 864e5;
+            const dec = -23.44 * Math.cos(2 * Math.PI / 365 * (doy + 10));
+            const hrs = d.getUTCHours() + d.getUTCMinutes() / 60 + d.getUTCSeconds() / 3600;
+            return vgLatLon(dec, -15 * (hrs - 12));
+        }
+
+        function vgDrawArcs(g, C, rot, now, scale) {
+            const mine = vgMyCountry && vgMyCountry !== 'ZZ' ? vgMyCountry : null;
+            const places = vgDecode().places;
+            if (!vg.arcs || !mine || !places[mine]) return;
+            const A = vgLatLon(places[mine].lat, places[mine].lon);
+            const at = (B, om, so, lift, u) => {
+                const a = Math.sin((1 - u) * om) / so, b = Math.sin(u * om) / so;
+                const n = vgApply(rot, [a * A[0] + b * B[0], a * A[1] + b * B[1], a * A[2] + b * B[2]]);
+                const k = 1 + lift * Math.sin(Math.PI * u);
+                const q = [n[0] * k, n[1] * k, n[2] * k];
+                if (q[2] * C.cam <= 1) return null;
+                return vgProject(q, C);
+            };
+            g.save();
+            g.lineCap = 'round';
+            g.lineJoin = 'round';
+            vgData.rows.forEach(r => {
+                if (r.country === 'ZZ' || r.country === mine || !places[r.country]) return;
+                const B = vgLatLon(places[r.country].lat, places[r.country].lon);
+                const om = Math.acos(Math.max(-1, Math.min(1, A[0] * B[0] + A[1] * B[1] + A[2] * B[2])));
+                const so = Math.sin(om);
+                if (om < 0.02 || so < 0.001) return;
+                const t = vgTone(r.country);
+                const lift = 0.04 + 0.22 * Math.min(1, om / Math.PI);
+                const N = Math.max(12, Math.ceil(om * 24));
+                const sel = r.country === vg.sel;
+                g.strokeStyle = sel ? 'rgba(255,255,255,0.95)' : 'rgba(' + vgHeat(t).join(',') + ',' + (0.38 + 0.4 * t).toFixed(2) + ')';
+                g.lineWidth = (0.9 + 2.2 * t + (sel ? 1 : 0)) * scale;
+                g.beginPath();
+                let pen = false;
+                for (let i = 0; i <= N; i++) {
+                    const pt = at(B, om, so, lift, i / N);
+                    if (!pt) { pen = false; continue; }
+                    if (pen) g.lineTo(pt[0], pt[1]); else g.moveTo(pt[0], pt[1]);
+                    pen = true;
+                }
+                g.stroke();
+                if (!vg.reduce) {
+                    let h = 0;
+                    for (let i = 0; i < r.country.length; i++) h = (h * 31 + r.country.charCodeAt(i)) % 97;
+                    const u = 1 - ((now / (2400 + om * 900) + h / 97) % 1);
+                    const pt = at(B, om, so, lift, u);
+                    if (pt) {
+                        g.fillStyle = 'rgba(255,255,255,0.95)';
+                        g.beginPath(); g.arc(pt[0], pt[1], (1.6 + 1.8 * t) * scale, 0, Math.PI * 2); g.fill();
+                    }
+                }
+            });
+            g.restore();
+        }
+
         function vgDraw(now) {
             const C = vgCamera();
             const rot = vgRot(vg.yaw, vg.pitch);
@@ -37049,7 +37198,10 @@ const DEFENDERS_PER_POP=100;
                 gl.uniformMatrix4fv(vg.loc.uProj, false, new Float32Array([C.f / C.aspect, 0, 0, 0, 0, C.f, 0, 0, 0, 0, (fr + n) / (n - fr), -1, 0, 0, 2 * fr * n / (n - fr), 0]));
                 gl.uniform1f(vg.loc.uCam, C.cam);
                 gl.uniform1f(vg.loc.uTime, vg.reduce ? 0 : now / 1000);
-                const drawMesh = (mesh, tex, r, off, sc, rim, scan) => {
+                const sun = vgApply(rot, vgSunLatLon());
+                gl.uniform3fv(vg.loc.uSun, new Float32Array(sun));
+                const drawMesh = (mesh, tex, r, off, sc, rim, scan, night) => {
+                    gl.uniform1f(vg.loc.uNight, night);
                     gl.uniformMatrix3fv(vg.loc.uRot, false, new Float32Array([r[0], r[3], r[6], r[1], r[4], r[7], r[2], r[5], r[8]]));
                     gl.uniform3fv(vg.loc.uOff, off);
                     gl.uniform1f(vg.loc.uScale, sc);
@@ -37067,8 +37219,8 @@ const DEFENDERS_PER_POP=100;
                     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.idx);
                     gl.drawElements(gl.TRIANGLES, mesh.n, gl.UNSIGNED_SHORT, 0);
                 };
-                drawMesh(vg.mesh, vg.texEarth, rot, [0, 0, 0], 1, [0.35, 0.85, 1.0], 0.06);
-                drawMesh(vg.moonMesh, vg.texMoon, vgRot(vg.moonSpin, 0.2), moon, 0.17, [0.55, 0.45, 0.75], 0.03);
+                drawMesh(vg.mesh, vg.texEarth, rot, [0, 0, 0], 1, [0.35, 0.85, 1.0], 0.06, vg.night ? 1 : 0);
+                drawMesh(vg.moonMesh, vg.texMoon, vgRot(vg.moonSpin, 0.2), moon, 0.17, [0.55, 0.45, 0.75], 0.03, 0);
             }
             vgDrawFx(now, C, rot, moon);
         }
@@ -37146,6 +37298,7 @@ const DEFENDERS_PER_POP=100;
             g.restore();
             const scale = Math.max(0.6, Math.min(1.8, gr / 260));
             const pulse = vg.reduce ? 0.5 : (now / 1400) % 1;
+            vgDrawArcs(g, C, rot, now, scale);
             const pins = vgPins(C, rot);
             vg.pinHits = [];
             pins.forEach(p => {
@@ -37169,6 +37322,15 @@ const DEFENDERS_PER_POP=100;
                     g.beginPath(); g.arc(p.b[0], p.b[1], rad * 0.4, 0, Math.PI * 2); g.fill();
                     g.fillStyle = 'rgba(' + rgb + ',0.5)';
                     g.beginPath(); g.ellipse(p.a[0], p.a[1], rad * 0.9, rad * 0.45, 0, 0, Math.PI * 2); g.fill();
+                    if (vgData.fresh.has(p.code)) {
+                        g.strokeStyle = 'rgba(93,255,143,' + (1 - pulse).toFixed(2) + ')';
+                        g.lineWidth = 2;
+                        g.beginPath(); g.arc(p.b[0], p.b[1], rad + (4 + 14 * pulse) * scale, 0, Math.PI * 2); g.stroke();
+                        g.fillStyle = '#5dff8f';
+                        g.font = 'bold ' + Math.round(8 * scale + 2) + 'px Consolas, monospace';
+                        g.textAlign = 'center';
+                        g.fillText('NEW', p.b[0], p.b[1] - rad - 7 * scale);
+                    }
                     vg.pinHits.push({ code: p.code, x: p.b[0], y: p.b[1], r: rad + 8, z: p.a[2] });
                     vg.pinHits.push({ code: p.code, x: p.a[0], y: p.a[1], r: rad + 4, z: p.a[2] });
                 }
@@ -37364,9 +37526,9 @@ const DEFENDERS_PER_POP=100;
                     (v ? '<div class="vg-card-row">' + pct.toFixed(pct < 10 ? 1 : 0) + '% of all traffic</div>' : '') +
                     '<div class="vg-card-row">Visits with no country: hidden or blocked locations, Tor, and the first visits before country tracking began.</div>';
             } else {
-                html = '<div class="vg-card-tag">SECTOR ' + esc(code) + (v ? ' · CONTACT' : ' · NO CONTACT') + '</div><div class="vg-card-name">' + esc(vgName(code)) + '</div>' +
+                html = '<div class="vg-card-tag">SECTOR ' + esc(code) + (v ? ' · CONTACT' : ' · NO CONTACT') + (vgData.fresh.has(code) ? ' · NEW' : '') + '</div><div class="vg-card-name">' + esc(vgName(code)) + '</div>' +
                     '<div class="vg-card-num">' + v.toLocaleString() + '<small>' + (v === 1 ? 'VISIT' : 'VISITS') + '</small></div>' +
-                    (v ? '<div class="vg-card-row">' + pct.toFixed(pct < 10 ? 1 : 0) + '% of all traffic</div><div class="vg-card-row">Last contact ' + vgAgo(row.last_seen) + '</div>' : '<div class="vg-card-row">No visits from here yet.</div>');
+                    (v ? '<div class="vg-card-row">' + pct.toFixed(pct < 10 ? 1 : 0) + '% of all traffic</div>' + (row.last_seen ? '<div class="vg-card-row">Last contact ' + vgAgo(row.last_seen) + '</div>' : '') + (row.first_seen ? '<div class="vg-card-row">First contact ' + vgAgo(row.first_seen) + '</div>' : '') : '<div class="vg-card-row">No visits from here yet.</div>');
             }
             if (code === vgMyCountry) html += '<div class="vg-card-you">◉ YOU ARE HERE</div>';
             card.innerHTML = html;
@@ -37389,10 +37551,230 @@ const DEFENDERS_PER_POP=100;
             vg.lastInput = performance.now();
         }
 
+        function vgFlash(text) {
+            const f = document.getElementById('vg-flash');
+            f.textContent = text;
+            f.classList.remove('on');
+            void f.offsetWidth;
+            f.classList.add('on');
+            clearTimeout(vg.flashT);
+            vg.flashT = setTimeout(() => f.classList.remove('on'), 6500);
+        }
+
+        function vgFlashNew() {
+            if (vg.replay || !vgData.fresh.size) return;
+            const fresh = vgData.rows.filter(r => vgData.fresh.has(r.country));
+            const newest = fresh.reduce((m, r) => !m || r.first_seen > m.first_seen ? r : m, null);
+            if (!newest) return;
+            const key = newest.country + newest.first_seen;
+            if (vg.flashKey === key) return;
+            vg.flashKey = key;
+            vgFlash('NEW CONTACT · ' + vgName(newest.country).toUpperCase() + ' · ' + vgAgo(newest.first_seen).toUpperCase() + (fresh.length > 1 ? ' · +' + (fresh.length - 1) + ' MORE' : ''));
+        }
+
+        function vgReplayDays() {
+            const h = vgData.hist || [];
+            if (!h.length) return [];
+            const first = h.reduce((m, r) => r.day < m ? r.day : m, h[0].day);
+            const last = new Date().toISOString().slice(0, 10);
+            const out = [];
+            for (let t = Date.parse(first + 'T00:00:00Z'); out.length < 120; t += 864e5) {
+                const d = new Date(t).toISOString().slice(0, 10);
+                out.push(d);
+                if (d >= last) break;
+            }
+            return out;
+        }
+
+        function vgSyncReplayBtn() {
+            const b = document.getElementById('vg-t-replay');
+            if (!b) return;
+            b.classList.toggle('dim', vgReplayDays().length < 2);
+        }
+
+        function vgReplayApply(idx) {
+            const rp = vg.replay;
+            const days = rp.days;
+            idx = Math.max(0, Math.min(days.length - 1, idx));
+            rp.idx = idx;
+            const places = vgDecode().places;
+            const key = c => c === 'ZZ' || places[c] ? c : 'ZZ';
+            const live = rp.live;
+            const cum = {};
+            live.rows.forEach(r => { cum[r.country] = r.views; });
+            const win = {};
+            vgData.hist.forEach(r => { const k = key(r.country); win[k] = (win[k] || 0) + r.views; });
+            Object.keys(cum).forEach(k => { cum[k] = Math.max(0, cum[k] - (win[k] || 0)); });
+            Object.keys(win).forEach(k => { if (!(k in cum)) cum[k] = 0; });
+            vgData.hist.forEach(r => { if (r.day <= days[idx]) { const k = key(r.country); cum[k] = (cum[k] || 0) + r.views; } });
+            const rows = Object.keys(cum).filter(k => cum[k] > 0).map(k => ({ country: k, views: cum[k], last_seen: null, first_seen: null }))
+                .sort((a, b) => (a.country === 'ZZ') - (b.country === 'ZZ') || b.views - a.views);
+            vgData.rows = rows;
+            vgData.map = {};
+            rows.forEach(r => { vgData.map[r.country] = r.views; });
+            vgData.max = rows.filter(r => r.country !== 'ZZ').reduce((m, r) => Math.max(m, r.views), 1);
+            vgData.total = rows.reduce((a, r) => a + r.views, 0);
+            vgData.fresh = idx === days.length - 1 ? live.fresh : new Set();
+            vgBakeTexture(vg.sel && vg.sel !== 'ZZ' ? vg.sel : null);
+            vgRenderList();
+            if (vg.sel) vgSelect(vg.sel, false);
+            document.getElementById('vg-rp-range').value = String(idx);
+            const d = new Date(days[idx] + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+            document.getElementById('vg-rp-label').textContent = d.toUpperCase() + ' · ' + vgData.total.toLocaleString();
+        }
+
+        function vgReplayStart() {
+            const days = vgReplayDays();
+            if (days.length < 2) { vgFlash('REPLAY NEEDS 2+ DAYS OF HISTORY · TRACKING BEGAN OCT 12'); return; }
+            vg.replay = { days: days, idx: 0, playing: true, t: performance.now(), live: { rows: vgData.rows, map: vgData.map, max: vgData.max, total: vgData.total, fresh: vgData.fresh } };
+            document.getElementById('vg-t-replay').setAttribute('aria-pressed', 'true');
+            const rg = document.getElementById('vg-rp-range');
+            rg.max = String(days.length - 1);
+            document.getElementById('vg-replay').classList.add('on');
+            document.getElementById('vg-flash').classList.remove('on');
+            document.getElementById('vg-rp-play').textContent = '❚❚';
+            vgReplayApply(0);
+        }
+
+        function vgReplayStop() {
+            const rp = vg.replay;
+            if (!rp) return;
+            vg.replay = null;
+            vgData.rows = rp.live.rows; vgData.map = rp.live.map; vgData.max = rp.live.max; vgData.total = rp.live.total; vgData.fresh = rp.live.fresh;
+            document.getElementById('vg-t-replay').setAttribute('aria-pressed', 'false');
+            document.getElementById('vg-replay').classList.remove('on');
+            vgBakeTexture(vg.sel && vg.sel !== 'ZZ' ? vg.sel : null);
+            vgRenderList();
+            if (vg.sel) vgSelect(vg.sel, false);
+        }
+
+        function vgRenderTrend() {
+            const d = vgData.daily;
+            const trend = document.getElementById('vg-trend');
+            const today = document.getElementById('vg-today'), week = document.getElementById('vg-week');
+            if (!vgData.ok || !d || !d.length) {
+                today.textContent = '---'; week.textContent = '---';
+                trend.classList.add('off');
+                return;
+            }
+            trend.classList.remove('off');
+            today.textContent = d[d.length - 1].views.toLocaleString();
+            week.textContent = d.slice(-7).reduce((a, r) => a + r.views, 0).toLocaleString();
+            const max = d.reduce((m, r) => Math.max(m, r.views), 1);
+            const svg = document.getElementById('vg-spark');
+            const NS = 'http://www.w3.org/2000/svg';
+            svg.innerHTML = '';
+            const slot = 300 / d.length, fmt = day => new Date(day + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+            d.forEach((r, i) => {
+                const t = r.views / max;
+                const h = r.views ? Math.max(2, t * 38) : 1;
+                const rect = document.createElementNS(NS, 'rect');
+                rect.setAttribute('x', (i * slot + slot * 0.12).toFixed(2));
+                rect.setAttribute('width', (slot * 0.76).toFixed(2));
+                rect.setAttribute('y', (40 - h).toFixed(2));
+                rect.setAttribute('height', h.toFixed(2));
+                rect.setAttribute('fill', r.views ? 'rgb(' + vgHeat(t).join(',') + ')' : 'rgba(127,249,255,0.18)');
+                if (i === d.length - 1) { rect.setAttribute('stroke', '#ffffff'); rect.setAttribute('stroke-width', '0.8'); rect.setAttribute('vector-effect', 'non-scaling-stroke'); }
+                const tt = document.createElementNS(NS, 'title');
+                tt.textContent = fmt(r.day) + ': ' + r.views.toLocaleString() + (r.views === 1 ? ' visit' : ' visits');
+                rect.appendChild(tt);
+                svg.appendChild(rect);
+            });
+            let best = d[0];
+            d.forEach(r => { if (r.views > best.views) best = r; });
+            document.getElementById('vg-trend-note').textContent = best.views ? 'BUSIEST ' + fmt(best.day).toUpperCase() + ' · ' + best.views.toLocaleString() : '';
+        }
+
+        const VG_CONT_DATA = 'NA:AG AI AW BB BL BM BQ BS BZ CA CR CU CW DM DO GD GL GP GT HN HT JM KN KY LC MF MQ MS MX NI PA PM PR SV SX TC TT US VC VG VI;SA:AR BO BR CL CO EC FK GF GS GY PE PY SR UY VE;EU:AD AL AT AX BA BE BG BY CH CZ DE DK EE ES FI FO FR GB GG GI GR HR HU IE IM IS IT JE LI LT LU LV MC MD ME MK MT NL NO PL PT RO RS RU SE SI SJ SK SM UA VA XK;AF:AO BF BI BJ BW CD CF CG CI CM CV DJ DZ EG EH ER ET GA GH GM GN GQ GW KE KM LR LS LY MA MG ML MR MU MW MZ NA NE NG RE RW SC SD SH SL SN SO SS ST SZ TD TG TN TZ UG YT ZA ZM ZW;AS:AE AF AM AZ BD BH BN BT CN CY GE HK ID IL IN IO IQ IR JO JP KG KH KP KR KW KZ LA LB LK MM MN MO MV MY NP OM PH PK PS QA SA SG SY TH TJ TL TM TR TW UZ VN YE;OC:AS AU CC CK CX FJ FM GU KI MH MP NC NF NR NU NZ PF PG PN PW SB TK TO TV UM VU WF WS;AN:AQ BV HM TF';
+        const VG_CONT_NAMES = { NA: 'N. America', SA: 'S. America', EU: 'Europe', AF: 'Africa', AS: 'Asia', OC: 'Oceania', AN: 'Antarctica' };
+        const VG_CONT_COLORS = { NA: '#7ff9ff', SA: '#5dff8f', EU: '#da70d6', AF: '#ffb347', AS: '#ff6b9d', OC: '#7a8cff', AN: '#ffffff' };
+        let vgContMap = null;
+
+        function vgContinent(code) {
+            if (!vgContMap) {
+                vgContMap = {};
+                VG_CONT_DATA.split(';').forEach(g => {
+                    const k = g.split(':');
+                    k[1].split(' ').forEach(c => { vgContMap[c] = k[0]; });
+                });
+            }
+            return vgContMap[code] || null;
+        }
+
+        function vgKm(a, b) {
+            const r = Math.PI / 180;
+            const dl = (b.lat - a.lat) * r, dn = (b.lon - a.lon) * r;
+            const h = Math.sin(dl / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dn / 2) ** 2;
+            return 12742 * Math.asin(Math.min(1, Math.sqrt(h)));
+        }
+
+        function vgRenderIntel() {
+            const box = document.getElementById('vg-intel');
+            const known = vgData.ok ? vgData.rows.filter(r => r.country !== 'ZZ') : [];
+            if (!known.length) { box.classList.add('off'); return; }
+            box.classList.remove('off');
+            const places = vgDecode().places;
+            const sum = known.reduce((a, r) => a + r.views, 0);
+            const total = Math.max(vgData.total, sum, 1);
+            const setRow = (id, text, code, tip) => {
+                const row = document.getElementById(id);
+                row.classList.toggle('off', !text);
+                const b = row.querySelector('b');
+                b.textContent = text || '';
+                b.title = tip || '';
+                row.classList.toggle('go', !!code);
+                row.dataset.code = code || '';
+            };
+            const top = known.reduce((m, r) => r.views > m.views ? r : m, known[0]);
+            const tp = top.views / total * 100;
+            setRow('vg-i-top', vgName(top.country) + ' · ' + tp.toFixed(tp < 10 ? 1 : 0) + '%', top.country);
+            const latest = known.filter(r => r.last_seen).reduce((m, r) => !m || r.last_seen > m.last_seen ? r : m, null);
+            setRow('vg-i-latest', latest ? vgName(latest.country) + ' · ' + vgAgo(latest.last_seen) : '', latest && latest.country);
+            const mine = vgMyCountry && vgMyCountry !== 'ZZ' ? vgMyCountry : null;
+            document.getElementById('vg-t-arcs').classList.toggle('off', !mine);
+            if (mine) {
+                const sorted = known.slice().sort((a, b) => b.views - a.views);
+                const idx = sorted.findIndex(r => r.country === mine);
+                setRow('vg-i-rank', idx >= 0 ? '#' + (idx + 1) + ' of ' + sorted.length + ' countries' : 'No visits from ' + vgName(mine) + ' yet', idx >= 0 ? mine : '');
+            } else {
+                setRow('vg-i-rank', '', '');
+            }
+            let far = null;
+            if (mine && places[mine]) {
+                known.forEach(r => {
+                    if (!places[r.country] || r.country === mine) return;
+                    const km = vgKm(places[mine], places[r.country]);
+                    if (!far || km > far.km) far = { code: r.country, km: km };
+                });
+            }
+            setRow('vg-i-far', far ? vgName(far.code) + ' · ' + Math.round(far.km).toLocaleString() + ' km' : '', far && far.code, far ? Math.round(far.km * 0.621371).toLocaleString() + ' miles from ' + vgName(mine) : '');
+            const by = {};
+            known.forEach(r => { const k = vgContinent(r.country); if (k) by[k] = (by[k] || 0) + r.views; });
+            const keys = Object.keys(by).sort((a, b) => by[b] - by[a]);
+            const all = keys.reduce((a, k) => a + by[k], 0) || 1;
+            const bar = document.getElementById('vg-conts'), leg = document.getElementById('vg-legend');
+            bar.innerHTML = ''; leg.innerHTML = '';
+            keys.forEach(k => {
+                const pct = by[k] / all * 100;
+                const i = document.createElement('i');
+                i.style.flex = String(by[k]);
+                i.style.background = VG_CONT_COLORS[k];
+                i.title = VG_CONT_NAMES[k] + ': ' + by[k].toLocaleString() + ' visits';
+                bar.appendChild(i);
+                const sp = document.createElement('span');
+                const em = document.createElement('em');
+                em.style.background = VG_CONT_COLORS[k];
+                sp.append(em, VG_CONT_NAMES[k] + ' ' + (pct < 10 ? pct.toFixed(1) : Math.round(pct)) + '%');
+                leg.appendChild(sp);
+            });
+        }
+
         function vgRenderList() {
             const list = document.getElementById('vg-list');
             const rows = vgData.rows;
             document.getElementById('vg-total').textContent = vgData.ok ? vgData.total.toLocaleString() : '---';
+            vgRenderTrend();
+            vgRenderIntel();
             document.getElementById('vg-nations').textContent = vgData.ok ? String(rows.filter(r => r.country !== 'ZZ').length) : '--';
             if (!vgData.ok) {
                 list.innerHTML = '<li class="vg-empty">No signal from the server. Connect to the internet and open this window again to see where visitors came from.</li>';
@@ -37415,6 +37797,7 @@ const DEFENDERS_PER_POP=100;
                 const nm = document.createElement('span');
                 nm.className = 'vg-name';
                 nm.textContent = (r.country === 'ZZ' ? 'Unknown (moon)' : vgName(r.country)) + (r.country === vgMyCountry ? ' ◉' : '');
+                if (vgData.fresh.has(r.country)) { const nw = document.createElement('span'); nw.className = 'vg-new'; nw.textContent = 'NEW'; nm.appendChild(nw); }
                 const n = document.createElement('span');
                 n.className = 'vg-n';
                 n.textContent = r.views.toLocaleString();
@@ -37443,21 +37826,29 @@ const DEFENDERS_PER_POP=100;
                 vgMsg('NO SIGNAL · COUNTS UNAVAILABLE');
                 return;
             }
+            if (vg.replay) return;
             if (Date.now() - vgData.fetched < 45000 && vgData.ok) return;
             vgMsg('LINKING…', true);
             try {
-                const calls = [c.rpc('get_country_views')];
+                const calls = [c.rpc('get_country_views'), c.rpc('get_daily_views', { n: 30 }), c.rpc('get_country_firsts'), c.rpc('get_country_daily', { n: 60 })];
                 if (vgMyCountry === null) calls.push(c.rpc('my_country'));
                 const res = await Promise.all(calls);
+                const dly = res[1];
+                vgData.daily = dly && !dly.error && Array.isArray(dly.data) ? dly.data.map(r => ({ day: String(r.day).slice(0, 10), views: Number(r.views) || 0 })) : vgData.daily || null;
                 if (res[0].error || !Array.isArray(res[0].data)) throw res[0].error || new Error('no data');
-                if (res[1] && !res[1].error && typeof res[1].data === 'string') vgMyCountry = res[1].data;
+                if (res[4] && !res[4].error && typeof res[4].data === 'string') vgMyCountry = res[4].data;
+                const firsts = {};
+                if (res[2] && !res[2].error && Array.isArray(res[2].data)) res[2].data.forEach(r => { firsts[String(r.country).toUpperCase()] = r.first_seen; });
+                vgData.hist = res[3] && !res[3].error && Array.isArray(res[3].data) ? res[3].data.map(r => ({ day: String(r.day).slice(0, 10), country: String(r.country).toUpperCase(), views: Number(r.views) || 0 })) : [];
                 const rows = res[0].data.map(r => ({ country: String(r.country || 'ZZ').toUpperCase(), views: Number(r.views) || 0, last_seen: r.last_seen })).filter(r => r.views > 0);
                 const places = vgDecode().places;
                 const merged = {};
                 rows.forEach(r => {
                     const k = r.country === 'ZZ' || places[r.country] ? r.country : 'ZZ';
-                    if (!merged[k]) merged[k] = { country: k, views: 0, last_seen: r.last_seen };
+                    if (!merged[k]) merged[k] = { country: k, views: 0, last_seen: r.last_seen, first_seen: null };
                     merged[k].views += r.views;
+                    const fs = firsts[r.country];
+                    if (fs && (!merged[k].first_seen || fs < merged[k].first_seen)) merged[k].first_seen = fs;
                     if (r.last_seen && (!merged[k].last_seen || r.last_seen > merged[k].last_seen)) merged[k].last_seen = r.last_seen;
                 });
                 const list = Object.values(merged).sort((a, b) => (a.country === 'ZZ') - (b.country === 'ZZ') || b.views - a.views);
@@ -37466,12 +37857,15 @@ const DEFENDERS_PER_POP=100;
                 list.forEach(r => { vgData.map[r.country] = r.views; });
                 vgData.max = list.filter(r => r.country !== 'ZZ').reduce((m, r) => Math.max(m, r.views), 1);
                 vgData.total = Math.max(list.reduce((s, r) => s + r.views, 0), vcShown || 0);
+                vgData.fresh = new Set(list.filter(r => r.country !== 'ZZ' && r.first_seen && Date.now() - Date.parse(r.first_seen) < 864e5).map(r => r.country));
                 vgData.fetched = Date.now();
                 vgData.ok = true;
                 vgMsg('');
                 vgBakeTexture(vg.sel && vg.sel !== 'ZZ' ? vg.sel : null);
                 vgRenderList();
                 if (vg.sel) vgSelect(vg.sel, false);
+                vgFlashNew();
+                vgSyncReplayBtn();
             } catch (e) {
                 vgMsg('NO SIGNAL · COUNTS UNAVAILABLE');
                 if (!vgData.ok) vgRenderList();
@@ -37495,6 +37889,10 @@ const DEFENDERS_PER_POP=100;
                 vg.velPitch *= Math.exp(-dt * 2.5);
                 if (!vg.reduce && now - vg.lastInput > 4000 && !vg.sel) vg.yaw += 0.12 * dt;
             }
+            if (vg.replay && vg.replay.playing && now - vg.replay.t > 800) {
+                vg.replay.t = now;
+                if (vg.replay.idx >= vg.replay.days.length - 1) { vg.replay.playing = false; document.getElementById('vg-rp-play').textContent = '▶'; } else vgReplayApply(vg.replay.idx + 1);
+            }
             if (!vg.reduce) vg.moonA += 0.22 * dt;
             vg.moonSpin += 0.1 * dt;
             vgDraw(now);
@@ -37503,7 +37901,7 @@ const DEFENDERS_PER_POP=100;
 
         function vgSetup() {
             if (vg) return;
-            vg = { yaw: 1.9, pitch: 0.35, zoom: 1.5, velYaw: 0, velPitch: 0, moonA: 0.6, moonSpin: 0, lastInput: 0, sel: null, pointers: new Map(), reduce: !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) };
+            vg = { arcs: true, night: true, yaw: 1.9, pitch: 0.35, zoom: 1.5, velYaw: 0, velPitch: 0, moonA: 0.6, moonSpin: 0, lastInput: 0, sel: null, pointers: new Map(), reduce: !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) };
             if (vg.reduce) vg.moonA = 0.9;
             vgBakeTexture(null);
             if (!vgInitGl()) vgMsg('3D VIEW UNAVAILABLE ON THIS DEVICE');
@@ -37573,6 +37971,32 @@ const DEFENDERS_PER_POP=100;
                 vg.lastInput = performance.now();
                 document.getElementById('vg-hint').classList.add('gone');
             }, { passive: false });
+            document.getElementById('vg-intel').addEventListener('click', e => {
+                const row = e.target.closest('.vg-intel-row');
+                if (row && row.dataset.code) vgSelect(row.dataset.code, true);
+            });
+            document.getElementById('vg-t-replay').addEventListener('pointerdown', e => e.stopPropagation());
+            document.getElementById('vg-t-replay').addEventListener('click', () => { if (vg.replay) vgReplayStop(); else vgReplayStart(); });
+            ['vg-rp-play', 'vg-rp-range', 'vg-replay'].forEach(id => document.getElementById(id).addEventListener('pointerdown', e => e.stopPropagation()));
+            document.getElementById('vg-rp-play').addEventListener('click', () => {
+                const rp = vg.replay;
+                if (!rp) return;
+                if (rp.playing) rp.playing = false;
+                else { if (rp.idx >= rp.days.length - 1) vgReplayApply(0); rp.playing = true; rp.t = performance.now(); }
+                document.getElementById('vg-rp-play').textContent = rp.playing ? '❚❚' : '▶';
+            });
+            document.getElementById('vg-rp-range').addEventListener('input', e => {
+                const rp = vg.replay;
+                if (!rp) return;
+                rp.playing = false;
+                document.getElementById('vg-rp-play').textContent = '▶';
+                vgReplayApply(Number(e.target.value));
+            });
+            [['vg-t-arcs', 'arcs'], ['vg-t-night', 'night']].forEach(t => {
+                const b = document.getElementById(t[0]);
+                b.addEventListener('pointerdown', e => e.stopPropagation());
+                b.addEventListener('click', () => { vg[t[1]] = !vg[t[1]]; b.setAttribute('aria-pressed', vg[t[1]] ? 'true' : 'false'); });
+            });
             document.getElementById('vg-close').addEventListener('click', vgClose);
             document.getElementById('vg-x').addEventListener('click', vgClose);
             window.addEventListener('resize', () => { if (vgIsOpen) vgResize(); });
@@ -37599,6 +38023,7 @@ const DEFENDERS_PER_POP=100;
         }
 
         function vgClose() {
+            vgReplayStop();
             const ov = document.getElementById('vg-overlay');
             ov.classList.remove('open');
             ov.setAttribute('aria-hidden', 'true');
