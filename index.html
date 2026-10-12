@@ -298,7 +298,7 @@
         .vg-card-num small { font-size: 11px; letter-spacing: 0.18em; color: rgba(185, 253, 255, 0.7); font-weight: normal; margin-left: 6px; }
         .vg-card-row { font-size: 11px; color: rgba(185, 253, 255, 0.75); margin-top: 4px; line-height: 1.4; }
         .vg-card-you { margin-top: 6px; font-size: 10px; letter-spacing: 0.22em; color: #5dff8f; text-shadow: 0 0 6px rgba(93, 255, 143, 0.8); }
-        .vg-side { display: flex; flex-direction: column; min-height: 0; padding: 22px 16px 16px; box-sizing: border-box; background: linear-gradient(180deg, rgba(10, 8, 24, 0.96), rgba(4, 3, 12, 0.98)); border-left: 1px solid rgba(127, 249, 255, 0.3); box-shadow: inset 6px 0 18px rgba(181, 21, 181, 0.12); }
+        .vg-side { display: flex; flex-direction: column; min-height: 0; padding: 22px 16px 16px; overflow-y: auto; box-sizing: border-box; background: linear-gradient(180deg, rgba(10, 8, 24, 0.96), rgba(4, 3, 12, 0.98)); border-left: 1px solid rgba(127, 249, 255, 0.3); box-shadow: inset 6px 0 18px rgba(181, 21, 181, 0.12); }
         .vg-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
         .vg-stat { border: 1px solid rgba(127, 249, 255, 0.35); padding: 8px 8px 6px; background: rgba(127, 249, 255, 0.04); }
         .vg-stat b { display: block; font-size: 22px; color: #b9fdff; text-shadow: 0 0 8px rgba(127, 249, 255, 0.8); font-variant-numeric: tabular-nums; }
@@ -347,7 +347,7 @@
         .vg-suggest li:hover { background: rgba(127, 249, 255, 0.12); }
         .vg-suggest li b { font-weight: normal; color: #7ff9ff; }
         .vg-list-head { font-size: 10px; letter-spacing: 0.28em; color: #da70d6; padding-bottom: 6px; border-bottom: 1px solid rgba(127, 249, 255, 0.25); margin-bottom: 4px; }
-        .vg-list { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1; min-height: 0; }
+        .vg-list { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1 1 auto; min-height: 120px; }
         .vg-row { display: grid; grid-template-columns: 22px 1fr auto; align-items: center; gap: 6px; padding: 6px 4px; font-size: 12px; cursor: pointer; border-bottom: 1px solid rgba(127, 249, 255, 0.08); position: relative; }
         .vg-row:hover, .vg-row.sel { background: rgba(127, 249, 255, 0.08); }
         .vg-row.sel { box-shadow: inset 2px 0 0 #7ff9ff; }
@@ -362,6 +362,17 @@
         .vg-close:hover { background: rgba(127, 249, 255, 0.16); box-shadow: 0 0 10px rgba(127, 249, 255, 0.4); }
         .vg-x { position: absolute; right: 346px; top: 46px; z-index: 3; width: 34px; height: 34px; font-size: 22px; line-height: 1; color: #7ff9ff; background: rgba(4, 10, 20, 0.7); border: 1px solid rgba(127, 249, 255, 0.55); cursor: pointer; }
         .vg-x:hover { background: rgba(127, 249, 255, 0.18); }
+        @media (min-width: 761px) and (max-height: 860px) {
+            .vg-side { padding: 14px 14px 12px; }
+            .vg-stats { margin-bottom: 6px; gap: 6px; }
+            .vg-stat b { font-size: 18px; }
+            .vg-trend { margin-bottom: 8px; padding: 4px 8px 4px; }
+            .vg-trend svg { height: 24px; }
+            .vg-intel { margin-bottom: 8px; padding: 2px 8px 6px; }
+            .vg-search { margin-bottom: 6px; }
+            .vg-close { margin-top: 8px; padding: 7px; }
+            .vg-list { min-height: 96px; }
+        }
         @media (max-width: 760px) {
             .vg-overlay { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; }
             .vg-side { border-left: 0; border-top: 1px solid rgba(127, 249, 255, 0.3); max-height: 38vh; padding: 10px 12px 10px; }
@@ -3229,7 +3240,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 1.13.0 (Updated: October 12, 2026 10:40 AM)</div>
+            <div class="version-text">Version 1.13.1 (Updated: October 12, 2026 10:52 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -6443,7 +6454,7 @@
         const ORBIT_SPEED = 0.15;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '1.13.0';
+        const GAME_VERSION = '1.13.1';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -24197,6 +24208,9 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '1.13.1', d: "Oct 12, 2026 10:52 AM", t: "Globe Panel Fit", items: [
+                'Fixed: on shorter screens, such as itch.io fullscreen, the Visitor Origins side panel was cut off at the bottom, hiding the country list and the CLOSE button. The charts are now more compact on short screens, the country list always keeps some room, and the whole panel scrolls if it still does not fit.'
+            ] },
             { v: '1.13.0', d: "Oct 12, 2026 10:40 AM", t: "Weekday Pattern and Streak", items: [
                 'New: a WEEKDAY PATTERN chart on the Visitor Origins panel. It shows seven bars, Monday to Sunday, with the average visits per day for each weekday, and names the busiest one. Averages only count days since the first recorded visit, and weekdays use UTC dates.',
                 'New: a VISIT STREAK row in the intel box. It shows the longest run of days in a row with at least one visit, and the run that is going right now. The panel now reads the last 90 days of daily data to work these out, while the small chart still shows 30 days.'
