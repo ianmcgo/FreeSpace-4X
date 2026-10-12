@@ -3292,7 +3292,7 @@
         <div class="title-footer">
             <div>Game created by Ian McGonigal</div>
             <div><a href="mailto:ianmcgon@gmail.com">Report bugs or suggestions here</a></div>
-            <div class="version-text">Version 1.19.2 (Updated: October 12, 2026 3:50 PM)</div>
+            <div class="version-text">Version 1.19.3 (Updated: October 12, 2026 11:25 AM)</div>
         </div>
         <a class="cabal-logo" href="https://ianmcgo.github.io/website/" target="_blank" rel="noopener" title="Cabal Coffers Gaming" aria-label="Cabal Coffers Gaming website"><img alt="Cabal Coffers Gaming" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/Logo.jpg"></a>
         <a class="patreon-logo" href="https://www.patreon.com/cw/ianmcg" target="_blank" rel="noopener" title="Support FreeSpace 4x on Patreon" aria-label="Patreon page"><img alt="Support on Patreon" src="https://raw.githubusercontent.com/ianmcgo/FreeSpace-4X/refs/heads/main/images/patreon.PNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="patreon-fallback" style="display:none;">Patreon</span></a>
@@ -6457,6 +6457,7 @@
             { v: 0.25, label: 'Generous (quarter fuel use)' }
         ];
         const OPTION_META = [
+            { key: 'fuelEconomy', type: 'select', choices: FUEL_ECONOMY_CHOICES, title: 'Fuel Economy', desc: 'How much fuel every ship burns, for every empire including the AI. Classic (the default) uses the original fuel tables; big warships then only reach a few dozen light years between docks unless they carry fuel tanks or ramscoops. Relaxed halves fuel use (double range) and Generous quarters it (four times the range). Free warps and ramscoops still burn nothing.' },
             { key: 'noPirates', plus: true, title: 'Game+: No Pirates', desc: 'Pirate fleets never appear. Off (the default): pirate fleets with random ships and a random mind raid at random until they are destroyed.' },
             { key: 'beginner', title: 'Beginner: Maximum Minerals', desc: 'Every homeworld starts with 100% mineral concentrations, and every other world has at least 50% of each mineral. Mines stay rich far longer.' },
             { key: 'slowTech', title: 'Slower Tech Advances', desc: 'Every technology level costs twice as many Resources to research.' },
@@ -6465,7 +6466,6 @@
             { key: 'publicScores', title: 'Public Player Scores', desc: "Every empire's score and ranking is visible on the Scoreboard. Turn this off to hide rival scores." },
             { key: 'clumping', title: 'Galaxy clumping', desc: 'Stars between the spiral arms gather in tight knots. Off gives a more even spread. The galaxy always stays connected.' },
             { key: 'recordReplay', title: 'Record a replay', desc: 'Off (the default): nothing is recorded. On: every year of the game is saved (in this browser for single player and simulations, on the server for multiplayer) so you can download a replay at the end and watch it again under New Game, Replays. Only turn it on if you want a replay; it uses storage space every year.' },
-            { key: 'fuelEconomy', type: 'select', choices: FUEL_ECONOMY_CHOICES, title: 'Fuel Economy', desc: 'How much fuel every ship burns, for every empire including the AI. Classic (the default) uses the original fuel tables; big warships then only reach a few dozen light years between docks unless they carry fuel tanks or ramscoops. Relaxed halves fuel use (double range) and Generous quarters it (four times the range). Free warps and ramscoops still burn nothing.' },
             { key: 'minesNeedColonists', title: 'Mines need colonists (classic operating limit)', desc: 'Off (the default): every mine works as long as the planet has at least one colonist. On: only a limited number of mines can operate per 10,000 colonists, the same rule that limits factories.' }
         ];
         const DEFAULT_VICTORY = {
@@ -6556,7 +6556,7 @@
         const ORBIT_SPEED = 0.15;
         const ORBIT_RADIUS_PX = 15;
 
-        const GAME_VERSION = '1.19.2';
+        const GAME_VERSION = '1.19.3';
         const HULL_MAP_VERSION = 2;
         const MAX_SHIP_DESIGNS = 16;
         const SLOT_ACCEPTS = {
@@ -24310,6 +24310,9 @@ const DEFENDERS_PER_POP=100;
         syncShipBuildCosts();
 
         const UPDATES = [
+            { v: '1.19.3', d: "Oct 12, 2026 11:25 AM", t: "Fuel Economy First", items: [
+                'Fuel Economy is now the first option in the New Game Advanced Options list (and first in multiplayer lobby listings).'
+            ] },
             { v: '1.19.2', d: "Oct 12, 2026 3:50 PM", t: "Share Card Confirm and Download", items: [
                 'Changed: SAVE SHARE CARD now opens a pop-up with a preview of the picture and two buttons, DOWNLOAD PNG and CANCEL. DOWNLOAD PNG saves the image to your computer. Esc or clicking outside the box closes it. If a website blocks the download, right-click the preview (or press and hold on a phone) and choose Save Image.',
                 'Removed: the HOME BASE badge.'
